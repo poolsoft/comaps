@@ -546,8 +546,10 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
       es.ClearGroup(UserMark::Type::SPEED_CAM);
       es.ClearGroup(UserMark::Type::ROAD_WARNING);
     }
-    if (deactivateFollowing)
-      SetPointsFollowingMode(false /* enabled */);
+    if (deactivateFollowing) {
+        SetPointsFollowingMode(false /* enabled */);
+        RemovePassedPoints();
+    }
   });
 
   if (deactivateFollowing)
@@ -935,6 +937,13 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.SetFollowingMode(enabled);
+}
+
+void RoutingManager::RemovePassedPoints()
+{
+    ASSERT(m_bmManager != nullptr, ());
+    RoutePointsLayout routePoints(*m_bmManager);
+    routePoints.RemovePassedPoints();
 }
 
 void RoutingManager::ReorderIntermediatePoints()
