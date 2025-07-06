@@ -36,6 +36,29 @@ Translations are managed through [Codeberg Translate][codeberg_translate]. Direc
 
 Android and iOS share most of the strings. Codeberg Translate automatically syncs translations between components (e.g., from Android to iOS and vice versa), so updating a string in one place is usually sufficient.
 
+### Categories strings
+
+Syntax:
+|   - used to separate synonyms.
+1-9 - digits in front of a synonym indicate the number of symbols that need to be
+       typed in a search query to make this synonym appear in the list of suggestions.
+       Located immediately at the start of a synonym. At most one
+       digit per synonym is allowed.
+It's possible to use emoji codes as search synonyms, e.g. U+1F6B0 for potable water.
+
+For all languages with nominative and gentive cases (e.g. Slavic languagues like Russian,
+Ukrainian, Belarus, Serbian), state _short_ nouns in nominative and genitive case, e.g. `Вино|вина`,
+so that both (e.g. Russian) searches for "вино" and "магазин вина" returns wine shops.
+
+For longer nouns (6 letters or longer) this is not necessary, because error correction
+can fix 1 or 2 letters, e.g `Мебель`
+
+Searcing for "магазин мебели" will also match the category name (1 letter difference).
+
+Exact treshold may be different for different languages. For Serbian, error correction
+kicks in only for 8-letter or longer words.
+
+
 ## Machine Translation
 
 Codeberg Translate is configured to generate machine translations using the best available tools. Auto-translated entries are added as suggestions.

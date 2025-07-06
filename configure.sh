@@ -124,4 +124,6 @@ else
   echo "Skipping generate drules..."
 fi
 
+./tools/unix/generate_categories.sh
+
 echo "The repository is configured for development."
