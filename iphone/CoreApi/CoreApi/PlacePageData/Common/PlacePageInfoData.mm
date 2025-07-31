@@ -100,7 +100,7 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
       }
     });
 
-    _atm = rawData.HasAtm() ? NSLocalizedString(@"type.amenity.atm", nil) : nil;
+    _atm = rawData.HasAtm() ? NSLocalizedStringFromTable(@"type.amenity.atm", @"LocalizableTypes", nil) : nil;
 
     _address = rawData.GetSecondarySubtitle().empty() ? nil : @(rawData.GetSecondarySubtitle().c_str());
     _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
