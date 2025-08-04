@@ -10,6 +10,10 @@
     <item name="speedLimitBorderColor">@color/base_red</item>
   </style>
 
+  <style name="MwmWidget.CurrentSpeed">
+    <item name="speedLimitBorderColor">@color/black_primary</item>
+  </style>
+
   <style name="MwmWidget.FrameLayout"/>
 
   <style name="MwmWidget.Downloader"/>
