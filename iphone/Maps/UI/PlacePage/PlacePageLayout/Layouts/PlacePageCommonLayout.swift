@@ -33,6 +33,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
     vc.placePagePreviewData = placePageData.previewData
+    vc.placePageData = placePageData
     return vc
   }()
 
@@ -110,6 +111,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       guard let self = self else { return }
       self.actionBarViewController.updateBookmarkButtonState(isSelected: self.placePageData.bookmarkData != nil)
       self.previewViewController.placePagePreviewData = self.placePageData.previewData
+      self.previewViewController.placePageData = self.placePageData
       self.updateBookmarkRelatedSections()
     }
 

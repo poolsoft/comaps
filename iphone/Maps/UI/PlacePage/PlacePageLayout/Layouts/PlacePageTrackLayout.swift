@@ -28,6 +28,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
   private lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
     vc.placePagePreviewData = placePageData.previewData
+    vc.placePageData = placePageData
     return vc
   }()
 
@@ -80,6 +81,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
       self.previewViewController.placePagePreviewData = self.placePageData.previewData
+      self.previewViewController.placePageData = self.placePageData
       self.updateTrackRelatedSections()
     }
 
@@ -113,6 +115,7 @@ private extension PlacePageTrackLayout {
     }
     if let previewViewController = headerViewControllers.compactMap({ $0 as? PlacePagePreviewViewController }).first {
       previewViewController.placePagePreviewData = previewData
+      previewViewController.placePageData = self.placePageData
       previewViewController.updateViews()
     }
     presenter?.layoutIfNeeded()

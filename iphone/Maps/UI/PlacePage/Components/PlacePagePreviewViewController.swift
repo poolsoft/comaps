@@ -40,6 +40,8 @@ final class PlacePagePreviewViewController: UIViewController {
     }
   }
   
+  var placePageData: PlacePageData?
+  
   private var distance: String? = nil
   private var speedAndAltitude: String? = nil
   private var heading: CGFloat? = nil
@@ -84,6 +86,9 @@ final class PlacePagePreviewViewController: UIViewController {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor : UIColor.blackSecondaryText(),
                                                               .font : UIFont.regular14()]))
+      }
+      
+      if !subtitleString.string.isEmpty {
         subtitleLabel.attributedText = subtitleString
         subtitleContainerView.isHidden = false
       } else {
@@ -254,6 +259,16 @@ final class PlacePagePreviewViewController: UIViewController {
                                                           NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()])
       attributedString.append(detailsString)
     }
+    
+    if let openingHoursDate = placePageData?.infoData?.checkDateOpeningHours {
+      let timeAgoText = openingHoursDate.formatTimeAgo()
+      let openingHoursDateString = NSAttributedString(string: " • " + String(format: L("hours_confirmed_time_ago"), timeAgoText),
+                                             attributes: [NSAttributedString.Key.font: UIFont.regular12(),
+                                                          NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()])
+      attributedString.append(openingHoursDateString)
+    }
+    
     scheduleLabel.attributedText = attributedString
   }
+  
 }

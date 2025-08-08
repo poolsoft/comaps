@@ -321,6 +321,7 @@
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
+		8325C4E12E45519600457516 /* Date+TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325C4E02E45519600457516 /* Date+TimeAgo.swift */; };
 		8C4FB9C72BEFEFF400D44877 /* CarPlayWindowScaleAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4FB9C62BEFEFF400D44877 /* CarPlayWindowScaleAdjuster.swift */; };
 		8CB13C3B2BF1276A004288F2 /* CarplayPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB13C3A2BF1276A004288F2 /* CarplayPlaceholderView.swift */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
@@ -1208,6 +1209,7 @@
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* CoMaps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoMaps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
+		8325C4E02E45519600457516 /* Date+TimeAgo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeAgo.swift"; sourceTree = "<group>"; };
 		8C4FB9C62BEFEFF400D44877 /* CarPlayWindowScaleAdjuster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayWindowScaleAdjuster.swift; sourceTree = "<group>"; };
 		8CB13C3A2BF1276A004288F2 /* CarplayPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarplayPlaceholderView.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* CoMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CoMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -2285,6 +2287,7 @@
 		3454D7981E07F045004AF2AD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8325C4E02E45519600457516 /* Date+TimeAgo.swift */,
 				ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */,
 				99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */,
 				99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */,
@@ -4637,6 +4640,7 @@
 				998927382449E60200260CE2 /* BottomMenuPresenter.swift in Sources */,
 				27697F832E254AA100FBD913 /* EmbeddedSafariView.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.m in Sources */,
+				8325C4E12E45519600457516 /* Date+TimeAgo.swift in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				27AF18582E1DB63A00CD41E2 /* Appearance.swift in Sources */,
