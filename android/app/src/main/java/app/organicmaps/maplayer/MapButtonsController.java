@@ -214,7 +214,7 @@ public class MapButtonsController extends Fragment
       //        helpButton.setImageResource(R.drawable.ic_launcher);
       //      }
       //      // Keep this button colorful in normal theme.
-      //      if (!ThemeUtils.isNightTheme(requireContext()))
+      //      if (!ThemeUtils.isNightTheme())
       //        helpButton.getDrawable().setTintList(null);
     }
     else if (leftButtonView != null)
