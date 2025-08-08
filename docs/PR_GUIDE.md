@@ -51,6 +51,8 @@ Here's a small template that can help writing feedback to first-time contributor
 > 
 > For CoMaps, we use the [_Developers Certficate of Origin_](https://codeberg.org/comaps/comaps/src/branch/main/docs/DCO.md) for contributors to certify that they wrote/have the right to submit their code to our project. This helps ensure that CoMaps can remain open source as it gives us some legal protection. You can sign it by signing your commit. The easiest way is to amend your existing commit with `git commit -s -m 'your commit message'`. If you are using the Codeberg interface you can also sign your commit by selection _"Add a Signed-off-by trailer by the committer at the end of the commit log message."_. 
 > 
+> If you haven't yet, you could also add yourself to our [CONTRIBUTOR](https://codeberg.org/comaps/comaps/src/branch/main/CONTRIBUTORS) file with your name or pseudonym if you want (that would also give you a chance to sign the commit if needed).
+
 > There are a few things that could help improve your PR/would need to be fixed / I have a few questions about… (the actual PR feedback)
 > 
 > I hope that helps! If anything is unclear, please don't hesitate to get in touch on here, or reach out via our chat channels. You can find most of us [on different Matrix/Telegram channels](https://codeberg.org/comaps/Governance/wiki/Chat-rooms) or [on our contributor Zulip](https://comaps.zulipchat.com/join/e5e3c4zurmfxykrtbiiq6qrw/).
