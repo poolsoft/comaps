@@ -20,7 +20,7 @@ This document gives some guidelines to write and review PR with essential elemen
 
 ## Review a Pull Request (PR):
 
-- All review comments should be polite and concern the PR
+- We expect all comments to be polite, including for PR reviews. For PRs feedback should also only concern the PR
 - It's better to ask the developer to make the code simpler or add comments to the codebase than to understand the code through the developer's explanation
 - If a developer changes the PR significantly, the reviewers who have already approved the PR should be informed about these changes
 - A reviewer should pay attention not only to the code base but also to the description of the PR and commits
