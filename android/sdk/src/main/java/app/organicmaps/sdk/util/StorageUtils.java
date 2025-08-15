@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -94,7 +93,7 @@ public class StorageUtils
   {
     try
     {
-      return Utils.getApplicationInfo(context.getPackageManager(), BuildConfig.APPLICATION_ID, 0).sourceDir;
+      return Utils.getApplicationInfo(context.getPackageManager(), Config.getApplicationId(), 0).sourceDir;
     }
     catch (final PackageManager.NameNotFoundException e)
     {
@@ -150,7 +149,7 @@ public class StorageUtils
   @NonNull
   public static Uri getUriForFilePath(@NonNull Context context, @NonNull String path)
   {
-    return FileProvider.getUriForFile(context.getApplicationContext(), BuildConfig.FILE_PROVIDER_AUTHORITY,
+    return FileProvider.getUriForFile(context.getApplicationContext(), Config.getFileProviderAuthority(),
                                       new File(path));
   }
 
