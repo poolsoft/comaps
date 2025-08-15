@@ -2,6 +2,7 @@ package app.organicmaps.sdk.maplayer;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
