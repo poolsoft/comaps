@@ -37,6 +37,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.BookmarksSharingHelper;
 import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.downloader.DownloaderStatusIcon;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.editor.OhState;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
@@ -974,7 +975,7 @@ public class PlacePageView extends Fragment
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
 
     mDownloaderIcon
-        .setOnIconClickListener((v) -> MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
+        .setOnIconClickListener((v) -> MapManagerHelper.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
         .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
