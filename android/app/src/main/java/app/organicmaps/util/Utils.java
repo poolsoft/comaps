@@ -39,6 +39,7 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.StringUtils;
@@ -481,5 +482,16 @@ public class Utils
   {
     final LocalTime time = LocalTime.now().plusSeconds(seconds);
     return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
+  }
+
+  @NonNull
+  public static String getDonateUrl(@NonNull Context context)
+  {
+    final String url = Config.getDonateUrl();
+    // Enable donations by default if not Google or Huawei. Replace comaps.app/donate/ with localized page.
+    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))
+        || url.endsWith("comaps.app/donate/"))
+      return context.getString(R.string.app_site_url) + "donate/";
+    return url;
   }
 }
