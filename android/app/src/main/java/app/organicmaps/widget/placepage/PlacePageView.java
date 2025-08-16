@@ -481,7 +481,7 @@ public class PlacePageView extends Fragment
               ? ContextCompat.getColor(
                     getContext(),
                     UiUtils.getStyledResourceId(getContext(), com.google.android.material.R.attr.colorSecondary))
-              : getResources().getColor(R.color.button_accent_text_disabled);
+              : ContextCompat.getColor(getContext(), R.color.button_accent_text_disabled);
       mTvEditPlace.setTextColor(editPlaceButtonColor);
       mTvAddBusiness.setTextColor(editPlaceButtonColor);
       mTvAddPlace.setTextColor(editPlaceButtonColor);

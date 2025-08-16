@@ -11,6 +11,8 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+
 import app.organicmaps.R;
 import app.organicmaps.adapter.DisabledChildSimpleExpandableListAdapter;
 import app.organicmaps.base.BaseMwmDialogFragment;
@@ -122,7 +124,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     }
 
     listView.setAdapter(buildAdapter());
-    listView.setChildDivider(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+    listView.setChildDivider(new ColorDrawable(ContextCompat.getColor(requireContext(), android.R.color.transparent)));
 
     UiUtils.waitLayout(listView, () -> {
       final int width = listView.getWidth();
