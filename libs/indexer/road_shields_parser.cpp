@@ -437,8 +437,127 @@ public:
                                               {"S", RoadShieldType::Generic_Blue},
                                               {"B", RoadShieldType::Generic_Blue},
                                               {"L", RoadShieldType::Generic_White}})
-  {
-  }
+  {}
+};
+
+class BelgiumRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit BelgiumRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber,
+                             {{"A", RoadShieldType::Generic_White}, {"N", RoadShieldType::Generic_Blue}})
+  {}
+};
+
+class GreeceRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit GreeceRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber,
+                             {{"Α", RoadShieldType::Generic_Green}, {"Ε", RoadShieldType::Generic_Blue}})
+  {}
+};
+
+class IrelandRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit IrelandRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Blue},
+                                              {"N", RoadShieldType::UK_Highway},
+                                              {"R", RoadShieldType::Generic_White},
+                                              {"L", RoadShieldType::Generic_White}})
+  {}
+};
+
+class ItalyRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit ItalyRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Green},
+                                              {"SS", RoadShieldType::Generic_Blue},
+                                              {"SR", RoadShieldType::Generic_Blue},
+                                              {"SP", RoadShieldType::Generic_Blue}})
+  {}
+};
+
+class LativaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit LativaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Red}, {"P", RoadShieldType::Generic_Blue}})
+  {}
+};
+
+class MoldovaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit MoldovaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Red}, {"R", RoadShieldType::Generic_Blue}})
+  {}
+};
+
+class PortugalRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit PortugalRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Blue},
+                                              {"N", RoadShieldType::Generic_White},
+                                              {"EN", RoadShieldType::Generic_White},
+                                              {"R", RoadShieldType::Generic_Orange},
+                                              {"EM", RoadShieldType::Generic_Orange},
+                                              {"CM", RoadShieldType::Generic_Orange}})
+  {}
+};
+
+class RomaniaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit RomaniaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Green},
+                                              {"DN", RoadShieldType::Generic_Red},
+                                              {"DJ", RoadShieldType::Generic_Blue},
+                                              {"DC", RoadShieldType::Generic_Blue}})
+  {}
+};
+
+class SerbiaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit SerbiaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Green}})
+  {}
+};
+
+class SlovakiaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit SlovakiaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"D", RoadShieldType::Generic_Red}, {"R", RoadShieldType::Generic_Red}})
+  {}
+};
+
+class SloveniaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit SloveniaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Green}})
+  {}
+};
+
+class SwitzerlandRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit SwitzerlandRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Red}})
+  {}
+};
+
+class LiechtensteinRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit LiechtensteinRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Red}})
+  {}
 };
 
 class RussiaRoadShieldParser : public DefaultTypeRoadShieldParser
@@ -655,6 +774,32 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return IndiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Austria")
     return AustriaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Belgium")
+    return BelgiumRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Greece")
+    return GreeceRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Ireland")
+    return IrelandRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Italy")
+    return ItalyRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Lativa")
+    return LativaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Moldova")
+    return MoldovaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Portugal")
+    return PortugalRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Romania")
+    return RomaniaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Serbia")
+    return SerbiaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Slovakia")
+    return SlovakiaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Slovenia")
+    return SloveniaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Switzerland")
+    return SwitzerlandRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Liechtenstein")
+    return LiechtensteinRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Russia")
     return RussiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "France")
