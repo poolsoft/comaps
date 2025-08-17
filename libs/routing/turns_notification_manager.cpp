@@ -75,15 +75,15 @@ std::string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_
 {
   auto const lengthUnits = m_settings.GetLengthUnits();
 
-  if (turn.m_turn != CarDirection::None && turn.m_turn != CarDirection::EnterRoundAbout)
-    return m_getTtsText.GetTurnNotification(
-        {distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn, lengthUnits, nextStreetInfo});
-  else if (turn.m_turn == CarDirection::EnterRoundAbout)  // Don't include roundabout street name in TTS
-    return m_getTtsText.GetTurnNotification(
-        {distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn, lengthUnits});
+  Notification notif{distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn, lengthUnits};
+  if (turn.m_turn == CarDirection::None)
+    notif.m_turnDirPedestrian = turn.m_pedestrianTurn;
 
-  return m_getTtsText.GetTurnNotification(
-      {distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_pedestrianTurn, lengthUnits, nextStreetInfo});
+  // https://github.com/organicmaps/organicmaps/issues/6146
+  if (turn.m_turn != CarDirection::EnterRoundAbout)
+    notif.m_nextStreetInfo = nextStreetInfo;
+
+  return m_getTtsText.GetTurnNotification(notif);
 }
 
 std::string NotificationManager::GenerateRecalculatingText() const
@@ -129,12 +129,14 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
 
   double distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
   ASSERT_GREATER_OR_EQUAL(distBetweenTurnsMeters, 0, ());
-  if (distBetweenTurnsMeters > kSecondTurnThresholdDistM && !IsClassicEntranceToRoundabout(firstTurn, secondTurn))
+  bool const isRoundabout = IsClassicEntranceToRoundabout(firstTurn, secondTurn);
+  if (!isRoundabout && distBetweenTurnsMeters > kSecondTurnThresholdDistM)
     return;
 
-  if ((distBetweenTurnsMeters < kDistanceNotifyThresholdM) || IsClassicEntranceToRoundabout(firstTurn, secondTurn))
+  if (distBetweenTurnsMeters < kDistanceNotifyThresholdM ||
+      (isRoundabout && distBetweenTurnsMeters < kSecondTurnThresholdDistM))
   {
-    // distanceUnits is not used because "Then" is used
+    // Don't pronounce distance because of immediate "Then".
     distBetweenTurnsMeters = 0;
   }
 
