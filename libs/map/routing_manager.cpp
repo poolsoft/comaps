@@ -546,11 +546,11 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
       es.ClearGroup(UserMark::Type::SPEED_CAM);
       es.ClearGroup(UserMark::Type::ROAD_WARNING);
     }
-    if (deactivateFollowing) {
-        SetPointsFollowingMode(false /* enabled */);
-        RemovePassedPoints();
-    }
+    if (deactivateFollowing)
+      SetPointsFollowingMode(false /* enabled */);
   });
+
+  RemovePassedPoints();
 
   if (deactivateFollowing)
   {
