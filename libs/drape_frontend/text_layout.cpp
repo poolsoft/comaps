@@ -281,10 +281,18 @@ dp::TGlyphs TextLayout::GetGlyphs() const
 StraightTextLayout::StraightTextLayout(std::string const & text, float fontSize, ref_ptr<dp::TextureManager> textures,
                                        dp::Anchor anchor, bool forceNoWrap)
 {
-  ASSERT_EQUAL(std::string::npos, text.find('\n'), ("Multiline text is not expected", text));
+  /*
+   * TODO Temporary workaround: If the string contains newlines, replace them with whitespaces.
+   * On the long run, this should be fixed in the map generator and this workaround removed after
+   * a few months, when maps with buggy data can be expected to have been phased out.
+   */
+  std::string stext = text;
+  while (stext.find('\n') != std::string::npos)
+    stext[stext.find('\n')] = ' ';
+  ASSERT_EQUAL(std::string::npos, stext.find('\n'), ("Multiline text is not expected", stext));
 
   m_textSizeRatio = fontSize * static_cast<float>(VisualParams::Instance().GetFontScale()) / dp::kBaseFontSizePixels;
-  m_shapedGlyphs = textures->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
+  m_shapedGlyphs = textures->ShapeSingleTextLine(dp::kBaseFontSizePixels, stext, &m_glyphRegions);
 
   // TODO(AB): Use ICU's BreakIterator to split text properly in different languages without spaces.
   // TODO(AB): Implement SplitText for RTL languages.
@@ -378,13 +386,21 @@ PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, std::string const 
                                ref_ptr<dp::TextureManager> textureManager)
   : m_tileCenter(tileCenter)
 {
-  ASSERT_EQUAL(std::string::npos, text.find('\n'), ("Multiline text is not expected", text));
+  /*
+   * TODO Temporary workaround: If the string contains newlines, replace them with whitespaces.
+   * On the long run, this should be fixed in the map generator and this workaround removed after
+   * a few months, when maps with buggy data can be expected to have been phased out.
+   */
+  std::string stext = text;
+  while (stext.find('\n') != std::string::npos)
+    stext[stext.find('\n')] = ' ';
+  ASSERT_EQUAL(std::string::npos, stext.find('\n'), ("Multiline text is not expected", stext));
 
   auto const fontScale = static_cast<float>(VisualParams::Instance().GetFontScale());
   m_textSizeRatio = fontSize * fontScale / dp::kBaseFontSizePixels;
 
   // TODO(AB): StraightTextLayout used a logic to split a longer string into two strings.
-  m_shapedGlyphs = textureManager->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
+  m_shapedGlyphs = textureManager->ShapeSingleTextLine(dp::kBaseFontSizePixels, stext, &m_glyphRegions);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
