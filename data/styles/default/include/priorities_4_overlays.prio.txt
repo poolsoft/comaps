@@ -1216,7 +1216,7 @@ amenity-motorcycle_parking                          # icon z17- (also has captio
 amenity-parking-permissive                          # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking_entrance                            # icon z17- (also has caption(optional) z19-)
 amenity-parking_entrance-permissive                 # icon z17- (also has caption(optional) z19-)
-emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
+emergency-emergency_ward_entrance                   # icon z16- (also has caption(optional) z18-)
 === 250
 
 building                                            # caption z16- (also has area z14-)
@@ -1231,7 +1231,7 @@ power-plant-wind                                    # icon z15- (also has captio
 === 230
 
 barrier-entrance                                    # icon z16- (also has caption(optional) z16-)
-entrance-main                                       # icon z18- (also has caption(optional) z18-)
+entrance-main                                       # icon z16- (also has caption(optional) z18-)
 === 220
 
 highway-traffic_signals                             # icon z19-
@@ -2151,14 +2151,14 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-parking-permissive                        # caption(optional) z18- (also has icon z16-, area z15-)
 # amenity-parking_entrance                          # caption(optional) z19- (also has icon z17-)
 # amenity-parking_entrance-permissive               # caption(optional) z19- (also has icon z17-)
-# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
+# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z16-)
 # === -9750
 
 # power-plant-wind                                  # caption(optional) z16- (also has icon z15-, area z13-)
 # === -9770
 
 # barrier-entrance                                  # caption(optional) z16- (also has icon z16-)
-# entrance-main                                     # caption(optional) z18- (also has icon z18-)
+# entrance-main                                     # caption(optional) z18- (also has icon z16-)
 # === -9780
 
 # historic-anchor                                   # caption(optional) z18- (also has icon z18-)
@@ -2205,7 +2205,7 @@ tourism-information-map                             # icon z16- (also has captio
 
 amenity                                             # caption z19-
 amenity-telephone                                   # icon z17- (also has caption(optional) z19-)
-entrance                                            # icon z19- (also has caption(optional) z19-)
+entrance                                            # icon z17- (also has caption(optional) z19-)
 === -9960
 
 amenity-parking_space                               # caption z19-
@@ -2238,8 +2238,8 @@ power-substation                                    # icon z19- (also has captio
 === -9990
 
 # amenity-bench                                     # caption(optional) z19- (also has icon z18-)
-amenity-loading_dock                                # icon z19- (also has caption(optional) z19-)
-# amenity-loading_dock                              # caption(optional) z19- (also has icon z19-)
+amenity-loading_dock                                # icon z18- (also has caption(optional) z19-)
+# amenity-loading_dock                              # caption(optional) z19- (also has icon z18-)
 # amenity-parking_space-disabled                    # caption(optional) z19- (also has icon z18-)
 # amenity-telephone                                 # caption(optional) z19- (also has icon z17-)
 # amenity-vending_machine                           # caption(optional) z18- (also has icon z18-)
@@ -2256,9 +2256,9 @@ amenity-loading_dock                                # icon z19- (also has captio
 # emergency-assembly_point                          # caption(optional) z18- (also has icon z18-)
 # emergency-defibrillator                           # caption(optional) z18- (also has icon z18-)
 # emergency-fire_hydrant                            # caption(optional) z19- (also has icon z19-)
-# entrance                                          # caption(optional) z19- (also has icon z19-)
-entrance-exit                                       # icon z19- (also has caption(optional) z19-)
-# entrance-exit                                     # caption(optional) z19- (also has icon z19-)
+# entrance                                          # caption(optional) z19- (also has icon z17-)
+entrance-exit                                       # icon z17- (also has caption(optional) z19-)
+# entrance-exit                                     # caption(optional) z19- (also has icon z17-)
 # man_made-cairn                                    # caption(optional) z19- (also has icon z19-)
 # man_made-survey_point                             # caption(optional) z18- (also has icon z18-)
 # power-substation                                  # caption(optional) z19- (also has icon z19-, area z13-)
