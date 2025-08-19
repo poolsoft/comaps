@@ -74,6 +74,12 @@ fi
 
 OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
 
+if [ "$OPT_TARGET" == "desktop" ]; then
+  ./configure.sh
+else
+  SKIP_MAP_DOWNLOAD=1 SKIP_GENERATE_SYMBOLS=1 SKIP_GENERATE_DRULES=1 ./configure.sh
+fi
+
 DEVTOOLSET_PATH=/opt/rh/devtoolset-7
 if [ -d "$DEVTOOLSET_PATH" ]; then
   export MANPATH=

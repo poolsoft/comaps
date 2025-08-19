@@ -114,6 +114,20 @@ project.afterEvaluate {
       nativeTask.onlyIf { false }
     }
   }
+
+  final taskName = gradle.startParameter.taskNames
+
+  if (['assemble', 'bundle', 'compile', 'install'].any{taskName.any{task->task.startsWith(it)}}) {
+    exec {
+      workingDir '../..'
+
+      if (!taskName.toString().contains('Google')) {
+        environment 'SKIP_MAP_DOWNLOAD', '1'
+      }
+
+      commandLine './configure.sh'
+    }
+  }
 }
 
 tasks.withType(JavaCompile).configureEach {
