@@ -15559,7 +15559,7 @@ mr:दुचाकी पार्किंग
 
 amenity-parking_space-disabled|@category_parking
 en:Disabled Parking Space
-ar:ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
+ar:موقف سيارات لذوي الإعاقة
 be:Паркоўка для інвалідаў
 bg:Паркомясто за инвалиди
 cs:Parkovací místo pro invalidy
