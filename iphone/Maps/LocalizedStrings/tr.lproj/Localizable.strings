@@ -758,11 +758,6 @@
 /* Title for button when a route was saved. */
 "saved" = "Kaydedildi";
 
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "burada";
 "core_entrance" = "Giriş";
 "error_enter_correct_name" = "Lütfen doğru ad girin";
 "bookmark_lists" = "Listeler";

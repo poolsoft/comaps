@@ -751,11 +751,6 @@
 /* Title for button when a route was saved. */
 "saved" = "Salvato";
 
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "qui";
 "core_entrance" = "Ingresso";
 "error_enter_correct_name" = "Inserire un nome corretto";
 "bookmark_lists" = "Elenchi";
