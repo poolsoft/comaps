@@ -2040,7 +2040,6 @@ node|z17-[amenity=bicycle_parking],
 {icon-image: bicycle-parking-m.svg;}
 
 node|z17-[amenity=bicycle_parking][covered=yes],
-area|z17-[amenity=bicycle_parking][covered=yes],
 {icon-image: bicycle-parking-covered-m.svg;}
 
 node|z17-[amenity=motorcycle_parking],
