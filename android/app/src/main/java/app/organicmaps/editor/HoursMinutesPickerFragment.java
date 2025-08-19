@@ -149,7 +149,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     tabView.setText(getResources().getString(R.string.editor_time_to));
     tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
-    mTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+    mTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override
       public void onTabSelected(TabLayout.Tab tab)
       {
