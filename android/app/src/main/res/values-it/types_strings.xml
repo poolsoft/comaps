@@ -3,9 +3,9 @@
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Indirizzo/Quartiere</string>
     <string name="type.addr_interpolation.even">Indirizzo/Quartiere</string>
-    <string name="type.addr_interpolation.odd">Indirizzo/Blocco</string>
+    <string name="type.addr_interpolation.odd">Indirizzo/Quartiere</string>
     <string name="type.aerialway">Impianto a fune</string>
-    <string name="type.aerialway.cable_car">Teleferica</string>
+    <string name="type.aerialway.cable_car">Funivia</string>
     <string name="type.aerialway.chair_lift">Seggiovia</string>
     <string name="type.aerialway.drag_lift">Ski-lift</string>
     <string name="type.aerialway.gondola">Cabinovia</string>
@@ -13,7 +13,7 @@
     <string name="type.aerialway.station">Stazione</string>
     <string name="type.aeroway">Infrastruttura aeroportuale</string>
     <string name="type.aeroway.aerodrome">Aeroporto</string>
-    <string name="type.aeroway.aerodrome.international">Aeroporto</string>
+    <string name="type.aeroway.aerodrome.international">Aeroporto Internazionale</string>
     <string name="type.aeroway.apron">Area di stazionamento per aeromobili</string>
     <string name="type.aeroway.gate">Cancello aeroportuale</string>
     <string name="type.aeroway.helipad">Piattaforma per elicotteri</string>
@@ -900,12 +900,12 @@
     <string name="type.railway.station.subway.montreal">Stazione metropolitana</string>
     <string name="type.railway.station.subway.moscow">Stazione metropolitana</string>
     <string name="type.railway.station.subway.munchen">Stazione metropolitana</string>
-    <string name="type.railway.station.subway.nagoya">Stazione metropolitana di Nagoya</string>
-    <string name="type.railway.station.subway.newyork">Stazione metropolitana di New York</string>
+    <string name="type.railway.station.subway.nagoya">Stazione metropolitana</string>
+    <string name="type.railway.station.subway.newyork">Stazione metropolitana</string>
     <string name="type.railway.station.subway.nnov">Stazione metropolitana</string>
-    <string name="type.railway.station.subway.novosibirsk">Stazione metropolitana di Novosibirsk</string>
-    <string name="type.railway.station.subway.osaka">Stazione metropolitana di Osaka</string>
-    <string name="type.railway.station.subway.oslo">Stazione metropolitana di Oslo</string>
+    <string name="type.railway.station.subway.novosibirsk">Stazione metropolitana</string>
+    <string name="type.railway.station.subway.osaka">Stazione metropolitana</string>
+    <string name="type.railway.station.subway.oslo">Stazione metropolitana</string>
     <string name="type.railway.station.subway.palma">Stazione metropolitana</string>
     <string name="type.railway.station.subway.panama">Stazione metropolitana</string>
     <string name="type.railway.station.subway.paris">Stazione metropolitana</string>
@@ -1389,4 +1389,6 @@
     <string name="type.natural.wetland.tidalflat">Piana di Marea</string>
     <string name="type.natural.wetland.fen">Palude</string>
     <string name="type.leisure.escape_game">Escape Room</string>
+    <string name="type.amenity.ranger_station">Stazione delle guardie forestali</string>
+    <string name="type.landuse.religious">Terreno Religioso</string>
 </resources>

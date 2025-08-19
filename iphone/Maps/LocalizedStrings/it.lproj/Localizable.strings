@@ -6,7 +6,7 @@
 "cancel_download" = "Annulla il download";
 
 /* Button which deletes downloaded country */
-"delete" = "Cancella";
+"delete" = "Elimina";
 "download_maps" = "Scarica mappe";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -1093,6 +1093,6 @@
 "osm_profile_reauthorize" = "Riconnettiti a OpenStreetMap";
 "osm_profile_view_notes" = "Visualizza note";
 "pref_mapappearance_title" = "Aspetto della mappa";
-"pref_maplanguage_title" = "Map Language";
-"transliteration_title_disabled_summary" = "Disabled when always using the local language for the map";
-"pref_maplanguage_local" = "Local Language";
+"pref_maplanguage_title" = "Lingua della mappa";
+"transliteration_title_disabled_summary" = "Disabilitato quando si usa la lingua locale sulla mappa";
+"pref_maplanguage_local" = "Lingua Locale";

@@ -6,7 +6,7 @@
     <!-- Button text (should be short) -->
     <string name="cancel">Annulla</string>
     <!-- Button which deletes downloaded country -->
-    <string name="delete">Cancella</string>
+    <string name="delete">Elimina</string>
     <string name="download_maps">Scarica mappe</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">Download fallito, tocca per riprovare</string>
@@ -914,4 +914,6 @@
     <string name="open_now">Aperto adesso</string>
     <string name="closed_now">Chiuso adesso</string>
     <string name="at">alle %s</string>
+    <string name="osm_note_hint">In alternativa lascia una nota per la community di OpenStreetMap, così un altro utente potrà aggiungere o sistemare questo posto.</string>
+    <string name="osm_note_toast">La nota verrà mandata a OpenStreetMap</string>
 </resources>
