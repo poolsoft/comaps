@@ -41,8 +41,8 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
 
     {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
-    {HighwayType::HighwayLadder, InOutCitySpeedKMpH(SpeedKMpH(1.0))},
-    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
+    {HighwayType::HighwayLadder, InOutCitySpeedKMpH(SpeedKMpH(0.5))},
+    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(2.5))},
     {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
 
     {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
