@@ -581,8 +581,6 @@
     <string name="button_plan">Pianifica</string>
     <string name="placepage_remove_stop">Rimuovi sosta</string>
     <string name="placepage_add_stop">Aggiungi sosta</string>
-    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più clicca <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
     <string name="dialog_error_storage_message">Memoria esterna non disponibile. Probabilmente la scheda SD è stata rimossa, danneggiata o il file system è di sola lettura. Controlla la tua scheda SD o contattaci a support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Simula memoria danneggiata</string>

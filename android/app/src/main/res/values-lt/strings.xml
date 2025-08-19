@@ -587,8 +587,6 @@
     <string name="button_plan">Planas</string>
     <string name="placepage_remove_stop">Šalinti stotelę</string>
     <string name="placepage_add_stop">Pridėti stotelę</string>
-    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Prisijunkite prie „OpenStreetMap“, kad galėtumėte automatiškai įkelti visus savo žemėlapio pakeitimus. Išsamesnė informacija – <a href="https://github.com/organicmaps/organicmaps/issues/6144">čia</a>.</string>
     <string name="dialog_error_storage_title">Prieigos prie saugyklos problema</string>
     <string name="dialog_error_storage_message">Išorinė saugykla yra nepasiekiama. SD kortelė galimai yra pašalinta, pažeista, arba failų sistema joje yra nustatyta tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis adresu support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Emuliuoti blogą saugyklą</string>

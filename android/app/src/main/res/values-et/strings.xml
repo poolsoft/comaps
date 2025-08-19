@@ -590,8 +590,6 @@
     <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
-    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>
     <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
     <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Imiteeri vigast andmeruumi</string>

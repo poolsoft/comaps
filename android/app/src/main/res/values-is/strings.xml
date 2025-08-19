@@ -506,7 +506,6 @@
     <string name="car_used_on_the_phone_screen">Þú ert núna að nota CoMaps á símaskjánum</string>
     <string name="aa_request_permission_activity_text">CoMaps í Android Auto þarf heimildir fyrir staðsetningar til að virka eðlilega</string>
     <string name="routing_add_finish_point">Notaðu leit eða ýttu á kortið til að bæta við áfangastað</string>
-    <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>
     <string name="dialog_routing_disclaimer_title">Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:</string>
     <string name="dialog_routing_disclaimer_beware">Vertu vakandi og settu öryggið ofar öllu á vegum úti!</string>
     <string name="dialog_routing_error_location_not_found">Tókst ekki að útbúa leið. Fyrirliggjandi GPS-hnit var ekki hægt að auðkenna.</string>

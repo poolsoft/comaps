@@ -518,7 +518,6 @@
     <string name="mobile_data_description">L-internet mobbli huwa meħtieġ għan-notifiki tal-aġġornament tal-mapep u għat-tlugħ tal-editjar.</string>
     <string name="bookmarks_error_message_share_empty">Ma tistax tixxerja lista vojta</string>
     <string name="category_desc_more">…aktar</string>
-    <string name="alert_reauth_message">Illoggja f’ OpenStreetMap biex awtomatikament ittella’ l-editjar kollu tal-mappa tiegħek. Tgħallem aktar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hawn</a>.</string>
     <string name="blue_gray">Blu Griż</string>
     <string name="dialog_routing_system_error">Żball fis-sistema</string>
     <string name="level">Livell</string>

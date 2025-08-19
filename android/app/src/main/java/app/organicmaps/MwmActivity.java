@@ -18,7 +18,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -28,7 +27,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -66,7 +64,6 @@ import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.EditorHostFragment;
 import app.organicmaps.editor.FeatureCategoryActivity;
-import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
@@ -99,7 +96,6 @@ import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
 import app.organicmaps.sdk.editor.Editor;
-import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationState;
@@ -290,7 +286,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     processIntent();
-    migrateOAuthCredentials();
   }
 
   /**
@@ -342,36 +337,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (ip.process(intent, this))
         break;
-    }
-  }
-
-  private void migrateOAuthCredentials()
-  {
-    if (OsmOAuth.containsOAuth1Credentials())
-    {
-      // Remove old OAuth v1 secrets
-      OsmOAuth.clearOAuth1Credentials();
-
-      // Notify user to re-login
-      dismissAlertDialog();
-      final DialogInterface.OnClickListener navigateToLoginHandler =
-          (dialog, which) -> startActivity(new Intent(MwmActivity.this, OsmLoginActivity.class));
-
-      final int marginBase = getResources().getDimensionPixelSize(R.dimen.margin_base);
-      final float textSize = getResources().getDimension(R.dimen.line_spacing_extra_1);
-      final TextView text = new TextView(this);
-      text.setText(getText(R.string.alert_reauth_message));
-      text.setPadding(marginBase, marginBase, marginBase, marginBase);
-      text.setTextSize(textSize);
-      text.setMovementMethod(LinkMovementMethod.getInstance());
-
-      mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                         .setTitle(R.string.login_osm)
-                         .setView(text)
-                         .setPositiveButton(R.string.login, navigateToLoginHandler)
-                         .setNegativeButton(R.string.cancel, null)
-                         .setOnDismissListener(dialog -> mAlertDialog = null)
-                         .show();
     }
   }
 

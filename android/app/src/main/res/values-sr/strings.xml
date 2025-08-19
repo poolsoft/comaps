@@ -585,8 +585,6 @@
     <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
-    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
     <string name="dialog_error_storage_message">Екстерна меморија није доступна. SD картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу SD картицу или нас контактирајте на support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Симулирај неисправну меморију</string>

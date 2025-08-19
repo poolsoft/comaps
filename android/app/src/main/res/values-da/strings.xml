@@ -566,8 +566,6 @@
     <string name="button_plan">Planlæg</string>
     <string name="placepage_remove_stop">Fjern stop</string>
     <string name="placepage_add_stop">Tilføj stop</string>
-    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problem med lageradgang</string>
     <string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt. SD-kortet kan være blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller dit SD-kort eller kontakt os på support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Emulér beskadiget lager</string>

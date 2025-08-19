@@ -29,9 +29,6 @@ public final class OsmOAuth
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private static SharedPreferences mPrefs;
-
-  private static final String PREF_OSM_TOKEN = "OsmToken"; // Unused after migration from OAuth1 to OAuth2
-  private static final String PREF_OSM_SECRET = "OsmSecret"; // Unused after migration from OAuth1 to OAuth2
   private static final String PREF_OSM_USERNAME = "OsmUsername";
   private static final String PREF_OSM_CHANGESETS_COUNT = "OsmChangesetsCount";
   private static final String PREF_OSM_OAUTH2_TOKEN = "OsmOAuth2Token";
@@ -46,16 +43,6 @@ public final class OsmOAuth
   public static boolean isAuthorized()
   {
     return mPrefs.contains(PREF_OSM_OAUTH2_TOKEN);
-  }
-
-  public static boolean containsOAuth1Credentials()
-  {
-    return mPrefs.contains(PREF_OSM_TOKEN) && mPrefs.contains(PREF_OSM_SECRET);
-  }
-
-  public static void clearOAuth1Credentials()
-  {
-    mPrefs.edit().remove(PREF_OSM_TOKEN).remove(PREF_OSM_SECRET).apply();
   }
 
   public static String getAuthToken()
@@ -82,8 +69,6 @@ public final class OsmOAuth
   public static void clearAuthorization()
   {
     mPrefs.edit()
-        .remove(PREF_OSM_TOKEN)
-        .remove(PREF_OSM_SECRET)
         .remove(PREF_OSM_USERNAME)
         .remove(PREF_OSM_OAUTH2_TOKEN)
         .apply();

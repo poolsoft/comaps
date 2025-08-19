@@ -81,7 +81,6 @@
     <string name="dialog_report_error_with_logs">Bitte schick eus en Fehlerbricht:\n - i de Iistellige \"Protokollierig aktiviere\"\n - s Problem reproduziere\n - im Bildschirm \"Über &amp; Hilf\" drück de \"App-Fehler melde\"-Chnopf und schicks via E-Mail oder Chat\n - d Protokollierig deaktiviere</string>
     <string name="route_type">Routetyp</string>
     <string name="routing_add_start_point">Nutz d Suechi oder tipp uf d Charte, zum en Routestartpunkt hinzuezfüege</string>
-    <string name="alert_reauth_message">Bitte meld dich vi OpenStreetMap aa, zum all dini Chartebearbeitige automatisch ufezlade. Erfahr <a href="https://github.com/organicmaps/organicmaps/issues/6144">da</a> meh.</string>
     <string name="error_enter_correct_name">Bitte gib en korrekte Name ii</string>
     <string name="bookmark_lists_hide_all">Alli uusblende</string>
     <plurals name="bookmarks_places">
