@@ -28,7 +28,7 @@
 "later" = "Più tardi";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
-"search" = "Cerca";
+"search" = "Ricerca";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Sì";

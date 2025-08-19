@@ -16,6 +16,8 @@
 			<string>Nessun preferito</string>
 			<key>one</key>
 			<string>%d preferito</string>
+			<key>many</key>
+			<string>%d preferiti</string>
 			<key>other</key>
 			<string>%d preferiti</string>
 		</dict>

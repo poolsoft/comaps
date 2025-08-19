@@ -21,7 +21,7 @@
     <!-- Update maps later button text -->
     <string name="later">Più tardi</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
-    <string name="search">Cerca</string>
+    <string name="search">Ricerca</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Cerca sulla mappa</string>
     <!-- Location services are disabled by user alert - message -->
