@@ -112,6 +112,7 @@ public final class Editor
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
   public static native boolean nativeIsHouseValid(String houseNumber);
+  public static native boolean nativeCheckHouseNumberWhenIsAddress();
   public static boolean nativeIsLevelValid(String level)
   {
     return nativeIsMetadataValid(Metadata.MetadataType.FMD_BUILDING_LEVELS.toInt(), level);

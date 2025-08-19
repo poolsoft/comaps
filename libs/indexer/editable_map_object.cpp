@@ -433,6 +433,12 @@ bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
   return false;
 }
 
+bool EditableMapObject::CheckHouseNumberWhenIsAddress() const
+{
+  // House number is mandatory for the address type. For other types it's optional.
+  return !m_houseNumber.empty() || !m_types.Has(classif().GetTypeByReadableObjectName("building-address"));
+}
+
 // static
 bool EditableMapObject::ValidateFlats(string const & flats)
 {

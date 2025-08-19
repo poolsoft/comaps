@@ -276,6 +276,11 @@ public class EditorHostFragment
     return ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
   }
 
+  private boolean saveEdits()
+  {
+    return ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).saveEdits();
+  }
+
   @Override
   public void onClick(View v)
   {
@@ -310,7 +315,7 @@ public class EditorHostFragment
       case LANGUAGE -> editMapObject();
       case MAP_OBJECT ->
       {
-        if (!setEdits())
+        if (!saveEdits())
           return;
 
         // Save object edits

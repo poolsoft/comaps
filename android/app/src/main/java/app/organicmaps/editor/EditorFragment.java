@@ -236,6 +236,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return true;
   }
 
+  boolean saveEdits()
+  {
+    return setEdits() && beforeSavingValidation();
+  }
+
   @NonNull
   protected String getDescription()
   {
@@ -280,6 +285,18 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
 
     return validateNames();
+  }
+
+  private boolean beforeSavingValidation() {
+    // Validation to make sure address features have a house number
+    if (!Editor.nativeCheckHouseNumberWhenIsAddress())
+    {
+      mHouseNumber.requestFocus();
+      UiUtils.setInputError(mInputHouseNumber, R.string.error_enter_correct_house_number);
+      InputUtils.showKeyboard(mHouseNumber);
+      return false;
+    }
+    return true;
   }
 
   private boolean validateNames()
