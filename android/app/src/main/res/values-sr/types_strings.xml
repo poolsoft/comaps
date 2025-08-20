@@ -187,6 +187,7 @@
     <string name="type.amenity.water_point">Чесма</string>
     <string name="type.amenity.water_point.drinking_water_no">Чесма</string>
     <string name="type.barrier">Баријера</string>
+    <string name="type.barrier.yes">Баријера</string>
     <string name="type.barrier.block">Блок</string>
     <string name="type.barrier.bollard">Стуб</string>
     <string name="type.barrier.border_control">Гранична контрола</string>

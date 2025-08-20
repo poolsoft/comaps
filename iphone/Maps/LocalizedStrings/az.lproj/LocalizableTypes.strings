@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Karvanlar üçün su nöqtəsi";
 "type.amenity.water_point.drinking_water_no" = "Karvanlar üçün su nöqtəsi";
 "type.barrier" = "Maneə";
+"type.barrier.yes" = "Maneə";
 "type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Birbaşa";
 "type.barrier.border_control" = "Sərhəd Nəzarəti";

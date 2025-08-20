@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Doplňovací místo vodní nádrže";
 "type.amenity.water_point.drinking_water_no" = "Doplňovací místo vodní nádrže";
 "type.barrier" = "Bariéra";
+"type.barrier.yes" = "Bariéra";
 "type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Sloupek";
 "type.barrier.border_control" = "Pohraniční kontrola";

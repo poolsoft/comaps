@@ -184,6 +184,7 @@
     <string name="type.amenity.water_point">Vesipiste</string>
     <string name="type.amenity.water_point.drinking_water_no">Vesipiste</string>
     <string name="type.barrier">Este</string>
+    <string name="type.barrier.yes">Este</string>
     <string name="type.barrier.block">Este</string>
     <string name="type.barrier.bollard">Tolppa</string>
     <string name="type.barrier.border_control">Rajavalvonta</string>

@@ -182,6 +182,7 @@
     <string name="type.amenity.water_point">Wasseranschluss</string>
     <string name="type.amenity.water_point.drinking_water_no">Wasseranschluss</string>
     <string name="type.barrier">Barriere</string>
+    <string name="type.barrier.yes">Barriere</string>
     <string name="type.barrier.block">Block</string>
     <string name="type.barrier.bollard">Poller</string>
     <string name="type.barrier.border_control">Grenzkontrolle</string>

@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Ujęcie wody";
 "type.amenity.water_point.drinking_water_no" = "Ujęcie wody";
 "type.barrier" = "Bariera";
+"type.barrier.yes" = "Bariera";
 "type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Słupek";
 "type.barrier.border_control" = "Kontrola graniczna";

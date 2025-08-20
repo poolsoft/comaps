@@ -1230,6 +1230,7 @@
     <string name="type.barrier.wall">Τοίχος</string>
     <string name="type.recycling.cans">Κονσερβοκούτια</string>
     <string name="type.barrier">Εμπόδιο</string>
+    <string name="type.barrier.yes">Εμπόδιο</string>
     <string name="type.amenity.vending_machine.sweets">Διανεμητής γλυκών</string>
     <string name="type.barrier.cycle_barrier">Εμπόδιο ποδηλάτου</string>
     <string name="type.recycling.shoes">Παπούτσια</string>

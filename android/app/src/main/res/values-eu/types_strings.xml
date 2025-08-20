@@ -181,6 +181,7 @@
     <string name="type.amenity.water_point">Ur iturria</string>
     <string name="type.amenity.water_point.drinking_water_no">Ur iturria</string>
     <string name="type.barrier">Hesia</string>
+    <string name="type.barrier.yes">Hesia</string>
     <string name="type.barrier.block">Blokea</string>
     <string name="type.barrier.bollard">Pibotea</string>
     <string name="type.barrier.border_control">Muga kontrola</string>

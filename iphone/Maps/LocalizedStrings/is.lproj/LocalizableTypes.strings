@@ -83,6 +83,7 @@
 "type.amenity.water_point" = "Vatnspóstur";
 "type.amenity.water_point.drinking_water_no" = "Vatnspóstur";
 "type.barrier" = "Hindrun";
+"type.barrier.yes" = "Hindrun";
 "type.barrier.block" = "Lokun";
 "type.barrier.bollard" = "Polli";
 "type.barrier.border_control" = "Landamæraeftirlit";

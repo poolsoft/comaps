@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "จุดเติมน้ำ";
 "type.amenity.water_point.drinking_water_no" = "จุดเติมน้ำ";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.barrier.block" = "บล็อก";
 "type.barrier.bollard" = "เสา";
 "type.barrier.border_control" = "ด่านตรวจคนเข้าเมือง";

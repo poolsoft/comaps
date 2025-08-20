@@ -186,6 +186,7 @@
     <string name="type.amenity.water_point">Joogivee tankimispunkt</string>
     <string name="type.amenity.water_point.drinking_water_no">Joogivee tankimispunkt</string>
     <string name="type.barrier">Barjäär</string>
+    <string name="type.barrier.yes">Barjäär</string>
     <string name="type.barrier.block">Kiviplokk</string>
     <string name="type.barrier.bollard">Piirdetulp</string>
     <string name="type.barrier.border_control">Piirikontroll</string>

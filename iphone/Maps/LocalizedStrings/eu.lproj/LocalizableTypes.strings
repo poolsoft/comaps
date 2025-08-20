@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Ur iturria";
 "type.amenity.water_point.drinking_water_no" = "Ur iturria";
 "type.barrier" = "Hesia";
+"type.barrier.yes" = "Hesia";
 "type.barrier.block" = "Blokea";
 "type.barrier.bollard" = "Pibotea";
 "type.barrier.border_control" = "Muga kontrola";

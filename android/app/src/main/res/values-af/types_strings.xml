@@ -169,6 +169,7 @@
     <string name="type.amenity.water_point">Waterpunt</string>
     <string name="type.amenity.water_point.drinking_water_no">Waterpunt</string>
     <string name="type.barrier">Versperring</string>
+    <string name="type.barrier.yes">Versperring</string>
     <string name="type.barrier.block">Blok</string>
     <string name="type.barrier.bollard">Bolder</string>
     <string name="type.barrier.border_control">Grensbeheer</string>

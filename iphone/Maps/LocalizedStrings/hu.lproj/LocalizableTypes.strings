@@ -188,6 +188,7 @@
 "type.amenity.water_point" = "Vízvételi pont";
 "type.amenity.water_point.drinking_water_no" = "Vízvételi pont (ivóvíz nélkül)";
 "type.barrier" = "Akadály";
+"type.barrier.yes" = "Akadály";
 "type.barrier.block" = "Blokk";
 "type.barrier.bollard" = "Terelőoszlop";
 "type.barrier.border_control" = "Határátkelő";

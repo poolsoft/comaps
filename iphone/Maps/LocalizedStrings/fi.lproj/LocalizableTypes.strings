@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Vesipiste";
 "type.amenity.water_point.drinking_water_no" = "Vesipiste";
 "type.barrier" = "Este";
+"type.barrier.yes" = "Este";
 "type.barrier.block" = "Este";
 "type.barrier.bollard" = "Tolppa";
 "type.barrier.border_control" = "Rajavalvonta";

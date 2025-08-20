@@ -547,6 +547,7 @@
 "type.amenity" = "Amenity";
 "type.junction.circular" = "Roundabout";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.cuisine.italian" = "Italian";
 "type.man_made.bridge" = "Bridge";
 "type.boundary.protected_area.3" = "Protected Area";

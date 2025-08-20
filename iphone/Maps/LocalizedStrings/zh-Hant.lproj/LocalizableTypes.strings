@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "水箱加水點";
 "type.amenity.water_point.drinking_water_no" = "水箱加水點";
 "type.barrier" = "障礙物";
+"type.barrier.yes" = "障礙物";
 "type.barrier.block" = "街區";
 "type.barrier.bollard" = "柱";
 "type.barrier.border_control" = "邊境管制";

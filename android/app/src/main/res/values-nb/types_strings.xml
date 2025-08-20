@@ -158,6 +158,7 @@
     <string name="type.amenity.water_point">Vannpunkt</string>
     <string name="type.amenity.water_point.drinking_water_no">Vannpunkt</string>
     <string name="type.barrier">Barriere</string>
+    <string name="type.barrier.yes">Barriere</string>
     <string name="type.barrier.block">Blokk</string>
     <string name="type.barrier.bollard">Pullert</string>
     <string name="type.barrier.border_control">Grensekontroll</string>

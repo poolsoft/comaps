@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Vannpunkt";
 "type.amenity.water_point.drinking_water_no" = "Vannpunkt";
 "type.barrier" = "Barriere";
+"type.barrier.yes" = "Barriere";
 "type.barrier.block" = "Blokk";
 "type.barrier.bollard" = "Pullert";
 "type.barrier.border_control" = "Grensekontroll";

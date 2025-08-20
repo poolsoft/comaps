@@ -186,6 +186,7 @@
     <string name="type.amenity.water_point">נקודת מילוי מיכלי מים</string>
     <string name="type.amenity.water_point.drinking_water_no">נקודת מילוי מיכלי מים</string>
     <string name="type.barrier">מחסום</string>
+    <string name="type.barrier.yes">מחסום</string>
     <string name="type.barrier.block">חסימה</string>
     <string name="type.barrier.bollard">עמוד</string>
     <string name="type.barrier.border_control">ביקורת גבולות</string>

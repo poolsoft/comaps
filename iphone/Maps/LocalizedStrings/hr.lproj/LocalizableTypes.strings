@@ -361,6 +361,7 @@
 "type.amenity" = "Amenity";
 "type.junction.circular" = "Roundabout";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.railway.station.subway.santiago" = "Subway Station";
 "type.cuisine.italian" = "Italian";
 "type.shop.erotic" = "Erotic Shop";

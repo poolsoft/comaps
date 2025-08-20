@@ -181,6 +181,7 @@
     <string name="type.amenity.water_point">Su Tankı Yeniden Doldurma Noktası</string>
     <string name="type.amenity.water_point.drinking_water_no">Su Tankı Yeniden Doldurma Noktası</string>
     <string name="type.barrier">Bariyer</string>
+    <string name="type.barrier.yes">Bariyer</string>
     <string name="type.barrier.block">Blok</string>
     <string name="type.barrier.bollard">Direk</string>
     <string name="type.barrier.border_control">Sınır Denetimi</string>

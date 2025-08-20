@@ -292,6 +292,7 @@
     <string name="type.healthcare.physiotherapist">物理治療師</string>
     <string name="type.leisure.escape_game">密室脫逃</string>
     <string name="type.barrier">障礙物</string>
+    <string name="type.barrier.yes">障礙物</string>
     <string name="type.entrance.main">主要入口</string>
     <string name="type.entrance.exit">出口</string>
     <string name="type.amenity.shelter">涼亭</string>

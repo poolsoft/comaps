@@ -193,6 +193,7 @@
     <string name="type.amenity.water_point">Water Tank Refill Point</string>
     <string name="type.amenity.water_point.drinking_water_no">Water Tank Refill Point</string>
     <string name="type.barrier">Barrier</string>
+    <string name="type.barrier.yes">Barrier</string>
     <string name="type.barrier.block">Block</string>
     <string name="type.barrier.bollard">Bollard</string>
     <string name="type.barrier.border_control">Border Control</string>
@@ -212,6 +213,7 @@
     <string name="type.barrier.retaining_wall">Retaining Wall</string>
     <string name="type.barrier.stile">Stile</string>
     <string name="type.barrier.turnstile">Turnstile</string>
+    <string name="type.barrier.wicket_gate">Wicket Gate</string>
     <string name="type.barrier.swing_gate">Swing Gate</string>
     <string name="type.barrier.toll_booth">Toll Booth</string>
     <string name="type.barrier.wall">Wall</string>

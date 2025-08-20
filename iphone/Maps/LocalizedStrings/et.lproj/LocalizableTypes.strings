@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Joogivee tankimispunkt";
 "type.amenity.water_point.drinking_water_no" = "Joogivee tankimispunkt";
 "type.barrier" = "Barjäär";
+"type.barrier.yes" = "Barjäär";
 "type.barrier.block" = "Kiviplokk";
 "type.barrier.bollard" = "Piirdetulp";
 "type.barrier.border_control" = "Piirikontroll";

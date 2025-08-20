@@ -368,6 +368,7 @@
 "type.leisure.fitness_centre" = "Fitness Centre";
 "type.junction.circular" = "Roundabout";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.cuisine.italian" = "Italian";
 "type.shop.erotic" = "Erotic Shop";
 "type.cuisine.steak_house" = "Steak House";

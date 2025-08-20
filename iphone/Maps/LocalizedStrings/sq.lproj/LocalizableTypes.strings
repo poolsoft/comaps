@@ -92,6 +92,7 @@
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
 "type.barrier.bollard" = "Bollard";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.barrier.chain" = "Chain";
 "type.amenity.water_point.drinking_water_no" = "Water Tank Refill Point";
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";

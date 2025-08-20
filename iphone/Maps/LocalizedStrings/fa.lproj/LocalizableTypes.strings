@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "شیر آب قابل شرب";
 "type.amenity.water_point.drinking_water_no" = "شیر آب قابل شرب";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.barrier.block" = "بلوک";
 "type.barrier.bollard" = "ستون";
 "type.barrier.border_control" = "کنترل مرزی";

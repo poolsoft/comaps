@@ -176,6 +176,7 @@
     <string name="type.amenity.waste_disposal">Müllcontainer</string>
     <string name="type.amenity.water_point">Wasseraaschluss</string>
     <string name="type.barrier">Barriere</string>
+    <string name="type.barrier.yes">Barriere</string>
     <string name="type.barrier.block">Block</string>
     <string name="type.barrier.bollard">Poller</string>
     <string name="type.barrier.border_control">Grenzkontrolle</string>

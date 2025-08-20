@@ -203,6 +203,7 @@
 "type.amenity.water_point" = "Water Tank Refill Point";
 "type.amenity.water_point.drinking_water_no" = "Water Tank Refill Point";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.barrier.block" = "Block";
 "type.barrier.bollard" = "Bollard";
 "type.barrier.border_control" = "Border Control";
@@ -222,6 +223,7 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 "type.barrier.stile" = "Stile";
 "type.barrier.turnstile" = "Turnstile";
+"type.barrier.wicket_gate" = "Wicket gate";
 "type.barrier.swing_gate" = "Swing Gate";
 "type.barrier.toll_booth" = "Toll Booth";
 "type.barrier.wall" = "Wall";

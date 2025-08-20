@@ -187,6 +187,7 @@
     <string name="type.amenity.water_point">Punt d’aigua</string>
     <string name="type.amenity.water_point.drinking_water_no">Punt d’aigua</string>
     <string name="type.barrier">Barrera</string>
+    <string name="type.barrier.yes">Barrera</string>
     <string name="type.barrier.block">Bloc</string>
     <string name="type.barrier.bollard">Bol·lard</string>
     <string name="type.barrier.border_control">Control fronterer</string>

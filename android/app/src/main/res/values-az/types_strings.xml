@@ -177,6 +177,7 @@
     <string name="type.amenity.water_point">Karvanlar üçün su nöqtəsi</string>
     <string name="type.amenity.water_point.drinking_water_no">Karvanlar üçün su nöqtəsi</string>
     <string name="type.barrier">Maneə</string>
+    <string name="type.barrier.yes">Maneə</string>
     <string name="type.barrier.block">Blok</string>
     <string name="type.barrier.bollard">Birbaşa</string>
     <string name="type.barrier.border_control">Sərhəd Nəzarəti</string>

@@ -1220,6 +1220,7 @@
     <string name="type.aerialway.chair_lift">Ülőlift</string>
     <string name="type.aerialway.gondola">Gondolakabinos felvonó</string>
     <string name="type.barrier">Akadály</string>
+    <string name="type.barrier.yes">Akadály</string>
     <string name="type.barrier.cycle_barrier">Kerékpárakadály</string>
     <string name="type.barrier.fence">Kerítés</string>
     <string name="type.barrier.hedge">Sövény</string>

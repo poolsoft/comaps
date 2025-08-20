@@ -391,6 +391,7 @@
 "type.drinking_water.yes" = "Drinking Water";
 "type.junction.circular" = "Roundabout";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.cuisine.italian" = "Italian";
 "type.shop.erotic" = "Erotic Shop";
 "type.boundary.protected_area.3" = "Protected Area";

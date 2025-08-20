@@ -189,6 +189,7 @@
     <string name="type.amenity.water_point">Fonte de auga para caravanas</string>
     <string name="type.amenity.water_point.drinking_water_no">Fonte de auga para caravanas</string>
     <string name="type.barrier">Barreira</string>
+    <string name="type.barrier.yes">Barreira</string>
     <string name="type.barrier.block">Bloque</string>
     <string name="type.barrier.bollard">Bolardo</string>
     <string name="type.barrier.border_control">Control fronteirizo</string>

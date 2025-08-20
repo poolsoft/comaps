@@ -188,6 +188,7 @@
     <string name="type.amenity.water_point">Вода для автодомов</string>
     <string name="type.amenity.water_point.drinking_water_no">Вода для автодомов</string>
     <string name="type.barrier">Преграда</string>
+    <string name="type.barrier.yes">Преграда</string>
     <string name="type.barrier.block">Блок</string>
     <string name="type.barrier.bollard">Столбик</string>
     <string name="type.barrier.border_control">Погранконтроль</string>
@@ -206,6 +207,7 @@
     <string name="type.barrier.retaining_wall">Поддерживающая стена</string>
     <string name="type.barrier.stile">Перелаз</string>
     <string name="type.barrier.turnstile">Турникет</string>
+    <string name="type.barrier.wicket_gate">Калитка</string>
     <string name="type.barrier.swing_gate">Шлагбаум</string>
     <string name="type.barrier.toll_booth">Пункт оплаты</string>
     <string name="type.barrier.wall">Стена</string>

@@ -620,6 +620,7 @@
     <string name="type.amenity.water_point">Vatnspóstur</string>
     <string name="type.amenity.water_point.drinking_water_no">Vatnspóstur</string>
     <string name="type.barrier">Hindrun</string>
+    <string name="type.barrier.yes">Hindrun</string>
     <string name="type.barrier.city_wall">Borgarmúr</string>
     <string name="type.barrier.cycle_barrier">Hjólahindrun</string>
     <string name="type.waterway.ditch">Drenskurður</string>

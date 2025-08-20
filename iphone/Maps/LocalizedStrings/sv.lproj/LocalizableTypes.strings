@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Vattenpost";
 "type.amenity.water_point.drinking_water_no" = "Vattenpost";
 "type.barrier" = "Hinder";
+"type.barrier.yes" = "Hinder";
 "type.barrier.block" = "Blockering";
 "type.barrier.bollard" = "Stolpe";
 "type.barrier.border_control" = "Gränskontroll";

@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Vandpost";
 "type.amenity.water_point.drinking_water_no" = "Vandstation";
 "type.barrier" = "Barriere";
+"type.barrier.yes" = "Barriere";
 "type.barrier.block" = "Blokering";
 "type.barrier.bollard" = "Pullert";
 "type.barrier.border_control" = "Grænsekontrol";

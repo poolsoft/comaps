@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "상수도";
 "type.amenity.water_point.drinking_water_no" = "상수도";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.barrier.block" = "블록";
 "type.barrier.bollard" = "기둥";
 "type.barrier.border_control" = "국경통제소";

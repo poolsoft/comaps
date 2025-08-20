@@ -1201,6 +1201,7 @@
     <string name="type.amenity.vending_machine.fuel">Benzinautomat</string>
     <string name="type.amenity.waste_transfer_station">Affaldsplads</string>
     <string name="type.barrier">Barriere</string>
+    <string name="type.barrier.yes">Barriere</string>
     <string name="type.barrier.chain">Kæde</string>
     <string name="type.amenity.vending_machine.food">Madautomat</string>
     <string name="type.barrier.cycle_barrier">Cykelbarriere</string>

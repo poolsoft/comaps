@@ -188,6 +188,7 @@
 "type.amenity.water_point" = "Остановка за пълнене на водни хранилища";
 "type.amenity.water_point.drinking_water_no" = "Остановка за пълнене на водни хранилища";
 "type.barrier" = "Бариера";
+"type.barrier.yes" = "Бариера";
 "type.barrier.block" = "Блокова преграда";
 "type.barrier.bollard" = "Колчета";
 "type.barrier.border_control" = "Гранична остановка";

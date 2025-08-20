@@ -183,6 +183,7 @@
     <string name="type.amenity.water_point">取水点</string>
     <string name="type.amenity.water_point.drinking_water_no">取水点</string>
     <string name="type.barrier">障碍物</string>
+    <string name="type.barrier.yes">障碍物</string>
     <string name="type.barrier.block">路障</string>
     <string name="type.barrier.bollard">护柱</string>
     <string name="type.barrier.border_control">边境检查站</string>

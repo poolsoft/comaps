@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Su Tankı Yeniden Doldurma Noktası";
 "type.amenity.water_point.drinking_water_no" = "Su Tankı Yeniden Doldurma Noktası";
 "type.barrier" = "Bariyer";
+"type.barrier.yes" = "Bariyer";
 "type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Direk";
 "type.barrier.border_control" = "Sınır Denetimi";

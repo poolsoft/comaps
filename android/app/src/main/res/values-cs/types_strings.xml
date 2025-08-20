@@ -1193,6 +1193,7 @@
     <string name="type.amenity.vending_machine.fuel">Palivové čerpadlo</string>
     <string name="type.amenity.waste_transfer_station">Překladiště odpadu</string>
     <string name="type.barrier">Bariéra</string>
+    <string name="type.barrier.yes">Bariéra</string>
     <string name="type.barrier.cycle_barrier">Cyklistická bariéra</string>
     <string name="type.cuisine.bubble_tea">Bubble Tea</string>
     <string name="type.emergency">Nouzová stanice</string>

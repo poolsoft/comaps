@@ -186,6 +186,7 @@
     <string name="type.amenity.water_point">Punto acqua</string>
     <string name="type.amenity.water_point.drinking_water_no">Punto acqua</string>
     <string name="type.barrier">Barriera</string>
+    <string name="type.barrier.yes">Barriera</string>
     <string name="type.barrier.block">Blocco</string>
     <string name="type.barrier.bollard">Pilastro</string>
     <string name="type.barrier.border_control">Controllo di frontiera</string>

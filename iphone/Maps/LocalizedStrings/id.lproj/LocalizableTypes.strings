@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Titik Air";
 "type.amenity.water_point.drinking_water_no" = "Titik Air";
 "type.barrier" = "Barrier";
+"type.barrier.yes" = "Barrier";
 "type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Pilar";
 "type.barrier.border_control" = "Gerbang perbatasan";

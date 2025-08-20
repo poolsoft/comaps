@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Punt d’aigua";
 "type.amenity.water_point.drinking_water_no" = "Punt d’aigua";
 "type.barrier" = "Barrera";
+"type.barrier.yes" = "Barrera";
 "type.barrier.block" = "Bloc";
 "type.barrier.bollard" = "Bol·lard";
 "type.barrier.border_control" = "Control fronterer";

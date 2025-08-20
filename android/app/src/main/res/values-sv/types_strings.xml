@@ -1182,6 +1182,7 @@
     <string name="type.amenity.vending_machine.coffee">Kaffeautomat</string>
     <string name="type.amenity.vending_machine.fuel">Bränslepump</string>
     <string name="type.barrier">Hinder</string>
+    <string name="type.barrier.yes">Hinder</string>
     <string name="type.barrier.chain">Kedja</string>
     <string name="type.barrier.cycle_barrier">Cykelhinder</string>
     <string name="type.barrier.hedge">Häck</string>

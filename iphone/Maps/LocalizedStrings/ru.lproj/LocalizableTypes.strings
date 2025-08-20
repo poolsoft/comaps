@@ -190,6 +190,7 @@
 "type.amenity.water_point" = "Вода для автодомов";
 "type.amenity.water_point.drinking_water_no" = "Вода для автодомов";
 "type.barrier" = "Преграда";
+"type.barrier.yes" = "Преграда";
 "type.barrier.block" = "Блок";
 "type.barrier.bollard" = "Столбик";
 "type.barrier.border_control" = "Погранконтроль";
@@ -208,6 +209,7 @@
 "type.barrier.retaining_wall" = "Поддерживающая стена";
 "type.barrier.stile" = "Перелаз";
 "type.barrier.turnstile" = "Турникет";
+"type.barrier.wicket_gate" = "Калитка";
 "type.barrier.swing_gate" = "Шлагбаум";
 "type.barrier.toll_booth" = "Пункт оплаты";
 "type.barrier.wall" = "Стена";
