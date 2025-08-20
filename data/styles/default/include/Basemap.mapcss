@@ -487,6 +487,7 @@ area|z14-[amenity=grave_yard]
 
 area|z14-[highway=pedestrian][area?],
 area|z14-[area:highway=pedestrian],
+area|z14-[highway=pedestrian][place=square],
 area|z14-[highway=footway][area?],
 area|z14-[area:highway=footway],
 area|z14-[area:highway=living_street],
