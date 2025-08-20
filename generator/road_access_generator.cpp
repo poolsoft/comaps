@@ -86,6 +86,7 @@ TagMapping const kVehicleTagMapping = {
 TagMapping const kCarBarriersTagMapping = {
     {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
+    {OsmElement::Tag("barrier", "yes"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
