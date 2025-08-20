@@ -1022,7 +1022,7 @@ historic|pillory;[historic=pillory];;name;int_name;897;
 amenity|money_transfer;898;
 man_made|crane;899;
 railway|subway|darkgreen;[railway=subway][colour=darkgreen];x;name;int_name;900;railway|subway|tunnel
-deprecated|deprecated;901;x
+barrier|wicket_gate;901;
 railway|subway|gray;[railway=subway][colour=gray];x;name;int_name;902;railway|subway|tunnel
 deprecated|deprecated;903;x
 railway|subway|lightblue;[railway=subway][colour=lightblue];x;name;int_name;904;railway|subway|tunnel
