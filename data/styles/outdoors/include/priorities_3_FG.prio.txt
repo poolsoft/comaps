@@ -60,6 +60,7 @@ barrier-fence                                       # line z15-
 barrier-guard_rail                                  # line z16-
 barrier-hedge                                       # line z16-
 barrier-wall                                        # line z15-
+barrier-yes                                         # line z15- (also has icon z16-, caption(optional) z16-)
 railway-funicular                                   # line z12-
 railway-funicular-bridge                            # line z12-
 railway-funicular-tunnel                            # line z12-

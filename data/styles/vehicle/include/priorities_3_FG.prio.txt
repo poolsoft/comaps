@@ -30,6 +30,7 @@ barrier-fence                                       # line z17-
 barrier-guard_rail                                  # line z17-
 barrier-hedge                                       # line z18-
 barrier-wall                                        # line z17-
+barrier-yes                                         # line z17-
 railway-monorail                                    # line z14-
 railway-monorail-bridge                             # line z14-
 railway-monorail-tunnel                             # line z14-
