@@ -41,8 +41,6 @@
 
 A community-led free & open source maps app based on [OpenStreetMap](https://www.openstreetmap.org), built for transparency, privacy, and not-for-profit values. A fork of Organic Maps, originally based on Maps.ME.
 
-**Available for:** Android, iOS, ARM macOS, and alpha Linux/macOS desktop builds (also usable on Linux phones).
-
 <p align="center">
   <a href="https://apps.apple.com/app/comaps/id6747180809">
     <img src="docs/badges/apple-appstore.png" alt="App Store" width="160"/>
@@ -77,9 +75,10 @@ A community-led free & open source maps app based on [OpenStreetMap](https://www
 ## ⚡️ Highlights
 
 - **Offline-first**: Navigate without a connection
-- **Privacy-respecting**: No tracking, Ads or data collection
+- **Privacy-respecting**: No tracking, ads or data collection
 - **Lightweight**: Battery- and space-efficient
 - **Simple**: Polished, user-focused interface
+- **Cross-platform**: Available for Android, iOS, MacOS, and Linux.
 - **Community-built**: Free, open source, and collaborative
 - **Transparent**: Open finances and governance
 
