@@ -19,7 +19,7 @@
 </div>
 <div align="center">
   <p align="center">
-    <a href="LICENSE">
+    <a href="https://codeberg.org/comaps/comaps/src/branch/main/LICENSE">
       <img src="https://img.shields.io/github/license/comaps/comaps?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=588157" alt="License"/>
     </a>
     <a href="https://github.com/comaps/comaps/actions/workflows/android-check.yaml">
