@@ -187,6 +187,7 @@
     <string name="type.amenity.vehicle_inspection">Vehicle Inspection</string>
     <string name="type.amenity.vending_machine.fuel">Fuel Pump</string>
     <string name="type.amenity.veterinary">Veterinary Doctor</string>
+    <string name="type.amenity.animal_shelter">Animal Shelter</string>
     <string name="type.amenity.waste_basket">Trash Bin</string>
     <string name="type.amenity.waste_disposal">Dumpster</string>
     <string name="type.amenity.waste_transfer_station">Waste Transfer Station</string>

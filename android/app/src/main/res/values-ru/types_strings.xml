@@ -182,6 +182,7 @@
     <string name="type.amenity.vehicle_inspection">Техосмотр автомобиля</string>
     <string name="type.amenity.vending_machine.fuel">Топливная колонка</string>
     <string name="type.amenity.veterinary">Ветеринарная клиника</string>
+    <string name="type.amenity.animal_shelter">Приют для животных</string>
     <string name="type.amenity.waste_basket">Урна</string>
     <string name="type.amenity.waste_disposal">Мусорный контейнер</string>
     <string name="type.amenity.waste_transfer_station">Станция перевалки отходов</string>

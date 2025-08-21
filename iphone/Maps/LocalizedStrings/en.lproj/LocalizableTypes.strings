@@ -197,6 +197,7 @@
 "type.amenity.vehicle_inspection" = "Vehicle Inspection";
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
 "type.amenity.veterinary" = "Veterinary Doctor";
+"type.amenity.animal_shelter" = "Animal Shelter";
 "type.amenity.waste_basket" = "Trash Bin";
 "type.amenity.waste_disposal" = "Dumpster";
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";

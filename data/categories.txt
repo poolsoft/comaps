@@ -12994,6 +12994,10 @@ sk:4Veterinár
 fa:دامپزشکی
 mr:पशुवैद्यकीय डॉक्टर|प्राण्यांचा डॉक्टर
 
+amenity-animal_shelter
+en:Animal Shelter
+ru:Приют для животных
+
 @charging_station
 en:4Charging Station|charging
 ru:4Зарядная станция|зарядка|электрозарядка|зарядить

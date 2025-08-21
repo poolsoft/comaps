@@ -184,6 +184,7 @@
 "type.amenity.vehicle_inspection" = "Техосмотр автомобиля";
 "type.amenity.vending_machine.fuel" = "Топливная колонка";
 "type.amenity.veterinary" = "Ветеринарная клиника";
+"type.amenity.animal_shelter" = "Приют для животных";
 "type.amenity.waste_basket" = "Урна";
 "type.amenity.waste_disposal" = "Мусорный контейнер";
 "type.amenity.waste_transfer_station" = "Станция перевалки отходов";

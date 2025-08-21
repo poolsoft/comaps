@@ -916,6 +916,7 @@ railway-level_crossing                              # icon z17-
 railway-platform                                    # caption z16- (also has area z16-)
 === 1650
 
+amenity-animal_shelter                              # icon z17- (also has caption(optional) z17-)
 amenity-car_wash                                    # icon z17- (also has caption(optional) z17-, area z15-)
 amenity-childcare                                   # icon z17- (also has caption(optional) z17-, area z13-)
 amenity-doctors                                     # icon z17- (also has caption(optional) z17-, area z15-)
@@ -1877,6 +1878,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-picnic_site                               # caption(optional) z16- (also has icon z16-)
 # === -8200
 
+# amenity-animal_shelter                            # caption(optional) z17- (also has icon z17-)
 # amenity-car_wash                                  # caption(optional) z17- (also has icon z17-, area z15-)
 # amenity-childcare                                 # caption(optional) z17- (also has icon z17-, area z13-)
 # amenity-doctors                                   # caption(optional) z17- (also has icon z17-, area z15-)
