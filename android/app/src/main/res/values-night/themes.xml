@@ -47,6 +47,7 @@
 
         <item name="ppBackground">@color/bg_cards_night</item>
         <item name="ppButtonsBackground">@color/bg_window_night</item>
+        <item name="ppFloatingMarkerIconColor">@color/white_54</item>
 
         <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
         <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
