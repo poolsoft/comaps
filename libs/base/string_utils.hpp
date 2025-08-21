@@ -114,6 +114,20 @@ void Trim(std::string_view & sv);
 void Trim(std::string_view & s, std::string_view anyOf);
 void Trim(std::string & s, std::string_view anyOf);
 
+template <std::convertible_to<std::string_view> Utf8>
+size_t CountChar(Utf8 const & utf8)
+{
+  size_t codePoints = 0;
+
+  for (auto const c : utf8)
+  {
+    if ((c & 0xC0) != 0x80)
+      ++codePoints;
+  }
+
+  return codePoints;
+}
+
 bool Truncate(std::string & utf8, size_t const maxTextLengthPlus1);
 
 // Replace the first match of the search substring in the input with the format string.

@@ -213,7 +213,7 @@ void ReorderRTL(TextSegments & segments)
 TextSegments GetTextSegments(std::string_view utf8)
 {
   ASSERT(!utf8.empty(), ("Shaping of empty strings is not supported"));
-  ASSERT(std::string::npos == utf8.find_first_of("\r\n"), ("Shaping with line breaks is not supported", utf8));
+  ASSERT(std::string::npos == utf8.find_first_of("\n"), ("Shaping with line breaks is not supported", utf8));
 
   // TODO(AB): Can unnecessary conversion/allocation be avoided?
   TextSegments segments{strings::ToUtf16(utf8), {}};

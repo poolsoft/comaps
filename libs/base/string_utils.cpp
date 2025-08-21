@@ -8,7 +8,6 @@
 #include <cmath>
 #include <cstddef>
 #include <iomanip>
-#include <iterator>
 
 #include <fast_double_parser.h>
 #include <boost/algorithm/string/trim.hpp>
@@ -345,7 +344,7 @@ std::u16string ToUtf16(std::string_view utf8)
 
 bool IsASCIIString(std::string_view sv)
 {
-  for (auto c : sv)
+  for (auto const c : sv)
     if (c & 0x80)
       return false;
   return true;

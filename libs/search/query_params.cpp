@@ -3,7 +3,7 @@
 #include "search/ranking_utils.hpp"
 #include "search/token_range.hpp"
 
-#include <map>
+#include <unordered_map>
 #include <sstream>
 
 namespace search
@@ -15,7 +15,7 @@ namespace
 // All synonyms should be lowercase.
 
 /// @todo These should check the map language and use only the corresponding translation.
-map<string, vector<string>> const kSynonyms = {
+unordered_map<string, vector<string>> const kSynonyms = {
     /// @todo Should process synonyms with errors like "blvrd" -> "blvd".
     /// @see HouseOnStreetSynonymsWithMisprints test.
     {"1", {"pierwszy", "pierwsza", "un", "una", "pierwsze", "primo"}},

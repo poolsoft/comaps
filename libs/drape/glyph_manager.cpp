@@ -19,10 +19,6 @@
 #include <ft2build.h>
 #include <hb-ft.h>
 #include <unicode/unistr.h>
-#include <limits>
-#include <sstream>
-#include <string>
-#include <vector>
 
 #include FT_FREETYPE_H
 #include FT_MODULE_H
@@ -600,8 +596,7 @@ FreetypeError constexpr g_FT_Errors[] =
     // For SplitText it's enough to know if the last visual (first logical) segment is RTL.
     allGlyphs.m_isRTL = segments.back().m_direction == HB_DIRECTION_RTL;
 
-    // TODO(AB): Check if it's slower or faster.
-    allGlyphs.m_glyphs.reserve(icu::UnicodeString{false, text.data(), static_cast<int32_t>(text.size())}.countChar32());
+    allGlyphs.m_glyphs.reserve(strings::CountChar(utf8));
 
     for (auto const & substring : segments)
     {
