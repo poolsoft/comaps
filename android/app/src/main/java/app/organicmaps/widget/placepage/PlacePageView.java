@@ -148,7 +148,7 @@ public class PlacePageView extends Fragment
   private View mAddPlace;
   private View mEditTopSpace;
   private ImageView mColorIcon;
-  private TextView mTvCategory;
+  private MaterialTextView mTvCategory;
   private ImageView mEditBookmark;
 
   // Data
@@ -373,7 +373,7 @@ public class PlacePageView extends Fragment
     if (mMapObject.isTrack() || mMapObject.isBookmark())
     {
       UiUtils.hide(mTvSubtitle);
-      UiUtils.hide(mTvAzimuth, mAvDirection, mTvDistance);
+      UiUtils.hide(mAvDirection, mTvDistance);
     }
   }
 

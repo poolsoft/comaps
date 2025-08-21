@@ -204,7 +204,7 @@
         android:focusable="true"
         android:paddingHorizontal="8dp"
         android:paddingVertical="5dp" />
-      <TextView
+      <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv__category"
         style="@style/PlacePageMetadataText.Button"
         android:layout_alignParentTop="true"
