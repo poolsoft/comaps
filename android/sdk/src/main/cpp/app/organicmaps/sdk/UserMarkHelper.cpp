@@ -1,6 +1,7 @@
 #include "UserMarkHelper.hpp"
 
 #include "app/organicmaps/sdk/routing/RoutePointInfo.hpp"
+#include "app/organicmaps/sdk/util/Distance.hpp"
 
 #include "map/elevation_info.hpp"
 #include "map/place_page_info.hpp"
