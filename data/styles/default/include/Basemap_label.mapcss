@@ -709,7 +709,7 @@ node|z17[entrance],
 node|z18[amenity=loading_dock],
 node|z16[entrance=main],
 node|z16[emergency=emergency_ward_entrance],
-{icon-image: dot-m.svg;}
+{icon-image: square-m.svg;}
 
 node|z18-[entrance],
 node|z19-[amenity=loading_dock],
