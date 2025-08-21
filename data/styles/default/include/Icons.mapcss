@@ -924,7 +924,7 @@ node|z18-[amenity=veterinary],
 {font-size: 11;}
 
 node|z17-[amenity=animal_shelter],
-{icon-image: dog_park-m.svg;}
+{icon-image: animal_shelter-m.svg;}
 node|z18-[amenity=animal_shelter],
 {font-size: 11;}
 
