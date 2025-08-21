@@ -95,7 +95,7 @@ UNIT_TEST(Russia_Moscow_TrikotagniAndPohodniRoundabout_TurnTest)
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout).TestRoundAboutExitNum(2);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
-
+  // Route length: 388.169 meters. ETA: 40.4678 seconds.
   integration::TestRouteLength(route, 387.);
 }
 
@@ -131,7 +131,9 @@ UNIT_TEST(Russia_Moscow_PlanetnayaOnlyStraight_TurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
-
+  // TODO: w/ penalties PR: Route length: 543.697 meters. ETA: 129.123 seconds.
+  // Old: Route length: 417.806 meters. ETA: 132.629 seconds.
+  // Hard to say which one is better.
   integration::TestRouteLength(route, 418.0);
 }
 
@@ -722,6 +724,11 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  // TODO: w/ penalties PR: Route length: 4 turns, 3346.5 meters. ETA: 323.326 seconds.
+  // Old: 6 turns, Route length: 2976.69 meters. ETA: 251.882 seconds
+  // The new route looks better overall.
+  // However the last "turn" is more like going to off-ramp and might be worth it:
+  // 3355.19 meters. ETA: 322.08 seconds
   integration::TestTurnCount(route, 6 /* expectedTurnCount */);
 }
 

@@ -313,6 +313,7 @@ UNIT_TEST(GermanyBerlinMunichTimeTest)
 
   /// @todo New time is closer to GraphHopper timing, but still very optimistic. Compare maxspeed=none defaults.
   // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.51172%2C13.39468%3B48.13294%2C11.60352
+  // TODO: w/ penalties PR: Route length: 585244 meters. ETA: 19436 seconds.
   TestRouteLength(route, 584960);
   TestRouteTime(route, 19173.3);
 }
@@ -328,6 +329,7 @@ UNIT_TEST(GermanyShuttleTrainTest)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
+  // TODO: w/ penalties PR: Route length: 44520.5 meters. ETA: 2732.48 seconds.
   TestRouteLength(route, 44517.4);
   TestRouteTime(route, 2619.62);
 }
@@ -384,6 +386,9 @@ UNIT_TEST(Spain_RestirctionOnlyMany)
                                    FromLatLon(43.38222, -5.69083), 8289.15);
 }
 
+// TODO: w/ penalties PR: Route length: 2409.19 meters. ETA: 189.409 second
+// i.e. prefers to take a longer highway detour instead of service roads many turns - seems good!
+// (current test: Route length: 895.203 meters. ETA: 196.768 seconds.)
 UNIT_TEST(Russia_Moscow_RestirctionOnlyMany)
 {
   // This relation https://www.openstreetmap.org/relation/581743
@@ -531,6 +536,8 @@ UNIT_TEST(Austria_Croatia_SalzburgZagreb)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1071
+// TODO: w/ penalties PR: Route length: 348417 meters. ETA: 17740.4 seconds.
+// The route seems to be logical, so looks like an improvement?!
 UNIT_TEST(Russia_MoscowDesnogorsk)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.715208, 37.396528), {0., 0.},
@@ -660,6 +667,10 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4110
+// TODO: w/ penalties PR: Route length: 162712 meters. ETA: 6478.54 seconds
+// a strange looking detour is added in the end of the route compared to screenshot in OM #4110
+// Adding intermediate 45.255047, 13.6235211 fixes it:
+// Route length: 156291 meters. ETA: 6469.42 seconds (both shorter and tad faster!)
 UNIT_TEST(Slovenia_Croatia_CrossBorderPenalty)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(46.038579, 14.469414), {0., 0.},
@@ -727,6 +738,7 @@ UNIT_TEST(Germany_Netherlands_AvoidLoops)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
+  // TODO: w/ penalties PR: Route length: 405391 meters. ETA: 14249.4 seconds.
   TestRouteLength(route, 405058);
   TestRouteTime(route, 13965.2);
 }
@@ -823,9 +835,11 @@ UNIT_TEST(Netherlands_CrossMwm_Ferry)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/6278
+// TODO: w/ penalties PR: Route length: 4629.08 meters. ETA: 750.719 seconds.
+// The new route looks alright.
 UNIT_TEST(Turkey_PreferSecondary_NotResidential)
 {
-  /// @todo Now the app wrongly takes tertiary (no limits) vs primary/secondary (with maxspeed = 30).
+  /// @todo Now the app wrongly takes tertiary (no limits) vs primary/secondary (with maxspeed = 30) - fixed?
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(41.0529, 28.9201), {0., 0.},
                                    FromLatLon(41.0731, 28.9407), 4783.85);
 }
@@ -868,15 +882,19 @@ UNIT_TEST(LATAM_UsePrimary_NotTrunkDetour)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/8729
-// https://github.com/organicmaps/organicmaps/issues/8541
 UNIT_TEST(USA_UseDirt_WithMaxspeed)
 {
+  // Route length: 20907.2 meters. ETA: 1847.97 seconds.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(46.5361985, -111.943183),
                                    {0., 0.}, FromLatLon(46.4925409, -112.105446), 20906.5);
 
+  // TODO: w/ penalties PR: Route length: 3324.62 meters. ETA: 1377.89 seconds.
+  // The new route is shorter and less turns!
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(46.7336967, -111.926), {0., 0.},
                                    FromLatLon(46.7467037, -111.917147), 3527.79);
 
+  // Albania https://github.com/organicmaps/organicmaps/issues/8541
+  // 247.14 meters. ETA: 370.356 seconds
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(42.3889581, 19.7812567), {0., 0.},
                                    FromLatLon(42.3878106, 19.7831402), 247.139);
 }
