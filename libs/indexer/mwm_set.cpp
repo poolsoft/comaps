@@ -388,6 +388,12 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
     MYTHROW(CorruptedMwmFile, (m_cont.GetFileName()));
 
   m_header.Load(m_cont);
+
+  if (m_cont.IsExist(REGION_INFO_FILE_TAG))
+  {
+    ReaderSource<FilesContainerR::TReader> src(m_cont.GetReader(REGION_INFO_FILE_TAG));
+    m_regionData.Deserialize(src);
+  }
 }
 
 MwmValue::~MwmValue() {}

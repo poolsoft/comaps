@@ -385,6 +385,7 @@ public:
 private:
   version::MwmVersion m_version;
   feature::DataHeader m_header;
+  feature::RegionData m_regionData;
 
 public:
   // m_ftTable should always present, m_relTable maybe nullptr.
@@ -399,6 +400,7 @@ public:
   void SetTable(MwmInfoEx & info);
 
   feature::DataHeader const & GetHeader() const { return m_header; }
+  feature::RegionData const & GetRegionData() const { return m_regionData; }
   version::MwmVersion const & GetMwmVersion() const { return m_version; }
   std::string const & GetCountryFileName() const { return m_file.GetCountryName(); }
 
