@@ -66,18 +66,19 @@
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/osm_username_container"
         style="@style/MwmWidget.Editor.CustomTextInput"
+        android:hint="@string/email_or_username"
         android:textColorHint="?android:textColorSecondary"
         app:endIconMode="custom">
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/osm_username"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:autofillHints="emailAddress"
-          android:hint="@string/email_or_username" />
+          android:autofillHints="emailAddress" />
       </com.google.android.material.textfield.TextInputLayout>
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/osm_password_container"
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
+        android:hint="@string/password"
         android:textColorHint="?android:textColorSecondary"
         app:endIconMode="password_toggle"
         app:endIconTint="?android:textColorSecondary">
@@ -85,7 +86,6 @@
           android:id="@+id/osm_password"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
           android:autofillHints="password"
-          android:hint="@string/password"
           android:inputType="textPassword" />
       </com.google.android.material.textfield.TextInputLayout>
       <FrameLayout
