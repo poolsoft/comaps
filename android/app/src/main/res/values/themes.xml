@@ -64,10 +64,6 @@
                accentButtonTextColor selector -->
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
 
-    <item name="redButtonBackground">@drawable/button_red</item>
-    <item name="redButtonTextColor">@color/button_red_text</item>
-    <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
-
     <item name="primaryButtonBackground">@drawable/button_accent</item>
 
     <item name="menuBackground">@color/bg_menu</item>

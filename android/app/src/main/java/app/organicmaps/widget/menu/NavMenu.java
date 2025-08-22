@@ -3,8 +3,6 @@ package app.organicmaps.widget.menu;
 import android.location.Location;
 import android.util.Pair;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -17,6 +15,8 @@ import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 import java.time.LocalTime;
@@ -29,7 +29,7 @@ public class NavMenu
   private final View mBottomSheetBackground;
   private final View mHeaderFrame;
 
-  private final ImageView mTts;
+  private final ShapeableImageView mTts;
   private final View mSpeedViewContainer;
   private final MaterialTextView mSpeedValue;
   private final MaterialTextView mSpeedUnits;
@@ -105,13 +105,12 @@ public class NavMenu
     mRouteProgress = bottomFrame.findViewById(R.id.navigation_progress);
 
     // Bottom frame buttons
-    ImageView mSettings = bottomFrame.findViewById(R.id.settings);
+    ShapeableImageView mSettings = bottomFrame.findViewById(R.id.settings);
     mSettings.setOnClickListener(v -> onSettingsClicked());
     mTts = bottomFrame.findViewById(R.id.tts_volume);
     mTts.setOnClickListener(v -> onTtsClicked());
-    Button stop = bottomFrame.findViewById(R.id.stop);
+    MaterialButton stop = bottomFrame.findViewById(R.id.stop);
     stop.setOnClickListener(v -> onStopClicked());
-    UiUtils.updateRedButton(stop);
   }
 
   private void onStopClicked()

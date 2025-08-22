@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.AnyRes;
@@ -208,13 +207,6 @@ public final class UiUtils
     windowManager.getDefaultDisplay().getRealMetrics(metrics);
     return metrics.heightPixels;
   }
-
-  public static void updateRedButton(Button button)
-  {
-    button.setTextColor(ThemeUtils.getColor(
-        button.getContext(), button.isEnabled() ? R.attr.redButtonTextColor : R.attr.redButtonTextColorDisabled));
-  }
-
   public static void setInputError(@NonNull TextInputLayout layout, @StringRes int error)
   {
     setInputError(layout, error == 0 ? null : layout.getContext().getString(error));
