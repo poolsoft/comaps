@@ -7,6 +7,7 @@ import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -35,15 +36,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 
   private void setupItem(@IdRes int id, boolean tint, @NonNull View frame)
   {
-    final MaterialTextView view = frame.findViewById(id);
-    view.setOnClickListener(this);
-    if (tint)
-      Graphics.tint(view);
-  }
-
-  private void setupButton(@IdRes int id, boolean tint, @NonNull View frame)
-  {
-    final MaterialButton view = frame.findViewById(id);
+    final TextView view = frame.findViewById(id);
     view.setOnClickListener(this);
     if (tint)
       Graphics.tint(view);
@@ -79,7 +72,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.mastodon, false, root);
     setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.faq, true, root);
-    setupButton(R.id.report, isLandscape, root);
+    setupItem(R.id.report, isLandscape, root);
     setupItem(R.id.copyright, false, root);
 
     final MaterialTextView supportUsView = root.findViewById(R.id.support_us);
@@ -95,7 +88,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     {
       /*donateView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_donate, 0,
                 R.drawable.ic_donate, 0);*/
-      setupButton(R.id.donate, isLandscape, root);
+      setupItem(R.id.donate, isLandscape, root);
     }
 
     if (BuildConfig.REVIEW_URL.isEmpty())
