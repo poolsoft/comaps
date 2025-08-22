@@ -26,6 +26,7 @@
       style="@style/Widget.Material3.LinearProgressIndicator"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:progress="1"
       app:indicatorColor="?colorSecondary"
       app:trackCornerRadius="@dimen/nav_progress_head"
       app:trackThickness="@dimen/nav_progress"

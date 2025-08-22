@@ -26,6 +26,7 @@
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginBottom="@dimen/margin_base"
     android:indeterminate="false"
+    android:progress="1"
     app:indicatorColor="?colorSecondary"
     app:trackColor="@color/bg_routing_progress"/>
   <com.google.android.material.button.MaterialButton
