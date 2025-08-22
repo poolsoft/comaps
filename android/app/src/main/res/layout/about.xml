@@ -145,7 +145,7 @@
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/how_to_support_us"
         android:textAlignment="viewStart"
-        app:drawableStartCompat="@drawable/ic_donate" />
+        app:drawableStartCompat="@drawable/ic_volunteer" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/news"

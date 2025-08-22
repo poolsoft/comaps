@@ -308,7 +308,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Donate</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Support the project</string>
+    <string name="how_to_support_us">Volunteer and improve CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Copyright</string>
     <!-- Text in menu + Button in the main Help dialog -->
