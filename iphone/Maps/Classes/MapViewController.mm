@@ -938,7 +938,7 @@ NSString *const kAboutSegue = @"Map2About";
     case UIGestureRecognizerStateChanged:
     {
       CGPoint translation = [recognizer translationInView:self.view];
-      if (translation.x == 0 && CGPointEqualToPoint(translation, CGPointZero))
+      if (translation.y == 0)
         return;
       self.userTouchesAction = UserTouchesActionScale;
       static const CGFloat kScaleFactor = 0.9;
