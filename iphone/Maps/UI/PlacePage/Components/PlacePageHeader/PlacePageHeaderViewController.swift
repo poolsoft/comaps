@@ -3,7 +3,7 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
   var isExpandViewHidden: Bool { get set }
   var isShadowViewHidden: Bool { get set }
 
-  func setTitle(_ title: String?, secondaryTitle: String?, existenceConfirmation: String?)
+  func setTitle(_ title: String?, secondaryTitle: String?)
   func showShareTrackMenu()
 }
 
@@ -77,7 +77,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     }
   }
 
-  func setTitle(_ title: String?, secondaryTitle: String?, existenceConfirmation: String? = nil) {
+  func setTitle(_ title: String?, secondaryTitle: String?) {
     titleText = title
     secondaryText = secondaryTitle
     // XCode 13 is not smart enough to detect that title is used below, and requires explicit unwrapped variable.
@@ -92,18 +92,6 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     ]
 
     let attributedText = NSMutableAttributedString(string: unwrappedTitle, attributes: titleAttributes)
-
-    // Add existence confirmation if available
-    if let existenceText = existenceConfirmation {
-      let existenceParagraphStyle = NSMutableParagraphStyle()
-      existenceParagraphStyle.paragraphSpacingBefore = 1
-      let existenceAttributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont.systemFont(ofSize: 11),
-        .foregroundColor: UIColor.blackSecondaryText(),
-        .paragraphStyle: existenceParagraphStyle
-      ]
-      attributedText.append(NSAttributedString(string: "\n" + existenceText, attributes: existenceAttributes))
-    }
 
     guard let unwrappedSecondaryTitle = secondaryTitle else {
       titleLabel?.attributedText = attributedText

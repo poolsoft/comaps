@@ -23,28 +23,26 @@ class PlacePageHeaderPresenter {
 
   private weak var view: PlacePageHeaderViewProtocol?
   private let placePagePreviewData: PlacePagePreviewData
-  private let placePageData: PlacePageData
   let objectType: PlacePageObjectType
   private weak var delegate: PlacePageHeaderViewControllerDelegate?
   private let headerType: HeaderType
 
   init(view: PlacePageHeaderViewProtocol,
-       placePageData: PlacePageData,
+       placePagePreviewData: PlacePagePreviewData,
+       objectType: PlacePageObjectType,
        delegate: PlacePageHeaderViewControllerDelegate?,
        headerType: HeaderType) {
     self.view = view
     self.delegate = delegate
-    self.placePageData = placePageData
-    self.placePagePreviewData = placePageData.previewData
-    self.objectType = placePageData.objectType
+    self.placePagePreviewData = placePagePreviewData
+    self.objectType = objectType
     self.headerType = headerType
   }
 }
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
   func configure() {
-    let existenceConfirmation = getExistenceConfirmationText()
-    view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle, existenceConfirmation: existenceConfirmation)
+    view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)
     switch headerType {
     case .flexible:
       view?.isExpandViewHidden = false
@@ -69,11 +67,5 @@ extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
 
   func onExportTrackButtonPress(_ type: KmlFileType, from sourceView: UIView) {
     delegate?.previewDidPressExportTrack(type, from: sourceView)
-  }
-  
-  private func getExistenceConfirmationText() -> String? {
-    guard let mostRecentDate = placePageData.infoData?.getMostRecentCheckDate() else { return nil }
-    let timeAgoText = mostRecentDate.formatTimeAgo()
-    return String(format: L("existence_confirmed_time_ago"), timeAgoText)
   }
 }

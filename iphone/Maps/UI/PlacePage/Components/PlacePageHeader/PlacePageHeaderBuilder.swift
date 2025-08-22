@@ -5,7 +5,8 @@ class PlacePageHeaderBuilder {
     let storyboard = UIStoryboard.instance(.placePage)
     let viewController = storyboard.instantiateViewController(ofType: PlacePageHeaderViewController.self);
     let presenter = PlacePageHeaderPresenter(view: viewController,
-                                             placePageData: data,
+                                             placePagePreviewData: data.previewData,
+                                             objectType: data.objectType,
                                              delegate: delegate,
                                              headerType: headerType)
 

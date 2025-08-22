@@ -214,7 +214,9 @@ final class PlacePageScrollView: UIScrollView {
       viewController.didMove(toParent: self)
       if showSeparator {
         viewController.view.addSeparator(.top)
-        viewController.view.addSeparator(.bottom)
+        if !(viewController is PlacePageInfoViewController) {
+          viewController.view.addSeparator(.bottom)
+        }
       }
     }
   }
