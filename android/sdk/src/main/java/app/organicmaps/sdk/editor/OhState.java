@@ -1,4 +1,4 @@
-package app.organicmaps.editor;
+package app.organicmaps.sdk.editor;
 
 import androidx.annotation.Keep;
 
