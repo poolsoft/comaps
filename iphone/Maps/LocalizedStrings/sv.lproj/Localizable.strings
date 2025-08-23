@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Sparad";
-
 "core_entrance" = "Ingång";
 "error_enter_correct_name" = "Ange ett korrekt namn";
 "bookmark_lists" = "Listor";

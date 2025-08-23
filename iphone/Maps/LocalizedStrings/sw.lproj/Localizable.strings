@@ -741,7 +741,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Imehifadhiwa";
-
 "core_entrance" = "Kiingilio";
 "error_enter_correct_name" = "Tafadhali, weka jina sahihi";
 "bookmark_lists" = "Orodha";

@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Saglabāts";
-
 "core_entrance" = "Ieeja";
 "error_enter_correct_name" = "Ierakstiet pareizu nosaukumu";
 "bookmark_lists" = "Saraksti";

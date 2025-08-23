@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "सहेजी हुई";
-
 "core_entrance" = "Entrance";
 "error_enter_correct_name" = "Please enter a correct name";
 "bookmark_lists" = "सूचियों";

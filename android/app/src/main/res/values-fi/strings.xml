@@ -264,7 +264,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Lahjoita</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Tue projektia</string>
+    <string name="how_to_support_us">Auta ja paranna CoMapsiä</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Tekijänoikeudet</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -921,4 +921,6 @@
     <string name="at">kello %s</string>
     <string name="osm_note_toast">Huomio lähetetään OpenStreetMap:iin</string>
     <string name="osm_note_hint">Vaihtoehtoisesti voit jättää huomion OpenStreetMap yhteisölle, jotta joku muu voi lisätä tai korjata paikan tiedot.</string>
+    <string name="delete_track_dialog_title">Poista %s?</string>
+    <string name="share_track">Jaa Reitti</string>
 </resources>

@@ -757,7 +757,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Tallennettu";
-
 "core_entrance" = "Sisäänkäynti";
 "error_enter_correct_name" = "Anna oikea nimi";
 "bookmark_lists" = "Luettelot";

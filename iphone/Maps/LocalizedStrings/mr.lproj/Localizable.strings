@@ -748,7 +748,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "जतन केले";
-
 "core_entrance" = "प्रवेशद्वार";
 "error_enter_correct_name" = "कृपया योग्य नाव प्रविष्ट करा";
 "bookmark_lists" = "याद्या";

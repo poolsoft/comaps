@@ -1296,3 +1296,5 @@
 "type.place.city" = "City";
 "type.amenity.parking_entrance.permissive" = "Parking Entrance";
 "type.cuisine.italian_pizza" = "Italian, Pizza";
+"type.amenity.animal_shelter" = "Animal Shelter";
+"type.barrier.wicket_gate" = "Wicket gate";

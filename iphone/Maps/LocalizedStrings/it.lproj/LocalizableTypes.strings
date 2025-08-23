@@ -1482,3 +1482,5 @@
 "type.amenity.bicycle_parking.covered" = "Parcheggio Biciclette Coperto";
 "type.post_office.post_partner" = "Partner Postale";
 "type.landuse.religious" = "Terreno Religioso";
+"type.barrier.wicket_gate" = "Wicket gate";
+"type.amenity.animal_shelter" = "Animal Shelter";

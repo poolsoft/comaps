@@ -750,7 +750,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Gestoor";
-
 "core_entrance" = "Ingang";
 "error_enter_correct_name" = "Voer asb. ’n korrekte naam in";
 "bookmark_lists" = "Lyste";

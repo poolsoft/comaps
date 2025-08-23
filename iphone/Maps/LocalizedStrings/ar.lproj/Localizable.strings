@@ -750,7 +750,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "تم الحفظ";
-
 "core_entrance" = "المدخل";
 "error_enter_correct_name" = "الرجاء إدخال اسم صحيح";
 "bookmark_lists" = "قوائم";

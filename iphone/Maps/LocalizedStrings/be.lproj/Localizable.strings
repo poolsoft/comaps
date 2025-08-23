@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Захавана";
-
 "core_entrance" = "Уваход";
 "error_enter_correct_name" = "Увядзіце правільную назву";
 "bookmark_lists" = "Спісы";

@@ -757,7 +757,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "保存しました";
-
 "core_entrance" = "入口";
 "error_enter_correct_name" = "正しい名前を入力してください";
 "bookmark_lists" = "リスト";

@@ -754,7 +754,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Gemt";
-
 "core_entrance" = "Indgang";
 "error_enter_correct_name" = "Angiv et korrekt navn";
 "bookmark_lists" = "Lister";

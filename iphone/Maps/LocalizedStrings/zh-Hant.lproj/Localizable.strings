@@ -756,7 +756,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "已儲存";
-
 "core_entrance" = "入口";
 "error_enter_correct_name" = "請輸入正確的名稱";
 "bookmark_lists" = "列表";

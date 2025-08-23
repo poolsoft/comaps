@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Запазено";
-
 "core_entrance" = "Вход";
 "error_enter_correct_name" = "Моля, въведете правилно име";
 "bookmark_lists" = "Списъци";

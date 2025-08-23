@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "S'ha desat";
-
 "core_entrance" = "Entrada";
 "error_enter_correct_name" = "Introduïu un nom correcte";
 "bookmark_lists" = "Llistes";

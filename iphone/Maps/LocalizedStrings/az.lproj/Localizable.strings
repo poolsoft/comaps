@@ -754,7 +754,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Saxlandı";
-
 "core_entrance" = "Giriş";
 "error_enter_correct_name" = "Düzgün ad daxil edin";
 "bookmark_lists" = "Siyahılar";

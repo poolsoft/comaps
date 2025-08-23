@@ -1482,3 +1482,5 @@
 "type.amenity.luggage_locker" = "Casillero de maletas";
 "type.amenity.ranger_station" = "Estación de guardabosques";
 "type.amenity.bicycle_parking.covered" = "Parking de bici cubierto";
+"type.amenity.animal_shelter" = "Animal Shelter";
+"type.barrier.wicket_gate" = "Wicket gate";

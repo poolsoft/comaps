@@ -755,7 +755,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Salvestatud";
-
 "core_entrance" = "Sissepääs";
 "error_enter_correct_name" = "Palun sisesta korrektne nimi";
 "bookmark_lists" = "Loendid";

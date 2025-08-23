@@ -750,7 +750,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Salvato";
-
 "core_entrance" = "Ingresso";
 "error_enter_correct_name" = "Inserire un nome corretto";
 "bookmark_lists" = "Elenchi";

@@ -322,7 +322,7 @@
 "report_incorrect_map_bug" = "Comunica ou corrige dados incorretos do mapa";
 
 /* Button in the About screen */
-"volunteer" = "Voluntaria-te";
+"volunteer" = "Voluntaria-te e melhora CoMaps";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Entra em contacto connosco";
@@ -754,7 +754,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Guardado";
-
 "core_entrance" = "Entrada";
 "error_enter_correct_name" = "Introduza um nome correto";
 "bookmark_lists" = "Listas";

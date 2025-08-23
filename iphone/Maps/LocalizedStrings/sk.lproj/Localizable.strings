@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Uložené";
-
 "core_entrance" = "Vchod | vjazd";
 "error_enter_correct_name" = "Prosím, zadajte správne meno";
 "bookmark_lists" = "Zoznamy";

@@ -248,7 +248,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Doar</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Apoie o projeto</string>
+    <string name="how_to_support_us">Voluntarie e melhore CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Direitos de autor</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -909,4 +909,6 @@
     <string name="at">às %s</string>
     <string name="osm_note_toast">Nota será enviada para o OpenStreetMap</string>
     <string name="osm_note_hint">Ou, em vez disso, deixe uma nota para a comunidade do OpenStreetMap de tal maneira que outra pessoa possa adicionar ou consertar um local aqui.</string>
+    <string name="share_track">Partilhar Trajeto</string>
+    <string name="delete_track_dialog_title">Apagar %s?</string>
 </resources>

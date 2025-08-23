@@ -757,7 +757,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Opgeslagen";
-
 "core_entrance" = "Ingang";
 "error_enter_correct_name" = "Voer een geldige naam in";
 "bookmark_lists" = "Lijsten";

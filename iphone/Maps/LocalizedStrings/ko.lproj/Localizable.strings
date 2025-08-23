@@ -750,7 +750,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "저장됨";
-
 "core_entrance" = "입구";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
 "bookmark_lists" = "목록";

@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Αποθηκεύτηκε";
-
 "core_entrance" = "Είσοδος";
 "error_enter_correct_name" = "Εισάγετε ένα σωστό όνομα";
 "bookmark_lists" = "Λίστες";

@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "บันทึกแล้ว";
-
 "core_entrance" = "ทางเข้า";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 "bookmark_lists" = "รายการ";

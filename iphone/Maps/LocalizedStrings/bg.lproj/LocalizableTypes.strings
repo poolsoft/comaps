@@ -1482,3 +1482,5 @@
 "type.amenity.ranger_station" = "Станция за рейнджъри";
 "type.amenity.luggage_locker" = "Шкафче за багаж";
 "type.amenity.bicycle_parking.covered" = "Покрит паркинг за колела";
+"type.barrier.wicket_gate" = "Wicket gate";
+"type.amenity.animal_shelter" = "Animal Shelter";

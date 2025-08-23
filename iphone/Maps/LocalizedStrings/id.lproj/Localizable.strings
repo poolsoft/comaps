@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Disimpan";
-
 "core_entrance" = "Tempat masuk";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 "bookmark_lists" = "Daftar";

@@ -750,7 +750,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Salvat";
-
 "core_entrance" = "Daħla";
 "error_enter_correct_name" = "Daħħal isem korrett";
 "bookmark_lists" = "Listi";

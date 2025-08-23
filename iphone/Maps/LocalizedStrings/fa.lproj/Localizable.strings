@@ -751,7 +751,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "ذخیره شد";
-
 "core_entrance" = "ورودی";
 "error_enter_correct_name" = "لطفا نام صحیح را وارد کنید";
 "bookmark_lists" = "لیست‌ها";

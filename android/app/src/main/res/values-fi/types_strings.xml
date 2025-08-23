@@ -706,7 +706,7 @@
     <string name="type.natural.water">Vettä</string>
     <string name="type.natural.wetland">Soistuva maa</string>
     <string name="type.natural.wetland.bog">Suo</string>
-    <string name="type.natural.wetland.marsh">Marsh</string>
+    <string name="type.natural.wetland.marsh">Suo</string>
     <string name="type.office">Toimisto</string>
     <string name="type.office.company">Yhtiön toimisto</string>
     <string name="type.office.estate_agent">Kiinteistönvälittäjä</string>
@@ -1130,7 +1130,7 @@
     <string name="type.shop.baby_goods">Lasten kauppa</string>
     <string name="type.shop.bag">Laukkukauppa</string>
     <string name="type.shop.bed">Sänkykauppa</string>
-    <string name="type.shop.boutique">Boutique</string>
+    <string name="type.shop.boutique">Putiikki</string>
     <string name="type.shop.charity">Hyväntekeväisyysmyymälä</string>
     <string name="type.shop.cheese">Juustokauppa</string>
     <string name="type.shop.craft">Käsityöt</string>
@@ -1269,10 +1269,10 @@
     <string name="type.piste_type.nordic">Latu</string>
     <string name="type.piste_type.sled">Kelkkarata</string>
     <string name="type.piste_type.sled.area">Kelkkarata</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Lumipuisto</string>
     <string name="type.piste_type.hike">Lumi vaellusreitti</string>
     <string name="type.piste_type.connection">Pisteen yhteys</string>
-    <string name="type.piste_type.skitour">Skitour Trail</string>
+    <string name="type.piste_type.skitour">Hiihtovaellusreitti</string>
     <string name="type.amenity.events_venue">Tapahtumakeskus</string>
     <string name="type.shop.auction">Huutokauppa</string>
     <string name="type.shop.collector">Keräilyesineet</string>
@@ -1311,7 +1311,7 @@
     <string name="type.route">Reitti</string>
     <string name="type.boundary.administrative.3">Alueellinen raja</string>
     <string name="type.boundary.administrative.4">Alueellinen raja</string>
-    <string name="type.aeroway">Airspace Infrastructure</string>
+    <string name="type.aeroway">Ilmatilan Infrastruktuuri</string>
     <string name="type.aeroway.apron">Lentokentän asemataso</string>
     <string name="type.amenity.vending_machine.excrement_bags">Koirankakkapussiautomaatti</string>
     <string name="type.amenity.biergarten">Olutpuutarha</string>
@@ -1321,7 +1321,7 @@
     <string name="type.amenity.studio">Studio</string>
     <string name="type.barrier.guard_rail">Tiekaide</string>
     <string name="type.leisure.firepit">Tulentekopaikka</string>
-    <string name="type.leisure">Leisure</string>
+    <string name="type.leisure">Vapaa-aika</string>
     <string name="type.internet_access">Internet</string>
     <string name="type.landuse.vineyard">Viinitarha</string>
     <string name="type.landuse.village_green">Maa</string>
@@ -1334,7 +1334,7 @@
     <string name="type.man_made.breakwater">Aallonmurtaja</string>
     <string name="type.leisure.recreation_ground">Virkistysalue</string>
     <string name="type.internet_access.wlan">Internet</string>
-    <string name="type.man_made">Man Made</string>
+    <string name="type.man_made">Ihmisen Tekemä</string>
     <string name="type.fee.yes">$</string>
     <string name="type.organic.yes">Luomu</string>
     <string name="type.leisure.common">Julkinen paikka</string>
@@ -1390,4 +1390,6 @@
     <string name="type.amenity.luggage_locker">Matkatavarasäilytys</string>
     <string name="type.post_office.post_partner">Postikumppani</string>
     <string name="type.amenity.ranger_station">Vartioasema</string>
+    <string name="type.amenity.animal_shelter">Eläinsuoja</string>
+    <string name="type.barrier.wicket_gate">Käyntiovi</string>
 </resources>

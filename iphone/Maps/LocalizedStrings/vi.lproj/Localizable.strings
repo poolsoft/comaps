@@ -750,7 +750,6 @@
 
 /* Title for button when a route was saved. */
 "saved" = "Đã lưu";
-
 "core_entrance" = "Lối vào";
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 "bookmark_lists" = "Danh sách";
