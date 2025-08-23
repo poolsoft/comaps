@@ -389,7 +389,6 @@
     <string name="twentyfour_seven">24 часа</string>
     <string name="day_off_today">Затворено днес</string>
     <string name="day_off">Затворено</string>
-    <string name="today">Днес</string>
     <string name="closed">Затворено</string>
     <string name="edit_opening_hours">Редакция на работното време</string>
     <string name="no_osm_account">Нямате акаунт в OpenStreetMap?</string>

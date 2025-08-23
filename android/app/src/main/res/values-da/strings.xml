@@ -404,7 +404,6 @@
     <string name="twentyfour_seven">Døgnet rundt</string>
     <string name="day_off_today">Lukket i dag</string>
     <string name="day_off">Lukket</string>
-    <string name="today">I dag</string>
     <string name="closed">Lukket</string>
     <string name="edit_opening_hours">Rediger åbningstid</string>
     <string name="no_osm_account">Har du ikke OpenStreetMap-konto?</string>

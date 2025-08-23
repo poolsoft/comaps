@@ -18,4 +18,5 @@
     <string name="public_access">Mynediad cyhoeddus</string>
     <string name="limited_access">Mynediad cyfyngedig</string>
     <string name="access_rules_author_only">Golygu ar-lein</string>
+    <string name="today">Heddiw</string>
 </resources>

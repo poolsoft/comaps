@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 
 public final class DateUtils
 {
@@ -40,9 +40,9 @@ public final class DateUtils
     int days = (int) (LocalDate.now().toEpochDay() - LocalDate.parse(dateString, formatter).toEpochDay());
 
     if (days == 0)
-      return resources.getString(R.string.today);
+      return resources.getString(R.string.today).toLowerCase();
     if (days == 1)
-      return resources.getString(R.string.yesterday);
+      return resources.getString(R.string.yesterday).toLowerCase();
     if (days < 7)
       return  resources.getString(R.string.days_ago, Integer.toString(days));
     if (days < 30)

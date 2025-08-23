@@ -402,7 +402,6 @@
     <string name="twentyfour_seven">Dygnet runt</string>
     <string name="day_off_today">Stängt idag</string>
     <string name="day_off">Stängt</string>
-    <string name="today">Idag</string>
     <string name="closed">Stängt</string>
     <string name="edit_opening_hours">Redigera öppettider</string>
     <string name="no_osm_account">Inget konto hos OpenStreetMap?</string>

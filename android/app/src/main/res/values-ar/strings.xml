@@ -423,7 +423,6 @@
     <string name="twentyfour_seven">٢٤/٧(ليلاً ونهاراً)</string>
     <string name="day_off_today">مغلق اليوم</string>
     <string name="day_off">مغلق</string>
-    <string name="today">اليوم</string>
     <string name="opens_in">يفتح بعد %s</string>
     <string name="closes_in">يغلق في غضون %s</string>
     <string name="closed">مغلق</string>

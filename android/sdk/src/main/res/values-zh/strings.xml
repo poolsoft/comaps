@@ -36,4 +36,5 @@
     <string name="limited_access">不允许访问的私人空间</string>
     <string name="not_shared">私人</string>
     <string name="access_rules_author_only">在线编辑</string>
+    <string name="today">今天</string>
 </resources>

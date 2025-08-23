@@ -30,4 +30,5 @@
     <string name="maps_storage_internal">Internt, privat lagringsutrymme</string>
     <string name="gb">GB</string>
     <string name="mb">MB</string>
+    <string name="today">Idag</string>
 </resources>

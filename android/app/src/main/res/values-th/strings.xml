@@ -402,7 +402,6 @@
     <string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
     <string name="day_off_today">วันนี้ปิด</string>
     <string name="day_off">ปิด</string>
-    <string name="today">วันนี้</string>
     <string name="closed">ปิด</string>
     <string name="edit_opening_hours">แก้ไขชั่วโมงทำการ</string>
     <string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>

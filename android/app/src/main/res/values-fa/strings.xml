@@ -394,7 +394,6 @@
     <string name="twentyfour_seven">شبانه روزی</string>
     <string name="day_off_today">امروز تعطیل است</string>
     <string name="day_off">تعطیل است</string>
-    <string name="today">امروز</string>
     <string name="closed">تعطیل</string>
     <string name="edit_opening_hours">ویرایش ساعت کاری</string>
     <string name="no_osm_account">آیا حساب OpenStreetMap ندارید؟</string>

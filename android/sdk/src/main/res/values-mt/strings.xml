@@ -23,4 +23,5 @@
     <string name="not_shared">Privat</string>
     <string name="access_rules_author_only">Editjar onlajn</string>
     <string name="public_access">Aċċess pubbliku</string>
+    <string name="today">Illum</string>
 </resources>

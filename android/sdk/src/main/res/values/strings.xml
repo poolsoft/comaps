@@ -36,4 +36,13 @@
     <string name="limited_access">Limited access</string>
     <string name="not_shared">Private</string>
     <string name="access_rules_author_only">Online editing</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="days_ago">%s days ago</string>
+    <string name="week_ago">%s week ago</string>
+    <string name="weeks_ago">%s weeks ago</string>
+    <string name="month_ago">%s month ago</string>
+    <string name="months_ago">%s months ago</string>
+    <string name="year_ago">%s year ago</string>
+    <string name="years_ago">%s years ago</string>
 </resources>

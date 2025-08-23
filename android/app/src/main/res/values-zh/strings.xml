@@ -423,7 +423,6 @@
     <string name="twentyfour_seven">24/7 全天候营业</string>
     <string name="day_off_today">今天不营业</string>
     <string name="day_off">不营业</string>
-    <string name="today">今天</string>
     <string name="opens_in">将于 %s 后开业</string>
     <string name="closes_in">将于 %s 后歇业</string>
     <string name="closed">已停止营业</string>

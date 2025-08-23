@@ -408,7 +408,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Ma zárva</string>
     <string name="day_off">Zárva</string>
-    <string name="today">Ma</string>
     <string name="closed">Zárva</string>
     <string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
     <string name="no_osm_account">Nem rendelkezik még felhasználói fiókkal az OpenStreetMapen?</string>

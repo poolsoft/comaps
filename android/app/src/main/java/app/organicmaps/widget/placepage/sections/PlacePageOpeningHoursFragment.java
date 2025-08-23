@@ -22,7 +22,6 @@ import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.util.DateUtils;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -180,7 +179,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
             else
               openTime = tt.workingTimespan.toWideString();
 
-            refreshTodayOpeningHours(resources.getString(R.string.today), openTime, color);
+            refreshTodayOpeningHours(resources.getString(app.organicmaps.sdk.R.string.today), openTime, color);
             refreshTodayNonBusinessTime(tt.closedTimespans);
 
             break;

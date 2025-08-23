@@ -25,4 +25,5 @@
     <string name="limited_access">मर्यादित प्रवेश</string>
     <string name="not_shared">खाजगी</string>
     <string name="access_rules_author_only">ऑनलाइन संपादन</string>
+    <string name="today">आज</string>
 </resources>

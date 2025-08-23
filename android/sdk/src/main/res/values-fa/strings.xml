@@ -28,4 +28,5 @@
     <string name="limited_access">دسترسی محدود</string>
     <string name="not_shared">خصوصی</string>
     <string name="access_rules_author_only">ویرایش آنلاین</string>
+    <string name="today">امروز</string>
 </resources>

@@ -10,4 +10,5 @@
     <string name="category_wifi">ওয়াইফাই</string>
     <string name="maps_storage_shared">অভ্যন্তরীণ শেয়ার্ড স্টোরেজ</string>
     <string name="postal_code">ডাক কোড</string>
+    <string name="today">আজকে</string>
 </resources>

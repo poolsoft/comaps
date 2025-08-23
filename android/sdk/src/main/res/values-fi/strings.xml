@@ -36,4 +36,5 @@
     <string name="limited_access">Rajoitettu pääsy</string>
     <string name="not_shared">Yksityinen</string>
     <string name="access_rules_author_only">Nettimuokkaus</string>
+    <string name="today">Tänään</string>
 </resources>

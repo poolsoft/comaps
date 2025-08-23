@@ -28,4 +28,5 @@
     <string name="not_shared">ส่วนตัว</string>
     <string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
     <string name="gb">GB</string>
+    <string name="today">วันนี้</string>
 </resources>

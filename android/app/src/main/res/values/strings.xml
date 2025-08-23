@@ -462,7 +462,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Closed today</string>
     <string name="day_off">Closed</string>
-    <string name="today">Today</string>
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
     <string name="closed">Closed</string>
@@ -470,14 +469,6 @@
     <string name="hours_confirmed_time_ago">Confirmed %s</string>
     <!-- Used on the place page for the last checked date, eg. "Existence confirmed two weeks ago" -->
     <string name="existence_confirmed_time_ago">Existence confirmed %s</string>
-    <string name="yesterday">Yesterday</string>
-    <string name="days_ago">%s days ago</string>
-    <string name="week_ago">%s week ago</string>
-    <string name="weeks_ago">%s weeks ago</string>
-    <string name="month_ago">%s month ago</string>
-    <string name="months_ago">%s months ago</string>
-    <string name="year_ago">%s year ago</string>
-    <string name="years_ago">%s years ago</string>
     <string name="edit_opening_hours">Edit business hours</string>
     <string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>
     <string name="register_at_openstreetmap">Register at OpenStreetMap</string>

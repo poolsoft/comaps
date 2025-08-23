@@ -36,4 +36,5 @@
     <string name="limited_access">Приватний доступ</string>
     <string name="not_shared">Особистий</string>
     <string name="access_rules_author_only">Редагується онлайн</string>
+    <string name="today">Сьогодні</string>
 </resources>

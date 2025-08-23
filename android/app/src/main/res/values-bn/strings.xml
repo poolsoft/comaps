@@ -240,7 +240,6 @@
     <string name="editor_report_problem_under_construction_title">রক্ষণাবেক্ষণের জন্য বন্ধ</string>
     <string name="editor_report_problem_duplicate_place_title">ডুপ্লিকেট জায়গা</string>
     <string name="day_off_today">আজকে বন্ধ</string>
-    <string name="today">আজকে</string>
     <string name="opens_in">%s-এর মধ্যে খুলবে</string>
     <string name="closes_in">%s-এর মধ্যে বন্ধ হবে</string>
     <string name="no_osm_account">আপনার ওপেনস্ট্রিটম্যাপ অ্যাকাউন্ট নেই?</string>

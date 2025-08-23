@@ -22,4 +22,5 @@
     <string name="core_placepage_unknown_place">Punktur á korti</string>
     <string name="subway_data_unavailable">Kort fyrir neðanjarðarlest er ekki tiltækt</string>
     <string name="access_rules_author_only">Breytingar á netinu</string>
+    <string name="today">Í dag</string>
 </resources>

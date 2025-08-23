@@ -31,4 +31,5 @@
     <string name="maps_storage_shared">Interní sdílené úložiště</string>
     <string name="maps_storage_internal">Interní soukromé úložiště</string>
     <string name="maps_storage_external">Externí sdílené úložiště</string>
+    <string name="today">Dnes</string>
 </resources>
