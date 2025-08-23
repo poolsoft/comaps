@@ -3,6 +3,7 @@ package app.organicmaps.widget.menu;
 import android.location.Location;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -10,6 +11,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
@@ -125,6 +127,8 @@ public class NavMenu
 
   private void onTtsClicked()
   {
+    if (!TtsPlayer.isReady())
+      Toast.makeText(mActivity, R.string.pref_tts_no_system_tts_short, Toast.LENGTH_SHORT).show();
     TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
     refreshTts();
   }
