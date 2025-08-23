@@ -46,7 +46,7 @@
 "about_proposition_1" = "Offline, gyors és könnyen használható";
 
 /* Text in About screen */
-"about_proposition_2" = "Adatvédelem-központú és hirdetésmentes";
+"about_proposition_2" = "Az adatvédelemre összpontosít és nincs hirdetés";
 "close" = "Bezár";
 "download" = "Letöltés";
 
@@ -199,7 +199,7 @@
 "share_my_location" = "Saját helyzet megosztása";
 "prefs_group_route" = "Navigáció";
 "pref_zoom_title" = "Nagyítás/kicsinyítés gombok";
-"pref_left_button_type" = "Left Main Button";
+"pref_left_button_type" = "Bal oldali főgomb";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "Megjelenés";
@@ -211,7 +211,7 @@
 "pref_appearance_dark" = "Sötét";
 
 /* Generic «Disabled» string */
-"disabled" = "Disabled";
+"disabled" = "Letiltva";
 
 /* Generic «Off» string */
 "off" = "Ki";
@@ -235,7 +235,7 @@
 "pref_tts_title" = "Hangutasítások";
 
 /* Settings «Route» category: «Tts enable» title */
-"pref_tts_enable_title" = "Enable Voice Instructions";
+"pref_tts_enable_title" = "Hangutasítások engedélyezése";
 
 /* Settings «Route» category: «Tts announce street names» title */
 "pref_tts_street_names_title" = "Utcanevek felolvasása";
@@ -247,7 +247,7 @@
 "pref_tts_language_title" = "A hangutasítások nyelve";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Hangutasítások tesztelése (TTS)";
+"pref_tts_test_voice_title" = "Hangutasítások tesztelése";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Egyéb";
@@ -268,7 +268,7 @@
 "social_matrix" = "Matrix";
 "social_bluesky" = "Bluesky";
 "social_pixelfed" = "Pixelfed";
-"social_email" = "E-Mail";
+"social_email" = "E-mail";
 
 /* Text in the editor */
 "fediverse" = "Mastodon";
@@ -319,7 +319,7 @@
 "report_incorrect_map_bug" = "Hibás térképadatok jelentése vagy javítása";
 
 /* Button in the About screen */
-"volunteer" = "Önkéntes";
+"volunteer" = "Önkéntes munka és a CoMaps fejlesztése";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Csatlakozzon hozzánk";
@@ -747,7 +747,7 @@
 "placepage_remove_stop" = "Megálló eltávolítása";
 "planning_route_remove_title" = "Húzza ide az eltávolításhoz";
 "placepage_add_stop" = "Köztes célpont hozzáadása";
-"start_from_my_position" = "Kiindulás innen:";
+"start_from_my_position" = "Kiindulás innen";
 
 /* Title for button when a route was saved. */
 "saved" = "Mentett";
@@ -1009,7 +1009,7 @@
 "bugreport_alert_message" = "Szeretne hibajelentést küldeni a fejlesztőknek?\nA felhasználóinkra támaszkodunk, mivel az CoMaps nem gyűjt automatikusan hibainformációkat. Előre is köszönjük, hogy támogatja az CoMaps csapatát!";
 
 /* Title for the iCloud syncronization setting */
-"icloud_sync" = "iCloud Syncronization (Beta)";
+"icloud_sync" = "iCloud-szinkronizálás (Béta)";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "iCloud-szinkronizálás engedélyezése";
@@ -1085,11 +1085,11 @@
 "edit_track" = "Nyomvonal szerkesztése";
 "osm_profile_view_notes" = "Jegyzetek megtekintése";
 "osm_profile_view_edit_history" = "Szerkesztési előzmények megtekintése";
-"about_proposition_3" = "Transparent and not for profit";
-"about_headline" = "Open project powered by the community";
-"pref_mapappearance_title" = "Map Appearance";
-"pref_maplanguage_title" = "Map Language";
-"transliteration_title_disabled_summary" = "Disabled when always using the local language for the map";
-"pref_maplanguage_local" = "Local Language";
-"existence_confirmed_time_ago" = "Existence confirmed %@";
-"hours_confirmed_time_ago" = "Confirmed %@";
+"about_proposition_3" = "Átlátható és nem profitorientált";
+"about_headline" = "Közösség által működtetett nyílt projekt";
+"pref_mapappearance_title" = "A térkép megjelenése";
+"pref_maplanguage_title" = "A térkép nyelve";
+"transliteration_title_disabled_summary" = "Letiltva, ha mindig a helyi nyelvet használja a térképen";
+"pref_maplanguage_local" = "A helyi nyelv";
+"existence_confirmed_time_ago" = "A létezés megerősítve %@";
+"hours_confirmed_time_ago" = "Megerősítve %@";

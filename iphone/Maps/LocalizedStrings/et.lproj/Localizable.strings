@@ -322,7 +322,7 @@
 "report_incorrect_map_bug" = "Paranda vigaseid kaardiandmeid või teata neist";
 
 /* Button in the About screen */
-"volunteer" = "Vabatahtlik kaastöö";
+"volunteer" = "Osale ühistöös CoMapsi täiendamisel";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Suhtle meiega";
@@ -1093,5 +1093,5 @@
 "pref_maplanguage_title" = "Kaardi keel";
 "transliteration_title_disabled_summary" = "Kui kaardil on alati kasutusel kohalik keel, siis see eelistus on välja lülitatud";
 "pref_maplanguage_local" = "Kohalik keel";
-"existence_confirmed_time_ago" = "Existence confirmed %@";
-"hours_confirmed_time_ago" = "Confirmed %@";
+"existence_confirmed_time_ago" = "Olemasolu on kontrollitud %@";
+"hours_confirmed_time_ago" = "Kontrollitud %@";

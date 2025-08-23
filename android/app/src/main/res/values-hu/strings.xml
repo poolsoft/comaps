@@ -36,22 +36,22 @@
     <string name="country_status_download_failed">Sikertelen letöltés</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Újrapróbálkozás</string>
-    <string name="about_menu_title">Az CoMaps névjegye</string>
+    <string name="about_menu_title">A CoMaps névjegye</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">• Nincs hirdetés, nyomon követés és adatgyűjtés</string>
+    <string name="about_proposition_1">• Könnyen használható és szép grafikus felülettel rendelkezik</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_2">• Nem merül le az akkumulátor – offline is működik</string>
+    <string name="about_proposition_2">• Az adatvédelemre összpontosít és nincs hirdetés</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Offline, gyors és kompakt</string>
+    <string name="about_proposition_3">• Offline, kis méretű, gyors és jól összeállított</string>
     <!-- Text in About screen -->
-    <string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
+    <string name="about_developed_by_enthusiasts">Átlátható döntéshozatal és pénzügyek, nem profitorientált és teljesen nyílt forráskódú.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Helymeghatározási beállítások</string>
     <string name="close">Bezár</string>
     <string name="unsupported_phone">Hardveres gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
     <string name="download">Letöltés</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Bontsa az USB-kapcsolatot vagy helyezzen be egy memóriakártyát az CoMaps használatához</string>
+    <string name="disconnect_usb_cable">A CoMaps használatához húzza ki az USB-kábelt, vagy helyezze be a memóriakártyát</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Az alkalmazás használatához először szabadítson fel némi helyet az SD-kártyán/USB-tárolón</string>
     <string name="download_resources">Mielőtt elkezdené használni az alkalmazást, töltse le az áttekintő világtérképet az eszközre. \nEz %s tárhelyet fog igénybe venni.</string>
@@ -232,7 +232,7 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">A hangutasítások nyelve</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Hangutasítások tesztelése (TTS)</string>
+    <string name="pref_tts_test_voice_title">Hangutasítások tesztelése</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Ellenőrizze a hangerőt vagy a rendszer TTS-beállításait, ha most nem hallja a hangot.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -870,4 +870,6 @@
     <string name="panoramax">Panoramax kép</string>
     <string name="app_site_url">https://comaps.app/hu/</string>
     <string name="saved">Mentett</string>
+    <string name="about_headline">Közösség által működtetett nyílt projekt</string>
+    <string name="bluesky">Bluesky</string>
 </resources>

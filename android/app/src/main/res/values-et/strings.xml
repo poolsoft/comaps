@@ -254,7 +254,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Anneta</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Toeta meie projekti</string>
+    <string name="how_to_support_us">Osale ühistöös CoMapsi täiendamisel</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Autoriõigused</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -916,4 +916,6 @@
     <string name="closed_now">Praegu suletud</string>
     <string name="osm_note_toast">Märge salvestatakse OpenStreetMapi andmebaasi</string>
     <string name="osm_note_hint">Või alternatiivina jäta märge OpenStreetMapi kogukonnale ja keegi teine saab selle koha andmed parandada või uue lisada.</string>
+    <string name="share_track">Jaga rada</string>
+    <string name="delete_track_dialog_title">Kas kustutame: %s?</string>
 </resources>

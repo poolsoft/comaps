@@ -1391,5 +1391,5 @@
     <string name="type.post_office.post_partner">Postikumppani</string>
     <string name="type.amenity.ranger_station">Vartioasema</string>
     <string name="type.amenity.animal_shelter">Eläinsuoja</string>
-    <string name="type.barrier.wicket_gate">Käyntiovi</string>
+    <string name="type.barrier.wicket_gate">Käyntiportti</string>
 </resources>

@@ -1483,4 +1483,4 @@
 "type.amenity.ranger_station" = "Vartioasema";
 "type.amenity.bicycle_parking.covered" = "Pyöräkatos";
 "type.amenity.animal_shelter" = "Eläinsuoja";
-"type.barrier.wicket_gate" = "Wicket gate";
+"type.barrier.wicket_gate" = "Käyntiportti";

@@ -1366,4 +1366,8 @@
     <string name="type.piste_type.downhill.intermediate.area">Sípálya középhaladóknak</string>
     <string name="type.piste_type.downhill.easy.area">Sípálya újoncoknak</string>
     <string name="type.piste_type.downhill.freeride">Természetes eredetű sípálya</string>
+    <string name="type.amenity.luggage_locker">Poggyászmegőrző</string>
+    <string name="type.amenity.love_hotel">Szálloda szerelmeseknek</string>
+    <string name="type.amenity.studio">Stúdió</string>
+    <string name="type.amenity.bicycle_parking.covered">Fedett kerékpár tároló</string>
 </resources>
