@@ -17,7 +17,7 @@ public class DownloadResourcesLegacyActivity
   {
     // Called by JNI.
     @Keep
-    void onProgress(int percent);
+    void onProgress(int bytesDownloaded);
 
     // Called by JNI.
     @Keep

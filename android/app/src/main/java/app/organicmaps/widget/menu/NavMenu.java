@@ -231,7 +231,9 @@ public class NavMenu
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
-    mRouteProgress.setProgressCompat((int) info.completionPercent, true);
+    // Start progress at 1% according to M3 guidelines
+    final int completionPercent = (info.completionPercent < 1) ? 1 : (int) info.completionPercent;
+    mRouteProgress.setProgressCompat(completionPercent, true);
   }
 
   public interface NavMenuListener

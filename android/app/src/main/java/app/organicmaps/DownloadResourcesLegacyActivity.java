@@ -116,10 +116,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private final app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener mResourcesDownloadListener =
       new app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener() {
         @Override
-        public void onProgress(final int percent)
+        public void onProgress(final int bytesDownloaded)
         {
           if (!isFinishing())
-            mProgress.setProgressCompat(percent, true);
+            mProgress.setProgressCompat(bytesDownloaded, true);
         }
 
         @Override
@@ -250,7 +250,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       setDownloadMessage(bytes);
 
       mProgress.setMax(bytes);
-      mProgress.setProgressCompat(0, true);
+      // Start progress at 1% according to M3 guidelines
+      mProgress.setProgressCompat(bytes/100, true);
     }
     else
       finishFilesDownload(bytes);
@@ -368,7 +369,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         String fileSizeString = StringUtils.getFileSizeString(this, item.totalSize);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name, fileSizeString));
         mProgress.setMax((int) item.totalSize);
-        mProgress.setProgressCompat(0, true);
+        // Start progress at 1% according to M3 guidelines
+        mProgress.setProgressCompat((int) (item.totalSize/100), true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
         MapManager.startDownload(mCurrentCountry);
