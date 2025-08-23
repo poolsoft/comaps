@@ -224,7 +224,7 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 "type.barrier.stile" = "Stile";
 "type.barrier.turnstile" = "Turnstile";
-"type.barrier.wicket_gate" = "Wicket gate";
+"type.barrier.wicket_gate" = "Wicket Gate";
 "type.barrier.swing_gate" = "Swing Gate";
 "type.barrier.toll_booth" = "Toll Booth";
 "type.barrier.wall" = "Wall";
