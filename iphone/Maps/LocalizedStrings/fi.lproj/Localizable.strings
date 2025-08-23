@@ -1095,3 +1095,5 @@
 "pref_maplanguage_title" = "Karttakieli";
 "transliteration_title_disabled_summary" = "Kytke pois käytöstä, jos käytät aina paikallista kieltä kartalle";
 "pref_maplanguage_local" = "Paikallinen kieli";
+"existence_confirmed_time_ago" = "Existence confirmed %@";
+"hours_confirmed_time_ago" = "Confirmed %@";

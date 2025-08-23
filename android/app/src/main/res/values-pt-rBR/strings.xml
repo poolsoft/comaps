@@ -845,7 +845,7 @@
     <string name="social_media">Redes sociais</string>
     <string name="tts_info_link">https://www.comaps.app/support/tts-configuration-guide-for-android/</string>
     <string name="editor_add_phone">Adicionar telefone</string>
-    <string name="outdoor_seating">Assentos ao ar livre</string>
+    <string name="outdoor_seating">Mesas externas</string>
     <string name="capacity">Capacidade: %s</string>
     <string name="editor_correct_mistake">Corrigir erro</string>
     <string name="editor_add_select_location">Selecione a localização</string>
@@ -897,4 +897,6 @@
     <string name="at">às %s</string>
     <string name="osm_note_hint">Ou, em vez disso, deixe uma nota para a comunidade do OpenStreetMap para que outra pessoa possa adicionar ou corrigir um lugar aqui.</string>
     <string name="osm_note_toast">A nota será enviada ao OpenStreetMap</string>
+    <string name="delete_track_dialog_title">Apagar %s?</string>
+    <string name="share_track">Compartilhar trilha</string>
 </resources>

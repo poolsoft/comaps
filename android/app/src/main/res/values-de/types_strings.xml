@@ -1389,4 +1389,6 @@
     <string name="type.amenity.bicycle_parking.covered">Überdachter Fahrradparkplatz</string>
     <string name="type.post_office.post_partner">Postpartner</string>
     <string name="type.amenity.ranger_station">Försterstation</string>
+    <string name="type.amenity.animal_shelter">Tierheim</string>
+    <string name="type.barrier.wicket_gate">Schlupfpforte</string>
 </resources>

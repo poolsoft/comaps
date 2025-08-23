@@ -1093,3 +1093,5 @@
 "pref_maplanguage_title" = "Kortsprog";
 "transliteration_title_disabled_summary" = "Deaktiveret, når det lokale sprog altid bruges til kortet";
 "pref_maplanguage_local" = "Lokalt sprog";
+"hours_confirmed_time_ago" = "Confirmed %@";
+"existence_confirmed_time_ago" = "Existence confirmed %@";

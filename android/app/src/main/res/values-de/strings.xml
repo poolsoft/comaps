@@ -260,7 +260,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Spenden</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Unterstütze das Projekt</string>
+    <string name="how_to_support_us">Freiwillig helfen und CoMaps verbessern</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Copyright</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -921,4 +921,6 @@
     <string name="closed_now">Jetzt geschlossen</string>
     <string name="osm_note_hint">Oder hinterlasse alternativ einen Hinweis für die OpenStreetMap Community, sodass jemand anders einen Ort hinzufügen oder korrigieren kann.</string>
     <string name="osm_note_toast">Ein Hinweis wird zu OpenStreetMap geschickt</string>
+    <string name="share_track">Strecke teilen</string>
+    <string name="delete_track_dialog_title">%s löschen?</string>
 </resources>

@@ -325,7 +325,7 @@
 "report_incorrect_map_bug" = "Falsche Kartendaten melden oder korrigieren";
 
 /* Button in the About screen */
-"volunteer" = "Freiwillig helfen";
+"volunteer" = "Freiwillig helfen und CoMaps verbessern";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Bleib in Kontakt";
@@ -1095,3 +1095,5 @@
 "pref_maplanguage_title" = "Kartensprache";
 "transliteration_title_disabled_summary" = "Bei der Nutzung der lokalen Sprache für die Karte ausgeschaltet";
 "pref_maplanguage_local" = "Lokale Sprache";
+"existence_confirmed_time_ago" = "Existenz bestätigt %@";
+"hours_confirmed_time_ago" = "Bestätigt %@";

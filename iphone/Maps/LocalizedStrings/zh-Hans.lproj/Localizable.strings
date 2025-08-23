@@ -1095,3 +1095,5 @@
 "pref_maplanguage_title" = "地图语言";
 "transliteration_title_disabled_summary" = "地图始终使用本地语言时禁用";
 "pref_maplanguage_local" = "本地语言";
+"existence_confirmed_time_ago" = "Existence confirmed %@";
+"hours_confirmed_time_ago" = "Confirmed %@";

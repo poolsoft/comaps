@@ -1093,3 +1093,5 @@
 "pref_maplanguage_title" = "Žemėlapio kalba";
 "transliteration_title_disabled_summary" = "Negalima, kai žemėlapyje visuomet naudojama vietos kalba";
 "pref_maplanguage_local" = "Vietos kalba";
+"existence_confirmed_time_ago" = "Existence confirmed %@";
+"hours_confirmed_time_ago" = "Confirmed %@";

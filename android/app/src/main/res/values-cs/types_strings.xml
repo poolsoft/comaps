@@ -1388,4 +1388,6 @@
     <string name="type.amenity.bicycle_parking.covered">Kryté parkování kol</string>
     <string name="type.amenity.luggage_locker">Úschovná skříňka</string>
     <string name="type.amenity.ranger_station">Správci parku</string>
+    <string name="type.amenity.animal_shelter">Útulek pro zvířata</string>
+    <string name="type.barrier.wicket_gate">Branka</string>
 </resources>

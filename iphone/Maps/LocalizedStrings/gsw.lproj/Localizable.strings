@@ -587,3 +587,5 @@
 "pref_maplanguage_title" = "Charte-Spraach";
 "transliteration_title_disabled_summary" = "Bi de Nutzig vo de lokale Spraach für d Charte uusgschaltet";
 "pref_maplanguage_local" = "Lokali Spraach";
+"hours_confirmed_time_ago" = "Confirmed %@";
+"existence_confirmed_time_ago" = "Existence confirmed %@";

@@ -1095,3 +1095,5 @@
 "pref_maplanguage_title" = "地圖語言";
 "transliteration_title_disabled_summary" = "當在地圖總是使用在地語言時不啟用";
 "pref_maplanguage_local" = "在地語言";
+"hours_confirmed_time_ago" = "Confirmed %@";
+"existence_confirmed_time_ago" = "Existence confirmed %@";

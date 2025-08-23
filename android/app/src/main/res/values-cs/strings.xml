@@ -247,7 +247,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Darovat</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Podpořte projekt</string>
+    <string name="how_to_support_us">Staňte se dobrovolníkem a vylepšete CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Autorská práva</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -912,4 +912,6 @@
     <string name="at">v %s</string>
     <string name="osm_note_toast">Poznámka bude odeslána do OpenStreetMap</string>
     <string name="osm_note_hint">Případně můžete zanechat poznámku komunitě OpenStreetMap, aby zde někdo jiný mohl místo přidat nebo opravit.</string>
+    <string name="share_track">Sdílet stopu</string>
+    <string name="delete_track_dialog_title">Odstranit %s?</string>
 </resources>

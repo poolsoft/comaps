@@ -587,3 +587,5 @@
 "thank_you" = "Diolch";
 "yes_available" = "Ie";
 "osm_profile_reauthorize" = "Reconnect with OpenStreetMap";
+"existence_confirmed_time_ago" = "Existence confirmed %@";
+"hours_confirmed_time_ago" = "Confirmed %@";

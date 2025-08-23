@@ -1213,7 +1213,7 @@
     <string name="type.place.country">País</string>
     <string name="type.sport.beachvolleyball">Vôlei de praia</string>
     <string name="type.historic.wayside_cross">Cruz à beira da estrada</string>
-    <string name="type.leisure.outdoor_seating">Assentos ao ar livre</string>
+    <string name="type.leisure.outdoor_seating">Mesas externas</string>
     <string name="type.place.island">Ilha</string>
     <string name="type.natural.heath">Charneca</string>
     <string name="type.natural.wetland">Zona úmida</string>
@@ -1380,4 +1380,6 @@
     <string name="type.amenity.bicycle_parking.covered">Bicicletário coberto</string>
     <string name="type.post_office.post_partner">Parceiro postal</string>
     <string name="type.amenity.ranger_station">Posto de guardas florestais</string>
+    <string name="type.barrier.wicket_gate">Postigo</string>
+    <string name="type.amenity.animal_shelter">Abrigo para animais</string>
 </resources>

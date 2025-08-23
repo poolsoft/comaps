@@ -1054,7 +1054,7 @@
 "self_service" = "Autoatendimento";
 
 /* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "Assentos ao ar livre";
+"outdoor_seating" = "Mesas externas";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "Listas excluídas recentemente";
@@ -1095,3 +1095,5 @@
 "pref_maplanguage_title" = "Idioma do mapa";
 "transliteration_title_disabled_summary" = "Desativado quando sempre se utiliza o idioma local para o mapa";
 "pref_maplanguage_local" = "Idioma local";
+"existence_confirmed_time_ago" = "Existence confirmed %@";
+"hours_confirmed_time_ago" = "Confirmed %@";

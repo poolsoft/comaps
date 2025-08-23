@@ -1093,3 +1093,5 @@
 "pref_maplanguage_title" = "Mapen hizkuntza";
 "transliteration_title_disabled_summary" = "Desgaituta maparako hizkuntza lokala beti erabiltzean";
 "pref_maplanguage_local" = "Hizkuntza lokala";
+"existence_confirmed_time_ago" = "Existence confirmed %@";
+"hours_confirmed_time_ago" = "Confirmed %@";

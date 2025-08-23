@@ -325,7 +325,7 @@
 "report_incorrect_map_bug" = "Nahlášení nebo oprava nesprávných mapových dat";
 
 /* Button in the About screen */
-"volunteer" = "Dobrovolnictví";
+"volunteer" = "Staňte se dobrovolníkem a vylepšete CoMaps";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Spojte se s námi";
@@ -1095,3 +1095,5 @@
 "pref_maplanguage_title" = "Jazyk mapy";
 "transliteration_title_disabled_summary" = "Neaktivní, pokud se pro mapu vždy používá místní jazyk";
 "pref_maplanguage_local" = "Místní jazyk";
+"existence_confirmed_time_ago" = "Existence potvrzena %@";
+"hours_confirmed_time_ago" = "Potvrzeno %@";
