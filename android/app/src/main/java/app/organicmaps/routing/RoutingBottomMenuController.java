@@ -45,6 +45,8 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
+
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import java.util.LinkedList;
@@ -153,10 +155,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTransitViewDecorator =
         new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
                                      res.getDimensionPixelSize(R.dimen.margin_half));
-    Button manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
+    MaterialButton manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
     manageRouteButton.setOnClickListener(this);
 
-    Button saveButton = altitudeChartFrame.findViewById(R.id.btn__save);
+    MaterialButton saveButton = altitudeChartFrame.findViewById(R.id.btn__save);
     saveButton.setOnClickListener(this);
   }
 
@@ -168,7 +170,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
-    Button saveButton = mAltitudeChartFrame.findViewById(R.id.btn__save);
+    MaterialButton saveButton = mAltitudeChartFrame.findViewById(R.id.btn__save);
     saveButton.setText(R.string.save);
     saveButton.setEnabled(true);
   }
