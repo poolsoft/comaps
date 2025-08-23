@@ -68,7 +68,9 @@ public class Metadata implements Parcelable
     FMD_NETWORK(49),
     FMD_CONTACT_FEDIVERSE(50),
     FMD_CONTACT_BLUESKY(51),
-    FMD_PANORAMAX(52);
+    FMD_PANORAMAX(52),
+    FMD_CHECK_DATE(53),
+    FMD_CHECK_DATE_OPEN_HOURS(54);
     private final int mMetaType;
 
     MetadataType(int metadataType)

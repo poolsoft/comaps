@@ -74,6 +74,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
+  <com.google.android.material.textview.MaterialTextView
+    android:id="@+id/place_page_last_checked"
+    style="?fontCaption"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_half"
+    android:paddingHorizontal="@dimen/margin_base"
+    tools:text="Existence confirmed 1 month ago"/>
+
   <include android:visibility="gone" layout="@layout/place_page_editor"/>
 
   <include android:visibility="gone" layout="@layout/place_page_add_business"/>

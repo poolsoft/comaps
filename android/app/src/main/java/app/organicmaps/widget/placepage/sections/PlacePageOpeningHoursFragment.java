@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
+import app.organicmaps.sdk.util.DateUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -36,6 +39,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private MaterialTextView mTodayOpenTime;
   private MaterialTextView mTodayNonBusinessTime;
   private RecyclerView mFullWeekOpeningHours;
+  private MaterialTextView mLastCheckedDate;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
 
   private PlacePageViewModel mViewModel;
@@ -58,8 +62,21 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mTodayOpenTime = view.findViewById(R.id.oh_today_open_time);
     mTodayNonBusinessTime = view.findViewById(R.id.oh_nonbusiness_time);
     mFullWeekOpeningHours = view.findViewById(R.id.rw__full_opening_hours);
+    mLastCheckedDate = view.findViewById(R.id.oh_check_date);
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
+  }
+
+  private static void setOrHideLastCheckedDate(MapObject mapObject, Resources resources, TextView checkDateView)
+  {
+    final String checkDate = mapObject.getMetadata(Metadata.MetadataType.FMD_CHECK_DATE_OPEN_HOURS);
+    if (!checkDate.isEmpty())
+    {
+      String periodSinceCheck = DateUtils.getRelativePeriodString(resources, checkDate);
+      UiUtils.setTextAndShow(checkDateView, resources.getString(R.string.hours_confirmed_time_ago, periodSinceCheck));
+    }
+    else
+      UiUtils.hide(checkDateView);
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
@@ -102,6 +119,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
     final int color = ThemeUtils.getColor(requireContext(), android.R.attr.textColorPrimary);
+    final Resources resources = getResources();
+
+    setOrHideLastCheckedDate(mapObject, resources, mLastCheckedDate);
 
     if (isEmptyTT)
     {
@@ -119,7 +139,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     else
     {
       UiUtils.show(mFrame);
-      final Resources resources = getResources();
       if (timetables[0].isFullWeek())
       {
         final Timetable tt = timetables[0];

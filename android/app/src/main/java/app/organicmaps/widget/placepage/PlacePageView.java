@@ -106,7 +106,6 @@ public class PlacePageView extends Fragment
       Arrays.asList(CoordinatesFormat.LatLonDMS, CoordinatesFormat.LatLonDecimal, CoordinatesFormat.OLCFull,
                     CoordinatesFormat.UTM, CoordinatesFormat.MGRS, CoordinatesFormat.OSMLink);
   private View mFrame;
-  private Context mContext;
 
   // Preview.
   private ViewGroup mPreview;
@@ -144,6 +143,7 @@ public class PlacePageView extends Fragment
   private MaterialTextView mTvOutdoorSeating;
   private View mEntrance;
   private MaterialTextView mTvEntrance;
+  private MaterialTextView mTvLastChecked;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -308,6 +308,7 @@ public class PlacePageView extends Fragment
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
+    mTvLastChecked = mFrame.findViewById(R.id.place_page_last_checked);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
@@ -662,7 +663,14 @@ public class PlacePageView extends Fragment
     refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating,
                           mTvOutdoorSeating);
 
-    //    showTaxiOffer(mapObject);
+    final String lastChecked = mMapObject.getMetadata(Metadata.MetadataType.FMD_CHECK_DATE);
+    if (!lastChecked.isEmpty())
+    {
+      String periodSinceCheck = DateUtils.getRelativePeriodString(getResources(), lastChecked);
+      UiUtils.setTextAndShow(mTvLastChecked, requireContext().getString(R.string.existence_confirmed_time_ago, periodSinceCheck));
+    }
+    else
+      UiUtils.hide(mTvLastChecked);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
