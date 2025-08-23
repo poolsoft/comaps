@@ -181,11 +181,8 @@
 
 - (BOOL)openUrl:(NSString *)urlString externally:(BOOL)externally skipEncoding:(BOOL)skipEncoding
 {
-  NSString * encoded;
-  if (skipEncoding) {
-    encoded = urlString;
-  } else if (![urlString canBeConvertedToEncoding:NSASCIIStringEncoding])
-  {
+  NSString * encoded = urlString;
+  if (!skipEncoding && ![urlString canBeConvertedToEncoding:NSASCIIStringEncoding]) {
     // TODO: This is a temporary workaround to open cyrillic/non-ASCII URLs.
     // URLs in OSM are stored in UTF-8. NSURL constructor documentation says:
     // > Must be a URL that conforms to RFC 2396. This method parses URLString according to RFCs 1738 and 1808.
