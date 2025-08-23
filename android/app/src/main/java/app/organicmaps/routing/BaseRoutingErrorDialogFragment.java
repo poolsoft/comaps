@@ -12,7 +12,6 @@ import android.widget.ExpandableListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.DisabledChildSimpleExpandableListAdapter;
 import app.organicmaps.base.BaseMwmDialogFragment;

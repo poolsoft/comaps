@@ -493,8 +493,8 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsHouseV
   return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_editor_Editor_nativeCheckHouseNumberWhenIsAddress(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeCheckHouseNumberWhenIsAddress(JNIEnv * env,
+                                                                                                      jclass clazz)
 {
   return g_editableMapObject.CheckHouseNumberWhenIsAddress();
 }

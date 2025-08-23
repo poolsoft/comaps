@@ -287,7 +287,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return validateNames();
   }
 
-  private boolean beforeSavingValidation() {
+  private boolean beforeSavingValidation()
+  {
     // Validation to make sure address features have a house number
     if (!Editor.nativeCheckHouseNumberWhenIsAddress())
     {

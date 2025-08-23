@@ -68,10 +68,7 @@ public final class OsmOAuth
 
   public static void clearAuthorization()
   {
-    mPrefs.edit()
-        .remove(PREF_OSM_USERNAME)
-        .remove(PREF_OSM_OAUTH2_TOKEN)
-        .apply();
+    mPrefs.edit().remove(PREF_OSM_USERNAME).remove(PREF_OSM_OAUTH2_TOKEN).apply();
   }
 
   @NonNull
