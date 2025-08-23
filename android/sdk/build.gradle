@@ -98,13 +98,14 @@ android {
 }
 
 dependencies {
-  implementation 'androidx.annotation:annotation:1.9.1'
-  implementation 'androidx.core:core:1.17.0'
-  implementation 'androidx.recyclerview:recyclerview:1.4.0'
-  implementation 'androidx.fragment:fragment:1.8.9'
-  implementation 'androidx.lifecycle:lifecycle-process:2.9.2'
+  implementation libs.androidx.core
+  implementation libs.androidx.annotation
+  implementation libs.androidx.fragment
+  implementation libs.androidx.lifecycle.process
+  implementation libs.androidx.recyclerview
+  implementation libs.android.material
 
-  testImplementation 'junit:junit:4.13.2'
+  testImplementation libs.junit
 }
 
 // TODO: Running lint task triggers native build. Find a better solution.
