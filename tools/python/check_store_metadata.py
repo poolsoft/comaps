@@ -125,7 +125,9 @@ def check_raw(path, max_length):
     ok = True
     with open(path, 'r') as f:
         text = f.read()
-        if text[-1] == os.linesep:
+        if not text:
+            ok = error(path, "empty")
+        elif text[-1] == os.linesep:
             text = text[:-1]
         else:
             ok = error(path, "missing new line")
