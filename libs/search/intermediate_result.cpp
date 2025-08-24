@@ -250,10 +250,12 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
 
   std::string brand{ft.GetMetadata(feature::Metadata::FMD_BRAND)};
   if (!brand.empty())
+  {
     brand = platform::GetLocalizedBrandName(brand);
 
-  if (name == brand)
-    brand.clear();
+    if (name.find(brand) != std::string::npos)
+      brand.clear();
+  }
 
   /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
   std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));

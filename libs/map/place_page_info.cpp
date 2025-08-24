@@ -165,7 +165,7 @@ std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
     auto const locBrand = platform::GetLocalizedBrandName(std::string(brand));
 
     // Do not duplicate for commonly used titles like McDonald's, Starbucks, etc.
-    if (locBrand != m_uiTitle && locBrand != m_uiSecondaryTitle)
+    if (m_uiTitle.find(locBrand) == std::string::npos && m_uiSecondaryTitle.find(locBrand) == std::string::npos)
       append(locBrand);
   }
 
