@@ -5,8 +5,8 @@
     <string name="type.addr_interpolation.even">Cím/blokk</string>
     <string name="type.addr_interpolation.odd">Cím/blokk</string>
     <string name="type.aerialway.station">Felvonóállomás</string>
-    <string name="type.aeroway.aerodrome">Kis repülőtér</string>
-    <string name="type.aeroway.aerodrome.international">Repülőtér</string>
+    <string name="type.aeroway.aerodrome">Repülőtér</string>
+    <string name="type.aeroway.aerodrome.international">Nemzetközi repülőtér</string>
     <string name="type.aeroway.helipad">Helikopterleszálló</string>
     <string name="type.amenity">Létesítmény</string>
     <string name="type.amenity.arts_centre">Művészeti központ</string>
@@ -20,7 +20,7 @@
     <string name="type.amenity.biergarten">Sörkert</string>
     <string name="type.amenity.brothel">Bordélyház</string>
     <string name="type.amenity.bureau_de_change">Pénzváltó</string>
-    <string name="type.amenity.bus_station">Buszállomás</string>
+    <string name="type.amenity.bus_station">Autóbuszállomás</string>
     <string name="type.amenity.cafe">Kávézó</string>
     <string name="type.amenity.car_rental">Autókölcsönző</string>
     <string name="type.amenity.motorcycle_rental">Motorkerékpár-bérlés</string>
@@ -1179,7 +1179,7 @@
     <string name="type.aeroway.runway">Kifutópálya</string>
     <string name="type.aeroway.terminal">Terminál</string>
     <string name="type.recycling.cans">Fémdoboz</string>
-    <string name="type.recycling.green_waste">Szerves hulladék</string>
+    <string name="type.recycling.green_waste">Zöld/szerves hulladék</string>
     <string name="type.recycling.cartons">Italos karton</string>
     <string name="type.amenity.sanitary_dump_station">Szennyvízürítőhely</string>
     <string name="type.amenity.shelter.lean_to">Háromoldalú fészer</string>
@@ -1251,7 +1251,7 @@
     <string name="type.landuse.meadow">Rét</string>
     <string name="type.landuse.orchard">Gyümölcsös</string>
     <string name="type.aerialway">Drótkötélpályás felvonó</string>
-    <string name="type.barrier.chain">Lánc</string>
+    <string name="type.barrier.chain">Lánckorlát</string>
     <string name="type.boundary.administrative">Közigazgatási határ</string>
     <string name="type.landuse.education">Oktatási létesítmény</string>
     <string name="type.landuse.farmyard">Tanyaudvar</string>

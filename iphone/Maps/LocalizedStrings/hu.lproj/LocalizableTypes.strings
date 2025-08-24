@@ -7,8 +7,8 @@
 "type.aerialway.gondola" = "Gondolakabinos felvonó";
 "type.aerialway.station" = "Felvonóállomás";
 "type.aeroway" = "Légi közlekedési infrastruktúra";
-"type.aeroway.aerodrome" = "Kis repülőtér";
-"type.aeroway.aerodrome.international" = "Repülőtér";
+"type.aeroway.aerodrome" = "Repülőtér";
+"type.aeroway.aerodrome.international" = "Nemzetközi repülőtér";
 "type.aeroway.apron" = "Forgalmi előtér";
 "type.aeroway.gate" = "Beszállókapu";
 "type.aeroway.helipad" = "Helikopterleszálló";
@@ -28,7 +28,7 @@
 "type.amenity.biergarten" = "Sörkert";
 "type.amenity.brothel" = "Bordélyház";
 "type.amenity.bureau_de_change" = "Pénzváltó";
-"type.amenity.bus_station" = "Buszállomás";
+"type.amenity.bus_station" = "Autóbuszállomás";
 "type.amenity.cafe" = "Kávézó";
 "type.amenity.car_rental" = "Autókölcsönző";
 "type.amenity.motorcycle_rental" = "Motorkerékpár-bérlés";
@@ -140,7 +140,7 @@
 "type.recycling.cardboard" = "Kartonpapír";
 "type.recycling.cans" = "Fémdoboz";
 "type.recycling.shoes" = "Cipő";
-"type.recycling.green_waste" = "Szerves hulladék";
+"type.recycling.green_waste" = "Zöld/szerves hulladék";
 "type.recycling.cartons" = "Italos karton";
 "type.amenity.restaurant" = "Étterem";
 "type.amenity.sanitary_dump_station" = "Szennyvízürítőhely";
@@ -192,7 +192,7 @@
 "type.barrier.block" = "Blokk";
 "type.barrier.bollard" = "Terelőoszlop";
 "type.barrier.border_control" = "Határátkelő";
-"type.barrier.chain" = "Lánc";
+"type.barrier.chain" = "Lánckorlát";
 "type.barrier.city_wall" = "Városfal";
 "type.barrier.cycle_barrier" = "Kerékpárakadály";
 "type.waterway.ditch" = "Vízelvezető árok";

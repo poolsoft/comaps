@@ -9,7 +9,7 @@
     <string name="delete">Törlés</string>
     <string name="download_maps">Térképek letöltése</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Nem sikerült letölteni. Próbálja meg újra.</string>
+    <string name="download_has_failed">Nem sikerült letölteni, próbáld meg újra</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Letöltés…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -27,7 +27,7 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Korlátozott pontosság</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">A pontos navigáció érdekében engedélyezze a beállításokban a Pontos helymeghatározás opciót.</string>
+    <string name="precise_location_is_disabled_long_text">A pontos navigáció érdekében meg kell adni a beállításokban a pontos helymeghatározási engedélyt</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Megjelenítés a térképen</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -237,7 +237,7 @@
     <!-- Text in menu -->
     <string name="help">Súgó</string>
     <!-- Button in the main Help dialog -->
-    <string name="faq">GYIK</string>
+    <string name="faq">Gyakran ismételt kérdések</string>
     <!-- Button in the main menu -->
     <string name="donate">Adományozás</string>
     <!-- Button in the main Help dialog -->
