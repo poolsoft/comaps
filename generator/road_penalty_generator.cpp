@@ -51,6 +51,7 @@ std::map<OsmElement::Tag, RoadPenalty::Type> const kUnifiedPenaltyMapping = {
     {OsmElement::Tag("barrier", "gate"), RoadPenalty::Type::Gate},
     {OsmElement::Tag("barrier", "lift_gate"), RoadPenalty::Type::Gate},
     {OsmElement::Tag("barrier", "swing_gate"), RoadPenalty::Type::Gate},
+    {OsmElement::Tag("barrier", "toll_booth"), RoadPenalty::Type::Gate},
 
     // Junction penalties
     {OsmElement::Tag("highway", "stop"), RoadPenalty::Type::UncontrolledJunction},
