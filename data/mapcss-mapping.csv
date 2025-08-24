@@ -304,7 +304,8 @@ waterway|dam;200;
 amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
 leisure|golf_course;202;
 highway|service|bridge;[highway=service][bridge?];;name;int_name;203;
-highway|pedestrian|square;[highway=pedestrian][place=square];;name;int_name;204;
+# ~250K usages.
+power|portal;204;
 # Marsh 500K usages, wet_meadow 160K
 natural|wetland|marsh;[natural=wetland][wetland=marsh],[natural=wetland][wetland=wet_meadow],[natural=wetland][wetland=dambo];;;;205;
 leisure|stadium;206;
@@ -996,7 +997,7 @@ deprecated|deprecated;871;x
 deprecated|deprecated;872;x
 area:highway|pedestrian;873;
 area:highway|unclassified;874;
-deprecated|deprecated;875;x
+highway|pedestrian|square;[highway=pedestrian][place=square];;;;875;
 deprecated|deprecated;876;x
 area:highway|cycleway;877;
 entrance|exit;878;
