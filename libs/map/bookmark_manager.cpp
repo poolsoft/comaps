@@ -296,6 +296,7 @@ void BookmarkManager::DeleteUserMark(kml::MarkId markId)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(!IsBookmark(markId), ());
   auto it = m_userMarks.find(markId);
+  ASSERT(it != m_userMarks.end(), ());
   auto const groupId = it->second->GetGroupId();
   GetGroup(groupId)->DetachUserMark(markId);
   m_changesTracker.OnDeleteMark(markId);
