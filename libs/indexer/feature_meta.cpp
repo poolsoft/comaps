@@ -176,6 +176,8 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_AIRPORT_IATA;
   else if (k.starts_with("brand"))
     outType = Metadata::FMD_BRAND;
+  else if (k == "branch")
+    outType = Metadata::FMD_BRANCH;
   else if (k == "duration")
     outType = Metadata::FMD_DURATION;
   else if (k == "capacity")
@@ -290,6 +292,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_LEVEL: return "level";
   case Metadata::FMD_AIRPORT_IATA: return "iata";
   case Metadata::FMD_BRAND: return "brand";
+  case Metadata::FMD_BRANCH: return "branch";
   case Metadata::FMD_DURATION: return "duration";
   case Metadata::FMD_CONTACT_FACEBOOK: return "contact:facebook";
   case Metadata::FMD_CONTACT_INSTAGRAM: return "contact:instagram";

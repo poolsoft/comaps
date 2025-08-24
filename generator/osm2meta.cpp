@@ -136,6 +136,11 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_url(std::string const & 
   return v;
 }
 
+std::string MetadataTagProcessorImpl::ValidateAndFormat_text(std::string const & v)
+{
+  return v;
+}
+
 std::string MetadataTagProcessorImpl::ValidateAndFormat_phone(std::string const & v)
 {
   return v;
@@ -617,6 +622,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
       return;
     valid = ValidateAndFormat_brand(v);
     break;
+  case Metadata::FMD_BRANCH: valid = ValidateAndFormat_text(v); break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
   case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
   case Metadata::FMD_LOCAL_REF: valid = ValidateAndFormat_local_ref(v); break;

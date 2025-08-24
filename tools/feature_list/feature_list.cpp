@@ -257,6 +257,7 @@ public:
     string const contact_fediverse(meta.Get(feature::Metadata::FMD_CONTACT_FEDIVERSE));
     string const contact_bluesky(meta.Get(feature::Metadata::FMD_CONTACT_BLUESKY));
     string const stars(meta.Get(feature::Metadata::FMD_STARS));
+    string const branch(meta.Get(feature::Metadata::FMD_BRANCH));
     string const internet(meta.Get(feature::Metadata::FMD_INTERNET));
     string const denomination(meta.Get(feature::Metadata::FMD_DENOMINATION));
     string const wheelchair(GetWheelchairType(f));
@@ -284,6 +285,7 @@ public:
                               website,
                               stars,
                               std::string(metaOperator),
+                              branch,
                               internet,
                               denomination,
                               wheelchair,
@@ -326,6 +328,7 @@ void PrintHeader()
                             "cuisines",
                             "stars",
                             "operator",
+                            "branch",
                             "internet",
                             "denomination",
                             "wheelchair",

@@ -123,6 +123,7 @@ public:
     FMD_PANORAMAX = 52,
     FMD_CHECK_DATE = 53,
     FMD_CHECK_DATE_OPEN_HOURS = 54,
+    FMD_BRANCH = 55,
     FMD_COUNT
   };
 
