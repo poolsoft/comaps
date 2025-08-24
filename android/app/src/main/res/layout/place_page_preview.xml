@@ -14,7 +14,8 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:layoutDirection="ltr"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/margin_quarter">
     <include
       android:id="@+id/downloader_status_frame"
       layout="@layout/downloader_status"
@@ -183,7 +184,6 @@
     android:id="@+id/category_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_half"
     android:orientation="vertical">
     <include layout="@layout/place_page_shadow_gap" />
     <LinearLayout
