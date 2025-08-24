@@ -11,13 +11,9 @@
     android:id="@+id/tv__bookmark_notes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginTop="@dimen/margin_base"
     android:textAppearance="?android:attr/textAppearance"
     tools:text="Long, long text Long, long text Long, long text Long, long text Long, long text Long, long text "/>
-
-  <include
-    layout="@layout/divider_horizontal"/>
 </LinearLayout>
