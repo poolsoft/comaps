@@ -31,7 +31,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d fájl található. Látni fogja a konvertálás után.</string>
+			<string>Nem található fájl.</string>
 			<key>one</key>
 			<string>%d fájl található. Ezt a konvertálás után fogja látni.</string>
 			<key>other</key>
@@ -49,7 +49,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d nyomvonal</string>
+			<string>Nincs nyomvonal</string>
 			<key>one</key>
 			<string>%d nyomvonal</string>
 			<key>other</key>

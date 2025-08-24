@@ -74,7 +74,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Bladwijzers</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Bladwijzers en tracks</string>
+    <string name="bookmarks_and_tracks">Bladwijzers en sporen</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Mijn plaatsen</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -203,7 +203,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Weet u zeker dat u wilt uitloggen uit uw OpenStreetMap account?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Tracks</string>
+    <string name="tracks_title">Sporen</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Lengte</string>
     <string name="share_my_location">Mijn locatie delen</string>
@@ -260,7 +260,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Doneren</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Steun het project</string>
+    <string name="how_to_support_us">Draag bij en verbeter CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Auteursrechten</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -557,7 +557,7 @@
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben</string>
     <string name="navigation_stop_button">Stop</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Het spoor opnemen</string>
+    <string name="track_recording">Spoor opnemen</string>
     <!-- For the first routing -->
     <string name="accept">Accepteer</string>
     <!-- For the first routing -->
@@ -609,7 +609,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Maak een nieuwe lijst</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Importeer bladwijzers en tracks</string>
+    <string name="bookmarks_import">Bladwijzers en sporen importeren</string>
     <string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
     <string name="bookmarks_error_title_share_empty">Deelfout</string>
     <string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
@@ -627,8 +627,8 @@
     </plurals>
     <string name="restore">Zet terug</string>
     <plurals name="tracks">
-        <item quantity="one">%d track</item>
-        <item quantity="other">%d tracks</item>
+        <item quantity="one">%d spoor</item>
+        <item quantity="other">%d sporen</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privacy</string>
@@ -814,7 +814,7 @@
     <string name="browser_not_available">Webbrowser is niet beschikbaar</string>
     <string name="volume">Volume</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Exporteer alle bladwijzers en tracks</string>
+    <string name="bookmarks_export">Alle bladwijzers en sporen exporteren</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -838,21 +838,21 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Voor de meest nauwkeurige navigatie raden we aan om de energiebesparende modus uit te schakelen in de batterij-instellingen van de telefoon.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Route opnemen</string>
+    <string name="start_track_recording">Spoor opnemen</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Stop opname van route</string>
+    <string name="stop_track_recording">Stop spoor opnemen</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Stoppen zonder op te slaan</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Opname voortzetten</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Opname opslaan in bladwijzers en tracks?</string>
+    <string name="track_recording_alert_title">Opslaan in bladwijzers en sporen?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Route is leeg - niets om op te slaan</string>
+    <string name="track_recording_toast_nothing_to_save">Spoor is leeg - niets op te slaan</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kan het mappen-selecteerscherm niet weergeven omdat er geen geschikte app op uw apparaat is geïnstalleerd. Installeer een app voor bestandsbeheer en probeer het opnieuw.</string>
     <string name="choose_color">Kies een kleur</string>
-    <string name="edit_track">Route bewerken</string>
+    <string name="edit_track">Spoor bewerken</string>
     <string name="uri_open_location_failed">Geen app geïnstalleerd die de locatie kan openen</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigatie</string>
@@ -896,13 +896,13 @@
     <string name="bookmark_color">Bladwijzer kleur</string>
     <string name="backup_interval_every_day">Dagelijks</string>
     <string name="backup_interval_manual_only">Uit (alleen handmatig)</string>
-    <string name="pref_backup_title">Back-up van bladwijzers en tracks</string>
+    <string name="pref_backup_title">Back-up van bladwijzers en sporen</string>
     <string name="pref_backup_summary">Automatisch back-up maken naar een map op je apparaat</string>
     <string name="pref_backup_now_title">Nu back-uppen</string>
     <string name="pref_backup_now_summary">Maak onmiddellijk een back-up</string>
     <string name="pref_backup_now_summary_progress">Bezig met het maken van back-up…</string>
     <string name="pref_backup_now_summary_ok">Back-up succesvol voltooid</string>
-    <string name="pref_backup_now_summary_empty_lists">Geen bladwijzers en tracks om een back-up van te maken</string>
+    <string name="pref_backup_now_summary_empty_lists">Geen bladwijzers en sporen voor een back-up</string>
     <string name="pref_backup_status_summary_success">Laatste succesvolle back-up</string>
     <string name="pref_backup_interval_title">Automatische back-up</string>
     <string name="pref_backup_location_title">Back-up locatie</string>
@@ -920,4 +920,6 @@
     <string name="dialog_report_error_with_logs">Stuur ons een foutenrapport:\n - stel \"Logboek inschakelen\" in bij de Instellingen\n - reproduceer het probleem\n - druk in het scherm \"Over &amp; Hulp\" op de knop \"Meld een fout\" en verzend via e-mail of chat\n - logboek uitschakelen</string>
     <string name="osm_note_toast">Opmerking wordt verzonden naar OpenStreetMap</string>
     <string name="osm_note_hint">Of laat een opmerking achter bij de OpenStreetMap-gemeenschap, zodat iemand anders hier een plaats kan toevoegen of verbeteren.</string>
+    <string name="share_track">Spoor delen</string>
+    <string name="delete_track_dialog_title">%s verwijderen?</string>
 </resources>

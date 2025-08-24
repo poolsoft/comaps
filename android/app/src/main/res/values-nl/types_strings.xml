@@ -1391,4 +1391,6 @@
     <string name="type.post_office.post_partner">Post partner</string>
     <string name="type.leisure.escape_game">Escaperoom</string>
     <string name="type.amenity.ranger_station">Boswachterkantoor</string>
+    <string name="type.amenity.animal_shelter">Dierenasiel</string>
+    <string name="type.barrier.wicket_gate">Klinket</string>
 </resources>
