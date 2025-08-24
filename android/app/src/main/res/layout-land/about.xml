@@ -166,7 +166,7 @@
         android:orientation="horizontal">
         <com.google.android.material.button.MaterialButton
           android:id="@+id/donate"
-          style="@style/MwmWidget.Button.Accent"
+          style="@style/MwmWidget.M3.Button.Primary"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:padding="@dimen/margin_quarter"
@@ -182,10 +182,9 @@
           app:layout_constraintVertical_bias="0.5" />
         <com.google.android.material.button.MaterialButton
           android:id="@+id/report"
-          style="@style/MwmWidget.Button"
+          style="@style/MwmWidget.M3.Button"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:background="@color/light_gray"
           android:text="@string/report_a_bug"
           android:textAlignment="center"
           android:textColor="@color/text_dark"
@@ -195,7 +194,8 @@
           app:layout_constraintHorizontal_bias="0.5"
           app:layout_constraintStart_toEndOf="@+id/donate"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.5" />
+          app:layout_constraintVertical_bias="0.5"
+          app:backgroundTint="@color/light_gray"/>
       </androidx.constraintlayout.widget.ConstraintLayout>
 
       <com.google.android.material.textview.MaterialTextView

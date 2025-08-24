@@ -390,4 +390,18 @@
   <style name="MwmWidget.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
     <item name="android:widgetLayout">@layout/preference_switch</item>
   </style>
+
+  <style name="MwmWidget.M3.Button" parent="ThemeOverlay.Material3.Button">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">?accentButtonTextColor</item>
+    <item name="backgroundTint">@null</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="cornerRadius">20dp</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="MwmWidget.M3.Button.Primary" parent="@style/MwmWidget.M3.Button">
+    <item name="backgroundTint">?colorSecondary</item>
+  </style>
 </resources>

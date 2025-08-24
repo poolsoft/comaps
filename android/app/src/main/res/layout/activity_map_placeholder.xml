@@ -41,7 +41,7 @@
 
   <com.google.android.material.button.MaterialButton
       android:id="@+id/btn_continue"
-      style="@style/MwmWidget.Button.Accent"
+      style="@style/MwmWidget.M3.Button.Primary"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginEnd="32dp"
