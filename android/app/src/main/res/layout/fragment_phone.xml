@@ -21,7 +21,7 @@
 
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/tv__append_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,12 +29,10 @@
         android:clickable="true"
         android:contentDescription="@string/editor_add_phone"
         android:focusable="true"
-        android:text="@string/editor_add_phone"
-        android:textColor="?accentButtonTextColor"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:icon="@drawable/ic_plus"
-        app:iconTint="?accentButtonTextColor" />
+        app:srcCompat="@drawable/ic_plus"
+        app:iconTint="?android:textColorPrimaryInverse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
