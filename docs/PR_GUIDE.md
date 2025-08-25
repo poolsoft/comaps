@@ -5,7 +5,7 @@ This document gives some guidelines to write and review PR with essential elemen
 ## Writing a Pull Request (PR):
 
 - A PR should have a reasonable size and reflect only one idea, a feature, a bugfix, or a refactoring. This helps to review and limit regressions in the app
-- If you want to work on more than one feature/bug/refactoring at once, please separate PRs for these.
+- If you want to work on more than one feature/bug/refactoring at once, please create separate PRs for these.
 - New functionality and unit or integration tests for it should be developed in the same PR
 - Every commit of all PRs should be compilable under all platforms and all tests should pass. If changes break unit or integration tests, then these tests should be fixed, ideally before opening a PR. 
 - Every commit should reflect a completed idea and have an understandable comment. Review fixes should be merged into one commit
@@ -37,7 +37,7 @@ Some of them might also not be too familiar with using git (e.g. for rebasing br
 For those reasons they might require more effort from reviewers. 
 At the same time, new contributors are the lifeblood that keeps CoMaps sustainable by ensuring that enough people are contributing code. For that reason, it's important to help those newcomers in their on-boarding.
 
-To help newcomers in feeling welcome and getting onboarded, some suggestions for what to include in :
+To help newcomers in feeling welcome and getting onboarded, some suggestions for what to include:
 
 - Thank the contributor for opening a PR (they volunteered time to help the project! And offering code to a new community can be nerve-wrecking.)
 - Where applicable:
