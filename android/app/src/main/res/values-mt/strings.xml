@@ -298,7 +298,6 @@
     <string name="register_at_openstreetmap">Irreġistra f’ OpenStreetMap</string>
     <string name="not_signed_in">Mhux imdaħħal</string>
     <string name="login">Illoggja</string>
-    <string name="forgot_password">Insejt il-password tiegħek?</string>
     <string name="street">Triq</string>
     <string name="house_number">Numru tal-bini</string>
     <string name="building">Bini</string>
@@ -307,7 +306,6 @@
     <string name="choose_language">Agħżel lingwa</string>
     <string name="cuisine">Kċina</string>
     <string name="select_cuisine">Agħżel il-kċina</string>
-    <string name="email_or_username">E-mejl jew isem l-utent</string>
     <string name="downloader_mwm_migration_dialog">Biex toħloq rotta, trid taġġorna l-mapep kollha u mbagħad terġa ’tippjana r-rotta.</string>
     <string name="downloader_no_space_title">Mhux biżżejjed spazju</string>
     <string name="downloader_no_space_message">Ħassar kwalunkwe dejta mhux neċessarja</string>

@@ -141,7 +141,6 @@
     <string name="history">Historial</string>
     <string name="dialog_routing_location_turn_on">Activar servizos de localización</string>
     <string name="prefs_group_information">Información</string>
-    <string name="password">Contrasinal</string>
     <string name="placepage_add_business_button">Engadir organización</string>
     <string name="category_atm">Caixeiro automático</string>
     <string name="prefs_group_route">Navegación</string>
@@ -304,7 +303,6 @@
     <string name="closes_in">Pecha en %s</string>
     <string name="no_osm_account">Non ten conta en OpenStreetMap?</string>
     <string name="login_osm">Acceder a OpenStreetMap</string>
-    <string name="forgot_password">Esqueceu o seu contrasinal?</string>
     <string name="logout">Pechar sesión</string>
     <string name="edit_place">Editar o lugar</string>
     <string name="add_language">Engadir un idioma</string>
@@ -313,7 +311,6 @@
     <string name="street">Rúa</string>
     <string name="empty_street_name_error">Por favor, introduza un nome de rúa</string>
     <string name="choose_language">Elixir un idioma</string>
-    <string name="email_or_username">Correo electrónico ou usuario</string>
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_delete_map_dialog">Todas as edicións feitas ao mapa eliminaranse xunto con este</string>
     <string name="choose_street">Elixa unha cale</string>

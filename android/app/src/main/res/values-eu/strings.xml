@@ -425,8 +425,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Saioa hasi gabe</string>
     <string name="login_osm">Hasi saioa OpenStreetMap-en</string>
-    <string name="password">Pasahitza</string>
-    <string name="forgot_password">Pasahitza ahaztu duzu?</string>
     <string name="logout">Saioa itxi</string>
     <string name="edit_place">Editatu tokia</string>
     <string name="add_language">Gehitu hizkuntza bat</string>
@@ -445,7 +443,6 @@
     <string name="cuisine">Sukaldea</string>
     <string name="select_cuisine">Aukeratu sukaldea</string>
     <!-- login text field -->
-    <string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
     <string name="editor_add_phone">Gehitu telefonoa</string>
     <string name="level">Solairua</string>
     <string name="downloader_delete_map_dialog">Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira</string>

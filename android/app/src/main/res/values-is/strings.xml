@@ -50,7 +50,6 @@
     <string name="closed">Lokað</string>
     <string name="login">Skrá inn</string>
     <string name="login_osm">Skrá inn á OpenStreetMap</string>
-    <string name="password">Lykilorð</string>
     <string name="street">Gata</string>
     <string name="details">Nánar</string>
     <string name="building">Bygging</string>
@@ -178,10 +177,8 @@
     <string name="day_off">Lokað</string>
     <string name="no_osm_account">Ertu ekki með OpenStreetMap-aðgang?</string>
     <string name="not_signed_in">Ekki skráð/ur inn</string>
-    <string name="forgot_password">Gleymdirðu lykilorðinu?</string>
     <string name="logout">Skrá út</string>
     <string name="edit_place">Breyta stað</string>
-    <string name="email_or_username">Tölvupóstur eða notandanafn</string>
     <string name="editor_add_phone">Bæta við símanúmeri</string>
     <string name="level">Hæð</string>
     <string name="editor_edit_place_name_hint">Nafn staðarins</string>

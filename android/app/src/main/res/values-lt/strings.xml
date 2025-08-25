@@ -413,8 +413,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Neprisijungta</string>
     <string name="login_osm">Prisijungti prie „OpenStreetMap“</string>
-    <string name="password">Slaptažodis</string>
-    <string name="forgot_password">Pamiršote slaptažodį?</string>
     <string name="logout">Atsijungti</string>
     <string name="edit_place">Taisyti vietą</string>
     <string name="add_language">Pridėti kalbą</string>
@@ -433,7 +431,6 @@
     <string name="cuisine">Virtuvė</string>
     <string name="select_cuisine">Pasirinkite virtuvę</string>
     <!-- login text field -->
-    <string name="email_or_username">El. paštas arba naudotojo vardas</string>
     <string name="editor_add_phone">Pridėti telefono numerį</string>
     <string name="level">Aukštas</string>
     <string name="downloader_delete_map_dialog">Visi jūsų žemėlapio pakeitimai bus pašalinti kartu su žemėlapiu</string>

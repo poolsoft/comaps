@@ -419,8 +419,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Sessão não iniciada</string>
     <string name="login_osm">Entrar no OpenStreetMap</string>
-    <string name="password">Palavra-chave</string>
-    <string name="forgot_password">Esqueceu-se da palavra-chave?</string>
     <string name="logout">Terminar sessão</string>
     <string name="edit_place">Editar o local</string>
     <string name="add_language">Adicionar um idioma</string>
@@ -437,7 +435,6 @@
     <string name="cuisine">Culinária</string>
     <string name="select_cuisine">Selecione a culinária</string>
     <!-- login text field -->
-    <string name="email_or_username">Email ou nome de utilizador</string>
     <string name="level">Andar</string>
     <string name="downloader_delete_map_dialog">Todas as alterações ao mapa serão eliminadas juntamente com o mapa</string>
     <string name="downloader_update_maps">Atualizar mapas</string>

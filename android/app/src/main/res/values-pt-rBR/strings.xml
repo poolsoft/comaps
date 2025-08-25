@@ -384,8 +384,6 @@
     <string name="register_at_openstreetmap">Abra uma conta no OpenStreetMap</string>
     <string name="login">Login</string>
     <string name="login_osm">Entrar no OpenStreetMap</string>
-    <string name="password">Senha</string>
-    <string name="forgot_password">Esqueceu sua senha?</string>
     <string name="logout">Encerrar sessão</string>
     <string name="edit_place">Editar o local</string>
     <string name="add_language">Adicionar um idioma</string>
@@ -402,7 +400,6 @@
     <string name="cuisine">Culinária</string>
     <string name="select_cuisine">Selecione a culinária</string>
     <!-- login text field -->
-    <string name="email_or_username">Email ou nome de usuário</string>
     <string name="downloader_delete_map_dialog">Todas as suas edições no mapa serão excluídas juntamente com o mapa</string>
     <string name="downloader_update_maps">Atualizar mapas</string>
     <string name="downloader_mwm_migration_dialog">Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planejá-lo novamente.</string>

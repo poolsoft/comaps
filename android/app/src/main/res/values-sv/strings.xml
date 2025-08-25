@@ -410,8 +410,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Inte inloggad</string>
     <string name="login_osm">Logga in på OpenStreetMap</string>
-    <string name="password">Lösenord</string>
-    <string name="forgot_password">Glömt lösenord?</string>
     <string name="logout">Logga ut</string>
     <string name="edit_place">Ändra platsen</string>
     <string name="add_language">Lägg till ett språk</string>
@@ -428,7 +426,6 @@
     <string name="cuisine">Mat</string>
     <string name="select_cuisine">Välj mat</string>
     <!-- login text field -->
-    <string name="email_or_username">E-postadress eller användarnamn</string>
     <string name="level">Våningsplan</string>
     <string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
     <string name="downloader_update_maps">Uppdatera kartor</string>

@@ -424,8 +424,6 @@
     <string name="login">Inicia sessió</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">No heu iniciat sessió</string>
-    <string name="password">Contrasenya</string>
-    <string name="forgot_password">Heu oblidat la contrasenya?</string>
     <string name="logout">Tanca la sessió</string>
     <string name="edit_place">Edita el lloc</string>
     <string name="add_language">Afegeix una llengua</string>
@@ -444,7 +442,6 @@
     <string name="cuisine">Cuina</string>
     <string name="select_cuisine">Trieu una cuina</string>
     <!-- login text field -->
-    <string name="email_or_username">Adreça electrònica o nom d’usuari</string>
     <string name="editor_add_phone">Afegeix un telèfon</string>
     <string name="level">Planta</string>
     <string name="downloader_delete_map_dialog">Totes les vostres edicions del mapa se suprimiran conjuntament amb aquest.</string>

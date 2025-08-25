@@ -244,7 +244,6 @@
     <string name="closes_in">%s-এর মধ্যে বন্ধ হবে</string>
     <string name="no_osm_account">আপনার ওপেনস্ট্রিটম্যাপ অ্যাকাউন্ট নেই?</string>
     <string name="logout">লগ আউট করুন</string>
-    <string name="forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="edit_place">স্থানটি পরিবর্তন করুন</string>
     <string name="add_language">একটি ভাষা যোগ করুন</string>
     <string name="street">রাস্তা</string>
@@ -285,7 +284,6 @@
     <string name="history">ইতিহাস</string>
     <string name="p2p_start">চালু করুন</string>
     <string name="editor_time_from">থেকে</string>
-    <string name="password">পাসওয়ার্ড</string>
     <string name="day_off">বন্ধ</string>
     <string name="closed">বন্ধ</string>
     <string name="social_media">সামাজিক মাধ্যম</string>
@@ -306,7 +304,6 @@
     <string name="choose_street">একটি রাস্তা বেছে নিন</string>
     <string name="cuisine">রন্ধনপ্রণালী</string>
     <string name="select_cuisine">রন্ধনপ্রণালী নির্বাচন করুন</string>
-    <string name="email_or_username">ইমাইল বা ইউইজারনেম</string>
     <string name="editor_add_phone">ফোন নম্বর যোগ করুন</string>
     <string name="downloader_update_maps">মানচিত্রগুলি আপডেট করুন</string>
     <string name="downloader_mwm_migration_dialog">একটি রুট তৈরি করতে, আপনাকে সমস্ত মানচিত্র আপডেট করতে হবে এবং তারপর আবার রুট পরিকল্পনা করতে হবে।</string>

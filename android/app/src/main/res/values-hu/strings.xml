@@ -416,8 +416,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Nincs bejelentkezve</string>
     <string name="login_osm">Jelentkezzen be az OpenStreetMap fiókjába</string>
-    <string name="password">Jelszó</string>
-    <string name="forgot_password">Elfelejtette a jelszavát?</string>
     <string name="logout">Kijelentkezés</string>
     <string name="edit_place">Hely szerkesztése</string>
     <string name="add_language">Nyelv hozzáadása</string>
@@ -434,7 +432,6 @@
     <string name="cuisine">Konyha</string>
     <string name="select_cuisine">Konyha kiválasztása</string>
     <!-- login text field -->
-    <string name="email_or_username">E-mail-cím vagy felhasználónév</string>
     <string name="level">Szint</string>
     <string name="downloader_delete_map_dialog">A térképpel együtt az Ön összes térképszerkesztése törlődik</string>
     <string name="downloader_update_maps">Térképek frissítése</string>

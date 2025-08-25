@@ -28,7 +28,6 @@
     <string name="about_developed_by_enthusiasts">Vollständig open-source, nöd gwünnorientiert, transparenti Entscheidigsfindig und Finanze.</string>
     <string name="dialog_routing_change_start_or_end">Bitte pass din Startpunkt oder dis Ziil a.</string>
     <string name="daily">Täglich</string>
-    <string name="email_or_username">E-Mail oder Benutzername</string>
     <string name="autodownload">Charte automatisch abelade</string>
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) isch es Gmeinschaftsprojekt zum Erstelle vonere freie und offene Charte. Es isch d Hauptquelle für Chartedate in CoMaps und funktioniert ähnlich wie Wikipedia. Du chasch Ort hinzuefüege oder bearbeite, wo denn Millione vo Nutzende uf de ganze Welt zur Verfüegig stönd. \nTritt de Gmeinschaft bii und hilf mit, d Charte für alli besser z mache!</string>
     <string name="editor_building_levels">Etage (inkl. Erdgschoss, ohni Dach)</string>
@@ -368,8 +367,6 @@
     <string name="login">Bi OpenStreetMap aamelde</string>
     <string name="not_signed_in">Nöd aagmolde</string>
     <string name="login_osm">Bi OpenStreetMap aamelde</string>
-    <string name="password">Passwort</string>
-    <string name="forgot_password">Passwort vergesse?</string>
     <string name="logout">Abmelde</string>
     <string name="edit_place">Iitrag bearbeite</string>
     <string name="add_language">E Spraach hinzuefüege</string>

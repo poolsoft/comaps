@@ -427,8 +427,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Не ввійшли</string>
     <string name="login_osm">Увійдіть до OpenStreetMap</string>
-    <string name="password">Пароль</string>
-    <string name="forgot_password">Забули пароль?</string>
     <string name="logout">Вийти</string>
     <string name="edit_place">Редагувати місце</string>
     <string name="add_language">Додати мову</string>
@@ -447,7 +445,6 @@
     <string name="cuisine">Кухня</string>
     <string name="select_cuisine">Вибрати кухню</string>
     <!-- login text field -->
-    <string name="email_or_username">Ел. пошта або ім\'я користувача</string>
     <string name="level">Поверх</string>
     <string name="downloader_delete_map_dialog">Разом з мапою будуть видалені й внесені Вами правки на цій мапі.</string>
     <string name="downloader_update_maps">Оновити мапи</string>
