@@ -23,18 +23,21 @@ class PlacePageHeaderPresenter {
 
   private weak var view: PlacePageHeaderViewProtocol?
   private let placePagePreviewData: PlacePagePreviewData
+  private let branch: String?
   let objectType: PlacePageObjectType
   private weak var delegate: PlacePageHeaderViewControllerDelegate?
   private let headerType: HeaderType
 
   init(view: PlacePageHeaderViewProtocol,
        placePagePreviewData: PlacePagePreviewData,
+       branch: String?,
        objectType: PlacePageObjectType,
        delegate: PlacePageHeaderViewControllerDelegate?,
        headerType: HeaderType) {
     self.view = view
     self.delegate = delegate
     self.placePagePreviewData = placePagePreviewData
+    self.branch = branch
     self.objectType = objectType
     self.headerType = headerType
   }
@@ -42,7 +45,7 @@ class PlacePageHeaderPresenter {
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
   func configure() {
-    view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)
+    view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle, branch: branch)
     switch headerType {
     case .flexible:
       view?.isExpandViewHidden = false

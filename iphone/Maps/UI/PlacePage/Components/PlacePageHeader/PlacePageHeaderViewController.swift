@@ -3,7 +3,7 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
   var isExpandViewHidden: Bool { get set }
   var isShadowViewHidden: Bool { get set }
 
-  func setTitle(_ title: String?, secondaryTitle: String?)
+  func setTitle(_ title: String?, secondaryTitle: String?, branch: String?)
   func showShareTrackMenu()
 }
 
@@ -21,6 +21,7 @@ class PlacePageHeaderViewController: UIViewController {
 
   private var titleText: String?
   private var secondaryText: String?
+  private var branchText: String?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -54,7 +55,7 @@ class PlacePageHeaderViewController: UIViewController {
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    setTitle(titleText, secondaryTitle: secondaryText)
+    setTitle(titleText, secondaryTitle: secondaryText, branch: branchText)
   }
 }
 
@@ -77,9 +78,11 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     }
   }
 
-  func setTitle(_ title: String?, secondaryTitle: String?) {
+  func setTitle(_ title: String?, secondaryTitle: String?, branch: String? = nil) {
     titleText = title
     secondaryText = secondaryTitle
+    branchText = branch
+    
     // XCode 13 is not smart enough to detect that title is used below, and requires explicit unwrapped variable.
     guard let unwrappedTitle = title else {
       titleLabel?.attributedText = nil
@@ -92,6 +95,15 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     ]
 
     let attributedText = NSMutableAttributedString(string: unwrappedTitle, attributes: titleAttributes)
+    
+    // Add branch with thinner font weight if present and not already in title
+    if let branch = branch, !branch.isEmpty, !unwrappedTitle.contains(branch) {
+      let branchAttributes: [NSAttributedString.Key: Any] = [
+        .font: StyleManager.shared.theme!.fonts.regular20,
+        .foregroundColor: UIColor.blackPrimaryText()
+      ]
+      attributedText.append(NSAttributedString(string: " \(branch)", attributes: branchAttributes))
+    }
 
     guard let unwrappedSecondaryTitle = secondaryTitle else {
       titleLabel?.attributedText = attributedText
