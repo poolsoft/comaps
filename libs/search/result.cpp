@@ -134,6 +134,11 @@ string const & Result::GetSuggestionString() const
   return m_suggestionStr;
 }
 
+string Result::GetBranch() const
+{
+  return m_branch;
+}
+
 bool Result::IsEqualSuggest(Result const & r) const
 {
   return m_suggestionStr == r.m_suggestionStr;

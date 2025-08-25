@@ -25,6 +25,7 @@
     self.titleLabel.text = title;
     return;
   }
+  
   NSMutableAttributedString * attributedTitle =
       [[NSMutableAttributedString alloc] initWithString:title];
   NSDictionary * titleAttributes = isPartialMatching ? unselectedTitleAttributes : selectedTitleAttributes;
@@ -40,6 +41,18 @@
       NSLog(@"Incorrect range: %@ for string: %@", NSStringFromRange(range), result.titleText);
     }
   }
+  
+  // Add branch with thinner font weight if present and not already in title
+  if (result.branchText && result.branchText.length > 0 && ![title containsString:result.branchText]) {
+    NSDictionary * branchAttributes = isPartialMatching ? unselectedTitleAttributes : @{
+      NSForegroundColorAttributeName : [selectedTitleAttributes objectForKey:NSForegroundColorAttributeName],
+      NSFontAttributeName : [UIFont regular17]
+    };
+    NSAttributedString * branchString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", result.branchText] 
+                                                                        attributes:branchAttributes];
+    [attributedTitle appendAttributedString:branchString];
+  }
+  
   self.titleLabel.attributedText = attributedTitle;
   [self.titleLabel sizeToFit];
 }
