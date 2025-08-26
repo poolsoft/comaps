@@ -28,7 +28,7 @@
   </declare-styleable>
 
   <declare-styleable name="layersButton">
-    <attr name="state_layers_enabled" format="boolean"/>
+    <attr name="layers_enabled" format="boolean"/>
   </declare-styleable>
 
   <declare-styleable name="PlacePageView">

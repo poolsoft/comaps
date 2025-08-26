@@ -29,7 +29,7 @@ public class LayersButton extends FloatingActionButton
   {
     final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
     if (mAreLayersActive)
-      mergeDrawableStates(drawableState, new int[] {R.attr.state_layers_enabled});
+      mergeDrawableStates(drawableState, new int[] {R.attr.layers_enabled});
     return drawableState;
   }
 
