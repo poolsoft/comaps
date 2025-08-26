@@ -24,7 +24,8 @@ namespace df
 namespace
 {
 int const kPositionRoutingOffsetY = 104;
-double const kMinSpeedThresholdMps = 2.8;  // 10 km/h
+// Speed threshold to switch to GPS bearing. Use compass for slow walking only.
+double const kMinSpeedThresholdMps = 0.7;  // 2.5 km/h
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
 double const kMaxNotFollowRoutingTimeSec = 20.0;
