@@ -184,7 +184,7 @@ power-plant-gas                                     # area z13- (also has icon z
 power-plant-hydro                                   # area z13- (also has icon z17-)
 power-plant-solar                                   # area z13- (also has icon z17-)
 power-plant-wind                                    # area z13- (also has icon z15-, caption(optional) z16-)
-power-substation                                    # area z13- (also has icon z19-, caption(optional) z19-)
+power-substation                                    # area z13- (also has icon z17-, caption(optional) z18-)
 === 50
 
 amenity-childcare                                   # area z13- (also has icon z17-, caption(optional) z17-)

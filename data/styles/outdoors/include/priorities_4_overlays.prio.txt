@@ -2241,7 +2241,7 @@ emergency-phone                                     # icon z17-
 
 amenity-waste_basket                                # icon z18- (also has caption(optional) z19-)
 emergency-fire_hydrant                              # icon z19- (also has caption(optional) z19-)
-power-substation                                    # icon z19- (also has caption(optional) z19-, area z13-)
+power-substation                                    # icon z17- (also has caption(optional) z18-, area z13-)
 === -9990
 
 # amenity-bench                                     # caption(optional) z19- (also has icon z18-)
@@ -2268,7 +2268,7 @@ entrance-exit                                       # icon z17- (also has captio
 # entrance-exit                                     # caption(optional) z19- (also has icon z17-)
 # man_made-cairn                                    # caption(optional) z17- (also has icon z17-)
 # man_made-survey_point                             # caption(optional) z15- (also has icon z14-)
-# power-substation                                  # caption(optional) z19- (also has icon z19-, area z13-)
+# power-substation                                  # caption(optional) z18- (also has icon z17-, area z13-)
 # tourism-information                               # caption(optional) z15- (also has icon z15-)
 # tourism-information-board                         # caption(optional) z15- (also has icon z15-)
 # tourism-information-guidepost                     # caption(optional) z15- (also has icon z15-)
