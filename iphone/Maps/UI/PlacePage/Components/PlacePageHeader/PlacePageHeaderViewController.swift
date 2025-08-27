@@ -90,7 +90,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     }
 
     let titleAttributes: [NSAttributedString.Key: Any] = [
-      .font: StyleManager.shared.theme!.fonts.medium20,
+      .font: StyleManager.shared.theme!.fonts.semibold20,
       .foregroundColor: UIColor.blackPrimaryText()
     ]
 
