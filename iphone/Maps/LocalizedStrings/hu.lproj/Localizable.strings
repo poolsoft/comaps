@@ -479,10 +479,10 @@
 "dialog_routing_download_and_update_maps" = "Töltse le és frissítse az összes térképet a tervezett útvonal mentén az útvonal kiszámításához.";
 "categories" = "Kategóriák";
 "history" = "Előzmények";
-"search_not_found" = "Nincs eredmény.";
+"search_not_found" = "Hoppá, nincs találat.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város vagy település nevét.";
+"search_not_found_query" = "Töltse le a keresett régiót, vagy próbálja meg egy közeli város vagy település nevét hozzáadni.";
 "search_history_title" = "Keresési előzmények";
 "search_history_text" = "Legutóbbi keresések megtekintése.";
 "clear_search" = "A keresési előzmények törlése";
@@ -496,7 +496,7 @@
 "p2p_start" = "Indítás";
 "p2p_from_here" = "Kiindulópont";
 "p2p_to_here" = "Célpont";
-"p2p_only_from_current" = "A navigáció csak a jelenlegi tartózkodási helyétől érhető el.";
+"p2p_only_from_current" = "Navigáció csak a jelenlegi tartózkodási helyétől indítható.";
 "p2p_reroute_from_current" = "Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?";
 "editor_time_add" = "Ütemterv hozzáadása";
 "editor_time_delete" = "Ütemterv törlése";
@@ -518,7 +518,7 @@
 "autodownload" = "Automatikus térképletöltés";
 
 /* Place Page opening hours text */
-"closed_now" = "Most zárva";
+"closed_now" = "Most zárva van";
 
 /* Place Page opening hours text */
 "daily" = "Naponta";
@@ -543,7 +543,7 @@
 
 /* OpenStreetMap Profile */
 "osm_profile" = "OpenStreetMap profil";
-"osm_profile_promt" = "Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.";
+"osm_profile_promt" = "Hozzon létre egy OpenStreetMap-fiókot, vagy jelentkezzen be, hogy a világ számára közzétehesse az Ön térképszerkesztéseit.";
 "osm_profile_explanation" = "Az [OpenStreetMap.org](https://openstreetmap.org) (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az CoMaps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!";
 "osm_profile_login" = "Bejelentkezés az OpenStreetMap fiókba";
 "osm_profile_reauthorize_promt" = "Az OpenStreetMap fiókot leválasztották erről az alkalmazásról";
@@ -580,11 +580,11 @@
 "phone" = "Telefonszám";
 "level" = "Szint";
 "please_note" = "Megjegyzés";
-"downloader_delete_map_dialog" = "Az összes térképszerkesztés törlődik a térképpel együtt.";
+"downloader_delete_map_dialog" = "A térképpel együtt az Ön összes térképszerkesztése törlődik.";
 "downloader_update_maps" = "Térképek frissítése";
 "downloader_search_field_hint" = "Térkép keresése";
 "migration_download_error_dialog" = "Letöltési hiba";
-"common_check_internet_connection_dialog" = "Győződjön meg arról, hogy az eszköz csatlakozik az internethez.";
+"common_check_internet_connection_dialog" = "Győződjön meg arról, hogy az Ön készüléke csatlakozik az internethez.";
 "downloader_no_space_title" = "Nincs elegendő tárhely";
 "downloader_no_space_message" = "Törölje a felesleges adatokat";
 "editor_profile_changes" = "Jóváhagyott módosítások";
@@ -1091,5 +1091,5 @@
 "pref_maplanguage_title" = "A térkép nyelve";
 "transliteration_title_disabled_summary" = "Letiltva, ha mindig a helyi nyelvet használja a térképen";
 "pref_maplanguage_local" = "A helyi nyelv";
-"existence_confirmed_time_ago" = "A létezés megerősítve %@";
-"hours_confirmed_time_ago" = "Megerősítve %@";
+"existence_confirmed_time_ago" = "A létezése ellenőrizve és megerősítve %@";
+"hours_confirmed_time_ago" = "Ellenőrizve és megerősítve %@";

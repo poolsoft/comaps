@@ -322,7 +322,7 @@
 "report_incorrect_map_bug" = "Пријавите или поправите нетачне податке на мапи";
 
 /* Button in the About screen */
-"volunteer" = "Волонтирајте";
+"volunteer" = "Волонтирајте и побољшајте CoMaps";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Повежите се с нама";
@@ -1094,4 +1094,4 @@
 "transliteration_title_disabled_summary" = "Онемогућено када увек користите локални језик за мапу";
 "pref_maplanguage_local" = "Локални језик";
 "existence_confirmed_time_ago" = "Existence confirmed %@";
-"hours_confirmed_time_ago" = "Confirmed %@";
+"hours_confirmed_time_ago" = "Потврђено %@";

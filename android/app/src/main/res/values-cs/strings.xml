@@ -882,4 +882,6 @@
     <string name="osm_note_hint">Případně můžete zanechat poznámku komunitě OpenStreetMap, aby zde někdo jiný mohl místo přidat nebo opravit.</string>
     <string name="share_track">Sdílet stopu</string>
     <string name="delete_track_dialog_title">Odstranit %s?</string>
+    <string name="hours_confirmed_time_ago">Potvrzeno %s</string>
+    <string name="existence_confirmed_time_ago">Existence potvrzena %s</string>
 </resources>

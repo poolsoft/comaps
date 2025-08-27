@@ -29,7 +29,7 @@
     <!-- A unit of measure -->
     <string name="ft">英尺</string>
     <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">退出</string>
+    <string name="core_exit">出口</string>
     <string name="core_entrance">入口</string>
     <string name="subway_data_unavailable">地铁地图不可用</string>
     <string name="public_access">允许公众访问</string>
@@ -37,4 +37,12 @@
     <string name="not_shared">私人</string>
     <string name="access_rules_author_only">在线编辑</string>
     <string name="today">今天</string>
+    <string name="yesterday">昨天</string>
+    <string name="days_ago">%s 天前</string>
+    <string name="week_ago">%s 周前</string>
+    <string name="weeks_ago">%s 周前</string>
+    <string name="month_ago">%s 个月前</string>
+    <string name="months_ago">%s 个月前</string>
+    <string name="year_ago">%s 年前</string>
+    <string name="years_ago">%s 年前</string>
 </resources>

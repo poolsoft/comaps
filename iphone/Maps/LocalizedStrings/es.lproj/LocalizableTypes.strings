@@ -665,7 +665,7 @@
 "type.landuse.farmland" = "Tierras agrícolas";
 "type.landuse.farmyard" = "Granja";
 "type.landuse.field" = "Campo";
-"type.landuse.flowerbed" = "Cama de flores";
+"type.landuse.flowerbed" = "Parterre";
 "type.landuse.forest" = "Bosque";
 "type.landuse.forest.coniferous" = "Bosque de coníferas";
 "type.landuse.forest.deciduous" = "Bosque caducifolio";
@@ -1482,5 +1482,5 @@
 "type.amenity.luggage_locker" = "Casillero de maletas";
 "type.amenity.ranger_station" = "Estación de guardabosques";
 "type.amenity.bicycle_parking.covered" = "Parking de bici cubierto";
-"type.amenity.animal_shelter" = "Animal Shelter";
+"type.amenity.animal_shelter" = "Refugio de animales";
 "type.barrier.wicket_gate" = "Wicket gate";

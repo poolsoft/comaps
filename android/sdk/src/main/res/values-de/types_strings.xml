@@ -697,7 +697,7 @@
     <string name="type.natural.water.lake">See</string>
     <string name="type.natural.water.lock">Schleusenkammer</string>
     <string name="type.natural.water.pond">Teich</string>
-    <string name="type.natural.water.reservoir">Reservoir</string>
+    <string name="type.natural.water.reservoir">Stausee</string>
     <string name="type.natural.water.basin">Wasserbecken</string>
     <string name="type.natural.water.river">Fluss</string>
     <string name="type.natural.land">Land</string>
@@ -1222,7 +1222,7 @@
     <string name="type.sport.tennis">Tennisplatz</string>
     <string name="type.sport.volleyball">Volleyball</string>
     <string name="type.sport.10pin">Bowling</string>
-    <string name="type.sport.9pin">Bowling</string>
+    <string name="type.sport.9pin">Kegeln</string>
     <string name="type.sport.padel">Padel</string>
     <string name="type.sport.futsal">Futsal</string>
     <string name="type.sport.ice_hockey">Eishockey</string>
@@ -1267,7 +1267,7 @@
     <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Museum</string>
     <string name="type.tourism.picnic_site">Picknickplatz</string>
-    <string name="type.leisure.resort">Resort</string>
+    <string name="type.leisure.resort">Freizeitanlage</string>
     <string name="type.tourism.theme_park">Freizeitpark</string>
     <string name="type.tourism.viewpoint">Aussichtspunkt</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
@@ -1355,7 +1355,7 @@
     <string name="type.building.garage">Garage</string>
     <string name="type.cuisine.fish_and_chips">Fisch und Chips</string>
     <string name="type.leisure.beach_resort">Badestrand</string>
-    <string name="type.amenity.food_court">Food Court</string>
+    <string name="type.amenity.food_court">Gastronomiebereich</string>
     <string name="type.fee.yes">$</string>
     <string name="type.man_made.utility_pole">Versorgungsmast</string>
     <string name="type.cuisine.bubble_tea">Bubble Tea</string>

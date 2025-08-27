@@ -196,7 +196,7 @@
     <string name="type.barrier.retaining_wall">Mur de soutènement</string>
     <string name="type.barrier.stile">Échalier</string>
     <string name="type.barrier.turnstile">Tourniquet</string>
-    <string name="type.barrier.swing_gate">Barrière tournante</string>
+    <string name="type.barrier.swing_gate">Portail Battant</string>
     <string name="type.barrier.toll_booth">Poste de péage</string>
     <string name="type.barrier.wall">Mur</string>
     <string name="type.boundary">Frontière</string>
@@ -1391,4 +1391,6 @@
     <string name="type.post_office.post_partner">Partenaire de publication</string>
     <string name="type.amenity.ranger_station">Poste de garde forestier</string>
     <string name="type.leisure.escape_game">Escape Room</string>
+    <string name="type.amenity.animal_shelter">Abri pour animaux</string>
+    <string name="type.barrier.wicket_gate">Portillon</string>
 </resources>

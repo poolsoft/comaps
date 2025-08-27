@@ -767,7 +767,7 @@
     <string name="app_site_url">https://comaps.app/pt-BR/</string>
     <string name="dialog_routing_change_intermediate">Não foi possível localizar o ponto intermediário</string>
     <string name="editor_time_from">De</string>
-    <string name="how_to_support_us">Apoie o projeto</string>
+    <string name="how_to_support_us">Voluntarie-se e melhore o CoMaps</string>
     <string name="google_play_services">Serviço de localização integrada do Google</string>
     <string name="editor_time_title">Horário de funcionamento</string>
     <string name="long_tap_toast">Dê um toque longo no mapa novamente para ver a interface</string>
@@ -863,4 +863,6 @@
     <string name="osm_note_toast">A nota será enviada ao OpenStreetMap</string>
     <string name="delete_track_dialog_title">Apagar %s?</string>
     <string name="share_track">Compartilhar trilha</string>
+    <string name="existence_confirmed_time_ago">Existência confirmada %s</string>
+    <string name="hours_confirmed_time_ago">Confirmado %s</string>
 </resources>

@@ -1392,4 +1392,6 @@
     <string name="type.natural.wetland.tidalflat">潮汐平原</string>
     <string name="type.amenity.ranger_station">护林站</string>
     <string name="type.post_office.post_partner">邮政合作点</string>
+    <string name="type.barrier.wicket_gate">旁门</string>
+    <string name="type.amenity.animal_shelter">动物收容所</string>
 </resources>

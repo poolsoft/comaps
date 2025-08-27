@@ -882,4 +882,6 @@
     <string name="osm_note_hint">Või alternatiivina jäta märge OpenStreetMapi kogukonnale ja keegi teine saab selle koha andmed parandada või uue lisada.</string>
     <string name="share_track">Jaga rada</string>
     <string name="delete_track_dialog_title">Kas kustutame: %s?</string>
+    <string name="existence_confirmed_time_ago">Olemasolu on kontrollitud %s</string>
+    <string name="hours_confirmed_time_ago">Kontrollitud %s</string>
 </resources>

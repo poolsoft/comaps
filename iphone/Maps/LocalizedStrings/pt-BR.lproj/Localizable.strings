@@ -325,7 +325,7 @@
 "report_incorrect_map_bug" = "Relatar ou corrigir dados incorretos do mapa";
 
 /* Button in the About screen */
-"volunteer" = "Voluntarie-se";
+"volunteer" = "Voluntarie-se e melhore o CoMaps";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Conecte-se conosco";
@@ -1095,5 +1095,5 @@
 "pref_maplanguage_title" = "Idioma do mapa";
 "transliteration_title_disabled_summary" = "Desativado quando sempre se utiliza o idioma local para o mapa";
 "pref_maplanguage_local" = "Idioma local";
-"existence_confirmed_time_ago" = "Existence confirmed %@";
-"hours_confirmed_time_ago" = "Confirmed %@";
+"existence_confirmed_time_ago" = "Existência confirmada %@";
+"hours_confirmed_time_ago" = "Confirmado %@";

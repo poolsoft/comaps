@@ -72,7 +72,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Bladwijzers</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Bladwijzers en tracks</string>
+    <string name="bookmarks_and_tracks">Bladwijzers en sporen</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Naam</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -886,4 +886,6 @@
     <string name="osm_note_hint">Of laat een opmerking achter bij de OpenStreetMap-gemeenschap, zodat iemand anders hier een plaats kan toevoegen of verbeteren.</string>
     <string name="share_track">Spoor delen</string>
     <string name="delete_track_dialog_title">%s verwijderen?</string>
+    <string name="existence_confirmed_time_ago">Bestaan bevestigd %s</string>
+    <string name="hours_confirmed_time_ago">Bevestigd %s</string>
 </resources>

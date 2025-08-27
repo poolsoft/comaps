@@ -879,4 +879,6 @@
     <string name="osm_note_hint">Ou, em vez disso, deixe uma nota para a comunidade do OpenStreetMap de tal maneira que outra pessoa possa adicionar ou consertar um local aqui.</string>
     <string name="share_track">Partilhar Trajeto</string>
     <string name="delete_track_dialog_title">Apagar %s?</string>
+    <string name="existence_confirmed_time_ago">Existência confirmada %s</string>
+    <string name="hours_confirmed_time_ago">Confirmado %s</string>
 </resources>

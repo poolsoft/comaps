@@ -413,7 +413,7 @@
     <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Descarga automática</string>
     <!-- Place Page opening hours text -->
-    <string name="daily">Diario</string>
+    <string name="daily">Diariamente</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Cerrado hoy</string>
     <string name="day_off">Cerrado</string>
@@ -539,7 +539,7 @@
     <!-- For the first routing -->
     <string name="accept">Aceptar</string>
     <!-- For the first routing -->
-    <string name="decline">Declinar</string>
+    <string name="decline">Rechazar</string>
     <string name="mobile_data_dialog">¿Usar Internet móvil para mostrar información detallada?</string>
     <string name="mobile_data_option_always">Usar siempre</string>
     <string name="mobile_data_option_today">Sólo hoy</string>
@@ -890,4 +890,6 @@
     <string name="at">a las %s</string>
     <string name="osm_note_hint">O, como alternativa, deja una nota a la comunidad de OpenStreetMap para que alguien lo agregue o arregle.</string>
     <string name="osm_note_toast">Una nota será enviada a OpenStreetMap</string>
+    <string name="delete_track_dialog_title">Eliminar %s?</string>
+    <string name="existence_confirmed_time_ago">Existencia confirmada %s</string>
 </resources>

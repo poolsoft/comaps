@@ -228,7 +228,7 @@
     <string name="rate_the_app">Valore a aplicación</string>
     <string name="faq">Preguntas frecuentes</string>
     <string name="donate">Doar</string>
-    <string name="how_to_support_us">Apoie o proxecto</string>
+    <string name="how_to_support_us">Voluntariado para mellorar CoMaps</string>
     <string name="copyright">Dereitos de autor</string>
     <string name="report_a_bug">Informar dun fallo</string>
     <string name="compass_calibration_recommended">Mellore a dirección da frecha movendo o teléfono en forma de oito para calibrar o compás.</string>
@@ -617,4 +617,8 @@
     <string name="at">ás %s</string>
     <string name="osm_note_hint">Ou, de xeito alternativo, deixarlle unha nota á comunidade OpenStreetMap para que alguén poida engadir ou arranxar a localización.</string>
     <string name="osm_note_toast">Enviarase unha nota a OpenStreetMap</string>
+    <string name="delete_track_dialog_title">Eliminar %s?</string>
+    <string name="hours_confirmed_time_ago">Confirmado %s</string>
+    <string name="existence_confirmed_time_ago">Existencia confirmada %s</string>
+    <string name="share_track">Compartir ruta</string>
 </resources>

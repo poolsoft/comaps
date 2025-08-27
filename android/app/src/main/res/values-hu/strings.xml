@@ -82,7 +82,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Térképek mentési helye</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Válassza ki a mappát a térképek letöltéséhez.</string>
+    <string name="maps_storage_summary">A térképek letöltéséhez válassza ki a mappát</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Letöltött térképek</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
@@ -162,9 +162,9 @@
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">Az Ön tartózkodási helye még nincs meghatározva</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-    <string name="cant_change_this_setting">A térképek tárolása jelenleg ki van kapcsolva.</string>
+    <string name="cant_change_this_setting">Sajnos a térképtárolás beállítása jelenleg le van tiltva</string>
     <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">A térkép letöltése folyamatban van.</string>
+    <string name="downloading_is_active">A térkép letöltése folyamatban van</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Tekintse meg a helyzetemet az CoMaps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://www.comaps.app/download/</string>
     <!-- Subject for emailed bookmark -->
@@ -172,7 +172,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Tekintse meg a helyzetemet az CoMaps alkalmazásban!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a helyzetemet a térképen.\n\nKöszönöm!</string>
+    <string name="my_position_share_email">Üdvözlöm.\n\nJelenleg itt vagyok: %1$s. Kattintson erre a hivatkozásra %2$s, vagy erre %3$s, hogy megtekintse a helyet a térképen.\n\nKöszönöm.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Megosztás</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -220,7 +220,7 @@
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Hangutasítások tesztelése</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Ellenőrizze a hangerőt vagy a rendszer TTS-beállításait, ha most nem hallja a hangot.</string>
+    <string name="pref_tts_playing_test_voice">Ellenőrizze a hangerőt vagy a rendszer TTS-beállításait, ha most nem hallja a hangot</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Nem érhető el</string>
     <string name="pref_map_auto_zoom">Automatikus nagyítás</string>
@@ -241,7 +241,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Adományozás</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">A projekt támogatása</string>
+    <string name="how_to_support_us">Önkéntes munka és a CoMaps fejlesztése</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Szerzői jogok</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -266,7 +266,7 @@
     <string name="downloader_download_all_button">Összes letöltése</string>
     <string name="downloader_downloading">Letöltés:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Állítsa le a navigációt a térkép törléséhez.</string>
+    <string name="downloader_delete_map_while_routing_dialog">A térkép törléséhez állítsa le a navigációt</string>
     <!-- PointsInDifferentMWM -->
     <string name="routing_failed_cross_mwm_building">Útvonalakat csak akkor lehet készíteni, ha teljesen rajta vannak egy térképen.</string>
     <!-- Context menu item for downloader. -->
@@ -278,9 +278,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Térkép frissítése</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play helymeghatározási szolgáltatások</string>
+    <string name="google_play_services">Google helymeghatározási szolgáltatás</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
+    <string name="pref_use_google_play">A Google szolgáltatása, amely a GPS, a Wi-Fi, a mobilhálózatok stb. kombinálásával határozza meg az Ön tartózkodási helyét. Ez csatlakozik a Google szervereihez, és adatokat gyűjt Önről.</string>
     <!-- Preference title -->
     <!-- Preference description -->
     <!-- Text for routing error dialog -->
@@ -338,18 +338,18 @@
     <string name="dialog_routing_location_turn_on">Engedélyezze a helymeghatározási szolgáltatásokat</string>
     <string name="dialog_routing_location_unknown_turn_on">A jelenlegi GPS-koordináták nem találhatók. Engedélyezze a helymeghatározási szolgáltatásokat az útvonal kiszámításához.</string>
     <string name="dialog_routing_unable_locate_route">Nem sikerült meghatározni az útvonalat</string>
-    <string name="dialog_routing_cant_build_route">Nem lehet létrehozni az útvonalat.</string>
+    <string name="dialog_routing_cant_build_route">Nem lehet létrehozni az útvonalat</string>
     <string name="dialog_routing_change_start_or_end">Pontosítsa a kiindulópontot vagy a célállomást.</string>
     <string name="dialog_routing_change_start">Pontosítsa a kiindulópontot</string>
     <string name="dialog_routing_start_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulópontot.</string>
     <string name="dialog_routing_select_closer_start">Válasszon egy, az úthoz közelebb eső kiindulópontot.</string>
     <string name="dialog_routing_change_end">Pontosítsa célállomását</string>
     <string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.</string>
-    <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső célállomást.</string>
-    <string name="dialog_routing_change_intermediate">Nem sikerült meghatározni a köztes helyet.</string>
-    <string name="dialog_routing_intermediate_not_determined">Módosítsa a köztes helyet.</string>
+    <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső célállomást</string>
+    <string name="dialog_routing_change_intermediate">Nem sikerült meghatározni a köztes helyet</string>
+    <string name="dialog_routing_intermediate_not_determined">Kérem, állítsa be a köztes helyet</string>
     <string name="dialog_routing_system_error">Rendszerhiba</string>
-    <string name="dialog_routing_application_error">Nem lehet létrehozni az útvonalat egy alkalmazáshiba miatt.</string>
+    <string name="dialog_routing_application_error">Az alkalmazás hibája miatt nem lehet létrehozni az útvonalat</string>
     <string name="dialog_routing_try_again">Próbálja meg újra</string>
     <string name="not_now">Most nem</string>
     <string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet, és egynél több térképen átívelő, optimálisabb útvonalat létrehozni?</string>
@@ -363,17 +363,17 @@
     <string name="hide">Elrejtés</string>
     <string name="categories">Kategóriák</string>
     <string name="history">Előzmények</string>
-    <string name="search_not_found">Nincs eredmény.</string>
+    <string name="search_not_found">Hoppá, nincs találat</string>
     <!-- The message when user did not find anything in the search. -->
-    <string name="search_not_found_query">Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város vagy település nevét.</string>
+    <string name="search_not_found_query">Töltse le a keresett régiót, vagy próbálja meg egy közeli város vagy település nevét hozzáadni.</string>
     <string name="search_history_title">Keresési előzmények</string>
-    <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
+    <string name="search_history_text">Legutóbbi keresések megtekintése</string>
     <string name="clear_search">A keresési előzmények törlése</string>
     <string name="p2p_your_location">Saját tartózkodási hely</string>
     <string name="p2p_start">Indítás</string>
     <string name="p2p_from_here">Kiindulópont</string>
     <string name="p2p_to_here">Célpont</string>
-    <string name="p2p_only_from_current">A navigáció csak a jelenlegi tartózkodási helyétől érhető el.</string>
+    <string name="p2p_only_from_current">Navigáció csak a jelenlegi tartózkodási helyétől indítható</string>
     <string name="p2p_reroute_from_current">Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Következő</string>
@@ -436,14 +436,14 @@
     <!-- login text field -->
     <string name="email_or_username">E-mail-cím vagy felhasználónév</string>
     <string name="level">Szint</string>
-    <string name="downloader_delete_map_dialog">Az összes térképszerkesztés törlődik a térképpel együtt.</string>
+    <string name="downloader_delete_map_dialog">A térképpel együtt az Ön összes térképszerkesztése törlődik</string>
     <string name="downloader_update_maps">Térképek frissítése</string>
     <string name="downloader_mwm_migration_dialog">Az útvonal létrehozásához frissítenie kell az összes térképet, majd újra meg kell terveznie az útvonalat.</string>
     <string name="downloader_search_field_hint">Térkép keresése</string>
-    <string name="common_check_internet_connection_dialog">Győződjön meg arról, hogy az eszköz csatlakozik az internethez.</string>
+    <string name="common_check_internet_connection_dialog">Győződjön meg arról, hogy az Ön készüléke csatlakozik az internethez</string>
     <string name="downloader_no_space_title">Nincs elegendő tárhely</string>
     <string name="downloader_no_space_message">Törölje a felesleges adatokat</string>
-    <string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
+    <string name="editor_login_error_dialog">Bejelentkezési hiba</string>
     <string name="editor_profile_changes">Jóváhagyott módosítások</string>
     <string name="editor_focus_map_on_location">Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.</string>
     <string name="editor_edit_place_title">Szerkesztés</string>
@@ -460,7 +460,7 @@
     <string name="osm_presentation">A közösségi OpenStreetMap adatok frissítésének időpontja: %s. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az CoMaps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
-    <string name="login_to_make_edits_visible">Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
+    <string name="login_to_make_edits_visible">Hozzon létre egy OpenStreetMap-fiókot, vagy jelentkezzen be, hogy a világ számára közzétehesse az Ön térképszerkesztéseit</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
     <string name="download_over_mobile_header">Biztosan letölti mobilhálózati kapcsolaton keresztül?</string>
@@ -836,4 +836,7 @@
     <string name="saved">Mentett</string>
     <string name="about_headline">Közösség által működtetett nyílt projekt</string>
     <string name="bluesky">Bluesky</string>
+    <string name="closed_now">Most zárva van</string>
+    <string name="existence_confirmed_time_ago">A létezése ellenőrizve és megerősítve %s</string>
+    <string name="hours_confirmed_time_ago">Ellenőrizve és megerősítve %s</string>
 </resources>

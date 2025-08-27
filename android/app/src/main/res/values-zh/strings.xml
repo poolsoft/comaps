@@ -252,7 +252,7 @@
     <!-- Button in the main menu -->
     <string name="donate">捐助我们</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">支持本项目</string>
+    <string name="how_to_support_us">志愿改进 CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">版权</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -887,4 +887,8 @@
     <string name="at">%s</string>
     <string name="osm_note_hint">或者，也可以给 OpenStreetMap 社区留言，以便其他人可以在此添加或修复地点。</string>
     <string name="osm_note_toast">注释将发送至 OpenStreetMap</string>
+    <string name="existence_confirmed_time_ago">已于%s确认地点存在</string>
+    <string name="delete_track_dialog_title">是否删除%s？</string>
+    <string name="hours_confirmed_time_ago">已于%s确认</string>
+    <string name="share_track">分享轨迹</string>
 </resources>

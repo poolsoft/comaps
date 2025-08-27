@@ -36,4 +36,12 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="today">Täna</string>
+    <string name="days_ago">%s päeva tagasi</string>
+    <string name="month_ago">%s kuu eest</string>
+    <string name="months_ago">%s kuud tagasi</string>
+    <string name="year_ago">%s aasta eest</string>
+    <string name="years_ago">%s aastat tagasi</string>
+    <string name="yesterday">Eile</string>
+    <string name="week_ago">%s nädala eest</string>
+    <string name="weeks_ago">%s nädalat tagasi</string>
 </resources>

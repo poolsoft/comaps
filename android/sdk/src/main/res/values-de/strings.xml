@@ -36,4 +36,12 @@
     <string name="gb">GB</string>
     <string name="mb">MB</string>
     <string name="today">Heute</string>
+    <string name="days_ago">vor %s Tagen</string>
+    <string name="week_ago">vor %s Woche</string>
+    <string name="yesterday">Gestern</string>
+    <string name="weeks_ago">vor %s Wochen</string>
+    <string name="month_ago">vor %s Monat</string>
+    <string name="months_ago">vor %s Monaten</string>
+    <string name="year_ago">vor %s Jahr</string>
+    <string name="years_ago">vor %s Jahren</string>
 </resources>

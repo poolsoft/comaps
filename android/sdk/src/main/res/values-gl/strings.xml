@@ -23,4 +23,12 @@
     <string name="maps_storage_removable">Tarxeta SD</string>
     <string name="core_placepage_unknown_place">Punto do mapa</string>
     <string name="today">Hoxe</string>
+    <string name="yesterday">Onte</string>
+    <string name="days_ago">hai %s días</string>
+    <string name="week_ago">hai %s semana</string>
+    <string name="weeks_ago">hai %s semanas</string>
+    <string name="month_ago">hai %s mes</string>
+    <string name="months_ago">hai %s meses</string>
+    <string name="year_ago">hai %s ano</string>
+    <string name="years_ago">hai %s anos</string>
 </resources>

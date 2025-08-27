@@ -305,10 +305,10 @@
 "type.cuisine.georgian" = "Gruusia";
 "type.cuisine.german" = "Saksa";
 "type.cuisine.greek" = "Kreeka";
-"type.cuisine.grill" = "Grill";
+"type.cuisine.grill" = "Grillroad";
 "type.cuisine.heuriger" = "Austria hooajaline veinikõrts (heuriger)";
 "type.cuisine.hotdog" = "Viinersai";
-"type.cuisine.hungarian" = "Ungari";
+"type.cuisine.hungarian" = "Ungari köök";
 "type.cuisine.ice_cream" = "Jäätis";
 "type.cuisine.indian" = "India";
 "type.cuisine.indonesian" = "Indoneesia";
@@ -330,7 +330,7 @@
 "type.cuisine.noodles" = "Nuudliroad";
 "type.cuisine.oriental" = "Kaug-Ida";
 "type.cuisine.pancake" = "Pannkoogid";
-"type.cuisine.pasta" = "Pasta";
+"type.cuisine.pasta" = "Pastaroad";
 "type.cuisine.persian" = "Pärsia";
 "type.cuisine.peruvian" = "Peruu köök";
 "type.cuisine.pizza" = "Pitsa";

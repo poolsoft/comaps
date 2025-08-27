@@ -1392,6 +1392,6 @@
     <string name="type.amenity.ranger_station">Posto de Guardas Florestais</string>
     <string name="type.post_office.post_partner">Parceiro Postal</string>
     <string name="type.natural.wetland.tidalflat">Planície de maré</string>
-    <string name="type.amenity.animal_shelter">Abrigo de Animais</string>
+    <string name="type.amenity.animal_shelter">Abrigo Animal</string>
     <string name="type.barrier.wicket_gate">Postigo</string>
 </resources>

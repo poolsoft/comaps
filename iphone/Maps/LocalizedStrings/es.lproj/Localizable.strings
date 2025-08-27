@@ -527,7 +527,7 @@
 "closed_now" = "Cerrado ahora";
 
 /* Place Page opening hours text */
-"daily" = "Diario";
+"daily" = "Diariamente";
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Cerrado hoy";
 "day_off" = "Cerrado";
@@ -717,7 +717,7 @@
 "accept" = "Aceptar";
 
 /* For the first routing */
-"decline" = "Declinar";
+"decline" = "Rechazar";
 "mobile_data_dialog" = "¿Usar Internet móvil para mostrar información detallada?";
 "mobile_data_option_always" = "Usar siempre";
 "mobile_data_option_today" = "Sólo hoy";

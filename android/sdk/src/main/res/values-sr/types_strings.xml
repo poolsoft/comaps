@@ -1391,4 +1391,6 @@
     <string name="type.amenity.bicycle_parking.covered">Покривени паркинг за бицикле</string>
     <string name="type.amenity.ranger_station">Станица за ренџер</string>
     <string name="type.leisure.escape_game">Escape Room</string>
+    <string name="type.barrier.wicket_gate">Вратница</string>
+    <string name="type.amenity.animal_shelter">Волонтирајте и побољшајте CoMaps</string>
 </resources>

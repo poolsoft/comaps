@@ -600,7 +600,7 @@
     <string name="type.landuse.education">Instalaciones educativas</string>
     <string name="type.landuse.farmland">Tierras agrícolas</string>
     <string name="type.landuse.farmyard">Granja</string>
-    <string name="type.landuse.flowerbed">Cama de flores</string>
+    <string name="type.landuse.flowerbed">Parterre</string>
     <string name="type.landuse.forest">Bosque</string>
     <string name="type.landuse.forest.coniferous">Bosque de coníferas</string>
     <string name="type.landuse.forest.deciduous">Bosque caducifolio</string>
@@ -1392,4 +1392,5 @@
     <string name="type.natural.wetland.reedbed">Juncal</string>
     <string name="type.railway.station.subway.qingdao">Estación de Metro</string>
     <string name="type.leisure.escape_game">Sala de Escape</string>
+    <string name="type.amenity.animal_shelter">Refugio de animales</string>
 </resources>

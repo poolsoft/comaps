@@ -887,4 +887,6 @@
     <string name="osm_note_toast">Ein Hinweis wird zu OpenStreetMap geschickt</string>
     <string name="share_track">Strecke teilen</string>
     <string name="delete_track_dialog_title">%s löschen?</string>
+    <string name="existence_confirmed_time_ago">Existenz bestätigt %s</string>
+    <string name="hours_confirmed_time_ago">Bestätigt %s</string>
 </resources>
