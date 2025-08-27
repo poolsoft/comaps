@@ -59,6 +59,10 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
   return self;
 }
 
+- (void)setBranch:(NSString * _Nullable)branch {
+  _branch = branch;
+}
+
 @end
 
 @implementation PlacePagePreviewData (Core)

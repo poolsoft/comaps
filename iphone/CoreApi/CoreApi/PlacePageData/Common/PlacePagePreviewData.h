@@ -35,12 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *title;
 @property(nonatomic, readonly, nullable) NSString *secondaryTitle;
 @property(nonatomic, readonly, nullable) NSString *subtitle;
+@property(nonatomic, readonly, nullable) NSString *branch;
 @property(nonatomic, readonly, nullable) NSString *coordinates;
 @property(nonatomic, readonly, nullable) NSString *secondarySubtitle;
 @property(nonatomic, readonly) PlacePageDataSchedule schedule;
 @property(nonatomic, readonly) BOOL isMyPosition;
 
 - (instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo;
+- (void)setBranch:(NSString * _Nullable)branch;
 
 @end
 
