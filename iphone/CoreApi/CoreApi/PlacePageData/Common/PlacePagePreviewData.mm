@@ -59,9 +59,6 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
   return self;
 }
 
-- (void)setBranch:(NSString * _Nullable)branch {
-  _branch = branch;
-}
 
 @end
 
@@ -73,6 +70,7 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
     _title = rawData.GetTitle().empty() ? nil : @(rawData.GetTitle().c_str());
     _secondaryTitle = rawData.GetSecondaryTitle().empty() ? nil : @(rawData.GetSecondaryTitle().c_str());
     _subtitle = rawData.GetSubtitle().empty() ? nil : @(rawData.GetSubtitle().c_str());
+    _branch = rawData.GetBranch().empty() ? nil : @(rawData.GetBranch().c_str());
     _secondarySubtitle = rawData.GetSecondarySubtitle().empty() ? nil : @(rawData.GetSecondarySubtitle().c_str());
 
     if (!rawData.IsTrack()) {

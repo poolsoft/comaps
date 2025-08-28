@@ -42,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isMyPosition;
 
 - (instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo;
-- (void)setBranch:(NSString * _Nullable)branch;
 
 @end
 

@@ -75,9 +75,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       }];
     }
     _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
-    
-    // Set branch from infoData to previewData
-    [_previewData setBranch:_infoData.branch];
 
     auto const &countryId = rawData().GetCountryId();
     if (!countryId.empty()) {
