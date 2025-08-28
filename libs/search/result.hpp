@@ -76,7 +76,7 @@ public:
   std::string const & GetString() const { return m_str; }
   std::string const & GetAddress() const { return m_address; }
   std::string const & GetDescription() const { return m_details.m_description; }
-  std::string GetBranch() const;
+  std::string const & GetBranch() const { return m_branch; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
   uint16_t GetMinutesUntilOpen() const { return m_details.m_minutesUntilOpen; }

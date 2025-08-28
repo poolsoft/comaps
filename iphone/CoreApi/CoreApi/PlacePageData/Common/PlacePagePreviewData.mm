@@ -59,7 +59,6 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
   return self;
 }
 
-
 @end
 
 @implementation PlacePagePreviewData (Core)
