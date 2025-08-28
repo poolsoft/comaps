@@ -13,7 +13,7 @@ final class ThemeManager: NSObject {
     updateSystemUserInterfaceStyle(theme)
 
     let actualTheme: MWMTheme = { theme in
-      let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
+      let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle) && MWMRouter.hasSavedRoute()
       switch theme {
       case .day: fallthrough
       case .vehicleDay: return isVehicleRouting ? .vehicleDay : .day
