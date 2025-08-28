@@ -58,13 +58,6 @@ final class PlacePageScrollView: UIScrollView {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    if #available(iOS 13.0, *) {
-      // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
-    } else if previousTraitCollection == nil {
-      scrollView.contentInset = alternativeSizeClass(iPhone: UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0),
-                                                     iPad: UIEdgeInsets.zero)
-      updateSteps()
-    }
     panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
     previousTraitCollection = traitCollection
   }
@@ -170,8 +163,7 @@ final class PlacePageScrollView: UIScrollView {
     actionBarContainerView.layer.setCornerRadius(.modalSheet, maskedCorners: cornersToMask)
     actionBarContainerView.layer.masksToBounds = true
 
-    // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
-    if #available(iOS 13.0, *), previousTraitCollection == nil {
+    if previousTraitCollection == nil {
       scrollView.contentInset = alternativeSizeClass(iPhone: UIEdgeInsets(top: view.height, left: 0, bottom: 0, right: 0),
                                                      iPad: UIEdgeInsets.zero)
       scrollView.layoutIfNeeded()
