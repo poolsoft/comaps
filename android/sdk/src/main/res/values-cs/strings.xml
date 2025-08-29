@@ -32,4 +32,12 @@
     <string name="maps_storage_internal">Interní soukromé úložiště</string>
     <string name="maps_storage_external">Externí sdílené úložiště</string>
     <string name="today">Dnes</string>
+    <string name="yesterday">Včera</string>
+    <string name="days_ago">před %s dny</string>
+    <string name="week_ago">před %s týdnem</string>
+    <string name="weeks_ago">před %s týdny</string>
+    <string name="month_ago">před %s měsícem</string>
+    <string name="months_ago">před %s měsíci</string>
+    <string name="year_ago">před %s rokem</string>
+    <string name="years_ago">před %s lety</string>
 </resources>

@@ -884,4 +884,5 @@
     <string name="delete_track_dialog_title">Odstranit %s?</string>
     <string name="hours_confirmed_time_ago">Potvrzeno %s</string>
     <string name="existence_confirmed_time_ago">Existence potvrzena %s</string>
+    <string name="pref_tts_no_system_tts_short">Nenalezen žádný modul pro převod textu na řeč, zkontrolujte nastavení aplikace</string>
 </resources>

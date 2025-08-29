@@ -1391,4 +1391,6 @@
     <string name="type.leisure.escape_game">Escape Room</string>
     <string name="type.amenity.ranger_station">Stazione delle guardie forestali</string>
     <string name="type.landuse.religious">Terreno Religioso</string>
+    <string name="type.amenity.animal_shelter">Rifugio per Animali</string>
+    <string name="type.barrier.wicket_gate">Cancello pedonale</string>
 </resources>

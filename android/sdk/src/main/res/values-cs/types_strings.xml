@@ -1195,7 +1195,7 @@
     <string name="type.barrier">Bariéra</string>
     <string name="type.barrier.yes">Bariéra</string>
     <string name="type.barrier.cycle_barrier">Cyklistická bariéra</string>
-    <string name="type.cuisine.bubble_tea">Bubble Tea</string>
+    <string name="type.cuisine.bubble_tea">Bublinkový čaj</string>
     <string name="type.emergency">Nouzová stanice</string>
     <string name="type.highway">Dálnice</string>
     <string name="type.highway.bridleway">Hipostezka</string>
@@ -1369,7 +1369,7 @@
     <string name="type.sport.diving">Skoky do vody z velkých výšek</string>
     <string name="type.amenity.studio">Studio</string>
     <string name="type.barrier.guard_rail">Svodidla</string>
-    <string name="type.amenity.love_hotel">Love Hotel</string>
+    <string name="type.amenity.love_hotel">Hodinový hotel</string>
     <string name="type.highway.ladder">Žebřík</string>
     <string name="type.landuse.plant_nursery">Pěstitelská školka</string>
     <string name="type.leisure.firepit">Ohniště</string>

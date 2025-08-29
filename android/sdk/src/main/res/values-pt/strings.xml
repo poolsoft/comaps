@@ -32,4 +32,12 @@
     <string name="maps_storage_shared">Armazenamento interno partilhado</string>
     <string name="maps_storage_removable">Cartão SD</string>
     <string name="today">Hoje</string>
+    <string name="yesterday">Ontem</string>
+    <string name="days_ago">à %s dias</string>
+    <string name="week_ago">à %s semana</string>
+    <string name="weeks_ago">à %s semanas</string>
+    <string name="month_ago">à %s mês</string>
+    <string name="months_ago">à %s meses</string>
+    <string name="year_ago">à %s ano</string>
+    <string name="years_ago">à %s anos</string>
 </resources>

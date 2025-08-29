@@ -346,7 +346,7 @@
 "downloader_available_maps" = "Elérhető";
 
 /* Country queued for download */
-"downloader_queued" = "Sorbaállítva";
+"downloader_queued" = "Várólistához adva";
 "downloader_near_me_subtitle" = "A közelben";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
@@ -634,10 +634,10 @@
 "editor_category_unsuitable_title" = "Nem találja a megfelelő kategóriát?";
 "editor_category_unsuitable_text" = "Az CoMaps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href=\"https://www.comaps.app/support/advanced-map-editing/\">útmutatónkat</a>.";
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
-"downloader_no_downloaded_maps_message" = "Térkép letöltése offline kereséshez és navigáláshoz.";
+"downloader_no_downloaded_maps_message" = "Térképek letöltése internetkapcsolat nélküli kereséshez és navigáláshoz.";
 "current_location_unknown_error_title" = "A jelenlegi helyzet ismeretlen.";
-"current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
-"location_services_disabled_header" = "Helymeghatározás kikapcsolva";
+"current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke megfelelő működését és próbálkozzon újra.";
+"location_services_disabled_header" = "A helymeghatározási szolgáltatások le vannak tiltva";
 "location_services_disabled_message" = "Engedélyezze a hozzáférést a földrajzi helymeghatározáshoz a készülék beállításaiban";
 "location_services_disabled_1" = "1. Nyissa meg a „Beállítások” menüt";
 "location_services_disabled_2" = "2. Érintse meg a „Helymeghatározás” gombot";
@@ -694,8 +694,8 @@
 "editor_share_to_all_dialog_title" = "Szeretné elküldeni az összes felhasználónak?";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Győződjön meg arról, hogy nem ad meg semmilyen személyes információt.";
-"editor_share_to_all_dialog_message_2" = "Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.";
+"editor_share_to_all_dialog_message_1" = "Győződjön meg arról, hogy nem ad meg semmilyen magánjellegű vagy személyes adatokat.";
+"editor_share_to_all_dialog_message_2" = "Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha bármilyen kérdésük van.";
 "navigation_stop_button" = "Megállítás";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
@@ -719,10 +719,10 @@
 "mobile_data" = "Mobilinternet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.";
+"mobile_data_description" = "A térképfrissítési értesítésekhez és a szerkesztések feltöltéséhez mobilinternetre van szükség.";
 "mobile_data_option_never" = "Soha ne használja";
 "mobile_data_option_ask" = "Mindig kérdezzen rá";
-"traffic_update_maps_text" = "Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.";
+"traffic_update_maps_text" = "A forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.";
 "big_font" = "Betűméret növelése a térképen";
 
 /* "traffic" as in road congestion */
@@ -803,7 +803,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Soha ne figyelmeztessen";
 "power_managment_title" = "Energiatakarékos mód";
-"power_managment_description" = "Próbálja meg csökkenteni az energiafelhasználást bizonyos funkciók rovására.";
+"power_managment_description" = "Megpróbálja csökkenteni az energiafelhasználást bizonyos funkciók rovására.";
 "power_managment_setting_never" = "Soha";
 "power_managment_setting_auto" = "Amikor az akkumulátor lemerül";
 "power_managment_setting_manual_max" = "Mindig";

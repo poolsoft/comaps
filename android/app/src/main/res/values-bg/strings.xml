@@ -216,7 +216,7 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Език на инструкциите</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Тестване на гласови указания (TTS, Text-To-Speech)</string>
+    <string name="pref_tts_test_voice_title">Тестване на гласови указания</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Проверете силата на звука или системните настройки за преобразуване на текст в реч, ако сега не чувате гласа.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -804,4 +804,5 @@
     <string name="editor_line_social_network">LINE</string>
     <string name="app_site_url">https://comaps.app/</string>
     <string name="saved">Запазено</string>
+    <string name="about_headline">Отворен проект, захранван от общността</string>
 </resources>

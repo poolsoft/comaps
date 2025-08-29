@@ -25,7 +25,7 @@
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">No momento, todos os Serviços de Localização deste dispositivo ou aplicativo estão desativados. Ative-os nas Configurações.</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Para garantir uma navegação precisa, ative a opção \"Melhorar Precisão de local\" nas configurações</string>
+    <string name="precise_location_is_disabled_long_text">Para garantir uma navegação precisa, ative a Localização Precisa nas configurações</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostrar no mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -159,9 +159,9 @@
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">A sua localização ainda não foi determinada</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-    <string name="cant_change_this_setting">Lamentamos, as configurações do armazenamento do mapa estão desativadas</string>
+    <string name="cant_change_this_setting">Desculpe, as configurações de armazenamento de mapas estão desabilitadas no momento</string>
     <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">O download do mapa está atualmente em progresso</string>
+    <string name="downloading_is_active">O download do mapa está em andamento</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem mapas offline instalados? Baixe aqui: https://www.comaps.app/download/</string>
     <!-- Subject for emailed bookmark -->
@@ -211,7 +211,7 @@
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Testar orientação por voz</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Verifique o volume ou as configurações de conversão de texto em fala do sistema se você não estiver ouvindo a voz agora</string>
+    <string name="pref_tts_playing_test_voice">Verifique o volume ou as configurações do sistema de conversão de texto em fala se você não estiver ouvindo a voz agora</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Não disponível</string>
     <string name="pref_map_auto_zoom">Zoom automático</string>
@@ -249,7 +249,7 @@
     <string name="downloader_download_all_button">Baixar tudo</string>
     <string name="downloader_downloading">Baixando:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Favor parar a navegação para apagar o mapa</string>
+    <string name="downloader_delete_map_while_routing_dialog">Para apagar o mapa, pare a navegação</string>
     <!-- PointsInDifferentMWM -->
     <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam completamente contidas em um único mapa.</string>
     <!-- Context menu item for downloader. -->
@@ -439,9 +439,9 @@
     <string name="editor_more_about_osm">Mais sobre OpenStreetMap</string>
     <string name="editor_osm_history">Seu histórico de edição</string>
     <string name="editor_osm_notes">Suas notas de dados do mapa</string>
-    <string name="editor_category_unsuitable_title">Você não encontra uma categoria adequada?</string>
+    <string name="editor_category_unsuitable_title">Não encontra uma categoria adequada?</string>
     <string name="editor_category_unsuitable_text">O CoMaps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://www.comaps.app/support/advanced-map-editing/">guia</a> para obter instruções detalhadas passo a passo.</string>
-    <string name="downloader_no_downloaded_maps_title">Você não fez o download de nenhum mapa</string>
+    <string name="downloader_no_downloaded_maps_title">Você não baixou nenhum mapa</string>
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar e navegar offline</string>
     <string name="current_location_unknown_error_title">A localização atual é desconhecida</string>
     <!-- abbreviation for kilometers per hour -->
@@ -570,7 +570,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar pedágios</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_unpaved">Evitar não-pavimentadas</string>
+    <string name="avoid_unpaved">Evitar não pavimentadas</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evitar balsas</string>
     <string name="avoid_motorways">Evitar rodovias</string>
@@ -579,7 +579,7 @@
     <string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>
     <string name="change_driving_options_btn">Opções de direção ativadas</string>
     <string name="toll_road">Pedágio</string>
-    <string name="unpaved_road">Pista não pavimentada</string>
+    <string name="unpaved_road">Via não pavimentada</string>
     <string name="ferry_crossing">Balsa</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sim</string>
@@ -855,7 +855,7 @@
     <string name="backup_interval_manual_only">Desligado (apenas manual)</string>
     <string name="dialog_report_error_missing_folder">A localização de backup selecionada está indisponível ou não permite escrita. Por favor, selecione outra localização.</string>
     <string name="dialog_report_error_with_logs">Por favor, nos envie um relatório de erro:\n - Habilite \"Ativar registros de execução\" nas configurações\n - reproduza o problema\n - na tela \"Sobre &amp; Ajuda\", pressione o botão \"Relatar um problema\" e envie via email ou chat\n - desative os registros de execução</string>
-    <string name="panoramax">Imagem Panoramax</string>
+    <string name="panoramax">Imagem do Panoramax</string>
     <string name="open_now">Aberto agora</string>
     <string name="closed_now">Fechado agora</string>
     <string name="at">às %s</string>
@@ -865,4 +865,5 @@
     <string name="share_track">Compartilhar trilha</string>
     <string name="existence_confirmed_time_ago">Existência confirmada %s</string>
     <string name="hours_confirmed_time_ago">Confirmado %s</string>
+    <string name="pref_tts_no_system_tts_short">Nenhum mecanismo de conversão de texto em voz encontrado, verifique as configurações do aplicativo</string>
 </resources>

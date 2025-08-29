@@ -9,7 +9,7 @@
     <string name="delete">Törlés</string>
     <string name="download_maps">Térképek letöltése</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Nem sikerült letölteni, próbáld meg újra</string>
+    <string name="download_has_failed">Nem sikerült letölteni, próbálja újra</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Letöltés…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -23,7 +23,7 @@
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Keresés a térképen</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Engedélyezze őket a Beállításokban.</string>
+    <string name="location_is_disabled_long_text">Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Engedélyezze őket a beállításokban.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Korlátozott pontosság</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -259,7 +259,7 @@
     <!-- Downloaded maps list header -->
     <string name="downloader_downloaded_subtitle">Letöltve</string>
     <!-- Country queued for download -->
-    <string name="downloader_queued">Sorbaállítva</string>
+    <string name="downloader_queued">Várólistához adva</string>
     <string name="downloader_near_me_subtitle">A közelben</string>
     <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
     <string name="downloader_status_maps">Térképek</string>
@@ -459,12 +459,12 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">A közösségi OpenStreetMap adatok frissítésének időpontja: %s. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az CoMaps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
+    <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az CoMaps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen jobb térképet készíteni mindenki számára!</string>
     <string name="login_to_make_edits_visible">Hozzon létre egy OpenStreetMap-fiókot, vagy jelentkezzen be, hogy a világ számára közzétehesse az Ön térképszerkesztéseit</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
     <string name="download_over_mobile_header">Biztosan letölti mobilhálózati kapcsolaton keresztül?</string>
-    <string name="download_over_mobile_message">Ez egyes díjcsomagok vagy roaming esetén jelentős költségekkel járhat.</string>
+    <string name="download_over_mobile_message">Ez egyes díjcsomagok vagy roaming esetén jelentős költségekkel járhat</string>
     <string name="error_enter_correct_house_number">Adjon meg egy érvényes házszámot</string>
     <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
     <string name="error_enter_correct_storey_number">Ez az épület legfeljebb %d emeletes lehet</string>
@@ -473,7 +473,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Megjegyzés az OpenStreetMap önkénteseinek (nem kötelező)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet az CoMaps segítségével szerkeszteni</string>
+    <string name="editor_note_hint">Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet a CoMaps segítségével szerkeszteni</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">A szerkesztései feltöltődnek a nyilvános <a href="https://wiki.openstreetmap.org/wiki/Hu:Névjegy">OpenStreetMap</a> adatbázisba. Ne adjon hozzá személyes vagy szerzői jogvédelem alatt álló információkat.</string>
     <string name="editor_more_about_osm">További részletek az OpenStreetMap adatbázisról</string>
@@ -485,7 +485,7 @@
     <string name="editor_category_unsuitable_title">Nem találja a megfelelő kategóriát?</string>
     <string name="editor_category_unsuitable_text">Az CoMaps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://www.comaps.app/support/advanced-map-editing/">útmutatónkat</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
-    <string name="downloader_no_downloaded_maps_message">Térkép letöltése offline kereséshez és navigáláshoz.</string>
+    <string name="downloader_no_downloaded_maps_message">Térképek letöltése internetkapcsolat nélküli kereséshez és navigáláshoz</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
     <string name="miles_per_hour">mf/h</string>
@@ -509,8 +509,8 @@
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Szeretné elküldeni az összes felhasználónak?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
-    <string name="editor_share_to_all_dialog_message_1">Győződjön meg arról, hogy nem ad meg semmilyen személyes információt.</string>
-    <string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
+    <string name="editor_share_to_all_dialog_message_1">Győződjön meg arról, hogy nem ad meg semmilyen magánjellegű vagy személyes adatokat</string>
+    <string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha bármilyen kérdésük van</string>
     <string name="navigation_stop_button">Megállítás</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Nyomvonal rögzítése</string>
@@ -524,10 +524,10 @@
     <string name="mobile_data_option_not_today">Ma ne használja</string>
     <string name="mobile_data">Mobilinternet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
-    <string name="mobile_data_description">Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
+    <string name="mobile_data_description">A térképfrissítési értesítésekhez és a szerkesztések feltöltéséhez mobilinternetre van szükség</string>
     <string name="mobile_data_option_never">Soha ne használja</string>
     <string name="mobile_data_option_ask">Mindig kérdezzen rá</string>
-    <string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.</string>
+    <string name="traffic_update_maps_text">A forgalmi adatok megjelenítéséhez frissíteni kell a térképeket</string>
     <string name="big_font">Betűméret növelése a térképen</string>
     <string name="traffic_update_app">Frissítse az CoMaps alkalmazást</string>
     <!-- "traffic" as in "road congestion" -->
@@ -537,7 +537,7 @@
     <string name="feedback_general">Általános visszajelzés</string>
     <string name="prefs_languages_information">Az CoMaps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
     <string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). \nNyissa meg az eszköz beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. \nItt kezelheti a beszédszintézis beállításokat (például: nyelvi csomag letöltése a kapcsolat nélküli használathoz) és másik szövegfelolvasót jelölhet ki.</string>
-    <string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
+    <string name="prefs_languages_information_off_link">Ebben az útmutatóban további tájékoztatást talál</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
     <string name="learn_more">Tudjon meg többet</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
@@ -607,7 +607,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Soha ne figyelmeztessen</string>
     <string name="power_managment_title">Energiatakarékos mód</string>
-    <string name="power_managment_description">Próbálja meg csökkenteni az energiafelhasználást bizonyos funkciók rovására.</string>
+    <string name="power_managment_description">Megpróbálja csökkenteni az energiafelhasználást bizonyos funkciók rovására</string>
     <string name="power_managment_setting_never">Soha</string>
     <string name="power_managment_setting_auto">Amikor az akkumulátor lemerül</string>
     <string name="power_managment_setting_manual_max">Mindig</string>
@@ -810,7 +810,7 @@
     <string name="facebook">Facebook</string>
     <string name="closes_in">Bezár %s múlva</string>
     <string name="opens_in">Kinyit %s múlva</string>
-    <string name="current_location_unknown_error_title">A jelenlegi helyzet ismeretlen.</string>
+    <string name="current_location_unknown_error_title">A jelenlegi helyzet ismeretlen</string>
     <string name="disk_error">Nem lehet mappát létrehozni és fájlokat áthelyezni az eszköz belső memóriájában vagy az SD-kártyán</string>
     <string name="disk_error_title">Lemezhiba</string>
     <string name="twitter">X (Twitter)</string>
@@ -839,4 +839,32 @@
     <string name="closed_now">Most zárva van</string>
     <string name="existence_confirmed_time_ago">A létezése ellenőrizve és megerősítve %s</string>
     <string name="hours_confirmed_time_ago">Ellenőrizve és megerősítve %s</string>
+    <string name="editor_level">Emelet (0 a földszint)</string>
+    <string name="error_enter_correct_level">Adja meg az emeletek számát</string>
+    <string name="editor_building_levels">Emeletek (beleértve a földszintet, kivéve a tetőt)</string>
+    <string name="error_enter_correct_fediverse_page">Adjon meg egy érvényes Mastodon felhasználónevet vagy webcímet</string>
+    <string name="osm_note_hint">Vagy írjon egy feljegyzést az OpenStreetMap közösségnek, hogy valaki más hozzáadhassa vagy kijavíthassa itt a helyet.</string>
+    <string name="error_enter_correct_bluesky_page">Adjon meg egy érvényes Bluesky felhasználónevet vagy webcímet</string>
+    <string name="osm_note_toast">A feljegyzés elküldésre kerül az OpenStreetMap közösséghez</string>
+    <string name="pref_left_button_disable">Letiltás</string>
+    <string name="codeberg">Codeberg</string>
+    <string name="pref_backup_now_summary_progress">A biztonsági mentés folyamatban van…</string>
+    <string name="pref_backup_now_summary">Készítsen biztonsági mentést most</string>
+    <string name="pref_backup_now_summary_ok">A biztonsági mentés sikeresen befejeződött</string>
+    <string name="pref_backup_now_summary_empty_lists">Nincsenek könyvjelzők és nyomvonalak a biztonsági mentéshez</string>
+    <string name="pref_backup_now_title">Biztonsági mentés most</string>
+    <string name="pref_backup_location_summary_initial">Válasszon ki egy mappát és adja meg az írási/olvasási engedélyt</string>
+    <string name="pref_left_button_title">A bal oldali gomb beállítása</string>
+    <string name="pref_backup_title">Könyvjelzők és nyomvonalak mentése</string>
+    <string name="pref_backup_summary">Automatikus biztonsági mentés az eszközön lévő mappába</string>
+    <string name="pref_backup_now_summary_folder_unavailable">A biztonsági mentés mappája nem elérhető</string>
+    <string name="pref_backup_status_summary_success">Az utolsó sikeres biztonsági mentés</string>
+    <string name="pref_backup_location_title">A biztonsági mentés mappája</string>
+    <string name="pref_backup_history_title">A megőrzendő biztonsági mentések száma</string>
+    <string name="backup_interval_every_week">Hetente</string>
+    <string name="pref_backup_interval_title">Automatikus biztonsági mentés</string>
+    <string name="backup_interval_every_day">Naponta</string>
+    <string name="pref_backup_now_summary_failed">Nem sikerült a biztonsági mentés</string>
+    <string name="backup_interval_manual_only">Ki (csak kézileg)</string>
+    <string name="dialog_report_error_missing_folder">A biztonsági mentés kiválasztott mappája nem elérhető, vagy nem írható. Kérjük, válasszon másik mappát.</string>
 </resources>

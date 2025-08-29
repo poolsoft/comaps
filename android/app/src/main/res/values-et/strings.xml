@@ -884,4 +884,5 @@
     <string name="delete_track_dialog_title">Kas kustutame: %s?</string>
     <string name="existence_confirmed_time_ago">Olemasolu on kontrollitud %s</string>
     <string name="hours_confirmed_time_ago">Kontrollitud %s</string>
+    <string name="pref_tts_no_system_tts_short">Ühtegi kõnesünteesimootorit ei leidu, palun kontrolli rakenduse seadistusi</string>
 </resources>

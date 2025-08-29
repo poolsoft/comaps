@@ -325,7 +325,7 @@
 "report_incorrect_map_bug" = "Сообщить или исправить неправильные данные на карте";
 
 /* Button in the About screen */
-"volunteer" = "Cтать волонтёром";
+"volunteer" = "Станьте добровольцем и улучшьте CoMaps";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Свяжитесь с нами";
@@ -1092,8 +1092,8 @@
 "osm_profile_view_edit_history" = "История правок";
 "osm_profile_view_notes" = "Заметки";
 "pref_mapappearance_title" = "Оформление карты";
-"transliteration_title_disabled_summary" = "Disabled when always using the local language for the map";
+"transliteration_title_disabled_summary" = "Отключено при постоянном использовании местного языка для карты";
 "pref_maplanguage_title" = "Язык карты";
 "pref_maplanguage_local" = "Местный язык";
-"existence_confirmed_time_ago" = "Existence confirmed %@";
-"hours_confirmed_time_ago" = "Confirmed %@";
+"existence_confirmed_time_ago" = "Существование подтверждено %@";
+"hours_confirmed_time_ago" = "Подтверждено %@";

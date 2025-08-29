@@ -637,9 +637,9 @@
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operador: %@";
-"editor_category_unsuitable_title" = "Você não encontra uma categoria adequada?";
+"editor_category_unsuitable_title" = "Não encontra uma categoria adequada?";
 "editor_category_unsuitable_text" = "O CoMaps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nosso <a href=\"https://www.comaps.app/support/advanced-map-editing/\">guia</a> para obter instruções detalhadas passo a passo.";
-"downloader_no_downloaded_maps_title" = "Você não fez o download de nenhum mapa";
+"downloader_no_downloaded_maps_title" = "Você não baixou nenhum mapa";
 "downloader_no_downloaded_maps_message" = "Baixe mapas para pesquisar locais e usar navegação offline.";
 "current_location_unknown_error_title" = "A localização atual é desconhecida.";
 "current_location_unknown_error_message" = "Ocorreu um erro na busca por sua localização. Verifique se o seu dispositivo está funcionando corretamente e tente novamente mais tarde.";
@@ -820,7 +820,7 @@
 "avoid_tolls" = "Evitar pedágios";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_unpaved" = "Evitar não-pavimentadas";
+"avoid_unpaved" = "Evitar não pavimentadas";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar balsas";
@@ -830,7 +830,7 @@
 "define_to_avoid_btn" = "Definir as estradas a serem evitadas";
 "change_driving_options_btn" = "Opções de direção ativadas";
 "toll_road" = "Pedágio";
-"unpaved_road" = "Pista não pavimentada";
+"unpaved_road" = "Via não pavimentada";
 "ferry_crossing" = "Balsa";
 "trip_start" = "Vamos";
 "pick_destination" = "Destino";

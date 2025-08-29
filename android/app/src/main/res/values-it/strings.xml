@@ -232,7 +232,7 @@
     <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Notizie</string>
     <!-- Settings: Send feedback button and dialog title -->
-    <string name="feedback">Feedback</string>
+    <string name="feedback">Opinioni</string>
     <!-- Text in menu -->
     <string name="rate_the_app">Vota l\'app</string>
     <!-- Text in menu -->
@@ -242,7 +242,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Dona</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Sostieni il progetto</string>
+    <string name="how_to_support_us">Volontariato e migliorare CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Copyright</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -885,4 +885,8 @@
     <string name="at">alle %s</string>
     <string name="osm_note_hint">In alternativa lascia una nota per la community di OpenStreetMap, così un altro utente potrà aggiungere o sistemare questo posto.</string>
     <string name="osm_note_toast">La nota verrà mandata a OpenStreetMap</string>
+    <string name="hours_confirmed_time_ago">Confermato %s</string>
+    <string name="existence_confirmed_time_ago">Esistenza confermata %s</string>
+    <string name="share_track">Traccia condivisa</string>
+    <string name="delete_track_dialog_title">Eliminare %s?</string>
 </resources>

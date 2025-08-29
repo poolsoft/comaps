@@ -35,4 +35,12 @@
     <string name="mb">МБ</string>
     <string name="core_placepage_unknown_place">Тачка на мапи</string>
     <string name="today">Данас</string>
+    <string name="yesterday">Јуче</string>
+    <string name="days_ago">Пре %s дана</string>
+    <string name="week_ago">Пре %s недеља</string>
+    <string name="month_ago">Пре %s месец</string>
+    <string name="months_ago">Пре %s месеци</string>
+    <string name="weeks_ago">Пре %s недеља</string>
+    <string name="year_ago">Пре %s године</string>
+    <string name="years_ago">Пре %s година</string>
 </resources>

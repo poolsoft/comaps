@@ -1381,5 +1381,5 @@
     <string name="type.post_office.post_partner">Parceiro postal</string>
     <string name="type.amenity.ranger_station">Posto de guardas florestais</string>
     <string name="type.barrier.wicket_gate">Postigo</string>
-    <string name="type.amenity.animal_shelter">Abrigo para animais</string>
+    <string name="type.amenity.animal_shelter">Abrigo de animais</string>
 </resources>

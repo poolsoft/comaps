@@ -37,4 +37,12 @@
     <string name="not_shared">Личный</string>
     <string name="access_rules_author_only">Редактируется онлайн</string>
     <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="days_ago">%s дней тому назад</string>
+    <string name="weeks_ago">%s недель тому назад</string>
+    <string name="week_ago">%s неделю тому назад</string>
+    <string name="month_ago">%s месяц тому назад</string>
+    <string name="months_ago">%s месяцев тому назад</string>
+    <string name="year_ago">%s год тому назад</string>
+    <string name="years_ago">%s лет тому назад</string>
 </resources>

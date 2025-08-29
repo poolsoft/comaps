@@ -31,4 +31,12 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="today">Oggi</string>
+    <string name="yesterday">Ieri</string>
+    <string name="week_ago">%s settimana fa</string>
+    <string name="weeks_ago">%s settimane fa</string>
+    <string name="month_ago">%s mese fa</string>
+    <string name="months_ago">%s mesi fa</string>
+    <string name="year_ago">%s anno fa</string>
+    <string name="years_ago">%s anni fa</string>
+    <string name="days_ago">%s giorni fa</string>
 </resources>

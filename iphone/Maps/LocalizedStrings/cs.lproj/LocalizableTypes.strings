@@ -281,7 +281,7 @@
 "type.cuisine.beef_bowl" = "Miska hovězího";
 "type.cuisine.brazilian" = "Brazilská kuchyně";
 "type.cuisine.breakfast" = "Snídaně";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Bublinkový čaj";
 "type.cuisine.burger" = "Burger";
 "type.cuisine.buschenschank" = "Buschenschank";
 "type.cuisine.cake" = "Dort";
@@ -1462,7 +1462,7 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sportovní hala";
 "type.amenity.studio" = "Studio";
-"type.amenity.love_hotel" = "Love Hotel";
+"type.amenity.love_hotel" = "Hodinový hotel";
 "type.highway.ladder" = "Žebřík";
 "type.barrier.guard_rail" = "Svodidla";
 "type.landuse.plant_nursery" = "Pěstitelská školka";
