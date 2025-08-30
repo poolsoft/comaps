@@ -393,7 +393,7 @@ power|generator|gas;[power=generator][generator:source=gas];;name;int_name;285;
 sport|athletics;286;
 landuse|railway;287;
 leisure|slipway;288;
-tourism|caravan_site;289;
+tourism|caravan_site;[tourism=caravan_site],[tourism=camp_site][caravans=yes],[tourism=camp_site][motorhome=yes];;name;int_name;289;
 place|state;290;
 power|generator|hydro;[power=generator][generator:source=hydro];;name;int_name;291;
 railway|subway|tunnel;[railway=subway][tunnel?];;name;int_name;292;
