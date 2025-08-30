@@ -72,16 +72,16 @@ public abstract class BaseSignView extends View
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        float px = getPaddingLeft() + getPaddingRight();
-        float py = getPaddingTop()  + getPaddingBottom();
-        mWidth  = w - px;
-        mHeight = h - py;
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+        super.onSizeChanged(width, height, oldWidth, oldHeight);
+        final float paddingX = getPaddingLeft() + getPaddingRight();
+        final float paddingY = getPaddingTop()  + getPaddingBottom();
+        mWidth  = width - paddingX;
+        mHeight = height - paddingY;
         mRadius = Math.min(mWidth, mHeight) / 2f;
         mBorderWidth  = mRadius * mBorderWidthRatio;
         // subtract half the stroke PLUS the extra inset
-        float gap = mRadius * mBorderInsetRatio;
+        final float gap = mRadius * mBorderInsetRatio;
         mBorderRadius = mRadius - (mBorderWidth / 2f) - gap;
         configureTextSize();
     }
@@ -90,11 +90,11 @@ public abstract class BaseSignView extends View
     protected void onDraw(@NonNull Canvas canvas)
     {
         super.onDraw(canvas);
-        String str = getValueString();
+        final String str = getValueString();
         if (str == null) return;
 
-        float cx = mWidth / 2f;
-        float cy = mHeight / 2f;
+        final float cx = mWidth / 2f;
+        final float cy = mHeight / 2f;
 
         // background & border
         boolean alert = isAlert();
@@ -115,9 +115,9 @@ public abstract class BaseSignView extends View
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent e)
     {
-        float cx = mWidth / 2f, cy = mHeight / 2f;
-        float dx = e.getX() - cx, dy = e.getY() - cy;
-        if (dx*dx + dy*dy <= mRadius*mRadius)
+        final float cx = mWidth / 2f, cy = mHeight / 2f;
+        final float dx = e.getX() - cx, dy = e.getY() - cy;
+        if ((dx * dx) + (dy * dy) <= (mRadius * mRadius))
         {
             performClick();
             return true;
@@ -136,7 +136,7 @@ public abstract class BaseSignView extends View
     {
         Rect b = new Rect();
         mTextPaint.getTextBounds(str, 0, str.length(), b);
-        float y = cy - b.exactCenterY();
+        final float y = cy - b.exactCenterY();
         c.drawText(str, cx, y, mTextPaint);
     }
 
@@ -144,10 +144,10 @@ public abstract class BaseSignView extends View
     {
         String text = getValueString();
         if (text == null) return;
-        float textRadius = mBorderRadius - mBorderWidth;
-        float maxSz = 2f * textRadius;
-        float maxSz2 = maxSz * maxSz;
-        float lo = 0f, hi = maxSz, sz = maxSz;
+        final float textRadius = mBorderRadius - mBorderWidth;
+        final float maxTextSize = 2f * textRadius;
+        final float maxTextSize2 = maxTextSize * maxTextSize;
+        float lo = 0f, hi = maxTextSize, sz = maxTextSize;
         Rect b = new Rect();
         while (lo <= hi)
         {
@@ -155,8 +155,10 @@ public abstract class BaseSignView extends View
             mTextPaint.setTextSize(sz);
             mTextPaint.getTextBounds(text, 0, text.length(), b);
             float area = b.width()*b.width() + b.height()*b.height();
-            if (area <= maxSz2) lo = sz + 1f;
-            else hi = sz - 1f;
+            if (area <= maxTextSize2)
+                lo = sz + 1f;
+            else
+                hi = sz - 1f;
         }
         mTextPaint.setTextSize(Math.max(1f, sz));
     }

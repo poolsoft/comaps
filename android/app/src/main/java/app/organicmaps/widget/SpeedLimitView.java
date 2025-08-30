@@ -25,24 +25,23 @@ public class SpeedLimitView extends BaseSignView
     setBorderWidthRatio(0.2f);
     setBorderInsetRatio(0.05f);
 
-    try (TypedArray a = ctx.getTheme()
-            .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
+    try (TypedArray styleAttrs = ctx.getTheme().obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
     {
-      int bg   = a.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
-      int bd   = a.getColor(R.styleable.SpeedLimitView_speedLimitBorderColor,     DefaultValues.BORDER_COLOR);
-      int al   = a.getColor(R.styleable.SpeedLimitView_speedLimitAlertColor,      DefaultValues.ALERT_COLOR);
-      int tc   = a.getColor(R.styleable.SpeedLimitView_speedLimitTextColor,       DefaultValues.TEXT_COLOR);
-      int tac  = a.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor,  DefaultValues.TEXT_ALERT_COLOR);
-      setColors(bg, bd, al, tc, tac);
+      final int bgColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
+      final int borderColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitBorderColor, DefaultValues.BORDER_COLOR);
+      final int alertColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitAlertColor, DefaultValues.ALERT_COLOR);
+      final int textColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitTextColor, DefaultValues.TEXT_COLOR);
+      final int txtAlertColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
+      setColors(bgColor, borderColor, alertColor, textColor, txtAlertColor);
 
-      unlimitedBorderColor = a.getColor(R.styleable.SpeedLimitView_speedLimitUnlimitedBorderColor,  DefaultValues.UNLIMITED_BORDER_COLOR);
-      unlimitedStripeColor = a.getColor(R.styleable.SpeedLimitView_speedLimitUnlimitedStripeColor,  DefaultValues.UNLIMITED_STRIPE_COLOR);
+      unlimitedBorderColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitUnlimitedBorderColor, DefaultValues.UNLIMITED_BORDER_COLOR);
+      unlimitedStripeColor = styleAttrs.getColor(R.styleable.SpeedLimitView_speedLimitUnlimitedStripeColor, DefaultValues.UNLIMITED_STRIPE_COLOR);
 
       if (isInEditMode())
       {
-        mSpeedLimit = a.getInt(R.styleable.SpeedLimitView_speedLimitEditModeSpeedLimit, 60);
-        mAlert      = a.getBoolean(R.styleable.SpeedLimitView_speedLimitEditModeAlert,   false);
-        mSpeedStr   = Integer.toString(mSpeedLimit);
+        mSpeedLimit = styleAttrs.getInt(R.styleable.SpeedLimitView_speedLimitEditModeSpeedLimit, 60);
+        mAlert = styleAttrs.getBoolean(R.styleable.SpeedLimitView_speedLimitEditModeAlert, false);
+        mSpeedStr = Integer.toString(mSpeedLimit);
       }
     }
   }
@@ -76,9 +75,9 @@ public class SpeedLimitView extends BaseSignView
   @Override
   protected void onDraw(Canvas canvas)
   {
-    float cx = mWidth/2f, cy = mHeight/2f;
+    final float cx = mWidth/2f, cy = mHeight/2f;
 
-    if (mSpeedLimit == 0)
+    if (mSpeedLimit == 0) // 0 means unlimited speed (maxspeed=none)
     {
       // background
       mBackgroundPaint.setColor(mBackgroundColor);
@@ -101,24 +100,24 @@ public class SpeedLimitView extends BaseSignView
 
   private void drawUnlimitedStripes(Canvas c, float cx, float cy)
   {
-    Paint stripe = new Paint(Paint.ANTI_ALIAS_FLAG);
+    final Paint stripe = new Paint(Paint.ANTI_ALIAS_FLAG);
     stripe.setColor(unlimitedStripeColor);
     stripe.setStrokeWidth(mBorderWidth * 0.4f);
 
-    float r     = mRadius * 0.8f;       // shorten to 80% of full radius
-    float diag  = (float)(1/Math.sqrt(2));
-    float dx    = -diag, dy = +diag;
-    float px    = -dy,    py = +dx;     // perpendicular
-    float step  = r * 0.15f;            // spacing
+    final float radius = mRadius * 0.8f; // Shorten to 80% of full radius
+    final float diag = (float) (1/Math.sqrt(2)); // 45 degrees
+    final float dx = -diag, dy = +diag;
+    final float px = -dy, py = +dx; // Perpendicular
+    final float step = radius * 0.15f; // Spacing
 
     for (int i = -2; i <= 2; i++)
     {
-      float ox = px * step * i;
-      float oy = py * step * i;
-      float sx = cx + dx * r + ox;
-      float sy = cy + dy * r + oy;
-      float ex = cx - dx * r + ox;
-      float ey = cy - dy * r + oy;
+      final float ox = px * step * i;
+      final float oy = py * step * i;
+      final float sx = cx + dx * radius + ox;
+      final float sy = cy + dy * radius + oy;
+      final float ex = cx - dx * radius + ox;
+      final float ey = cy - dy * radius + oy;
       c.drawLine(sx, sy, ex, ey, stripe);
     }
   }
