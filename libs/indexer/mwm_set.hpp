@@ -81,7 +81,13 @@ public:
 
   MwmTypeT GetType() const;
 
-  feature::RegionData const & GetRegionData() const { return m_data; }
+  feature::RegionData GetRegionData() const {
+    auto regionData = m_data;
+    if (GetType() == MwmTypeT::WORLD || GetType() == MwmTypeT::COASTS) {
+      regionData.SetLanguages({"int_name","en","default"});
+    }
+    return regionData;
+  }
 
   /// Returns the lock counter value for test needs.
   uint8_t GetNumRefs() const { return m_numRefs; }
