@@ -22,7 +22,7 @@
 "miles" = "Mérföld";
 
 /* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Saját helyzet";
+"core_my_position" = "Saját helyzetem";
 
 /* Update maps later button text */
 "later" = "Később";
@@ -66,7 +66,7 @@
 "bookmarks" = "Könyvjelzők";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Könyvjelzők és nyomvonalak";
+"bookmarks_and_tracks" = "Könyvjelzők és útvonalak";
 
 /* Default bookmark list name */
 "core_my_places" = "Saját helyek";
@@ -761,7 +761,7 @@
 "bookmarks_create_new_group" = "Új lista létrehozása";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Könyvjelzők és nyomvonalak importálása";
+"bookmarks_import" = "Könyvjelzők és útvonalak importálása";
 "downloader_hide_screen" = "Kijelző elrejtése";
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "%@ letöltése…";
@@ -807,7 +807,7 @@
 "power_managment_setting_never" = "Soha";
 "power_managment_setting_auto" = "Amikor az akkumulátor lemerül";
 "power_managment_setting_manual_max" = "Mindig";
-"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt az opciót, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
+"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt a lehetőséget, akkor rögzítheti, és a „A CoMaps névjegye” képernyőn a „HIBA JELENTÉSE” gombra katintva elküldheti nekünk a hibával, problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
 "driving_options_title" = "Útvonaltervezési beállítások";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -993,7 +993,7 @@
 "button_layer_outdoor" = "Szabadtéri";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Az összes könyvjelző és nyomvonal exportálása";
+"bookmarks_export" = "Az összes könyvjelző és útvonal exportálása";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Szín módosítása";
@@ -1078,10 +1078,10 @@
 "continue_recording" = "Rögzítés folytatása";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Elmenti a könyvjelzők és nyomvonalakba?";
+"track_recording_alert_title" = "Elmenti a könyvjelzők és útvonalak közé?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "A nyomvonal üres – nincs mit menteni";
+"track_recording_toast_nothing_to_save" = "Az útvonal üres – nincs mit menteni";
 "edit_track" = "Nyomvonal szerkesztése";
 "osm_profile_view_notes" = "Jegyzetek megtekintése";
 "osm_profile_view_edit_history" = "Szerkesztési előzmények megtekintése";

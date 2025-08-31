@@ -37,4 +37,12 @@
     <string name="not_shared">Privé</string>
     <string name="access_rules_author_only">Édition en ligne</string>
     <string name="today">Aujourd\'hui</string>
+    <string name="yesterday">Hier</string>
+    <string name="days_ago">Il y a %s jours</string>
+    <string name="week_ago">Il y a %s semaine</string>
+    <string name="weeks_ago">Il y a %s semaines</string>
+    <string name="month_ago">Il y a %s mois</string>
+    <string name="months_ago">Il y a %s mois</string>
+    <string name="year_ago">Il y a %s an</string>
+    <string name="years_ago">Il y a %s ans</string>
 </resources>

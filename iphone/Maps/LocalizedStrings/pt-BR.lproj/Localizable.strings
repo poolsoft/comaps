@@ -544,7 +544,7 @@
 /* OpenStreetMap */
 "osm_mapdata" = "Dados de mapa do OpenStreetMap";
 "osm_mapdata_explanation %@" = "Dados de mapas criados pela comunidade até *%@*. Saiba mais sobre como editar e atualizar o mapa em [OpenStreetMap.org](https://openstreetmap.org).";
-"osm_more_about" = "Mais sobre OpenStreetMap";
+"osm_more_about" = "Mais sobre o OpenStreetMap";
 "osm_more_about_url" = "https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap";
 
 /* OpenStreetMap Profile */
@@ -559,7 +559,7 @@
 "osm_profile_register_promt" = "Sem conta no OpenStreetMap?";
 "osm_profile_register" = "Abra uma conta no OpenStreetMap";
 "osm_profile_verfied_changes" = "Alterações verificadas";
-"osm_profile_logout" = "Desconectar conta OpenStreetMap";
+"osm_profile_logout" = "Sair da conta OpenStreetMap";
 "osm_profile_delete" = "Excluir conta OpenStreetMap";
 
 /* Information text: "Last upload 11.01.2016" */
@@ -632,7 +632,7 @@
 "editor_other_info" = "Nota para os voluntários do OpenStreetMap (opcional)";
 "editor_detailed_description_hint" = "Comentário detalhado";
 "editor_detailed_description" = "Suas sugestões de mudança serão enviadas para a comunidade OpenStreetMap. Descreva em detalhes o que não pode ser editado com o CoMaps.";
-"editor_more_about_osm" = "Mais sobre OpenStreetMap";
+"editor_more_about_osm" = "Mais sobre o OpenStreetMap";
 "editor_operator" = "Operador";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */

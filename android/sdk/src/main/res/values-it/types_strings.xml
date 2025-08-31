@@ -10,10 +10,10 @@
     <string name="type.aerialway.drag_lift">Ski-lift</string>
     <string name="type.aerialway.gondola">Cabinovia</string>
     <string name="type.aerialway.mixed_lift">Impianto misto</string>
-    <string name="type.aerialway.station">Stazione</string>
+    <string name="type.aerialway.station">Stazione aerea</string>
     <string name="type.aeroway">Infrastruttura aeroportuale</string>
     <string name="type.aeroway.aerodrome">Aeroporto</string>
-    <string name="type.aeroway.aerodrome.international">Aeroporto Internazionale</string>
+    <string name="type.aeroway.aerodrome.international">Aeroporto internazionale</string>
     <string name="type.aeroway.apron">Area di stazionamento per aeromobili</string>
     <string name="type.aeroway.gate">Cancello aeroportuale</string>
     <string name="type.aeroway.helipad">Piattaforma per elicotteri</string>
@@ -22,14 +22,14 @@
     <string name="type.aeroway.terminal">Terminal aeroportuale</string>
     <string name="type.amenity">Struttura</string>
     <string name="type.amenity.arts_centre">Centro artistico</string>
-    <string name="type.amenity.atm">Bancomat</string>
+    <string name="type.amenity.atm">Bancomat ATM</string>
     <string name="type.amenity.bank">Banca</string>
-    <string name="type.amenity.bar">Bar alcolico</string>
+    <string name="type.amenity.bar">Bar</string>
     <string name="type.amenity.bbq">Griglia per barbecue</string>
     <string name="type.amenity.bench">Panchina</string>
     <string name="type.amenity.bicycle_parking">Parcheggio biciclette</string>
     <string name="type.amenity.bicycle_rental">Noleggio biciclette</string>
-    <string name="type.amenity.bicycle_repair_station">Stazione di riparazione biciclette</string>
+    <string name="type.amenity.bicycle_repair_station">Centro di riparazione biciclette</string>
     <string name="type.amenity.biergarten">Biergarten</string>
     <string name="type.amenity.brothel">Bordello</string>
     <string name="type.amenity.bureau_de_change">Cambio valute</string>
@@ -51,7 +51,7 @@
     <string name="type.leisure.bowling_alley">Sala da bowling</string>
     <string name="type.amenity.clinic">Clinica</string>
     <string name="type.amenity.college">Collegio</string>
-    <string name="type.amenity.community_centre">Centro ricreativo</string>
+    <string name="type.amenity.community_centre">Centro comunitario</string>
     <string name="type.amenity.compressed_air">Aria compressa</string>
     <string name="type.amenity.conference_centre">Centro conferenze</string>
     <string name="type.amenity.courthouse">Tribunale</string>
@@ -70,7 +70,7 @@
     <string name="type.amenity.fire_station">Squadra antincendio</string>
     <string name="type.amenity.food_court">Area ristorazione</string>
     <string name="type.amenity.fountain">Fontana</string>
-    <string name="type.amenity.fuel">Stazione di rifornimento</string>
+    <string name="type.amenity.fuel">Distributore di carburante</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Cimitero</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -297,7 +297,7 @@
     <string name="type.cuisine.german">Cucina tedesca</string>
     <string name="type.cuisine.greek">Cucina greca</string>
     <string name="type.cuisine.grill">Cucina alla griglia</string>
-    <string name="type.cuisine.heuriger">Heuriger</string>
+    <string name="type.cuisine.heuriger">Vino Heuriger</string>
     <string name="type.cuisine.hotdog">Hot dog</string>
     <string name="type.cuisine.hungarian">Cucina ungherese</string>
     <string name="type.cuisine.ice_cream">Gelateria</string>
@@ -382,7 +382,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.busway.bridge">Ponte</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.busway.tunnel">Tunnel</string>
+    <string name="type.highway.busway.tunnel">Galleria</string>
     <string name="type.highway.bus_stop">Fermata dell\'autobus</string>
     <string name="type.highway.construction">Strada in costruzione</string>
     <string name="type.highway.cycleway">Pista ciclabile</string>
@@ -1381,7 +1381,7 @@
     <string name="type.natural.wetland.swamp">Palude</string>
     <string name="type.natural.wetland.mangrove">Mangrovie</string>
     <string name="type.amenity.luggage_locker">Deposito Bagagli</string>
-    <string name="type.amenity.bicycle_parking.covered">Parcheggio Biciclette Coperto</string>
+    <string name="type.amenity.bicycle_parking.covered">Parcheggio biciclette coperto</string>
     <string name="type.post_office.post_partner">Partner Postale</string>
     <string name="type.natural.wetland.saltmarsh">Palude Salmastra</string>
     <string name="type.natural.wetland.saltmarsh.tidal">Palude Salmastra di Marea</string>

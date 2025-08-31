@@ -165,7 +165,7 @@
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">Votre position n\'a pas encore été déterminée</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-    <string name="cant_change_this_setting">Désolé, les paramètres de stockage dee cartes sont actuellement désactivés.</string>
+    <string name="cant_change_this_setting">Désolé, les paramètres de stockage de cartes sont actuellement désactivés</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Le téléchargement de la carte est en cours</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
@@ -337,7 +337,7 @@
     <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur les conseils de navigation ;</string>
     <string name="dialog_routing_disclaimer_precision">— La carte peut être erronée et l\'itinéraire proposé n\'est pas forcément optimal pour arriver à destination ;</string>
     <string name="dialog_routing_disclaimer_recommendations">— L\'itinéraire proposé doit être considéré comme une simple recommandation ;</string>
-    <string name="dialog_routing_disclaimer_borders">— Soyez vigilants à proximité des zones frontalières : les itinéraires générés par l\'application peuvent parfois franchir les frontières entre états dans des zones interdites ;</string>
+    <string name="dialog_routing_disclaimer_borders">— Faites attention à proximité des zones frontalières : les itinéraires générés par l\'application peuvent parfois franchir les frontières entre états dans des zones interdites ;</string>
     <string name="dialog_routing_disclaimer_beware">Restez vigilants et soyez prudents sur la route !</string>
     <string name="dialog_routing_check_gps">Vérifiez le signal GPS</string>
     <string name="dialog_routing_error_location_not_found">Impossible de créer l\'itinéraire. Les coordonnées GPS actuelles n\'ont pas pu être déterminées.</string>
@@ -346,10 +346,10 @@
     <string name="dialog_routing_location_unknown_turn_on">Impossible de déterminer les coordonnées GPS actuelles. Activez les services de localisation pour calculer l\'itinéraire.</string>
     <string name="dialog_routing_unable_locate_route">Impossible de localiser l\'itinéraire</string>
     <string name="dialog_routing_cant_build_route">Impossible de créer l\'itinéraire</string>
-    <string name="dialog_routing_change_start_or_end">Veuillez ajuster votre point de départ ou votre destination</string>
+    <string name="dialog_routing_change_start_or_end">Veuillez ajuster votre point de départ ou votre destination.</string>
     <string name="dialog_routing_change_start">Modifiez votre point de départ</string>
     <string name="dialog_routing_start_not_determined">Impossible de localiser le point de départ. L\'itinéraire n\'a pas pu être créé.</string>
-    <string name="dialog_routing_select_closer_start">Choisissez un point de départ à proximité d\'une route</string>
+    <string name="dialog_routing_select_closer_start">Choisissez un point de départ à proximité d\'une route.</string>
     <string name="dialog_routing_change_end">Ajustez la destination</string>
     <string name="dialog_routing_end_not_determined">Impossible de localiser la destination. L\'itinéraire n\'a pas pu être créé.</string>
     <string name="dialog_routing_select_closer_end">Choisissez un lieu de destination à proximité d\'une route</string>
@@ -372,7 +372,7 @@
     <string name="history">Historique</string>
     <string name="search_not_found">Oups, aucun résultat trouvé</string>
     <!-- The message when user did not find anything in the search. -->
-    <string name="search_not_found_query">Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d\'ajouter le nom d\'une ville ou d\'un village proche</string>
+    <string name="search_not_found_query">Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d\'ajouter le nom d\'une ville ou d\'un village proche.</string>
     <string name="search_history_title">Historique de recherche</string>
     <string name="search_history_text">Affichez vos dernières recherches</string>
     <string name="clear_search">Effacer l\'historique de recherche</string>
@@ -461,7 +461,7 @@
     <string name="downloader_no_space_message">Veuillez supprimer les données inutiles</string>
     <string name="editor_login_error_dialog">Erreur de connexion</string>
     <string name="editor_profile_changes">Modifications vérifiées</string>
-    <string name="editor_focus_map_on_location">Déplacez la carte pour placer la croix à l\'emplacement du lieu ou de l\'entreprise</string>
+    <string name="editor_focus_map_on_location">Déplacez la carte pour placer la croix à l\'emplacement du lieu ou de l\'entreprise.</string>
     <string name="editor_edit_place_title">Modification</string>
     <string name="editor_add_place_title">Ajout</string>
     <string name="editor_edit_place_name_hint">Nom du lieu</string>
@@ -476,7 +476,7 @@
     <string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consultez le site OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C\'est la principale source de données cartographiques de CoMaps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d\'utilisateurs dans le monde entier. \nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !</string>
-    <string name="login_to_make_edits_visible">Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de carte dans le monde entier.</string>
+    <string name="login_to_make_edits_visible">Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de carte dans le monde entier</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d de %2$d</string>
     <string name="download_over_mobile_header">Télécharger avec une connexion réseau cellulaire ?</string>
@@ -534,7 +534,7 @@
     <string name="editor_share_to_all_dialog_title">Souhaitez-vous l’envoyer à tous les utilisateurs ?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles</string>
-    <string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
+    <string name="editor_share_to_all_dialog_message_2">Les cartographes OpenStreetMap vérifieront vos modifications et vous contacteront en cas de questions</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Enregistreur de traces</string>
     <!-- For the first routing -->
@@ -550,7 +550,7 @@
     <string name="mobile_data_description">Une connexion Internet est nécessaire pour recevoir les mises à jour de cartes et pour envoyer vos modifications</string>
     <string name="mobile_data_option_never">Ne jamais utiliser</string>
     <string name="mobile_data_option_ask">Toujours demander</string>
-    <string name="traffic_update_maps_text">Pour afficher les données de circulation, les cartes doivent être mises à jour.</string>
+    <string name="traffic_update_maps_text">Pour afficher les données de circulation, les cartes doivent être mises à jour</string>
     <string name="big_font">Augmenter la taille de police sur la carte</string>
     <string name="traffic_update_app">Veuillez mettre à jour CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
@@ -647,7 +647,7 @@
     <string name="avoid_ferry">Éviter les ferries</string>
     <string name="avoid_motorways">Éviter les autoroutes</string>
     <string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
-    <string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez</string>
+    <string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez.</string>
     <string name="define_to_avoid_btn">Définissez les routes à éviter</string>
     <string name="change_driving_options_btn">Paramètres d\'itinéraire activés</string>
     <string name="toll_road">Route à péage</string>
@@ -824,7 +824,7 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Impossible d\'afficher la boîte de dialogue de sélection des dossiers car aucune application appropriée n\'est installée sur votre appareil. Veuillez installer une application de gestion de fichiers et réessayer</string>
+    <string name="error_no_file_manager_app">Impossible d\'afficher la boîte de dialogue de sélection des dossiers car aucune application appropriée n\'est installée sur votre appareil. Veuillez installer une application de gestion de fichiers et réessayer.</string>
     <string name="choose_color">Choisir la couleur</string>
     <string name="edit_track">Modifier la trace</string>
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
@@ -894,4 +894,5 @@
     <string name="delete_track_dialog_title">Supprimer %s ?</string>
     <string name="existence_confirmed_time_ago">Existance confirmée %s</string>
     <string name="hours_confirmed_time_ago">Confirmé %s</string>
+    <string name="pref_tts_no_system_tts_short">Pas de synthèse vocale disponible, vérifiez les paramètres de l\'application</string>
 </resources>

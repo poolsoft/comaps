@@ -225,7 +225,7 @@
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">测试语音指令</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">如果您现在听不到声音，请检查音量或系统文本转语音设置</string>
+    <string name="pref_tts_playing_test_voice">如果您现在听不到声音，请检查音量或系统文字转语音设置</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">不可用</string>
     <string name="pref_map_auto_zoom">自动缩放</string>
@@ -891,4 +891,5 @@
     <string name="delete_track_dialog_title">是否删除%s？</string>
     <string name="hours_confirmed_time_ago">已于%s确认</string>
     <string name="share_track">分享轨迹</string>
+    <string name="pref_tts_no_system_tts_short">未找到文字转语音引擎，请检查应用设置</string>
 </resources>

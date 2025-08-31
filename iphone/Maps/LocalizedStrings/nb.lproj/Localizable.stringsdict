@@ -48,8 +48,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d spor</string>
 			<key>other</key>
-			<string>%d spor?</string>
+			<string>%d spor</string>
 		</dict>
 	</dict>
 </dict>

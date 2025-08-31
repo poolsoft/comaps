@@ -7,10 +7,10 @@
 "type.aerialway.drag_lift" = "Ski-lift";
 "type.aerialway.gondola" = "Cabinovia";
 "type.aerialway.mixed_lift" = "Impianto misto";
-"type.aerialway.station" = "Stazione";
+"type.aerialway.station" = "Stazione aerea";
 "type.aeroway" = "Infrastruttura aeroportuale";
 "type.aeroway.aerodrome" = "Aeroporto";
-"type.aeroway.aerodrome.international" = "Aeroporto Internazionale";
+"type.aeroway.aerodrome.international" = "Aeroporto internazionale";
 "type.aeroway.apron" = "Area di stazionamento per aeromobili";
 "type.aeroway.gate" = "Cancello aeroportuale";
 "type.aeroway.helipad" = "Piattaforma per elicotteri";
@@ -19,14 +19,14 @@
 "type.aeroway.terminal" = "Terminal aeroportuale";
 "type.amenity" = "Struttura";
 "type.amenity.arts_centre" = "Centro artistico";
-"type.amenity.atm" = "Bancomat";
+"type.amenity.atm" = "Bancomat ATM";
 "type.amenity.bank" = "Banca";
-"type.amenity.bar" = "Bar alcolico";
+"type.amenity.bar" = "Bar";
 "type.amenity.bbq" = "Griglia per barbecue";
 "type.amenity.bench" = "Panchina";
 "type.amenity.bicycle_parking" = "Parcheggio biciclette";
 "type.amenity.bicycle_rental" = "Noleggio biciclette";
-"type.amenity.bicycle_repair_station" = "Stazione di riparazione biciclette";
+"type.amenity.bicycle_repair_station" = "Centro di riparazione biciclette";
 "type.amenity.biergarten" = "Biergarten";
 "type.amenity.brothel" = "Bordello";
 "type.amenity.bureau_de_change" = "Cambio valute";
@@ -48,7 +48,7 @@
 "type.leisure.bowling_alley" = "Sala da bowling";
 "type.amenity.clinic" = "Clinica";
 "type.amenity.college" = "Collegio";
-"type.amenity.community_centre" = "Centro ricreativo";
+"type.amenity.community_centre" = "Centro comunitario";
 "type.amenity.compressed_air" = "Aria compressa";
 "type.amenity.conference_centre" = "Centro conferenze";
 "type.amenity.courthouse" = "Tribunale";
@@ -67,7 +67,7 @@
 "type.amenity.fire_station" = "Squadra antincendio";
 "type.amenity.food_court" = "Area ristorazione";
 "type.amenity.fountain" = "Fontana";
-"type.amenity.fuel" = "Stazione di rifornimento";
+"type.amenity.fuel" = "Distributore di carburante";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Cimitero";
@@ -306,7 +306,7 @@
 "type.cuisine.german" = "Cucina tedesca";
 "type.cuisine.greek" = "Cucina greca";
 "type.cuisine.grill" = "Cucina alla griglia";
-"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.heuriger" = "Vino Heuriger";
 "type.cuisine.hotdog" = "Hot dog";
 "type.cuisine.hungarian" = "Cucina ungherese";
 "type.cuisine.ice_cream" = "Gelateria";
@@ -399,7 +399,7 @@
 "type.highway.busway.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.busway.tunnel" = "Tunnel";
+"type.highway.busway.tunnel" = "Galleria";
 "type.highway.bus_stop" = "Fermata dell'autobus";
 "type.highway.construction" = "Strada in costruzione";
 "type.highway.cycleway" = "Pista ciclabile";
@@ -1479,7 +1479,7 @@
 "type.leisure.escape_game" = "Escape Room";
 "type.amenity.luggage_locker" = "Deposito Bagagli";
 "type.amenity.ranger_station" = "Stazione delle guardie forestali";
-"type.amenity.bicycle_parking.covered" = "Parcheggio Biciclette Coperto";
+"type.amenity.bicycle_parking.covered" = "Parcheggio biciclette coperto";
 "type.post_office.post_partner" = "Partner Postale";
 "type.landuse.religious" = "Terreno Religioso";
 "type.barrier.wicket_gate" = "Cancello pedonale";

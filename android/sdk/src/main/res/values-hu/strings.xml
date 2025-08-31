@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Saját helyzet</string>
+    <string name="core_my_position">Saját helyzetem</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Saját helyek</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -36,4 +36,12 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="today">Ma</string>
+    <string name="yesterday">Tegnap</string>
+    <string name="days_ago">%s nappal ezelőtt</string>
+    <string name="week_ago">%s héttel ezelőtt</string>
+    <string name="weeks_ago">%s héttel ezelőtt</string>
+    <string name="months_ago">%s hónappal ezelőtt</string>
+    <string name="year_ago">%s évvel ezelőtt</string>
+    <string name="years_ago">%s évvel ezelőtt</string>
+    <string name="month_ago">%s hónappal ezelőtt</string>
 </resources>

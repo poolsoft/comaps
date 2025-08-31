@@ -9,7 +9,7 @@
 "route" = "Percorso";
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Il rilevamento della posizione corrente in background è necessario per godere appieno delle funzionalità dell'app. Viene utilizzata per la navigazione e il salvataggio delle traccie percorse di recente.";
+"NSLocationAlwaysUsageDescription" = "Il rilevamento della posizione corrente in background è necessario per godere appieno delle funzionalità dell'app. Viene utilizzata per la navigazione e il salvataggio delle tracce percorse di recente.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "La posizione corrente viene utilizzata durante la navigazione e per il salvataggio dei percorsi.";

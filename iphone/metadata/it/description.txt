@@ -4,8 +4,8 @@ Una app sviluppata dalla comunità, gratuita e open-source, basata su OpenStreet
 ‣ Offline: Pianifica e percorri il tuo viaggio senza necessità di essere connesso alla rete, cerca tappe mentre sei in una escursione etc. Tutte le funzionalità dell'app sono pensate per operare senza rete.
 ‣ Rispetta la Privacy: L'app è pensata per rispettare la tua Privacy, non identifica le persone e non registra o colleziona i tuoi dati personali. Senza pubblicità.
 ‣ Preserva la Batteria e lo Spazio in Memoria: Non consuma batteria come altre app di navigazione. Le mappe compatte salvano il prezioso spazio del tuo telefono.
-‣ Gratis e Sviluppata dalla Community: Persone come te posso aiutare a migliorare l'app aggiungendo luoghi su OpenStreetMap, testando e dando opinioni sulle funzionalità dell'app e contribuendo al loro sviluppo e sostentamento economico.
-‣ Aperta e Trasparente nel Processo Decisionale e Finanziario, Senza Scopo di Lucro e Completamente Open Source
+‣ Gratis e sviluppata dalla Community: Persone come te possono aiutare a migliorare l'app aggiungendo luoghi su OpenStreetMap, testando e dando opinioni sulle funzionalità dell'app e contribuendo al loro sviluppo e sostentamento economico.
+‣ Aperta e trasparente nel processo decisionale e finanziario, senza scopo di lucro e completamente Open Source
 
 Funzionalità principali:
 • Scarica mappe dettagliate di luoghi che non sono disponibili su Google Maps
@@ -24,5 +24,5 @@ Funzionalità principali:
 • Migliora le mappe per tutti usando l'editor interno
 • Supporto CarPlay
 
-La Libertà è Qui
+La Libertà è qui
 Esplora la tua nuova avventura, naviga il mondo con Privacy e la community in prima linea!

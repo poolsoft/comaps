@@ -436,7 +436,7 @@
     <string name="error_enter_correct_zip_code">Insira um CEP válido</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">As suas edições são enviadas à base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Não adicione informações pessoais ou protegidas por direitos autorais.</string>
-    <string name="editor_more_about_osm">Mais sobre OpenStreetMap</string>
+    <string name="editor_more_about_osm">Mais sobre o OpenStreetMap</string>
     <string name="editor_osm_history">Seu histórico de edição</string>
     <string name="editor_osm_notes">Suas notas de dados do mapa</string>
     <string name="editor_category_unsuitable_title">Não encontra uma categoria adequada?</string>
