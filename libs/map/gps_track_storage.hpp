@@ -17,9 +17,6 @@ public:
   DECLARE_EXCEPTION(WriteException, RootException);
   DECLARE_EXCEPTION(ReadException, RootException);
 
-  // Number of items for batch processing.
-  static size_t constexpr kItemBlockSize = 1000;
-
   using TItem = location::GpsInfo;
 
   /// Opens storage with track data.

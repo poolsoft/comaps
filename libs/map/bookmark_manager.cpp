@@ -1097,7 +1097,7 @@ kml::CompilationType BookmarkManager::GetCompilationType(kml::MarkGroupId id) co
 kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto & tracker = GpsTracker::Instance();
+  auto const & tracker = GpsTracker::Instance();
   CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
 
   kml::MultiGeometry geometry;
@@ -1105,12 +1105,11 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
   geometry.m_timestamps.emplace_back();
   auto & line = geometry.m_lines.back();
   auto & timestamps = geometry.m_timestamps.back();
-
-  auto const trackSize = tracker.Finalize();
+  auto const trackSize = tracker.GetTrackSize();
   line.reserve(trackSize);
   timestamps.reserve(trackSize);
 
-  tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)
+  tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id) -> bool
   {
     line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude), pt.m_altitude);
     timestamps.emplace_back(pt.m_timestamp);

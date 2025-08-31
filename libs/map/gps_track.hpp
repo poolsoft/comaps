@@ -11,12 +11,13 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <utility>
 #include <vector>
 
 class GpsTrack final
 {
 public:
-  static size_t constexpr kInvalidId = GpsTrackCollection::kInvalidId;
+  static size_t const kInvalidId;  // = numeric_limits<size_t>::max();
 
   /// @param filePath - path to the file on disk to persist track
   /// @param filter - filter object used for filtering points, GpsTrackNullFilter is created by default
@@ -39,6 +40,7 @@ public:
   void Clear();
 
   bool IsEmpty() const;
+  size_t GetSize() const;
 
   /// Notification callback about a change of the gps track.
   /// @param toAdd - collection of points and ids to add.
@@ -55,13 +57,10 @@ public:
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
   void SetCallback(TGpsTrackDiffCallback callback);
 
-  size_t Finalize();
-
-  /// @pre Finalize should be called before.
-  template <class FnT>
-  void ForEachPoint(FnT && fn)
+  template <typename F>
+  void ForEachPoint(F && f) const
   {
-    m_collection->ForEach(fn);
+    m_collection->ForEach(std::move(f));
   }
 
 private:

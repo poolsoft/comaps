@@ -1,12 +1,13 @@
 #include "map/gps_track_storage.hpp"
 
 #include "coding/endianness.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <cstring>  // for memcpy
+#include <cstring>
 
 using namespace std;
 
@@ -18,6 +19,9 @@ uint32_t constexpr kCurrentVersion = 1;
 
 // Header size in bytes, header consists of uint32_t 'version' only
 uint32_t constexpr kHeaderSize = sizeof(uint32_t);
+
+// Number of items for batch processing
+size_t constexpr kItemBlockSize = 1000;
 
 // TODO
 // Now GpsInfo written as plain values, but values can be compressed.

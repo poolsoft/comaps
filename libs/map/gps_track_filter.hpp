@@ -9,16 +9,14 @@ class IGpsTrackFilter
 public:
   virtual ~IGpsTrackFilter() = default;
 
-  using GpsVectorT = std::vector<location::GpsInfo>;
-  virtual void Process(GpsVectorT const & inPoints, GpsVectorT & outPoints) = 0;
-  virtual void Finalize(GpsVectorT & outPoints) {}
+  virtual void Process(std::vector<location::GpsInfo> const & inPoints, std::vector<location::GpsInfo> & outPoints) = 0;
 };
 
 class GpsTrackNullFilter : public IGpsTrackFilter
 {
 public:
   // IGpsTrackFilter overrides
-  void Process(GpsVectorT const & inPoints, GpsVectorT & outPoints) override;
+  void Process(std::vector<location::GpsInfo> const & inPoints, std::vector<location::GpsInfo> & outPoints) override;
 };
 
 class GpsTrackFilter : public IGpsTrackFilter
@@ -30,8 +28,7 @@ public:
   GpsTrackFilter();
 
   // IGpsTrackFilter overrides
-  void Process(GpsVectorT const & inPoints, GpsVectorT & outPoints) override;
-  void Finalize(GpsVectorT & outPoints) override;
+  void Process(std::vector<location::GpsInfo> const & inPoints, std::vector<location::GpsInfo> & outPoints) override;
 
 private:
   bool IsGoodPoint(location::GpsInfo const & info) const;
