@@ -68,12 +68,12 @@ bool GpsTracker::IsEmpty() const
   return m_track.IsEmpty();
 }
 
-TrackStatistics GpsTracker::GetTrackStatistics()
+TrackStatistics GpsTracker::GetTrackStatistics() const
 {
   return m_track.GetTrackStatistics();
 }
 
-ElevationInfo const & GpsTracker::GetElevationInfo()
+ElevationInfo const & GpsTracker::GetElevationInfo() const
 {
   return m_track.GetElevationInfo();
 }
