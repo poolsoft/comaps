@@ -20,9 +20,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,13 +68,13 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @NonNull
   private final MaterialButton mStart;
   @NonNull
-  private final ImageView mAltitudeChart;
+  private final ShapeableImageView mAltitudeChart;
   @NonNull
   private final MaterialTextView mTime;
   @NonNull
   private final MaterialTextView mAltitudeDifference;
   @NonNull
-  private final TextView mTimeVehicle;
+  private final MaterialTextView mTimeVehicle;
   @Nullable
   private final MaterialTextView mArrival;
   @NonNull
@@ -102,9 +100,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View transitFrame = getViewById(activity, frame, R.id.transit_panel);
     MaterialTextView error = (MaterialTextView) getViewById(activity, frame, R.id.error);
     MaterialButton start = (MaterialButton) getViewById(activity, frame, R.id.start);
-    ImageView altitudeChart = (ImageView) getViewById(activity, frame, R.id.altitude_chart);
+    ShapeableImageView altitudeChart = (ShapeableImageView) getViewById(activity, frame, R.id.altitude_chart);
     MaterialTextView time = (MaterialTextView) getViewById(activity, frame, R.id.time);
-    TextView timeVehicle = (TextView) getViewById(activity, frame, R.id.time_vehicle);
+    MaterialTextView timeVehicle = (MaterialTextView) getViewById(activity, frame, R.id.time_vehicle);
     MaterialTextView altitudeDifference = (MaterialTextView) getViewById(activity, frame, R.id.altitude_difference);
     MaterialTextView arrival = (MaterialTextView) getViewById(activity, frame, R.id.arrival);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
@@ -124,8 +122,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
                                       @NonNull View timeElevationLine, @NonNull View transitFrame,
                                       @NonNull MaterialTextView error, @NonNull MaterialButton start,
-                                      @NonNull ImageView altitudeChart, @NonNull MaterialTextView time,
-                                      @NonNull MaterialTextView altitudeDifference, @NonNull TextView timeVehicle,
+                                      @NonNull ShapeableImageView altitudeChart, @NonNull MaterialTextView time,
+                                      @NonNull MaterialTextView altitudeDifference, @NonNull MaterialTextView timeVehicle,
                                       @Nullable MaterialTextView arrival, @NonNull View actionFrame,
                                       @Nullable RoutingBottomMenuListener listener)
   {

@@ -47,14 +47,14 @@
           tools:visibility="visible" />
     </LinearLayout>
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
       android:id="@+id/altitude_chart"
       android:layout_height="wrap_content"
       android:layout_width="match_parent"
       android:layout_weight="1"
       android:layout_gravity="center_vertical" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
       android:id="@+id/time_vehicle"
       android:layout_height="wrap_content"
       android:layout_width="match_parent"

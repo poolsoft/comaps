@@ -56,7 +56,7 @@
       android:layout_marginEnd="@dimen/margin_base"
       android:layout_gravity="top" >
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
           android:id="@+id/time_vehicle"
           android:layout_height="wrap_content"
           android:layout_width="match_parent"
@@ -76,7 +76,7 @@
           android:textSize="@dimen/text_size_routing_plan_detail_arrival"/>
     </LinearLayout>
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
       android:id="@+id/altitude_chart"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
