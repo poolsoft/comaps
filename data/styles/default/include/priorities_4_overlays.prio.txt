@@ -94,10 +94,10 @@ highway-trunk-bridge::shield                        # shield::shield z10- (also 
 highway-trunk-tunnel::shield                        # shield::shield z10- (also has pathtext z10-, line z6-, line(casing) z12-)
 === 6740
 
-boundary-aboriginal_lands                           # caption z10-16 (also has area z10-16)
-boundary-national_park                              # icon z11-17 (also has caption(optional) z12-17, area z10-17)
+boundary-aboriginal_lands                           # caption z10-16 (also has line z10-, area z10-16)
+boundary-national_park                              # icon z11-17 (also has caption(optional) z12-17, line z10-, area z10-17)
 boundary-protected_area                             # icon z11-17 (also has caption(optional) z12-17)
-boundary-protected_area-1                           # icon z11-17 (also has caption(optional) z12-17, area z10-17)
+boundary-protected_area-1                           # icon z11-17 (also has caption(optional) z12-17, line z10-, area z10-17)
 boundary-protected_area-2                           # icon z11-17 (also has caption(optional) z12-17)
 boundary-protected_area-3                           # icon z11-17 (also has caption(optional) z12-17)
 boundary-protected_area-4                           # icon z11-17 (also has caption(optional) z12-17)
@@ -1311,9 +1311,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # railway-station                                   # caption(optional) z12- (also has icon z12-)
 # === -3200
 
-# boundary-national_park                            # caption(optional) z12-17 (also has icon z11-17, area z10-17)
+# boundary-national_park                            # caption(optional) z12-17 (also has icon z11-17, line z10-, area z10-17)
 # boundary-protected_area                           # caption(optional) z12-17 (also has icon z11-17)
-# boundary-protected_area-1                         # caption(optional) z12-17 (also has icon z11-17, area z10-17)
+# boundary-protected_area-1                         # caption(optional) z12-17 (also has icon z11-17, line z10-, area z10-17)
 # boundary-protected_area-2                         # caption(optional) z12-17 (also has icon z11-17)
 # boundary-protected_area-3                         # caption(optional) z12-17 (also has icon z11-17)
 # boundary-protected_area-4                         # caption(optional) z12-17 (also has icon z11-17)
