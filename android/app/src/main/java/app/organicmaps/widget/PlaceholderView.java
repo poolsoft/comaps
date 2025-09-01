@@ -7,13 +7,13 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
 
 import app.organicmaps.R;
 import app.organicmaps.util.UiUtils;
@@ -26,11 +26,11 @@ public class PlaceholderView extends LinearLayout
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private TextView mTitle;
+  private MaterialTextView mTitle;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private TextView mSubtitle;
+  private MaterialTextView mSubtitle;
 
   private int mImgMaxHeight;
   private int mImgMinHeight;
