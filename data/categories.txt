@@ -7146,7 +7146,7 @@ sr:Рециклажа обуће|Reciklaža obuće
 recycling-green_waste|@category_recycling
 en:4Recycling of Green Waste|5Organic Waste Recycling|5Green Waste Recycling|Food Waste|Garden Waste
 be:5Прыём арганічных адходаў|Прыём харчовых адходаў|5Здаць арганічныя адходы|4Збор арганічных адходаў|Збор харчовых адходаў|5Харчовыя адходы|6Садовыя адходы
-fr:Déchets verts
+fr:4Déchets verts|biodéchets|alimentaires|organiques|valorisation
 ru:5Приём органических отходов|Приём пищевых отходов|5Сдать органические отходы|4Сбор органических отходов|Сбор пищевых отходов|5Пищевые отходы|6Садовые отходы
 lv:Bioloģiskie atkritumi|bioloģisko atkritumu nodošana
 tr:5Yeşil Atıkların Geri Dönüşümü
