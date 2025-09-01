@@ -1347,6 +1347,7 @@
 "type.shop.trade" = "Trade Supplies";
 "type.shop.watches" = "Watch Store";
 "type.shop.wholesale" = "Wholesale Store";
+"type.shop.lighting" = "Lighting Shop";
 "type.sport" = "Sport";
 "type.sport.american_football" = "American Football";
 "type.sport.archery" = "Archery";

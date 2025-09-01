@@ -1315,6 +1315,7 @@
 "type.shop.trade" = "Торговые поставки";
 "type.shop.watches" = "Часы";
 "type.shop.wholesale" = "Оптовый магазин";
+"type.shop.lighting" = "Осветительные приборы";
 "type.sport" = "Спорт";
 "type.sport.american_football" = "Американский футбол";
 "type.sport.archery" = "Стрельба из лука";
