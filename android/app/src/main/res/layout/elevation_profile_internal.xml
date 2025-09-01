@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
           android:layout_width="@dimen/margin_base_plus_quarter"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_quarter"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
           android:layout_width="@dimen/margin_base_plus_quarter"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_quarter"
@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_quarter"
@@ -161,7 +161,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/margin_half"

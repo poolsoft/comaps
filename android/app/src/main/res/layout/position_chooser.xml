@@ -28,7 +28,7 @@
         android:text="@string/editor_add_select_location"
         android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"/>
 
-      <ImageView
+      <com.google.android.material.imageview.ShapeableImageView
         app:tint="@color/image_view"
         android:id="@+id/done"
         app:srcCompat="@drawable/ic_done"

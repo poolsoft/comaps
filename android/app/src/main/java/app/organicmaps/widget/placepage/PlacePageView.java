@@ -17,7 +17,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import androidx.activity.result.ActivityResultLauncher;
@@ -79,6 +78,7 @@ import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -148,9 +148,9 @@ public class PlacePageView extends Fragment
   private View mAddOrganisation;
   private View mAddPlace;
   private View mEditTopSpace;
-  private ImageView mColorIcon;
+  private ShapeableImageView mColorIcon;
   private MaterialTextView mTvCategory;
-  private ImageView mEditBookmark;
+  private ShapeableImageView mEditBookmark;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
