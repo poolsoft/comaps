@@ -597,8 +597,10 @@ node|z15-[amenity=sanitary_dump_station],
 node|z16-[amenity=charging_station],
 node|z16-[amenity=parking],
 area|z16-[landuse=garages],
+node|z16-[tourism=caravan_site],
 node|z17-[amenity=car_wash],
 node|z17-[amenity=toilets],
+node|z18-[tourism=camp_site],
 node|z18-[amenity=motorcycle_rental],
 node|z18-[amenity=car_rental],
 node|z18-[amenity=car_sharing],
@@ -681,10 +683,20 @@ node|z18-[amenity=car_sharing],
 
 node|z15-[amenity=sanitary_dump_station],
 {icon-image: dump-station-m.svg; font-size: 12.5; icon-min-distance: 20;}
-node|z17-[amenity=sanitary_dump_station],
+node|z17[amenity=sanitary_dump_station],
 {font-size: 13.75; icon-min-distance: 15;}
 node|z18-[amenity=sanitary_dump_station],
 {font-size: 14.5; icon-min-distance: 10;}
+
+node|z16-[tourism=caravan_site],
+{icon-image: caravan_site-m.svg; font-size: 12.5;}
+node|z17[tourism=caravan_site],
+{font-size: 13.75;}
+node|z18-[tourism=caravan_site],
+{font-size: 14.5;}
+
+node|z18-[tourism=camp_site],
+{icon-image: campsite-m.svg; font-size: 14.5;}
 
 area|z16[landuse=garages],
 {font-size: 12.5;}
