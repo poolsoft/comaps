@@ -1,5 +1,11 @@
 package app.organicmaps.car.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.CarIcon;
@@ -74,7 +80,31 @@ public final class RoutingHelpers
         final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
     if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)
       builder.setRoundaboutExitNumber(roundaboutExitNum > 0 ? roundaboutExitNum : 1);
-    builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes())).build());
+    builder.setIcon(new CarIcon.Builder(createManeuverIcon(context, carDirection, roundaboutExitNum)).build());
     return builder.build();
+  }
+
+  @NonNull
+  private static IconCompat createManeuverIcon(@NonNull final CarContext context, @NonNull CarDirection carDirection, int roundaboutExitNum)
+  {
+    if (!CarDirection.isRoundAbout(carDirection) || roundaboutExitNum == 0)
+    {
+      return IconCompat.createWithResource(context, carDirection.getTurnRes());
+    }
+
+    Bitmap original = BitmapFactory.decodeResource(context.getResources(), carDirection.getTurnRes());
+    Bitmap mutableBitmap = original.copy(Bitmap.Config.ARGB_8888, true);
+    Canvas canvas = new Canvas(mutableBitmap);
+
+    Paint paint = new Paint();
+    paint.setAntiAlias(true);
+    paint.setColor(Color.WHITE);
+    paint.setTextAlign(Paint.Align.CENTER);
+    paint.setFakeBoldText(true);
+
+    paint.setTextSize(27);
+    canvas.drawText(String.valueOf(roundaboutExitNum), 30, 43, paint);
+
+    return IconCompat.createWithBitmap(mutableBitmap);  
   }
 }
