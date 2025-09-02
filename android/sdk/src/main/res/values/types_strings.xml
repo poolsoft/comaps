@@ -68,6 +68,9 @@
     <string name="type.amenity.music_school">Music School</string>
     <string name="type.amenity.language_school">Language School</string>
     <string name="type.office.diplomatic">Embassy</string>
+    <string name="type.office.security">Security Guards Office</string>
+    <string name="type.building.guardhouse">Security Booth</string>
+    <string name="type.power.portal">Power Portal</string>
     <string name="type.amenity.fast_food">Fast Food</string>
     <string name="type.amenity.ferry_terminal">Ferry</string>
     <string name="type.amenity.fire_station">Fire Station</string>
