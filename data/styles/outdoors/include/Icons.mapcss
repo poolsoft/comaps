@@ -284,6 +284,10 @@ node|z12-[barrier=border_control],
 node|z14-[barrier=border_control],
 {icon-image: bcontrol-m.svg;}
 
+node|z16-[building=guardhouse],
+node|z17-[office=security],
+{icon-image: security-m.svg;}
+
 node|z14-[highway=ford],
 {icon-image: ford-m.svg;}
 

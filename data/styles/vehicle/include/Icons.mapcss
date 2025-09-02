@@ -462,12 +462,17 @@ node|z17[amenity=bank],
 node|z18-[amenity=bank],
 {icon-image: bank-m.svg;font-size: 14.5; icon-min-distance: 10;}
 
-node|z17-[building=guardhouse],
-node|z17-[office=security],
+node|z18-[building=guardhouse],
+node|z18-[office=security],
 {icon-image: security-m.svg;}
+/* Reset captions inherited from [building] */
+node|z18-[building=guardhouse],
+{text: none;}
+node|z18-[building=guardhouse]::int_name,
+{text: none;}
+
 node|z17-[amenity=police],
 {icon-image: police-m.svg;}
-
 node|z17[amenity=police],
 {font-size: 13.75; icon-min-distance: 15;}
 node|z18-[amenity=police],
