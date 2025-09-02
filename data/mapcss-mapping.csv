@@ -874,8 +874,10 @@ barrier|kissing_gate;749;
 barrier|turnstile;750;
 landuse|industrial|mine;[landuse=industrial][industrial=mine];;name;int_name;751;
 landuse|flowerbed;752;
-deprecated|deprecated;753;x
-deprecated|deprecated;754;x
+# Used for barrier|yes in OM
+deprecated|OM;753;x
+# Used for barrier|wicket_gate in OM
+deprecated|OM;754;x
 deprecated|deprecated;755;x
 deprecated|deprecated;756;x
 deprecated|deprecated;757;x

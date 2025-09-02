@@ -16,11 +16,7 @@
 
 #include "defines.hpp"
 
-#include <algorithm>
 #include <initializer_list>
-#include <limits>
-#include <unordered_map>
-#include <utility>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
