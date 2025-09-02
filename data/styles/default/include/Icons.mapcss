@@ -814,6 +814,7 @@ node|z17-[amenity=motorcycle_rental],
 node|z17-[amenity=bicycle_rental],
 node|z17-[amenity=bicycle_repair_station],
 node|z17-[amenity=post_office],
+node|z17-[amenity=library],
 node|z18-[post_office=post_partner],
 node|z17-[man_made=works],
 node|z17-[amenity=parcel_locker],
@@ -832,7 +833,6 @@ node|z18-[amenity=toilets],
 node|z18-[amenity=atm],
 node|z18-[amenity=bureau_de_change],
 node|z18-[amenity=money_transfer],
-node|z18-[amenity=library],
 node|z18-[amenity=waste_disposal],
 node|z18-[amenity=recycling],
 node|z18-[amenity=waste_transfer_station],
@@ -1406,11 +1406,11 @@ node|z18-[amenity=bench]
 {icon-image: bench.svg;}
 node|z18-[amenity=waste_basket]
 {icon-image: waste-basket-s.svg;}
-
-node|z18-[amenity=library]
-{icon-image: library-m.svg;font-size: 11;}
 node|z18-[amenity=waste_disposal],
 {icon-image: waste-basket-m.svg;font-size: 11;}
+
+node|z17-[amenity=library]
+{icon-image: library-m.svg; font-size: 11;}
 
 node|z18-[amenity=internet_cafe]
 {icon-image: internet_cafe-m.svg;}
