@@ -391,7 +391,7 @@
     <item name="android:widgetLayout">@layout/preference_switch</item>
   </style>
 
-  <style name="MwmWidget.M3.Button" parent="ThemeOverlay.Material3.Button">
+  <style name="MwmWidget.M3.Button" parent="Widget.Material3.Button">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">?accentButtonTextColor</item>
