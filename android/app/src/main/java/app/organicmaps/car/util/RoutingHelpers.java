@@ -91,20 +91,21 @@ public final class RoutingHelpers
     {
       return IconCompat.createWithResource(context, carDirection.getTurnRes());
     }
-
-    Bitmap original = BitmapFactory.decodeResource(context.getResources(), carDirection.getTurnRes());
-    Bitmap mutableBitmap = original.copy(Bitmap.Config.ARGB_8888, true);
-    Canvas canvas = new Canvas(mutableBitmap);
-
+    Bitmap bitmapImmutable = BitmapFactory.decodeResource(context.getResources(), carDirection.getTurnRes());
+    Bitmap bitmap = bitmapImmutable.copy(Bitmap.Config.ARGB_8888, true);
+    Canvas canvas = new Canvas(bitmap);
     Paint paint = new Paint();
-    paint.setAntiAlias(true);
     paint.setColor(Color.WHITE);
-    paint.setTextAlign(Paint.Align.CENTER);
+    paint.setTextAlign(Paint.Align.LEFT);
     paint.setFakeBoldText(true);
-
-    paint.setTextSize(27);
-    canvas.drawText(String.valueOf(roundaboutExitNum), 30, 43, paint);
-
-    return IconCompat.createWithBitmap(mutableBitmap);  
+    paint.setTextSize(24);
+    paint.setAntiAlias(true);
+    String digit = String.valueOf(roundaboutExitNum);
+    Rect bounds = new Rect();
+    paint.getTextBounds(digit, 0, 1, bounds);
+    float cx = canvas.getWidth() / 2f - bounds.exactCenterX();
+    float cy = canvas.getHeight() / 2f - bounds.exactCenterY();
+    canvas.drawText(digit, cx, cy, paint);
+    return IconCompat.createWithBitmap(bitmap);
   }
 }
