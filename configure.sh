@@ -68,10 +68,10 @@ Diff() {
   fi
 }
 
-if [ ! -d 3party/boost/tools ]; then
-  echo "Cloning all submodules..."
-  git submodule update --init --recursive --depth 1
-fi
+
+echo "Checking submodules..."
+git submodule update --init --recursive --depth 1
+
 if [ ! -d 3party/boost/boost ]; then
   echo "Bootstrapping the boost C++ library..."
   pushd 3party/boost/
