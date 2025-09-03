@@ -470,7 +470,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View levelBlock = initBlock(view, Metadata.MetadataType.FMD_LEVEL, R.id.block_level, R.drawable.ic_level_white,
                                 R.string.editor_level, InputType.TYPE_CLASS_NUMBER);
     View fediverseContactBlock =
-        initBlock(view, Metadata.MetadataType.FMD_CONTACT_FEDIVERSE, R.id.block_fediverse, R.drawable.ic_mastodon_white,
+        initBlock(view, Metadata.MetadataType.FMD_CONTACT_FEDIVERSE, R.id.block_fediverse, R.drawable.ic_mastodon,
                   R.string.mastodon, InputType.TYPE_TEXT_VARIATION_URI);
     View facebookContactBlock =
         initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook, R.drawable.ic_facebook_white,
@@ -487,7 +487,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line, R.drawable.ic_line_white,
                   R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
     View blueskyContactBlock =
-        initBlock(view, Metadata.MetadataType.FMD_CONTACT_BLUESKY, R.id.block_bluesky, R.drawable.ic_bluesky_white,
+        initBlock(view, Metadata.MetadataType.FMD_CONTACT_BLUESKY, R.id.block_bluesky, R.drawable.ic_bluesky,
                   R.string.bluesky, InputType.TYPE_TEXT_VARIATION_URI);
     View operatorBlock = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
                                    R.drawable.ic_operator, R.string.editor_operator, 0);
