@@ -121,13 +121,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/report"
-        style="@style/MwmWidget.M3.Button"
+        style="@style/MwmWidget.M3.Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/report_a_bug"
-        android:textColor="@color/text_dark"
-        app:backgroundTint="@color/light_gray"/>
+        android:text="@string/report_a_bug" />
 
     <com.google.android.material.textview.MaterialTextView
       android:id="@+id/faq"

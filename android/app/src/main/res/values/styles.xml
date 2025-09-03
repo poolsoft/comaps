@@ -404,4 +404,10 @@
   <style name="MwmWidget.M3.Button.Primary" parent="@style/MwmWidget.M3.Button">
     <item name="backgroundTint">?colorSecondary</item>
   </style>
+
+  <style name="MwmWidget.M3.Button.Secondary" parent="@style/Widget.Material3.Button.OutlinedButton">
+    <item name="android:textSize">16sp</item>
+    <item name="strokeColor">?colorSecondary</item>
+    <item name="android:textColor">?colorSecondary</item>
+  </style>
 </resources>

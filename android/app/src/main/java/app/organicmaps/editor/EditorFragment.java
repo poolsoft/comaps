@@ -33,6 +33,8 @@ import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
+
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -134,7 +136,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputEditText mDescription;
   private final Map<Metadata.MetadataType, View> mDetailsBlocks = new HashMap<>();
   private final Map<Metadata.MetadataType, View> mSocialMediaBlocks = new HashMap<>();
-  private MaterialTextView mReset;
+  private MaterialButton mReset;
 
   private EditorHostFragment mParent;
 

@@ -182,20 +182,18 @@
           app:layout_constraintVertical_bias="0.5" />
         <com.google.android.material.button.MaterialButton
           android:id="@+id/report"
-          style="@style/MwmWidget.M3.Button"
+          style="@style/MwmWidget.M3.Button.Secondary"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:text="@string/report_a_bug"
           android:textAlignment="center"
-          android:textColor="@color/text_dark"
           android:layout_marginEnd="@dimen/margin_base_plus"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"
           app:layout_constraintStart_toEndOf="@+id/donate"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.5"
-          app:backgroundTint="@color/light_gray"/>
+          app:layout_constraintVertical_bias="0.5" />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
       <com.google.android.material.textview.MaterialTextView

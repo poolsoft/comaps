@@ -88,14 +88,12 @@
         android:textColor="?android:textColorPrimary" />
       <com.google.android.material.button.MaterialButton
         android:id="@+id/register"
-        style="@style/MwmWidget.M3.Button"
+        style="@style/MwmWidget.M3.Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
         android:padding="@dimen/margin_quarter"
-        android:text="@string/register_at_openstreetmap"
-        android:textColor="@color/text_dark"
-        app:backgroundTint="@color/bg_editor_light"/>
+        android:text="@string/register_at_openstreetmap" />
     </LinearLayout>
   </ScrollView>
 </LinearLayout>
