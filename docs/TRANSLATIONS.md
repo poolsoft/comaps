@@ -9,7 +9,8 @@ The project consists of multiple components, each with its own translation files
 | Weblate Component                                   | Description                                                | Translation Files                                                                                        |
 | --------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | [Android][android_weblate]                          | UI strings                                                 | [android/app/src/main/res/values\*/strings.xml][android_git] ([en][android_git_en])                      |
-| [Android feature types][android_typestrings_weblate] | Map feature types                                        | [android/app/src/main/res/values\*/type_strings.xml][android_git] ([en][android_typestrings_git_en])    |
+| [Android feature types][android_typestrings_weblate]| Map feature types                                          | [android/sdk/src/main/res/values\*/type_strings.xml][android_sdkstrings_git] ([en][android_typestrings_git_en])|
+| [Android SDK][android_sdkstrings_weblate]           | UI strings (system-level)                                  | [android/sdk/src/main/res/values\*/strings.xml][android_sdkstrings_git] ([en][android_sdkstrings_git_en])|
 | [iOS][ios_weblate]                                  | UI strings                                                 | [iphone/Maps/LocalizedStrings/\*.lproj/Localizable.strings][ios_git] ([en][ios_git_en])                  |
 | [iOS Type Strings][ios_typestrings_weblate]         | OpenStreetMap Types                                        | [iphone/Maps/LocalizedStrings/\*.lproj/LocalizableTypes.strings][ios_git] ([en][ios_typestrings_git_en]) |
 | [iOS Plurals][ios_plurals_weblate]                  | UI strings (plurals)                                       | [iphone/Maps/LocalizedStrings/\*.lproj/Localizable.stringsdict][ios_git] ([en][ios_plurals_git_en])      |
@@ -18,9 +19,10 @@ The project consists of multiple components, each with its own translation files
 | [Countries][countries_weblate]                      | Country names for downloader                               | [data/country-strings/\*.json][countries_git] ([en][countries_git_en])                                   |
 | Search keywords                                     | Search keywords/aliases/synonyms                           | [data/categories.txt][categories_git]                                                                    |
 | Search keywords (cuisines)                          | Search keywords for cuisine types                          | [data/categories_cuisines.txt][categories_cuisines_git]                                                  |
-| AppStore Descriptions                               | AppStore descriptions                                      | [iphone/metadata][appstore_git] ([en][appstore_git_en])                                                  |
-| Android Stores Descriptions                                | Google, F-Droid, Huawei store descriptions                 | [android/app/src/fdroid/play][googleplay_git] ([en][googleplay_git_en])                                  |
-| [Website][website_weblate]                          | Website content                                            | [comaps/website][website_git] ([see details][website_guide])                                        |
+| [AppStore Descriptions][appstore_weblate]           | AppStore descriptions                                      | [iphone/metadata][appstore_git] ([en][appstore_git_en])                                                  |
+| [Android Stores Descriptions][googleplay_weblate]   | Google, Huawei store descriptions                          | [android/app/src/google/play/listings][googleplay_git] ([en][googleplay_git_en])                         |
+| [F-Droid Descriptions][fdroid_weblate]              | F-Droid descriptions                                       | [android/app/src/fdroid/play/listings][fdroid_git] ([en][fdroid_git_en])                                 |
+| [Website][website_weblate]                          | Website content                                            | [comaps/website][website_git] ([see details][website_guide])                                             |
 
 Components without links haven't been integrated into Weblate and must be translated directly via [Codeberg Pull Requests](CONTRIBUTING.md).
 
@@ -96,7 +98,10 @@ Using these steps all existing translations can still be kept and rebased into t
 [android_git]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/main/res
 [android_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/main/res/values/strings.xml
 [android_typestrings_weblate]: https://translate.codeberg.org/projects/comaps/android-typestrings/
-[android_typestrings_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/main/res/values/types_strings.xml
+[android_typestrings_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/sdk/src/main/res/values/types_strings.xml
+[android_sdkstrings_weblate]: https://translate.codeberg.org/projects/comaps/android-ui-strings-sdk/
+[android_sdkstrings_git]: https://codeberg.org/comaps/comaps/src/branch/main/android/sdk/src/main/res
+[android_sdkstrings_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/sdk/src/main/res/values/strings.xml
 [countries_weblate]: https://translate.codeberg.org/projects/comaps/countries/
 [countries_git]: https://codeberg.org/comaps/comaps/src/branch/main/data/countries-strings
 [countries_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/data/countries-strings/en.json/localize.json
@@ -117,9 +122,14 @@ Using these steps all existing translations can still be kept and rebased into t
 [website_weblate]: https://translate.codeberg.org/projects/comaps/website/
 [website_git]: https://codeberg.org/comaps/website/
 [website_guide]: https://codeberg.org/comaps/website/src/branch/main/TRANSLATIONS.md
+[appstore_weblate]: https://translate.codeberg.org/projects/comaps/appstore-description
 [appstore_git]: https://codeberg.org/comaps/comaps/src/branch/main/iphone/metadata
 [appstore_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/iphone/metadata/en-US
-[googleplay_git]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/fdroid/play
-[googleplay_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/fdroid/play/listings/en-US
+[googleplay_weblate]: https://translate.codeberg.org/projects/comaps/google-play-descriptions
+[googleplay_git]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/google/play/listings
+[googleplay_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/google/play/listings/en-US
+[fdroid_weblate]: https://translate.codeberg.org/projects/comaps/fdroid-app-description
+[fdroid_git]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/fdroid/play/listings
+[fdroid_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/app/src/fdroid/play/listings/en-US
 [mergers]: https://codeberg.org/org/comaps/teams
 [failing_checks]: https://translate.codeberg.org/search/comaps/?q=has%3Acheck+AND+state%3A%3E%3Dtranslated+language%3Aru&sort_by=target&checksum=
