@@ -1393,4 +1393,5 @@
     <string name="type.railway.station.subway.qingdao">Estación de Metro</string>
     <string name="type.leisure.escape_game">Sala de Escape</string>
     <string name="type.amenity.animal_shelter">Refugio de animales</string>
+    <string name="type.barrier.wicket_gate">Portillo</string>
 </resources>

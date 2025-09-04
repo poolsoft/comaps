@@ -1393,4 +1393,7 @@
     <string name="type.amenity.ranger_station">Pargivahi maja</string>
     <string name="type.amenity.animal_shelter">Loomade varjupaik</string>
     <string name="type.barrier.wicket_gate">Jalgvärav</string>
+    <string name="type.building.guardhouse">Valvuriputka</string>
+    <string name="type.power.portal">Õhuliini värava-tüüpi mast</string>
+    <string name="type.office.security">Turvafirma kontor</string>
 </resources>

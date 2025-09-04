@@ -1,4 +1,4 @@
-"type.addr_interpolation" = "Cím/blokk";
+"type.addr_interpolation" = "Cím/Háztömb";
 "type.addr_interpolation.even" = "Cím/blokk";
 "type.addr_interpolation.odd" = "Cím/blokk";
 "type.aerialway" = "Drótkötélpályás felvonó";
@@ -1480,3 +1480,6 @@
 "type.post_office.post_partner" = "Posta partner";
 "type.barrier.wicket_gate" = "Kiskapu";
 "type.amenity.animal_shelter" = "Állatmenhely";
+"type.office.security" = "Security Guards Office";
+"type.power.portal" = "Power Portal";
+"type.building.guardhouse" = "Security Booth";

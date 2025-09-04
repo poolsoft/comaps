@@ -1394,4 +1394,7 @@
     <string name="type.natural.wetland.tidalflat">Planície de maré</string>
     <string name="type.amenity.animal_shelter">Abrigo Animal</string>
     <string name="type.barrier.wicket_gate">Postigo</string>
+    <string name="type.office.security">Escritório dos Guardas de Segurança</string>
+    <string name="type.building.guardhouse">Cabine de Segurança</string>
+    <string name="type.power.portal">Portal de Energia</string>
 </resources>

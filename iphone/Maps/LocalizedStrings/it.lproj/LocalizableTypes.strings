@@ -1484,3 +1484,6 @@
 "type.landuse.religious" = "Terreno Religioso";
 "type.barrier.wicket_gate" = "Cancello pedonale";
 "type.amenity.animal_shelter" = "Rifugio per Animali";
+"type.office.security" = "Security Guards Office";
+"type.power.portal" = "Power Portal";
+"type.building.guardhouse" = "Security Booth";

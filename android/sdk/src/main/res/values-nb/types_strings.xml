@@ -1195,4 +1195,10 @@
     <string name="type.leisure.hackerspace">Skaperverksted</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.aeroway">Luftromsinfrastruktur</string>
+    <string name="type.aeroway.apron">Oppstillingsplass</string>
+    <string name="type.aeroway.gate">Gate</string>
+    <string name="type.aeroway.helipad">Helipad</string>
+    <string name="type.aeroway.runway">Rullebane</string>
+    <string name="type.aeroway.taxiway">Taxibane</string>
+    <string name="type.aeroway.terminal">Terminal</string>
 </resources>

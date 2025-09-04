@@ -232,7 +232,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Paaukoti</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Paremti projektą</string>
+    <string name="how_to_support_us">Prisidėti prie „CoMaps“ tobulinimo</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Autorių teisės</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -861,4 +861,11 @@
     <string name="open_now">Dabar atidaryta</string>
     <string name="closed_now">Dabar uždaryta</string>
     <string name="at">%s val.</string>
+    <string name="share_track">Dalintis trasa</string>
+    <string name="delete_track_dialog_title">Pašalinti %s?</string>
+    <string name="osm_note_hint">Arba, jeigu norite, galite palikti pastabą „OpenStreetMap“ bendruomenei, kad kas nors kitas pridėtų ar pakoreguotų šią vietą.</string>
+    <string name="hours_confirmed_time_ago">Patvirtinta %s</string>
+    <string name="existence_confirmed_time_ago">Egzistavimas patvirtintas %s</string>
+    <string name="pref_tts_no_system_tts_short">Neaptikta jokia šnekos sintezės sistema, patikrinkite programėlės nustatymus</string>
+    <string name="osm_note_toast">Pastaba bus nusiųsta į „OpenStreetMap“</string>
 </resources>

@@ -3,10 +3,10 @@
     <string name="back">Nazad</string>
     <string name="download_has_failed">Preuzimanje neuspješno. Dotaknite za ponovni pokušaj.</string>
     <string name="cancel">Odustani</string>
-    <string name="delete">Obriši</string>
+    <string name="delete">Izbriši</string>
     <string name="kilometres">Kilometara</string>
     <string name="downloading">Preuzimanje…</string>
-    <string name="download_maps">Preuzmi Karte</string>
+    <string name="download_maps">Skini karte</string>
     <string name="miles">Milje</string>
     <string name="later">Kasnije</string>
     <string name="search">Traži</string>

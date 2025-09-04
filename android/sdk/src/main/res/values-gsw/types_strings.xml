@@ -1297,4 +1297,6 @@
     <string name="type.amenity.bicycle_parking.covered">Überdachte Veloparkplatz</string>
     <string name="type.amenity.luggage_locker">Gepäckschlüüssfach</string>
     <string name="type.amenity.ranger_station">Förschterstation</string>
+    <string name="type.barrier.wicket_gate">Schlupfpforte</string>
+    <string name="type.amenity.animal_shelter">Tierheim</string>
 </resources>

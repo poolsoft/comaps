@@ -151,7 +151,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Kamper";
-"share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji CoMaps. Proszę otwórz je jeżeli masz zaintalowane CoMaps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://www.comaps.app/download/\n\nMiłego podróżowania z CoMaps!";
+"share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji CoMaps. Proszę otwórz je jeżeli masz zaintalowane CoMaps. Jeżeli nie masz, możesz pobrać ją tutaj: https://www.comaps.app/download/\n\nMiłego podróżowania z CoMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Wczytywanie zakładek";
@@ -202,7 +202,7 @@
 "share_my_location" = "Udostępnij aktualne położenie";
 "prefs_group_route" = "Nawigacja";
 "pref_zoom_title" = "Przyciski przybliżania";
-"pref_left_button_type" = "Left Main Button";
+"pref_left_button_type" = "Lewy przycisk główny";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "Wygląd";
@@ -238,7 +238,7 @@
 "pref_tts_title" = "Komunikaty głosowe";
 
 /* Settings «Route» category: «Tts enable» title */
-"pref_tts_enable_title" = "Enable Voice Instructions";
+"pref_tts_enable_title" = "Komunikaty głosowe";
 
 /* Settings «Route» category: «Tts announce street names» title */
 "pref_tts_street_names_title" = "Wymawiaj nazwy ulic";
@@ -250,7 +250,7 @@
 "pref_tts_language_title" = "Język komunikatów";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testuj wskazówki głosowe (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Testuj wskazówki głosowe";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Inny";
@@ -322,7 +322,7 @@
 "report_incorrect_map_bug" = "Zgłoś lub napraw nieprawidłowe dane mapy";
 
 /* Button in the About screen */
-"volunteer" = "Wolontariusz";
+"volunteer" = "Wspomóż i ulepsz CoMaps";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Skontaktuj się z nami";
@@ -505,7 +505,7 @@
 "editor_time_delete" = "Usuń harmonogram";
 
 /* Text for allday switch. */
-"editor_time_allday" = "Całą dobę (24 godziny)";
+"editor_time_allday" = "Całodobowo (24 godziny)";
 "editor_time_open" = "Otwarte";
 "editor_time_close" = "Zamknięte";
 "editor_time_add_closed" = "Dodaj godziny zamknięcia";
@@ -778,8 +778,8 @@
 "profile" = "Profil OpenStreetMap";
 "bookmarks_detect_title" = "Wykryto nowe pliki";
 "button_convert" = "Konwertuj";
-"bookmarks_convert_error_title" = "błąd";
-"bookmarks_convert_error_message" = "Sommige bestanden waren niet geconverteerd.";
+"bookmarks_convert_error_title" = "Błąd";
+"bookmarks_convert_error_message" = "Niektóre pliki nie zostały skonwertowane.";
 "restore" = "Przywróć";
 "privacy_policy" = "Polityka prywatności";
 "terms_of_use" = "Warunki użytkowania";
@@ -791,14 +791,14 @@
 "export_file" = "Eksportuj KMZ";
 "export_file_gpx" = "Eksport GPX";
 "delete_list" = "Usuń listę";
-"hide_from_map" = "Ukryj mapy";
+"hide_from_map" = "Ukryj na mapie";
 "tags_loading_error_subtitle" = "Wystąpił błąd podczas pobierania tagów, spróbuj ponownie";
 "download_button" = "Pobierz";
 "speedcams_alert_title" = "Fotoradary";
 "place_description_title" = "Opis miejsca";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "Aby ostrzec Cię przed przekroczeniem prędkości";
+"pref_tts_speedcams_auto" = "Ostrzegaj przy przekraczaniu prędkości";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "Zawsze ostrzegaj";
@@ -936,7 +936,7 @@
 "placepage_delete_track_button" = "Usuń trasę";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Czy na pewno chce Pan/Pani usunąć ten utwór?";
+"placepage_delete_track_confirmation_alert_message" = "Czy na pewno chcesz usunąć tę trasę?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nazwa trasy";
@@ -1012,7 +1012,7 @@
 "bugreport_alert_message" = "Chcesz wysłać raport o błędzie do deweloperów?\nPolegamy na naszych użytkownikach, ponieważ CoMaps nie zbiera żadnych informacji o błędach automatycznie. Z góry dziękujemy za wspieranie CoMaps!";
 
 /* Title for the iCloud syncronization setting */
-"icloud_sync" = "iCloud Syncronization (Beta)";
+"icloud_sync" = "Synchronizacja z iCloud (Beta)";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Włącz synchronizację iCloud";
@@ -1088,10 +1088,10 @@
 "edit_track" = "Edytuj trasę";
 "osm_profile_view_edit_history" = "Wyświetl historię edycji";
 "osm_profile_view_notes" = "Wyświetl uwagi";
-"about_proposition_3" = "Transparent and not for profit";
-"pref_mapappearance_title" = "Map Appearance";
-"pref_maplanguage_local" = "Local Language";
-"pref_maplanguage_title" = "Map Language";
-"transliteration_title_disabled_summary" = "Disabled when always using the local language for the map";
-"existence_confirmed_time_ago" = "Existence confirmed %@";
-"hours_confirmed_time_ago" = "Confirmed %@";
+"about_proposition_3" = "Przejrzysty i nie nastawiony na zysk";
+"pref_mapappearance_title" = "Wygląd mapy";
+"pref_maplanguage_local" = "Język lokalny";
+"pref_maplanguage_title" = "Język mapy";
+"transliteration_title_disabled_summary" = "Wyłączone podczas używania mapy w języku lokalnym";
+"existence_confirmed_time_ago" = "Istnienie potwierdzone %@";
+"hours_confirmed_time_ago" = "Potwierdzone %@";

@@ -1298,3 +1298,6 @@
 "type.post_office.post_partner" = "Post Partner";
 "type.barrier.wicket_gate" = "Wicket gate";
 "type.amenity.animal_shelter" = "Animal Shelter";
+"type.office.security" = "Security Guards Office";
+"type.building.guardhouse" = "Security Booth";
+"type.power.portal" = "Power Portal";

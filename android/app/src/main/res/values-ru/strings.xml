@@ -549,7 +549,7 @@
     <string name="mobile_data">Мобильный интернет</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках</string>
-    <string name="mobile_data_option_never">Никогда не использовать</string>
+    <string name="mobile_data_option_never">Никогда</string>
     <string name="mobile_data_option_ask">Всегда спрашивать</string>
     <string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты</string>
     <string name="big_font">Увеличить шрифт на карте</string>
@@ -623,8 +623,8 @@
     <string name="bookmarks_empty_list_title">Список пустой</string>
     <string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
     <string name="category_desc_more">…ещё</string>
-    <string name="export_file">Экспорт KMZ</string>
-    <string name="export_file_gpx">Экспорт GPX</string>
+    <string name="export_file">Экспортировать в KMZ</string>
+    <string name="export_file_gpx">Экспортировать в GPX</string>
     <string name="delete_list">Удалить список</string>
     <string name="speedcams_alert_title">Камеры скорости</string>
     <string name="place_description_title">Описание места</string>
@@ -639,8 +639,8 @@
     <string name="power_managment_title">Режим энергосбережения</string>
     <string name="power_managment_description">Попробовать уменьшить потребление заряда батареи за счёт отключения некоторых возможностей</string>
     <string name="power_managment_setting_never">Никогда</string>
-    <string name="power_managment_setting_auto">Авто</string>
-    <string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
+    <string name="power_managment_setting_auto">При низком заряде</string>
+    <string name="power_managment_setting_manual_max">Всегда</string>
     <string name="enable_logging_warning_message">Эта настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Включайте ее только на время для отправки детальной информации о неполадках, обнаруженных в приложении, через кнопку «Сообщить о проблеме». Логи могут включать данные о местоположении.</string>
     <string name="driving_options_title">Настройки объезда</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

@@ -1483,4 +1483,7 @@
 "type.amenity.ranger_station" = "Estación de guardabosques";
 "type.amenity.bicycle_parking.covered" = "Parking de bici cubierto";
 "type.amenity.animal_shelter" = "Refugio de animales";
-"type.barrier.wicket_gate" = "Wicket gate";
+"type.barrier.wicket_gate" = "Portillo";
+"type.office.security" = "Security Guards Office";
+"type.power.portal" = "Power Portal";
+"type.building.guardhouse" = "Security Booth";

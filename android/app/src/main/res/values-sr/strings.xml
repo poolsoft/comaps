@@ -242,7 +242,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Донација</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Подржи пројекат</string>
+    <string name="how_to_support_us">Волонтирај и унапреди CoMaps</string>
     <!-- Text in menu + Button in the main Help dialog -->
     <string name="report_a_bug">Пријавите проблем</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
@@ -880,4 +880,11 @@
     <string name="open_now">Сада је отворено</string>
     <string name="at">на %s</string>
     <string name="about_headline">Отворени пројекат који покреће заједница</string>
+    <string name="delete_track_dialog_title">Обрисати %s?</string>
+    <string name="share_track">Подели путању</string>
+    <string name="existence_confirmed_time_ago">Проверено да постоји %s</string>
+    <string name="hours_confirmed_time_ago">Проверено %s</string>
+    <string name="pref_tts_no_system_tts_short">Није пронађен програм за претварање текста у говор, проверите подешавања апликације</string>
+    <string name="osm_note_hint">Или оставите напомену OpenStreetMap заједници да би неко други могао да дода или паправи ово место.</string>
+    <string name="osm_note_toast">Напомена ће бити послата на OpenStreetMap</string>
 </resources>

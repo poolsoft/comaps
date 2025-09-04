@@ -1390,4 +1390,7 @@
     <string name="type.amenity.ranger_station">Správci parku</string>
     <string name="type.amenity.animal_shelter">Útulek pro zvířata</string>
     <string name="type.barrier.wicket_gate">Branka</string>
+    <string name="type.power.portal">Portál el. vedení</string>
+    <string name="type.office.security">Strážnice</string>
+    <string name="type.building.guardhouse">Vrátnice</string>
 </resources>

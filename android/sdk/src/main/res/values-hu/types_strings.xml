@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">Cím/blokk</string>
+    <string name="type.addr_interpolation">Cím/Háztömb</string>
     <string name="type.addr_interpolation.even">Cím/blokk</string>
     <string name="type.addr_interpolation.odd">Cím/blokk</string>
     <string name="type.aerialway.station">Felvonóállomás</string>

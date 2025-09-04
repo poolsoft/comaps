@@ -11,11 +11,11 @@
 "type.aeroway" = "Luftromsinfrastruktur";
 "type.aeroway.aerodrome" = "Flyplass";
 "type.aeroway.aerodrome.international" = "Flyplass";
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "Oppstillingsplass";
 "type.aeroway.gate" = "Gate";
 "type.aeroway.helipad" = "Helipad";
-"type.aeroway.runway" = "Runway";
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.runway" = "Rullebane";
+"type.aeroway.taxiway" = "Taxibane";
 "type.aeroway.terminal" = "Terminal";
 "type.amenity" = "Fasilitet";
 "type.amenity.arts_centre" = "Kunstsenter";
@@ -1484,3 +1484,6 @@
 "type.post_office.post_partner" = "Post Partner";
 "type.barrier.wicket_gate" = "Wicket gate";
 "type.amenity.animal_shelter" = "Animal Shelter";
+"type.office.security" = "Security Guards Office";
+"type.power.portal" = "Power Portal";
+"type.building.guardhouse" = "Security Booth";

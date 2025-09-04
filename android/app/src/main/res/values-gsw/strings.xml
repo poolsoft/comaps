@@ -252,7 +252,7 @@
     <string name="help">Hilf</string>
     <string name="faq">Hüüfigi Frage und Antworte</string>
     <string name="donate">Spende</string>
-    <string name="how_to_support_us">Unterstütz s Projekt</string>
+    <string name="how_to_support_us">Freiwillig helfe und CoMaps verbessere</string>
     <string name="copyright">Copyright</string>
     <string name="report_a_bug">App-Fehler melde</string>
     <string name="compass_calibration_recommended">Verbesser d Pfiilrichtig, indem du s Telefon inere Achterbewegig bewegsch, zum de Kompass z kalibriere.</string>
@@ -617,4 +617,9 @@
     <string name="at">am %s</string>
     <string name="osm_note_hint">Oder hinterlaa alternativ en Hiiwiis für d OpenStreetMap Community, sodass öpper andersch en Ort hinzuefüege oder korrigiere cha.</string>
     <string name="osm_note_toast">En Hiiwiis wird zu OpenStreetMap gschickt</string>
+    <string name="share_track">Strecki teile</string>
+    <string name="delete_track_dialog_title">%s lösche?</string>
+    <string name="existence_confirmed_time_ago">Existenz bestätigt %s</string>
+    <string name="hours_confirmed_time_ago">Bestätigt %s</string>
+    <string name="pref_tts_no_system_tts_short">Keis Text-to-Speech-Modul gfunde, überprüef d App-Iistellige</string>
 </resources>

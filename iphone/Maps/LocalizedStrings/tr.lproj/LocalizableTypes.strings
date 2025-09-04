@@ -1484,3 +1484,6 @@
 "type.natural.wetland.tidalflat" = "Tidal Flat";
 "type.barrier.wicket_gate" = "Wicket gate";
 "type.amenity.animal_shelter" = "Animal Shelter";
+"type.office.security" = "Security Guards Office";
+"type.power.portal" = "Power Portal";
+"type.building.guardhouse" = "Security Booth";

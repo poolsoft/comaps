@@ -886,4 +886,7 @@
     <string name="osm_note_hint">Vaihtoehtoisesti voit jättää huomion OpenStreetMap yhteisölle, jotta joku muu voi lisätä tai korjata paikan tiedot.</string>
     <string name="delete_track_dialog_title">Poista %s?</string>
     <string name="share_track">Jaa Reitti</string>
+    <string name="hours_confirmed_time_ago">Vahvistettu %s</string>
+    <string name="existence_confirmed_time_ago">Olemassaolo vahvistettu %s</string>
+    <string name="pref_tts_no_system_tts_short">Tekstistä puheeksi -moottoria ei löytynyt, tarkista sovelluksen asetukset</string>
 </resources>

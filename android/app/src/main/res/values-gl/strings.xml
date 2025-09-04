@@ -621,4 +621,5 @@
     <string name="hours_confirmed_time_ago">Confirmado %s</string>
     <string name="existence_confirmed_time_ago">Existencia confirmada %s</string>
     <string name="share_track">Compartir ruta</string>
+    <string name="pref_tts_no_system_tts_short">Non se atopa un motor texto-a-fala, comproba os axustes da app</string>
 </resources>

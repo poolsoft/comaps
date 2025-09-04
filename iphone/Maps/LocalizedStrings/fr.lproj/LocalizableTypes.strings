@@ -1484,3 +1484,6 @@
 "type.amenity.bicycle_parking.covered" = "Parking vélo couvert";
 "type.amenity.animal_shelter" = "Abri pour animaux";
 "type.barrier.wicket_gate" = "Portillon";
+"type.office.security" = "Bureau des agents de sécurité";
+"type.power.portal" = "Portique haute tension";
+"type.building.guardhouse" = "Guérite de sécurité";

@@ -444,7 +444,7 @@
 "dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur les conseils de navigation ;";
 "dialog_routing_disclaimer_precision" = "— La carte peut être erronée et l'itinéraire proposé n'est pas forcément optimal pour arriver à destination ;";
 "dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation ;";
-"dialog_routing_disclaimer_borders" = "— Faites attention à proximité des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir les frontières entre états dans des zones interdites ;";
+"dialog_routing_disclaimer_borders" = "— Faites attention à proximité des zones frontalières : les itinéraires calculés par l'application peuvent emprunter des zones interdites.";
 "dialog_routing_disclaimer_beware" = "Restez vigilants et soyez prudents sur la route !";
 "dialog_routing_check_gps" = "Vérifiez le signal GPS";
 "dialog_routing_error_location_not_found" = "Impossible de créer l'itinéraire. Les coordonnées GPS actuelles n'ont pas pu être déterminées.";
@@ -594,7 +594,7 @@
 "downloader_no_space_title" = "Espace insuffisant";
 "downloader_no_space_message" = "Veuillez supprimer les données inutiles";
 "editor_profile_changes" = "Modifications vérifiées";
-"editor_focus_map_on_location" = "Déplacez la carte pour placer la croix à l'emplacement du lieu ou de l'entreprise.";
+"editor_focus_map_on_location" = "Déplacez la carte pour positionner la croix à l'emplacement du lieu ou de l'entreprise.";
 "editor_add_select_category" = "Sélectionner une catégorie";
 "editor_add_select_category_popular_subtitle" = "Populaire";
 "editor_add_select_category_all_subtitle" = "Toutes les catégories";
@@ -826,7 +826,7 @@
 "avoid_ferry" = "Éviter les ferries";
 "avoid_motorways" = "Éviter les autoroutes";
 "unable_to_calc_alert_title" = "Impossible de calculer l'itinéraire";
-"unable_to_calc_alert_subtitle" = "Malheureusement, nous n'avons pas pu créer l'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez.";
+"unable_to_calc_alert_subtitle" = "Malheureusement aucun itinéraire n'a pu être calculé soit en raison d'un manque de données OpenStreetMap soit à cause des options de routage choisies. Modifiez les paramètres de routage et réessayez.";
 "define_to_avoid_btn" = "Définissez les routes à éviter";
 "change_driving_options_btn" = "Paramètres d'itinéraire activés";
 "toll_road" = "Route à péage";
