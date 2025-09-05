@@ -128,6 +128,8 @@ def check_raw(path, max_length, ignoreEmptyFilesAndNewLines=False):
                 text = text[:-1]
             else:
                 ok = error(path, "missing new line")
+        else:
+            text = text.strip()
         
         cur_length = len(text)
         if cur_length > max_length:
