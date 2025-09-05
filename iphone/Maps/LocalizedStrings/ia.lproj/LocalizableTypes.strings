@@ -48,6 +48,8 @@
 "type.highway.path.bicycle" = "Cycle & Foot Path";
 "type.highway.path.tunnel" = "Tunnel";
 "type.highway.pedestrian.bridge" = "Pedestrian Bridge";
+
+"type.highway.pedestrian.square" = "Square";
 "type.highway.pedestrian.area" = "Pedestrian Area";
 "type.highway.pedestrian.tunnel" = "Pedestrian Tunnel";
 "type.highway.primary" = "Primary Road";

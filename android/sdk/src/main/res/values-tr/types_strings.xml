@@ -427,6 +427,8 @@
     <string name="type.highway.pedestrian.area">Yaya Alanı</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Yaya Köprüsü</string>
+
+    <string name="type.highway.pedestrian.square">Meydan</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Yaya Tüneli</string>
     <string name="type.highway.primary">Ana Yol</string>

@@ -373,6 +373,8 @@
     <string name="type.highway.pedestrian.area">Gata</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Bro</string>
+
+    <string name="type.highway.pedestrian.square">Torg</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
     <string name="type.highway.primary">Gata</string>

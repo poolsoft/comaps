@@ -466,6 +466,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Bru";
 
+"type.highway.pedestrian.square" = "Torg";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunnel";
 "type.highway.primary" = "Hovedvei";

@@ -468,6 +468,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Пешеходный мост";
 
+"type.highway.pedestrian.square" = "Площадь";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Пешеходный тоннель";
 "type.highway.primary" = "Шоссе";

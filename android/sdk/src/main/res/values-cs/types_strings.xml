@@ -375,6 +375,8 @@
     <string name="type.highway.pedestrian.area">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Most</string>
+
+    <string name="type.highway.pedestrian.square">Náměstí</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel pro pěší</string>
     <string name="type.highway.primary">Ulice</string>

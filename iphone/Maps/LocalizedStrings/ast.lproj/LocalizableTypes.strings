@@ -528,6 +528,8 @@
 "type.railway.subway_entrance.stockholm" = "Subway Entrance";
 "type.place.locality" = "Locality";
 "type.highway.pedestrian.bridge" = "Pedestrian Bridge";
+
+"type.highway.pedestrian.square" = "Square";
 "type.cuisine.turkish" = "Turkish";
 "type.historic.anchor" = "Historic Anchor";
 "type.leisure.bowling_alley" = "Bowling Alley";

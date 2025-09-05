@@ -447,6 +447,8 @@
     <string name="type.highway.pedestrian.area">Pedestrian Area</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Pedestrian Bridge</string>
+
+    <string name="type.highway.pedestrian.square">Square</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Pedestrian Tunnel</string>
     <string name="type.highway.primary">Primary Road</string>

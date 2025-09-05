@@ -466,6 +466,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Ponte";
 
+"type.highway.pedestrian.square" = "Praça ou largo";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel";
 "type.highway.primary" = "Estrada primária";

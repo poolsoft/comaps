@@ -377,6 +377,8 @@
     <string name="type.highway.pedestrian.area">Sétálóutca</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Híd</string>
+
+    <string name="type.highway.pedestrian.square">Tér</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Alagút</string>
     <string name="type.highway.primary">Utca</string>

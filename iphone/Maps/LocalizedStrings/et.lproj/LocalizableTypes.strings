@@ -466,6 +466,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Jalakäijate sild";
 
+"type.highway.pedestrian.square" = "Väljak";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Jalakäijate tunnel";
 "type.highway.primary" = "Põhimaantee";

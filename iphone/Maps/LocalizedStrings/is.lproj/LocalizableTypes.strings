@@ -180,6 +180,8 @@
 "type.highway.path" = "Stígur";
 "type.highway.pedestrian.area" = "Svæði fyrir fótgangandi";
 "type.highway.pedestrian.bridge" = "Göngubrú";
+
+"type.highway.pedestrian.square" = "Torg";
 "type.highway.pedestrian.tunnel" = "Göng fyrir fótgangandi";
 "type.highway.track" = "Slóði";
 "type.highway.track.area" = "Slóði";

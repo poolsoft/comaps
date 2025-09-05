@@ -431,6 +431,8 @@
     <string name="type.highway.pedestrian.area">Obszar deptaka</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Most dla pieszych</string>
+
+    <string name="type.highway.pedestrian.square">Plac</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel dla pieszych</string>
     <string name="type.highway.primary">Ulica</string>

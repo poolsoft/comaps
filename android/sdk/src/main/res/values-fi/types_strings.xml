@@ -425,6 +425,8 @@
     <string name="type.highway.pedestrian.area">Jalankulkualue</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Jalankulkusilta</string>
+
+    <string name="type.highway.pedestrian.square">Tori</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Jalankulkutunneli</string>
     <string name="type.highway.primary">Pääkatu</string>

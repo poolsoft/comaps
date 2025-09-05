@@ -370,6 +370,8 @@
     <string name="type.highway.pedestrian.area">Stradă</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Pod</string>
+
+    <string name="type.highway.pedestrian.square">Spațiu</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel</string>
     <string name="type.highway.primary">Stradă</string>

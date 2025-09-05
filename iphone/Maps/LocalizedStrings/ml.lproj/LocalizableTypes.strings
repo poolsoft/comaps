@@ -561,6 +561,8 @@
 "type.barrier.chain" = "Chain";
 "type.emergency" = "Emergency";
 "type.highway.pedestrian.bridge" = "Pedestrian Bridge";
+
+"type.highway.pedestrian.square" = "Square";
 "type.highway.primary.tunnel" = "Tunnel";
 "type.historic.anchor" = "Historic Anchor";
 "type.railway.subway_entrance.algiers" = "Subway Entrance";

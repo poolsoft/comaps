@@ -458,6 +458,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Híd";
 
+"type.highway.pedestrian.square" = "Tér";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Alagút";
 "type.highway.primary" = "Utca";

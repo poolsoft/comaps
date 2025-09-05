@@ -385,6 +385,8 @@
 "type.shop.greengrocer" = "Greengrocer";
 "type.cuisine.local" = "Local";
 "type.highway.pedestrian.bridge" = "Pedestrian Bridge";
+
+"type.highway.pedestrian.square" = "Square";
 "type.highway.primary.tunnel" = "Tunnel";
 "type.railway.station.subway.samara" = "Subway Station";
 "type.historic.anchor" = "Historic Anchor";

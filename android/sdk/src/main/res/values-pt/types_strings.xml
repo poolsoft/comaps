@@ -418,6 +418,8 @@
     <string name="type.highway.pedestrian.area">Rua pedonal</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Ponte</string>
+
+    <string name="type.highway.pedestrian.square">Praça ou largo</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel</string>
     <string name="type.highway.primary">Estrada primária</string>

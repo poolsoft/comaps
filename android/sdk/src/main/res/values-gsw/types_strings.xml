@@ -365,6 +365,8 @@
     <string name="type.highway.pedestrian">Fuessgängerzone</string>
     <string name="type.highway.pedestrian.area">Fuessgängerzone</string>
     <string name="type.highway.pedestrian.bridge">Fuessgängerzonebrugg</string>
+
+    <string name="type.highway.pedestrian.square">Platz</string>
     <string name="type.highway.primary">Hauptstrass</string>
     <string name="type.highway.primary.bridge">Brugg</string>
     <string name="type.highway.primary.tunnel">Hauptstrassetunnel</string>

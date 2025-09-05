@@ -424,6 +424,8 @@
     <string name="type.highway.pedestrian.area">Oinezkoen eremua</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Oinezkoen zubia</string>
+
+    <string name="type.highway.pedestrian.square">Plaza</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Oinezkoen tunela</string>
     <string name="type.highway.primary">Errepide nagusia</string>

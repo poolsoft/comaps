@@ -466,6 +466,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "جسر";
 
+"type.highway.pedestrian.square" = "ميدان";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "نفق";
 "type.highway.primary" = "شارع رئيسي";

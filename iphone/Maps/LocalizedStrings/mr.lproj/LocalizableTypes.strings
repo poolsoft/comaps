@@ -466,6 +466,8 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "पादचारी पूल";
 
+"type.highway.pedestrian.square" = "चौरस";
+
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "पादचारी बोगदा";
 "type.highway.primary" = "प्राथमिक मार्ग";
