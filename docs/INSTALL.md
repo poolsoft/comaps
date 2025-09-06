@@ -399,6 +399,16 @@ Select "CoMaps" product scheme.
 
 Compile and run the project ("Product" → "Run").
 
+### CarPlay
+To test CarPlay, simply select "I/O" → "External Displays" → "CarPlay" in the Simulator
+
+### Spoofing GPS
+The Simulator supports setting a specific location or spoofing a GPX track. This is especially handy when testing CarPlay
+
+To select an Apple predetermined track or specific custom location, choose "Features" → "Location" in the Simulator
+
+To simulate a custom GPX track use `python3 tools/python/ios_simulator_load_gpx.py <path to your gpx>` which is a wrapper for `xcrun simctl location`. Default values are 60 km/h and 0.1s update intervals, but can be customized
+
 ## Desktop app
 
 See [install_desktop](INSTALL_DESKTOP.md) to install and build Desktop app for Linux and Mac OS
