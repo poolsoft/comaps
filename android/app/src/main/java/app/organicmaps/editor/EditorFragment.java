@@ -90,8 +90,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private MultilanguageAdapter mNamesAdapter;
   private MaterialTextView mNamesCaption;
-  private MaterialTextView mAddLanguage;
-  private MaterialTextView mMoreLanguages;
+  private MaterialButton mAddLanguage;
+  private MaterialButton mMoreLanguages;
 
   private MaterialTextView mStreet;
   private TextInputEditText mHouseNumber;
@@ -99,7 +99,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   // Define Metadata entries, that have more tricky logic, separately.
   private MaterialTextView mPhone;
-  private MaterialTextView mEditPhoneLink;
+  private MaterialButton mEditPhoneLink;
   private MaterialTextView mCuisine;
   private SwitchCompat mWifi;
   private MaterialTextView mSelfService;

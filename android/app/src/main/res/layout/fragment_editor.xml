@@ -209,19 +209,17 @@
               android:layout_centerVertical="true"
               android:layout_marginStart="@dimen/editor_margin_left"
               android:layout_toStartOf="@+id/edit_phone"/>
-          <com.google.android.material.textview.MaterialTextView
+          <com.google.android.material.button.MaterialButton
               android:id="@+id/edit_phone"
               android:layout_marginStart="@dimen/margin_half_plus"
-              android:background="?clickableBackground"
+              style="@style/Widget.Material3.Button.TextButton"
               android:gravity="center_vertical"
               android:text="@string/edit"
-              android:textAllCaps="true"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:layout_alignParentEnd="true"
               android:layout_centerVertical="true"
-              android:textAppearance="@style/MwmTextAppearance.Body1"
-              android:textColor="?colorSecondary"/>
+              android:textAppearance="@style/MwmTextAppearance.Body1" />
         </RelativeLayout>
 
         <include
