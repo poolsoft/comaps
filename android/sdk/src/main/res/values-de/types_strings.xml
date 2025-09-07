@@ -1394,6 +1394,6 @@
     <string name="type.amenity.animal_shelter">Tierheim</string>
     <string name="type.barrier.wicket_gate">Schlupfpforte</string>
     <string name="type.office.security">Büro des Sicherheitsdienstes</string>
-    <string name="type.building.guardhouse">Sicherheitsstand</string>
+    <string name="type.building.guardhouse">Pförtnerhäuschen</string>
     <string name="type.power.portal">Abspannportal</string>
 </resources>

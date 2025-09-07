@@ -84,7 +84,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Zapisz mapy do</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Wybierz folder, do którego pobrać mapy.</string>
+    <string name="maps_storage_summary">Wybierz folder, do którego pobrać mapy</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapy</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
@@ -248,7 +248,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Wspomóż</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Wesprzyj projekt</string>
+    <string name="how_to_support_us">Wspomóż i ulepsz CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Prawa autorskie</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -890,4 +890,10 @@
     <string name="dialog_report_error_missing_folder">Wybrana lokalizacja kopii zapasowej jest niedostępna lub nie można do niej zapisywać. Proszę wybierz inną lokalizację.</string>
     <string name="closed_now">Zamknięte teraz</string>
     <string name="at">o %s</string>
+    <string name="delete_track_dialog_title">Usunąć %s?</string>
+    <string name="share_track">Udostępnij trasę</string>
+    <string name="hours_confirmed_time_ago">Potwierdzone %s</string>
+    <string name="existence_confirmed_time_ago">Istnienie potwierdzone %s</string>
+    <string name="osm_note_hint">Ewentualnie zostaw notatkę dla społeczności OpenStreetMap, żeby ktoś inny mógł dodać lub poprawić to miejsce.</string>
+    <string name="osm_note_toast">Notatka zostanie wysłana do OpenStreetMap</string>
 </resources>

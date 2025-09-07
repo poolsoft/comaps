@@ -1386,4 +1386,5 @@
     <string name="type.amenity.animal_shelter">Abrigo de animais</string>
     <string name="type.building.guardhouse">Cabine de Segurança</string>
     <string name="type.office.security">Escritório dos Guardas de Segurança</string>
+    <string name="type.power.portal">Portal de Energia</string>
 </resources>

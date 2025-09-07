@@ -1,13 +1,13 @@
 
 /* Button text (should be short) */
-"cancel" = "لغو";
+"cancel" = "وازدن";
 
 /* Button which interrupts country download */
 "cancel_download" = "لغو دانلود";
 
 /* Button which deletes downloaded country */
-"delete" = "حذف";
-"download_maps" = "دانلود نقشه‌ها";
+"delete" = "سِتُردن";
+"download_maps" = "بارگیری نقشه‌ها";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "درحال دانلود…";

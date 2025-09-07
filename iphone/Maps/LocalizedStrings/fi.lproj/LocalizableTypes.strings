@@ -465,7 +465,6 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Jalankulkusilta";
-
 "type.highway.pedestrian.square" = "Tori";
 
 /* These translations are used for all type.highway.*.tunnel. */
@@ -1486,6 +1485,6 @@
 "type.amenity.bicycle_parking.covered" = "Pyöräkatos";
 "type.amenity.animal_shelter" = "Eläinsuoja";
 "type.barrier.wicket_gate" = "Käyntiportti";
-"type.office.security" = "Security Guards Office";
-"type.power.portal" = "Power Portal";
-"type.building.guardhouse" = "Security Booth";
+"type.office.security" = "Vartijoiden toimisto";
+"type.power.portal" = "Sähköportaali";
+"type.building.guardhouse" = "Vartijankoppi";

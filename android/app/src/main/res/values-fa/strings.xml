@@ -4,10 +4,10 @@
     <!-- Button text (should be short) -->
     <string name="back">بازگشت</string>
     <!-- Button text (should be short) -->
-    <string name="cancel">لغو</string>
+    <string name="cancel">وازدن</string>
     <!-- Button which deletes downloaded country -->
-    <string name="delete">حذف</string>
-    <string name="download_maps">دانلود نقشه‌ها</string>
+    <string name="delete">سِتُردن</string>
+    <string name="download_maps">بارگیری نقشه‌ها</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">دانلود ناموفق بود، برای تلاش مجدد لمس کنید</string>
     <!-- Settings/Downloader - info for country which started downloading -->

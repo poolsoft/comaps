@@ -437,7 +437,6 @@
     <string name="type.highway.pedestrian.area">Пешеходная зона</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Пешеходный мост</string>
-
     <string name="type.highway.pedestrian.square">Площадь</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Пешеходный тоннель</string>
@@ -1391,9 +1390,12 @@
     <string name="type.man_made.crane">Кран</string>
     <string name="type.landuse.religious">Церковный двор</string>
     <string name="type.railway.station.subway.qingdao">Станция метро</string>
-    <string name="type.amenity.ranger_station">Пост лесников</string>
+    <string name="type.amenity.ranger_station">Пост рейнджеров</string>
     <string name="type.amenity.luggage_locker">Камера хранения</string>
     <string name="type.amenity.bicycle_parking.covered">Крытая велосипедная парковка</string>
     <string name="type.post_office.post_partner">Почтовое отделение</string>
     <string name="type.leisure.escape_game">Квест-комната</string>
+    <string name="type.office.security">Офис охранника</string>
+    <string name="type.building.guardhouse">Будка безопасности</string>
+    <string name="type.power.portal">Портальная опора</string>
 </resources>

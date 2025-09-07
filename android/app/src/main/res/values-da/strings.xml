@@ -869,4 +869,9 @@
     <string name="closed_now">Lukket nu</string>
     <string name="open_now">Åben nu</string>
     <string name="at">kl. %s</string>
+    <string name="share_track">Del spor</string>
+    <string name="delete_track_dialog_title">Slet %s?</string>
+    <string name="pref_tts_no_system_tts_short">Der blev ikke fundet nogen tekst-til-tale-motor. Kontrollér appens indstillinger</string>
+    <string name="osm_note_hint">Du kan også efterlade en bemærkning til OpenStreetMap-fællesskabet, så en anden kan tilføje eller rette stedet her.</string>
+    <string name="osm_note_toast">Bemærkning vil blive sendt til OpenStreetMap</string>
 </resources>

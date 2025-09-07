@@ -842,4 +842,6 @@
     <string name="at">kl. %s</string>
     <string name="enable_show_on_lock_screen_description">Vid aktivering kommer appen fungera på låsskärmen även när enheten är låst.</string>
     <string name="about_help">Om &amp; Hjälp</string>
+    <string name="share_track">Dela spår</string>
+    <string name="delete_track_dialog_title">Ta bort %s?</string>
 </resources>
