@@ -86,7 +86,7 @@ cs:Kde se najíst|Jídlo
 da:Spisesteder|Mad
 nl:Waar iets gaan eten|Eten
 fi:Missä syödä|Ruoka
-fr:Un endroit pour manger|Nourriture|Manger
+fr:Où manger|Nourriture|Manger
 de:Essmöglichkeiten|Essen|5Essensmöglichkeiten
 hi:कहाँ खाना है
 hu:Hol lehet enni valamit|Élelmiszer
@@ -309,7 +309,7 @@ et:Ostud
 eu:4Erosketak
 fa:فروشگاه|خرید کردن
 fi:Ostokset
-fr:4Shopping
+fr:4Magasins|4Shopping
 he:קניות
 hi:4खरीदारी
 hu:Bevásárlás
