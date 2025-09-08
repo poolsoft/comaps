@@ -835,24 +835,12 @@
     <string name="uri_open_location_failed">Не установлено приложение, которое может открыть местоположение</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Авто в навигации</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="facebook">Facebook</string>
-    <string name="github">GitHub</string>
-    <string name="telegram">Telegram</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="instagram">Instagram</string>
     <string name="wikimedia_commons">Викисклад</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="vk">VK</string>
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="error_enter_correct_bluesky_page">Введите имя пользователя Bluesky или веб-адрес</string>
     <string name="error_enter_correct_fediverse_page">Введите имя пользователя Mastodon или веб-адрес</string>
     <string name="app_site_url">https://comaps.app/ru/</string>
-    <string name="bluesky">Bluesky</string>
-    <string name="codeberg">Codeberg</string>
     <string name="saved">Сохранено</string>
     <string name="pref_left_button_disable">Выключить</string>
     <string name="pref_left_button_title">Действие 1-й кнопки</string>

@@ -774,7 +774,6 @@
     <string name="uri_open_location_failed">ไม่มีการติดตั้งแอปที่สามารถเปิดตำแหน่งได้</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">อัตโนมัติในการนำทาง</string>
-    <string name="openstreetmap">OpenStreetMap</string>
     <string name="telegram_url">https://t.me/CoMapsApp/</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Th:เกี่ยวกับ_OpenStreetMap</string>
     <string name="translated_om_site_url">https://comaps.app/</string>
@@ -782,7 +781,6 @@
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="wikimedia_commons">วิกิมีเดียคอมมอนส์</string>
     <string name="panoramax">ภาพถ่าย Panoramax</string>
-    <string name="editor_line_social_network">LINE</string>
     <string name="app_site_url">https://comaps.app/</string>
     <string name="saved">บันทึกแล้ว</string>
 </resources>

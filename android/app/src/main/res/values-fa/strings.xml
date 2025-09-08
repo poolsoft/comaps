@@ -780,9 +780,7 @@
     <string name="instagram_url">https://www.instagram.com/comaps.app</string>
     <string name="wikimedia_commons">ویکی‌انبار</string>
     <string name="panoramax">تصویر Panoramax</string>
-    <string name="editor_line_social_network">LINE</string>
     <string name="app_site_url">https://comaps.app</string>
     <string name="saved">ذخیره شد</string>
-    <string name="bluesky">بلواسکای</string>
     <string name="about_headline">رایگان برای همه، ساخته شده با عشق</string>
 </resources>

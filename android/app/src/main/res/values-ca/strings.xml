@@ -823,19 +823,9 @@
     <string name="uri_open_location_failed">No hi ha cap aplicació instal·lada que pugui obrir la ubicació</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto a la navegació</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="vk">VK</string>
-    <string name="facebook">Facebook</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="telegram">Telegram</string>
-    <string name="github">GitHub</string>
     <string name="level_value_generic">Nivell: %s</string>
-    <string name="instagram">Instagram</string>
     <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
-    <string name="twitter">X (Twitter)</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="matrix">[Matrix]</string>
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="tts_info_link">https://www.comaps.app/support/tts-configuration-guide-for-android/</string>
     <string name="telegram_url">https://t.me/CoMapsApp/</string>
@@ -844,8 +834,6 @@
     <string name="app_site_url">https://comaps.app/ca/</string>
     <string name="saved">S\'ha desat</string>
     <string name="about_headline">Projecte obert, desenvolupat per la comunitat</string>
-    <string name="codeberg">Codeberg</string>
-    <string name="bluesky">Bluesky</string>
     <string name="error_enter_correct_level">Introdueix un valor de pis vàlid</string>
     <string name="error_enter_correct_fediverse_page">Introdueix un nom d\'usuari o una adreça web de Mastodon vàlids</string>
     <string name="pref_backup_now_summary">Crear una còpia de seguretat immediatament</string>

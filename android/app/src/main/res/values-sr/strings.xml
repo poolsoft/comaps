@@ -803,24 +803,14 @@
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аутоматски у навигацији</string>
-    <string name="telegram">Telegram</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="facebook">Facebook</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="instagram">Instagram</string>
     <string name="elevation_profile_max_elevation">Максимална висина</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="aa_location_permissions_request">CoMaps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
     <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
     <string name="copyright">Copyright</string>
-    <string name="vk">VK</string>
     <string name="editor_add_select_location">Изаберите локацију</string>
     <string name="limited_accuracy">Ограничена тачност</string>
-    <string name="github">GitHub</string>
-    <string name="openstreetmap">OpenStreetMap</string>
     <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="precise_location_is_disabled_long_text">Да би се осигурала тачна навигација омогућите прецизну локацију у подешавањима</string>
     <string name="translated_om_site_url">https://comaps.app/</string>
@@ -832,11 +822,9 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="social_media">Друштвени медији</string>
     <string name="building">Зграда</string>
-    <string name="codeberg">Codeberg</string>
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="app_site_url">https://comaps.app/</string>
     <string name="telegram_url">https://t.me/CoMapsApp/</string>
-    <string name="bluesky">Bluesky</string>
     <string name="error_enter_correct_fediverse_page">Унесите важеће корисничко име Мастодона или веб адресу</string>
     <string name="error_enter_correct_bluesky_page">Unesite važeće Bluesky korisničko ime ili veb adresu</string>
     <string name="pref_left_button_title">Подешавање левог дугмета</string>

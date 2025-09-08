@@ -818,27 +818,15 @@
     <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaattinen navigointi</string>
-    <string name="facebook">Facebook</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="vk">VK</string>
-    <string name="openstreetmap">OpenStreetMap</string>
     <string name="level_value_generic">Kerros: %s</string>
     <string name="share_bookmarks_email_body">Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne CoMaps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://www.comaps.app/download/ \n\nNauti matkustamisesta CoMaps:n kanssa!</string>
     <string name="tts_info_link">https://www.comaps.app/support/tts-configuration-guide-for-android/</string>
     <string name="translated_om_site_url">https://comaps.app/fi/</string>
-    <string name="telegram">Telegram</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="matrix">[Matrix]</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="github">Github</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="instagram">Instagram</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="bluesky">Bluesky</string>
     <string name="error_enter_correct_fediverse_page">Kirjoita kelvollinen Mastodon-käyttäjänimi tai verkko-osoite</string>
     <string name="telegram_url">https://t.me/CoMapsApp/</string>
-    <string name="codeberg">Codeberg</string>
     <string name="error_enter_correct_bluesky_page">Kirjoita kelvollinen Bluesky-käyttäjänimi tai verkko-osoite</string>
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="app_site_url">https://comaps.app/fi/</string>

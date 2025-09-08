@@ -48,8 +48,6 @@
     <string name="placepage_distance">Udaljenost</string>
     <string name="menu">Izbornik</string>
     <string name="news">Novosti</string>
-    <string name="telegram">Telegram</string>
-    <string name="facebook">Facebook</string>
     <string name="help">Pomoć</string>
     <string name="donate">Doniraj</string>
     <string name="copyright">Autorska prava</string>
@@ -70,8 +68,6 @@
     <string name="category_post">Pošta</string>
     <string name="email">E-mail</string>
     <string name="done">Potvrdi</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="mastodon">Mastodon</string>
     <string name="rate_the_app">Ocijeni aplikaciju</string>
     <string name="downloader_downloading">Preuzima se:</string>
     <string name="search_history_title">Povijest pretrage</string>
@@ -141,8 +137,6 @@
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="wikimedia_commons">Zajednički poslužitelj</string>
     <string name="self_service">Samoposluživanje</string>
-    <string name="editor_line_social_network">LINE</string>
     <string name="panoramax">Panoramax slika</string>
-    <string name="bluesky">Bluesky</string>
     <string name="saved">Spremljeno</string>
 </resources>

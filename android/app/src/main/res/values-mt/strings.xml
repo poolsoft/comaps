@@ -191,10 +191,6 @@
     <string name="menu">Menu</string>
     <string name="website">Websajt</string>
     <string name="news">Aħbarijiet</string>
-    <string name="github">GitHub</string>
-    <string name="telegram">Telegram</string>
-    <string name="facebook">Facebook</string>
-    <string name="editor_line_social_network">LINE</string>
     <string name="rate_the_app">Għati rata lill-app</string>
     <string name="help">Għajnuna</string>
     <string name="faq">Mistoqsijiet Frekwenti</string>
@@ -223,7 +219,6 @@
     <string name="downloader_status_maps">Mappep</string>
     <string name="pref_tts_playing_test_voice">Iċċekkja l-volum jew is-settings tal-Vuċi għad-diskors tas-sistema jekk ma tismax il-vuċi issa.</string>
     <string name="feedback">Feedback</string>
-    <string name="twitter">X (Twitter)</string>
     <string name="downloader_downloading">Tniżżil:</string>
     <string name="downloader_delete_map_while_routing_dialog">Biex tħassar il-mappa, waqqaf in-navigazzjoni.</string>
     <string name="downloader_retry">Erġa ’pprova</string>
@@ -629,8 +624,6 @@
     <string name="track_recording_alert_title">Issejvja fil-Bookmarks u l-Korsiji?</string>
     <string name="settings">Settings</string>
     <string name="auto">Auto</string>
-    <string name="instagram">Instagram</string>
-    <string name="vk">VK</string>
     <string name="teal">Teal</string>
     <string name="lime">Lime</string>
     <string name="read_in_wikipedia">Wikipedia</string>

@@ -235,16 +235,6 @@
     <string name="website">الموقع الإلكتروني</string>
     <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">أخبار</string>
-    <!-- Text in menu -->
-    <string name="telegram">تيليجرام</string>
-    <!-- Text in menu -->
-    <string name="facebook">فيسبوك</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (تويتر)</string>
-    <!-- Text in menu -->
-    <string name="instagram">إنستغرام</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">خريطة الشارع المفتوحة</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">إرسال التعليقات</string>
     <!-- Text in menu -->
@@ -844,9 +834,7 @@
     <string name="tts_info_link">https://www.comaps.app/support/tts-configuration-guide-for-android</string>
     <string name="instagram_url">https://www.instagram.com/comaps.app</string>
     <string name="wikimedia_commons">ويكيميديا كومنز</string>
-    <string name="editor_line_social_network">LINE</string>
     <string name="panoramax">صورة Panoramax</string>
     <string name="app_site_url">https://comaps.app/ar</string>
     <string name="saved">تم الحفظ</string>
-    <string name="bluesky">بلوسكاي</string>
 </resources>

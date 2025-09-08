@@ -816,24 +816,14 @@
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Αυτόματη πλοήγηση</string>
     <string name="wikimedia_commons">Κοινά της Wikimedia</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="instagram">Instagram</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="facebook">Facebook</string>
     <string name="translated_om_site_url">https://comaps.app/</string>
-    <string name="github">GitHub</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="editor_line_social_network">LINE</string>
     <string name="tts_info_link">https://www.comaps.app/support/tts-configuration-guide-for-android/</string>
     <string name="level_value_generic">Όροφος: %s</string>
     <string name="miles_per_hour">mph</string>
-    <string name="openstreetmap">OpenStreetMap</string>
     <string name="minute">λπτ</string>
     <string name="day">Μέρα</string>
     <string name="hour">Ωρα</string>
-    <string name="matrix">Μήτρα</string>
-    <string name="vk">VK</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_url">https://t.me/CoMapsApp/</string>
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="panoramax">εικόνα Panoramax</string>

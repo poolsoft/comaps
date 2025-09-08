@@ -763,17 +763,7 @@
     <string name="category_secondhand">Naudotos prekės</string>
     <string name="pref_tts_street_names_title">Sakyti gatvių pavadinimus</string>
     <string name="pref_tts_street_names_description">Įjungus šią parinktį, bus įvardijamos gatvės ir išvažiavimai, į kuriuos siūloma sukti.</string>
-    <string name="github">GitHub</string>
-    <string name="telegram">Telegram</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="facebook">Facebook</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="instagram">Instagram</string>
-    <string name="openstreetmap">OpenStreetMap</string>
     <string name="level_value_generic">Aukštas: %s</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="vk">VK</string>
     <string name="pref_tts_test_voice_title">Išbandyti balso instrukcijas</string>
     <string name="pref_tts_playing_test_voice">Patikrinkite sistemos kalbos sintezės garsumo nustatymus, jeigu dabar negirdite balso</string>
     <plurals name="tracks">
@@ -819,9 +809,7 @@
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="panoramax">Panoramax vaizdas</string>
     <string name="saved">Išsaugota</string>
-    <string name="codeberg">Codeberg</string>
     <string name="ruler">Liniuotė</string>
-    <string name="bluesky">Bluesky</string>
     <string name="pref_left_button_title">Kairiojo mygtuko funkcija</string>
     <string name="pref_backup_now_summary_empty_lists">Neturite jokių žymių ar trasų atsarginei kopijai sudaryti</string>
     <string name="pref_backup_interval_title">Automatinis atsarginis kopijavimas</string>
