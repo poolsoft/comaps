@@ -171,7 +171,7 @@
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi CoMaps kartē!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hei, apskati manu atrašanās vietu „CoMaps“ kartē!</string>
+    <string name="my_position_share_email_subject">Sveiciens! Apskati manu atrašanās vietu CoMaps kartē!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hei, \n \nŠobrīd atrodos te: %1$s. Spied uz šīs %2$s vai šīs %3$s saites, lai kartē redzētu manu atrašanās vietu. \n \nPaldies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

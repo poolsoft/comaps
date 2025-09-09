@@ -465,18 +465,18 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Pont";
-"type.highway.pedestrian.square" = "Place";
+"type.highway.pedestrian.square" = "Parc";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tunnel";
-"type.highway.primary" = "Rue";
+"type.highway.pedestrian.tunnel" = "Tunnel piéton";
+"type.highway.primary" = "Rue principale";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Pont";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tunnel";
-"type.highway.primary_link" = "Rue";
+"type.highway.primary_link" = "Accès à rue principale";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Pont";
@@ -484,8 +484,8 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "Tunnel";
 "type.highway.raceway" = "Circuit";
-"type.highway.residential" = "Rue";
-"type.highway.residential.area" = "Rue";
+"type.highway.residential" = "Rue résidentielle";
+"type.highway.residential.area" = "Rue résidentielle";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Pont";

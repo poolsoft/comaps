@@ -58,7 +58,7 @@
     <string name="type.amenity.driving_school">Autoescola</string>
     <string name="type.amenity.money_transfer">Transferência de dinheiro</string>
     <string name="type.office.diplomatic">Embaixada ou consulado</string>
-    <string name="type.amenity.fast_food">Lanchonete</string>
+    <string name="type.amenity.fast_food">Fast food</string>
     <string name="type.amenity.ferry_terminal">Estação de barcas</string>
     <string name="type.amenity.fire_station">Posto de bombeiros</string>
     <string name="type.amenity.food_court">Praça de alimentação</string>
@@ -212,7 +212,7 @@
     <!-- Heating, Ventilation, and Air Conditioning -->
     <string name="type.craft.hvac">Aquecimento, Ventilação e Ar Condicionado</string>
     <string name="type.craft.key_cutter">Chaveiro</string>
-    <string name="type.craft.locksmith">Serralheiro</string>
+    <string name="type.craft.locksmith">Serralheiro (chave)</string>
     <string name="type.shop.camera">Loja de câmeras</string>
     <string name="type.craft.plumber">Encanador</string>
     <string name="type.craft.winery">Vinícola</string>
@@ -230,7 +230,7 @@
     <string name="type.cuisine.brazilian">Cozinha brasileira</string>
     <string name="type.cuisine.breakfast">Café da manhã</string>
     <string name="type.cuisine.burger">Hambúrguer</string>
-    <string name="type.cuisine.buschenschank">Adega</string>
+    <string name="type.cuisine.buschenschank">Buschenschank</string>
     <string name="type.cuisine.cake">Bolo</string>
     <string name="type.cuisine.caribbean">Cozinha caribenha</string>
     <string name="type.cuisine.chicken">Frango</string>
@@ -240,7 +240,7 @@
     <string name="type.cuisine.croatian">Cozinha croata</string>
     <string name="type.cuisine.curry">Curry</string>
     <string name="type.cuisine.deli">Iguarias regionais</string>
-    <string name="type.cuisine.diner">Lanchonete</string>
+    <string name="type.cuisine.diner">Diner</string>
     <string name="type.cuisine.donut">Rosquinha</string>
     <string name="type.cuisine.ethiopian">Cozinha etíope</string>
     <string name="type.cuisine.filipino">Cozinha filipina</string>
@@ -253,7 +253,7 @@
     <string name="type.cuisine.german">Cozinha alemã</string>
     <string name="type.cuisine.greek">Cozinha grega</string>
     <string name="type.cuisine.grill">Grelhada</string>
-    <string name="type.cuisine.heuriger">Adega</string>
+    <string name="type.cuisine.heuriger">Heuriger</string>
     <string name="type.cuisine.hotdog">Cachorro-quente</string>
     <string name="type.cuisine.hungarian">Cozinha húngara</string>
     <string name="type.cuisine.ice_cream">Sorvete</string>
@@ -383,7 +383,6 @@
     <string name="type.highway.pedestrian.area">Rua pedonal</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Ponte para pedestres</string>
-
     <string name="type.highway.pedestrian.square">Praça ou largo</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel para pedestres</string>
@@ -1174,8 +1173,8 @@
     <string name="type.amenity.parking">Estacionamento</string>
     <string name="type.barrier.chain">Corrente</string>
     <string name="type.craft">Artesanato</string>
-    <string name="type.craft.blacksmith">Serralheiro</string>
-    <string name="type.craft.metal_construction">Ferreiro</string>
+    <string name="type.craft.blacksmith">Ferreiro</string>
+    <string name="type.craft.metal_construction">Serralheiro (metal)</string>
     <string name="type.fee.yes">$</string>
     <string name="type.fee.no">Gratuito</string>
     <string name="type.highway.path">Caminho</string>
@@ -1384,7 +1383,7 @@
     <string name="type.amenity.ranger_station">Posto de guardas florestais</string>
     <string name="type.barrier.wicket_gate">Postigo</string>
     <string name="type.amenity.animal_shelter">Abrigo de animais</string>
-    <string name="type.building.guardhouse">Cabine de Segurança</string>
-    <string name="type.office.security">Escritório dos Guardas de Segurança</string>
-    <string name="type.power.portal">Portal de Energia</string>
+    <string name="type.building.guardhouse">Guarita</string>
+    <string name="type.office.security">Escritório de segurança privada</string>
+    <string name="type.power.portal">Portal de subestação</string>
 </resources>

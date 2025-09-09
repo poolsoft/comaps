@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Aménagements pour camping-car";
-"share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l’appli CoMaps. Veuillez les ouvrir si vous avez installé CoMaps. Si vous ne l’avez pas, téléchargez l’application pour votre appareil iOS ou Android en suivant ce lien : https://www.comaps.app/download/\n\nBon voyage avec CoMaps !";
+"share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l’appli CoMaps. Veuillez les ouvrir si vous avez installé CoMaps. Si vous ne l’avez pas, téléchargez l’application pour votre appareil iOS ou Android en suivant ce lien : https://www.comaps.app/download/\n\nBon voyage avec CoMaps !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -195,7 +195,7 @@
 /* Prints version number in About dialog */
 "version" = "Version de CoMaps : %@";
 "version %@ (%@)" = "Version %@ (%@)";
-"version: %@ (%@)\nmap data: %@" = "Version : %@ (%@)\nDonnées cartographiques : %@";
+"version: %@ (%@)\nmap data: %@" = "Version : %@ (%@)\nDonnées cartographiques : %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Traces";
@@ -217,7 +217,7 @@
 "pref_appearance_dark" = "Sombre";
 
 /* Generic «Disabled» string */
-"disabled" = "Disabled";
+"disabled" = "Désactivé";
 
 /* Generic «Off» string */
 "off" = "Désactivé";
@@ -250,7 +250,7 @@
 "pref_tts_street_names_description" = "Quand activé, le nom de la rue ou de la sortie à prendre sera prononcé à haute voix.";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "Langue des annonces vocales";
+"pref_tts_language_title" = "Langue des instructions vocales";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Tester les instructions vocales";
@@ -319,7 +319,7 @@
 "copyright" = "Tous droits réservés";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Signaler un bug";
+"report_a_bug" = "Signaler un bogue";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Signaler ou corriger des données cartographiques incorrectes";
@@ -328,7 +328,7 @@
 "volunteer" = "Contribuer à CoMaps";
 
 /* "Social media" section header in the About screen */
-"follow_us" = "Rentrez en contact avec nous";
+"follow_us" = "Rentrons en contact";
 
 /* Alert text */
 "email_error_body" = "Le client de courriel n’a pas été configuré. Veuillez le configurer ou nous contacter à %@";
@@ -365,7 +365,7 @@
 "downloader_status_outdated" = "Mettre à jour";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Echec";
+"downloader_status_failed" = "Échec";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Veuillez arrêter la navigation pour supprimer la carte.";
@@ -390,7 +390,7 @@
 
 /* bookmark button text */
 "bookmark" = "signet";
-"save" = "Sauvegarder";
+"save" = "Enregistrer";
 "create" = "créer";
 
 /* red color */
@@ -490,7 +490,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d’ajouter le nom d’une ville ou d’un village proche.";
 "search_history_title" = "Historique de recherche";
-"search_history_text" = "Accédez à vos dernières recherches.";
+"search_history_text" = "Accéder à vos dernières recherches.";
 "clear_search" = "Effacer l’historique de recherche";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -524,7 +524,7 @@
 "autodownload" = "Téléchargement automatique des cartes";
 
 /* Place Page opening hours text */
-"closed_now" = "Fermé actuellement";
+"closed_now" = "Actuellement fermé";
 
 /* Place Page opening hours text */
 "daily" = "Quotidien";
@@ -543,13 +543,13 @@
 
 /* OpenStreetMap */
 "osm_mapdata" = "Données cartographiques d’OpenStreetMap";
-"osm_mapdata_explanation %@" = "Données cartographiques créées par la communauté en date du *%@*. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site [OpenStreetMap.org](https://openstreetmap.org).";
+"osm_mapdata_explanation %@" = "Données cartographiques créées par la communauté en date du *%@*. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consultez le site [OpenStreetMap.org](https://openstreetmap.org).";
 "osm_more_about" = "En savoir plus sur OpenStreetMap";
 "osm_more_about_url" = "https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap";
 
 /* OpenStreetMap Profile */
 "osm_profile" = "Profil OpenStreetMap";
-"osm_profile_promt" = "Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de cartes dans le monde entier.";
+"osm_profile_promt" = "Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de la carte dans le monde entier.";
 "osm_profile_explanation" = "[OpenStreetMap.org](https://openstreetmap.org) (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C’est la principale source de données cartographiques de CoMaps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d’utilisateurs dans le monde entier. \nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !";
 "osm_profile_login" = "Se connecter au compte OpenStreetMap";
 "osm_profile_reauthorize_promt" = "Le compte OpenStreetMap a été déconnecté de cette application";
@@ -592,7 +592,7 @@
 "migration_download_error_dialog" = "Erreur de téléchargement";
 "common_check_internet_connection_dialog" = "Veuillez vérifier que votre appareil est bien connecté à Internet.";
 "downloader_no_space_title" = "Espace insuffisant";
-"downloader_no_space_message" = "Veuillez supprimer les données inutiles";
+"downloader_no_space_message" = "Veuillez supprimer des données inutiles";
 "editor_profile_changes" = "Modifications vérifiées";
 "editor_focus_map_on_location" = "Déplacez la carte pour positionner la croix à l’emplacement du lieu ou de l’entreprise.";
 "editor_add_select_category" = "Sélectionner une catégorie";
@@ -610,7 +610,7 @@
 "message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";
 
 /* Error dialog no space */
-"migration_no_space_message" = "Pour télécharger, vous avez besoin de plus d’espace. Veuillez supprimer les données non nécessaires.";
+"migration_no_space_message" = "Pour télécharger, vous avez besoin de plus d’espace. Veuillez supprimer des données non nécessaires.";
 "editor_sharing_title" = "J’ai amélioré les cartes de CoMaps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -653,7 +653,7 @@
 "location_services_disabled_on_device_2" = "2. Sélectionner Confidentialité";
 "location_services_disabled_on_device_3" = "3. Sélectionner les services de localisation";
 "location_services_disabled_on_device_4" = "4. Activer les services de localisation";
-"location_services_disabled_on_device_additional_message" = "Ou continuer à utiliser CoMaps sans Location";
+"location_services_disabled_on_device_additional_message" = "Ou continuer à utiliser CoMaps sans localisation";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -729,14 +729,14 @@
 "mobile_data_option_never" = "Ne jamais utiliser";
 "mobile_data_option_ask" = "Toujours demander";
 "traffic_update_maps_text" = "Pour afficher les données de circulation, les cartes doivent être actualisées.";
-"big_font" = "Augmenter la taille de police sur la carte";
+"big_font" = "Augmenter la taille de la police sur la carte";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Pour afficher les données de circulation, l’application doit être actualisée.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Les données de circulation ne sont pas disponibles";
-"enable_logging" = "Activer le journal";
+"enable_logging" = "Activer la journalisation";
 "log_file_size" = "Taille du fichier journal : %@";
 "transliteration_title" = "Translittéré en alphabet latin";
 
@@ -744,10 +744,10 @@
 "core_exit" = "Sortie";
 
 /* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
-"routing_add_start_point" = "Utilise la recherche ou tape sur la carte pour ajouter un point de départ d’itinéraire";
+"routing_add_start_point" = "Utilisez la recherche ou tapez sur la carte pour ajouter un point de départ d’itinéraire";
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
-"routing_add_finish_point" = "Utilise la recherche ou tape sur la carte pour ajouter un point de destination";
+"routing_add_finish_point" = "Utilisez la recherche ou tapez sur la carte pour ajouter un point de destination";
 "planning_route_manage_route" = "Gérer l’itinéraire";
 "button_plan" = "Planifier";
 "placepage_remove_stop" = "Supprimer l’arrêt";
@@ -758,7 +758,7 @@
 /* Title for button when a route was saved. */
 "saved" = "Enregistré";
 "core_entrance" = "Entrée";
-"error_enter_correct_name" = "Veuillez entrer un nom correct";
+"error_enter_correct_name" = "Veuillez saisir un nom correct";
 "bookmark_lists" = "Listes";
 
 /* Do not display all bookmark lists on the map */
@@ -775,7 +775,7 @@
 "bookmarks_error_message_share_general" = "Impossible de partager en raison d’une erreur d’application";
 "bookmarks_error_title_share_empty" = "Erreur de partage";
 "bookmarks_error_message_share_empty" = "Impossible de partager une liste vide";
-"bookmarks_error_message_empty_list_name" = "Veuillez entrer le nom de la liste";
+"bookmarks_error_message_empty_list_name" = "Veuillez saisir le nom de la liste";
 "bookmarks_error_title_list_name_already_taken" = "Ce nom est déjà pris";
 "bookmarks_error_title_list_name_too_long" = "Ce nom est trop long";
 "profile" = "Profil OpenStreetMap";
@@ -791,8 +791,8 @@
 "subway_data_unavailable" = "La carte du métro n’est pas disponible";
 "title_error_downloading_bookmarks" = "Une erreur est survenue";
 "popular_place" = "Populaire";
-"export_file" = "Exporter KMZ";
-"export_file_gpx" = "Exporter GPX";
+"export_file" = "Exporter en KMZ";
+"export_file_gpx" = "Exporter en GPX";
 "delete_list" = "Supprimer la liste";
 "hide_from_map" = "Masquer sur la carte";
 "tags_loading_error_subtitle" = "Une erreur s’est produite lors du chargement des tags, veuillez réessayer";
@@ -807,7 +807,7 @@
 "pref_tts_speedcams_always" = "Toujours avertir";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "Jamais avertir";
+"pref_tts_speedcams_never" = "Ne jamais avertir";
 "power_managment_title" = "Mode économie d’énergie";
 "power_managment_description" = "Si le mode d’économie d’énergie est activé, l’application désactive les fonctions consommant de l’énergie en fonction de la charge actuelle du téléphone";
 "power_managment_setting_never" = "Jamais";
@@ -837,7 +837,7 @@
 "follow_my_position" = "Recentrer";
 "search_results" = "Résultats de la recherche";
 "then_turn" = "Ensuite";
-"redirect_route_alert" = "Voulez-vous reconstruire l'itinéraire ?";
+"redirect_route_alert" = "Voulez-vous reconstruire l’itinéraire ?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "Oui";
@@ -870,7 +870,7 @@
 "switch_to_phone_bookmarks_carplay" = "Basculer sur le téléphone pour voir tous les signets";
 "ok" = "Ok";
 "speedcams_alert_title_carplay_1" = "Radars de vitesse";
-"speedcams_alert_title_carplay_2" = "Avertissements radars de vitesse";
+"speedcams_alert_title_carplay_2" = "Avertissements des radars de vitesse";
 "download_map_carplay" = "Téléchargez des cartes dans l’application CoMaps sur votre appareil";
 "carplay_roundabout_exit" = "%@ sortie";
 
@@ -881,7 +881,7 @@
 "sort_default" = "Trier par défaut";
 "sort_type" = "Trier par type";
 "sort_distance" = "Trier par distance";
-"sort_date" = "Classer par date";
+"sort_date" = "Trier par date";
 "sort_name" = "Trier par nom";
 "week_ago_sorttype" = "Il y a une semaine";
 "month_ago_sorttype" = "Il y a un mois";
@@ -936,10 +936,10 @@
 "whats_new_auto_update_button_later" = "Mettre à jour manuellement plus tard";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Supprimer la route";
+"placepage_delete_track_button" = "Supprimer la trace";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Voulez-vous vraiment supprimer cette route ?";
+"placepage_delete_track_confirmation_alert_message" = "Voulez-vous vraiment supprimer cette trace ?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nom de la route";
@@ -960,7 +960,7 @@
 "app_tip_01" = "Avec vos dons et votre soutien, nous pouvons créer les meilleures cartes du monde !";
 
 /* App tip #02 */
-"app_tip_02" = "Aimez-vous notre application ? Veuillez faire un don pour soutenir le développement ! Vous ne l’aimez pas encore ? S’il vous plaît laissez-nous savoir et nous y remédierons !";
+"app_tip_02" = "Aimez-vous notre application ? Veuillez faire un don pour soutenir le développement ! Vous ne l’aimez pas encore ? S’il vous plaît faites-le-nous savoir et nous y remédierons !";
 
 /* App tip #03 */
 "app_tip_03" = "Si vous connaissez un développeur de logiciels, vous pouvez lui demander d’implémenter une fonctionnalité dont vous avez besoin.";
@@ -999,10 +999,10 @@
 "button_layer_outdoor" = "Randonnée";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Exporter tous les signets et toutes les pistes";
+"bookmarks_export" = "Exporter tous les signets et toutes les traces";
 
 /* Text for the editing the Track's color button. */
-"change_color" = "Change de couleur";
+"change_color" = "Changer de couleur";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Carte";
@@ -1021,7 +1021,7 @@
 "enable_icloud_synchronization_title" = "Activer la synchronisation iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "La synchronisation iCloud est une fonctionnalité expérimentale en cours de développement. Assurez-vous d’avoir fait une sauvegarde de tous tes signets et pistes.";
+"enable_icloud_synchronization_message" = "La synchronisation iCloud est une fonctionnalité expérimentale en cours de développement. Assurez-vous d’avoir enregistrer tous vos signets et toutes vos traces.";
 
 /* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud est désactivé";
@@ -1033,7 +1033,7 @@
 "enable" = "Activer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
-"backup" = "Sauvegarde";
+"backup" = "Enregistrement";
 
 /* Title for the "iCloud synchronization failure" alert. */
 "icloud_synchronization_error_alert_title" = "Échec de la synchronisation iCloud";
@@ -1084,10 +1084,10 @@
 "continue_recording" = "Continuer l’enregistrement";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Sauvegarder dans les signets et traces ?";
+"track_recording_alert_title" = "Enregistrer dans les signets et traces ?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "L’itinéraire est vide - il n’y a rien à sauvegarder";
+"track_recording_toast_nothing_to_save" = "L’itinéraire est vide - il n’y a rien à enregistrer";
 "edit_track" = "Modifier la trace";
 "osm_profile_view_notes" = "Afficher les notes";
 "osm_profile_view_edit_history" = "Afficher l’historique des modifications";
@@ -1095,5 +1095,5 @@
 "pref_maplanguage_title" = "Langue de la carte";
 "transliteration_title_disabled_summary" = "Désactivé lorsque la langue locale est toujours utilisée pour la carte";
 "pref_maplanguage_local" = "Langue locale";
-"existence_confirmed_time_ago" = "Existance confirmée %@";
+"existence_confirmed_time_ago" = "Existence confirmée %@";
 "hours_confirmed_time_ago" = "Confirmées %@";

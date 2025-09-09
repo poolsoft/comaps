@@ -16,7 +16,7 @@
     <!-- A unit of measure -->
     <string name="ft">fot</string>
     <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Avsluta</string>
+    <string name="core_exit">Utgång</string>
     <string name="core_entrance">Ingång</string>
     <string name="subway_data_unavailable">Tunnelbanekartan är otillgänglig</string>
     <string name="public_access">Allmän åtkomst</string>
@@ -31,4 +31,5 @@
     <string name="gb">GB</string>
     <string name="mb">MB</string>
     <string name="today">Idag</string>
+    <string name="yesterday">Igår</string>
 </resources>

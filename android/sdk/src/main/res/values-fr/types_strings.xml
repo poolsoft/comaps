@@ -420,22 +420,22 @@
     <string name="type.highway.pedestrian.area">Rue piétonne</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Pont</string>
-    <string name="type.highway.pedestrian.square">Place</string>
+    <string name="type.highway.pedestrian.square">Parc</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.pedestrian.tunnel">Tunnel</string>
-    <string name="type.highway.primary">Rue</string>
+    <string name="type.highway.pedestrian.tunnel">Tunnel piéton</string>
+    <string name="type.highway.primary">Rue principale</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Pont</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary.tunnel">Tunnel</string>
-    <string name="type.highway.primary_link">Rue</string>
+    <string name="type.highway.primary_link">Accès à rue principale</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary_link.bridge">Pont</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary_link.tunnel">Tunnel</string>
     <string name="type.highway.raceway">Circuit</string>
-    <string name="type.highway.residential">Rue</string>
-    <string name="type.highway.residential.area">Rue</string>
+    <string name="type.highway.residential">Rue résidentielle</string>
+    <string name="type.highway.residential.area">Rue résidentielle</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.residential.bridge">Pont</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

@@ -464,19 +464,18 @@
 "type.highway.pedestrian.area" = "Pedestrian Street";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Pedestrian Bridge";
-
-"type.highway.pedestrian.square" = "Square";
+"type.highway.pedestrian.bridge" = "Gājēju tilts";
+"type.highway.pedestrian.square" = "Laukums";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Pedestrian Tunnel";
-"type.highway.primary" = "Primary Road";
+"type.highway.pedestrian.tunnel" = "Gājēju tunelis";
+"type.highway.primary" = "Galvenais ceļš";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.primary.bridge" = "Bridge";
+"type.highway.primary.bridge" = "Tilts";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.primary.tunnel" = "Tunnel";
+"type.highway.primary.tunnel" = "Tunelis";
 "type.highway.primary_link" = "Primary Road";
 
 /* These translations are used for all type.highway.*.bridge. */

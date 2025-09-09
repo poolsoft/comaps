@@ -72,4 +72,10 @@
     <string name="type.amenity.animal_shelter">Dzīvnieku patversme</string>
     <string name="type.natural.wetland.swamp">Purvs</string>
     <string name="type.railway.station.subway.qingdao">Metro stacija</string>
+    <string name="type.highway.pedestrian.bridge">Gājēju tilts</string>
+    <string name="type.highway.primary">Galvenais ceļš</string>
+    <string name="type.highway.primary.bridge">Tilts</string>
+    <string name="type.highway.primary.tunnel">Tunelis</string>
+    <string name="type.highway.pedestrian.square">Laukums</string>
+    <string name="type.highway.pedestrian.tunnel">Gājēju tunelis</string>
 </resources>
