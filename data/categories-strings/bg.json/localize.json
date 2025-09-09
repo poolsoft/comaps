@@ -320,7 +320,7 @@
 "shop-outpost": "Точка на вземане",
 "building-garage": "Гараж",
 "highway-rest_area|highway-services": "Почивка|магистрала|Почивна зона|Обслужвана зона",
-"man_made-chimneyhimney": "Фабрика|комин",
+"man_made-chimney": "Фабрика|комин",
 "man_made-tower|man_made-flare": "Кула",
 "shop-bookmaker|@gambling": "Букмейкър|офис|кантора|пункт",
 "shop-seafood|@category_food|@shop": "риба|морски дарове",

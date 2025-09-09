@@ -479,5 +479,16 @@
 "shop-carpet|@shop": "Teppichgeschäft",
 "shop-craft|@shop": "Künstlerbedarf",
 "shop-pasta|@shop": "Nudelgeschäft",
-"amenity-luggage_locker": "Gepäckschließfach"
+"amenity-luggage_locker": "Gepäckschließfach",
+"amenity-studio": "Studio",
+"shop-cannabis|@shop": "Cannabis",
+"man_made-cross": "Kreuz",
+"leisure-dance|@category_entertainment": "4Tanz|Tanzschule",
+"leisure-firepit": "5Feuerstelle",
+"amenity-love_hotel": "4Liebes Hotel|3Sex Hotel|4Hotel für Erwachsene",
+"leisure-hackerspace": "Hackerspace",
+"natural-peak|@mountain": "Gipfel",
+"man_made-crane": "Stationärer Kran",
+"amenity-food_court": "Gastronomiebereich",
+"amenity-animal_shelter": "Tierheim"
 }

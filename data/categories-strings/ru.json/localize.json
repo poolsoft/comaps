@@ -18,7 +18,7 @@
 "amenity-bank|@category_bank": "деньги",
 "@category_recycling": "Переработка|5Переработка отходов|Утилизация отходов|5Приём вторсырья|5Сдать вторсырьё|4Сбор вторсырья|5Раздельный сбор мусора|Сортировка мусора|Повторное использование|Утиль|Ресайклинг|Рециклинг|Вторичное сырьё",
 "amenity-bureau_de_change": "3Обмен валюты|обмен валют|обменник|4валюта|деньги",
-"amenity-bar|amenity-pub|@category_eat|@category_nightlife": "2Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки",
+"amenity-bar|amenity-pub|@category_eat|@category_nightlife": "3Бар|3паб|4пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|4коктейли|алкоголь|алкогольные напитки",
 "amenity-cafe|@category_eat": "3Кафе|3ресторан|кофейня|кофе",
 "amenity-fast_food|@category_eat": "3Фастфуд|3ресторан|3кафе|закусочная|быстрое питание|снеки|перекусить|экспресс-питание",
 "amenity-restaurant|@category_eat": "3Ресторан|3кафе",
@@ -362,9 +362,8 @@
 "shop-outpost": "Пункт выдачи заказов|5Получение посылок|4Выдача заказов",
 "amenity-vending_machine-fuel|@category_fuel": "Топливная колонка|бензоколонка|топливораздаточная колонка",
 "building-garage": "Гараж",
-"highway-rest_area|highway-services": "4Зона отдыха|Место отдыха|Зона обслуживания",
-"BR:Área de serviços de estrada": "4Зона обслужвисна станица|Servisna stanica",
-"man_made-chimneyhimney": "Заводская труба",
+"highway-rest_area|highway-services": "4Зона отдыха|Место отдыха|4Зона обслуживания",
+"man_made-chimney": "Заводская труба",
 "man_made-crane": "Кран",
 "man_made-tower|man_made-flare": "Башня",
 "shop-bookmaker|@gambling": "Букмекерская контора|букмекер",
@@ -493,5 +492,6 @@
 "attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children": "Аттракцион|Лабиринт",
 "amenity-luggage_locker": "5Камера хранения|4багаж",
 "office-security": "ЧОП|4Охрана",
-"building-guardhouse": "4Сторож|4Охрана"
+"building-guardhouse": "4Сторож|4Охрана",
+"amenity-studio": "Студия|теле|радио"
 }
