@@ -328,7 +328,7 @@
 "follow_us" = "Skontaktuj się z nami";
 
 /* Alert text */
-"email_error_body" = "Klient pocztowy nie został skonfigurowany. Proszę skonfigurować go, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@";
+"email_error_body" = "Klient pocztowy nie został skonfigurowany. Proszę skonfiguruj go, bądź skontaktuj się z nami na %@";
 
 /* Alert title */
 "email_error_title" = "Błąd wysyłania wiadomości";
@@ -485,7 +485,7 @@
 "search_not_found" = "Przepraszamy, nic nie znaleziono.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Proszę pobrać region, w którym Państwo szukają lub spróbować dodać nazwę pobliskiego miasta/wsi.";
+"search_not_found_query" = "Pobierz region, w którym szukasz lub spróbuj dodać nazwę pobliskiego miasta/wsi.";
 "search_history_title" = "Historia wyszukiwania";
 "search_history_text" = "Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.";
 "clear_search" = "Wyczyść historię wyszukiwania";
@@ -506,15 +506,15 @@
 
 /* Text for allday switch. */
 "editor_time_allday" = "Całodobowo (24 godziny)";
-"editor_time_open" = "Otwarte";
-"editor_time_close" = "Zamknięte";
-"editor_time_add_closed" = "Dodaj godziny zamknięcia";
+"editor_time_open" = "Otwarcie";
+"editor_time_close" = "Zamknięcie";
+"editor_time_add_closed" = "Dodaj przerwę w godzinach otwarcia";
 "editor_time_title" = "Godziny pracy";
 "editor_time_advanced" = "Tryb zaawansowany";
 "editor_time_simple" = "Tryb prosty";
-"editor_hours_closed" = "Godziny zamknięcia";
+"editor_hours_closed" = "Przerwa w godzinach otwarcia";
 "editor_example_values" = "Przykładowe wartości";
-"editor_add_select_location" = "Proszę wybrać lokalizację";
+"editor_add_select_location" = "Wybierz lokalizację";
 "editor_done_dialog_1" = "Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.";
 "share_with_friends" = "Udostępnij znajomym";
 "editor_report_problem_send_button" = "Wyślij";
@@ -546,7 +546,7 @@
 
 /* OpenStreetMap Profile */
 "osm_profile" = "Profil OpenStreetMap";
-"osm_profile_promt" = "Proszę utworzyć konto OpenStreetMap lub zalogować się, aby opublikować swoje zmiany na mapie.";
+"osm_profile_promt" = "Utwórz konto OpenStreetMap lub zaloguj się, aby opublikować swoje zmiany na mapie.";
 "osm_profile_explanation" = "[OpenStreetMap.org](https://openstreetmap.org) (OSM) to projekt społecznościowy mający na celu stworzenie darmowej i otwartej mapy. Jest to główne źródło danych mapowych w CoMaps i działa podobnie do Wikipedii. Można dodawać lub edytować miejsca, które stają się dostępne dla milionów użytkowników na całym świecie. \nDołącz do społeczności i pomóż stworzyć lepszą mapę dla wszystkich!";
 "osm_profile_login" = "Zaloguj się do konta OpenStreetMap";
 "osm_profile_reauthorize_promt" = "Konto OpenStreetMap zostało odłączone od tej aplikacji";
@@ -591,7 +591,7 @@
 "downloader_no_space_title" = "Brak wolnego miejsca";
 "downloader_no_space_message" = "Usuń niepotrzebne dane";
 "editor_profile_changes" = "Zmiany zweryfikowane";
-"editor_focus_map_on_location" = "Proszę przeciągnąć mapę, aby umieścić krzyżyk w miejscu lokalizacji miejsca lub firmy.";
+"editor_focus_map_on_location" = "Przeciągnij mapę, aby umieścić krzyżyk w miejscu lokalizacji miejsca lub firmy.";
 "editor_add_select_category" = "Wybierz kategorię";
 "editor_add_select_category_popular_subtitle" = "Popularne";
 "editor_add_select_category_all_subtitle" = "Wszystkie kategorie";
@@ -963,7 +963,7 @@
 "app_tip_03" = "Jeśli znasz programistę, możesz poprosić go o wdrożenie potrzebnej funkcji.";
 
 /* App tip #04 */
-"app_tip_04" = "Proszę dotknąć dowolnego miejsca na mapie, aby wybrać cokolwiek. Długie dotknięcie pozwala ukryć i wyświetlić interfejs.";
+"app_tip_04" = "Dotknij dowolnego miejsca na mapie, aby wybrać cokolwiek. Długie dotknięcie pozwala ukryć i wyświetlić interfejs.";
 
 /* App tip #05 */
 "app_tip_05" = "Czy wiesz, że możesz wybrać swoją aktualną lokalizację na mapie?";

@@ -372,7 +372,7 @@
     <string name="history">Historia</string>
     <string name="search_not_found">Przepraszamy, nic nie znaleziono.</string>
     <!-- The message when user did not find anything in the search. -->
-    <string name="search_not_found_query">Proszę pobrać region, w którym Państwo szukają lub spróbować dodać nazwę pobliskiego miasta/wsi.</string>
+    <string name="search_not_found_query">Pobierz region, w którym szukasz lub spróbuj dodać nazwę pobliskiego miasta/wsi.</string>
     <string name="search_history_title">Historia wyszukiwania</string>
     <string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
     <string name="clear_search">Wyczyść historię wyszukiwania</string>
@@ -394,16 +394,16 @@
     <string name="editor_time_delete">Usuń harmonogram</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Całodobowo (24 godziny)</string>
-    <string name="editor_time_open">Otwarte</string>
-    <string name="editor_time_close">Zamknięte</string>
-    <string name="editor_time_add_closed">Dodaj godziny zamknięcia</string>
+    <string name="editor_time_open">Otwarcie</string>
+    <string name="editor_time_close">Zamknięcie</string>
+    <string name="editor_time_add_closed">Dodaj przerwę w godzinach otwarcia</string>
     <string name="editor_time_title">Godziny pracy</string>
     <string name="editor_time_advanced">Tryb zaawansowany</string>
     <string name="editor_time_simple">Tryb prosty</string>
-    <string name="editor_hours_closed">Godziny zamknięcia</string>
+    <string name="editor_hours_closed">Przerwa w godzinach otwarcia</string>
     <string name="editor_example_values">Przykładowe wartości</string>
     <string name="editor_correct_mistake">Popraw błąd</string>
-    <string name="editor_add_select_location">Proszę wybrać lokalizację</string>
+    <string name="editor_add_select_location">Wybierz lokalizację</string>
     <string name="editor_report_problem_desription_1">Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.</string>
     <string name="editor_report_problem_desription_2">Albo zrób to sam na https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Wyślij</string>
@@ -456,7 +456,7 @@
     <string name="downloader_no_space_message">Usuń niepotrzebne dane</string>
     <string name="editor_login_error_dialog">Błąd logowania.</string>
     <string name="editor_profile_changes">Zmiany zweryfikowane</string>
-    <string name="editor_focus_map_on_location">Proszę przeciągnąć mapę, aby umieścić krzyżyk w miejscu lokalizacji miejsca lub firmy.</string>
+    <string name="editor_focus_map_on_location">Przeciągnij mapę, aby umieścić krzyżyk w miejscu lokalizacji miejsca lub firmy.</string>
     <string name="editor_edit_place_title">Edycja</string>
     <string name="editor_add_place_title">Dodawanie</string>
     <string name="editor_edit_place_name_hint">Nazwa miejsca</string>
@@ -751,7 +751,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Jeśli znasz programistę, możesz poprosić go o wdrożenie potrzebnej funkcji.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Proszę dotknąć dowolnego miejsca na mapie, aby wybrać cokolwiek. Długie dotknięcie pozwala ukryć i wyświetlić interfejs.</string>
+    <string name="app_tip_04">Dotknij dowolnego miejsca na mapie, aby wybrać cokolwiek. Długie dotknięcie pozwala ukryć i wyświetlić interfejs.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Czy wiesz, że możesz wybrać swoją aktualną lokalizację na mapie?</string>
     <!-- App tip #06 -->
