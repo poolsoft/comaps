@@ -608,8 +608,8 @@ historic-ship                                       # icon z15- (also has captio
 historic-tank                                       # icon z16- (also has caption(optional) z16-)
 historic-wreck                                      # icon z16- (also has caption(optional) z16-)
 landuse-allotments                                  # caption z15- (also has area z12-)
-landuse-cemetery                                    # icon z15- (also has caption(optional) z15-, area z14-)
-landuse-cemetery-christian                          # icon z15- (also has caption(optional) z15-, area z14-)
+landuse-cemetery                                    # icon z15- (also has caption(optional) z15-, area z10-)
+landuse-cemetery-christian                          # icon z15- (also has caption(optional) z15-, area z10-)
 man_made-water_tap                                  # icon z12- (also has caption(optional) z14-)
 man_made-water_well                                 # icon z12- (also has caption(optional) z14-)
 man_made-windmill                                   # icon z16- (also has caption(optional) z16-)
@@ -1095,8 +1095,8 @@ isoline-zero                                        # pathtext z15- (also has li
 power-line                                          # pathtext z15- (also has line z13-, line::dash z13-)
 === 1000
 
-amenity-grave_yard                                  # icon z17- (also has caption(optional) z17-, area z14-)
-amenity-grave_yard-christian                        # icon z17- (also has caption(optional) z17-, area z14-)
+amenity-grave_yard                                  # icon z17- (also has caption(optional) z17-, area z10-)
+amenity-grave_yard-christian                        # icon z17- (also has caption(optional) z17-, area z10-)
 amenity-nursing_home                                # icon z17- (also has caption(optional) z17-)
 amenity-prison                                      # icon z17- (also has caption(optional) z17-, area z12-)
 amenity-social_facility                             # icon z17- (also has caption(optional) z17-, area z15-)
@@ -1732,8 +1732,8 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # historic-ship                                     # caption(optional) z15- (also has icon z15-)
 # historic-tank                                     # caption(optional) z16- (also has icon z16-)
 # historic-wreck                                    # caption(optional) z16- (also has icon z16-)
-# landuse-cemetery                                  # caption(optional) z15- (also has icon z15-, area z14-)
-# landuse-cemetery-christian                        # caption(optional) z15- (also has icon z15-, area z14-)
+# landuse-cemetery                                  # caption(optional) z15- (also has icon z15-, area z10-)
+# landuse-cemetery-christian                        # caption(optional) z15- (also has icon z15-, area z10-)
 # man_made-water_tap                                # caption(optional) z14- (also has icon z12-)
 # man_made-water_well                               # caption(optional) z14- (also has icon z12-)
 # man_made-windmill                                 # caption(optional) z16- (also has icon z16-)
@@ -2053,8 +2053,8 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # natural-spring-drinking_water_no                  # caption(optional) z14- (also has icon z12-)
 # === -8800
 
-# amenity-grave_yard                                # caption(optional) z17- (also has icon z17-, area z14-)
-# amenity-grave_yard-christian                      # caption(optional) z17- (also has icon z17-, area z14-)
+# amenity-grave_yard                                # caption(optional) z17- (also has icon z17-, area z10-)
+# amenity-grave_yard-christian                      # caption(optional) z17- (also has icon z17-, area z10-)
 # amenity-nursing_home                              # caption(optional) z17- (also has icon z17-)
 # amenity-prison                                    # caption(optional) z17- (also has icon z17-, area z12-)
 # amenity-social_facility                           # caption(optional) z17- (also has icon z17-, area z15-)

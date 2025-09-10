@@ -80,6 +80,8 @@
 @allotments: #2B2A1E;
 @allotments_13: #2A291D;
 @allotments_12: #29281D;
+@allotments_11: #29271D;
+@allotments_10: #27271C;
 @scrubs: #222713;
 @scrubs_13: #212613;
 @scrubs_12: #212513;
