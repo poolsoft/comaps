@@ -128,7 +128,7 @@ unordered_map<string, vector<string>> const kSynonyms = {
     {"bast", {"baston"}},
     {"bat", {"batalionu", "batalion", "batalionów", "bataliony"}},
     {"bayer", {"bayerische", "bayerisch", "bayerischer", "bayerisches"}},
-    {"b", {"berg", "barri", "bach", "barriada", "banda", "bairro", "bad"}},
+    {"b", {"berg", "barri", "bach", "barriada", "banda", "bairro", "bad", "bei"}},
     {"bc", {"beco"}},
     {"bch", {"bas chemin", "beach"}},
     {"bcle", {"boucle"}},
@@ -1120,7 +1120,7 @@ unordered_map<string, vector<string>> const kSynonyms = {
     /// Remove "street" and "avenue" here, but should update GetNameScore.
     {"st",
      {"santo", "sant", "sint", "saint", "stara", "street", "stary", "stora", "sankt", "store", "stare", "stig",
-      "stigen"}},
+      "stigen", "sancta"}},
     {"št", {"šent"}},
     {"stwg", {"steenweg"}},
     {"subdiv", {"subdivision"}},
