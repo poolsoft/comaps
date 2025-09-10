@@ -1398,7 +1398,9 @@ unordered_map<string, vector<string>> const kSynonyms = {
     {"高", {"高等学校"}},
     {"ش", {"شارع"}},
     {"ط", {"طريق"}},
-    {"م", {"ميدان"}}
+    {"م", {"ميدان"}},
+    {"د", {"دكتور"}},
+    {"ج", {"جامعة"}}
     /*
     These synonyms are currently unreachable per https://codeberg.org/comaps/comaps/issues/1242
     {"arm. gen", {"armádneho generála"}},
