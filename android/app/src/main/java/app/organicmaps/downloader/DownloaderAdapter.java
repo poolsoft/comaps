@@ -382,10 +382,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         else
           processLongClick();
       }
-      case CountryItem.STATUS_FAILED ->
-      {
-        MapManagerHelper.warn3gAndRetry(mActivity, mItem.id, null);
-      }
+      case CountryItem.STATUS_FAILED -> MapManagerHelper.warn3gAndRetry(mActivity, mItem.id, null);
       case CountryItem.STATUS_UPDATABLE ->
         MapManagerHelper.warnOn3gUpdate(mActivity, mItem.id, () -> MapManagerHelper.startUpdate(mItem.id));
       default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
