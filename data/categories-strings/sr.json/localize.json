@@ -422,5 +422,10 @@
 "shop-fashion_accessories|@shop": "Модни аксесоари|Аксесоари|Modni aksesoari|Aksesoari",
 "shop-carpet|@shop": "Теписи|Tepisi",
 "shop-craft|@shop": "Рукотворине|Rukotvorine",
-"shop-pasta|@shop": "Паста|Pasta"
+"shop-pasta|@shop": "Паста|Pasta",
+"historic-memorial-war_memorial|@category_tourism": "Војни меморијал",
+"historic-memorial-cross": "Спомен-крст",
+"historic-memorial-plaque": "Спомен-плоча",
+"historic-wayside_cross": "Крст поред пута",
+"historic-wayside_shrine": "Светилиште поред пута"
 }

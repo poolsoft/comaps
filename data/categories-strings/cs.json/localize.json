@@ -442,5 +442,8 @@
 "shop-fashion_accessories|@shop": "Módní doplňky",
 "shop-carpet|@shop": "Koberce",
 "shop-pasta|@shop": "Těstoviny",
-"amenity-luggage_locker": "Skříňka na zavazadla"
+"amenity-luggage_locker": "Skříňka na zavazadla",
+"shop-cannabis|@shop": "Konopí",
+"shop-grocery|@category_food|@shop": "Potraviny",
+"shop-farm|@category_food|@shop": "Farmářské jídlo"
 }
