@@ -465,7 +465,6 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Pedestrian Bridge";
-
 "type.highway.pedestrian.square" = "Square";
 
 /* These translations are used for all type.highway.*.tunnel. */
@@ -1471,21 +1470,21 @@
 "type.man_made.crane" = "Crane";
 "type.natural.wetland.saltmarsh" = "Salt Marsh";
 "type.natural.wetland.mangrove" = "Mangrove";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.amenity.studio" = "Studio";
+"type.barrier.guard_rail" = "Barriera ta' protezzjoni";
+"type.amenity.studio" = "Studjo";
 "type.natural.wetland.fen" = "Fen";
 "type.natural.wetland.saltmarsh.tidal" = "Tidal Salt Marsh";
 "type.natural.wetland.reedbed" = "Reed Bed";
 "type.railway.station.subway.qingdao" = "Subway Station";
 "type.landuse.plant_nursery" = "Plant Nursery";
-"type.amenity.love_hotel" = "Love Hotel";
+"type.amenity.love_hotel" = "Lukanda Imħabba";
 "type.leisure.escape_game" = "Escape Room";
-"type.amenity.luggage_locker" = "Luggage Locker";
+"type.amenity.luggage_locker" = "Locker tal-bagalji";
 "type.amenity.ranger_station" = "Ranger Station";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.post_office.post_partner" = "Post Partner";
+"type.amenity.bicycle_parking.covered" = "Parkeġġ mgħotti għar-roti";
+"type.post_office.post_partner" = "Partner tal-Posta";
 "type.barrier.wicket_gate" = "Wicket gate";
-"type.amenity.animal_shelter" = "Animal Shelter";
-"type.office.security" = "Security Guards Office";
-"type.power.portal" = "Power Portal";
-"type.building.guardhouse" = "Security Booth";
+"type.amenity.animal_shelter" = "Ċentru tal-kenn tal-annimali";
+"type.office.security" = "Uffiċċju tal-gwardji tas-sigurtà";
+"type.power.portal" = "Portal tal-Enerġija";
+"type.building.guardhouse" = "Kabina tas-Sigurtà";
