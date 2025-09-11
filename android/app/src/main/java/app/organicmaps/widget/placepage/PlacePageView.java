@@ -6,6 +6,7 @@ import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
@@ -310,11 +311,8 @@ public class PlacePageView extends Fragment
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
     mTvLastChecked = mFrame.findViewById(R.id.place_page_last_checked);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
-    mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
-    mAddOrganisation.setOnClickListener(this);
     mAddPlace = mFrame.findViewById(R.id.ll__place_add);
-    mAddPlace.setOnClickListener(this);
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
@@ -681,12 +679,15 @@ public class PlacePageView extends Fragment
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
-      mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
-      mAddOrganisation.setEnabled(Editor.nativeShouldEnableAddPlace());
-      mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
-      MaterialTextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
-      MaterialTextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
-      MaterialTextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
+      MaterialButton mTvEditPlace = mEditPlace.findViewById(R.id.mb__place_editor);
+      MaterialButton mTvAddBusiness = mAddOrganisation.findViewById(R.id.mb__add_organisation);
+      MaterialButton mTvAddPlace = mAddPlace.findViewById(R.id.mb__place_add);
+      mTvEditPlace.setOnClickListener(this);
+      mTvAddBusiness.setOnClickListener(this);
+      mTvAddPlace.setOnClickListener(this);
+      mTvEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
+      mTvAddBusiness.setEnabled(Editor.nativeShouldEnableAddPlace());
+      mTvAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
       final int editPlaceButtonColor =
           Editor.nativeShouldEnableEditPlace()
               ? ContextCompat.getColor(
@@ -696,6 +697,9 @@ public class PlacePageView extends Fragment
       mTvEditPlace.setTextColor(editPlaceButtonColor);
       mTvAddBusiness.setTextColor(editPlaceButtonColor);
       mTvAddPlace.setTextColor(editPlaceButtonColor);
+      mTvEditPlace.setStrokeColor(ColorStateList.valueOf(editPlaceButtonColor));
+      mTvAddBusiness.setStrokeColor(ColorStateList.valueOf(editPlaceButtonColor));
+      mTvAddPlace.setStrokeColor(ColorStateList.valueOf(editPlaceButtonColor));
       UiUtils.showIf(
           UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation) || UiUtils.isVisible(mAddPlace),
           mEditTopSpace);
@@ -853,11 +857,11 @@ public class PlacePageView extends Fragment
       // A workaround to make single taps toggle the bottom sheet.
       mPlacePageViewListener.onPlacePageRequestToggleState();
     }
-    else if (id == R.id.ll__place_editor)
+    else if (id == R.id.mb__place_editor)
       ((MwmActivity) requireActivity()).showEditor();
-    else if (id == R.id.ll__add_organisation)
+    else if (id == R.id.mb__add_organisation)
       addOrganisation();
-    else if (id == R.id.ll__place_add)
+    else if (id == R.id.mb__place_add)
       addPlace();
     else if (id == R.id.ll__place_latlon)
     {
