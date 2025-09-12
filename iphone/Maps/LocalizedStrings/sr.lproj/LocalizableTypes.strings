@@ -465,7 +465,6 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Пешачки мост";
-
 "type.highway.pedestrian.square" = "Трг";
 
 /* These translations are used for all type.highway.*.tunnel. */
@@ -1479,13 +1478,13 @@
 "type.natural.wetland.saltmarsh.tidal" = "Слана мочвара у зони плиме";
 "type.natural.wetland.saltmarsh" = "Приморска слана мочвара";
 "type.railway.station.subway.qingdao" = "Метро станица";
-"type.leisure.escape_game" = "Escape Room";
+"type.leisure.escape_game" = "Соба за бекство (Escape Room)";
 "type.amenity.luggage_locker" = "Ормар за пртљаг";
 "type.amenity.ranger_station" = "Станица за ренџер";
 "type.amenity.bicycle_parking.covered" = "Покривени паркинг за бицикле";
 "type.post_office.post_partner" = "Поштански партнер";
 "type.barrier.wicket_gate" = "Вратница";
 "type.amenity.animal_shelter" = "Волонтирајте и побољшајте CoMaps";
-"type.office.security" = "Security Guards Office";
-"type.power.portal" = "Power Portal";
-"type.building.guardhouse" = "Security Booth";
+"type.office.security" = "Канцеларија обезбеђења";
+"type.power.portal" = "Носач електричних водова";
+"type.building.guardhouse" = "Кућица обезбеђења";

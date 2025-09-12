@@ -237,7 +237,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Doner</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Støt projektet</string>
+    <string name="how_to_support_us">Bliv frivillig og forbedr CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Copyright</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -859,4 +859,6 @@
     <string name="pref_tts_no_system_tts_short">Der blev ikke fundet nogen tekst-til-tale-motor. Kontrollér appens indstillinger</string>
     <string name="osm_note_hint">Du kan også efterlade en bemærkning til OpenStreetMap-fællesskabet, så en anden kan tilføje eller rette stedet her.</string>
     <string name="osm_note_toast">Bemærkning vil blive sendt til OpenStreetMap</string>
+    <string name="existence_confirmed_time_ago">Eksistens bekræftet %s</string>
+    <string name="hours_confirmed_time_ago">Bekræftet %s</string>
 </resources>
