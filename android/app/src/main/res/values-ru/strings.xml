@@ -38,13 +38,13 @@
     <!-- Text in About screen -->
     <string name="about_headline">Открытый проект, создаваемый сообществом</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">• Легко использовать и отполированный вид</string>
+    <string name="about_proposition_1">• Прост в использовании</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_2">• Приватный и без рекламы</string>
+    <string name="about_proposition_2">• Без рекламы и сбора данных пользователей</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Автономный, быстрый и компактный</string>
+    <string name="about_proposition_3">• Работает офлайн, экономит батерею</string>
     <!-- Text in About screen -->
-    <string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, не для наживы, прозрачное принятие решений и финансирование.</string>
+    <string name="about_developed_by_enthusiasts">Некоммерческий, с прозрачным управлением и финансами, исходный код полностью открыт.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Настройки местоположения</string>
     <string name="close">Закрыть</string>
