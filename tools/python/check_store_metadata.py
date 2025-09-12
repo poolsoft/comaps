@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Check AppStore/GooglePlay metadata
+# Check AppStore / GooglePlay / F-Droid metadata
 #
 
 import os
