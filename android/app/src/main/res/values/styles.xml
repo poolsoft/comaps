@@ -410,4 +410,26 @@
     <item name="strokeColor">?colorSecondary</item>
     <item name="android:textColor">?colorSecondary</item>
   </style>
+
+  <style name="MwmWidget.M3.FAB.Primary" parent="@style/Widget.Material3.FloatingActionButton.Primary">
+    <item name="shapeAppearance">@style/ShapeAppearanceOverlay.Material3.FloatingActionButton</item>
+    <item name="rippleColor">@null</item>
+  </style>
+
+  <style name="MwmWidget.M3.FAB.MapButton" parent="@style/Widget.Material3.FloatingActionButton.Primary">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="shapeAppearance">@style/ShapeAppearanceOverlay.Material3.FloatingActionButton</item>
+    <item name="backgroundTint">?menuBackground</item>
+    <item name="tint">?iconTint</item>
+    <item name="fabCustomSize">@dimen/map_button_size</item>
+    <item name="maxImageSize">@dimen/map_button_icon_size</item>
+    <item name="elevation">0dp</item>
+    <item name="pressedTranslationZ">0dp</item>
+    <item name="hoveredFocusedTranslationZ">0dp</item>
+  </style>
+
+  <style name="MwmWidget.M3.FAB.MapButton.Square">
+    <item name="backgroundTint">?menuBackground</item>
+  </style>
 </resources>
