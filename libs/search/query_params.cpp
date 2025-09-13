@@ -1296,7 +1296,7 @@ unordered_map<string, vector<string>> const kSynonyms = {
     {"yd", {"yard"}},
     {"zac", {"zone d'aménagement concerté"}},
     {"zad", {"zone d'aménagement différé"}},
-    {"za", {"zone artisanale"}},
+    {"za", {"zone artisanale", "zone d'activité"}},
     {"zd", {"zdravstveni dom"}},
     {"zg", {"zgornja", "zgornji", "zgornje"}},
     {"zi", {"zone industrielle"}},
