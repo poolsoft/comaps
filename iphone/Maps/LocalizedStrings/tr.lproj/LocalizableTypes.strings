@@ -7,7 +7,7 @@
 "type.aerialway.drag_lift" = "Kayak Teleferiği";
 "type.aerialway.gondola" = "Telekabin";
 "type.aerialway.mixed_lift" = "Karışık Teleferik";
-"type.aerialway.station" = "Havayolu İstasyonu";
+"type.aerialway.station" = "Teleferik İstasyonu";
 "type.aeroway" = "Hava Sahası Altyapısı";
 "type.aeroway.aerodrome" = "Havaalanı";
 "type.aeroway.aerodrome.international" = "Uluslararası Havalimanı";
@@ -465,7 +465,6 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Yaya Köprüsü";
-
 "type.highway.pedestrian.square" = "Meydan";
 
 /* These translations are used for all type.highway.*.tunnel. */

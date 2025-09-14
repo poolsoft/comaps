@@ -38,7 +38,7 @@
     <!-- Text in About screen -->
     <string name="about_headline">Proyecto abierto impulsado por la comunidad</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">• Fácil de utilizar y completo</string>
+    <string name="about_proposition_1">• Fácil de utilizar y depurado</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Enfocado en la privacidad y sin anuncios</string>
     <!-- Text in About screen -->
@@ -103,7 +103,7 @@
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Dónde comer</string>
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
-    <string name="category_food">Productos de alimentación</string>
+    <string name="category_food">Tienda de comestibles</string>
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
     <string name="category_transport">Transporte</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
@@ -248,7 +248,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Donar</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Hazte voluntari@ y mejora CoMaps</string>
+    <string name="how_to_support_us">Apoya el proyecto</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Derechos de autor</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -489,7 +489,7 @@
     <string name="editor_about_osm">Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. Por favor, no añada información personal o protegida por derechos de autor.</string>
     <string name="editor_more_about_osm">Más acerca de OpenStreetMap</string>
     <string name="editor_osm_history">Tu historial de ediciones</string>
-    <string name="editor_osm_notes">Tus notas de del mapa</string>
+    <string name="editor_osm_notes">Tus notas del mapa</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operador: %s</string>

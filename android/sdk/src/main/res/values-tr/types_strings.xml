@@ -10,7 +10,7 @@
     <string name="type.aerialway.drag_lift">Kayak Teleferiği</string>
     <string name="type.aerialway.gondola">Telekabin</string>
     <string name="type.aerialway.mixed_lift">Karışık Teleferik</string>
-    <string name="type.aerialway.station">Havayolu İstasyonu</string>
+    <string name="type.aerialway.station">Teleferik İstasyonu</string>
     <string name="type.aeroway">Hava Sahası Altyapısı</string>
     <string name="type.aeroway.aerodrome">Havaalanı</string>
     <string name="type.aeroway.aerodrome.international">Uluslararası Havalimanı</string>
@@ -427,7 +427,6 @@
     <string name="type.highway.pedestrian.area">Yaya Alanı</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Yaya Köprüsü</string>
-
     <string name="type.highway.pedestrian.square">Meydan</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Yaya Tüneli</string>
