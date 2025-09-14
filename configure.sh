@@ -106,6 +106,9 @@ else
   echo "Skipping world map download..."
 fi
 
+echo "Generating search categories / synonyms..."
+./tools/unix/generate_categories.sh
+
 if [ -z "$SKIP_GENERATE_SYMBOLS" ]; then
   if Diff data/symbols_hash data/styles/*/*/symbols/* || [ ! -z "$SYMBOLS_NOT_GENERATED" ]; then
     echo "Generating symbols..."
@@ -123,7 +126,5 @@ if [ -z "$SKIP_GENERATE_DRULES" ]; then
 else
   echo "Skipping generate drules..."
 fi
-
-./tools/unix/generate_categories.sh
 
 echo "The repository is configured for development."
