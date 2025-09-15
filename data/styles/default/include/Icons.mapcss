@@ -1212,9 +1212,10 @@ node|z16-[barrier=cycle_barrier],
 node|z16-[highway=ford],
 {icon-image: ford-m.svg;}
 
-/* TODO: needs a better icon */
-node|z14-[man_made=communications_tower],
-{icon-image: mast-m.svg;}
+node|z14[man_made=communications_tower],
+{icon-image: communications_tower_major-s.svg;}
+node|z15-[man_made=communications_tower],
+{icon-image: communications_tower_major-m.svg;}
 node|z17-[man_made=communications_tower],
 {font-size: 11;}
 
@@ -1226,9 +1227,11 @@ node|z16-[man_made=mast],
 
 /* TODO: needs a better icon */
 node|z16-[man_made=tower],
-node|z16-[man_made=tower][tower:type=communication],
 node|z16-[man_made=flare],
 {icon-image: mast-m.svg;}
+
+node|z16-[man_made=tower][tower:type=communication],
+{icon-image: communications_tower_minor-m.svg;}
 
 /* TODO: needs a better icon */
 node|z17-[man_made=petroleum_well],

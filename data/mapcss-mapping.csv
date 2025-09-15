@@ -416,7 +416,7 @@ mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
 highway|primary|tunnel;[highway=primary][tunnel?];;name;int_name;309;
 highway|primary_link|bridge;[highway=primary_link][bridge?];;name;int_name;310;
-man_made|tower|communication;[man_made=tower][tower:type=communication],[man_made=mast][tower:type=communication];;name;int_name;311;
+man_made|tower|communication;[man_made=tower][tower:type=communication];;name;int_name;311;
 sport|equestrian;312;
 tourism|information|office;[tourism=information][information=office];;name;int_name;313;
 deprecated:highway|footway|hiking:04.2024;[highway=footway][sac_scale=hiking];x;name;int_name;314;highway|path
@@ -445,7 +445,7 @@ sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?],[highway=path][location=underground];;name;int_name;336;
 man_made|breakwater;337;
-deprecated:amenity|parking|permissive|fee:01.2020;[amenity=parking][access=permissive][fee?];x;name;int_name;338;amenity|parking|permissive
+man_made|mast|communication;[man_made=mast][tower:type=communication];;name;int_name;338;
 # -utility includes all usage=industrial/military/test/science/freight (see replaced_tags.txt) incl. w/ service=spur, but not w/ other service= values.
 # TODO: add [key=value1|value2|etc] (and [key!=value1|value2|etc]) support to avoid referring to replaced_tags.txt.
 railway|rail|utility;[railway=rail][usage=utility][!service],[railway=rail][usage=utility][service=spur];;name;int_name;339;

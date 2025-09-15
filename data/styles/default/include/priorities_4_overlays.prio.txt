@@ -1113,6 +1113,7 @@ man_made-chimney                                    # icon z16- (also has captio
 man_made-crane                                      # icon z16- (also has caption(optional) z18-)
 man_made-flagpole                                   # icon z15-
 man_made-flare                                      # icon z16- (also has caption(optional) z18-)
+man_made-mast-communication                         # icon z16-
 man_made-tower                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower-communication                        # icon z16- (also has caption(optional) z18-)
 === 850
