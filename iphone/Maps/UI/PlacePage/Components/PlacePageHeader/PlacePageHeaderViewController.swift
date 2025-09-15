@@ -38,6 +38,9 @@ class PlacePageHeaderViewController: UIViewController {
     if presenter?.objectType == .track {
       configureTrackSharingMenu()
     }
+
+    let interaction = UIContextMenuInteraction(delegate: self)
+    titleLabel?.addInteraction(interaction)
   }
 
   @objc func onExpandPressed(sender: UITapGestureRecognizer) {
@@ -139,5 +142,16 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     ])
     shareButton.menu = menu
     shareButton.showsMenuAsPrimaryAction = true
+  }
+}
+
+extension PlacePageHeaderViewController: UIContextMenuInteractionDelegate {
+  func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: { suggestedActions in
+      let copyAction = UIAction(title: L("copy_to_clipboard"), image: UIImage(systemName: "document.on.clipboard")) { action in
+          UIPasteboard.general.string = self.titleLabel?.text
+      }
+      return UIMenu(title: "", children: [copyAction])
+    })
   }
 }
