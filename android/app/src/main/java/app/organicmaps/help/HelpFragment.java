@@ -65,6 +65,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.matrix, true, root);
     setupItem(R.id.lemmy, true, root);
     setupItem(R.id.bluesky, true, root);
+    setupItem(R.id.pixelfed, true, root);
     setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.email, true, root);
     setupItem(R.id.report, isLandscape, root);
