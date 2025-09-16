@@ -1488,3 +1488,4 @@
 "type.office.security" = "Bureau des agents de sécurité";
 "type.power.portal" = "Portique haute tension";
 "type.building.guardhouse" = "Guérite de sécurité";
+"type.shop.lighting" = "Boutique de luminaires";

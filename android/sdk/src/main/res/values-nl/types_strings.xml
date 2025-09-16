@@ -430,7 +430,6 @@
     <string name="type.highway.pedestrian.area">Voetgangersgebied</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Voetgangersbrug</string>
-
     <string name="type.highway.pedestrian.square">Plein</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Voetgangerstunnel</string>
@@ -1398,4 +1397,5 @@
     <string name="type.office.security">Beveiligingskantoor</string>
     <string name="type.building.guardhouse">Beveiligingsloket</string>
     <string name="type.power.portal">Verdeelstation</string>
+    <string name="type.shop.lighting">Verlichtingswinkel</string>
 </resources>

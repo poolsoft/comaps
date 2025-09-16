@@ -1397,4 +1397,5 @@
     <string name="type.office.security">Bureau des agents de sécurité</string>
     <string name="type.building.guardhouse">Guérite de sécurité</string>
     <string name="type.power.portal">Portique haute tension</string>
+    <string name="type.shop.lighting">Boutique de luminaires</string>
 </resources>

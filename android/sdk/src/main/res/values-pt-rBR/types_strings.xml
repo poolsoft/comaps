@@ -335,7 +335,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Túnel</string>
     <string name="type.highway.bus_stop">Ponto de ônibus</string>
-    <string name="type.highway.construction">Pista em construção</string>
+    <string name="type.highway.construction">Via em construção</string>
     <string name="type.highway.cycleway">Ciclovia</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Ponte para ciclistas</string>
@@ -1386,4 +1386,5 @@
     <string name="type.building.guardhouse">Guarita</string>
     <string name="type.office.security">Escritório de segurança privada</string>
     <string name="type.power.portal">Portal de subestação</string>
+    <string name="type.shop.lighting">Loja de iluminação</string>
 </resources>

@@ -465,7 +465,6 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Brücke";
-
 "type.highway.pedestrian.square" = "Platz";
 
 /* These translations are used for all type.highway.*.tunnel. */
@@ -1489,3 +1488,4 @@
 "type.office.security" = "Büro des Sicherheitsdienstes";
 "type.power.portal" = "Abspannportal";
 "type.building.guardhouse" = "Pförtnerhäuschen";
+"type.shop.lighting" = "Lampenladen";

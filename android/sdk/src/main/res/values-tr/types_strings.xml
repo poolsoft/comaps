@@ -1383,4 +1383,11 @@
     <string name="type.natural.wetland.swamp">Bataklık</string>
     <string name="type.railway.station.subway.qingdao">Metro İstasyonu</string>
     <string name="type.attraction.big_wheel">Dönme Dolap</string>
+    <string name="type.office.security">Güvenlik Görevlisi Ofisi</string>
+    <string name="type.building.guardhouse">Güvenlik Kulübesi</string>
+    <string name="type.power.portal">Elektrik Portalı</string>
+    <string name="type.amenity.luggage_locker">Emanet Eşya Dolabı</string>
+    <string name="type.post_office.post_partner">Posta Ortağı</string>
+    <string name="type.amenity.animal_shelter">Hayvan Barınağı</string>
+    <string name="type.barrier.wicket_gate">Tel Örgü Kapısı</string>
 </resources>

@@ -1306,9 +1306,9 @@
 "type.shop.trade" = "Trade Supplies";
 "type.shop.watches" = "Watch Store";
 "type.shop.wholesale" = "Wholesale Store";
-"type.sport" = "Sport";
-"type.sport.american_football" = "American Football";
-"type.sport.archery" = "Archery";
+"type.sport" = "Sports";
+"type.sport.american_football" = "Amerikāņu futbols";
+"type.sport.archery" = "Lokšaušana";
 "type.sport.athletics" = "Athletics";
 "type.sport.australian_football" = "Australian Football";
 "type.sport.baseball" = "Baseball";
@@ -1488,3 +1488,4 @@
 "type.office.security" = "Security Guards Office";
 "type.power.portal" = "Power Portal";
 "type.building.guardhouse" = "Security Booth";
+"type.shop.lighting" = "Gaismekļu veikals";

@@ -401,7 +401,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Túnel";
 "type.highway.bus_stop" = "Ponto de ônibus";
-"type.highway.construction" = "Pista em construção";
+"type.highway.construction" = "Via em construção";
 "type.highway.cycleway" = "Ciclovia";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1488,3 +1488,4 @@
 "type.office.security" = "Escritório de segurança privada";
 "type.building.guardhouse" = "Guarita";
 "type.power.portal" = "Portal de subestação";
+"type.shop.lighting" = "Loja de iluminação";

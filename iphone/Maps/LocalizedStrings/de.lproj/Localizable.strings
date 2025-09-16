@@ -99,13 +99,13 @@
 "category_fuel" = "Tankstelle";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
-"category_parking" = "Parkplätze";
+"category_parking" = "Parkplätze|Parkplatz|Stellplatz";
 
 /* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
 "category_shopping" = "Shopping";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Second-hand";
+"category_secondhand" = "Second-hand|Gebrauchte Artikel|Gebrauchte Ware";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Hotel";

@@ -488,5 +488,20 @@
 "amenity-waste_transfer_station": "Atık Transfer İstasyonu",
 "shop-carpet|@shop": "Halıcı",
 "shop-pasta|@shop": "Makarna",
-"amenity-luggage_locker": "Bagaj Dolabı"
+"amenity-luggage_locker": "Bagaj Dolabı",
+"amenity-studio": "Stüdyo",
+"man_made-cross": "Haç",
+"leisure-dance|@category_entertainment": "2Dans|Dans kursu",
+"leisure-firepit": "4Ateş çukuru",
+"amenity-love_hotel": "3Aşk Oteli|4Seks Oteli|5Yetişkin Oteli",
+"healthcare-sample_collection": "Numune alım yeri",
+"natural-peak|@mountain": "Zirve",
+"leisure-hackerspace": "Bilgisayar Korsanı Alanı",
+"amenity-animal_shelter": "Hayvan Barınağı",
+"man_made-crane": "Vinç",
+"shop-lighting|@shop": "Aydınlatma|4Armatürler|Lambalar",
+"attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children": "Eğlence|Eğlenme|Oyun|Lunapark",
+"office-security": "Güvenlik Ofisi",
+"building-guardhouse": "Koruma",
+"shop-craft|@shop": "Zanaat"
 }

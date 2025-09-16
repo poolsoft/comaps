@@ -465,7 +465,6 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Most";
-
 "type.highway.pedestrian.square" = "Náměstí";
 
 /* These translations are used for all type.highway.*.tunnel. */
@@ -1489,3 +1488,4 @@
 "type.office.security" = "Strážnice";
 "type.power.portal" = "Portál el. vedení";
 "type.building.guardhouse" = "Vrátnice";
+"type.shop.lighting" = "Obchod s osvětlením";

@@ -78,4 +78,8 @@
     <string name="type.highway.primary.tunnel">Tunelis</string>
     <string name="type.highway.pedestrian.square">Laukums</string>
     <string name="type.highway.pedestrian.tunnel">Gājēju tunelis</string>
+    <string name="type.shop.lighting">Gaismekļu veikals</string>
+    <string name="type.sport">Sports</string>
+    <string name="type.sport.american_football">Amerikāņu futbols</string>
+    <string name="type.sport.archery">Lokšaušana</string>
 </resources>
