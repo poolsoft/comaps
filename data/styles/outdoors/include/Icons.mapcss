@@ -337,8 +337,6 @@ node|z13-[man_made=flare],
 node|z13-[man_made=tower][tower:type=communication],
 {icon-image: communications_tower_minor-m.svg; }
 
-node|z14-[man_made=tower][tower:type!=communication],
-{icon-image: storage-tank.svg;}
 node|z16-[man_made=tower],
 {font-size: 12;}
 
