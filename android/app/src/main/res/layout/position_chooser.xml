@@ -38,6 +38,8 @@
         android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="MwmWidget.M3.FAB.Primary"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/save"
