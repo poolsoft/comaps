@@ -124,6 +124,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       Utils.openUrl(requireActivity(), Constants.Url.MATRIX);
     else if (id == R.id.lemmy)
       Utils.openUrl(requireActivity(), Constants.Url.LEMMY);
+    else if (id == R.id.bluesky)
+      Utils.openUrl(requireActivity(), Constants.Url.BLUESKY);
     else if (id == R.id.pixelfed)
       Utils.openUrl(requireActivity(), Constants.Url.PIXELFED);
     else if (id == R.id.openstreetmap)
