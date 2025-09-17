@@ -228,6 +228,7 @@ unordered_map<string, vector<string>> const kSynonyms = {
     {"ccnh", {"calçadinha"}},
     {"cct", {"circuit"}},
     {"ccvcn", {"circunvalación"}},
+    {"cad", {"cadde"}},
     {"cd", {"cadde", "caddesi"}},
     {"cđ", {"cao đẳng"}},
     {"cds", {"cul-de-sac"}},
