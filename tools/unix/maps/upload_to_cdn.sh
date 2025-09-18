@@ -25,11 +25,12 @@ set -e -u
 
 if [ $# -eq 0 ]; then
   echo "Usage: upload_to_cdn.sh MAPS_PATH"
-  echo "e.g. upload_to_cdn.sh osm-maps/2025_09_06__09_48_08/250906"
+  echo "e.g. sudo upload_to_cdn.sh osm-maps/2025_09_06__09_48_08/250906"
   echo "uploads are run in parallel to us2,ru1,fi1,de1 servers,"
   echo "subsequent runs will update only missing/differing files,"
   echo "so its fine to run second time to ensure there were no incomplete transfers"
   echo "or to run on an unfinished generation first and then again after its fully finished."
+  echo "(sudo is needed to access rclone.conf with servers credentials)"
   exit 1
 fi
 
