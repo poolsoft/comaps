@@ -274,7 +274,7 @@
 "type.cuisine.argentinian" = "Cozinha argentina";
 "type.cuisine.asian" = "Cozinha asiática";
 "type.cuisine.austrian" = "Cozinha austríaca";
-"type.cuisine.bagel" = "Bagel";
+"type.cuisine.bagel" = "Beiguel";
 "type.cuisine.balkan" = "Cozinha balcânica";
 "type.cuisine.barbecue" = "Churrasco";
 "type.cuisine.bavarian" = "Cozinha bávara";
@@ -1457,7 +1457,7 @@
 "type.emergency.emergency_ward_entrance" = "Entrada da ala de emergência";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
-"type.amenity.dojo" = "Dojo";
+"type.amenity.dojo" = "Dojô";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Salão de esportes";
@@ -1472,13 +1472,13 @@
 "type.place.city.capital.5" = "Cidade";
 "type.railway.station.subway.qingdao" = "Estação de metrô";
 "type.natural.wetland.saltmarsh.tidal" = "Marisma";
-"type.natural.wetland.fen" = "Fen";
+"type.natural.wetland.fen" = "Pântano";
 "type.natural.wetland.reedbed" = "Caniçal";
 "type.natural.wetland.swamp" = "Pântano";
 "type.natural.wetland.mangrove" = "Manguezal";
 "type.natural.wetland.tidalflat" = "Planície de maré";
 "type.natural.wetland.saltmarsh" = "Sapal";
-"type.leisure.escape_game" = "Escape Room";
+"type.leisure.escape_game" = "Sala de Fuga";
 "type.amenity.luggage_locker" = "Armário guarda-volumes";
 "type.amenity.bicycle_parking.covered" = "Bicicletário coberto";
 "type.post_office.post_partner" = "Parceiro postal";

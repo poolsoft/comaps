@@ -433,7 +433,6 @@
     <string name="type.highway.pedestrian.area">Jalakäijate ala</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Jalakäijate sild</string>
-
     <string name="type.highway.pedestrian.square">Väljak</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Jalakäijate tunnel</string>
@@ -1398,4 +1397,5 @@
     <string name="type.building.guardhouse">Valvuriputka</string>
     <string name="type.power.portal">Õhuliini värava-tüüpi mast</string>
     <string name="type.office.security">Turvafirma kontor</string>
+    <string name="type.shop.lighting">Lambipood</string>
 </resources>
