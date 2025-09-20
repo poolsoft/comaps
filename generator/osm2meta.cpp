@@ -87,7 +87,7 @@ bool Prefix2Double(std::string const & str, double & d)
 void MetadataTagProcessorImpl::AggregateChargeSocket(std::string const & k, std::string const & v)
 {
   auto keys = strings::Tokenize(k, ":");
-  ASSERT(keys[0] == "socket", ())  // key must start with "socket:"
+  ASSERT(keys[0] == "socket", ());  // key must start with "socket:"
   if (keys.size() < 2 || keys.size() > 3)
   {
     LOG(LWARNING, ("Invalid socket key:", k));
@@ -139,7 +139,7 @@ void MetadataTagProcessorImpl::AggregateChargeSocket(std::string const & k, std:
     it = std::prev(m_chargeSockets.end());
   }
 
-  ASSERT(v.size() > 0, "empty value for socket key!");
+  ASSERT(v.size() > 0, ("empty value for socket key!"));
 
   if (!isOutput)
   {
