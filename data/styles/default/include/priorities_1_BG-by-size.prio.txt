@@ -47,8 +47,8 @@ leisure-sports_centre                               # area z13- (also has icon z
 
 amenity-grave_yard                                  # area z10- (also has icon z17-, caption(optional) z17-)
 amenity-grave_yard-christian                        # area z10- (also has icon z17-, caption(optional) z17-)
-landuse-cemetery                                    # area z10- (also has icon z15-, caption(optional) z15-)
-landuse-cemetery-christian                          # area z10- (also has icon z15-, caption(optional) z15-)
+landuse-cemetery                                    # area z10- (also has icon z14-, caption(optional) z15-)
+landuse-cemetery-christian                          # area z10- (also has icon z14-, caption(optional) z15-)
 === 180
 
 amenity-car_wash                                    # area z15- (also has icon z17-, caption(optional) z17-)

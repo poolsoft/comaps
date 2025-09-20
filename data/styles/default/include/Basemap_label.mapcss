@@ -609,6 +609,9 @@ area|z18-[piste:type=snow_park],
 
 /* 	7.4 Cemetery */
 
+area|z14[landuse=cemetery],
+{icon-image: cemetery-s.svg; }
+
 area|z15-[landuse=cemetery],
 node|z17-[landuse=cemetery],
 node|z17-[amenity=grave_yard],

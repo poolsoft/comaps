@@ -490,19 +490,19 @@ area|z14-[piste:type=snow_park],
 
 area|z10[landuse=cemetery],
 area|z10[amenity=grave_yard],
-{fill-color: @allotments_10;}
+{fill-color: @flowers_10;}
 area|z11[landuse=cemetery],
 area|z11[amenity=grave_yard],
-{fill-color: @allotments_11;}
+{fill-color: @flowers_11;}
 area|z12[landuse=cemetery],
 area|z12[amenity=grave_yard],
-{fill-color: @allotments_12;}
+{fill-color: @flowers_12;}
 area|z13[landuse=cemetery],
 area|z13[amenity=grave_yard],
-{fill-color: @allotments_13;}
+{fill-color: @flowers_13;}
 area|z14-[landuse=cemetery],
 area|z14-[amenity=grave_yard],
-{fill-color: @allotments;}
+{fill-color: @flowers;}
 
 /* 7.5 Pedestrian areas */
 
