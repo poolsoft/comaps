@@ -225,6 +225,26 @@ endif()
 # Used in qt/ and shaders/
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
+execute_process(
+    COMMAND ${Python3_EXECUTABLE} -c "import google.protobuf; 
+print(google.protobuf.__version__)"
+    RESULT_VARIABLE PROTOBUF_CHECK
+    OUTPUT_VARIABLE PROTOBUF_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+)
+
+if(PROTOBUF_CHECK EQUAL 0)
+    if(PROTOBUF_VERSION VERSION_LESS "4.0.0")
+        message(STATUS "Python protobuf ${PROTOBUF_VERSION} found (< 4.0)")
+    else()
+        message(FATAL_ERROR "Python protobuf ${PROTOBUF_VERSION} found, but version < 4.0 required")
+    endif()
+else()
+    message(FATAL_ERROR "Python protobuf not found. Install version <4.0")
+endif()
+
+
 add_subdirectory(libs)
 
 if (PLATFORM_DESKTOP)
