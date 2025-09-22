@@ -84,7 +84,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Lagre kart på</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Velg mappen hvor kartene skal lastes ned.</string>
+    <string name="maps_storage_summary">Velg mappe for kartlagring</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Kart</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
@@ -167,7 +167,7 @@
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.</string>
     <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">Nedlasting av land pågår nå.</string>
+    <string name="downloading_is_active">Nedlasting av kartdata pågår</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Hei, se posisjonen min på CoMaps! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: https://www.comaps.app/download/</string>
     <!-- Subject for emailed bookmark -->
@@ -828,4 +828,6 @@
     <string name="instagram_url">https://www.instagram.com/comaps.app/</string>
     <string name="panoramax">Panoramax-bilde</string>
     <string name="app_site_url">https://comaps.app/</string>
+    <string name="hours_confirmed_time_ago">Bekreftet %s</string>
+    <string name="existence_confirmed_time_ago">Bekreftet eksisterer %s</string>
 </resources>

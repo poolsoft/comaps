@@ -36,4 +36,6 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="today">Gaur</string>
+    <string name="yesterday">Atzo</string>
+    <string name="days_ago">duela %s egun</string>
 </resources>

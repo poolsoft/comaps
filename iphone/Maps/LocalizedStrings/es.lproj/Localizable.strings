@@ -1095,5 +1095,5 @@
 "pref_maplanguage_title" = "Idioma del mapa";
 "transliteration_title_disabled_summary" = "Deshabilitado cuando siempre se usa el idioma local para el mapa";
 "pref_maplanguage_local" = "Idioma local";
-"existence_confirmed_time_ago" = "Existence confirmed %@";
+"existence_confirmed_time_ago" = "Existencia confirmada %@";
 "hours_confirmed_time_ago" = "Confirmado %@";

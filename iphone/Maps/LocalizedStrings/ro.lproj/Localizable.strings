@@ -325,7 +325,7 @@
 "follow_us" = "Urmăriți-ne și contactați-ne";
 
 /* Alert text */
-"email_error_body" = "Aplicația de email nu a fost stabilită. Stabilește-o sau utilizează alt mod de a ne contacta la %@.";
+"email_error_body" = "Clientul de e-mail nu a fost configurat. Te rugăm să-l configurezi sau să ne contactezi la %@";
 
 /* Alert title */
 "email_error_title" = "Eroare de trimitere e-mail";
@@ -853,11 +853,11 @@
 "trip_finished" = "Ai ajuns!";
 "keyboard_availability_alert" = "Tastatura nu poate fi folosită cât timp conduci";
 "dialog_routing_change_start_carplay" = "Traseul de la locul în care te afli nu poate fi alcătuit";
-"dialog_routing_change_end_carplay" = "Traseul către destinația aleasă nu poate fi alcătuit. Alege altă destinație.";
-"dialog_routing_check_gps_carplay" = "Nu este semnal GPS. Mergi la loc deschis.";
+"dialog_routing_change_end_carplay" = "Nu s-a putut găsi o rută către destinația ta. Te rugăm să alegi un alt punct final";
+"dialog_routing_check_gps_carplay" = "Nu există semnal GPS. Te rugăm să te deplasezi într-o zonă deschisă";
 "dialog_routing_unable_locate_route_carplay" = "Nu poate fi alcătuit un traseu. Alege alte puncte ale traseului";
 "dialog_routing_download_files_carplay" = "Pentru a crea un traseu, descarcă hărțile lipsă în dispozitivul tău";
-"dialog_routing_system_error_carplay" = "Eroare. Repornește aplicația.";
+"dialog_routing_system_error_carplay" = "A apărut o eroare. Te rugăm să repornești aplicația";
 "dialog_routing_rebuild_from_current_location_carplay" = "Traseul va fi refăcut de la locul în care te afli";
 "dialog_routing_rebuild_for_vehicle_carplay" = "Traseul va fi înlocuit cu unul pentru autovehicule";
 "not_all_shown_bookmarks_carplay" = "Nu sunt afișate toate marcajele";

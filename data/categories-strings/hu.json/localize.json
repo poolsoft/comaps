@@ -440,5 +440,7 @@
 "shop-fashion_accessories|@shop": "Divatkiegészítők",
 "shop-carpet|@shop": "Szőnyegek",
 "shop-pasta|@shop": "Tészta",
-"amenity-luggage_locker": "Poggyászmegőrző"
+"amenity-luggage_locker": "Poggyászmegőrző",
+"leisure-dance|@category_entertainment": "tánc|tánciskola",
+"amenity-love_hotel": "4szeretőszálló|szexhotel"
 }

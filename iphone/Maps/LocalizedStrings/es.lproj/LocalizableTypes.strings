@@ -1474,7 +1474,7 @@
 "type.natural.wetland.saltmarsh.tidal" = "Marisma Salina de Marea";
 "type.natural.wetland.reedbed" = "Juncal";
 "type.natural.wetland.tidalflat" = "Llanura de marea";
-"type.natural.wetland.swamp" = "Ciénaga";
+"type.natural.wetland.swamp" = "Pantano";
 "type.natural.wetland.saltmarsh" = "Marisma salina";
 "type.natural.wetland.mangrove" = "Manglares";
 "type.railway.station.subway.qingdao" = "Estación de Metro";
@@ -1486,5 +1486,6 @@
 "type.amenity.animal_shelter" = "Refugio de animales";
 "type.barrier.wicket_gate" = "Portillo";
 "type.office.security" = "Oficina de Seguridad Privada";
-"type.power.portal" = "Torre de Alta Tensión";
-"type.building.guardhouse" = "Garita de Seguridad";
+"type.power.portal" = "Torre de alta tensión";
+"type.building.guardhouse" = "Garita de seguridad";
+"type.shop.lighting" = "Tienda de iluminación";

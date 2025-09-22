@@ -359,7 +359,7 @@
 "shop-outpost": "Point de retrait",
 "building-garage": "Garage",
 "highway-rest_area|highway-services": "Aire de repos|Aire de service",
-"man_made-chimney": "Chémény",
+"man_made-chimney": "Cheminée",
 "man_made-tower|man_made-flare": "Tour",
 "shop-bookmaker|@gambling": "Bookmaker",
 "shop-seafood|@category_food|@shop": "Poissonnier|Poissonnerie|fruits de mer",
@@ -481,5 +481,16 @@
 "shop-carpet|@shop": "Magasin de tapis",
 "shop-craft|@shop": "Artisanat",
 "shop-pasta|@shop": "Pâtes",
-"amenity-luggage_locker": "Consigne à bagages"
+"amenity-luggage_locker": "Consigne à bagages",
+"leisure-firepit": "Foyer",
+"amenity-love_hotel": "Hôtel de passe|Hôtel de sexe|Hôtel pour adultes",
+"healthcare-sample_collection": "Prélèvement d'échantillons",
+"recycling-cardboard|@category_recycling": "5Recyclage de carton|Déchets de carton|Carton",
+"amenity-charging_station-motorcar|@charging_station": "Chargeur automobile|Chargeur de voiture|Chargeur",
+"shop-lighting|@shop": "4Lumières|Luminaires|4Lampes",
+"office-security": "Bureau de sécurité",
+"building-guardhouse": "Garde",
+"leisure-dance|@category_entertainment": "4Danse|École de danse",
+"shop-money_lender": "Prêteur d'argent",
+"attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children": "Attraction|Labyrinthe"
 }

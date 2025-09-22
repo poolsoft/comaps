@@ -1388,4 +1388,5 @@
     <string name="type.amenity.animal_shelter">Dyreinternat</string>
     <string name="type.barrier.wicket_gate">Portlåge</string>
     <string name="type.natural.wetland.reedbed">Rørskov</string>
+    <string name="type.shop.lighting">Lysbutik</string>
 </resources>

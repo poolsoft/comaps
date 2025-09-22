@@ -1488,3 +1488,4 @@
 "type.office.security" = "Sikkerhedsvagtkontor";
 "type.power.portal" = "Power Portal";
 "type.building.guardhouse" = "Sikkerhedsbås";
+"type.shop.lighting" = "Lysbutik";
