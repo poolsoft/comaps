@@ -186,6 +186,11 @@ ChargeSocketDescriptors MapObject::GetChargeSockets() const
   if (s.empty())
     return sockets;
 
+  // pre-set order of socket types preference (from high-power to low-power).
+  static std::vector<std::string> const kSocketTypeOrder = {"type2_combo", "chademo",     "nacs",
+                                                            "type1",       "type2_cable", "type2"};
+  size_t const unknownTypeOrder = kSocketTypeOrder.size();
+
   auto tokens = strings::Tokenize(s, ";");
 
   for (auto token : tokens)
@@ -226,6 +231,22 @@ ChargeSocketDescriptors MapObject::GetChargeSockets() const
 
     sockets.push_back(desc);
   }
+
+  // Sort sockets: first by type, then by power (descending).
+  std::sort(sockets.begin(), sockets.end(), [&](ChargeSocketDescriptor const & a, ChargeSocketDescriptor const & b)
+  {
+    auto const itA = std::find(kSocketTypeOrder.begin(), kSocketTypeOrder.end(), a.type);
+    auto const orderA =
+        (itA == kSocketTypeOrder.end()) ? unknownTypeOrder : std::distance(kSocketTypeOrder.begin(), itA);
+    auto const itB = std::find(kSocketTypeOrder.begin(), kSocketTypeOrder.end(), b.type);
+    auto const orderB =
+        (itB == kSocketTypeOrder.end()) ? unknownTypeOrder : std::distance(kSocketTypeOrder.begin(), itB);
+
+    if (orderA != orderB)
+      return orderA < orderB;
+    return a.power > b.power;  // Sort by power in descending order for sockets of the same type
+  });
+
   return sockets;
 }
 
