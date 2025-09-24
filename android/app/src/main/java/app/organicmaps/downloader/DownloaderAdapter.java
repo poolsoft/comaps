@@ -378,7 +378,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY ->
       {
         if (clickOnStatus)
-          onDownloadActionSelected(mItem, DownloaderAdapter.this);
+        {
+          if (mItem.isExpandable())
+            goDeeper(mItem, true);
+          else
+            onDownloadActionSelected(mItem, DownloaderAdapter.this);
+        }
         else
           processLongClick();
       }
