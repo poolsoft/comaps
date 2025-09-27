@@ -35,7 +35,8 @@ cd comaps
 
 Install required packages (Ubuntu/Debian):
 ```bash
-sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-dev libicu-dev libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev optipng python3-protobuf ninja-build
+sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-dev libicu-dev libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev optipng python3-pip ninja-build
+pip install "protobuf<3.21" --break-system-packages
 ```
 
 If you plan to publish the app privately in stores check [special options](#special-cases-options).
