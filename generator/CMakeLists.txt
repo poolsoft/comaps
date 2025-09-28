@@ -251,6 +251,7 @@ target_link_libraries(${PROJECT_NAME}
   storage
   descriptions
   indexer
+  feature_helpers
   cppjansson
   expat::expat
   tess2

@@ -180,74 +180,8 @@ std::string_view MapObject::GetOpeningHours() const
 
 ChargeSocketDescriptors MapObject::GetChargeSockets() const
 {
-  ChargeSocketDescriptors sockets;
-
   auto s = std::string(m_metadata.Get(MetadataID::FMD_CHARGE_SOCKETS));
-  if (s.empty())
-    return sockets;
-
-  // pre-set order of socket types preference (from high-power to low-power).
-  static std::vector<std::string> const kSocketTypeOrder = {"type2_combo", "chademo",     "nacs",
-                                                            "type1",       "type2_cable", "type2"};
-  size_t const unknownTypeOrder = kSocketTypeOrder.size();
-
-  auto tokens = strings::Tokenize(s, ";");
-
-  for (auto token : tokens)
-  {
-    if (token.empty())
-      continue;
-
-    auto fields = strings::Tokenize(token, "|");
-
-    if (fields.size() < 3)
-      continue;  // invalid entry, skip
-
-    ChargeSocketDescriptor desc;
-    desc.type = fields[0];
-
-    try
-    {
-      desc.count = std::stoi(std::string(fields[1]));
-    }
-    catch (...)
-    {
-      desc.count = 0;
-    }
-
-    if (fields.size() >= 3)
-    {
-      try
-      {
-        desc.power = std::stod(std::string(fields[2]));
-      }
-      catch (...)
-      {
-        desc.power = 0;
-      }
-    }
-    else
-      desc.power = 0;
-
-    sockets.push_back(desc);
-  }
-
-  // Sort sockets: first by type, then by power (descending).
-  std::sort(sockets.begin(), sockets.end(), [&](ChargeSocketDescriptor const & a, ChargeSocketDescriptor const & b)
-  {
-    auto const itA = std::find(kSocketTypeOrder.begin(), kSocketTypeOrder.end(), a.type);
-    auto const orderA =
-        (itA == kSocketTypeOrder.end()) ? unknownTypeOrder : std::distance(kSocketTypeOrder.begin(), itA);
-    auto const itB = std::find(kSocketTypeOrder.begin(), kSocketTypeOrder.end(), b.type);
-    auto const orderB =
-        (itB == kSocketTypeOrder.end()) ? unknownTypeOrder : std::distance(kSocketTypeOrder.begin(), itB);
-
-    if (orderA != orderB)
-      return orderA < orderB;
-    return a.power > b.power;  // Sort by power in descending order for sockets of the same type
-  });
-
-  return sockets;
+  return ChargeSocketsHelper(s).GetSockets();
 }
 
 feature::Internet MapObject::GetInternet() const

@@ -10,23 +10,14 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "feature_helpers/feature_charge_sockets.hpp"
+
 #include <string>
 #include <vector>
 
 namespace osm
 {
 class EditableMapObject;
-
-// struct to store the representation of a charging station socket
-struct ChargeSocketDescriptor
-{
-  std::string type;    // https://wiki.openstreetmap.org/wiki/Key:socket:*
-                       // e.g. "type1"
-  unsigned int count;  // number of sockets; 0 means socket present, but unknown count
-                       // (eg, OSM tag for count set to 'yes')
-  double power;        // power output, in kW. 0 means unknown.
-};
-typedef std::vector<ChargeSocketDescriptor> ChargeSocketDescriptors;
 
 class MapObject
 {
