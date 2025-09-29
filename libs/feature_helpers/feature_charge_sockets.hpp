@@ -75,17 +75,17 @@ public:
    *
    * The list is guaranteed to be sorted first by socket type (same ordered as
    * SUPPORTED_TYPES), then by power (descending).
+   *
+   * Note that this method is not const as it may trigger a re-ordering of the
+   * internal list of sockets.
    */
 
   OSMKeyValues GetOSMKeyValues();
 
-  inline static std::string const UNKNOWN = "unknown";
+  static constexpr std::string_view UNKNOWN = "unknown";
 
   /** List of supported sockets, ~ordered from high-power to low-power.
    * This order can be used in the UIs.
-   *
-   * Note that this method is not const as it may trigger a re-ordering of the
-   * internal list of sockets.
    */
   static constexpr std::array<std::string_view, 12> SUPPORTED_TYPES = {
       "mcs",    "type2_combo", "chademo",     "nacs",  "type1", "gb_dc",

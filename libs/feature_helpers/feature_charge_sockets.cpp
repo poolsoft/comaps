@@ -90,20 +90,14 @@ ChargeSocketsHelper::ChargeSocketsHelper(std::string const & socketsList) : m_di
       desc.count = 0;
     }
 
-    if (fields.size() >= 3)
+    try
     {
-      try
-      {
-        desc.power = std::stod(std::string(fields[2]));
-      }
-      catch (...)
-      {
-        desc.power = 0;
-      }
+      desc.power = std::stod(std::string(fields[2]));
     }
-    else
+    catch (...)
+    {
       desc.power = 0;
-
+    }
     m_chargeSockets.push_back(desc);
   }
   m_dirty = true;
@@ -142,11 +136,8 @@ void ChargeSocketsHelper::AggregateChargeSocketKey(std::string const & k, std::s
       return;  // ignore other suffixes
   }
 
-  // normalize type if needed
-  // based on recommandations from https://wiki.openstreetmap.org/wiki/Key:socket:*
-  static std::unordered_map<std::string, std::string> const kTypeMap = {
-      // also sometimes used in EU for 'type2_combo'
-      // -> those cases would require correcting the OSM tagging
+  // normalize type
+  static std::unordered_map<std::string_view, std::string_view> const kTypeMap = {
       {"tesla_supercharger", "nacs"},
       {"tesla_destination", "nacs"},
       {"tesla_standard", "nacs"},
@@ -163,145 +154,149 @@ void ChargeSocketsHelper::AggregateChargeSocketKey(std::string const & k, std::s
   if (std::find(SUPPORTED_TYPES.begin(), SUPPORTED_TYPES.end(), type) == SUPPORTED_TYPES.end())
     type = UNKNOWN;
 
-  // find or create descriptor
-  auto it = std::find_if(m_chargeSockets.begin(), m_chargeSockets.end(),
-                         [&](ChargeSocketDescriptor const & d) { return d.type == type; });
-
-  if (it == m_chargeSockets.end())
-  {
-    m_chargeSockets.push_back({type, 0, 0});
-    it = std::prev(m_chargeSockets.end());
-  }
-
-  ASSERT(v.size() > 0, ("empty value for socket key!"));
+  // Tokenize counts or powers
+  auto tokens = strings::Tokenize(v, ";");
+  if (tokens.empty())
+    return;
 
   if (!isOutput)
   {
-    if (v == "yes")
+    // Parse counts
+    std::vector<unsigned int> counts;
+    for (auto & t : tokens)
     {
-      it->count = 0;
+      strings::Trim(t);
+      if (t.empty())
+        continue;
+
+      if (t == "yes")
+        counts.push_back(0);
+      else
+      {
+        try
+        {
+          auto c = std::stoi(std::string(t));
+          if (c > 0)
+            counts.push_back(c);
+          else
+          {
+            LOG(LWARNING, ("Invalid count. Ignoring:", t));
+            continue;
+          }
+        }
+        catch (...)
+        {
+          LOG(LWARNING, ("Invalid count. Ignoring:", t));
+          continue;
+        }
+      }
     }
-    else
+
+    // Update existing sockets or add new ones
+    for (size_t i = 0; i < counts.size(); ++i)
     {
-      // try to parse count as a number
-      int count;
+      // Find the i-th socket of this type
+      size_t matched = 0;
+      auto it = std::find_if(m_chargeSockets.begin(), m_chargeSockets.end(), [&](ChargeSocketDescriptor const & d)
+      {
+        if (d.type != type)
+          return false;
+        if (matched == i)
+          return true;
+        ++matched;
+        return false;
+      });
+
+      if (it != m_chargeSockets.end())
+        it->count = counts[i];
+      else
+        m_chargeSockets.push_back({type, counts[i], 0});
+    }
+  }
+  else
+  {
+    // Parse powers
+    std::vector<double> powers;
+    for (auto & t : tokens)
+    {
+      strings::Trim(t);
+      if (t.empty())
+        continue;
+
+      std::string s = strings::MakeLowerCase(std::string(t));
+      size_t pos = s.find("va");
+      while (pos != std::string::npos)
+      {
+        s.replace(pos, 2, "w");
+        pos = s.find("va", pos + 1);
+      }
+
+      double value = 0;
+      enum PowerUnit
+      {
+        WATT,
+        KILOWATT,
+        MEGAWATT
+      } unit = KILOWATT;
+
+      if (!s.empty() && s.back() == 'w')
+      {
+        unit = WATT;
+        s.pop_back();
+        if (!s.empty() && s.back() == 'k')
+        {
+          unit = KILOWATT;
+          s.pop_back();
+        }
+        else if (!s.empty() && s.back() == 'm')
+        {
+          unit = MEGAWATT;
+          s.pop_back();
+        }
+      }
+
       try
       {
-        count = std::stoi(v);
-        if (count <= 0)
+        value = std::stod(s);
+        if (value < 0)
         {
-          LOG(LWARNING, ("Invalid socket count. Removing this socket.", ""));
-          // TODO(skadge): incorrect behaviour if invalid count while modifying an existing socket that is not the last
-          // one!
-          m_chargeSockets.pop_back();
-          return;
+          LOG(LWARNING, ("Invalid power value. Ignoring:", t));
+          continue;
+        }
+        switch (unit)
+        {
+        case WATT: value /= 1000.; break;
+        case MEGAWATT: value *= 1000.; break;
+        case KILOWATT: break;
         }
       }
       catch (...)
       {
-        // ignore sockets with invalid counts (ie, can not be parsed to int)
-        // note that if a valid power output is later set for this socket,
-        // the socket will be re-created with a default count of 'y'
-        LOG(LWARNING, ("Invalid count of charging socket. Removing it.", v));
-        // TODO(skadge): incorrect behaviour if invalid count while modifying an existing socket that is not the last
-        // one!
-        m_chargeSockets.pop_back();
-        return;
+        LOG(LWARNING, ("Invalid power value. Ignoring:", t));
+        continue;
       }
-      it->count = count;
+
+      powers.push_back(value);
     }
-  }
-  else  // isOutput == true => parse output power
-  {
-    // example value string: "44;22kW;11kva;7400w"
-
-    std::string powerValues = strings::MakeLowerCase(v);
-
-    // replace all occurances of 'VA' by the more standard 'W' unit
-    size_t pos = powerValues.find("va");
-    while (pos != powerValues.npos)
+    // Update existing sockets or add new ones
+    for (size_t i = 0; i < powers.size(); ++i)
     {
-      powerValues.replace(pos, 2, "w");
-      pos = powerValues.find("va", pos + 1);
-    }
-
-    // if a given socket type is present several times in the same charging
-    // station with different power outputs, the power outputs would be concatenated
-    // with ';'
-    auto powerTokens = strings::Tokenize(powerValues, ";/");
-
-    // TODO: for now, we only handle the *first* provided
-    // power output.
-    std::string num(powerTokens[0]);
-    strings::Trim(num);
-
-    if (num == "unknown")
-    {
-      it->power = 0;
-      m_dirty = true;
-      return;
-    }
-
-    enum PowerUnit
-    {
-      WATT,
-      KILOWATT,
-      MEGAWATT
-    };
-    PowerUnit unit = KILOWATT;  // if no unit, kW are assumed
-
-    if (num.size() > 2)
-    {
-      // do we have a unit?
-      if (num.back() == 'w')
+      size_t matched = 0;
+      auto it = std::find_if(m_chargeSockets.begin(), m_chargeSockets.end(), [&](ChargeSocketDescriptor const & d)
       {
-        unit = WATT;
-        num.pop_back();
-        if (num.back() == 'k')
-        {
-          unit = KILOWATT;
-          num.pop_back();
-        }
-        else if (num.back() == 'm')
-        {
-          unit = MEGAWATT;
-          num.pop_back();
-        }
-      }
-    }
+        if (d.type != type)
+          return false;
+        if (matched == i)
+          return true;
+        ++matched;
+        return false;
+      });
 
-    strings::Trim(num);
-    double value;
-    try
-    {
-      value = std::stod(num);
-      if (value <= 0)
-      {
-        LOG(LWARNING, ("Invalid charging socket power value:", v));
-        // TODO(skadge): incorrect behaviour if invalid count while modifying an existing socket that is not the last
-        // one!
-        m_chargeSockets.pop_back();
-        return;
-      }
-
-      std::ostringstream oss;
-      switch (unit)
-      {
-      case WATT: value = value / 1000.; break;
-      case MEGAWATT: value = value * 1000; break;
-      case KILOWATT: break;
-      }
+      if (it != m_chargeSockets.end())
+        it->power = powers[i];
+      else
+        m_chargeSockets.push_back({type, 0, powers[i]});  // default count=0
     }
-    catch (...)
-    {
-      LOG(LWARNING, ("Invalid charging socket power value:", v));
-      // TODO(skadge): incorrect behaviour if invalid count while modifying an existing socket that is not the last
-      // one!
-      m_chargeSockets.pop_back();
-      return;
-    }
-
-    it->power = value;
   }
 
   m_dirty = true;
@@ -345,27 +340,56 @@ OSMKeyValues ChargeSocketsHelper::GetOSMKeyValues()
     Sort();
 
   std::vector<std::pair<std::string, std::string>> result;
+  std::string lastType;
+  std::ostringstream countStream;
+  std::ostringstream powerStream;
+  bool firstCount = true;
+  bool firstPower = true;
 
   for (auto const & s : m_chargeSockets)
   {
-    // Only produce if type is non-empty
-    if (!s.type.empty())
-    {
-      // socket.<type> = count
-      if (s.count > 0)
-      {
-        result.emplace_back("socket:" + s.type, std::to_string(s.count));
-      }
-      else if (s.count == 0)
-      {
-        // special "yes" meaning present, but unknown count
-        result.emplace_back("socket:" + s.type, "yes");
-      }
+    if (s.type.empty())
+      continue;
 
-      // socket.<type>.output = power
-      if (s.power > 0.0)
-        result.emplace_back("socket:" + s.type + ":output", to_string_trimmed(s.power));
+    // If we switch type, flush previous streams
+    if (s.type != lastType && !lastType.empty())
+    {
+      result.emplace_back("socket:" + lastType, countStream.str());
+      if (powerStream.str().size() > 0)
+        result.emplace_back("socket:" + lastType + ":output", powerStream.str());
+
+      countStream.str("");
+      countStream.clear();
+      powerStream.str("");
+      powerStream.clear();
+      firstCount = true;
+      firstPower = true;
     }
+
+    lastType = s.type;
+
+    // Append count
+    if (!firstCount)
+      countStream << ";";
+    countStream << ((s.count > 0) ? std::to_string(s.count) : "yes");
+    firstCount = false;
+
+    // Append power if > 0
+    if (s.power > 0)
+    {
+      if (!firstPower)
+        powerStream << ";";
+      powerStream << to_string_trimmed(s.power);
+      firstPower = false;
+    }
+  }
+
+  // Flush last type
+  if (!lastType.empty())
+  {
+    result.emplace_back("socket:" + lastType, countStream.str());
+    if (powerStream.str().size() > 0)
+      result.emplace_back("socket:" + lastType + ":output", powerStream.str());
   }
 
   return result;
