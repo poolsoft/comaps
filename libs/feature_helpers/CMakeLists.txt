@@ -11,4 +11,4 @@ target_link_libraries(${PROJECT_NAME}
     base
 )
 
-# omim_add_test_subdirectory(feature_helpers_tests)
+omim_add_test_subdirectory(feature_helpers_tests)
