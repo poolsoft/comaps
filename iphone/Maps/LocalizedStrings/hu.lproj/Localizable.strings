@@ -313,7 +313,7 @@
 "copyright" = "Szerzői jogok";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Hiba jelentése";
+"report_a_bug" = "Hibajelentés";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Hibás térképadatok jelentése vagy javítása";
@@ -482,7 +482,7 @@
 "search_not_found" = "Hoppá, nincs találat.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Töltse le a keresett régiót, vagy próbálja meg egy közeli város vagy település nevét hozzáadni.";
+"search_not_found_query" = "Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város vagy település nevét.";
 "search_history_title" = "Keresési előzmények";
 "search_history_text" = "Legutóbbi keresések megtekintése.";
 "clear_search" = "Keresési előzmények törlése";
@@ -518,7 +518,7 @@
 "autodownload" = "Automatikus térképletöltés";
 
 /* Place Page opening hours text */
-"closed_now" = "Most zárva van";
+"closed_now" = "Jelenleg zárva";
 
 /* Place Page opening hours text */
 "daily" = "Naponta";
@@ -609,7 +609,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d / %2$d";
-"download_over_mobile_header" = "Biztosan letölti mobilhálózati kapcsolaton keresztül?";
+"download_over_mobile_header" = "Biztosan letölti mobiladat-kapcsolaton keresztül?";
 "download_over_mobile_message" = "Ez egyes díjcsomagok vagy roaming esetén jelentős költségekkel járhat.";
 "error_enter_correct_house_number" = "Adjon meg egy érvényes házszámot";
 "editor_storey_number" = "Emeletek száma (legfeljebb: %d)";
@@ -712,14 +712,14 @@
 
 /* For the first routing */
 "decline" = "Elutasítás";
-"mobile_data_dialog" = "Mobilinternet használata a részletes információk megjelenítéséhez?";
+"mobile_data_dialog" = "Mobiladat-forgalom használata a részletes információk megjelenítéséhez?";
 "mobile_data_option_always" = "Mindig használja";
 "mobile_data_option_today" = "Csak ma";
 "mobile_data_option_not_today" = "Ma ne használja";
-"mobile_data" = "Mobilinternet";
+"mobile_data" = "Mobiladat-forgalom";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "A térképfrissítési értesítésekhez és a szerkesztések feltöltéséhez mobilinternetre van szükség.";
+"mobile_data_description" = "A térképfrissítési értesítésekhez és a szerkesztések feltöltéséhez internetkapcsolatra van szükség.";
 "mobile_data_option_never" = "Soha ne használja";
 "mobile_data_option_ask" = "Mindig kérdezzen rá";
 "traffic_update_maps_text" = "A forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.";
@@ -807,7 +807,7 @@
 "power_managment_setting_never" = "Soha";
 "power_managment_setting_auto" = "Amikor az akkumulátor lemerül";
 "power_managment_setting_manual_max" = "Mindig";
-"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt a beállítást, akkor rögzítheti, és az „A CoMaps névjegye” képernyőn a „HIBA JELENTÉSE” gombra kattintva elküldheti nekünk a hibával, problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
+"enable_logging_warning_message" = "Engedélyezze ideiglenesen ezt a beállítást, hogy rögzíthesse és elküldhesse nekünk a problémájával kapcsolatos részletes diagnosztikai naplókat a „Névjegy és súgó” képernyő „Hibajelentés” funkciójával. A naplók tartalmazhatnak helyadatokat.";
 "driving_options_title" = "Útvonaltervezési beállítások";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */

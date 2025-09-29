@@ -365,7 +365,6 @@
     <string name="type.highway.pedestrian">Fuessgängerzone</string>
     <string name="type.highway.pedestrian.area">Fuessgängerzone</string>
     <string name="type.highway.pedestrian.bridge">Fuessgängerzonebrugg</string>
-
     <string name="type.highway.pedestrian.square">Platz</string>
     <string name="type.highway.primary">Hauptstrass</string>
     <string name="type.highway.primary.bridge">Brugg</string>
@@ -1304,4 +1303,5 @@
     <string name="type.office.security">Sicherheitsdienst</string>
     <string name="type.building.guardhouse">Pförtnerhüüsli</string>
     <string name="type.power.portal">Abspannportal</string>
+    <string name="type.shop.lighting">Lampelade</string>
 </resources>

@@ -831,4 +831,6 @@
     <string name="about_help">Om &amp; Hjälp</string>
     <string name="share_track">Dela spår</string>
     <string name="delete_track_dialog_title">Ta bort %s?</string>
+    <string name="existence_confirmed_time_ago">Existens bekräftad %s</string>
+    <string name="hours_confirmed_time_ago">Bekräftat %s</string>
 </resources>

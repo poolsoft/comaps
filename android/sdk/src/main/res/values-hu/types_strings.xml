@@ -64,7 +64,7 @@
     <string name="type.amenity.hospital">Kórház</string>
     <string name="type.amenity.hunting_stand">Magasles</string>
     <string name="type.amenity.ice_cream">Fagylaltárus</string>
-    <string name="type.amenity.internet_cafe">Internet kávézó</string>
+    <string name="type.amenity.internet_cafe">Internetkávézó</string>
     <string name="type.amenity.kindergarten">Óvoda</string>
     <string name="type.amenity.library">Könyvtár</string>
     <string name="type.amenity.loading_dock">Rakodórámpa</string>
@@ -1006,7 +1006,7 @@
     <string name="type.shop.laundry">Mosoda</string>
     <string name="type.shop.mall">Bevásárlóközpont</string>
     <string name="type.shop.massage">Masszázsszalon</string>
-    <string name="type.shop.mobile_phone">Mobiltelefon bolt</string>
+    <string name="type.shop.mobile_phone">Mobiltelefon-bolt</string>
     <string name="type.shop.money_lender">Pénzkölcsönző</string>
     <string name="type.shop.motorcycle">Motorkerékpár-szaküzlet</string>
     <string name="type.shop.motorcycle_repair">Motorkerékpár-szerviz</string>

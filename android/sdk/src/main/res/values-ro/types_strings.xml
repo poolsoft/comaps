@@ -1379,4 +1379,6 @@
     <string name="type.attraction.bumper_car">Mașinuțe de distracții</string>
     <string name="type.attraction.big_wheel">Roată panoramică</string>
     <string name="type.tourism.camp_site">Loc de campare</string>
+    <string name="type.shop.lighting">Magazin de corpuri de iluminat</string>
+    <string name="type.tourism.hostel">Hostel</string>
 </resources>

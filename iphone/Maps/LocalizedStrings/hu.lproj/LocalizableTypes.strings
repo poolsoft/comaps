@@ -75,7 +75,7 @@
 "type.amenity.hospital" = "Kórház";
 "type.amenity.hunting_stand" = "Magasles";
 "type.amenity.ice_cream" = "Fagylaltárus";
-"type.amenity.internet_cafe" = "Internet kávézó";
+"type.amenity.internet_cafe" = "Internetkávézó";
 "type.amenity.kindergarten" = "Óvoda";
 "type.amenity.library" = "Könyvtár";
 "type.amenity.loading_dock" = "Rakodórámpa";
@@ -1234,7 +1234,7 @@
 "type.shop.laundry" = "Mosoda";
 "type.shop.mall" = "Bevásárlóközpont";
 "type.shop.massage" = "Masszázsszalon";
-"type.shop.mobile_phone" = "Mobiltelefon bolt";
+"type.shop.mobile_phone" = "Mobiltelefon-bolt";
 "type.shop.money_lender" = "Pénzkölcsönző";
 "type.shop.motorcycle" = "Motorkerékpár-szaküzlet";
 "type.shop.motorcycle_repair" = "Motorkerékpár-szerviz";

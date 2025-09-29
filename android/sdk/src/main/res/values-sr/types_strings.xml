@@ -1397,4 +1397,5 @@
     <string name="type.office.security">Канцеларија обезбеђења</string>
     <string name="type.building.guardhouse">Кућица обезбеђења</string>
     <string name="type.power.portal">Носач електричних водова</string>
+    <string name="type.shop.lighting">Продавница расвете</string>
 </resources>

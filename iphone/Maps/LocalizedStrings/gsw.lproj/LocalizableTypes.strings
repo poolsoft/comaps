@@ -434,7 +434,6 @@
 "type.highway.pedestrian" = "Fuessgängerzone";
 "type.highway.pedestrian.area" = "Fuessgängerzone";
 "type.highway.pedestrian.bridge" = "Fuessgängerzonebrugg";
-
 "type.highway.pedestrian.square" = "Platz";
 "type.highway.pedestrian.tunnel" = "Fuessgängertunnel";
 "type.highway.primary" = "Hauptstrass";
@@ -1303,3 +1302,4 @@
 "type.office.security" = "Sicherheitsdienst";
 "type.power.portal" = "Abspannportal";
 "type.building.guardhouse" = "Pförtnerhüüsli";
+"type.shop.lighting" = "Lampelade";

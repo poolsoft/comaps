@@ -148,7 +148,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Pentru rulote";
-"share_bookmarks_email_body" = "Bună!\n\nȚi-am atașat locurile mele preferate din aplicația CoMaps. Deschide-le dacă ai instalată CoMaps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://www.comaps.app/";
+"share_bookmarks_email_body" = "Salut!\n\nAm atașat marcajele mele; te rog să le deschizi în CoMaps. Dacă nu îl ai instalat, îl poți descărca de aici: https://www.comaps.app/download/\n\nBucură-te de călătorii cu CoMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Se încarcă locurile preferate";

@@ -32,4 +32,11 @@
     <string name="mb">MB</string>
     <string name="today">Idag</string>
     <string name="yesterday">Igår</string>
+    <string name="days_ago">för %s dagar sedan</string>
+    <string name="week_ago">för %s vecka sedan</string>
+    <string name="weeks_ago">för %s veckor sedan</string>
+    <string name="month_ago">för %s månad sedan</string>
+    <string name="months_ago">för %s månader sedan</string>
+    <string name="year_ago">för %s år sedan</string>
+    <string name="years_ago">för %s år sedan</string>
 </resources>
