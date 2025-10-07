@@ -68,8 +68,15 @@ jobs:
           path: android/sdk/build/outputs/aar/sdk-debug.aar
           if-no-files-found: error
 
+      - name: List Build Intermediates
+        shell: bash
+        working-directory: android
+        run: |
+          ls -R sdk/build/intermediates/cmake/debug/
+
       - name: Upload Debug Symbols
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: debug-symbols
           path: android/sdk/build/intermediates/cmake/debug/obj/
