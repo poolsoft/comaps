@@ -1,0 +1,14 @@
+rootProject.name = 'comaps-submodule-app'
+
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+// Include local sdk project from the main repository
+include ':app'
+include ':sdk'
+project(':sdk').projectDir = new File(settingsDir, '../../android/sdk')

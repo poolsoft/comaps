@@ -1,0 +1,26 @@
+apply plugin: 'com.android.application'
+
+android {
+  namespace 'com.example.comaps.aar'
+  compileSdk 36
+
+  defaultConfig {
+    applicationId 'com.example.comaps.aar'
+    minSdk 21
+    targetSdk 35
+    versionCode 1
+    versionName '0.1'
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+dependencies {
+  // The SDK AAR should be placed at app/libs/sdk-release.aar by CI or manually
+  implementation files('libs/sdk-release.aar')
+  implementation 'androidx.appcompat:appcompat:1.7.1'
+  implementation 'androidx.fragment:fragment:1.6.0'
+}
