@@ -68,9 +68,9 @@ jobs:
           path: android/sdk/build/outputs/aar/sdk-debug.aar
           if-no-files-found: error
 
-      - name: Upload Entire SDK Build Directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: sdk-build-directory
-          path: android/sdk/build/
-          if-no-files-found: error
+      #- name: Upload Entire SDK Build Directory
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: sdk-build-directory
+      #    path: android/sdk/build/
+      #    if-no-files-found: error
