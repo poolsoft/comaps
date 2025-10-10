@@ -8,6 +8,9 @@
 #include "cppjansson/cppjansson.hpp"
 
 #include <algorithm>
+#include <sstream>
+#include <iomanip>
+
 
 namespace platform
 {
@@ -31,17 +34,54 @@ string GetTextSourceString(platform::TextSource textSource)
 
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
+  string const relPath = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
   string const pathToJson = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
 
+  // Try reading file using platform reader. We add extra logging to detect
+  // which source (writable/resources/settings/full path) provided the file
+  // and to output a sample of the first bytes when JSON decoding fails.
   try
   {
     jsonBuffer.clear();
-    GetPlatform().GetReader(pathToJson)->ReadAsString(jsonBuffer);
+    // Read raw string
+    auto reader = GetPlatform().GetReader(relPath);
+    // Log the resolved path for debugging (works in DEBUG builds via DbgLogger too)
+    try
+    {
+      string resolved = GetPlatform().ReadPathForFile(relPath);
+      LOG(LINFO, ("Resolved localization file path:", resolved));
+    }
+    catch (RootException const &)
+    {
+      // ReadPathForFile may throw if not found in scope, ignore here
+    }
+
+    reader->ReadAsString(jsonBuffer);
+
+    // Quick UTF-8 sanity check: attempt to parse JSON and if it fails, log a hexdump sample
+    try
+    {
+      base::Json root(jsonBuffer.c_str());
+      (void)root.get();
+    }
+    catch (base::Json::Exception const & exJson)
+    {
+      // Prepare hex sample
+      std::ostringstream oss;
+      size_t sampleLen = std::min<size_t>(jsonBuffer.size(), 128);
+      for (size_t i = 0; i < sampleLen; ++i)
+      {
+        oss << std::hex << std::setfill('0') << std::setw(2) << (static_cast<unsigned int>(static_cast<unsigned char>(jsonBuffer[i]))) << ' ';
+      }
+      LOG(LERROR, ("JSON parse error for locale:", localeName, "file:", relPath, "error:", exJson.what(), "sample_bytes:", oss.str()));
+      // Re-throw as RootException to make the caller try default language
+      MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
+    }
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't open", localeName, "localization file:", pathToJson, ex.what()));
-    return false;  // No json file for localeName
+    LOG(LWARNING, ("Can't open or parse", localeName, "localization file:", relPath, ex.what()));
+    return false;  // No json file for localeName or it failed parsing
   }
   return true;
 }
