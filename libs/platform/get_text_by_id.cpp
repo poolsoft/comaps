@@ -30,6 +30,28 @@ string GetTextSourceString(platform::TextSource textSource)
   ASSERT(false, ());
   return string();
 }
+// Try to convert ISO-8859-1 / Latin1 encoded bytes into a valid UTF-8 string.
+// Lightweight fallback for packaged localization files that may be encoded
+// in Latin1 instead of UTF-8. Each byte >= 0x80 is converted into a two-
+// byte UTF-8 sequence so the JSON parser can succeed on formerly-invalid
+// input.
+string Latin1ToUtf8(string const & s)
+{
+  string out;
+  out.reserve(s.size() * 2);
+  for (size_t i = 0; i < s.size(); ++i)
+  {
+    unsigned char c = static_cast<unsigned char>(s[i]);
+    if (c < 0x80)
+      out.push_back(static_cast<char>(c));
+    else
+    {
+      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
+      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
+    }
+  }
+  return out;
+}
 }  // namespace
 
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
@@ -66,16 +88,45 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
     }
     catch (base::Json::Exception const & exJson)
     {
-      // Prepare hex sample
+      // Prepare hex sample for logs
       std::ostringstream oss;
       size_t sampleLen = std::min<size_t>(jsonBuffer.size(), 128);
       for (size_t i = 0; i < sampleLen; ++i)
       {
-        oss << std::hex << std::setfill('0') << std::setw(2) << (static_cast<unsigned int>(static_cast<unsigned char>(jsonBuffer[i]))) << ' ';
+        oss << std::hex << std::setfill('0') << std::setw(2)
+            << (static_cast<unsigned int>(static_cast<unsigned char>(jsonBuffer[i]))) << ' ';
       }
       LOG(LERROR, ("JSON parse error for locale:", localeName, "file:", relPath, "error:", exJson.what(), "sample_bytes:", oss.str()));
-      // Re-throw as RootException to make the caller try default language
-      MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
+
+      // Mitigation: try interpreting the bytes as ISO-8859-1 (Latin1) and
+      // convert to UTF-8, then attempt parsing again. If conversion+
+      // parse succeeds we keep the converted buffer and proceed; otherwise
+      // preserve original behavior and rethrow to trigger fallback logic.
+      try
+      {
+        LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
+        string converted = Latin1ToUtf8(jsonBuffer);
+        // Try parsing converted buffer
+        try
+        {
+          base::Json rootConverted(converted.c_str());
+          (void)rootConverted.get();
+          // Success — use converted buffer from now on
+          jsonBuffer.swap(converted);
+          LOG(LINFO, ("Latin1->UTF8 fallback succeeded for:", relPath));
+          // do not rethrow — outer code will continue using jsonBuffer
+        }
+        catch (base::Json::Exception const & ex2)
+        {
+          LOG(LWARNING, ("Latin1->UTF8 fallback parse failed for:", relPath, "error:", ex2.what()));
+          MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
+        }
+      }
+      catch (std::exception const & e)
+      {
+        LOG(LWARNING, ("Latin1->UTF8 fallback failed with exception:", e.what()));
+        MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
+      }
     }
   }
   catch (RootException const & ex)
