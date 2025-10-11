@@ -55,6 +55,10 @@ inline JSONPtr NewJSONNull()
   return JSONPtr(json_null());
 }
 
+// Forward declaration so that Json::ParseFrom can reuse the centralized
+// parser with encoding fallbacks implemented in cppjansson.cpp.
+JSONPtr LoadFromString(std::string const & str);
+
 class Json
 {
 public:
@@ -74,10 +78,17 @@ public:
   void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }
   void ParseFrom(char const * s)
   {
-    json_error_t jsonError;
-    m_handle.AttachNew(json_loads(s, 0, &jsonError));
-    if (!m_handle)
-      MYTHROW(Exception, (jsonError.line, jsonError.text));
+    try
+    {
+      auto tmp = base::LoadFromString(std::string(s));
+      m_handle.AttachNew(tmp.release());
+    }
+    catch (base::Json::Exception const & e)
+    {
+      // Preserve the original Json::Exception semantics for callers that
+      // expect this specific exception type.
+      MYTHROW(Exception, (e.Msg()));
+    }
   }
 
   json_t * get() const { return m_handle.get(); }
@@ -145,8 +156,19 @@ inline void FromJSON(json_t const * root, json_t const *& value)
   value = root;
 }
 
-void FromJSON(json_t const * root, double & result);
-void FromJSON(json_t const * root, bool & result);
+inline void FromJSON(json_t const * root, double & result)
+{
+  if (!json_is_number(root))
+    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
+  result = json_number_value(root);
+}
+
+inline void FromJSON(json_t const * root, bool & result)
+{
+  if (!json_is_true(root) && !json_is_false(root))
+    MYTHROW(base::Json::Exception, ("Object must contain a boolean value."));
+  result = json_is_true(root);
+}
 
 template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type * = nullptr>
 void FromJSON(json_t const * root, T & result)
