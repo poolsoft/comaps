@@ -4,6 +4,7 @@
 
 #include "base/exception.hpp"
 #include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -57,7 +58,62 @@ inline JSONPtr NewJSONNull()
 
 // Forward declaration so that Json::ParseFrom can reuse the centralized
 // parser with encoding fallbacks implemented in cppjansson.cpp.
-JSONPtr LoadFromString(std::string const & str);
+// Convert ISO-8859-1 / Latin1 bytes to UTF-8. Lightweight fallback used
+// when incoming JSON contains non-UTF8 bytes.
+inline std::string Latin1ToUtf8(std::string const & s)
+{
+  std::string out;
+  out.reserve(s.size() * 2);
+  for (size_t i = 0; i < s.size(); ++i)
+  {
+    unsigned char c = static_cast<unsigned char>(s[i]);
+    if (c < 0x80)
+      out.push_back(static_cast<char>(c));
+    else
+    {
+      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
+      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
+    }
+  }
+  return out;
+}
+
+inline base::JSONPtr LoadFromString(std::string const & str)
+{
+  json_error_t jsonError = {};
+  json_t * result = json_loads(str.c_str(), 0, &jsonError);
+  if (result)
+    return base::JSONPtr(result);
+
+  std::string err = jsonError.text ? jsonError.text : std::string();
+  if (!err.empty() && (err.find("unable to decode") != std::string::npos ||
+                       err.find("invalid") != std::string::npos ||
+                       err.find("UTF-8") != std::string::npos))
+  {
+    LOG(LINFO, ("JSON parse failed, attempting Latin1->UTF8 fallback. Error:", err));
+    try
+    {
+      std::string converted = Latin1ToUtf8(str);
+      json_error_t jsonError2 = {};
+      json_t * result2 = json_loads(converted.c_str(), 0, &jsonError2);
+      if (result2)
+      {
+        LOG(LINFO, ("JSON parse success after Latin1->UTF8 fallback."));
+        return base::JSONPtr(result2);
+      }
+      std::string err2 = jsonError2.text ? jsonError2.text : std::string();
+      LOG(LWARNING, ("Latin1 fallback parse failed. original:", err, "fallback:", err2));
+      MYTHROW(base::Json::Exception, (err + " / " + err2));
+    }
+    catch (std::exception const & e)
+    {
+      LOG(LWARNING, ("Latin1->UTF8 conversion failed:", e.what()));
+      MYTHROW(base::Json::Exception, (err));
+    }
+  }
+
+  MYTHROW(base::Json::Exception, (err));
+}
 
 class Json
 {
@@ -105,10 +161,44 @@ json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
 json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field);
 json_t * GetJSONObligatoryField(json_t * root, char const * field);
 json_t const * GetJSONObligatoryField(json_t const * root, char const * field);
-json_t * GetJSONOptionalField(json_t * root, std::string const & field);
-json_t const * GetJSONOptionalField(json_t const * root, std::string const & field);
-json_t * GetJSONOptionalField(json_t * root, char const * field);
-json_t const * GetJSONOptionalField(json_t const * root, char const * field);
+inline json_t * GetJSONOptionalField(json_t * root, std::string const & field)
+{
+  return GetJSONOptionalField(root, field.c_str());
+}
+inline json_t const * GetJSONOptionalField(json_t const * root, std::string const & field)
+{
+  return GetJSONOptionalField(root, field.c_str());
+}
+inline json_t * GetJSONOptionalField(json_t * root, char const * field)
+{
+  return const_cast<json_t *>(GetJSONOptionalField(const_cast<json_t const *>(root), field));
+}
+inline json_t const * GetJSONOptionalField(json_t const * root, char const * field)
+{
+  if (!json_is_object(root))
+    MYTHROW(base::Json::Exception, ("Bad json object while parsing", field));
+  return json_object_get(root, field);
+}
+
+inline json_t * GetJSONObligatoryField(json_t * root, std::string const & field)
+{
+  return GetJSONObligatoryField(root, field.c_str());
+}
+inline json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field)
+{
+  return GetJSONObligatoryField(root, field.c_str());
+}
+inline json_t * GetJSONObligatoryField(json_t * root, char const * field)
+{
+  return const_cast<json_t *>(GetJSONObligatoryField(const_cast<json_t const *>(root), field));
+}
+inline json_t const * GetJSONObligatoryField(json_t const * root, char const * field)
+{
+  auto * value = GetJSONOptionalField(root, field);
+  if (!value)
+    MYTHROW(base::Json::Exception, ("Obligatory field", field, "is absent."));
+  return value;
+}
 
 template <class First>
 inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path)
@@ -137,6 +227,10 @@ inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path, Paths
 }
 
 bool JSONIsNull(json_t const * root);
+inline bool JSONIsNull(json_t const * root)
+{
+  return json_is_null(root);
+}
 }  // namespace base
 
 template <typename T>
