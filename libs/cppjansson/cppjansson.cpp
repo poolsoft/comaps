@@ -1,392 +1,113 @@
-#pragma once
+#include "cppjansson.hpp"
 
-#include "jansson_handle.hpp"
-
-#include "base/exception.hpp"
-#include "base/string_utils.hpp"
-
-#include <cstdint>
-#include <memory>
-#include <optional>
+#include <type_traits>
+#include "base/logging.hpp"
+#include <algorithm>
 #include <string>
-#include <vector>
 
-#include <jansson.h>
+namespace
+{
+template <typename T>
+std::string FromJSONToString(json_t const * root)
+{
+  T result;
+  FromJSON(root, result);
+  // TODO(AB): Is std::to_string faster?
+  return strings::to_string(result);
+}
+
+// Convert ISO-8859-1 / Latin1 bytes to UTF-8. This mirrors the lightweight
+// conversion implemented in platform code and centralizes fallback logic
+// for JSON parsing so callers don't need to duplicate it.
+std::string Latin1ToUtf8(std::string const & s)
+{
+  std::string out;
+  out.reserve(s.size() * 2);
+  for (size_t i = 0; i < s.size(); ++i)
+  {
+    unsigned char c = static_cast<unsigned char>(s[i]);
+    if (c < 0x80)
+      out.push_back(static_cast<char>(c));
+    else
+    {
+      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
+      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
+    }
+  }
+  return out;
+}
+}  // namespace
 
 namespace base
 {
-struct JSONDecRef
-{
-  void operator()(json_t * root) const
-  {
-    if (root)
-      json_decref(root);
-  }
-};
+// NOTE: GetJSONObligatoryField / GetJSONOptionalField overloads
+// were moved inline into the header (cppjansson.hpp) to allow
+// template instantiations in other translation units to resolve
+// without relying on a single compiled object file.
 
-using JSONPtr = std::unique_ptr<json_t, JSONDecRef>;
+// JSONIsNull moved inline to header.
 
-inline JSONPtr NewJSONObject()
+std::string DumpToString(JSONPtr const & json, size_t flags)
 {
-  return JSONPtr(json_object());
-}
-inline JSONPtr NewJSONArray()
-{
-  return JSONPtr(json_array());
-}
-inline JSONPtr NewJSONString(std::string const & s)
-{
-  return JSONPtr(json_string(s.c_str()));
-}
-inline JSONPtr NewJSONInt(json_int_t value)
-{
-  return JSONPtr(json_integer(value));
-}
-inline JSONPtr NewJSONReal(double value)
-{
-  return JSONPtr(json_real(value));
-}
-inline JSONPtr NewJSONBool(bool value)
-{
-  return JSONPtr(value ? json_true() : json_false());
-}
-inline JSONPtr NewJSONNull()
-{
-  return JSONPtr(json_null());
+  std::string result;
+  size_t size = json_dumpb(json.get(), nullptr, 0, flags);
+  if (size == 0)
+    MYTHROW(base::Json::Exception, ("Zero size JSON while serializing"));
+
+  result.resize(size);
+  if (size != json_dumpb(json.get(), &result.front(), size, flags))
+    MYTHROW(base::Json::Exception, ("Wrong size JSON written while serializing"));
+
+  return result;
 }
 
-// Forward declaration so that Json::ParseFrom can reuse the centralized
-// parser with encoding fallbacks implemented in cppjansson.cpp.
-JSONPtr LoadFromString(std::string const & str);
+// LoadFromString moved inline to header to provide a centralized,
+// inlined parser with encoding fallbacks for all translation units.
 
-class Json
-{
-public:
-  DECLARE_EXCEPTION(Exception, RootException);
-
-  Json() = default;
-  explicit Json(std::string const & s) { ParseFrom(s); }
-  explicit Json(char const * s) { ParseFrom(s); }
-  explicit Json(JSONPtr && json) { m_handle.AttachNew(json.release()); }
-
-  Json GetDeepCopy() const
-  {
-    Json copy;
-    copy.m_handle.AttachNew(get_deep_copy());
-    return copy;
-  }
-  void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }
-  void ParseFrom(char const * s)
-  {
-    try
-    {
-      auto tmp = base::LoadFromString(std::string(s));
-      m_handle.AttachNew(tmp.release());
-    }
-    catch (base::Json::Exception const & e)
-    {
-      // Preserve the original Json::Exception semantics for callers that
-      // expect this specific exception type.
-      MYTHROW(Exception, (e.Msg()));
-    }
-  }
-
-  json_t * get() const { return m_handle.get(); }
-  json_t * get_deep_copy() const { return json_deep_copy(get()); }
-
-private:
-  JsonHandle m_handle;
-};
-
-JSONPtr LoadFromString(std::string const & str);
-std::string DumpToString(JSONPtr const & json, size_t flags = 0);
-
-json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
-json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field);
-json_t * GetJSONObligatoryField(json_t * root, char const * field);
-json_t const * GetJSONObligatoryField(json_t const * root, char const * field);
-json_t * GetJSONOptionalField(json_t * root, std::string const & field);
-json_t const * GetJSONOptionalField(json_t const * root, std::string const & field);
-json_t * GetJSONOptionalField(json_t * root, char const * field);
-json_t const * GetJSONOptionalField(json_t const * root, char const * field);
-
-template <class First>
-inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path)
-{
-  return GetJSONObligatoryField(root, std::forward<First>(path));
-}
-
-template <class First, class... Paths>
-inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path, Paths &&... paths)
-{
-  json_t const * newRoot = GetJSONObligatoryFieldByPath(root, std::forward<First>(path));
-  return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
-}
-
-template <class First>
-inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path)
-{
-  return GetJSONObligatoryField(root, std::forward<First>(path));
-}
-
-template <class First, class... Paths>
-inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path, Paths &&... paths)
-{
-  json_t * newRoot = GetJSONObligatoryFieldByPath(root, std::forward<First>(path));
-  return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
-}
-
-bool JSONIsNull(json_t const * root);
 }  // namespace base
 
-template <typename T>
-T FromJSON(json_t const * root)
-{
-  T result{};
-  FromJSON(root, result);
-  return result;
-}
+// primitive FromJSON overloads for double and bool are defined inline
+// in the header to allow template instantiations from different
+// translation units to resolve without link errors.
 
-inline void FromJSON(json_t * root, json_t *& value)
+std::string FromJSONToString(json_t const * root)
 {
-  value = root;
-}
-inline void FromJSON(json_t const * root, json_t const *& value)
-{
-  value = root;
-}
+  if (json_is_string(root))
+    return FromJSONToString<std::string>(root);
 
-void FromJSON(json_t const * root, double & result);
-void FromJSON(json_t const * root, bool & result);
+  if (json_is_integer(root))
+    return FromJSONToString<json_int_t>(root);
 
-template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type * = nullptr>
-void FromJSON(json_t const * root, T & result)
-{
-  if (!json_is_number(root))
-    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
-  result = static_cast<T>(json_integer_value(root));
-}
+  if (json_is_real(root))
+    return FromJSONToString<double>(root);
 
-std::string FromJSONToString(json_t const * root);
+  if (json_is_boolean(root))
+    return FromJSONToString<bool>(root);
 
-template <typename T>
-T FromJSONObject(json_t const * root, char const * field)
-{
-  auto const * json = base::GetJSONObligatoryField(root, field);
-  try
-  {
-    return FromJSON<T>(json);
-  }
-  catch (base::Json::Exception const & e)
-  {
-    MYTHROW(base::Json::Exception, ("An error occured while parsing field", field, e.Msg()));
-  }
+  MYTHROW(base::Json::Exception, ("Unexpected json type"));
 }
-
-template <typename T>
-void FromJSONObject(json_t * root, std::string const & field, T & result)
-{
-  auto * json = base::GetJSONObligatoryField(root, field);
-  try
-  {
-    FromJSON(json, result);
-  }
-  catch (base::Json::Exception const & e)
-  {
-    MYTHROW(base::Json::Exception, ("An error occured while parsing field", field, e.Msg()));
-  }
-}
-
-template <typename T>
-std::optional<T> FromJSONObjectOptional(json_t const * root, char const * field)
-{
-  auto * json = base::GetJSONOptionalField(root, field);
-  if (!json)
-    return {};
-
-  std::optional<T> result{T{}};
-  FromJSON(json, *result);
-  return result;
-}
-
-template <typename T>
-void FromJSONObjectOptionalField(json_t const * root, std::string const & field, T & result)
-{
-  auto * json = base::GetJSONOptionalField(root, field);
-  if (!json)
-  {
-    result = T{};
-    return;
-  }
-  FromJSON(json, result);
-}
-
-template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type * = nullptr>
-inline base::JSONPtr ToJSON(T value)
-{
-  return base::NewJSONInt(value);
-}
-inline base::JSONPtr ToJSON(double value)
-{
-  return base::NewJSONReal(value);
-}
-inline base::JSONPtr ToJSON(bool value)
-{
-  return base::NewJSONBool(value);
-}
-inline base::JSONPtr ToJSON(char const * s)
-{
-  return base::NewJSONString(s);
-}
-
-template <typename T>
-void ToJSONArray(json_t & root, T const & value)
-{
-  json_array_append_new(&root, ToJSON(value).release());
-}
-
-inline void ToJSONArray(json_t & parent, base::JSONPtr & child)
-{
-  json_array_append_new(&parent, child.release());
-}
-
-inline void ToJSONArray(json_t & parent, json_t & child)
-{
-  json_array_append_new(&parent, &child);
-}
-
-template <typename T>
-void ToJSONObject(json_t & root, char const * field, T const & value)
-{
-  json_object_set_new(&root, field, ToJSON(value).release());
-}
-
-inline void ToJSONObject(json_t & parent, char const * field, base::JSONPtr && child)
-{
-  json_object_set_new(&parent, field, child.release());
-}
-
-inline void ToJSONObject(json_t & parent, char const * field, base::JSONPtr & child)
-{
-  json_object_set_new(&parent, field, child.release());
-}
-
-inline void ToJSONObject(json_t & parent, char const * field, json_t & child)
-{
-  json_object_set_new(&parent, field, &child);
-}
-
-template <typename T>
-void ToJSONObject(json_t & root, std::string const & field, T const & value)
-{
-  ToJSONObject(root, field.c_str(), value);
-}
-
-inline void ToJSONObject(json_t & parent, std::string const & field, base::JSONPtr && child)
-{
-  ToJSONObject(parent, field.c_str(), std::move(child));
-}
-
-inline void ToJSONObject(json_t & parent, std::string const & field, base::JSONPtr & child)
-{
-  ToJSONObject(parent, field.c_str(), child);
-}
-
-inline void ToJSONObject(json_t & parent, std::string const & field, json_t & child)
-{
-  ToJSONObject(parent, field.c_str(), child);
-}
-
-template <typename T>
-void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & result)
-{
-  auto * arr = base::GetJSONObligatoryField(root, field);
-  if (!json_is_array(arr))
-    MYTHROW(base::Json::Exception, ("The field", field, "must contain a json array."));
-  size_t sz = json_array_size(arr);
-  result.resize(sz);
-  for (size_t i = 0; i < sz; ++i)
-    FromJSON(json_array_get(arr, i), result[i]);
-}
-
-// The function tries to parse array of values from a value
-// corresponding to |field| in a json object corresponding to |root|.
-// Returns true when the value is non-null and array is successfully
-// parsed.  Returns false when there is no such |field| in the |root|
-// or the value is null.  Also, the method may throw an exception in
-// case of json parsing errors.
-template <typename T>
-bool FromJSONObjectOptional(json_t * root, std::string const & field, std::vector<T> & result)
-{
-  auto * arr = base::GetJSONOptionalField(root, field);
-  if (!arr || base::JSONIsNull(arr))
-  {
-    result.clear();
-    return false;
-  }
-  if (!json_is_array(arr))
-    MYTHROW(base::Json::Exception, ("The field", field, "must contain a json array."));
-  size_t const sz = json_array_size(arr);
-  result.resize(sz);
-  for (size_t i = 0; i < sz; ++i)
-    FromJSON(json_array_get(arr, i), result[i]);
-  return true;
-}
-
-template <typename T>
-void ToJSONObject(json_t & root, char const * field, std::vector<T> const & values)
-{
-  auto arr = base::NewJSONArray();
-  for (auto const & value : values)
-    json_array_append_new(arr.get(), ToJSON(value).release());
-  json_object_set_new(&root, field, arr.release());
-}
-
-template <typename T>
-void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const & values)
-{
-  ToJSONObject(root, field.c_str(), values);
-}
-
-template <typename T>
-void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::vector<T> & result)
-{
-  FromJSONObjectOptionalField(const_cast<json_t const *>(root), field, result);
-}
-
-template <typename T>
-void FromJSONObjectOptionalField(json_t const * root, std::string const & field, std::vector<T> & result)
-{
-  json_t const * arr = base::GetJSONOptionalField(root, field);
-  if (!arr)
-  {
-    result.clear();
-    return;
-  }
-  if (!json_is_array(arr))
-    MYTHROW(base::Json::Exception, ("The field", field, "must contain a json array."));
-  size_t sz = json_array_size(arr);
-  result.resize(sz);
-  for (size_t i = 0; i < sz; ++i)
-    FromJSON(json_array_get(arr, i), result[i]);
-}
-
-struct JSONFreeDeleter
-{
-  void operator()(char * buffer) const { free(buffer); }
-};
 
 namespace std
 {
-void FromJSON(json_t const * root, std::string & result);
-inline base::JSONPtr ToJSON(std::string const & s)
+void FromJSON(json_t const * root, std::string & result)
 {
-  return base::NewJSONString(s);
+  if (!json_is_string(root))
+    MYTHROW(base::Json::Exception, ("The field must contain a json string."));
+  result = json_string_value(root);
 }
 }  // namespace std
 
 namespace strings
 {
-void FromJSON(json_t const * root, UniString & result);
-base::JSONPtr ToJSON(UniString const & s);
+void FromJSON(json_t const * root, UniString & result)
+{
+  std::string s;
+  FromJSON(root, s);
+  result = MakeUniString(s);
+}
+
+base::JSONPtr ToJSON(UniString const & s)
+{
+  return ToJSON(ToUtf8(s));
+}
 }  // namespace strings
