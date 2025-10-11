@@ -1,237 +1,148 @@
-#include "platform/get_text_by_id.hpp"
+#include "cppjansson.hpp"
 
-#include "platform/platform.hpp"
-
-#include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
-
-#include "cppjansson/cppjansson.hpp"
-
-#include <algorithm>
-#include <sstream>
-#include <iomanip>
-
-
-namespace platform
-{
-using std::string;
+#include <type_traits>
 
 namespace
 {
-string const kDefaultLanguage = "en";
-
-string GetTextSourceString(platform::TextSource textSource)
+template <typename T>
+std::string FromJSONToString(json_t const * root)
 {
-  switch (textSource)
-  {
-  case platform::TextSource::TtsSound: return string("sound-strings");
-  case platform::TextSource::Countries: return string("countries-strings");
-  }
-  ASSERT(false, ());
-  return string();
+  T result;
+  FromJSON(root, result);
+  // TODO(AB): Is std::to_string faster?
+  return strings::to_string(result);
 }
-// Try to convert ISO-8859-1 / Latin1 encoded bytes into a valid UTF-8 string.
-// Lightweight fallback for packaged localization files that may be encoded
-// in Latin1 instead of UTF-8. Each byte >= 0x80 is converted into a two-
-// byte UTF-8 sequence so the JSON parser can succeed on formerly-invalid
-// input.
-string Latin1ToUtf8(string const & s)
-{
-  string out;
-  out.reserve(s.size() * 2);
-  for (size_t i = 0; i < s.size(); ++i)
-  {
-    unsigned char c = static_cast<unsigned char>(s[i]);
-    if (c < 0x80)
-      out.push_back(static_cast<char>(c));
-    else
-    {
-      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
-      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
-    }
-  }
-  return out;
-}
-
-// Minimal embedded fallback JSON used when both locale-specific and
-// packaged default localization files are unavailable or invalid. This
-// ensures the native code can continue running without aborting on
-// missing or corrupted resource files.
-char const kEmbeddedDefaultLocalizeJson[] = "{}";
 }  // namespace
 
-bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
+namespace base
 {
-  string const relPath = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
-  string const pathToJson = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
-
-  // Try reading file using platform reader. We add extra logging to detect
-  // which source (writable/resources/settings/full path) provided the file
-  // and to output a sample of the first bytes when JSON decoding fails.
-  try
-  {
-    jsonBuffer.clear();
-    // Read raw string
-    auto reader = GetPlatform().GetReader(relPath);
-    // Log the resolved path for debugging (works in DEBUG builds via DbgLogger too)
-    try
-    {
-      string resolved = GetPlatform().ReadPathForFile(relPath);
-      LOG(LINFO, ("Resolved localization file path:", resolved));
-    }
-    catch (RootException const &)
-    {
-      // ReadPathForFile may throw if not found in scope, ignore here
-    }
-
-    reader->ReadAsString(jsonBuffer);
-
-    // Quick UTF-8 sanity check: attempt to parse JSON and if it fails, log a hexdump sample
-    try
-    {
-      base::Json root(jsonBuffer.c_str());
-      (void)root.get();
-    }
-    catch (base::Json::Exception const & exJson)
-    {
-      // Prepare hex sample for logs
-      std::ostringstream oss;
-      size_t sampleLen = std::min<size_t>(jsonBuffer.size(), 128);
-      for (size_t i = 0; i < sampleLen; ++i)
-      {
-        oss << std::hex << std::setfill('0') << std::setw(2)
-            << (static_cast<unsigned int>(static_cast<unsigned char>(jsonBuffer[i]))) << ' ';
-      }
-  // Log as WARNING first so we can attempt a non-fatal fallback before
-  // escalating to an error that triggers the abort behavior in some
-  // Android builds.
-  LOG(LWARNING, ("JSON parse error for locale:", localeName, "file:", relPath, "error:", exJson.what(), "sample_bytes:", oss.str()));
-
-      // Mitigation: try interpreting the bytes as ISO-8859-1 (Latin1) and
-      // convert to UTF-8, then attempt parsing again. If conversion+
-      // parse succeeds we keep the converted buffer and proceed; otherwise
-      // preserve original behavior and rethrow to trigger fallback logic.
-      try
-      {
-        LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
-        string converted = Latin1ToUtf8(jsonBuffer);
-        // Try parsing converted buffer
-        try
-        {
-          base::Json rootConverted(converted.c_str());
-          (void)rootConverted.get();
-          // Success — use converted buffer from now on
-          jsonBuffer.swap(converted);
-          LOG(LINFO, ("Latin1->UTF8 fallback succeeded for:", relPath));
-          // do not rethrow — outer code will continue using jsonBuffer
-        }
-        catch (base::Json::Exception const & ex2)
-        {
-          // Fallback parsing failed — log as WARNING so we can try higher-
-          // level fallback (embedded default) instead of aborting the
-          // process on platforms where ERROR logs trigger aborts.
-          LOG(LWARNING, ("Latin1->UTF8 fallback parse failed for:", relPath,
-                         "original_error:", exJson.what(), "fallback_error:", ex2.what(), "sample_bytes:", oss.str()));
-          MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
-        }
-      }
-      catch (std::exception const & e)
-      {
-        LOG(LWARNING, ("Latin1->UTF8 fallback failed with exception:", e.what(), "file:", relPath));
-        MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
-      }
-    }
-  }
-  catch (RootException const & ex)
-  {
-    LOG(LWARNING, ("Can't open or parse", localeName, "localization file:", relPath, ex.what()));
-    // If we're already attempting the default language, use an embedded
-    // minimal JSON as a last-resort fallback to avoid aborting the
-    // application due to missing/corrupted resources.
-    if (localeName == kDefaultLanguage)
-    {
-      LOG(LWARNING, ("Using embedded default localization for:", localeName));
-      jsonBuffer = string(kEmbeddedDefaultLocalizeJson);
-      return true;
-    }
-    return false;  // No json file for localeName or it failed parsing
-  }
-  return true;
+json_t * GetJSONObligatoryField(json_t * root, std::string const & field)
+{
+  return GetJSONObligatoryField(root, field.c_str());
 }
 
-TGetTextByIdPtr GetTextById::Create(string const & jsonBuffer, string const & localeName)
+json_t * GetJSONObligatoryField(json_t * root, char const * field)
 {
-  TGetTextByIdPtr result(new GetTextById(jsonBuffer, localeName));
-  if (!result->IsValid())
-  {
-    ASSERT(false, ("Can't create a GetTextById instance from a json file. localeName=", localeName));
-    return nullptr;
-  }
+  return const_cast<json_t *>(GetJSONObligatoryField(const_cast<json_t const *>(root), field));
+}
+
+json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field)
+{
+  return GetJSONObligatoryField(root, field.c_str());
+}
+
+json_t const * GetJSONObligatoryField(json_t const * root, char const * field)
+{
+  auto * value = base::GetJSONOptionalField(root, field);
+  if (!value)
+    MYTHROW(base::Json::Exception, ("Obligatory field", field, "is absent."));
+  return value;
+}
+
+json_t * GetJSONOptionalField(json_t * root, std::string const & field)
+{
+  return GetJSONOptionalField(root, field.c_str());
+}
+
+json_t * GetJSONOptionalField(json_t * root, char const * field)
+{
+  return const_cast<json_t *>(GetJSONOptionalField(const_cast<json_t const *>(root), field));
+}
+
+json_t const * GetJSONOptionalField(json_t const * root, std::string const & field)
+{
+  return GetJSONOptionalField(root, field.c_str());
+}
+
+json_t const * GetJSONOptionalField(json_t const * root, char const * field)
+{
+  if (!json_is_object(root))
+    MYTHROW(base::Json::Exception, ("Bad json object while parsing", field));
+  return json_object_get(root, field);
+}
+
+bool JSONIsNull(json_t const * root)
+{
+  return json_is_null(root);
+}
+
+std::string DumpToString(JSONPtr const & json, size_t flags)
+{
+  std::string result;
+  size_t size = json_dumpb(json.get(), nullptr, 0, flags);
+  if (size == 0)
+    MYTHROW(base::Json::Exception, ("Zero size JSON while serializing"));
+
+  result.resize(size);
+  if (size != json_dumpb(json.get(), &result.front(), size, flags))
+    MYTHROW(base::Json::Exception, ("Wrong size JSON written while serializing"));
+
   return result;
 }
 
-TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName)
+JSONPtr LoadFromString(std::string const & str)
 {
-  string jsonBuffer;
-  if (GetJsonBuffer(textSource, localeName, jsonBuffer))
-    return GetTextById::Create(jsonBuffer, localeName);
-
-  if (GetJsonBuffer(textSource, kDefaultLanguage, jsonBuffer))
-    return GetTextById::Create(jsonBuffer, kDefaultLanguage);
-
-  ASSERT(false, ("Can't find translate for default language. (Lang:", localeName, ")"));
-  return nullptr;
+  json_error_t jsonError = {};
+  json_t * result = json_loads(str.c_str(), 0, &jsonError);
+  if (!result)
+    MYTHROW(base::Json::Exception, (jsonError.text));
+  return JSONPtr(result);
 }
 
-TGetTextByIdPtr ForTestingGetTextByIdFactory(string const & jsonBuffer, string const & localeName)
+}  // namespace base
+
+void FromJSON(json_t const * root, double & result)
 {
-  return GetTextById::Create(jsonBuffer, localeName);
+  if (!json_is_number(root))
+    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
+  result = json_number_value(root);
 }
 
-GetTextById::GetTextById(string const & jsonBuffer, string const & localeName) : m_locale(localeName)
+void FromJSON(json_t const * root, bool & result)
 {
-  if (jsonBuffer.empty())
-  {
-    ASSERT(false, ("No json files found."));
-    return;
-  }
-
-  base::Json root(jsonBuffer.c_str());
-  if (root.get() == nullptr)
-  {
-    ASSERT(false, ("Cannot parse the json file."));
-    return;
-  }
-
-  char const * key = nullptr;
-  json_t * value = nullptr;
-  json_object_foreach(root.get(), key, value)
-  {
-    ASSERT(key, ());
-    ASSERT(value, ());
-    char const * const valueStr = json_string_value(value);
-    ASSERT(valueStr, ());
-    m_localeTexts[key] = valueStr;
-  }
-  ASSERT_EQUAL(m_localeTexts.size(), json_object_size(root.get()), ());
+  if (!json_is_true(root) && !json_is_false(root))
+    MYTHROW(base::Json::Exception, ("Object must contain a boolean value."));
+  result = json_is_true(root);
 }
 
-string GetTextById::operator()(string const & textId) const
+std::string FromJSONToString(json_t const * root)
 {
-  auto const textIt = m_localeTexts.find(textId);
-  if (textIt == m_localeTexts.end())
-    return string();
-  return textIt->second;
+  if (json_is_string(root))
+    return FromJSONToString<std::string>(root);
+
+  if (json_is_integer(root))
+    return FromJSONToString<json_int_t>(root);
+
+  if (json_is_real(root))
+    return FromJSONToString<double>(root);
+
+  if (json_is_boolean(root))
+    return FromJSONToString<bool>(root);
+
+  MYTHROW(base::Json::Exception, ("Unexpected json type"));
 }
 
-TTranslations GetTextById::GetAllSortedTranslations() const
+namespace std
 {
-  TTranslations all;
-  all.reserve(m_localeTexts.size());
-  for (auto const & tr : m_localeTexts)
-    all.emplace_back(tr.first, tr.second);
-  using TValue = TTranslations::value_type;
-  sort(all.begin(), all.end(), [](TValue const & v1, TValue const & v2) { return v1.second < v2.second; });
-  return all;
+void FromJSON(json_t const * root, std::string & result)
+{
+  if (!json_is_string(root))
+    MYTHROW(base::Json::Exception, ("The field must contain a json string."));
+  result = json_string_value(root);
 }
-}  // namespace platform
+}  // namespace std
+
+namespace strings
+{
+void FromJSON(json_t const * root, UniString & result)
+{
+  std::string s;
+  FromJSON(root, s);
+  result = MakeUniString(s);
+}
+
+base::JSONPtr ToJSON(UniString const & s)
+{
+  return ToJSON(ToUtf8(s));
+}
+}  // namespace strings
