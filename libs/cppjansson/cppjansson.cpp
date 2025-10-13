@@ -16,26 +16,7 @@ std::string FromJSONToString(json_t const * root)
   return strings::to_string(result);
 }
 
-// Convert ISO-8859-1 / Latin1 bytes to UTF-8. This mirrors the lightweight
-// conversion implemented in platform code and centralizes fallback logic
-// for JSON parsing so callers don't need to duplicate it.
-std::string Latin1ToUtf8(std::string const & s)
-{
-  std::string out;
-  out.reserve(s.size() * 2);
-  for (size_t i = 0; i < s.size(); ++i)
-  {
-    unsigned char c = static_cast<unsigned char>(s[i]);
-    if (c < 0x80)
-      out.push_back(static_cast<char>(c));
-    else
-    {
-      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
-      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
-    }
-  }
-  return out;
-}
+// Latin1ToUtf8 is provided inline in the header (base::Latin1ToUtf8).
 }  // namespace
 
 namespace base
