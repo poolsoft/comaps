@@ -33,63 +33,11 @@ inline JSONPtr NewJSONObject()
 }
 inline JSONPtr NewJSONArray()
 {
-  return JSONPtr(json_array());
-}
-inline JSONPtr NewJSONString(std::string const & s)
-{
-  return JSONPtr(json_string(s.c_str()));
-}
-inline JSONPtr NewJSONInt(json_int_t value)
-{
-  return JSONPtr(json_integer(value));
-}
-inline JSONPtr NewJSONReal(double value)
-{
-  return JSONPtr(json_real(value));
-}
-inline JSONPtr NewJSONBool(bool value)
-{
-  return JSONPtr(value ? json_true() : json_false());
-}
-inline JSONPtr NewJSONNull()
-{
-  return JSONPtr(json_null());
-}
 
-// Forward declaration so that Json::ParseFrom can reuse the centralized
-// parser with encoding fallbacks implemented in cppjansson.cpp.
-// Convert ISO-8859-1 / Latin1 bytes to UTF-8. Lightweight fallback used
-// when incoming JSON contains non-UTF8 bytes.
-inline std::string Latin1ToUtf8(std::string const & s)
-{
-  std::string out;
-  out.reserve(s.size() * 2);
-  for (size_t i = 0; i < s.size(); ++i)
-  {
-    unsigned char c = static_cast<unsigned char>(s[i]);
-    if (c < 0x80)
-      out.push_back(static_cast<char>(c));
-    else
-    {
-      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
-      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
-    }
-  }
-  return out;
-}
-
-inline base::JSONPtr LoadFromString(std::string const & str)
-{
-  json_error_t jsonError = {};
-  json_t * result = json_loads(str.c_str(), 0, &jsonError);
-  if (result)
-    return base::JSONPtr(result);
-
-  std::string err = jsonError.text ? jsonError.text : std::string();
-  if (!err.empty() && (err.find("unable to decode") != std::string::npos ||
-                       err.find("invalid") != std::string::npos ||
-                       err.find("UTF-8") != std::string::npos))
-  {
+  // Forward declaration so that Json::ParseFrom can reuse the centralized
+  // parser with encoding fallbacks. The full definition follows after the
+  // Json class declaration because it refers to base::Json::Exception.
+  JSONPtr LoadFromString(std::string const & str);
     LOG(LINFO, ("JSON parse failed, attempting Latin1->UTF8 fallback. Error:", err));
     try
     {
@@ -154,7 +102,44 @@ private:
   JsonHandle m_handle;
 };
 
-JSONPtr LoadFromString(std::string const & str);
+// Inline implementation of LoadFromString moved here so that base::Json
+// is already defined and its nested Exception type is available.
+inline JSONPtr LoadFromString(std::string const & str)
+{
+  json_error_t jsonError = {};
+  json_t * result = json_loads(str.c_str(), 0, &jsonError);
+  if (result)
+    return JSONPtr(result);
+
+  std::string err = jsonError.text ? jsonError.text : std::string();
+  if (!err.empty() && (err.find("unable to decode") != std::string::npos ||
+                       err.find("invalid") != std::string::npos ||
+                       err.find("UTF-8") != std::string::npos))
+  {
+    LOG(LINFO, ("JSON parse failed, attempting Latin1->UTF8 fallback. Error:", err));
+    try
+    {
+      std::string converted = Latin1ToUtf8(str);
+      json_error_t jsonError2 = {};
+      json_t * result2 = json_loads(converted.c_str(), 0, &jsonError2);
+      if (result2)
+      {
+        LOG(LINFO, ("JSON parse success after Latin1->UTF8 fallback."));
+        return JSONPtr(result2);
+      }
+      std::string err2 = jsonError2.text ? jsonError2.text : std::string();
+      LOG(LWARNING, ("Latin1 fallback parse failed. original:", err, "fallback:", err2));
+      MYTHROW(base::Json::Exception, (err + " / " + err2));
+    }
+    catch (std::exception const & e)
+    {
+      LOG(LWARNING, ("Latin1->UTF8 conversion failed:", e.what()));
+      MYTHROW(base::Json::Exception, (err));
+    }
+  }
+
+  MYTHROW(base::Json::Exception, (err));
+}
 std::string DumpToString(JSONPtr const & json, size_t flags = 0);
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
