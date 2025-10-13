@@ -55,10 +55,6 @@ inline JSONPtr NewJSONNull()
   return JSONPtr(json_null());
 }
 
-// Forward declaration so that Json::ParseFrom can reuse the centralized
-// parser with encoding fallbacks implemented in cppjansson.cpp.
-JSONPtr LoadFromString(std::string const & str);
-
 class Json
 {
 public:
@@ -78,17 +74,10 @@ public:
   void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }
   void ParseFrom(char const * s)
   {
-    try
-    {
-      auto tmp = base::LoadFromString(std::string(s));
-      m_handle.AttachNew(tmp.release());
-    }
-    catch (base::Json::Exception const & e)
-    {
-      // Preserve the original Json::Exception semantics for callers that
-      // expect this specific exception type.
-      MYTHROW(Exception, (e.Msg()));
-    }
+    json_error_t jsonError;
+    m_handle.AttachNew(json_loads(s, 0, &jsonError));
+    if (!m_handle)
+      MYTHROW(Exception, (jsonError.line, jsonError.text));
   }
 
   json_t * get() const { return m_handle.get(); }
