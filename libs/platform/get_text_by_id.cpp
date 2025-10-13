@@ -8,6 +8,9 @@
 #include "cppjansson/cppjansson.hpp"
 
 #include <algorithm>
+#include <sstream>
+#include <iomanip>
+
 
 namespace platform
 {
@@ -27,21 +30,112 @@ string GetTextSourceString(platform::TextSource textSource)
   ASSERT(false, ());
   return string();
 }
+// Note: Latin1->UTF8 conversion helper is provided centrally in
+// cppjansson.hpp as base::Latin1ToUtf8(). Use that implementation so
+// we don't duplicate conversion logic across translation units.
+
+// Minimal embedded fallback JSON used when both locale-specific and
+// packaged default localization files are unavailable or invalid. This
+// ensures the native code can continue running without aborting on
+// missing or corrupted resource files.
+char const kEmbeddedDefaultLocalizeJson[] = "{}";
 }  // namespace
 
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
+  string const relPath = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
   string const pathToJson = base::JoinPath(GetTextSourceString(textSource), localeName + ".json", "localize.json");
 
+  // Try reading file using platform reader. We add extra logging to detect
+  // which source (writable/resources/settings/full path) provided the file
+  // and to output a sample of the first bytes when JSON decoding fails.
   try
   {
     jsonBuffer.clear();
-    GetPlatform().GetReader(pathToJson)->ReadAsString(jsonBuffer);
+    // Read raw string
+    auto reader = GetPlatform().GetReader(relPath);
+    // Log the resolved path for debugging (works in DEBUG builds via DbgLogger too)
+    try
+    {
+      string resolved = GetPlatform().ReadPathForFile(relPath);
+      LOG(LINFO, ("Resolved localization file path:", resolved));
+    }
+    catch (RootException const &)
+    {
+      // ReadPathForFile may throw if not found in scope, ignore here
+    }
+
+    reader->ReadAsString(jsonBuffer);
+
+    // Quick UTF-8 sanity check: attempt to parse JSON and if it fails, log a hexdump sample
+    try
+    {
+      base::Json root(jsonBuffer.c_str());
+      (void)root.get();
+    }
+    catch (base::Json::Exception const & exJson)
+    {
+      // Prepare hex sample for logs
+      std::ostringstream oss;
+      size_t sampleLen = std::min<size_t>(jsonBuffer.size(), 128);
+      for (size_t i = 0; i < sampleLen; ++i)
+      {
+        oss << std::hex << std::setfill('0') << std::setw(2)
+            << (static_cast<unsigned int>(static_cast<unsigned char>(jsonBuffer[i]))) << ' ';
+      }
+  // Log as WARNING first so we can attempt a non-fatal fallback before
+  // escalating to an error that triggers the abort behavior in some
+  // Android builds.
+  LOG(LWARNING, ("JSON parse error for locale:", localeName, "file:", relPath, "error:", exJson.what(), "sample_bytes:", oss.str()));
+
+      // Mitigation: try interpreting the bytes as ISO-8859-1 (Latin1) and
+      // convert to UTF-8, then attempt parsing again. If conversion+
+      // parse succeeds we keep the converted buffer and proceed; otherwise
+      // preserve original behavior and rethrow to trigger fallback logic.
+      try
+      {
+  LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
+  string converted = base::Latin1ToUtf8(jsonBuffer);
+        // Try parsing converted buffer
+        try
+        {
+          base::Json rootConverted(converted.c_str());
+          (void)rootConverted.get();
+          // Success — use converted buffer from now on
+          jsonBuffer.swap(converted);
+          LOG(LINFO, ("Latin1->UTF8 fallback succeeded for:", relPath));
+          // do not rethrow — outer code will continue using jsonBuffer
+        }
+        catch (base::Json::Exception const & ex2)
+        {
+          // Fallback parsing failed — log as WARNING so we can try higher-
+          // level fallback (embedded default) instead of aborting the
+          // process on platforms where ERROR logs trigger aborts.
+          LOG(LWARNING, ("Latin1->UTF8 fallback parse failed for:", relPath,
+                         "original_error:", exJson.what(), "fallback_error:", ex2.what(), "sample_bytes:", oss.str()));
+          MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
+        }
+      }
+      catch (std::exception const & e)
+      {
+        LOG(LWARNING, ("Latin1->UTF8 fallback failed with exception:", e.what(), "file:", relPath));
+        MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
+      }
+    }
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't open", localeName, "localization file:", pathToJson, ex.what()));
-    return false;  // No json file for localeName
+    LOG(LWARNING, ("Can't open or parse", localeName, "localization file:", relPath, ex.what()));
+    // If we're already attempting the default language, use an embedded
+    // minimal JSON as a last-resort fallback to avoid aborting the
+    // application due to missing/corrupted resources.
+    if (localeName == kDefaultLanguage)
+    {
+      LOG(LWARNING, ("Using embedded default localization for:", localeName));
+      jsonBuffer = string(kEmbeddedDefaultLocalizeJson);
+      return true;
+    }
+    return false;  // No json file for localeName or it failed parsing
   }
   return true;
 }

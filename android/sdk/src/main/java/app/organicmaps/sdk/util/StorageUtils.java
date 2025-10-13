@@ -93,7 +93,8 @@ public class StorageUtils
   {
     try
     {
-      return Utils.getApplicationInfo(context.getPackageManager(), Config.getApplicationId(), 0).sourceDir;
+      //return Utils.getApplicationInfo(context.getPackageManager(), Config.getApplicationId(), 0).sourceDir; //Old 
+      return Utils.getApplicationInfo(context.getPackageManager(), context.getPackageName(), 0).sourceDir; //
     }
     catch (final PackageManager.NameNotFoundException e)
     {
