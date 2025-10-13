@@ -4,7 +4,6 @@
 
 #include "base/exception.hpp"
 #include "base/string_utils.hpp"
-#include "base/logging.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -33,35 +32,32 @@ inline JSONPtr NewJSONObject()
 }
 inline JSONPtr NewJSONArray()
 {
-
-  // Forward declaration so that Json::ParseFrom can reuse the centralized
-  // parser with encoding fallbacks. The full definition follows after the
-  // Json class declaration because it refers to base::Json::Exception.
-  JSONPtr LoadFromString(std::string const & str);
-    LOG(LINFO, ("JSON parse failed, attempting Latin1->UTF8 fallback. Error:", err));
-    try
-    {
-      std::string converted = Latin1ToUtf8(str);
-      json_error_t jsonError2 = {};
-      json_t * result2 = json_loads(converted.c_str(), 0, &jsonError2);
-      if (result2)
-      {
-        LOG(LINFO, ("JSON parse success after Latin1->UTF8 fallback."));
-        return base::JSONPtr(result2);
-      }
-      std::string err2 = jsonError2.text ? jsonError2.text : std::string();
-      LOG(LWARNING, ("Latin1 fallback parse failed. original:", err, "fallback:", err2));
-      MYTHROW(base::Json::Exception, (err + " / " + err2));
-    }
-    catch (std::exception const & e)
-    {
-      LOG(LWARNING, ("Latin1->UTF8 conversion failed:", e.what()));
-      MYTHROW(base::Json::Exception, (err));
-    }
-  }
-
-  MYTHROW(base::Json::Exception, (err));
+  return JSONPtr(json_array());
 }
+inline JSONPtr NewJSONString(std::string const & s)
+{
+  return JSONPtr(json_string(s.c_str()));
+}
+inline JSONPtr NewJSONInt(json_int_t value)
+{
+  return JSONPtr(json_integer(value));
+}
+inline JSONPtr NewJSONReal(double value)
+{
+  return JSONPtr(json_real(value));
+}
+inline JSONPtr NewJSONBool(bool value)
+{
+  return JSONPtr(value ? json_true() : json_false());
+}
+inline JSONPtr NewJSONNull()
+{
+  return JSONPtr(json_null());
+}
+
+// Forward declaration so that Json::ParseFrom can reuse the centralized
+// parser with encoding fallbacks implemented in cppjansson.cpp.
+JSONPtr LoadFromString(std::string const & str);
 
 class Json
 {
@@ -102,88 +98,17 @@ private:
   JsonHandle m_handle;
 };
 
-// Inline implementation of LoadFromString moved here so that base::Json
-// is already defined and its nested Exception type is available.
-inline JSONPtr LoadFromString(std::string const & str)
-{
-  json_error_t jsonError = {};
-  json_t * result = json_loads(str.c_str(), 0, &jsonError);
-  if (result)
-    return JSONPtr(result);
-
-  std::string err = jsonError.text ? jsonError.text : std::string();
-  if (!err.empty() && (err.find("unable to decode") != std::string::npos ||
-                       err.find("invalid") != std::string::npos ||
-                       err.find("UTF-8") != std::string::npos))
-  {
-    LOG(LINFO, ("JSON parse failed, attempting Latin1->UTF8 fallback. Error:", err));
-    try
-    {
-      std::string converted = Latin1ToUtf8(str);
-      json_error_t jsonError2 = {};
-      json_t * result2 = json_loads(converted.c_str(), 0, &jsonError2);
-      if (result2)
-      {
-        LOG(LINFO, ("JSON parse success after Latin1->UTF8 fallback."));
-        return JSONPtr(result2);
-      }
-      std::string err2 = jsonError2.text ? jsonError2.text : std::string();
-      LOG(LWARNING, ("Latin1 fallback parse failed. original:", err, "fallback:", err2));
-      MYTHROW(base::Json::Exception, (err + " / " + err2));
-    }
-    catch (std::exception const & e)
-    {
-      LOG(LWARNING, ("Latin1->UTF8 conversion failed:", e.what()));
-      MYTHROW(base::Json::Exception, (err));
-    }
-  }
-
-  MYTHROW(base::Json::Exception, (err));
-}
+JSONPtr LoadFromString(std::string const & str);
 std::string DumpToString(JSONPtr const & json, size_t flags = 0);
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
 json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field);
 json_t * GetJSONObligatoryField(json_t * root, char const * field);
 json_t const * GetJSONObligatoryField(json_t const * root, char const * field);
-inline json_t * GetJSONOptionalField(json_t * root, std::string const & field)
-{
-  return GetJSONOptionalField(root, field.c_str());
-}
-inline json_t const * GetJSONOptionalField(json_t const * root, std::string const & field)
-{
-  return GetJSONOptionalField(root, field.c_str());
-}
-inline json_t * GetJSONOptionalField(json_t * root, char const * field)
-{
-  return const_cast<json_t *>(GetJSONOptionalField(const_cast<json_t const *>(root), field));
-}
-inline json_t const * GetJSONOptionalField(json_t const * root, char const * field)
-{
-  if (!json_is_object(root))
-    MYTHROW(base::Json::Exception, ("Bad json object while parsing", field));
-  return json_object_get(root, field);
-}
-
-inline json_t * GetJSONObligatoryField(json_t * root, std::string const & field)
-{
-  return GetJSONObligatoryField(root, field.c_str());
-}
-inline json_t const * GetJSONObligatoryField(json_t const * root, std::string const & field)
-{
-  return GetJSONObligatoryField(root, field.c_str());
-}
-inline json_t * GetJSONObligatoryField(json_t * root, char const * field)
-{
-  return const_cast<json_t *>(GetJSONObligatoryField(const_cast<json_t const *>(root), field));
-}
-inline json_t const * GetJSONObligatoryField(json_t const * root, char const * field)
-{
-  auto * value = GetJSONOptionalField(root, field);
-  if (!value)
-    MYTHROW(base::Json::Exception, ("Obligatory field", field, "is absent."));
-  return value;
-}
+json_t * GetJSONOptionalField(json_t * root, std::string const & field);
+json_t const * GetJSONOptionalField(json_t const * root, std::string const & field);
+json_t * GetJSONOptionalField(json_t * root, char const * field);
+json_t const * GetJSONOptionalField(json_t const * root, char const * field);
 
 template <class First>
 inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path)
@@ -212,10 +137,6 @@ inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path, Paths
 }
 
 bool JSONIsNull(json_t const * root);
-inline bool JSONIsNull(json_t const * root)
-{
-  return json_is_null(root);
-}
 }  // namespace base
 
 template <typename T>
@@ -235,19 +156,8 @@ inline void FromJSON(json_t const * root, json_t const *& value)
   value = root;
 }
 
-inline void FromJSON(json_t const * root, double & result)
-{
-  if (!json_is_number(root))
-    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
-  result = json_number_value(root);
-}
-
-inline void FromJSON(json_t const * root, bool & result)
-{
-  if (!json_is_true(root) && !json_is_false(root))
-    MYTHROW(base::Json::Exception, ("Object must contain a boolean value."));
-  result = json_is_true(root);
-}
+void FromJSON(json_t const * root, double & result);
+void FromJSON(json_t const * root, bool & result);
 
 template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type * = nullptr>
 void FromJSON(json_t const * root, T & result)
