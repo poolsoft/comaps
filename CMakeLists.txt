@@ -88,6 +88,12 @@ else()
   add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)
 endif()
 
+# Android UTF-8 encoding fix
+if(PLATFORM_ANDROID)
+  add_compile_options(-finput-charset=UTF-8 -fexec-charset=UTF-8)
+  add_definitions(-DANDROID_UTF8_WORKAROUND)
+endif()
+
 if (PLATFORM_WIN)
   add_definitions(
     -DWIN32_LEAN_AND_MEAN
