@@ -30,28 +30,9 @@ string GetTextSourceString(platform::TextSource textSource)
   ASSERT(false, ());
   return string();
 }
-// Try to convert ISO-8859-1 / Latin1 encoded bytes into a valid UTF-8 string.
-// Lightweight fallback for packaged localization files that may be encoded
-// in Latin1 instead of UTF-8. Each byte >= 0x80 is converted into a two-
-// byte UTF-8 sequence so the JSON parser can succeed on formerly-invalid
-// input.
-string Latin1ToUtf8(string const & s)
-{
-  string out;
-  out.reserve(s.size() * 2);
-  for (size_t i = 0; i < s.size(); ++i)
-  {
-    unsigned char c = static_cast<unsigned char>(s[i]);
-    if (c < 0x80)
-      out.push_back(static_cast<char>(c));
-    else
-    {
-      out.push_back(static_cast<char>(0xC0 | (c >> 6)));
-      out.push_back(static_cast<char>(0x80 | (c & 0x3F)));
-    }
-  }
-  return out;
-}
+// Note: Latin1->UTF8 conversion helper is provided centrally in
+// cppjansson.hpp as base::Latin1ToUtf8(). Use that implementation so
+// we don't duplicate conversion logic across translation units.
 
 // Minimal embedded fallback JSON used when both locale-specific and
 // packaged default localization files are unavailable or invalid. This
@@ -113,8 +94,8 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
       // preserve original behavior and rethrow to trigger fallback logic.
       try
       {
-        LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
-        string converted = Latin1ToUtf8(jsonBuffer);
+  LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
+  string converted = base::Latin1ToUtf8(jsonBuffer);
         // Try parsing converted buffer
         try
         {
