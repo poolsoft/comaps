@@ -86,6 +86,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
 
     reader->ReadAsString(jsonBuffer);
 
+    LOG(LINFO, ("Read localization file content size:", jsonBuffer.size()));
     LOG(LINFO, ("Read localization file content:", jsonBuffer));
 
     // Quick UTF-8 sanity check: attempt to parse JSON and if it fails, log a hexdump sample
