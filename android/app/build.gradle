@@ -142,6 +142,9 @@ android {
     disable 'CustomSplashScreen'
     // https://github.com/organicmaps/organicmaps/issues/3610
     disable 'InsecureBaseConfiguration'
+    // UTF-8 encoding sorunları için
+    disable 'ByteOrderMark'
+    disable 'InvalidPackage'
     abortOnError = true
   }
 
@@ -310,6 +313,7 @@ android {
 
   compileOptions {
     coreLibraryDesugaringEnabled = true
+    encoding 'UTF-8'
 
     sourceCompatibility JavaVersion.VERSION_21
     targetCompatibility JavaVersion.VERSION_21
