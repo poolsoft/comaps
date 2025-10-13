@@ -167,15 +167,6 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldSh
   return g_framework->GetPlacePageInfo().ShouldShowEditPlace();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
-{
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
-    return static_cast<jboolean>(false);
-
-  return g_framework->GetPlacePageInfo().ShouldShowAddBusiness();
-}
-
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();

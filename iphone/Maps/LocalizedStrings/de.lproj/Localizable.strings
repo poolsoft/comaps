@@ -10,7 +10,7 @@
 "download_maps" = "Karten herunterladen";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Wird heruntergeladen…";
+"downloading" = "Wird heruntergeladen …";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometer";

@@ -181,8 +181,6 @@
     <string name="done">Færdig</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">OpenStreetMap-data: %s</string>
-    <!-- Confirmation for OpenStreetMap log out. -->
-    <string name="osm_log_out_confirmation">Er du sikker på, at du vil logge ud af din OpenStreetMap-konto?</string>
     <!-- Title for tracks category in bookmarks manager -->
     <string name="tracks_title">Spor</string>
     <!-- Length of track in cell that describes route -->
@@ -449,7 +447,6 @@
     <string name="editor_edit_place_category_title">Kategori</string>
     <string name="detailed_problem_description">Detaljeret beskrivelse af problemet</string>
     <string name="editor_report_problem_other_title">Et andet problem</string>
-    <string name="placepage_add_business_button">Tilføj virksomhed</string>
     <string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Fællesskabsskabte OpenStreetMap-data fra %s. Få mere at vide om, hvordan du redigerer og opdaterer kortet på OpenStreetMap.org</string>

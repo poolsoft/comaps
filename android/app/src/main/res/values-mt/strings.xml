@@ -171,7 +171,6 @@
     <string name="copied_to_clipboard">Ikkupjat fuq il-klibbord: %s</string>
     <string name="done">Lest</string>
     <string name="data_version">Dejta tal-OpenStreetMap: %s</string>
-    <string name="osm_log_out_confirmation">Ċert li trid toħroġ mill-akkount tal-OpenStreetMap?</string>
     <string name="tracks_title">Korsa</string>
     <string name="share_my_location">Ixxerja l-post tiegħi</string>
     <string name="prefs_group_information">Informazzjoni</string>
@@ -311,7 +310,6 @@
     <string name="editor_add_place_title">Żiddiet</string>
     <string name="editor_edit_place_name_hint">Isem tal-post</string>
     <string name="editor_report_problem_other_title">Problema differenti</string>
-    <string name="placepage_add_business_button">Żid in-negozju</string>
     <string name="osm_presentation">Dejta tal-OpenStreetMap maħluqa mill-komunita’ fl-%s. Sir af aktar dwar kif teditja u taġġorna l-mappa f’ OpenStreetMap.org</string>
     <string name="login_to_make_edits_visible">Oħloq kont ma\' OpenStreetMap jew illoggja fih biex tippubblika l-editjar tal-mapep tiegħek għad-dinja</string>
     <string name="downloader_of">%1$d ta\' %2$d</string>
