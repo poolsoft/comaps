@@ -87,7 +87,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
     reader->ReadAsString(jsonBuffer);
 
     LOG(LINFO, ("Read localization file content size:", jsonBuffer.size()));
-    LOG(LINFO, ("Read localization file content:", jsonBuffer));
+    //LOG(LINFO, ("Read localization file content:", jsonBuffer));
 
     // Quick UTF-8 sanity check: attempt to parse JSON and if it fails, log a hexdump sample
     try
@@ -108,7 +108,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
   // Log as WARNING first so we can attempt a non-fatal fallback before
   // escalating to an error that triggers the abort behavior in some
   // Android builds.
-  LOG(LWARNING, ("JSON parse error for locale:", localeName, "file:", relPath, "error:", exJson.what(), "sample_bytes:", oss.str()));
+  //LOG(LWARNING, ("JSON parse error for locale:", localeName, "file:", relPath, "error:", exJson.what(), "sample_bytes:", oss.str()));
 
       // Mitigation: try interpreting the bytes as ISO-8859-1 (Latin1) and
       // convert to UTF-8, then attempt parsing again. If conversion+
@@ -116,7 +116,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
       // preserve original behavior and rethrow to trigger fallback logic.
       try
       {
-  LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
+  //LOG(LINFO, ("Attempting Latin1->UTF8 fallback for:", relPath));
         string converted = Latin1ToUtf8(jsonBuffer);
         // Try parsing converted buffer
         try
@@ -133,8 +133,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
           // Fallback parsing failed — log as WARNING so we can try higher-
           // level fallback (embedded default) instead of aborting the
           // process on platforms where ERROR logs trigger aborts.
-          LOG(LWARNING, ("Latin1->UTF8 fallback parse failed for:", relPath,
-                         "original_error:", exJson.what(), "fallback_error:", ex2.what(), "sample_bytes:", oss.str()));
+          //LOG(LWARNING, ("Latin1->UTF8 fallback parse failed for:", relPath,"original_error:", exJson.what(), "fallback_error:", ex2.what(), "sample_bytes:", oss.str()));
           MYTHROW(RootException, ("Invalid JSON in file", relPath, exJson.what()));
         }
       }
