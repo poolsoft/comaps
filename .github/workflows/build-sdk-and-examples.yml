@@ -1,9 +1,11 @@
 name: Build SDK and Examples
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch: {}
+on:
+  workflow_dispatch: # Manual trigger
+  #push:
+  #  branches:
+  #    - main
 
 jobs:
   build:
