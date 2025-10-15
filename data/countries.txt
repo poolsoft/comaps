@@ -1532,7 +1532,7 @@
      "sha1_base64": "Dg7nnKspCXoJVhbBbUXnwFnARPU="
     },
     {
-     "id":.comaps/data/countries.jsonBrazil_Paraiba",
+     "id":"Brazil_Paraiba",
      "old": [
       "Brazil_Northeast"
      ],
