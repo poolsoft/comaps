@@ -327,7 +327,6 @@
     <string name="placepage_more_button">Več</string>
     <string name="placepage_edit_bookmark_button">Uredi zaznamek</string>
     <string name="placepage_personal_notes_hint">Zasebne beležke (besedilo ali HTML)</string>
-    <string name="editor_comment_hint">Komentar …</string>
     <string name="editor_reset_edits_message">Naj zavržem vse krajevne spremembe?</string>
     <string name="editor_reset_edits_button">Zavrzi</string>
     <string name="editor_remove_place_message">Naj izbrišem dodane kraje?</string>

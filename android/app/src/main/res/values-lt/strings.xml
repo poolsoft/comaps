@@ -490,7 +490,6 @@
     <string name="placepage_more_button">Išsamiau</string>
     <string name="placepage_edit_bookmark_button">Taisyti žymę</string>
     <string name="placepage_personal_notes_hint">Asmeninės pastabos (tekstas arba HTML)</string>
-    <string name="editor_comment_hint">Komentaras…</string>
     <string name="editor_reset_edits_message">Anuliuoti visus vietinius pakeitimus?</string>
     <string name="editor_reset_edits_button">Anuliuoti</string>
     <string name="editor_remove_place_message">Šalinti pridėtą vietą?</string>

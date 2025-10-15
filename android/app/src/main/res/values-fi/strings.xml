@@ -503,7 +503,6 @@
     <string name="placepage_more_button">Lisää</string>
     <string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
     <string name="placepage_personal_notes_hint">Henkilökohtaiset merkinnät (teksti tai html)</string>
-    <string name="editor_comment_hint">Kommentti…</string>
     <string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>
     <string name="editor_reset_edits_button">Nollaa</string>
     <string name="editor_remove_place_message">Poistetaanko lisätty paikka?</string>

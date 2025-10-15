@@ -395,6 +395,35 @@ OSMKeyValues ChargeSocketsHelper::GetOSMKeyValues()
   return result;
 }
 
+KeyValueDiffSet ChargeSocketsHelper::Diff(ChargeSocketDescriptors const & oldSockets)
+{
+  KeyValueDiffSet result;
+
+  auto oldKeys = ChargeSocketsHelper(oldSockets).GetOSMKeyValues();
+  auto newKeys = GetOSMKeyValues();
+
+  std::unordered_map<std::string, std::string> oldMap, newMap;
+
+  for (auto && [k, v] : oldKeys)
+    oldMap.emplace(k, v);
+  for (auto && [k, v] : newKeys)
+    newMap.emplace(k, v);
+
+  // Handle keys that exist in old
+  for (auto && [k, oldVal] : oldMap)
+    if (auto it = newMap.find(k); it == newMap.end())
+      result.insert({k, oldVal, ""});  // deleted
+    else if (it->second != oldVal)
+      result.insert({k, oldVal, it->second});  // updated
+
+  // Handle keys that are only new
+  for (auto && [k, newVal] : newMap)
+    if (!oldMap.contains(k))
+      result.insert({k, "", newVal});  // created
+
+  return result;
+}
+
 void ChargeSocketsHelper::Sort()
 {
   size_t const unknownTypeOrder = SUPPORTED_TYPES.size();

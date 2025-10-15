@@ -496,7 +496,6 @@
     <string name="placepage_more_button">עוד</string>
     <string name="placepage_edit_bookmark_button">ערוך סימניה</string>
     <string name="placepage_personal_notes_hint">הערות אישיות (טקסט או HTML)</string>
-    <string name="editor_comment_hint">תגובה…</string>
     <string name="editor_reset_edits_message">למחוק את כל השינויים המקומיים?</string>
     <string name="editor_reset_edits_button">מחק</string>
     <string name="editor_remove_place_message">למחוק את המקום שהוסף?</string>

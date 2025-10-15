@@ -39,7 +39,7 @@
 "type.amenity.casino" = "Kasino";
 "type.amenity.gambling" = "Glücksspiel";
 "type.leisure.adult_gaming_centre" = "Spielhalle für Erwachsene";
-"type.leisure.amusement_arcade" = "Arcade";
+"type.leisure.amusement_arcade" = "Spielhalle für Unterhaltungsspiele";
 "type.amenity.charging_station" = "Ladestation";
 "type.amenity.charging_station.bicycle" = "Fahrrad-Ladestation";
 "type.amenity.charging_station.motorcar" = "Kfz-Ladestation";

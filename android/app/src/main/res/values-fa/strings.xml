@@ -478,7 +478,6 @@
     <string name="placepage_more_button">بیشتر</string>
     <string name="placepage_edit_bookmark_button">ویرایش نشانه‌ها</string>
     <string name="placepage_personal_notes_hint">یادداشت های شخصی (متن یا html)</string>
-    <string name="editor_comment_hint">اظهار نظر</string>
     <string name="editor_reset_edits_message">آیا تغییرات محلی را نادیده می گیرید؟</string>
     <string name="editor_reset_edits_button">نادیده گرفتن</string>
     <string name="editor_remove_place_message">آیا مکان ثبت شده حذف شود؟</string>

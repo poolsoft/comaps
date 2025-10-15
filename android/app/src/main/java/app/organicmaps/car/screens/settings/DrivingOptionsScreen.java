@@ -31,7 +31,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
   private final DrivingOption[] mDrivingOptions = {new DrivingOption(RoadType.Toll, R.string.avoid_tolls),
                                                    new DrivingOption(RoadType.Dirty, R.string.avoid_unpaved),
                                                    new DrivingOption(RoadType.Ferry, R.string.avoid_ferry),
-                                                   new DrivingOption(RoadType.Motorway, R.string.avoid_motorways)};
+                                                   new DrivingOption(RoadType.Motorway, R.string.avoid_motorways),
+                                                   new DrivingOption(RoadType.Steps, R.string.avoid_steps)};
 
   @NonNull
   private final Map<RoadType, Boolean> mInitialDrivingOptionsState = new HashMap<>();

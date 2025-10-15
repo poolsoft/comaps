@@ -502,7 +502,6 @@
     <string name="placepage_more_button">Gehiago</string>
     <string name="placepage_edit_bookmark_button">Editatu markagailua</string>
     <string name="placepage_personal_notes_hint">Ohar pertsonalak (testua edo html)</string>
-    <string name="editor_comment_hint">Iruzkina…</string>
     <string name="editor_reset_edits_message">Tokiko aldaketa guztiak berrezarri nahi dituzu?</string>
     <string name="editor_reset_edits_button">Berreskuratu</string>
     <string name="editor_remove_place_message">Gehitutako tokia ezabatu?</string>

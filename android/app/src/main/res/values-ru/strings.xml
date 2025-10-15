@@ -506,7 +506,6 @@
     <string name="placepage_more_button">Ещё</string>
     <string name="placepage_edit_bookmark_button">Редактировать метку</string>
     <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
-    <string name="editor_comment_hint">Коментарий…</string>
     <string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
     <string name="editor_reset_edits_button">Сбросить</string>
     <string name="editor_remove_place_message">Удалить добавленный вами объект?</string>

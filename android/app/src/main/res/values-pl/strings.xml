@@ -504,7 +504,6 @@
     <string name="placepage_more_button">Więcej</string>
     <string name="placepage_edit_bookmark_button">Edytuj zakładkę</string>
     <string name="placepage_personal_notes_hint">Notatki osobiste (tekst lub html)</string>
-    <string name="editor_comment_hint">Komentarz…</string>
     <string name="editor_reset_edits_message">Usunąć wszystkie lokalne zmiany?</string>
     <string name="editor_reset_edits_button">Usuń</string>
     <string name="editor_remove_place_message">Usunąć dodane miejsce?</string>

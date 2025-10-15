@@ -447,7 +447,6 @@
     <string name="placepage_more_button">Mais</string>
     <string name="placepage_edit_bookmark_button">Editar favorito</string>
     <string name="placepage_personal_notes_hint">Anotações pessoais (texto ou html)</string>
-    <string name="editor_comment_hint">Comentar…</string>
     <string name="editor_reset_edits_message">Descartar todas as modificações locais?</string>
     <string name="editor_reset_edits_button">Descartar</string>
     <string name="editor_remove_place_message">Remover local adicionado?</string>
@@ -848,7 +847,7 @@
     <string name="existence_confirmed_time_ago">Existência confirmada %s</string>
     <string name="hours_confirmed_time_ago">Confirmado %s</string>
     <string name="pref_tts_no_system_tts_short">Nenhum mecanismo de conversão de texto em voz encontrado, verifique as configurações do aplicativo</string>
-    <string name="unknown_power_output">potência desconhecida</string>
+    <string name="unknown_power_output">desconhecido</string>
     <string name="charge_socket_type2">Tipo 2 (sem cabo)</string>
     <string name="charge_socket_type2_cable">Tipo 2 (com cabo)</string>
     <string name="charge_socket_type2_combo">Combo tipo 2</string>
@@ -856,4 +855,15 @@
     <string name="charge_socket_nacs">NACS</string>
     <string name="unknown_socket_type">tomada desconhecida</string>
     <string name="charge_socket_chademo">CHAdeMO</string>
+    <string name="avoid_steps">Evitar degraus</string>
+    <string name="unknow_socket_type">tomada desconhecida</string>
+    <string name="edit_socket_info_tooltip">Criar novas tomadas ou editar existentes.</string>
+    <string name="charging_station_available_sockets">Tomadas disponíveis</string>
+    <string name="charge_socket_unknown_other">Outra ou desconhecida</string>
+    <string name="charge_socket_count">Quantidade</string>
+    <string name="charge_socket_power">Potência (kW)</string>
+    <string name="editor_socket">Editar tomada</string>
+    <string name="unknown_count">desconhecida</string>
+    <string name="error_value_must_be_positive">O valor deve ser positivo</string>
+    <string name="error_invalid_number">Número inválido</string>
 </resources>

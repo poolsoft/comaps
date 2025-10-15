@@ -500,7 +500,6 @@
     <string name="placepage_more_button">Meer</string>
     <string name="placepage_edit_bookmark_button">Bladwijzer bewerken</string>
     <string name="placepage_personal_notes_hint">Persoonlijke aantekeningen (tekst of html)</string>
-    <string name="editor_comment_hint">Reactie…</string>
     <string name="editor_reset_edits_message">Alle lokale wijzigingen weggooien?</string>
     <string name="editor_reset_edits_button">Gooi weg</string>
     <string name="editor_remove_place_message">Toegevoegde locatie verwijderen?</string>

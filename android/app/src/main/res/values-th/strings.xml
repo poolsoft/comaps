@@ -484,7 +484,6 @@
     <string name="placepage_more_button">เพิ่มเติม</string>
     <string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
     <string name="placepage_personal_notes_hint">ข้อความส่วนตัว (ข้อความหรือ html)</string>
-    <string name="editor_comment_hint">ข้อคิดเห็น</string>
     <string name="editor_reset_edits_message">ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด</string>
     <string name="editor_reset_edits_button">ตั้งค่าใหม่</string>
     <string name="editor_remove_place_message">ลบที่ที่เพิ่มออก</string>

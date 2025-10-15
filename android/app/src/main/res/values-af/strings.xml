@@ -484,7 +484,6 @@
     <string name="placepage_more_button">Meer</string>
     <string name="placepage_edit_bookmark_button">Wysig boekmerk</string>
     <string name="placepage_personal_notes_hint">Persoonlike notas (teks of html)</string>
-    <string name="editor_comment_hint">Kommentaar…</string>
     <string name="editor_reset_edits_message">Wys alle lokale veranderinge af?</string>
     <string name="editor_reset_edits_button">Wys af</string>
     <string name="editor_remove_place_message">Skrap toegevoegde plek?</string>

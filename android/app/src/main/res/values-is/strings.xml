@@ -177,7 +177,6 @@
     <string name="editor_zip_code">Póstnúmer</string>
     <string name="error_enter_correct_zip_code">Settu inn gilt póstnúmer</string>
     <string name="operator">Rekstraraðili: %s</string>
-    <string name="editor_comment_hint">Athugasemd…</string>
     <string name="editor_reset_edits_button">Henda</string>
     <string name="mobile_data_option_always">Alltaf nota</string>
     <string name="bookmark_lists">Listar</string>

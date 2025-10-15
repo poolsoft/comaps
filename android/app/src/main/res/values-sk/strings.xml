@@ -500,7 +500,6 @@
     <string name="placepage_more_button">Viac</string>
     <string name="placepage_edit_bookmark_button">Upraviť záložku</string>
     <string name="placepage_personal_notes_hint">Osobné poznámky (text alebo html)</string>
-    <string name="editor_comment_hint">Poznámka…</string>
     <string name="editor_reset_edits_message">Resetovať všetky miestne časy?</string>
     <string name="editor_reset_edits_button">Resetovať</string>
     <string name="editor_remove_place_message">Odstrániť pridané miesto?</string>

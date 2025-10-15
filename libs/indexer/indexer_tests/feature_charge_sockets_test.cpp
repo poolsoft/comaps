@@ -203,6 +203,52 @@ UNIT_TEST(ChargeSockets_Processing)
   TEST_EQUAL(
       ChargeSocketsHelper("type2|3|43;type2|5|7.4;type2_combo|10|250;type2|2|50;type2_combo|2|100").GetOSMKeyValues(),
       kvs, ());
+
+  ///////////////////////////////////////////////////////////
+  // OSM attribute diff
+  OSMKeyValues kvs_old, kvs_new;
+  KeyValueDiffSet diff;
+
+  kvs_old = {{"socket:type2", "2"}};
+  kvs_new = {{"socket:type2", "2"}};
+  diff = {};
+  TEST_EQUAL(FromKVs(kvs_new).Diff(FromKVs(kvs_old).GetSockets()), diff, ());
+
+  kvs_old = {{"socket:type2", "3"}};
+  kvs_new = {{"socket:type2", "2"}};
+  diff = {{"socket:type2", "3", "2"}};
+  TEST_EQUAL(FromKVs(kvs_new).Diff(FromKVs(kvs_old).GetSockets()), diff, ());
+
+  kvs_old = {{"socket:type2", "2"}};
+  kvs_new = {{"socket:type2", "3"}};
+  diff = {{"socket:type2", "2", "3"}};
+  TEST_EQUAL(FromKVs(kvs_new).Diff(FromKVs(kvs_old).GetSockets()), diff, ());
+
+  kvs_old = {};
+  kvs_new = {{"socket:type2", "2"}};
+  diff = {{"socket:type2", "", "2"}};
+  TEST_EQUAL(FromKVs(kvs_new).Diff(FromKVs(kvs_old).GetSockets()), diff, ());
+
+  kvs_old = {{"socket:type2", "2"}};
+  kvs_new = {};
+  diff = {{"socket:type2", "2", ""}};
+  TEST_EQUAL(FromKVs(kvs_new).Diff(FromKVs(kvs_old).GetSockets()), diff, ());
+
+  kvs_old = {{"socket:type2_combo", "10;2"},
+             {"socket:type2_combo:output", "250;100"},
+             {"socket:type1", "5"},
+             {"socket:type2", "2;3;5"},
+             {"socket:type2:output", "50;43;7.4"}};
+  kvs_new = {{"socket:type2_combo", "10;2"},
+             {"socket:type2_combo:output", "250;100"},
+             {"socket:chademo", "2"},
+             {"socket:type2", "2;3"},
+             {"socket:type2:output", "50;43"}};
+  diff = {{"socket:type1", "5", ""},
+          {"socket:type2", "2;3;5", "2;3"},
+          {"socket:type2:output", "50;43;7.4", "50;43"},
+          {"socket:chademo", "", "2"}};
+  TEST_EQUAL(FromKVs(kvs_new).Diff(FromKVs(kvs_old).GetSockets()), diff, ());
 }
 
 }  // namespace feature_charge_sockets_test

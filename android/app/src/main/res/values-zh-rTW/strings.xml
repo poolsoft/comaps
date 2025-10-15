@@ -510,7 +510,6 @@
     <string name="placepage_more_button">更多</string>
     <string name="placepage_edit_bookmark_button">編輯書籤</string>
     <string name="placepage_personal_notes_hint">個人備註（文字或 html）</string>
-    <string name="editor_comment_hint">備註…</string>
     <string name="editor_reset_edits_message">重設所有本機變更？</string>
     <string name="editor_reset_edits_button">重設</string>
     <string name="editor_remove_place_message">移除已新增的地點？</string>

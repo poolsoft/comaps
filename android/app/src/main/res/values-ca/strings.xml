@@ -501,7 +501,6 @@
     <string name="placepage_more_button">Més</string>
     <string name="placepage_edit_bookmark_button">Edita el marcador</string>
     <string name="placepage_personal_notes_hint">Notes personals (text o html)</string>
-    <string name="editor_comment_hint">Comentari…</string>
     <string name="editor_reset_edits_message">Voleu descartar tots els canvis locals?</string>
     <string name="editor_reset_edits_button">Descarta</string>
     <string name="editor_remove_place_message">Voleu suprimir el lloc afegit?</string>

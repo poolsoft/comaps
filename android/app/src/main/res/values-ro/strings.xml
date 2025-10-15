@@ -496,7 +496,6 @@
     <string name="placepage_more_button">Mai mult</string>
     <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
     <string name="placepage_personal_notes_hint">Însemnări personale (text sau html)</string>
-    <string name="editor_comment_hint">Comentariu…</string>
     <string name="editor_reset_edits_message">Ștergi toate modificările locale?</string>
     <string name="editor_reset_edits_button">Renunță</string>
     <string name="editor_remove_place_message">Elimini locul adăugat?</string>

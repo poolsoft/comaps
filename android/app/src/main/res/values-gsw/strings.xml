@@ -399,7 +399,6 @@
     <string name="day">d</string>
     <string name="placepage_edit_bookmark_button">Lesezeiche bearbeite</string>
     <string name="placepage_personal_notes_hint">Persönlichi Notize (Text oder HTML)</string>
-    <string name="editor_comment_hint">Kommentar…</string>
     <string name="editor_reset_edits_button">Verwerfe</string>
     <string name="editor_remove_place_message">Hinzuegfüegts Objekt lösche?</string>
     <string name="editor_remove_place_button">Lösche</string>

@@ -1,7 +1,9 @@
 #pragma once
 
 #include <array>
+#include <set>
 #include <string>
+#include <tuple>
 #include <utility>  // for std::pair
 #include <vector>
 
@@ -19,10 +21,14 @@ typedef std::vector<ChargeSocketDescriptor> ChargeSocketDescriptors;
 
 typedef std::vector<std::pair<std::string, std::string>> OSMKeyValues;
 
+typedef std::set<std::tuple<std::string, std::string, std::string>> KeyValueDiffSet;
+
 class ChargeSocketsHelper
 {
 public:
   ChargeSocketsHelper() : m_dirty(false) {}
+
+  ChargeSocketsHelper(ChargeSocketDescriptors const & sockets) : m_chargeSockets(sockets), m_dirty(true) {}
 
   /** Create a ChareSocketsHelper instance from an existing list of sockets
    * stored as "<type>|<nb>|[<power>];..."
@@ -90,6 +96,19 @@ public:
   static constexpr std::array<std::string_view, 12> SUPPORTED_TYPES = {
       "mcs",    "type2_combo", "chademo",     "nacs",  "type1", "gb_dc",
       "chaoji", "type3c",      "type2_cable", "type2", "gb_ac", "type3a"};
+
+  /** Return a list of OSM attributes that have changed between the current
+   * list of sockets and the provided old list.
+   *
+   * Returns a set of (key, old_value, new_value) tuples.
+   *
+   * If old_value="", the attribute is new (ie has been created)
+   * If new_value="", the attribute has been deleted
+   *
+   * Note that this method is not const as it may trigger a re-ordering of the
+   * internal list of sockets.
+   */
+  KeyValueDiffSet Diff(ChargeSocketDescriptors const & oldSockets);
 
 protected:
   ChargeSocketDescriptors m_chargeSockets;

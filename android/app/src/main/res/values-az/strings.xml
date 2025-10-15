@@ -502,7 +502,6 @@
     <string name="placepage_more_button">Digər</string>
     <string name="placepage_edit_bookmark_button">Əlfəcini redaktə edin</string>
     <string name="placepage_personal_notes_hint">Şəxsi qeydlər (mətn və ya html)</string>
-    <string name="editor_comment_hint">Şərh…</string>
     <string name="editor_reset_edits_message">Bütün yerli dəyişikliklər ləğv edilsin?</string>
     <string name="editor_reset_edits_button">İmtina</string>
     <string name="editor_remove_place_message">Əlavə edilmiş məkan silinsin?</string>

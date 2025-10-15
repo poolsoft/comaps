@@ -195,7 +195,7 @@
 "highway-path|highway-footway|highway-steps|highway-cycleway": "Ösvény",
 "highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway|highway-cycleway": "Utca",
 "highway-motorway_junction": "4Kijárat|4csatlakozás",
-"@mountain": "Csúcs|hegy",
+"@mountain": "Csúcs|hegy|U+1F5FB|U+1F304",
 "natural-strait": "Szoros",
 "landuse-forest": "Erdő",
 "leisure-park": "Park",
@@ -463,5 +463,6 @@
 "amenity-vending_machine-fuel|@category_fuel": "Üzemanyag-adagoló|Benzinkút",
 "shop-second_hand|@category_shopping|@shop|@category_secondhand": "Bolhapiac",
 "tourism-theme_park|@category_tourism|@category_children": "Vidámpark",
-"shop-fabric|@shop": "Szövet|vászon|szőttes"
+"shop-fabric|@shop": "Szövet|vászon|szőttes",
+"highway-elevator": "Lift"
 }

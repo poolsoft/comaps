@@ -502,7 +502,6 @@
     <string name="placepage_more_button">Diğer</string>
     <string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
     <string name="placepage_personal_notes_hint">Kişisel notlar (metin veya html)</string>
-    <string name="editor_comment_hint">Yorum…</string>
     <string name="editor_reset_edits_message">Tüm yerel değişiklikler sıfırlansın mı?</string>
     <string name="editor_reset_edits_button">Sıfırla</string>
     <string name="editor_remove_place_message">Eklenen yer kaldırılsın mı?</string>

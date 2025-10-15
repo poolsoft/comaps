@@ -492,7 +492,6 @@
     <string name="placepage_more_button">Více</string>
     <string name="placepage_edit_bookmark_button">Upravit záložku</string>
     <string name="placepage_personal_notes_hint">Vlastní poznámka (text nebo HTML)</string>
-    <string name="editor_comment_hint">Poznámka…</string>
     <string name="editor_reset_edits_message">Vymazat všechny místní změny?</string>
     <string name="editor_reset_edits_button">Zahodit</string>
     <string name="editor_remove_place_message">Odstranit přidané místo?</string>
@@ -867,4 +866,22 @@
     <string name="hours_confirmed_time_ago">Potvrzeno %s</string>
     <string name="existence_confirmed_time_ago">Existence potvrzena %s</string>
     <string name="pref_tts_no_system_tts_short">Nenalezen žádný modul pro převod textu na řeč, zkontrolujte nastavení aplikace</string>
+    <string name="unknown_power_output">neznámé</string>
+    <string name="charge_socket_type2">Typ 2 (bez kabelu)</string>
+    <string name="charge_socket_type2_cable">Typ 2 (s kabelem)</string>
+    <string name="charge_socket_type2_combo">Typ 2 combo</string>
+    <string name="charge_socket_type1">Typ 1</string>
+    <string name="charge_socket_nacs">NACS</string>
+    <string name="charge_socket_chademo">CHAdeMO</string>
+    <string name="unknown_socket_type">neznámá zásuvka</string>
+    <string name="unknow_socket_type">neznámá zásuvka</string>
+    <string name="edit_socket_info_tooltip">Vytvořit nové zásuvky nebo upravit stávající.</string>
+    <string name="charging_station_available_sockets">Dostupné zásuvky</string>
+    <string name="charge_socket_unknown_other">Jiné nebo neznámé</string>
+    <string name="charge_socket_power">Výkon (kW)</string>
+    <string name="editor_socket">Upravit zásuvku</string>
+    <string name="error_value_must_be_positive">Hodnota musí být kladná</string>
+    <string name="error_invalid_number">Neplatné číslo</string>
+    <string name="charge_socket_count">Počet</string>
+    <string name="unknown_count">neznámé</string>
 </resources>

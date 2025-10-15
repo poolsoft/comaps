@@ -503,7 +503,6 @@
     <string name="placepage_more_button">Ще</string>
     <string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
     <string name="placepage_personal_notes_hint">Примітка (текст чи html)</string>
-    <string name="editor_comment_hint">Коментар…</string>
     <string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>
     <string name="editor_reset_edits_button">Скинути</string>
     <string name="editor_remove_place_message">Видалити об\'єкт, що ви додали?</string>

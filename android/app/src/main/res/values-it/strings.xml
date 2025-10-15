@@ -497,7 +497,6 @@
     <string name="placepage_more_button">Di più</string>
     <string name="placepage_edit_bookmark_button">Modifica luogo preferito</string>
     <string name="placepage_personal_notes_hint">Note personali (testo o html)</string>
-    <string name="editor_comment_hint">Commenta…</string>
     <string name="editor_reset_edits_message">Cancellare tutte le modifiche locali?</string>
     <string name="editor_reset_edits_button">Cancella</string>
     <string name="editor_remove_place_message">Eliminare il luogo aggiunto?</string>

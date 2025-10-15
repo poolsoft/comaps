@@ -126,7 +126,7 @@
       android:padding="@dimen/margin_half"
       android:visibility="gone"
       app:layout_constraintStart_toEndOf="@+id/nav_speed_limit"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/street_frame"
       app:layout_constraintTop_toBottomOf="@id/street_frame"
       app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
       app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"

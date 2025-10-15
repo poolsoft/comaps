@@ -484,7 +484,6 @@
     <string name="placepage_more_button">Bổ sung</string>
     <string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
     <string name="placepage_personal_notes_hint">Ghi chú cá nhân (văn bản hoặc html)</string>
-    <string name="editor_comment_hint">Nhận xét…</string>
     <string name="editor_reset_edits_message">Cài đặt lại tất cả thay đổi cục bộ?</string>
     <string name="editor_reset_edits_button">Cài đặt lại</string>
     <string name="editor_remove_place_message">Xóa một địa điểm đã thêm?</string>

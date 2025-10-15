@@ -501,7 +501,6 @@
     <string name="placepage_more_button">Mehr</string>
     <string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
     <string name="placepage_personal_notes_hint">Persönliche Notizen (Text oder html)</string>
-    <string name="editor_comment_hint">Kommentar…</string>
     <string name="editor_reset_edits_message">Alle lokalen Änderungen verwerfen?</string>
     <string name="editor_reset_edits_button">Verwerfen</string>
     <string name="editor_remove_place_message">Hinzugefügtes Objekt löschen?</string>
@@ -871,4 +870,5 @@
     <string name="existence_confirmed_time_ago">Existenz bestätigt %s</string>
     <string name="hours_confirmed_time_ago">Bestätigt %s</string>
     <string name="pref_tts_no_system_tts_short">Kein Text-zu-Sprache-Modul gefunden, überprüfe die App-Einstellungen</string>
+    <string name="avoid_steps">Treppen vermeiden</string>
 </resources>

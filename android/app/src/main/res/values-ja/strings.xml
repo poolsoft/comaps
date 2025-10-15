@@ -506,7 +506,6 @@
     <string name="placepage_more_button">さらに詳しく</string>
     <string name="placepage_edit_bookmark_button">ブックマークを編集</string>
     <string name="placepage_personal_notes_hint">パーソナルメモ（テキストまたはHTML）</string>
-    <string name="editor_comment_hint">コメント…</string>
     <string name="editor_reset_edits_message">ローカル編集をすべてリセットしますか?</string>
     <string name="editor_reset_edits_button">リセット</string>
     <string name="editor_remove_place_message">追加された場所を削除しますか？</string>

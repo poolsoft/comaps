@@ -502,7 +502,6 @@
     <string name="placepage_more_button">Mer</string>
     <string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (text or html)</string>
-    <string name="editor_comment_hint">Kommentar…</string>
     <string name="editor_reset_edits_message">Nullstille alle lokale endringer?</string>
     <string name="editor_reset_edits_button">Nullstill</string>
     <string name="editor_remove_place_message">Fjerne et tilføyd sted?</string>

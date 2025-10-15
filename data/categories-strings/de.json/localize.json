@@ -496,5 +496,11 @@
 "recycling-green_waste|@category_recycling": "4Recycling von Gartenabfällen|5Organisches Müll Recycling|5Gartenabfälle",
 "recycling-cartons|@category_recycling": "4Recycling von Getränkekartons|5Karton Recycling|5Getränkekartons",
 "highway-elevator": "Fahrstuhl|Aufzug",
-"office-security": "4Sicherheitsdienst"
+"office-security": "4Sicherheitsdienst",
+"recycling-cardboard|@category_recycling": "9Recycling von Karton|9Recycling von Pappe|Kartonrecycling|Pappenrecycling|Kartonmüll|Pappenmüll|Karton|Pappe|Pappkarton|Kartonpappe",
+"natural-saddle|mountain_pass": "4Sattel|4Bergsattel|Bergpass|Pass|Gebirgspass",
+"man_made-chimney": "Schornstein",
+"attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children": "Attraktion|Labyrinth",
+"building-guardhouse": "4Wache",
+"shop-lighting|@shop": "Leuchtmittel|Lampen|Leuchte"
 }

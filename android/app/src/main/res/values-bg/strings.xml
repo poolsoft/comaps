@@ -470,7 +470,6 @@
     <string name="placepage_more_button">Още</string>
     <string name="placepage_edit_bookmark_button">Редакция на отметка</string>
     <string name="placepage_personal_notes_hint">Лични бележки (текст или html)</string>
-    <string name="editor_comment_hint">Коментиране…</string>
     <string name="editor_reset_edits_message">Отхвърляне на всички локални промени?</string>
     <string name="editor_reset_edits_button">Отхвърляне</string>
     <string name="editor_remove_place_message">Изтриване на добавеното място?</string>
