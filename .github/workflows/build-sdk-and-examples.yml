@@ -1,7 +1,6 @@
 name: Build SDK and Examples
 
 on:
-on:
   workflow_dispatch: # Manual trigger
   #push:
   #  branches:
