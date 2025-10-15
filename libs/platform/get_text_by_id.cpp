@@ -18,7 +18,7 @@ using std::string;
 
 namespace
 {
-string const kDefaultLanguage = "en";
+string const kDefaultLanguage = "tr";
 
 string GetTextSourceString(platform::TextSource textSource)
 {
