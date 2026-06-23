@@ -14,15 +14,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import net.osmand.Location;
-import app.organicmaps.LocationHelper;
+import android.location.Location;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.carlauncher.widgets.view.AnalogSpeedometerView;
 import app.organicmaps.carlauncher.widgets.weather.WeatherManager;
 
 
-import net.osmand.binary.RouteDataObject;
+
 import app.organicmaps.sdk.routing.RoutingController;
 
 import java.text.SimpleDateFormat;
@@ -30,16 +31,16 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * BirleÅŸik Dashboard Widget.
- * Saat + HÄ±z + Limit tek widget'ta.
+ * BirleÃ…Å¸ik Dashboard Widget.
+ * Saat + HÃ„Â±z + Limit tek widget'ta.
  *
  * Adaptive Layout:
- * - SMALL (< 200dp genislik): Sadece hÄ±z (bÃ¼yÃ¼k)
- * - MEDIUM (200-350dp): Saat Ã¼st, hÄ±z orta, limit saÄŸ
- * - LARGE (> 350dp): Analog saat + hÄ±z overlay + limit + hava durumu
+ * - SMALL (< 200dp genislik): Sadece hÃ„Â±z (bÃƒÂ¼yÃƒÂ¼k)
+ * - MEDIUM (200-350dp): Saat ÃƒÂ¼st, hÃ„Â±z orta, limit saÃ„Å¸
+ * - LARGE (> 350dp): Analog saat + hÃ„Â±z overlay + limit + hava durumu
  */
 public class CombinedWidget extends BaseWidget
-        implements LocationHelper.OsmAndLocationListener,
+        implements app.organicmaps.location.LocationListener,
                    WeatherManager.WeatherListener {
 
     private final MwmApplication app;
@@ -119,7 +120,7 @@ public class CombinedWidget extends BaseWidget
     }
 
     /**
-     * SMALL: Sadece hÄ±z, bÃ¼yÃ¼k font
+     * SMALL: Sadece hÃ„Â±z, bÃƒÂ¼yÃƒÂ¼k font
      */
     private void setupSmallLayout() {
         LinearLayout root = new LinearLayout(context);
@@ -154,7 +155,7 @@ public class CombinedWidget extends BaseWidget
     }
 
     /**
-     * MEDIUM: Saat Ã¼st, hÄ±z orta, limit saÄŸ
+     * MEDIUM: Saat ÃƒÂ¼st, hÃ„Â±z orta, limit saÃ„Å¸
      */
     private void setupMediumLayout() {
         LinearLayout root = new LinearLayout(context);
@@ -184,7 +185,7 @@ public class CombinedWidget extends BaseWidget
         dateText.setGravity(Gravity.CENTER);
         root.addView(dateText);
 
-        // SATIR 2: HÄ±z + Limit (Horizontal)
+        // SATIR 2: HÃ„Â±z + Limit (Horizontal)
         LinearLayout row2 = new LinearLayout(context);
         row2.setOrientation(LinearLayout.HORIZONTAL);
         row2.setGravity(Gravity.CENTER);
@@ -207,7 +208,7 @@ public class CombinedWidget extends BaseWidget
         limitContainer.addView(limitText, new LinearLayout.LayoutParams(ls, ls));
         row2.addView(limitContainer);
 
-        // HÄ±z (saÄŸ)
+        // HÃ„Â±z (saÃ„Å¸)
         LinearLayout speedCol = new LinearLayout(context);
         speedCol.setOrientation(LinearLayout.HORIZONTAL);
         speedCol.setGravity(Gravity.BOTTOM | Gravity.CENTER);
@@ -258,7 +259,7 @@ public class CombinedWidget extends BaseWidget
     }
 
     /**
-     * LARGE: Analog saat + hÄ±z overlay + limit
+     * LARGE: Analog saat + hÃ„Â±z overlay + limit
      */
     private void setupLargeLayout() {
         analogView = new AnalogSpeedometerView(context);
@@ -323,7 +324,7 @@ public class CombinedWidget extends BaseWidget
         float maxSpeed = getMaxSpeed(location);
         if (limitText == null || limitContainer == null) return;
 
-        if (maxSpeed > 0 && maxSpeed != RouteDataObject.NONE_MAX_SPEED) {
+        if (maxSpeed > 0 && maxSpeed != Object.NONE_MAX_SPEED) {
             limitContainer.setVisibility(View.VISIBLE);
             FormattedValue fv = OsmAndFormatter.getFormattedSpeedValue(maxSpeed, app);
             String limitStr = fv.value.split(" ")[0];
@@ -367,7 +368,7 @@ public class CombinedWidget extends BaseWidget
         if ((!RoutingController.isFollowingMode() || RoutingController.isDeviatedFromRoute()
                 || (RoutingController.getCurrentGPXRoute() != null && !RoutingController.isCurrentGPXRouteV2()))) {
             if (app.getLocationProvider() != null) {
-                RouteDataObject routeObject = app.getLocationProvider().getLastKnownRouteSegment();
+                Object routeObject = app.getLocationProvider().getLastKnownRouteSegment();
                 if (routeObject != null) {
                     return routeObject.getMaximumSpeed(routeObject.bearingVsRouteDirection(location));
                 }
@@ -386,7 +387,7 @@ public class CombinedWidget extends BaseWidget
         if (size == WidgetSize.MEDIUM && weatherContainer != null && data != null && !data.isStale) {
             rootFrame.post(() -> {
                 weatherContainer.setVisibility(View.VISIBLE);
-                tempText.setText(String.format(Locale.getDefault(), "%.0fÂ°", data.temp));
+                tempText.setText(String.format(Locale.getDefault(), "%.0fÃ‚Â°", data.temp));
                 String iconName = data.getIconName();
                 int resId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
                 if (resId != 0) weatherIcon.setImageResource(resId);

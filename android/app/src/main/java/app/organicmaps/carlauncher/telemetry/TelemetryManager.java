@@ -3,10 +3,11 @@ package app.organicmaps.carlauncher.telemetry;
 import android.os.Handler;
 import android.os.Looper;
 
-import net.osmand.Location;
+import android.location.Location;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.MwmApplication;
-import app.organicmaps.LocationHelper;
-import app.organicmaps.routing.NextDirectionInfo;
+import app.organicmaps.sdk.location.LocationHelper;
+
 import app.organicmaps.sdk.routing.RoutingController;
 
 import net.osmand.router.TurnType;
@@ -17,7 +18,7 @@ import net.osmand.shared.obd.OBDDataComputer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelemetryManager implements LocationHelper.OsmAndLocationListener {
+public class TelemetryManager implements app.organicmaps.location.LocationListener {
 
     private static TelemetryManager instance;
     private final MwmApplication app;
@@ -144,7 +145,7 @@ public class TelemetryManager implements LocationHelper.OsmAndLocationListener {
         if (RoutingController != null && RoutingController.isFollowingMode() && RoutingController.isRouteCalculated()) {
             navigationState.isActive = true;
             try {
-                NextDirectionInfo nextDirection = RoutingController.getNextRouteDirectionInfo(new NextDirectionInfo(), true);
+                app.organicmaps.sdk.routing.JunctionInfo nextDirection = RoutingController.getNextRouteDirectionInfo(new app.organicmaps.sdk.routing.JunctionInfo(), true);
                 if (nextDirection != null && nextDirection.distanceTo > 0) {
                     navigationState.distanceStr = OsmAndFormatter.getFormattedDistance(nextDirection.distanceTo, app);
                     
@@ -179,7 +180,7 @@ public class TelemetryManager implements LocationHelper.OsmAndLocationListener {
         if (plugin != null && plugin.isActive() && plugin.isConnected()) {
             obdState.isActive = true;
             if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "Â°C";
+            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "Ã‚Â°C";
             if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
             if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
         } else {

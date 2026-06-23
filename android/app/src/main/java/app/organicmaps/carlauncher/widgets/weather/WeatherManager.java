@@ -9,7 +9,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import net.osmand.Location;
+import android.location.Location;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 

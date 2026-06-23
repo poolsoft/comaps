@@ -15,20 +15,21 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import app.organicmaps.R;
-import net.osmand.Location;
+import android.location.Location;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.view.AnalogSpeedometerView;
 
 
-import net.osmand.binary.RouteDataObject;
+
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.carlauncher.telemetry.TelemetryManager;
 
 /**
- * HÄ±z widget - S/M/L destegi.
- * S: HÄ±z
- * M: HÄ±z + Limit
- * L: Analog HÄ±z
+ * HÃ„Â±z widget - S/M/L destegi.
+ * S: HÃ„Â±z
+ * M: HÃ„Â±z + Limit
+ * L: Analog HÃ„Â±z
  */
 public class SpeedWidget extends BaseWidget implements TelemetryManager.TelemetryListener {
 
@@ -224,7 +225,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
              if (size == WidgetSize.SMALL) {
                  limitContainer.setVisibility(View.GONE);
              } else {
-                 if (maxSpeed > 0 && maxSpeed != RouteDataObject.NONE_MAX_SPEED) {
+                 if (maxSpeed > 0 && maxSpeed != Object.NONE_MAX_SPEED) {
                      limitContainer.setVisibility(View.VISIBLE);
                      FormattedValue formatted = OsmAndFormatter.getFormattedSpeedValue(maxSpeed, app);
                      
@@ -278,7 +279,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
         
         // Analog Logic
         if (analogView != null) {
-            if (maxSpeed > 0 && maxSpeed != RouteDataObject.NONE_MAX_SPEED) {
+            if (maxSpeed > 0 && maxSpeed != Object.NONE_MAX_SPEED) {
                 analogView.setSpeedLimit(maxSpeed * 3.6f);
             } else {
                 analogView.setSpeedLimit(0);
@@ -294,7 +295,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
                 || RoutingController.isDeviatedFromRoute()
                 || (RoutingController.getCurrentGPXRoute() != null && !RoutingController.isCurrentGPXRouteV2()))) {
             if (app.getLocationProvider() != null) {
-                RouteDataObject routeObject = app.getLocationProvider().getLastKnownRouteSegment();
+                Object routeObject = app.getLocationProvider().getLastKnownRouteSegment();
                 if (routeObject != null) {
                     boolean direction = routeObject.bearingVsRouteDirection(location);
                     return routeObject.getMaximumSpeed(direction);
