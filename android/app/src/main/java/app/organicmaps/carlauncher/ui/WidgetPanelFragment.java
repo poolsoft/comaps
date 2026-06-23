@@ -530,16 +530,9 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
         widgetManager.addWidget(new SpeedWidget(getContext(), app));
         widgetManager.addWidget(new DirectionWidget(getContext(), app));
-        
-        }
-        
         widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), app));
         widgetManager.addWidget(new NavigationWidget(getContext(), app));
         widgetManager.addWidget(new MusicWidget(getContext(), app));
-        
-        VehicleMetricsPlugin obdPlugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
-        if (obdPlugin != null && obdPlugin.isActive()) {
-        }
     }
 
     private void setupBottomNav(View navWidgets, View navNavigation, View navApps, View navSettings) {

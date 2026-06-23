@@ -525,13 +525,6 @@ public class WidgetPickerDialog extends DialogFragment {
         list.add(new WidgetInfo("music", "Medya Calar", "Muzik kontrol paneli", BaseWidget.WidgetSize.LARGE));
         list.add(new WidgetInfo("navigation", "Navigasyon", "Donus yonleri", BaseWidget.WidgetSize.MEDIUM));
 
-        VehicleMetricsPlugin obdPlugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
-        if (obdPlugin != null && obdPlugin.isActive()) {
-            list.add(new WidgetInfo("obd", "OBD Verileri", "Motor gostergeleri", BaseWidget.WidgetSize.LARGE));
-        }
-
-        }
-
         return list;
     }
 
@@ -551,7 +544,6 @@ public class WidgetPickerDialog extends DialogFragment {
             widget = new MusicWidget(getContext(), app);
         } else if (info.type.equals("navigation")) {
             widget = new NavigationWidget(getContext(), app);
-        } else if (info.type.equals("obd")) {
         }
 
         if (widget != null) {
