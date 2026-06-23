@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import app.organicmaps.OsmandApplication;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.music.MusicManager;
 
 /**
@@ -37,7 +37,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
 
     private final MusicManager musicManager;
 
-    public MusicWidget(@NonNull Context context, @NonNull OsmandApplication app) {
+    public MusicWidget(@NonNull Context context, @NonNull MwmApplication app) {
         super(context, "music", "Muzik");
         this.musicManager = MusicManager.getInstance(context);
         this.order = 3;
@@ -109,11 +109,11 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
     private void showMusicAppPicker(View v) {
         Context activityContext = v.getContext();
         if (!musicManager.checkNotificationAccess()) {
-             android.widget.Toast.makeText(activityContext, "Lütfen 'Bildirim Erişimi' iznini verin.", android.widget.Toast.LENGTH_LONG).show();
+             android.widget.Toast.makeText(activityContext, "LÃ¼tfen 'Bildirim EriÅŸimi' iznini verin.", android.widget.Toast.LENGTH_LONG).show();
              try {
                 activityContext.startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
              } catch (Exception e) {
-                  android.widget.Toast.makeText(activityContext, "Ayarlar açılamadı, manuel gidin.", android.widget.Toast.LENGTH_SHORT).show();
+                  android.widget.Toast.makeText(activityContext, "Ayarlar aÃ§Ä±lamadÄ±, manuel gidin.", android.widget.Toast.LENGTH_SHORT).show();
              }
              return;
         }
@@ -256,7 +256,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         if (rootView != null) {
             rootView.post(() -> {
                 if (statusText != null)
-                    statusText.setText(title != null ? title : "Müzik Seçin");
+                    statusText.setText(title != null ? title : "MÃ¼zik SeÃ§in");
                 if (artistText != null)
                     artistText.setText(artist != null ? artist : "");
 

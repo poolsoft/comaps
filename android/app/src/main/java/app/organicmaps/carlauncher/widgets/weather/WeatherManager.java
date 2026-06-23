@@ -10,7 +10,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import net.osmand.Location;
-import app.organicmaps.OsmandApplication;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 import org.json.JSONObject;

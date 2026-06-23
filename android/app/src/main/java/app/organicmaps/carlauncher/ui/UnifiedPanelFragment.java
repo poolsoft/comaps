@@ -24,10 +24,10 @@ import app.organicmaps.carlauncher.widgets.MusicVisualizerView;
 
 // Konum, Hiz ve Saat icin eklenen importlar
 import net.osmand.Location;
-import app.organicmaps.OsmAndLocationProvider;
-import app.organicmaps.OsmandApplication;
-import app.organicmaps.utils.FormattedValue;
-import app.organicmaps.utils.OsmAndFormatter;
+import app.organicmaps.LocationHelper;
+import app.organicmaps.MwmApplication;
+
+
 import android.os.Handler;
 import android.os.Looper;
 import java.text.SimpleDateFormat;
@@ -35,14 +35,14 @@ import java.util.Locale;
 import java.util.Date;
 
 /**
- * Birlesik Müzik ve Arama/Bildirim Paneli.
+ * Birlesik MÃ¼zik ve Arama/Bildirim Paneli.
  * Normal modda sag taraftaki panelde gosterilir.
  */
 public class UnifiedPanelFragment extends Fragment 
         implements MusicManager.MusicUIListener, MusicManager.MusicVisualizerListener {
 
     private MusicManager musicManager;
-    private OsmandApplication app;
+    private MwmApplication app;
 
     // Arayuz Elemanlari
     private ImageView albumArtBg;
@@ -89,7 +89,7 @@ public class UnifiedPanelFragment extends Fragment
         super.onCreate(savedInstanceState);
         if (getContext() != null) {
             musicManager = MusicManager.getInstance(getContext());
-            app = (OsmandApplication) getContext().getApplicationContext();
+            app = (MwmApplication) getContext().getApplicationContext();
         }
     }
 
@@ -125,7 +125,7 @@ public class UnifiedPanelFragment extends Fragment
     }
 
     private void setupListeners() {
-        // Muzik alanı tiklandiginda buyuk oynaticiyi ac
+        // Muzik alanÄ± tiklandiginda buyuk oynaticiyi ac
         if (musicArea != null) {
             musicArea.setOnClickListener(v -> {
                 if (getActivity() instanceof CarLauncherInterface) {
@@ -172,8 +172,8 @@ public class UnifiedPanelFragment extends Fragment
         popup.getMenu().add(0, 1, 0, "Harita Modu");
         popup.getMenu().add(0, 2, 1, "Masaustu Modu");
         popup.getMenu().add(0, 3, 2, "Ayarlar");
-        popup.getMenu().add(0, 4, 3, "Ekranı Kapat");
-        popup.getMenu().add(0, 5, 4, "Hafızayı Temizle (RAM)");
+        popup.getMenu().add(0, 4, 3, "EkranÄ± Kapat");
+        popup.getMenu().add(0, 5, 4, "HafÄ±zayÄ± Temizle (RAM)");
         
         popup.setOnMenuItemClickListener(item -> {
             if (getActivity() instanceof app.organicmaps.MwmActivity) {

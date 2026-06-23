@@ -48,7 +48,7 @@ public class CarFloatingButtonManager {
     private boolean isDragging = false;
     private long touchStartTime;
 
-    // Jest ve Uzun Basim Durumlari (Türkçe karakter yok)
+    // Jest ve Uzun Basim Durumlari (TÃ¼rkÃ§e karakter yok)
     private final android.os.Handler gestureHandler = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable longClickRunnable;
     private boolean isLongClickTriggered = false;
@@ -82,7 +82,7 @@ public class CarFloatingButtonManager {
         this.context = context.getApplicationContext();
         this.windowManager = (WindowManager) this.context.getSystemService(Context.WINDOW_SERVICE);
 
-        // Alıcı kaydı (Türkçe karakter yok)
+        // AlÄ±cÄ± kaydÄ± (TÃ¼rkÃ§e karakter yok)
         android.content.IntentFilter filter = new android.content.IntentFilter();
         filter.addAction("net.osmand.carlauncher.ACTION_SHOW_ASSISTANT_MENU");
         filter.addAction("net.osmand.carlauncher.ACTION_LAYOUT_TOGGLE");
@@ -136,7 +136,7 @@ public class CarFloatingButtonManager {
         // Overlay izni kontrolu (Android M ve uzeri)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(context)) {
-                return; // İzin yoksa sessizce cik
+                return; // Ä°zin yoksa sessizce cik
             }
         }
 
@@ -248,7 +248,7 @@ public class CarFloatingButtonManager {
             windowManager.addView(floatingView, params);
             isAdded = true;
             
-            app.organicmaps.OsmandApplication app = (app.organicmaps.OsmandApplication) context.getApplicationContext();
+            app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
             app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(app).addListener(telemetryListener);
 
             // Native GPS Speed Listener
@@ -284,7 +284,7 @@ public class CarFloatingButtonManager {
             isAdded = false;
             floatingView = null;
             
-            app.organicmaps.OsmandApplication app = (app.organicmaps.OsmandApplication) context.getApplicationContext();
+            app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
             app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(app).removeListener(telemetryListener);
 
             if (locationManager != null && locationListener != null) {
@@ -301,7 +301,7 @@ public class CarFloatingButtonManager {
 
     private void createFloatingView() {
         floatingView = new FrameLayout(context);
-        int width = dpToPx(86); // 3 rakam (örn. 120) ve km/h yazısı için büyütüldü
+        int width = dpToPx(86); // 3 rakam (Ã¶rn. 120) ve km/h yazÄ±sÄ± iÃ§in bÃ¼yÃ¼tÃ¼ldÃ¼
         int height = dpToPx(86);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
         floatingView.setLayoutParams(lp);
@@ -313,10 +313,10 @@ public class CarFloatingButtonManager {
         buttonBg.setStroke(dpToPx(3), 0xFF3D63FF); // Modern mavi kenarlik
         floatingView.setBackground(buttonBg);
 
-        // İkon yerine hiz yazisi (Turkce karakter yok)
+        // Ä°kon yerine hiz yazisi (Turkce karakter yok)
         speedText = new android.widget.TextView(context);
         speedText.setTextColor(0xFFFFFFFF);
-        speedText.setTextSize(28); // 3 rakam sığacak font boyutu
+        speedText.setTextSize(28); // 3 rakam sÄ±ÄŸacak font boyutu
         speedText.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
         speedText.setGravity(Gravity.CENTER);
         
@@ -347,7 +347,7 @@ public class CarFloatingButtonManager {
             span.setSpan(new android.text.style.RelativeSizeSpan(0.4f), speedStr.length(), span.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             speedText.setText(span);
 
-            app.organicmaps.OsmandApplication app = (app.organicmaps.OsmandApplication) context.getApplicationContext();
+            app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
             float maxSpeed = getMaxSpeed(app, loc.rawLocation);
             
             if (maxSpeed > 0 && maxSpeed != net.osmand.binary.RouteDataObject.NONE_MAX_SPEED) {
@@ -371,14 +371,14 @@ public class CarFloatingButtonManager {
         }
     };
 
-    private float getMaxSpeed(app.organicmaps.OsmandApplication app, net.osmand.Location location) {
+    private float getMaxSpeed(app.organicmaps.MwmApplication app, net.osmand.Location location) {
         if (location == null || app == null) return 0;
-        app.organicmaps.routing.RoutingHelper routingHelper = app.getRoutingHelper();
-        if (routingHelper == null) return 0;
+        app.organicmaps.routing.RoutingController RoutingController = app.getRoutingHelper();
+        if (RoutingController == null) return 0;
         
-        if ((!routingHelper.isFollowingMode()
-                || routingHelper.isDeviatedFromRoute()
-                || (routingHelper.getCurrentGPXRoute() != null && !routingHelper.isCurrentGPXRouteV2()))) {
+        if ((!RoutingController.isFollowingMode()
+                || RoutingController.isDeviatedFromRoute()
+                || (RoutingController.getCurrentGPXRoute() != null && !RoutingController.isCurrentGPXRouteV2()))) {
             if (app.getLocationProvider() != null) {
                 net.osmand.binary.RouteDataObject routeObject = app.getLocationProvider().getLastKnownRouteSegment();
                 if (routeObject != null) {
@@ -387,7 +387,7 @@ public class CarFloatingButtonManager {
                 }
             }
         } else {
-            return routingHelper.getCurrentMaxSpeed();
+            return RoutingController.getCurrentMaxSpeed();
         }
         return 0;
     }
@@ -451,7 +451,7 @@ public class CarFloatingButtonManager {
         );
         menuOverlayView.addView(content, contentLp);
 
-        // Menü elemanları (Türkçe karakter yok!)
+        // MenÃ¼ elemanlarÄ± (TÃ¼rkÃ§e karakter yok!)
         addMenuItem(content, "Gorunumu Degistir", "net.osmand.carlauncher.ACTION_LAYOUT_TOGGLE");
         addMenuItem(content, "Masaustu Modu (Desktop)", "net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE");
         addMenuItem(content, "Car Launcher Ayarlari", "net.osmand.carlauncher.ACTION_OPEN_SETTINGS");
@@ -530,7 +530,7 @@ public class CarFloatingButtonManager {
         );
         menuOverlayView.addView(content, contentLp);
 
-        // Menü elemanları (Türkçe karakter yok!)
+        // MenÃ¼ elemanlarÄ± (TÃ¼rkÃ§e karakter yok!)
         addMenuItem(content, "Gorunumu Degistir", "net.osmand.carlauncher.ACTION_LAYOUT_TOGGLE");
         addMenuItem(content, "Masaustu Modu (Desktop)", "net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE");
         addMenuItem(content, "Car Launcher Ayarlari", "net.osmand.carlauncher.ACTION_OPEN_SETTINGS");

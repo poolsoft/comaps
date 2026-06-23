@@ -4,11 +4,11 @@ import android.os.Handler;
 import android.os.Looper;
 
 import net.osmand.Location;
-import app.organicmaps.OsmandApplication;
-import app.organicmaps.OsmAndLocationProvider;
+import app.organicmaps.MwmApplication;
+import app.organicmaps.LocationHelper;
 import app.organicmaps.routing.NextDirectionInfo;
-import app.organicmaps.routing.RoutingHelper;
-import app.organicmaps.utils.OsmAndFormatter;
+import app.organicmaps.sdk.routing.RoutingController;
+
 import net.osmand.router.TurnType;
 
 
@@ -17,10 +17,10 @@ import net.osmand.shared.obd.OBDDataComputer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelemetryManager implements OsmAndLocationProvider.OsmAndLocationListener {
+public class TelemetryManager implements LocationHelper.OsmAndLocationListener {
 
     private static TelemetryManager instance;
-    private final OsmandApplication app;
+    private final MwmApplication app;
 
     private final List<TelemetryListener> listeners = new ArrayList<>();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -72,7 +72,7 @@ public class TelemetryManager implements OsmAndLocationProvider.OsmAndLocationLi
         }
     };
 
-    private TelemetryManager(OsmandApplication app) {
+    private TelemetryManager(MwmApplication app) {
         this.app = app;
         initObdComputers();
         mainHandler.postDelayed(staleGpsRunnable, 1000);
@@ -82,7 +82,7 @@ public class TelemetryManager implements OsmAndLocationProvider.OsmAndLocationLi
     public NavigationState getNavigationState() { return navigationState; }
     public ObdState getObdState() { return obdState; }
 
-    public static TelemetryManager getInstance(OsmandApplication app) {
+    public static TelemetryManager getInstance(MwmApplication app) {
         if (instance == null) {
             instance = new TelemetryManager(app);
             if (app.getLocationProvider() != null) {
@@ -140,11 +140,11 @@ public class TelemetryManager implements OsmAndLocationProvider.OsmAndLocationLi
     }
 
     private void pollNavigation() {
-        RoutingHelper routingHelper = app.getRoutingHelper();
-        if (routingHelper != null && routingHelper.isFollowingMode() && routingHelper.isRouteCalculated()) {
+        RoutingController RoutingController = app.getRoutingHelper();
+        if (RoutingController != null && RoutingController.isFollowingMode() && RoutingController.isRouteCalculated()) {
             navigationState.isActive = true;
             try {
-                NextDirectionInfo nextDirection = routingHelper.getNextRouteDirectionInfo(new NextDirectionInfo(), true);
+                NextDirectionInfo nextDirection = RoutingController.getNextRouteDirectionInfo(new NextDirectionInfo(), true);
                 if (nextDirection != null && nextDirection.distanceTo > 0) {
                     navigationState.distanceStr = OsmAndFormatter.getFormattedDistance(nextDirection.distanceTo, app);
                     
@@ -159,8 +159,8 @@ public class TelemetryManager implements OsmAndLocationProvider.OsmAndLocationLi
                     navigationState.instructionStr = "Duz git";
                 }
 
-                int remainingDistance = routingHelper.getLeftDistance();
-                int remainingTime = routingHelper.getLeftTime();
+                int remainingDistance = RoutingController.getLeftDistance();
+                int remainingTime = RoutingController.getLeftTime();
                 if (remainingDistance > 0 && remainingTime > 0) {
                     navigationState.etaStr = OsmAndFormatter.getFormattedDuration(remainingTime, app) + " (" + OsmAndFormatter.getFormattedDistance(remainingDistance, app) + ")";
                 } else {
@@ -179,7 +179,7 @@ public class TelemetryManager implements OsmAndLocationProvider.OsmAndLocationLi
         if (plugin != null && plugin.isActive() && plugin.isConnected()) {
             obdState.isActive = true;
             if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "°C";
+            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "Â°C";
             if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
             if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
         } else {

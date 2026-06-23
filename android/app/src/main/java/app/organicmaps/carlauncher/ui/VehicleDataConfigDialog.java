@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import app.organicmaps.OsmandApplication;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.carlauncher.widgets.BaseWidget;
@@ -48,7 +48,7 @@ public class VehicleDataConfigDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.OsmandDarkTheme));
-        builder.setTitle("Görüntülenecek Veriler");
+        builder.setTitle("GÃ¶rÃ¼ntÃ¼lenecek Veriler");
 
         ScrollView scrollView = new ScrollView(getContext());
         LinearLayout layout = new LinearLayout(getContext());
@@ -62,11 +62,11 @@ public class VehicleDataConfigDialog extends DialogFragment {
 
         // Create Checkboxes
         CheckBox cbRpm = createCheckBox("Motor Devri (RPM)", KEY_RPM, selectedItems);
-        CheckBox cbSpeed = createCheckBox("Hız (OBD/GPS)", KEY_SPEED, selectedItems);
-        CheckBox cbTemp = createCheckBox("Motor Suyu Sıcaklığı", KEY_TEMP, selectedItems);
-        CheckBox cbVolt = createCheckBox("Akü Voltajı", KEY_VOLT, selectedItems);
-        CheckBox cbLoad = createCheckBox("Motor Yükü (%)", KEY_LOAD, selectedItems);
-        CheckBox cbIntake = createCheckBox("Hava Giriş Sıcaklığı", KEY_INTAKE, selectedItems);
+        CheckBox cbSpeed = createCheckBox("HÄ±z (OBD/GPS)", KEY_SPEED, selectedItems);
+        CheckBox cbTemp = createCheckBox("Motor Suyu SÄ±caklÄ±ÄŸÄ±", KEY_TEMP, selectedItems);
+        CheckBox cbVolt = createCheckBox("AkÃ¼ VoltajÄ±", KEY_VOLT, selectedItems);
+        CheckBox cbLoad = createCheckBox("Motor YÃ¼kÃ¼ (%)", KEY_LOAD, selectedItems);
+        CheckBox cbIntake = createCheckBox("Hava GiriÅŸ SÄ±caklÄ±ÄŸÄ±", KEY_INTAKE, selectedItems);
         
         layout.addView(cbRpm);
         layout.addView(cbSpeed);
@@ -96,7 +96,7 @@ public class VehicleDataConfigDialog extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("İptal", null);
+        builder.setNegativeButton("Ä°ptal", null);
 
         return builder.create();
     }

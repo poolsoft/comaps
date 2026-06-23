@@ -16,23 +16,23 @@ import androidx.core.content.ContextCompat;
 
 import app.organicmaps.R;
 import net.osmand.Location;
-import app.organicmaps.OsmandApplication;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.view.AnalogSpeedometerView;
-import app.organicmaps.utils.FormattedValue;
-import app.organicmaps.utils.OsmAndFormatter;
+
+
 import net.osmand.binary.RouteDataObject;
-import app.organicmaps.routing.RoutingHelper;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.carlauncher.telemetry.TelemetryManager;
 
 /**
- * Hız widget - S/M/L destegi.
- * S: Hız
- * M: Hız + Limit
- * L: Analog Hız
+ * HÄ±z widget - S/M/L destegi.
+ * S: HÄ±z
+ * M: HÄ±z + Limit
+ * L: Analog HÄ±z
  */
 public class SpeedWidget extends BaseWidget implements TelemetryManager.TelemetryListener {
 
-    private final OsmandApplication app;
+    private final MwmApplication app;
     
     // Containers
     private FrameLayout rootFrame;
@@ -45,7 +45,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
     private TextView limitText;
     private LinearLayout limitContainer;
 
-    public SpeedWidget(@NonNull Context context, @NonNull OsmandApplication app) {
+    public SpeedWidget(@NonNull Context context, @NonNull MwmApplication app) {
         super(context, "speed", "Hiz");
         this.app = app;
         this.order = 1;
@@ -287,12 +287,12 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
     }
 
     private float getMaxSpeed(Location location) {
-        RoutingHelper routingHelper = app.getRoutingHelper();
-        if (routingHelper == null) return 0;
+        RoutingController RoutingController = app.getRoutingHelper();
+        if (RoutingController == null) return 0;
         
-        if ((!routingHelper.isFollowingMode()
-                || routingHelper.isDeviatedFromRoute()
-                || (routingHelper.getCurrentGPXRoute() != null && !routingHelper.isCurrentGPXRouteV2()))) {
+        if ((!RoutingController.isFollowingMode()
+                || RoutingController.isDeviatedFromRoute()
+                || (RoutingController.getCurrentGPXRoute() != null && !RoutingController.isCurrentGPXRouteV2()))) {
             if (app.getLocationProvider() != null) {
                 RouteDataObject routeObject = app.getLocationProvider().getLastKnownRouteSegment();
                 if (routeObject != null) {
@@ -301,7 +301,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
                 }
             }
         } else {
-            return routingHelper.getCurrentMaxSpeed();
+            return RoutingController.getCurrentMaxSpeed();
         }
         return 0;
     }
