@@ -9,11 +9,7 @@ buildscript {
   def isFdroid = taskName.contains('fdroid')
 
   dependencies {
-    // Vosk Voice Recognition
-    implementation 'net.java.dev.jna:jna:5.13.0@aar'
-    implementation 'org.vosk:vosk-android:0.3.38'
-
-    classpath libs.android.tools
+classpath libs.android.tools
     classpath(libs.triplet.play.publisher)
     classpath(libs.huawei.publish)
   }
