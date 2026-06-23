@@ -1,5 +1,7 @@
 name: Build CoMaps Auto
 on:
+  push:
+    branches: [ "comaps-auto" ]
   workflow_dispatch:
 
 permissions:
