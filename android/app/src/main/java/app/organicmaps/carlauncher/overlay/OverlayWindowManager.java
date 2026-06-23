@@ -152,19 +152,7 @@ public class OverlayWindowManager {
         // --- Icerik yukleme mantigi ---
         if (packageName.equals("internal://antenna")) {
             // 1. Dahili Anten Hizalama (Yuzen compass - Turkce karakter yok)
-            // AlignmentView alignmentView
-            // alignmentView(new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, 
-                    ViewGroup.LayoutParams.MATCH_PARENT));
-            
-            // Canli verileri dinle
-            Object manager = null;
-            float targetAz = 0;
-            if (targetAz < 0) targetAz += 360;
-            float targetPitch = 0;
-            alignmentView.setTarget(targetAz, targetPitch);
-            
-            // contentFrame.addView
+            // Devre disi - Antenna plugin CoMaps te yok
         } else if (packageName.equals("com.google.android.youtube") || packageName.equals("com.google.android.youtube.tv")) {
             // 2. Youtube WebView (Mobil site emulasyonu)
             contentFrame.addView(createWebView("https://m.youtube.com"));
