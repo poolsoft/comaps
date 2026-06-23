@@ -38,7 +38,6 @@ import app.organicmaps.carlauncher.widgets.SpeedWidget;
 import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
-import app.organicmaps.carlauncher.widgets.OBDWidget;
 
 
 
@@ -443,7 +442,7 @@ public class WidgetPickerDialog extends DialogFragment {
         cardBg.setStroke(dpToPx(1), 0x1FFFFFFF);
         card.setBackground(cardBg);
 
-        // Canvas Tabanli Sistem Widget Önizleme
+        // Canvas Tabanli Sistem Widget Ã–nizleme
         WidgetPreviewView preview = new WidgetPreviewView(ctx, "system");
         if (appIcon != null) {
             preview.setAppIcon(appIcon);
@@ -556,7 +555,6 @@ public class WidgetPickerDialog extends DialogFragment {
         } else if (info.type.equals("navigation")) {
             widget = new NavigationWidget(getContext(), app);
         } else if (info.type.equals("obd")) {
-            widget = new OBDWidget(getContext(), app);
         } else if (info.type.equals("antenna")) {
             widget = new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), app);
         }

@@ -31,16 +31,16 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * BirleÃ…Å¸ik Dashboard Widget.
- * Saat + HÃ„Â±z + Limit tek widget'ta.
+ * BirleÃƒâ€¦Ã…Â¸ik Dashboard Widget.
+ * Saat + HÃƒâ€Ã‚Â±z + Limit tek widget'ta.
  *
  * Adaptive Layout:
- * - SMALL (< 200dp genislik): Sadece hÃ„Â±z (bÃƒÂ¼yÃƒÂ¼k)
- * - MEDIUM (200-350dp): Saat ÃƒÂ¼st, hÃ„Â±z orta, limit saÃ„Å¸
- * - LARGE (> 350dp): Analog saat + hÃ„Â±z overlay + limit + hava durumu
+ * - SMALL (< 200dp genislik): Sadece hÃƒâ€Ã‚Â±z (bÃƒÆ’Ã‚Â¼yÃƒÆ’Ã‚Â¼k)
+ * - MEDIUM (200-350dp): Saat ÃƒÆ’Ã‚Â¼st, hÃƒâ€Ã‚Â±z orta, limit saÃƒâ€Ã…Â¸
+ * - LARGE (> 350dp): Analog saat + hÃƒâ€Ã‚Â±z overlay + limit + hava durumu
  */
 public class CombinedWidget extends BaseWidget
-        implements app.organicmaps.location.LocationListener,
+        implements app.organicmaps.sdk.location.LocationListener,
                    WeatherManager.WeatherListener {
 
     private final MwmApplication app;
@@ -120,7 +120,7 @@ public class CombinedWidget extends BaseWidget
     }
 
     /**
-     * SMALL: Sadece hÃ„Â±z, bÃƒÂ¼yÃƒÂ¼k font
+     * SMALL: Sadece hÃƒâ€Ã‚Â±z, bÃƒÆ’Ã‚Â¼yÃƒÆ’Ã‚Â¼k font
      */
     private void setupSmallLayout() {
         LinearLayout root = new LinearLayout(context);
@@ -155,7 +155,7 @@ public class CombinedWidget extends BaseWidget
     }
 
     /**
-     * MEDIUM: Saat ÃƒÂ¼st, hÃ„Â±z orta, limit saÃ„Å¸
+     * MEDIUM: Saat ÃƒÆ’Ã‚Â¼st, hÃƒâ€Ã‚Â±z orta, limit saÃƒâ€Ã…Â¸
      */
     private void setupMediumLayout() {
         LinearLayout root = new LinearLayout(context);
@@ -185,7 +185,7 @@ public class CombinedWidget extends BaseWidget
         dateText.setGravity(Gravity.CENTER);
         root.addView(dateText);
 
-        // SATIR 2: HÃ„Â±z + Limit (Horizontal)
+        // SATIR 2: HÃƒâ€Ã‚Â±z + Limit (Horizontal)
         LinearLayout row2 = new LinearLayout(context);
         row2.setOrientation(LinearLayout.HORIZONTAL);
         row2.setGravity(Gravity.CENTER);
@@ -208,7 +208,7 @@ public class CombinedWidget extends BaseWidget
         limitContainer.addView(limitText, new LinearLayout.LayoutParams(ls, ls));
         row2.addView(limitContainer);
 
-        // HÃ„Â±z (saÃ„Å¸)
+        // HÃƒâ€Ã‚Â±z (saÃƒâ€Ã…Â¸)
         LinearLayout speedCol = new LinearLayout(context);
         speedCol.setOrientation(LinearLayout.HORIZONTAL);
         speedCol.setGravity(Gravity.BOTTOM | Gravity.CENTER);
@@ -259,7 +259,7 @@ public class CombinedWidget extends BaseWidget
     }
 
     /**
-     * LARGE: Analog saat + hÃ„Â±z overlay + limit
+     * LARGE: Analog saat + hÃƒâ€Ã‚Â±z overlay + limit
      */
     private void setupLargeLayout() {
         analogView = new AnalogSpeedometerView(context);
@@ -387,7 +387,7 @@ public class CombinedWidget extends BaseWidget
         if (size == WidgetSize.MEDIUM && weatherContainer != null && data != null && !data.isStale) {
             rootFrame.post(() -> {
                 weatherContainer.setVisibility(View.VISIBLE);
-                tempText.setText(String.format(Locale.getDefault(), "%.0fÃ‚Â°", data.temp));
+                tempText.setText(String.format(Locale.getDefault(), "%.0fÃƒâ€šÃ‚Â°", data.temp));
                 String iconName = data.getIconName();
                 int resId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
                 if (resId != 0) weatherIcon.setImageResource(resId);

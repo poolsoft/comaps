@@ -1,6 +1,7 @@
 package app.organicmaps.carlauncher.ui;
 
 import android.content.Context;
+import android.location.Location;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
@@ -48,7 +49,7 @@ public class CarFloatingButtonManager {
     private boolean isDragging = false;
     private long touchStartTime;
 
-    // Jest ve Uzun Basim Durumlari (TÃƒÂ¼rkÃƒÂ§e karakter yok)
+    // Jest ve Uzun Basim Durumlari (TÃƒÆ’Ã‚Â¼rkÃƒÆ’Ã‚Â§e karakter yok)
     private final android.os.Handler gestureHandler = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable longClickRunnable;
     private boolean isLongClickTriggered = false;
@@ -82,7 +83,7 @@ public class CarFloatingButtonManager {
         this.context = context.getApplicationContext();
         this.windowManager = (WindowManager) this.context.getSystemService(Context.WINDOW_SERVICE);
 
-        // AlÃ„Â±cÃ„Â± kaydÃ„Â± (TÃƒÂ¼rkÃƒÂ§e karakter yok)
+        // AlÃƒâ€Ã‚Â±cÃƒâ€Ã‚Â± kaydÃƒâ€Ã‚Â± (TÃƒÆ’Ã‚Â¼rkÃƒÆ’Ã‚Â§e karakter yok)
         android.content.IntentFilter filter = new android.content.IntentFilter();
         filter.addAction("net.osmand.carlauncher.ACTION_SHOW_ASSISTANT_MENU");
         filter.addAction("net.osmand.carlauncher.ACTION_LAYOUT_TOGGLE");
@@ -136,7 +137,7 @@ public class CarFloatingButtonManager {
         // Overlay izni kontrolu (Android M ve uzeri)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(context)) {
-                return; // Ã„Â°zin yoksa sessizce cik
+                return; // Ãƒâ€Ã‚Â°zin yoksa sessizce cik
             }
         }
 
@@ -301,7 +302,7 @@ public class CarFloatingButtonManager {
 
     private void createFloatingView() {
         floatingView = new FrameLayout(context);
-        int width = dpToPx(86); // 3 rakam (ÃƒÂ¶rn. 120) ve km/h yazÃ„Â±sÃ„Â± iÃƒÂ§in bÃƒÂ¼yÃƒÂ¼tÃƒÂ¼ldÃƒÂ¼
+        int width = dpToPx(86); // 3 rakam (ÃƒÆ’Ã‚Â¶rn. 120) ve km/h yazÃƒâ€Ã‚Â±sÃƒâ€Ã‚Â± iÃƒÆ’Ã‚Â§in bÃƒÆ’Ã‚Â¼yÃƒÆ’Ã‚Â¼tÃƒÆ’Ã‚Â¼ldÃƒÆ’Ã‚Â¼
         int height = dpToPx(86);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
         floatingView.setLayoutParams(lp);
@@ -313,10 +314,10 @@ public class CarFloatingButtonManager {
         buttonBg.setStroke(dpToPx(3), 0xFF3D63FF); // Modern mavi kenarlik
         floatingView.setBackground(buttonBg);
 
-        // Ã„Â°kon yerine hiz yazisi (Turkce karakter yok)
+        // Ãƒâ€Ã‚Â°kon yerine hiz yazisi (Turkce karakter yok)
         speedText = new android.widget.TextView(context);
         speedText.setTextColor(0xFFFFFFFF);
-        speedText.setTextSize(28); // 3 rakam sÃ„Â±Ã„Å¸acak font boyutu
+        speedText.setTextSize(28); // 3 rakam sÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸acak font boyutu
         speedText.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
         speedText.setGravity(Gravity.CENTER);
         
@@ -451,7 +452,7 @@ public class CarFloatingButtonManager {
         );
         menuOverlayView.addView(content, contentLp);
 
-        // MenÃƒÂ¼ elemanlarÃ„Â± (TÃƒÂ¼rkÃƒÂ§e karakter yok!)
+        // MenÃƒÆ’Ã‚Â¼ elemanlarÃƒâ€Ã‚Â± (TÃƒÆ’Ã‚Â¼rkÃƒÆ’Ã‚Â§e karakter yok!)
         addMenuItem(content, "Gorunumu Degistir", "net.osmand.carlauncher.ACTION_LAYOUT_TOGGLE");
         addMenuItem(content, "Masaustu Modu (Desktop)", "net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE");
         addMenuItem(content, "Car Launcher Ayarlari", "net.osmand.carlauncher.ACTION_OPEN_SETTINGS");
@@ -530,7 +531,7 @@ public class CarFloatingButtonManager {
         );
         menuOverlayView.addView(content, contentLp);
 
-        // MenÃƒÂ¼ elemanlarÃ„Â± (TÃƒÂ¼rkÃƒÂ§e karakter yok!)
+        // MenÃƒÆ’Ã‚Â¼ elemanlarÃƒâ€Ã‚Â± (TÃƒÆ’Ã‚Â¼rkÃƒÆ’Ã‚Â§e karakter yok!)
         addMenuItem(content, "Gorunumu Degistir", "net.osmand.carlauncher.ACTION_LAYOUT_TOGGLE");
         addMenuItem(content, "Masaustu Modu (Desktop)", "net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE");
         addMenuItem(content, "Car Launcher Ayarlari", "net.osmand.carlauncher.ACTION_OPEN_SETTINGS");

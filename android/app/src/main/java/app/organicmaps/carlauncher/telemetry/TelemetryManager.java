@@ -10,7 +10,6 @@ import app.organicmaps.sdk.location.LocationHelper;
 
 import app.organicmaps.sdk.routing.RoutingController;
 
-import net.osmand.router.TurnType;
 
 
 
@@ -149,9 +148,9 @@ public class TelemetryManager implements app.organicmaps.location.LocationListen
                     navigationState.distanceStr = OsmAndFormatter.getFormattedDistance(nextDirection.distanceTo, app);
                     
                     if (nextDirection.directionInfo != null) {
-                        TurnType turnType = nextDirection.directionInfo.getTurnType();
-                        navigationState.turnIconRes = getTurnIcon(turnType);
-                        navigationState.instructionStr = getTurnInstruction(turnType, nextDirection.directionInfo.getStreetName());
+                        Object Object = nextDirection.directionInfo.getObject();
+                        navigationState.turnIconRes = getTurnIcon(Object);
+                        navigationState.instructionStr = getTurnInstruction(Object, nextDirection.directionInfo.getStreetName());
                     }
                 } else {
                     navigationState.distanceStr = "--";
@@ -179,7 +178,7 @@ public class TelemetryManager implements app.organicmaps.location.LocationListen
         if (plugin != null && plugin.isActive() && plugin.isConnected()) {
             obdState.isActive = true;
             if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "Ãƒâ€šÃ‚Â°C";
+            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°C";
             if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
             if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
         } else {
@@ -199,37 +198,37 @@ public class TelemetryManager implements app.organicmaps.location.LocationListen
         });
     }
 
-    private int getTurnIcon(TurnType turnType) {
-        if (turnType == null) return 0;
-        if (turnType.isRoundAbout()) return android.R.drawable.ic_menu_rotate;
-        switch (turnType.getValue()) {
-            case TurnType.C: return android.R.drawable.arrow_up_float;
-            case TurnType.TL:
-            case TurnType.TSLL: return android.R.drawable.ic_menu_revert;
-            case TurnType.TR:
-            case TurnType.TSLR: return android.R.drawable.ic_menu_always_landscape_portrait;
-            case TurnType.TU: return android.R.drawable.ic_menu_rotate;
-            case TurnType.KL: return android.R.drawable.ic_menu_revert;
-            case TurnType.KR: return android.R.drawable.ic_menu_always_landscape_portrait;
+    private int getTurnIcon(Object Object) {
+        if (Object == null) return 0;
+        if (Object.isRoundAbout()) return android.R.drawable.ic_menu_rotate;
+        switch (Object.getValue()) {
+            case Object.C: return android.R.drawable.arrow_up_float;
+            case Object.TL:
+            case Object.TSLL: return android.R.drawable.ic_menu_revert;
+            case Object.TR:
+            case Object.TSLR: return android.R.drawable.ic_menu_always_landscape_portrait;
+            case Object.TU: return android.R.drawable.ic_menu_rotate;
+            case Object.KL: return android.R.drawable.ic_menu_revert;
+            case Object.KR: return android.R.drawable.ic_menu_always_landscape_portrait;
             default: return android.R.drawable.arrow_up_float;
         }
     }
 
-    private String getTurnInstruction(TurnType turnType, String streetName) {
-        if (turnType == null) return "Devam et";
+    private String getTurnInstruction(Object Object, String streetName) {
+        if (Object == null) return "Devam et";
         String inst = "Devam et";
-        if (turnType.isRoundAbout()) {
-            inst = "Doneleden " + turnType.getExitOut() + ". cikis";
+        if (Object.isRoundAbout()) {
+            inst = "Doneleden " + Object.getExitOut() + ". cikis";
         } else {
-            switch (turnType.getValue()) {
-                case TurnType.C: inst = "Duz git"; break;
-                case TurnType.TL: inst = "Sola don"; break;
-                case TurnType.TSLL: inst = "Keskin sola don"; break;
-                case TurnType.TR: inst = "Saga don"; break;
-                case TurnType.TSLR: inst = "Keskin saga don"; break;
-                case TurnType.TU: inst = "U donus yap"; break;
-                case TurnType.KL: inst = "Sola devam et"; break;
-                case TurnType.KR: inst = "Saga devam et"; break;
+            switch (Object.getValue()) {
+                case Object.C: inst = "Duz git"; break;
+                case Object.TL: inst = "Sola don"; break;
+                case Object.TSLL: inst = "Keskin sola don"; break;
+                case Object.TR: inst = "Saga don"; break;
+                case Object.TSLR: inst = "Keskin saga don"; break;
+                case Object.TU: inst = "U donus yap"; break;
+                case Object.KL: inst = "Sola devam et"; break;
+                case Object.KR: inst = "Saga devam et"; break;
             }
         }
         if (streetName != null && !streetName.isEmpty()) {

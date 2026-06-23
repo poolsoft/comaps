@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Dinamik Widget Kayıt Sistemi.
+ * Dinamik Widget KayÄ±t Sistemi.
  * Yeni widget eklemek icin buraya register etmek yeterlidir.
  * UI (WidgetPanelFragment) listeyi buradan otomatik ceker.
  */
@@ -46,15 +46,14 @@ public class WidgetRegistry {
 
     // Statik blok ile temel widget'lari kaydediyoruz.
     static {
-        register(TYPE_COMBINED, "Dashboard (Saat+Hız)", CombinedWidget::new);
-        register(TYPE_SPEED, "Hız Göstergesi", SpeedWidget::new);
-        register(TYPE_MUSIC, "Müzik Çalar", MusicWidget::new);
+        register(TYPE_COMBINED, "Dashboard (Saat+HÄ±z)", CombinedWidget::new);
+        register(TYPE_SPEED, "HÄ±z GÃ¶stergesi", SpeedWidget::new);
+        register(TYPE_MUSIC, "MÃ¼zik Ã‡alar", MusicWidget::new);
         register(TYPE_NAVIGATION, "Navigasyon", NavigationWidget::new);
         register(TYPE_COMPASS, "Pusula", DirectionWidget::new);
-        register(TYPE_OBD, "OBD Bilgileri", OBDWidget::new);
         register(TYPE_CLOCK, "Dijital Saat (M3)", Material3ClockWidget::new);
         register(TYPE_CLOCK_CLASSIC, "Klasik Saat", ClockWidget::new);
-        register(TYPE_ANTENNA, "Rakım (Anten)", AntennaWidget::new);
+        register(TYPE_ANTENNA, "RakÄ±m (Anten)", AntennaWidget::new);
         register(TYPE_WEATHER, "Hava Durumu", WeatherWidget::new);
     }
 

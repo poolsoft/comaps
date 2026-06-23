@@ -21,7 +21,6 @@ import app.organicmaps.carlauncher.widgets.SpeedWidget;
 import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
-import app.organicmaps.carlauncher.widgets.OBDWidget;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 
@@ -544,7 +543,6 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         
         VehicleMetricsPlugin obdPlugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
         if (obdPlugin != null && obdPlugin.isActive()) {
-            widgetManager.addWidget(new OBDWidget(getContext(), app));
         }
     }
 

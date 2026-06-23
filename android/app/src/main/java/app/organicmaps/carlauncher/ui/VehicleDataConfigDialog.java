@@ -48,7 +48,7 @@ public class VehicleDataConfigDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.OsmandDarkTheme));
-        builder.setTitle("GÃ¶rÃ¼ntÃ¼lenecek Veriler");
+        builder.setTitle("GÃƒÂ¶rÃƒÂ¼ntÃƒÂ¼lenecek Veriler");
 
         ScrollView scrollView = new ScrollView(getContext());
         LinearLayout layout = new LinearLayout(getContext());
@@ -62,11 +62,11 @@ public class VehicleDataConfigDialog extends DialogFragment {
 
         // Create Checkboxes
         CheckBox cbRpm = createCheckBox("Motor Devri (RPM)", KEY_RPM, selectedItems);
-        CheckBox cbSpeed = createCheckBox("HÄ±z (OBD/GPS)", KEY_SPEED, selectedItems);
-        CheckBox cbTemp = createCheckBox("Motor Suyu SÄ±caklÄ±ÄŸÄ±", KEY_TEMP, selectedItems);
-        CheckBox cbVolt = createCheckBox("AkÃ¼ VoltajÄ±", KEY_VOLT, selectedItems);
-        CheckBox cbLoad = createCheckBox("Motor YÃ¼kÃ¼ (%)", KEY_LOAD, selectedItems);
-        CheckBox cbIntake = createCheckBox("Hava GiriÅŸ SÄ±caklÄ±ÄŸÄ±", KEY_INTAKE, selectedItems);
+        CheckBox cbSpeed = createCheckBox("HÃ„Â±z (OBD/GPS)", KEY_SPEED, selectedItems);
+        CheckBox cbTemp = createCheckBox("Motor Suyu SÃ„Â±caklÃ„Â±Ã„Å¸Ã„Â±", KEY_TEMP, selectedItems);
+        CheckBox cbVolt = createCheckBox("AkÃƒÂ¼ VoltajÃ„Â±", KEY_VOLT, selectedItems);
+        CheckBox cbLoad = createCheckBox("Motor YÃƒÂ¼kÃƒÂ¼ (%)", KEY_LOAD, selectedItems);
+        CheckBox cbIntake = createCheckBox("Hava GiriÃ…Å¸ SÃ„Â±caklÃ„Â±Ã„Å¸Ã„Â±", KEY_INTAKE, selectedItems);
         
         layout.addView(cbRpm);
         layout.addView(cbSpeed);
@@ -91,12 +91,11 @@ public class VehicleDataConfigDialog extends DialogFragment {
             settings.setWidgetConfig(widget.getId(), configConfig);
             
             // Trigger refresh
-            if (widget instanceof app.organicmaps.carlauncher.widgets.OBDWidget) {
-                 ((app.organicmaps.carlauncher.widgets.OBDWidget) widget).updateFromConfig();
+            if (false) {
             }
         });
 
-        builder.setNegativeButton("Ä°ptal", null);
+        builder.setNegativeButton("Ã„Â°ptal", null);
 
         return builder.create();
     }

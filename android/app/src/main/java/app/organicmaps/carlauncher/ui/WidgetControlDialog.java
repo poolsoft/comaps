@@ -24,7 +24,6 @@ import app.organicmaps.carlauncher.widgets.WidgetRegistry;
 import java.util.ArrayList;
 import java.util.List;
 import app.organicmaps.carlauncher.CarLauncherSettings;
-import app.organicmaps.carlauncher.widgets.OBDWidget;
 
 public class WidgetControlDialog extends DialogFragment {
 
@@ -166,7 +165,7 @@ public class WidgetControlDialog extends DialogFragment {
                 adapter.notifyItemInserted(editingList.size() - 1);
             }
         });
-        builder.setNegativeButton("İptal", null);
+        builder.setNegativeButton("Ä°ptal", null);
         builder.show();
     }
 
