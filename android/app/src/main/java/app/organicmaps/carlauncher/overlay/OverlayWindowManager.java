@@ -25,8 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.organicmaps.carlauncher.antenna.AlignmentView;
-import app.organicmaps.carlauncher.antenna.AntennaManager;
 
 /**
  * Overlay window yoneticisi.
@@ -154,19 +152,19 @@ public class OverlayWindowManager {
         // --- Icerik yukleme mantigi ---
         if (packageName.equals("internal://antenna")) {
             // 1. Dahili Anten Hizalama (Yuzen compass - Turkce karakter yok)
-            AlignmentView alignmentView = new AlignmentView(context, null);
-            alignmentView.setLayoutParams(new FrameLayout.LayoutParams(
+            // AlignmentView alignmentView
+            // alignmentView(new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, 
                     ViewGroup.LayoutParams.MATCH_PARENT));
             
             // Canli verileri dinle
-            AntennaManager manager = AntennaManager.getInstance(context);
-            float targetAz = (float) manager.getAzimuthSourceToTarget();
+            Object manager = null;
+            float targetAz = 0;
             if (targetAz < 0) targetAz += 360;
-            float targetPitch = (float) manager.getElevationSourceToTarget();
+            float targetPitch = 0;
             alignmentView.setTarget(targetAz, targetPitch);
             
-            contentFrame.addView(alignmentView);
+            // contentFrame.addView
         } else if (packageName.equals("com.google.android.youtube") || packageName.equals("com.google.android.youtube.tv")) {
             // 2. Youtube WebView (Mobil site emulasyonu)
             contentFrame.addView(createWebView("https://m.youtube.com"));

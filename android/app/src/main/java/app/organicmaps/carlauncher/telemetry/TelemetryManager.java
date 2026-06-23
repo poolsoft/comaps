@@ -13,7 +13,6 @@ import app.organicmaps.sdk.routing.RoutingController;
 import net.osmand.router.TurnType;
 
 
-import net.osmand.shared.obd.OBDDataComputer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +54,10 @@ public class TelemetryManager implements app.organicmaps.location.LocationListen
     private final ObdState obdState = new ObdState();
 
     // OBD Computers
-    private OBDDataComputer.OBDComputerWidget compRpm;
-    private OBDDataComputer.OBDComputerWidget compTemp;
-    private OBDDataComputer.OBDComputerWidget compVolt;
-    private OBDDataComputer.OBDComputerWidget compLoad;
+    private Object compRpm;
+    private Object compTemp;
+    private Object compVolt;
+    private Object compLoad;
 
     private long lastLocationTime = 0;
     private final Runnable staleGpsRunnable = new Runnable() {
@@ -96,10 +95,10 @@ public class TelemetryManager implements app.organicmaps.location.LocationListen
     private void initObdComputers() {
         VehicleMetricsPlugin plugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
         if (plugin != null && plugin.isActive()) {
-            compRpm = OBDDataComputer.INSTANCE.registerWidget(OBDDataComputer.OBDTypeWidget.RPM, 0);
-            compTemp = OBDDataComputer.INSTANCE.registerWidget(OBDDataComputer.OBDTypeWidget.TEMPERATURE_COOLANT, 0);
-            compVolt = OBDDataComputer.INSTANCE.registerWidget(OBDDataComputer.OBDTypeWidget.BATTERY_VOLTAGE, 0);
-            compLoad = OBDDataComputer.INSTANCE.registerWidget(OBDDataComputer.OBDTypeWidget.CALCULATED_ENGINE_LOAD, 0);
+            compRpm = null;
+            compTemp = null;
+            compVolt = null;
+            compLoad = null;
         }
     }
 
@@ -180,7 +179,7 @@ public class TelemetryManager implements app.organicmaps.location.LocationListen
         if (plugin != null && plugin.isActive() && plugin.isConnected()) {
             obdState.isActive = true;
             if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "Ã‚Â°C";
+            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "Ãƒâ€šÃ‚Â°C";
             if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
             if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
         } else {
