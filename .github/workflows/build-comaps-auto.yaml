@@ -1,0 +1,89 @@
+name: Build CoMaps Auto
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64
+  SKIP_MAP_DOWNLOAD: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build qt6-base-dev qt6-declarative-dev qt6-positioning-dev libqt6svg6-dev optipng libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev python3-pip zlib1g-dev
+          pip install "protobuf<3.21" --break-system-packages
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Prepare Dynamic Version Info
+        working-directory: ./android
+        run: |
+          BASE_VERSION=$(grep -E 'versionName\s+"[0-9.]+"' app/build.gradle 2>/dev/null | head -n 1 | sed -E 's/.*"([0-9.]+)".*/\1/')
+          if [ -z "$BASE_VERSION" ]; then BASE_VERSION="1.0.0"; fi
+          
+          VERSION_CODE=$((GITHUB_RUN_NUMBER + 20000))
+          VERSION_NAME="${BASE_VERSION}.${GITHUB_RUN_NUMBER}"
+          
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+          echo "APK_NUMBER_VERSION=${VERSION_CODE}" >> $GITHUB_ENV
+          echo "APK_VERSION=${BASE_VERSION}" >> $GITHUB_ENV
+          echo "APK_VERSION_SUFFIX=.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher.apk\"}" > version.json
+
+      - name: Compile
+        shell: bash
+        working-directory: android
+        run: ./gradlew -Parm64 assembleWebDebug -q
+
+      - name: Rename APK
+        working-directory: ./android
+        run: |
+          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher.apk \;
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CarLauncher-APK
+          path: android/CarLauncher.apk
+
+      - name: Force Update Latest Tag
+        working-directory: ./android
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git tag -f latest || true
+          git push origin latest --force
+
+      - name: Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest CarLauncher Build
+          body: |
+            ### 🚀 Güncel Derleme Bilgileri
+            - **Versiyon:** `${{ env.VERSION_NAME }}`
+            - **İşlem (SHA):** `${{ github.sha }}`
+            
+            *Bu sürüm her başarılı derleme sonrası otomatik olarak güncellenir.*
+          files: |
+            android/CarLauncher.apk
+            android/version.json
+          draft: false
+          prerelease: false
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
