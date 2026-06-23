@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Telefon Landscape override -->
 <resources>
-  <dimen name="tabs_height">48dp</dimen>
 
-  <dimen name="map_buttons_bottom_margin">100dp</dimen>
+    <!-- APP DOCK — ayni kalsin -->
+    <dimen name="dock_height">54dp</dimen>
+    <dimen name="dock_icon_size">36dp</dimen>
+    <dimen name="dock_icon_padding">8dp</dimen>
+    <dimen name="dock_clock_text_size">24sp</dimen>
+    <dimen name="dock_music_height">48dp</dimen>
+    <dimen name="dock_music_min_width">140dp</dimen>
 
-  <!-- Nav menu -->
-  <dimen name="nav_menu_content_height">48dp</dimen>
-  <dimen name="nav_bottom_gap">24dp</dimen>
-  <dimen name="zoom_buttons_margin">48dp</dimen>
+    <!-- ANA EKRAN — landscape'de ust marjin az olsun -->
+    <dimen name="map_margin_top">16dp</dimen>
+    <dimen name="map_margin_side">8dp</dimen>
+    <dimen name="widget_panel_width">350dp</dimen>
 
-  <!-- Altitude chart -->
-  <dimen name="altitude_chart_image_width">334dp</dimen>
+    <!-- HAVA DURUMU — biraz kucult -->
+    <dimen name="weather_temp_text_size">48sp</dimen>
+    <dimen name="weather_icon_size">64dp</dimen>
+    <dimen name="weather_condition_text_size">15sp</dimen>
+    <dimen name="weather_feels_text_size">13sp</dimen>
+    <dimen name="weather_detail_icon_size">24dp</dimen>
+    <dimen name="weather_location_text_size">18sp</dimen>
+    <dimen name="weather_section_label_text_size">12sp</dimen>
+    <dimen name="weather_padding">12dp</dimen>
 
-  <dimen name="start_button_width">128dp</dimen>
-
-  <!--About Fragment -->
-  <dimen name="about_max_button_width">310dp</dimen>
 </resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Monday"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_weather_cloudy"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:id="@+id/rain_prob"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="30%"
+        android:gravity="end"
+        android:textSize="12sp"
+        android:textColor="#448AFF"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:id="@+id/min_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12°"
+        android:textSize="14sp"
+        android:textColor="#AAAAAA"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- Bar could be here, but using text is simple -->
+    <View
+        android:layout_width="60dp"
+        android:layout_height="4dp"
+        android:background="@drawable/bg_temp_bar"
+        android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/max_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24°"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"/>
+
+</LinearLayout>

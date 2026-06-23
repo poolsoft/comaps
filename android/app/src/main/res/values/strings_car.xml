@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Car Launcher Ayarları -->
+    <string name="car_pref_category_language">Language / Dil</string>
+    <string name="car_pref_language_title">App Language</string>
+    <string name="car_pref_language_desc">Change interface language (Requires restart)</string>
+    
+    <!-- İleride eklenebilecek çeviriler -->
+    <!-- <string name="car_launcher_example">Example Text</string> -->
+    <!-- Floating Button Force GPS -->
+    <string name="car_floating_button_force_gps">Continuous GPS (Floating Button)</string>
+    <string name="car_floating_button_force_gps_desc">Keeps GPS active even in the background to continuously update speed. Consumes more battery.</string>
+
+</resources>
