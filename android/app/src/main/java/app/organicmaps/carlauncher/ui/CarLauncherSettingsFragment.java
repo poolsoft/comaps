@@ -101,7 +101,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
         // Title
         android.widget.TextView titleView = new android.widget.TextView(getContext());
-        titleView.setText("AraÃ§ AyarlarÄ±");
+        titleView.setText("AraÃƒÂ§ AyarlarÃ„Â±");
         titleView.setTextColor(0xFFFFFFFF);
         titleView.setTextSize(22);
         titleView.setTypeface(android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.BOLD));
@@ -241,8 +241,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 allCategories.add(cat);
                 addCategoryToMenu(cat);
                 
-                // SaÄŸ panelde (Detay) bu Kategori baÅŸlÄ±ÄŸÄ±nÄ±n gereksiz yer/padding kaplamamasÄ± iÃ§in siliyoruz.
-                // Sol menÃ¼ye (Master) baÅŸlÄ±k ve ikon kopyalandÄ±ÄŸÄ± iÃ§in orasÄ± etkilenmez.
+                // SaÃ„Å¸ panelde (Detay) bu Kategori baÃ…Å¸lÃ„Â±Ã„Å¸Ã„Â±nÃ„Â±n gereksiz yer/padding kaplamamasÃ„Â± iÃƒÂ§in siliyoruz.
+                // Sol menÃƒÂ¼ye (Master) baÃ…Å¸lÃ„Â±k ve ikon kopyalandÃ„Â±Ã„Å¸Ã„Â± iÃƒÂ§in orasÃ„Â± etkilenmez.
                 cat.setTitle(null);
                 cat.setIcon(null);
                 cat.setIconSpaceReserved(false);
@@ -344,9 +344,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
 
 
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // GÃ–RÃœNÃœM AYARLARI
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+    // GÃƒâ€“RÃƒÅ“NÃƒÅ“M AYARLARI
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupAppearancePrefs() {
         // Status Bar
@@ -372,7 +372,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         // Widget Display Mode
         androidx.preference.ListPreference displayModePref = findPreference(CarLauncherSettings.KEY_WIDGET_DISPLAY_MODE);
         if (displayModePref != null) {
-            displayModePref.setEntries(new CharSequence[]{"Liste (VarsayÄ±lan)", "SayfalÄ± (Carousel)"});
+            displayModePref.setEntries(new CharSequence[]{"Liste (VarsayÃ„Â±lan)", "SayfalÃ„Â± (Carousel)"});
             displayModePref.setEntryValues(new CharSequence[]{"0", "1"});
             displayModePref.setOnPreferenceChangeListener((preference, newValue) -> {
                 CarLauncherSettings settings = new CarLauncherSettings(getContext());
@@ -382,7 +382,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setWidgetDisplayMode(0);
                 }
 
-                Toast.makeText(getContext(), "GÃ¶rÃ¼nÃ¼m deÄŸiÅŸikliÄŸi iÃ§in widget paneli yenilenecek",
+                Toast.makeText(getContext(), "GÃƒÂ¶rÃƒÂ¼nÃƒÂ¼m deÃ„Å¸iÃ…Å¸ikliÃ„Å¸i iÃƒÂ§in widget paneli yenilenecek",
                         Toast.LENGTH_SHORT).show();
                 
                  if (getActivity() != null) {
@@ -572,19 +572,19 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) getContext().getApplicationContext();
             
             // Secenekleri ayarla
-            langPref.setEntries(new CharSequence[]{"Sistem (System)", "TÃ¼rkÃ§e", "English", "Deutsch"});
+            langPref.setEntries(new CharSequence[]{"Sistem (System)", "TÃƒÂ¼rkÃƒÂ§e", "English", "Deutsch"});
             langPref.setEntryValues(new CharSequence[]{"", "tr", "en", "de"});
             
             // Mevcut degeri set et
-            String current = app.getSettings().PREFERRED_LOCALE.get();
+            String current = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext()).getString("car_launcher_language", "");
             langPref.setValue(current);
             
             langPref.setOnPreferenceChangeListener((preference, newValue) -> {
                 String val = (String) newValue;
-                app.getSettings().PREFERRED_LOCALE.set(val);
+                androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("car_launcher_language", val).apply();
                 
                 // Dil guncelle ve yeniden baslat
-                Toast.makeText(getContext(), "Dil gÃ¼ncelleniyor...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Dil gÃƒÂ¼ncelleniyor...", Toast.LENGTH_SHORT).show();
                 if (getActivity() != null) {
                     Intent intent = getActivity().getIntent();
                     getActivity().finish();
@@ -595,9 +595,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // MÃœZÄ°K AYARLARI
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+    // MÃƒÅ“ZÃ„Â°K AYARLARI
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupMusicPrefs() {
         // Music App Picker
@@ -687,13 +687,13 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             intent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(getContext(), "Equalizer bulunamadÄ±", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Equalizer bulunamadÃ„Â±", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
     // DOCK AYARLARI
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupDockPrefs() {
         androidx.preference.ListPreference dockPosPref = findPreference(CarLauncherSettings.KEY_DOCK_POSITION);
@@ -704,7 +704,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setDockPosition(val);
                 }
                 if (getActivity() instanceof app.organicmaps.MwmActivity) {
-                    ((app.organicmaps.MwmActivity) getActivity()).checkAndRefreshDockFragmentIfNeeded();
+                    if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherInterface) ((app.organicmaps.carlauncher.CarLauncherInterface) getActivity()).checkAndRefreshDockFragmentIfNeeded();
                 }
                 return true;
             });
@@ -733,9 +733,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private void confirmResetDock() {
         if (getContext() == null) return;
         new AlertDialog.Builder(getContext())
-                .setTitle("Dock'u SÄ±fÄ±rla")
-                .setMessage("TÃ¼m uygulama kÄ±sayollarÄ± silinecek. Emin misiniz?")
-                .setPositiveButton("SÄ±fÄ±rla", (dialog, which) -> resetDock())
+                .setTitle("Dock'u SÃ„Â±fÃ„Â±rla")
+                .setMessage("TÃƒÂ¼m uygulama kÃ„Â±sayollarÃ„Â± silinecek. Emin misiniz?")
+                .setPositiveButton("SÃ„Â±fÃ„Â±rla", (dialog, which) -> resetDock())
                 .setNegativeButton("Iptal", null)
                 .show();
     }
@@ -746,12 +746,12 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         dockManager.clearAllShortcuts();
         Intent intent = new Intent("net.osmand.carlauncher.DOCK_UPDATED");
         getContext().sendBroadcast(intent);
-        Toast.makeText(getContext(), "Dock sÄ±fÄ±rlandÄ±", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Dock sÃ„Â±fÃ„Â±rlandÃ„Â±", Toast.LENGTH_SHORT).show();
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // OTOMATÄ°K BAÅLATMA
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+    // OTOMATÃ„Â°K BAÃ…ÂLATMA
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupAutoLaunchPrefs() {
         bindAutoLaunchSlot(1);
@@ -767,7 +767,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             if (settings.getAutoLaunchPackage(slot) != null) {
                 pref.setSummary(appName);
             } else {
-                pref.setSummary("SeÃ§mek iÃ§in metne tÄ±klayÄ±n");
+                pref.setSummary("SeÃƒÂ§mek iÃƒÂ§in metne tÃ„Â±klayÃ„Â±n");
             }
 
             pref.setOnPreferenceClickListener(preference -> {
@@ -786,9 +786,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
     // YEDEKLEME
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private static final int RC_BACKUP_EXPORT = 101;
     private static final int RC_BACKUP_IMPORT = 102;
@@ -804,7 +804,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     intent.putExtra(Intent.EXTRA_TITLE, "CarLauncher_Backup_" + System.currentTimeMillis() + ".json");
                     startActivityForResult(intent, RC_BACKUP_EXPORT);
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "Dosya oluÅŸturulamadÄ±", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Dosya oluÃ…Å¸turulamadÃ„Â±", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -819,7 +819,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     intent.setType("application/json"); 
                     startActivityForResult(intent, RC_BACKUP_IMPORT);
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "Dosya seÃ§ici aÃ§Ä±lamadÄ±", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Dosya seÃƒÂ§ici aÃƒÂ§Ã„Â±lamadÃ„Â±", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -846,9 +846,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
     // HAKKINDA
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupAboutPrefs() {
         Preference versionPref = findPreference("car_launcher_version");
@@ -870,7 +870,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                             Uri.parse("https://github.com/poolsoft/OsmAnd/tree/right-panel-plugin"));
                     startActivity(intent);
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "TarayÄ±cÄ± aÃ§Ä±lamadÄ±", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "TarayÃ„Â±cÃ„Â± aÃƒÂ§Ã„Â±lamadÃ„Â±", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -897,7 +897,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     intent.setType("application/zip");
                     startActivityForResult(intent, RC_IMPORT_VOICE_MODEL);
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "Dosya seÃ§ici aÃ§Ä±lamadÄ±", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Dosya seÃƒÂ§ici aÃƒÂ§Ã„Â±lamadÃ„Â±", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -906,7 +906,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     private void importVoiceModelFromUri(Uri uri) {
         if (getContext() == null) return;
-        Toast.makeText(getContext(), "Model dosyasÄ± kopyalanÄ±yor, lÃ¼tfen bekleyin...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Model dosyasÃ„Â± kopyalanÃ„Â±yor, lÃƒÂ¼tfen bekleyin...", Toast.LENGTH_SHORT).show();
         
         java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> {
             File targetDir = new File(getContext().getExternalFilesDir(null), "vosk-model-tr");
@@ -951,18 +951,18 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), "Ses modeli baÅŸarÄ±yla kuruldu! Servis yeniden baÅŸlatÄ±lÄ±yor...", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Ses modeli baÃ…Å¸arÃ„Â±yla kuruldu! Servis yeniden baÃ…Å¸latÃ„Â±lÃ„Â±yor...", Toast.LENGTH_LONG).show();
                         restartVoiceService();
                     });
                 }
                 
             } catch (Exception e) {
-                android.util.Log.e("CarLauncherSettings", "Model kopyalama/unzip hatasÄ±", e);
+                android.util.Log.e("CarLauncherSettings", "Model kopyalama/unzip hatasÃ„Â±", e);
                 if (tempZip.exists()) tempZip.delete();
                 if (tempExtractDir.exists()) deleteRecursive(tempExtractDir);
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), "Ses modeli yÃ¼klenemedi!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Ses modeli yÃƒÂ¼klenemedi!", Toast.LENGTH_LONG).show();
                     });
                 }
             }

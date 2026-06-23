@@ -36,7 +36,7 @@ import java.util.Locale;
 import java.util.Date;
 
 /**
- * Birlesik MÃƒÂ¼zik ve Arama/Bildirim Paneli.
+ * Birlesik MÃƒÆ’Ã‚Â¼zik ve Arama/Bildirim Paneli.
  * Normal modda sag taraftaki panelde gosterilir.
  */
 public class UnifiedPanelFragment extends Fragment 
@@ -126,7 +126,7 @@ public class UnifiedPanelFragment extends Fragment
     }
 
     private void setupListeners() {
-        // Muzik alanÃ„Â± tiklandiginda buyuk oynaticiyi ac
+        // Muzik alanÃƒâ€Ã‚Â± tiklandiginda buyuk oynaticiyi ac
         if (musicArea != null) {
             musicArea.setOnClickListener(v -> {
                 if (getActivity() instanceof CarLauncherInterface) {
@@ -173,21 +173,21 @@ public class UnifiedPanelFragment extends Fragment
         popup.getMenu().add(0, 1, 0, "Harita Modu");
         popup.getMenu().add(0, 2, 1, "Masaustu Modu");
         popup.getMenu().add(0, 3, 2, "Ayarlar");
-        popup.getMenu().add(0, 4, 3, "EkranÃ„Â± Kapat");
-        popup.getMenu().add(0, 5, 4, "HafÃ„Â±zayÃ„Â± Temizle (RAM)");
+        popup.getMenu().add(0, 4, 3, "EkranÃƒâ€Ã‚Â± Kapat");
+        popup.getMenu().add(0, 5, 4, "HafÃƒâ€Ã‚Â±zayÃƒâ€Ã‚Â± Temizle (RAM)");
         
         popup.setOnMenuItemClickListener(item -> {
             if (getActivity() instanceof app.organicmaps.MwmActivity) {
                 app.organicmaps.MwmActivity activity = (app.organicmaps.MwmActivity) getActivity();
                 switch (item.getItemId()) {
                     case 1:
-                        activity.onLayoutModeToggle();
+                        if (activity instanceof app.organicmaps.carlauncher.CarLauncherInterface) ((app.organicmaps.carlauncher.CarLauncherInterface) activity).onLayoutModeToggle();
                         return true;
                     case 2:
-                        activity.onDesktopModeToggle();
+                        if (activity instanceof app.organicmaps.carlauncher.CarLauncherInterface) ((app.organicmaps.carlauncher.CarLauncherInterface) activity).onDesktopModeToggle();
                         return true;
                     case 3:
-                        activity.openCarLauncherSettings();
+                        if (activity instanceof app.organicmaps.carlauncher.CarLauncherInterface) ((app.organicmaps.carlauncher.CarLauncherInterface) activity).openCarLauncherSettings();
                         return true;
                     case 4:
                         app.organicmaps.carlauncher.hardware.CarHardwareManager.getInstance(getContext())

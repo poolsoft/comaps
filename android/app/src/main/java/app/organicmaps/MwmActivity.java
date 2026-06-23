@@ -143,7 +143,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener, MapButtonsController.MapButtonClickListener,
                DisplayChangedListener
-{
+, app.organicmaps.carlauncher.CarLauncherInterface {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
   public static final String EXTRA_COUNTRY_ID = "country_id";
@@ -2043,7 +2043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           mPreciseLocationDialogShown = true;
           final MaterialAlertDialogBuilder builder =
               new MaterialAlertDialogBuilder(this)
-                  .setTitle("⚠ " + getString(R.string.limited_accuracy))
+                  .setTitle("âš  " + getString(R.string.limited_accuracy))
                   .setMessage(R.string.precise_location_is_disabled_long_text)
                   .setNegativeButton(R.string.close, (dialog, which) -> dialog.dismiss())
                   .setCancelable(true)

@@ -143,7 +143,7 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
         if (RoutingController != null && RoutingController.isFollowingMode() && RoutingController.isRouteCalculated()) {
             navigationState.isActive = true;
             try {
-                app.organicmaps.sdk.routing.JunctionInfo nextDirection = RoutingController.getNextRouteDirectionInfo(new app.organicmaps.sdk.routing.JunctionInfo(), true);
+                app.organicmaps.sdk.routing.JunctionInfo nextDirection = RoutingController.getNextRouteDirectionInfo(new app.organicmaps.sdk.routing.JunctionInfo(0.0, 0.0), true);
                 if (nextDirection != null && nextDirection.distanceTo > 0) {
                     navigationState.distanceStr = OsmAndFormatter.getFormattedDistance(nextDirection.distanceTo, app);
                     
@@ -178,7 +178,7 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
         if (plugin != null && plugin.isActive() && plugin.isConnected()) {
             obdState.isActive = true;
             if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°C";
+            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°C";
             if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
             if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
         } else {

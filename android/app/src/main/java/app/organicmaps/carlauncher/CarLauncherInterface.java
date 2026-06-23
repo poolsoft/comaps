@@ -18,8 +18,8 @@ public interface CarLauncherInterface {
     
 
     /**
-     * SaÄŸ panel iÃ§eriÄŸini deÄŸiÅŸtirir (Android Auto UI).
-     * @param content PanelContent enum deÄŸeri
+     * SaÃ„Å¸ panel iÃƒÂ§eriÃ„Å¸ini deÃ„Å¸iÃ…Å¸tirir (Android Auto UI).
+     * @param content PanelContent enum deÃ„Å¸eri
      */
     void setPanelContent(PanelContentManager.PanelContent content);
 
