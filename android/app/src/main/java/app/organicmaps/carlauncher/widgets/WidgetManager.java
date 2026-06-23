@@ -594,7 +594,6 @@ public class WidgetManager {
                             label = "Car Launcher Ayarlar";
                         } else if (packageName.equals("internal://music")) {
                             label = "Muzik Calici";
-                        } else if (packageName.equals("internal://antenna")) {
                             label = "Anten Hizalama";
                         } else {
                             try {

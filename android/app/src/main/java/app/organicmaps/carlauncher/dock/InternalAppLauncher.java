@@ -28,8 +28,6 @@ public class InternalAppLauncher {
             case MUSIC:
                 if (mapActivity != null) mapActivity.openMusicPlayer();
                 break;
-            case ANTENNA:
-                if (mapActivity != null) mapActivity.openAntennaAlignmentInPanel();
                 break;
             case DASHBOARD:
                 if (mapActivity != null) {

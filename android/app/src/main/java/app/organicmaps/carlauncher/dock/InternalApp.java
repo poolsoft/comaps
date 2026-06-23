@@ -11,7 +11,6 @@ import app.organicmaps.R;
 public enum InternalApp {
     SETTINGS("internal://settings", "Ayarlar", android.R.drawable.ic_menu_preferences),
     MUSIC("internal://music", "Muzik", android.R.drawable.ic_media_play),
-    ANTENNA("internal://antenna", "Anten", R.drawable.ic_action_compass),
     DASHBOARD("internal://dashboard", "Dashboard", android.R.drawable.ic_menu_compass),
     NEON_DASHBOARD("internal://neon_dashboard", "Dijital Gosterge", android.R.drawable.ic_menu_view);
 

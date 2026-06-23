@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Dinamik Widget KayÄ±t Sistemi.
+ * Dinamik Widget KayÃ„Â±t Sistemi.
  * Yeni widget eklemek icin buraya register etmek yeterlidir.
  * UI (WidgetPanelFragment) listeyi buradan otomatik ceker.
  */
@@ -21,7 +21,6 @@ public class WidgetRegistry {
     public static final String TYPE_OBD = "obd";
     public static final String TYPE_CLOCK = "clock";
     public static final String TYPE_CLOCK_CLASSIC = "classic";
-    public static final String TYPE_ANTENNA = "antenna";
     public static final String TYPE_WEATHER = "weather";
 
     // Widget Yaratma Arayuzu (Lambda icin)
@@ -46,14 +45,13 @@ public class WidgetRegistry {
 
     // Statik blok ile temel widget'lari kaydediyoruz.
     static {
-        register(TYPE_COMBINED, "Dashboard (Saat+HÄ±z)", CombinedWidget::new);
-        register(TYPE_SPEED, "HÄ±z GÃ¶stergesi", SpeedWidget::new);
-        register(TYPE_MUSIC, "MÃ¼zik Ã‡alar", MusicWidget::new);
+        register(TYPE_COMBINED, "Dashboard (Saat+HÃ„Â±z)", CombinedWidget::new);
+        register(TYPE_SPEED, "HÃ„Â±z GÃƒÂ¶stergesi", SpeedWidget::new);
+        register(TYPE_MUSIC, "MÃƒÂ¼zik Ãƒâ€¡alar", MusicWidget::new);
         register(TYPE_NAVIGATION, "Navigasyon", NavigationWidget::new);
         register(TYPE_COMPASS, "Pusula", DirectionWidget::new);
         register(TYPE_CLOCK, "Dijital Saat (M3)", Material3ClockWidget::new);
         register(TYPE_CLOCK_CLASSIC, "Klasik Saat", ClockWidget::new);
-        register(TYPE_ANTENNA, "RakÄ±m (Anten)", AntennaWidget::new);
         register(TYPE_WEATHER, "Hava Durumu", WeatherWidget::new);
     }
 

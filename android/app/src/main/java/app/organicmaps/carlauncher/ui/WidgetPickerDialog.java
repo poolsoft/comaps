@@ -442,7 +442,7 @@ public class WidgetPickerDialog extends DialogFragment {
         cardBg.setStroke(dpToPx(1), 0x1FFFFFFF);
         card.setBackground(cardBg);
 
-        // Canvas Tabanli Sistem Widget Ã–nizleme
+        // Canvas Tabanli Sistem Widget Ãƒâ€“nizleme
         WidgetPreviewView preview = new WidgetPreviewView(ctx, "system");
         if (appIcon != null) {
             preview.setAppIcon(appIcon);
@@ -530,9 +530,6 @@ public class WidgetPickerDialog extends DialogFragment {
             list.add(new WidgetInfo("obd", "OBD Verileri", "Motor gostergeleri", BaseWidget.WidgetSize.LARGE));
         }
 
-        app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = PluginsHelper.getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
-        if (antennaPlugin != null && antennaPlugin.isActive()) {
-            list.add(new WidgetInfo("antenna", "Anten Durumu", "Anten sinyali", BaseWidget.WidgetSize.SMALL));
         }
 
         return list;
@@ -555,8 +552,6 @@ public class WidgetPickerDialog extends DialogFragment {
         } else if (info.type.equals("navigation")) {
             widget = new NavigationWidget(getContext(), app);
         } else if (info.type.equals("obd")) {
-        } else if (info.type.equals("antenna")) {
-            widget = new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), app);
         }
 
         if (widget != null) {
@@ -901,7 +896,6 @@ public class WidgetPickerDialog extends DialogFragment {
                 drawPaint.setColor(0xFFFFD54F); // Amber Motor
                 canvas.drawRect(cx - 8f * density, cy - 5f * density, cx + 8f * density, cy + 7f * density, drawPaint);
                 canvas.drawRect(cx - 11f * density, cy - 1.5f * density, cx - 8f * density, cy + 3.5f * density, drawPaint);
-            } else if (type.equals("antenna")) {
                 drawPaint.setColor(0xFF81C784); // Yesil Cubuklar
                 canvas.drawLine(cx - 8f * density, cy + 8f * density, cx - 8f * density, cy + 5f * density, drawPaint);
                 canvas.drawLine(cx - 3f * density, cy + 8f * density, cx - 3f * density, cy + 1f * density, drawPaint);
@@ -928,7 +922,6 @@ public class WidgetPickerDialog extends DialogFragment {
         String[][] internalApps = {
             {"internal://settings", "Car Launcher Ayarlar"},
             {"internal://music", "Muzik Calici"},
-            {"internal://antenna", "Anten Hizalama"}
         };
         for (String[] app : internalApps) {
             String packageName = app[0];

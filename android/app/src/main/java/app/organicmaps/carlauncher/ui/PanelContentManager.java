@@ -9,8 +9,8 @@ import app.organicmaps.R;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 /**
- * Sağ panel içeriğini yöneten sınıf.
- * Android Auto UI mantığı: panel müzik/bildirim/app drawer gösterir.
+ * SaÄŸ panel iÃ§eriÄŸini yÃ¶neten sÄ±nÄ±f.
+ * Android Auto UI mantÄ±ÄŸÄ±: panel mÃ¼zik/bildirim/app drawer gÃ¶sterir.
  */
 public class PanelContentManager {
 
@@ -22,7 +22,6 @@ public class PanelContentManager {
         WEATHER,      // Hava durumu
         SETTINGS,     // Ayarlar fragmenti
         DESKTOP,      // Masaustu Modu (WidgetPanelFragment)
-        ANTENNA,      // Anten Hizalama
         DASHBOARD     // Arac Telemetri & Spor Kadran
     }
 
@@ -52,7 +51,6 @@ public class PanelContentManager {
      */
     public void setContent(PanelContent content) {
         // Her zaman en guncel fullscreen durumunu set et (Turkce karakter yok)
-        boolean needsFullScreen = (content != PanelContent.WIDGETS && content != PanelContent.ANTENNA);
         if (fullScreenListener != null) {
             fullScreenListener.onFullScreenStateChanged(needsFullScreen);
         }
@@ -83,8 +81,6 @@ public class PanelContentManager {
             case WEATHER:
                 fragment = new WeatherDashboardFragment();
                 break;
-            case ANTENNA:
-                fragment = new app.organicmaps.carlauncher.antenna.AntennaWidgetFragment();
                 break;
             case DASHBOARD:
                 fragment = new DashboardFragment();
