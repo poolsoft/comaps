@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget Container ID -->
+    <item name="root_layout" type="id"/>
+    <item name="map_container" type="id"/>
+    <item name="widget_panel" type="id"/>
+    <item name="app_dock" type="id"/>
+    <item name="btn_toggle_ui" type="id"/>
+    <item name="btn_toggle_dock" type="id"/>
+</resources>
