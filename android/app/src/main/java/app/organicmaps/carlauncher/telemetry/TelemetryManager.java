@@ -16,7 +16,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelemetryManager implements app.organicmaps.location.LocationListener {
+public class TelemetryManager implements app.organicmaps.sdk.location.LocationListener {
 
     private static TelemetryManager instance;
     private final MwmApplication app;
