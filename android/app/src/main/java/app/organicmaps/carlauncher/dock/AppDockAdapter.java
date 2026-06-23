@@ -225,7 +225,7 @@ public class AppDockAdapter extends RecyclerView.Adapter<AppDockAdapter.ViewHold
             try {
                 // 1. Check for internal Overlay Manager first
                 if (shortcut.getLaunchMode() == LaunchMode.OVERLAY) {
-                    // Check if we have an OverlayWindowManager in context (MapActivity)
+                    // Check if we have an OverlayWindowManager in context (MwmActivity)
                     // Or send broadcast to open overlay
                     if (context instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
                         // TODO: Make interface support openOverlay

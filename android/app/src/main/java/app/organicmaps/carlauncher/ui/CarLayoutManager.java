@@ -7,16 +7,16 @@ import android.widget.ImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import app.organicmaps.R;
-import app.organicmaps.activities.MapActivity;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 /**
  * Manages the layout constraints and UI state for the CarLauncher interface.
- * Decouples layout logic from MapActivity.
+ * Decouples layout logic from MwmActivity.
  */
 public class CarLayoutManager {
 
-    private final MapActivity activity;
+    private final MwmActivity activity;
     private final ConstraintLayout rootLayout;
     private final View mapContainer;
     private final View widgetPanel;
@@ -24,7 +24,7 @@ public class CarLayoutManager {
     private final View appDrawerContainer;
     private final ImageButton widgetHandle;
 
-    public CarLayoutManager(MapActivity activity) {
+    public CarLayoutManager(MwmActivity activity) {
         this.activity = activity;
         this.rootLayout = activity.findViewById(R.id.root_layout);
         this.mapContainer = activity.findViewById(R.id.map_container);

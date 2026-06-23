@@ -85,11 +85,11 @@ public class AutoLaunchManager {
     private void finishLaunch() {
         // En son Launcher'i one getir
         try {
-            Intent intent = new Intent(context, app.organicmaps.activities.MapActivity.class); // Adjust class if needed
+            Intent intent = new Intent(context, app.organicmaps.MwmActivity.class); // Adjust class if needed
             // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // Reorder?
             // Or Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
             
-            // MapActivity'yi tekrar on plana cekmek icin:
+            // MwmActivity'yi tekrar on plana cekmek icin:
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             context.startActivity(intent);

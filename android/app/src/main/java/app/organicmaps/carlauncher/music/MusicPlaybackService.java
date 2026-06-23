@@ -104,7 +104,7 @@ public class MusicPlaybackService extends Service {
         PendingIntent pClose = PendingIntent.getService(this, 0, closeIntent, PendingIntent.FLAG_IMMUTABLE);
         
         // Open App Intent (Click on content)
-        // We need to know which Activity to open. Assuming MapActivity or similar?
+        // We need to know which Activity to open. Assuming MwmActivity or similar?
         // Let's use getLaunchIntent for self
         Intent contentIntent = getPackageManager().getLaunchIntentForPackage(getPackageName());
         PendingIntent pContent = PendingIntent.getActivity(this, 0, contentIntent, PendingIntent.FLAG_IMMUTABLE);

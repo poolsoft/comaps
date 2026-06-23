@@ -123,7 +123,7 @@ public class WeatherDashboardFragment extends Fragment implements WeatherManager
         int resId = getResources().getIdentifier(data.getIconName(), "drawable", getContext().getPackageName());
         if (resId != 0) imgIcon.setImageResource(resId);
 
-        // Location (Placeholder or from MapActivity)
+        // Location (Placeholder or from MwmActivity)
         // Ideally WeatherManager should pass location name or we get it from Gps
         tvLocation.setText("Current Location"); 
 

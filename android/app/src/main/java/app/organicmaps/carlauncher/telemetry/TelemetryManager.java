@@ -10,8 +10,8 @@ import app.organicmaps.routing.NextDirectionInfo;
 import app.organicmaps.routing.RoutingHelper;
 import app.organicmaps.utils.OsmAndFormatter;
 import net.osmand.router.TurnType;
-import app.organicmaps.plugins.PluginsHelper;
-import app.organicmaps.plugins.odb.VehicleMetricsPlugin;
+
+
 import net.osmand.shared.obd.OBDDataComputer;
 
 import java.util.ArrayList;

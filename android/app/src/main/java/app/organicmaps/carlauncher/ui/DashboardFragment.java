@@ -70,8 +70,8 @@ public class DashboardFragment extends Fragment implements TelemetryManager.Tele
         closeLp.topMargin = dpToPx(16);
         closeLp.rightMargin = dpToPx(16);
         closeBtn.setOnClickListener(v -> {
-            if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                ((app.organicmaps.activities.MapActivity) getActivity()).getPanelContentManager()
+            if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                ((app.organicmaps.MwmActivity) getActivity()).getPanelContentManager()
                         .setContent(PanelContentManager.PanelContent.WIDGETS);
             }
         });

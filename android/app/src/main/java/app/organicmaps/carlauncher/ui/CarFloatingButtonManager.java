@@ -416,7 +416,7 @@ public class CarFloatingButtonManager {
     }
 
     private void bringAppToForeground() {
-        Intent intent = new Intent(context, app.organicmaps.activities.MapActivity.class);
+        Intent intent = new Intent(context, app.organicmaps.MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }

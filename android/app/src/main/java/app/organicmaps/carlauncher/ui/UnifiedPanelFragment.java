@@ -176,8 +176,8 @@ public class UnifiedPanelFragment extends Fragment
         popup.getMenu().add(0, 5, 4, "Hafızayı Temizle (RAM)");
         
         popup.setOnMenuItemClickListener(item -> {
-            if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                app.organicmaps.activities.MapActivity activity = (app.organicmaps.activities.MapActivity) getActivity();
+            if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                app.organicmaps.MwmActivity activity = (app.organicmaps.MwmActivity) getActivity();
                 switch (item.getItemId()) {
                     case 1:
                         activity.onLayoutModeToggle();

@@ -473,8 +473,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 if (settings != null) {
                     settings.setNightDimMode(val);
                 }
-                if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                    ((app.organicmaps.activities.MapActivity) getActivity()).applyNightDimMode();
+                if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                    ((app.organicmaps.MwmActivity) getActivity()).applyNightDimMode();
                 } else if (getContext() != null) {
                     Intent intent = new Intent("net.osmand.carlauncher.NIGHT_DIM_CHANGED");
                     getContext().sendBroadcast(intent);
@@ -561,8 +561,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void applyStatusBarVisibility(boolean show) {
-        if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-            ((app.organicmaps.activities.MapActivity) getActivity()).applyStatusBarVisibility();
+        if (getActivity() instanceof app.organicmaps.MwmActivity) {
+            ((app.organicmaps.MwmActivity) getActivity()).applyStatusBarVisibility();
         }
     }
 
@@ -703,8 +703,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 if (settings != null) {
                     settings.setDockPosition(val);
                 }
-                if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                    ((app.organicmaps.activities.MapActivity) getActivity()).checkAndRefreshDockFragmentIfNeeded();
+                if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                    ((app.organicmaps.MwmActivity) getActivity()).checkAndRefreshDockFragmentIfNeeded();
                 }
                 return true;
             });

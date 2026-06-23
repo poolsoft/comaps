@@ -1,10 +1,10 @@
 package app.organicmaps.carlauncher;
 
 import app.organicmaps.carlauncher.ui.PanelContentManager;
-import app.organicmaps.views.OsmandMapTileView;
+
 
 /**
- * Interface to expose CarLauncher specific methods from MapActivity.
+ * Interface to expose CarLauncher specific methods from MwmActivity.
  */
 public interface CarLauncherInterface {
     void openAppDrawer();
@@ -25,5 +25,5 @@ public interface CarLauncherInterface {
      */
     void setPanelContent(PanelContentManager.PanelContent content);
 
-    OsmandMapTileView getMapView();
+
 }

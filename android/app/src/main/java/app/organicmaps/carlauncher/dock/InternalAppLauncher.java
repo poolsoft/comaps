@@ -3,7 +3,7 @@ package app.organicmaps.carlauncher.dock;
 import android.content.Context;
 import android.content.Intent;
 
-import app.organicmaps.activities.MapActivity;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.carlauncher.ui.NeonDashboardActivity;
 import app.organicmaps.carlauncher.ui.PanelContentManager;
 
@@ -16,9 +16,9 @@ public class InternalAppLauncher {
         InternalApp app = InternalApp.fromPackageName(uri);
         if (app == null) return;
 
-        MapActivity mapActivity = null;
-        if (context instanceof MapActivity) {
-            mapActivity = (MapActivity) context;
+        MwmActivity mapActivity = null;
+        if (context instanceof MwmActivity) {
+            mapActivity = (MwmActivity) context;
         }
 
         switch (app) {

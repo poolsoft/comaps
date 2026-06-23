@@ -391,7 +391,7 @@ public class InternalMusicPlayer {
             if (mediaPlayer != null) {
                 // We need to wait for preparation to seek.
                 // playTrack prepares async. We need a way to seek after prepare.
-                // For now, let's just rely on the user or the auto-resume logic in MapActivity
+                // For now, let's just rely on the user or the auto-resume logic in MwmActivity
                 // to call play().
                 // But playTrack auto-plays in current implementation!
                 // Let's modify playTrack to accept 'autoPlay' boolean?

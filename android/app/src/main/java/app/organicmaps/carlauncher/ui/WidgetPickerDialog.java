@@ -39,8 +39,8 @@ import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
 import app.organicmaps.carlauncher.widgets.OBDWidget;
-import app.organicmaps.plugins.odb.VehicleMetricsPlugin;
-import app.organicmaps.plugins.PluginsHelper;
+
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
