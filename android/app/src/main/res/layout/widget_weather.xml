@@ -33,7 +33,7 @@
                 android:id="@+id/weather_icon"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:src="@drawable/ic_action_umbrella"
+                android:src="@android:drawable/ic_menu_info_details"
                 app:tint="@color/cl_accent_gold"
                 android:scaleType="fitCenter" />
 

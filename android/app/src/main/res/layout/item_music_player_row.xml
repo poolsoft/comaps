@@ -20,7 +20,7 @@
             android:id="@+id/status_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_action_play_dark"
+            android:src="@android:drawable/ic_media_play"
             android:tint="#FFFFFF"/>
         
         <!-- App Name -->
