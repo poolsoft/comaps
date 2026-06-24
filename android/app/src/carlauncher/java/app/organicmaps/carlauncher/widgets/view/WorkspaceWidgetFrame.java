@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.widgets.view;
+package app.organicmaps.carlauncher.widgets.view;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;

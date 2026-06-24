@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.music;
+package app.organicmaps.carlauncher.music;
 
 import android.graphics.Bitmap;
 import android.media.MediaMetadata;

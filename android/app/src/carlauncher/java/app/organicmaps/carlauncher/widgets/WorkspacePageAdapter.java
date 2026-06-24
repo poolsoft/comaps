@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.widgets;
+package app.organicmaps.carlauncher.widgets;
 
 import android.content.Context;
 import android.view.LayoutInflater;

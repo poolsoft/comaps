@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.dock;
+package app.organicmaps.carlauncher.dock;
 // Sync Fix: AppInfoAdapter for CarLauncher
 import android.content.Context;
 import android.graphics.drawable.Drawable;

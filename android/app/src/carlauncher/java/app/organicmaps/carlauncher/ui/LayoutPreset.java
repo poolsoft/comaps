@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.ui;
+package app.organicmaps.carlauncher.ui;
 
 /**
  * CarLauncher widget paneli icin hazir duzen profilleri.

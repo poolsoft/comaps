@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.dock;
+package app.organicmaps.carlauncher.dock;
 
 import android.graphics.drawable.Drawable;
 

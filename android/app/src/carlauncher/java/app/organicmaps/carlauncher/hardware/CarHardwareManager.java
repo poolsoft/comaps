@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.hardware;
+package app.organicmaps.carlauncher.hardware;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;

@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher;
+package app.organicmaps.carlauncher;
 
 import android.content.ComponentName;
 import android.media.session.MediaController;

@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.voice;
+package app.organicmaps.carlauncher.voice;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

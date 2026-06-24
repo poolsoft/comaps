@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.antenna;
+package app.organicmaps.carlauncher.antenna;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

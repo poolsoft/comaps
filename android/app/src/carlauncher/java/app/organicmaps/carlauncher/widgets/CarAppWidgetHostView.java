@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.widgets;
+package app.organicmaps.carlauncher.widgets;
 
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;

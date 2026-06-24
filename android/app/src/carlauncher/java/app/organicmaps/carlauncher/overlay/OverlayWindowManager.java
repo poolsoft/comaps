@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.overlay;
+package app.organicmaps.carlauncher.overlay;
 
 import android.app.ActivityOptions;
 import android.content.Context;

@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.ui;
+package app.organicmaps.carlauncher.ui;
 
 import android.app.Dialog;
 import android.content.Context;
