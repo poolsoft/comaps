@@ -409,8 +409,8 @@ public class AppDockFragment extends Fragment
         applyOrientationState(view, isVerticalMode);
         
         // Sync Desktop Mode color filter on launch
-        if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-            updateDesktopModeState(((app.organicmaps.activities.MapActivity) getActivity()).isDesktopMode());
+        if (getActivity() instanceof app.organicmaps.MwmActivity) {
+            updateDesktopModeState(((app.organicmaps.MwmActivity) getActivity()).isDesktopMode());
         }
     }
 
@@ -683,8 +683,8 @@ public class AppDockFragment extends Fragment
     }
 
     private void openSettings() {
-        if (getContext() instanceof app.organicmaps.activities.MapActivity) {
-            ((app.organicmaps.activities.MapActivity) getContext()).openCarLauncherSettings();
+        if (getContext() instanceof app.organicmaps.MwmActivity) {
+            ((app.organicmaps.MwmActivity) getContext()).openCarLauncherSettings();
         }
     }
 
@@ -768,8 +768,8 @@ public class AppDockFragment extends Fragment
             if (miniMusicContainer != null) {
                 boolean isScreenPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
                 int layoutMode = 0;
-                if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                    layoutMode = ((app.organicmaps.activities.MapActivity) getActivity()).getLayoutMode();
+                if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                    layoutMode = ((app.organicmaps.MwmActivity) getActivity()).getLayoutMode();
                 }
                 boolean shouldShow = false;
                 if (!isScreenPortrait && !isVerticalMode) {
@@ -850,8 +850,8 @@ public class AppDockFragment extends Fragment
             if (miniMusicContainer != null) {
                 boolean isDesktop = false;
                 int layoutMode = 0;
-                if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                    app.organicmaps.activities.MapActivity activity = (app.organicmaps.activities.MapActivity) getActivity();
+                if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                    app.organicmaps.MwmActivity activity = (app.organicmaps.MwmActivity) getActivity();
                     isDesktop = activity.isDesktopMode();
                     layoutMode = activity.getLayoutMode();
                 }
@@ -1093,8 +1093,8 @@ public class AppDockFragment extends Fragment
     }
 
     private void openAssistantSettings() {
-        if (getContext() instanceof app.organicmaps.activities.MapActivity) {
-            ((app.organicmaps.activities.MapActivity) getContext()).openCarLauncherSettings();
+        if (getContext() instanceof app.organicmaps.MwmActivity) {
+            ((app.organicmaps.MwmActivity) getContext()).openCarLauncherSettings();
         }
     }
 

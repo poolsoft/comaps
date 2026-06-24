@@ -531,7 +531,7 @@ public class WidgetPickerDialog extends DialogFragment {
             list.add(new WidgetInfo("obd", "OBD Verileri", "Motor gostergeleri", BaseWidget.WidgetSize.LARGE));
         }
 
-        app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = PluginsHelper.getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
+        // app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = PluginsHelper.getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
         if (antennaPlugin != null && antennaPlugin.isActive()) {
             list.add(new WidgetInfo("antenna", "Anten Durumu", "Anten sinyali", BaseWidget.WidgetSize.SMALL));
         }
