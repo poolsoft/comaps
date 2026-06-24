@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.music;
+﻿package app.organicmaps.carlauncher.music;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -206,7 +206,7 @@ public class MusicRepository {
             }
         }
 
-        // Alps teyp yedek USB mount yollarini ve dahili hafiza Müzik/Download klasorlerini de tarayalim
+        // Alps teyp yedek USB mount yollarini ve dahili hafiza MÃ¼zik/Download klasorlerini de tarayalim
         String[] fallbackPaths = {
             "/storage/emulated/0/Music", "/sdcard/Music", 
             "/storage/emulated/0/Download", "/sdcard/Download",

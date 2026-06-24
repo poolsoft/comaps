@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,7 +6,7 @@
     android:minHeight="120dp"
     android:clipToOutline="true">
 
-    <!-- Albüm Kapağı Arka Plan -->
+    <!-- AlbÃ¼m KapaÄŸÄ± Arka Plan -->
     <ImageView
         android:id="@+id/widget_album_art"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:text="Parça Adı"
+        android:text="ParÃ§a AdÄ±"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -62,7 +62,7 @@
         android:id="@+id/widget_track_artist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sanatçı"
+        android:text="SanatÃ§Ä±"
         android:textColor="#BBBBBB"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/widget_track_title"

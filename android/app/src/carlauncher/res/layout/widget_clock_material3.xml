@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:maxLines="1" />
         </LinearLayout>
 
-        <!-- Ayırıcı Boşluk -->
+        <!-- AyÄ±rÄ±cÄ± BoÅŸluk -->
         <Space
             android:layout_width="8dp"
             android:layout_height="wrap_content" />
@@ -89,7 +89,7 @@
         android:id="@+id/clock_date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pazartesi, 30 Aralık"
+        android:text="Pazartesi, 30 AralÄ±k"
         android:textColor="#DDFFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.music;
+﻿package app.organicmaps.carlauncher.music;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -179,7 +179,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
         if (mediaSessionManager != null) {
             try {
                 ComponentName listenerComp = new ComponentName(context,
-                        "net.osmand.plus.carlauncher.MediaNotificationListener");
+                        "app.organicmaps.carlauncher.MediaNotificationListener");
                 updateActiveController(mediaSessionManager.getActiveSessions(listenerComp));
             } catch (Exception e) {
                 Log.w(TAG, "Failed to update controller for preferred package: " + e.getMessage());
@@ -247,7 +247,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             return;
 
         ComponentName listenerComponent = new ComponentName(context,
-                "net.osmand.plus.carlauncher.MediaNotificationListener");
+                "app.organicmaps.carlauncher.MediaNotificationListener");
 
         try {
             mediaSessionManager.addOnActiveSessionsChangedListener(
@@ -380,7 +380,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
 
         if (mediaSessionManager != null) {
             try {
-                android.content.ComponentName listenerComp = new android.content.ComponentName(context, "net.osmand.plus.carlauncher.MediaNotificationListener");
+                android.content.ComponentName listenerComp = new android.content.ComponentName(context, "app.organicmaps.carlauncher.MediaNotificationListener");
                 java.util.List<android.media.session.MediaController> controllers = mediaSessionManager.getActiveSessions(listenerComp);
                 updateActiveController(controllers);
             } catch (Exception e) {}
@@ -437,7 +437,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
 
         if (mediaSessionManager != null) {
             try {
-                ComponentName listenerComp = new ComponentName(context, "net.osmand.plus.carlauncher.MediaNotificationListener");
+                ComponentName listenerComp = new ComponentName(context, "app.organicmaps.carlauncher.MediaNotificationListener");
                 List<MediaController> controllers = mediaSessionManager.getActiveSessions(listenerComp);
                 updateActiveController(controllers);
             } catch (Exception e) {
@@ -599,18 +599,18 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
         if (text == null) return null;
         try {
             return text
-                .replace("Ä\u00b0", "\u0130") // Buyuk I
-                .replace("Ä\u00b1", "\u0131") // Kucuk i
-                .replace("Å\u009f", "\u015f") // Kucuk s
-                .replace("Å\u009e", "\u015e") // Buyuk S
-                .replace("Ä\u009f", "\u011f") // Kucuk g
-                .replace("Ä\u009e", "\u011e") // Buyuk G
-                .replace("Ã\u00bc", "\u00fc") // Kucuk u
-                .replace("Ã\u009c", "\u00dc") // Buyuk U
-                .replace("Ã\u00b6", "\u00f6") // Kucuk o
-                .replace("Ã\u0096", "\u00d6") // Buyuk O
-                .replace("Ã\u00a7", "\u00e7") // Kucuk c
-                .replace("Ã\u0087", "\u00c7"); // Buyuk C
+                .replace("Ã„\u00b0", "\u0130") // Buyuk I
+                .replace("Ã„\u00b1", "\u0131") // Kucuk i
+                .replace("Ã…\u009f", "\u015f") // Kucuk s
+                .replace("Ã…\u009e", "\u015e") // Buyuk S
+                .replace("Ã„\u009f", "\u011f") // Kucuk g
+                .replace("Ã„\u009e", "\u011e") // Buyuk G
+                .replace("Ãƒ\u00bc", "\u00fc") // Kucuk u
+                .replace("Ãƒ\u009c", "\u00dc") // Buyuk U
+                .replace("Ãƒ\u00b6", "\u00f6") // Kucuk o
+                .replace("Ãƒ\u0096", "\u00d6") // Buyuk O
+                .replace("Ãƒ\u00a7", "\u00e7") // Kucuk c
+                .replace("Ãƒ\u0087", "\u00c7"); // Buyuk C
         } catch (Exception e) {
             return text;
         }
@@ -851,7 +851,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
         if (mediaSessionManager != null) {
             try {
                 ComponentName listener = new ComponentName(context, 
-                    "net.osmand.plus.carlauncher.MediaNotificationListener");
+                    "app.organicmaps.carlauncher.MediaNotificationListener");
                 List<MediaController> controllers = mediaSessionManager.getActiveSessions(listener);
                 
                 for (MediaController controller : controllers) {
@@ -895,7 +895,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
         if (mediaSessionManager != null) {
             try {
                 ComponentName listener = new ComponentName(context, 
-                    "net.osmand.plus.carlauncher.MediaNotificationListener");
+                    "app.organicmaps.carlauncher.MediaNotificationListener");
                 List<MediaController> controllers = mediaSessionManager.getActiveSessions(listener);
                 
                 for (MediaController controller : controllers) {

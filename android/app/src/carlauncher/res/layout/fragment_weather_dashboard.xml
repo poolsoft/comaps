@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:id="@+id/tv_current_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24°"
+            android:text="24Â°"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/weather_temp_text_size"
             android:textStyle="bold"
@@ -76,7 +76,7 @@
                  android:id="@+id/tv_apparent_temp"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="Feels 26°"
+                 android:text="Feels 26Â°"
                  android:textColor="#AAAAAA"
                  android:textSize="@dimen/weather_feels_text_size"/>
 

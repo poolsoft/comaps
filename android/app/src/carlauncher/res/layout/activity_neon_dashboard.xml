@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,7 +58,7 @@
                 android:textColor="#00FFCC"
                 android:textSize="14sp"
                 android:maxLines="2"
-                android:text="Atatürk Bulvarı"/>
+                android:text="AtatÃ¼rk BulvarÄ±"/>
                 
             <TextView
                 android:id="@+id/nav_eta"

@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.hardware;
+﻿package app.organicmaps.carlauncher.hardware;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -96,7 +96,7 @@ public class CarHardwareManager {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             activityContext.startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(activityContext, "Ekolayzır bulunamadı", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activityContext, "EkolayzÄ±r bulunamadÄ±", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Standart EQ acilamadi", e);
         }
     }
@@ -129,7 +129,7 @@ public class CarHardwareManager {
             }
         } else {
             // Standart Android icin ekran kapatma uyarisi
-            Toast.makeText(context, "Sistem ekran kapatma desteği bulunmuyor", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Sistem ekran kapatma desteÄŸi bulunmuyor", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -140,7 +140,7 @@ public class CarHardwareManager {
         if (currentPlatform == Platform.XY_AUTO) {
             try {
                 context.sendBroadcast(new Intent("xy.onekeyclean"));
-                Toast.makeText(context, "Hafıza temizlendi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "HafÄ±za temizlendi", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "XYAuto bir tikla temizleme yayini gonderildi.");
             } catch (Exception e) {
                 Log.e(TAG, "XYAuto bellek temizlenemedi", e);
@@ -148,7 +148,7 @@ public class CarHardwareManager {
         } else if (currentPlatform == Platform.HCN) {
             try {
                 context.sendBroadcast(new Intent("com.hcn.intent.action.ONEKEYCLEAN"));
-                Toast.makeText(context, "Hafıza temizlendi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "HafÄ±za temizlendi", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 evrenselRamTemizle();
             }
@@ -176,7 +176,7 @@ public class CarHardwareManager {
                         }
                     }
                 }
-                Toast.makeText(context, "Hafıza optimize edildi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "HafÄ±za optimize edildi", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.e(TAG, "Evrensel RAM temizligi basarisiz", e);
@@ -210,7 +210,7 @@ public class CarHardwareManager {
                 boolean isPlaying = false;
 
                 if ("com.acloud.intent.play_status".equals(action)) {
-                    // XYAuto Bluetooth Müzik Yorumlama (Turkce karakter yok)
+                    // XYAuto Bluetooth MÃ¼zik Yorumlama (Turkce karakter yok)
                     byte status = intent.getByteExtra("play_status", (byte) 16);
                     isPlaying = (status == 1);
                     title = intent.getStringExtra("songname");

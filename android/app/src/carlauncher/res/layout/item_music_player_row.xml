@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:id="@+id/status_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@android:drawable/ic_media_play"
+            android:src="@drawable/ic_action_play_dark"
             android:tint="#FFFFFF"/>
         
         <!-- App Name -->
@@ -40,7 +40,7 @@
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Çalıyor"
+            android:text="Ã‡alÄ±yor"
             android:textSize="14sp"
             android:textColor="#4CAF50"/>
     </LinearLayout>

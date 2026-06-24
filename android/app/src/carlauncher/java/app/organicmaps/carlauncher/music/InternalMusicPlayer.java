@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.music;
+﻿package app.organicmaps.carlauncher.music;
 
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -66,23 +66,23 @@ public class InternalMusicPlayer {
         this.repeatMode = repeatMode;
     }
 
-    // --- Audio Focus Listener (Navigasyon ve Aramalar için) ---
+    // --- Audio Focus Listener (Navigasyon ve Aramalar iÃ§in) ---
     private final AudioManager.OnAudioFocusChangeListener focusChangeListener = focusChange -> {
         switch (focusChange) {
             case AudioManager.AUDIOFOCUS_LOSS:
-                // Kalıcı kayıp (Başka müzik uygulaması açıldı veya arama var)
+                // KalÄ±cÄ± kayÄ±p (BaÅŸka mÃ¼zik uygulamasÄ± aÃ§Ä±ldÄ± veya arama var)
                 playOnFocusGain = false;
                 pause();
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                // Geçici kayıp (Kısa konuşma vs.)
+                // GeÃ§ici kayÄ±p (KÄ±sa konuÅŸma vs.)
                 if (isPlaying()) {
                     playOnFocusGain = true;
                     pause();
                 }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                // Navigasyon konuşuyor -> Sesi kıs
+                // Navigasyon konuÅŸuyor -> Sesi kÄ±s
                 if (mediaPlayer != null) {
                     mediaPlayer.setVolume(0.2f, 0.2f);
                 }
@@ -90,7 +90,7 @@ public class InternalMusicPlayer {
             case AudioManager.AUDIOFOCUS_GAIN:
                 // Odak geri geldi
                 if (mediaPlayer != null) {
-                    mediaPlayer.setVolume(1.0f, 1.0f); // Sesi normale döndür
+                    mediaPlayer.setVolume(1.0f, 1.0f); // Sesi normale dÃ¶ndÃ¼r
                 }
                 if (playOnFocusGain) {
                     play();
@@ -104,7 +104,7 @@ public class InternalMusicPlayer {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
 
-        // Araç kullanımı için Attributes
+        // AraÃ§ kullanÄ±mÄ± iÃ§in Attributes
         mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -113,7 +113,7 @@ public class InternalMusicPlayer {
 
         mediaPlayer.setOnPreparedListener(mp -> {
             isPrepared = true;
-            // Hazır olunca çal (EĞER isteniyorsa)
+            // HazÄ±r olunca Ã§al (EÄER isteniyorsa)
             if (autoPlayOnPrepared) {
                 play();
             }
@@ -156,7 +156,7 @@ public class InternalMusicPlayer {
         if (index < 0 || index >= playlist.size())
             return;
 
-        // Önceki durdur
+        // Ã–nceki durdur
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }
@@ -186,7 +186,7 @@ public class InternalMusicPlayer {
         if (!isPrepared)
             return;
 
-        // Çalmadan önce Audio Focus iste
+        // Ã‡almadan Ã¶nce Audio Focus iste
         int result = audioManager.requestAudioFocus(focusChangeListener,
                 AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);
@@ -208,9 +208,9 @@ public class InternalMusicPlayer {
 
             saveState(); // Save position on pause
 
-            // Focus'u bırakmaya gerek yok (Abandon focus), belki kullanıcı hemen devam
+            // Focus'u bÄ±rakmaya gerek yok (Abandon focus), belki kullanÄ±cÄ± hemen devam
             // ettirir.
-            // Ancak kalıcı durdurma durumunda abandonAudioFocus yapılabilir.
+            // Ancak kalÄ±cÄ± durdurma durumunda abandonAudioFocus yapÄ±labilir.
         }
     }
 

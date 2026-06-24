@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Anten Hizalama Widget — Modern Glassmorphism Tasarimi -->
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Anten Hizalama Widget â€” Modern Glassmorphism Tasarimi -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView android:text="AZIMUT" style="@style/CarWidget.Title" android:textSize="10sp"/>
-                <TextView android:id="@+id/val_azimuth" android:text="0.0°" style="@style/CarWidget.Value" android:textSize="18sp" android:textColor="@color/cl_accent_gold"/>
+                <TextView android:id="@+id/val_azimuth" android:text="0.0Â°" style="@style/CarWidget.Value" android:textSize="18sp" android:textColor="@color/cl_accent_gold"/>
             </LinearLayout>
 
             <!-- Pitch -->
@@ -164,7 +164,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView android:text="PITCH" style="@style/CarWidget.Title" android:textSize="10sp"/>
-                <TextView android:id="@+id/val_elevation" android:text="0.0°" style="@style/CarWidget.Value" android:textSize="18sp" android:textColor="@color/cl_success"/>
+                <TextView android:id="@+id/val_elevation" android:text="0.0Â°" style="@style/CarWidget.Value" android:textSize="18sp" android:textColor="@color/cl_success"/>
             </LinearLayout>
         </LinearLayout>
 

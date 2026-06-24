@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.telemetry;
+﻿package app.organicmaps.carlauncher.telemetry;
 
 import android.location.Location;
 import android.os.Handler;

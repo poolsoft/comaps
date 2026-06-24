@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.music;
+﻿package app.organicmaps.carlauncher.music;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -102,7 +102,7 @@ public class UniversalBluetoothAdapter implements BaseMediaAdapter {
 
     @Override
     public String getTitle() {
-        return TextUtils.isEmpty(trackTitle) ? "Bluetooth Müzik" : trackTitle;
+        return TextUtils.isEmpty(trackTitle) ? "Bluetooth MÃ¼zik" : trackTitle;
     }
 
     @Override
