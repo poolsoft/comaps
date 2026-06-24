@@ -139,29 +139,33 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
     }
 
     private void pollNavigation() {
-        RoutingController RoutingController = app.getRoutingHelper();
-        if (RoutingController != null && RoutingController.isFollowingMode() && RoutingController.isRouteCalculated()) {
+        app.organicmaps.sdk.routing.RoutingController routingController = app.organicmaps.sdk.routing.RoutingController.get();
+        app.organicmaps.sdk.routing.RoutingInfo info = routingController.getCachedRoutingInfo();
+        
+        if (info != null && app.organicmaps.sdk.routing.RoutingInfo.RoutingSessionState.isNavigable(info.routingSessionState)) {
             navigationState.isActive = true;
             try {
-                app.organicmaps.sdk.routing.JunctionInfo nextDirection = RoutingController.getNextRouteDirectionInfo(new app.organicmaps.sdk.routing.JunctionInfo(0.0, 0.0), true);
-                if (nextDirection != null && nextDirection.distanceTo > 0) {
-                    navigationState.distanceStr = OsmAndFormatter.getFormattedDistance(nextDirection.distanceTo, app);
-                    
-                    if (nextDirection.directionInfo != null) {
-                        Object Object = nextDirection.directionInfo.getObject();
-                        navigationState.turnIconRes = getTurnIcon(Object);
-                        navigationState.instructionStr = getTurnInstruction(Object, nextDirection.directionInfo.getStreetName());
-                    }
+                if (info.distToTurn != null) {
+                    navigationState.distanceStr = info.distToTurn.toString(app);
                 } else {
                     navigationState.distanceStr = "--";
+                }
+                
+                if (info.carDirection != null) {
+                    navigationState.turnIconRes = info.carDirection.getTurnRes();
+                    navigationState.instructionStr = getTurnInstruction(info.carDirection, info.nextStreet);
+                } else {
                     navigationState.turnIconRes = android.R.drawable.arrow_up_float;
                     navigationState.instructionStr = "Duz git";
                 }
 
-                int remainingDistance = RoutingController.getLeftDistance();
-                int remainingTime = RoutingController.getLeftTime();
-                if (remainingDistance > 0 && remainingTime > 0) {
-                    navigationState.etaStr = OsmAndFormatter.getFormattedDuration(remainingTime, app) + " (" + OsmAndFormatter.getFormattedDistance(remainingDistance, app) + ")";
+                int remainingTime = info.totalTimeInSeconds;
+                if (info.distToTarget != null && remainingTime > 0) {
+                    int mins = remainingTime / 60;
+                    int hrs = mins / 60;
+                    mins = mins % 60;
+                    String timeStr = hrs > 0 ? (hrs + " sa " + mins + " dk") : (mins + " dk");
+                    navigationState.etaStr = timeStr + " (" + info.distToTarget.toString(app) + ")";
                 } else {
                     navigationState.etaStr = "";
                 }
@@ -178,7 +182,7 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
         if (plugin != null && plugin.isActive() && plugin.isConnected()) {
             obdState.isActive = true;
             if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°C";
+            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "°C";
             if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
             if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
         } else {
@@ -198,37 +202,26 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
         });
     }
 
-    private int getTurnIcon(Object Object) {
-        if (Object == null) return 0;
-        if (Object.isRoundAbout()) return android.R.drawable.ic_menu_rotate;
-        switch (Object.getValue()) {
-            case Object.C: return android.R.drawable.arrow_up_float;
-            case Object.TL:
-            case Object.TSLL: return android.R.drawable.ic_menu_revert;
-            case Object.TR:
-            case Object.TSLR: return android.R.drawable.ic_menu_always_landscape_portrait;
-            case Object.TU: return android.R.drawable.ic_menu_rotate;
-            case Object.KL: return android.R.drawable.ic_menu_revert;
-            case Object.KR: return android.R.drawable.ic_menu_always_landscape_portrait;
-            default: return android.R.drawable.arrow_up_float;
-        }
-    }
-
-    private String getTurnInstruction(Object Object, String streetName) {
-        if (Object == null) return "Devam et";
+    private String getTurnInstruction(app.organicmaps.sdk.routing.CarDirection direction, String streetName) {
+        if (direction == null) return "Devam et";
         String inst = "Devam et";
-        if (Object.isRoundAbout()) {
-            inst = "Doneleden " + Object.getExitOut() + ". cikis";
+        if (app.organicmaps.sdk.routing.CarDirection.isRoundAbout(direction)) {
+            inst = "Doneleden cikis";
         } else {
-            switch (Object.getValue()) {
-                case Object.C: inst = "Duz git"; break;
-                case Object.TL: inst = "Sola don"; break;
-                case Object.TSLL: inst = "Keskin sola don"; break;
-                case Object.TR: inst = "Saga don"; break;
-                case Object.TSLR: inst = "Keskin saga don"; break;
-                case Object.TU: inst = "U donus yap"; break;
-                case Object.KL: inst = "Sola devam et"; break;
-                case Object.KR: inst = "Saga devam et"; break;
+            switch (direction) {
+                case GO_STRAIGHT:
+                case NO_TURN: inst = "Duz git"; break;
+                case TURN_LEFT: inst = "Sola don"; break;
+                case TURN_SHARP_LEFT: inst = "Keskin sola don"; break;
+                case TURN_SLIGHT_LEFT: inst = "Hafif sola don"; break;
+                case TURN_RIGHT: inst = "Saga don"; break;
+                case TURN_SHARP_RIGHT: inst = "Keskin saga don"; break;
+                case TURN_SLIGHT_RIGHT: inst = "Hafif saga don"; break;
+                case U_TURN_LEFT:
+                case U_TURN_RIGHT: inst = "U donus yap"; break;
+                case REACHED_YOUR_DESTINATION: inst = "Hedefe ulasildi"; break;
+                case EXIT_HIGHWAY_TO_LEFT: inst = "Otoyoldan sola cikis"; break;
+                case EXIT_HIGHWAY_TO_RIGHT: inst = "Otoyoldan saga cikis"; break;
             }
         }
         if (streetName != null && !streetName.isEmpty()) {
