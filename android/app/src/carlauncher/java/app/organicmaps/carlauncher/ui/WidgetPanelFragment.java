@@ -532,11 +532,11 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         widgetManager.addWidget(new SpeedWidget(getContext(), app));
         widgetManager.addWidget(new DirectionWidget(getContext(), app));
         
-        app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = app.organicmaps.plugins.PluginsHelper
-                .getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
-        if (antennaPlugin != null && antennaPlugin.isActive()) {
-            widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), app));
-        }
+        // app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = app.organicmaps.plugins.PluginsHelper
+        //        .getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
+        // if (antennaPlugin != null && antennaPlugin.isActive()) {
+        //     widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), app));
+        // }
         
         widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), app));
         widgetManager.addWidget(new NavigationWidget(getContext(), app));
