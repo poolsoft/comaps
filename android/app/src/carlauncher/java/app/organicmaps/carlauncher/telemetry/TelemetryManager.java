@@ -65,7 +65,7 @@ public class TelemetryManager implements LocationListener {
     };
 
     private TelemetryManager() {
-        LocationHelper.INSTANCE.addListener(this);
+        app.organicmaps.MwmApplication.from(app.organicmaps.MwmApplication.get()).getLocationHelper().addListener(this);
         mainHandler.postDelayed(staleGpsRunnable, 1000);
     }
 
@@ -120,13 +120,13 @@ public class TelemetryManager implements LocationListener {
             RoutingInfo info = routingController.getCachedRoutingInfo();
             if (info != null) {
                 // OrganicMaps RoutingInfo mapping
-                navigationState.distanceStr = info.distToTurn + " " + info.turnUnits;
+                navigationState.distanceStr = info.distToTurn.toString();
                 
                 // TODO: RoutingInfo turn res mapping
                 navigationState.turnIconRes = 0; 
                 navigationState.instructionStr = "Devam Et";
                 
-                navigationState.etaStr = info.distToTarget + " " + info.targetUnits;
+                navigationState.etaStr = info.distToTarget.toString();
             }
         } else {
             navigationState.isActive = false;
