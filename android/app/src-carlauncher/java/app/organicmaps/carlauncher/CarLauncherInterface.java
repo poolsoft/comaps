@@ -23,5 +23,8 @@ public interface CarLauncherInterface {
      */
     void setPanelContent(PanelContentManager.PanelContent content);
 
-
+    void onLayoutModeToggle();
+    void onDesktopModeToggle();
+    void openCarLauncherSettings();
+    void checkAndRefreshDockFragmentIfNeeded();
 }

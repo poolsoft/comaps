@@ -143,7 +143,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener, MapButtonsController.MapButtonClickListener,
                DisplayChangedListener
-, app.organicmaps.carlauncher.CarLauncherInterface {
+ {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
   public static final String EXTRA_COUNTRY_ID = "country_id";
@@ -2584,4 +2584,5 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setPositiveButton(R.string.close, (dlg, which) -> this.moveTaskToBack(true))
         .show();
   }
+
 }

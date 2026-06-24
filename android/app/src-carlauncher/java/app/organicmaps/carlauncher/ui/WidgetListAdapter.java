@@ -1,4 +1,5 @@
 package app.organicmaps.carlauncher.ui;
+import app.organicmaps.R;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -228,7 +229,7 @@ public class WidgetListAdapter extends RecyclerView.Adapter<WidgetListAdapter.Wi
 
             // Gradient Overlay - NON-CLICKABLE
             // gradientOverlay = new View(itemView.getContext());
-            // gradientOverlay.setBackgroundResource(app.organicmaps.R.drawable.bg_gradient_overlay);
+            // gradientOverlay.setBackgroundResource(R.drawable.bg_gradient_overlay);
             // gradientOverlay.setClickable(false);
             // gradientOverlay.setFocusable(false);
 
@@ -239,7 +240,7 @@ public class WidgetListAdapter extends RecyclerView.Adapter<WidgetListAdapter.Wi
             
             // 1. Icon (Move Symbol)
             ImageView icon = new ImageView(itemView.getContext());
-            icon.setImageResource(app.organicmaps.R.drawable.ic_action_settings); 
+            icon.setImageResource(android.R.drawable.ic_menu_preferences); 
             
             icon.setColorFilter(0xFFFFFFFF); // White icon
             

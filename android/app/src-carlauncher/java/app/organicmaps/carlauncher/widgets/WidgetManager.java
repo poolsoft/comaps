@@ -1,4 +1,6 @@
 package app.organicmaps.carlauncher.widgets;
+import app.organicmaps.R;
+import app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout;
 
 import android.appwidget.AppWidgetHost;
 import android.content.Context;
@@ -175,9 +177,9 @@ public class WidgetManager {
         int usableWidthPx = screenWidthPx - (2 * paddingSidePx);
         int usableHeightPx = screenHeightPx - (2 * paddingTopBottomPx) - taskbarPx;
         
-        int cellSize = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getCellSize(context, usableWidthPx, usableHeightPx);
-        int maxCol = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getColCount(context, usableWidthPx, cellSize);
-        int maxRow = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getRowCount(context, usableHeightPx, cellSize);
+        int cellSize = WorkspaceCellLayout.getCellSize(context, usableWidthPx, usableHeightPx);
+        int maxCol = WorkspaceCellLayout.getColCount(context, usableWidthPx, cellSize);
+        int maxRow = WorkspaceCellLayout.getRowCount(context, usableHeightPx, cellSize);
 
         if (targetPage < pageCount) {
             boolean[][] occupied = new boolean[maxCol][maxRow];
@@ -514,9 +516,9 @@ public class WidgetManager {
         int usableWidthPx = screenWidthPx - (2 * paddingSidePx);
         int usableHeightPx = screenHeightPx - (2 * paddingTopBottomPx) - taskbarPx;
         
-        int cellSize = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getCellSize(context, usableWidthPx, usableHeightPx);
-        int targetColCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getColCount(context, usableWidthPx, cellSize);
-        int targetRowCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getRowCount(context, usableHeightPx, cellSize);
+        int cellSize = WorkspaceCellLayout.getCellSize(context, usableWidthPx, usableHeightPx);
+        int targetColCount = WorkspaceCellLayout.getColCount(context, usableWidthPx, cellSize);
+        int targetRowCount = WorkspaceCellLayout.getRowCount(context, usableHeightPx, cellSize);
 
         // Eger bu yon icin daha once hic kayit yapilmadiysa, diger yonu kopyalayarak basla
         if (!prefs.contains(configKey)) {

@@ -1,4 +1,7 @@
 package app.organicmaps.carlauncher.ui;
+import app.organicmaps.R;
+import app.organicmaps.carlauncher.ui.AppDrawerFragment;
+import app.organicmaps.carlauncher.dock.InternalApp;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -69,9 +72,9 @@ public class AppDrawerFragment extends Fragment {
         if (context == null || packageName == null) {
             return null;
         }
-        if (app.organicmaps.carlauncher.dock.InternalApp.isInternalApp(packageName)) {
-            app.organicmaps.carlauncher.dock.InternalApp app = app.organicmaps.carlauncher.dock.InternalApp.fromPackageName(packageName);
-            if (app != null) return app.getIcon(context);
+        if (InternalApp.isInternalApp(packageName)) {
+            InternalApp internalApp = InternalApp.fromPackageName(packageName);
+            if (internalApp != null) return internalApp.getIcon(context);
         } else {
             try {
                 return context.getPackageManager().getApplicationIcon(packageName);
@@ -224,7 +227,7 @@ public class AppDrawerFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(app.organicmaps.R.layout.fragment_app_drawer, container, false);
+        return inflater.inflate(R.layout.fragment_app_drawer, container, false);
     }
 
     @Override
@@ -232,11 +235,11 @@ public class AppDrawerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Bind Views
-        recyclerView = view.findViewById(app.organicmaps.R.id.apps_recycler_view);
-        loadingView = view.findViewById(app.organicmaps.R.id.loading_progress);
+        recyclerView = view.findViewById(R.id.apps_recycler_view);
+        loadingView = view.findViewById(R.id.loading_progress);
 
-        android.view.View closeBtn = view.findViewById(app.organicmaps.R.id.btn_close_drawer);
-        android.widget.EditText searchInput = view.findViewById(app.organicmaps.R.id.search_input);
+        android.view.View closeBtn = view.findViewById(R.id.btn_close_drawer);
+        android.widget.EditText searchInput = view.findViewById(R.id.search_input);
 
         // Logic
         closeBtn.setOnClickListener(v -> closeDrawer());
@@ -335,7 +338,7 @@ public class AppDrawerFragment extends Fragment {
 
         private List<AppItem> getInternalApps() {
             List<AppItem> internal = new ArrayList<>();
-            for (app.organicmaps.carlauncher.dock.InternalApp app : app.organicmaps.carlauncher.dock.InternalApp.values()) {
+            for (InternalApp app : InternalApp.values()) {
                 AppItem item = new AppItem();
                 item.label = app.getDefaultName();
                 item.packageName = app.getPackageName();
@@ -387,7 +390,7 @@ public class AppDrawerFragment extends Fragment {
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             // Using ID directly might fail if R is not imported correctly, but following
             // pattern
-            View view = LayoutInflater.from(parent.getContext()).inflate(app.organicmaps.R.layout.item_app_drawer,
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app_drawer,
                     parent, false);
             return new ViewHolder(view);
         }
@@ -433,8 +436,8 @@ public class AppDrawerFragment extends Fragment {
 
             ViewHolder(View itemView) {
                 super(itemView);
-                iconView = itemView.findViewById(app.organicmaps.R.id.app_icon);
-                textView = itemView.findViewById(app.organicmaps.R.id.app_label);
+                iconView = itemView.findViewById(R.id.app_icon);
+                textView = itemView.findViewById(R.id.app_label);
             }
         }
     }
@@ -498,8 +501,8 @@ public class AppDrawerFragment extends Fragment {
 
     private void launchApp(String packageName) {
         // Handle internal apps
-        if (app.organicmaps.carlauncher.dock.InternalApp.isInternalApp(packageName)) {
-            app.organicmaps.carlauncher.dock.InternalAppLauncher.launch(getContext(), packageName);
+        if (InternalApp.isInternalApp(packageName)) {
+            InternalAppLauncher.launch(getContext(), packageName);
             return;
         }
 

@@ -39,6 +39,13 @@ java {
 android {
   namespace = 'app.organicmaps'
 
+  sourceSets {
+      main {
+          java.srcDirs += 'src-carlauncher/java'
+          res.srcDirs += 'src-carlauncher/res'
+      }
+  }
+
   // TODO: it should not be here, but in sdk/build.gradle. But for some reason it should be specified here as well.
   ndkVersion = '28.2.13676358'
 

@@ -16,7 +16,12 @@ import app.organicmaps.sdk.routing.RoutingController;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelemetryManager implements app.organicmaps.sdk.location.LocationListener {
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingInfo;
+import app.organicmaps.sdk.routing.CarDirection;
+
+public class TelemetryManager implements LocationListener {
 
     private static TelemetryManager instance;
     private final MwmApplication app;
@@ -113,21 +118,6 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
     }
 
     @Override
-    public void updateLocation(Location location) {
-        if (location == null) return;
-        
-        lastLocationTime = System.currentTimeMillis();
-        locationState.rawLocation = location;
-
-        if (location.hasSpeed()) {
-            float speedKmh = location.getSpeed() * 3.6f;
-            // YAZILIM FILTRESI: 3 km/h alti 0 gosterilir (Dalgalanmayi onler)
-            if (speedKmh <= 3.0f) {
-                locationState.speedKmh = 0f;
-            } else {
-                locationState.speedKmh = speedKmh;
-            }
-        }
         if (location.hasAltitude()) locationState.altitudeMeters = location.getAltitude();
         if (location.hasBearing()) locationState.bearing = location.getBearing();
 
@@ -139,10 +129,10 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
     }
 
     private void pollNavigation() {
-        app.organicmaps.sdk.routing.RoutingController routingController = app.organicmaps.sdk.routing.RoutingController.get();
-        app.organicmaps.sdk.routing.RoutingInfo info = routingController.getCachedRoutingInfo();
+        RoutingController routingController = RoutingController.get();
+        RoutingInfo info = routingController.getCachedRoutingInfo();
         
-        if (info != null && app.organicmaps.sdk.routing.RoutingInfo.RoutingSessionState.isNavigable(info.routingSessionState)) {
+        if (info != null && RoutingInfo.RoutingSessionState.isNavigable(info.routingSessionState)) {
             navigationState.isActive = true;
             try {
                 if (info.distToTurn != null) {
@@ -178,20 +168,12 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
     }
 
     private void pollObd() {
-        VehicleMetricsPlugin plugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
-        if (plugin != null && plugin.isActive() && plugin.isConnected()) {
-            obdState.isActive = true;
-            if (compRpm != null) obdState.rpm = plugin.getWidgetValue(compRpm);
-            if (compTemp != null) obdState.temp = plugin.getWidgetValue(compTemp) + "°C";
-            if (compVolt != null) obdState.volt = plugin.getWidgetValue(compVolt) + "V";
-            if (compLoad != null) obdState.load = plugin.getWidgetValue(compLoad) + "%";
-        } else {
-            obdState.isActive = false;
-            obdState.rpm = "--";
-            obdState.temp = "--";
-            obdState.volt = "--";
-            obdState.load = "--";
-        }
+        // OBD is not supported in Organic Maps, removed logic.
+        obdState.isActive = false;
+        obdState.rpm = "--";
+        obdState.temp = "--";
+        obdState.volt = "--";
+        obdState.load = "--";
     }
 
     private void notifyListeners() {
@@ -202,10 +184,10 @@ public class TelemetryManager implements app.organicmaps.sdk.location.LocationLi
         });
     }
 
-    private String getTurnInstruction(app.organicmaps.sdk.routing.CarDirection direction, String streetName) {
+    private String getTurnInstruction(CarDirection direction, String streetName) {
         if (direction == null) return "Devam et";
         String inst = "Devam et";
-        if (app.organicmaps.sdk.routing.CarDirection.isRoundAbout(direction)) {
+        if (CarDirection.isRoundAbout(direction)) {
             inst = "Doneleden cikis";
         } else {
             switch (direction) {

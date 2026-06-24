@@ -1,4 +1,6 @@
 package app.organicmaps.carlauncher.ui;
+import app.organicmaps.R;
+import app.organicmaps.carlauncher.hardware.CarHardwareManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -190,11 +192,11 @@ public class UnifiedPanelFragment extends Fragment
                         if (activity instanceof app.organicmaps.carlauncher.CarLauncherInterface) ((app.organicmaps.carlauncher.CarLauncherInterface) activity).openCarLauncherSettings();
                         return true;
                     case 4:
-                        app.organicmaps.carlauncher.hardware.CarHardwareManager.getInstance(getContext())
+                        CarHardwareManager.getInstance(getContext())
                             .turnOffScreen();
                         return true;
                     case 5:
-                        app.organicmaps.carlauncher.hardware.CarHardwareManager.getInstance(getContext())
+                        CarHardwareManager.getInstance(getContext())
                             .cleanRam();
                         return true;
                 }

@@ -133,7 +133,7 @@ public class WidgetPickerDialog extends DialogFragment {
 
         // Kapat Butonu (Orijinal modern X simgesi)
         ImageView closeBtn = new ImageView(ctx);
-        closeBtn.setImageResource(app.organicmaps.R.drawable.ic_action_close);
+        closeBtn.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
         closeBtn.setColorFilter(Color.WHITE);
         
         LinearLayout.LayoutParams closeLp = new LinearLayout.LayoutParams(dpToPx(24), dpToPx(24));
@@ -463,9 +463,9 @@ public class WidgetPickerDialog extends DialogFragment {
         int usableWidthPx = screenWidthPx - (2 * paddingSidePx);
         int usableHeightPx = screenHeightPx - (2 * paddingTopBottomPx) - taskbarPx;
         
-        int cellSize = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getCellSize(ctx, usableWidthPx, usableHeightPx);
-        int colCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getColCount(ctx, usableWidthPx, cellSize);
-        int rowCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getRowCount(ctx, usableHeightPx, cellSize);
+        int cellSize = WorkspaceCellLayout.getCellSize(ctx, usableWidthPx, usableHeightPx);
+        int colCount = WorkspaceCellLayout.getColCount(ctx, usableWidthPx, cellSize);
+        int rowCount = WorkspaceCellLayout.getRowCount(ctx, usableHeightPx, cellSize);
 
         int minWidthPx = Math.round(provider.minWidth * density);
         int minHeightPx = Math.round(provider.minHeight * density);
@@ -594,9 +594,9 @@ public class WidgetPickerDialog extends DialogFragment {
                 int usableHeightPx = screenHeightPx - (2 * paddingTopBottomPx) - taskbarPx;
                 
                 // Tek hucre boyutu piksel
-                int cellSize = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getCellSize(getContext(), usableWidthPx, usableHeightPx);
-                int colCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getColCount(getContext(), usableWidthPx, cellSize);
-                int rowCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getRowCount(getContext(), usableHeightPx, cellSize);
+                int cellSize = WorkspaceCellLayout.getCellSize(getContext(), usableWidthPx, usableHeightPx);
+                int colCount = WorkspaceCellLayout.getColCount(getContext(), usableWidthPx, cellSize);
+                int rowCount = WorkspaceCellLayout.getRowCount(getContext(), usableHeightPx, cellSize);
                 
                 int minWidthPx = Math.round(provider.minWidth * density);
                 int minHeightPx = Math.round(provider.minHeight * density);
@@ -743,9 +743,9 @@ public class WidgetPickerDialog extends DialogFragment {
                 int usableWidthPx = screenWidthPx - (2 * paddingSidePx);
                 int usableHeightPx = screenHeightPx - (2 * paddingTopBottomPx) - taskbarPx;
                 
-                int cellSize = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getCellSize(ctx, usableWidthPx, usableHeightPx);
-                int colCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getColCount(ctx, usableWidthPx, cellSize);
-                int rowCount = app.organicmaps.carlauncher.widgets.view.WorkspaceCellLayout.getRowCount(ctx, usableHeightPx, cellSize);
+                int cellSize = WorkspaceCellLayout.getCellSize(ctx, usableWidthPx, usableHeightPx);
+                int colCount = WorkspaceCellLayout.getColCount(ctx, usableWidthPx, cellSize);
+                int rowCount = WorkspaceCellLayout.getRowCount(ctx, usableHeightPx, cellSize);
                 
                 int minWidthPx = Math.round(info.minWidth * density);
                 int minHeightPx = Math.round(info.minHeight * density);
@@ -918,30 +918,30 @@ public class WidgetPickerDialog extends DialogFragment {
         for (String[] app : internalApps) {
             String packageName = app[0];
             String label = app[1];
-            Drawable icon = app.organicmaps.carlauncher.ui.AppDrawerFragment.getAppIcon(ctx, packageName);
+            Drawable icon = AppDrawerFragment.getAppIcon(ctx, packageName);
             container.addView(createShortcutCard(ctx, packageName, label, icon));
         }
     }
 
     private void buildShortcutsSection(Context ctx, LinearLayout container) {
         // AppDrawer'daki cache'lenmis uygulamalari ve ikonlari kullan (Turkce karakter yok)
-        List<app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem> cachedList = 
-                app.organicmaps.carlauncher.ui.AppDrawerFragment.getCachedApps();
+        List<AppDrawerFragment.AppItem> cachedList = 
+                AppDrawerFragment.getCachedApps();
 
         if (cachedList != null && !cachedList.isEmpty()) {
-            for (app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem item : cachedList) {
-                if (app.organicmaps.carlauncher.dock.InternalApp.isInternalApp(item.packageName)) {
+            for (AppDrawerFragment.AppItem item : cachedList) {
+                if (InternalApp.isInternalApp(item.packageName)) {
                     continue;
                 }
-                Drawable icon = app.organicmaps.carlauncher.ui.AppDrawerFragment.getAppIcon(ctx, item.packageName);
+                Drawable icon = AppDrawerFragment.getAppIcon(ctx, item.packageName);
                 container.addView(createShortcutCard(ctx, item.packageName, item.label, icon));
             }
         } else {
             // Eger cache henuz bos ise asenkron yukle (Turkce karakter yok)
-            new android.os.AsyncTask<Void, Void, List<app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem>>() {
+            new android.os.AsyncTask<Void, Void, List<AppDrawerFragment.AppItem>>() {
                 @Override
-                protected List<app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem> doInBackground(Void... voids) {
-                    List<app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem> list = new ArrayList<>();
+                protected List<AppDrawerFragment.AppItem> doInBackground(Void... voids) {
+                    List<AppDrawerFragment.AppItem> list = new ArrayList<>();
                     try {
                         android.content.pm.PackageManager pm = ctx.getPackageManager();
                         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -949,8 +949,8 @@ public class WidgetPickerDialog extends DialogFragment {
                         List<android.content.pm.ResolveInfo> launchables = pm.queryIntentActivities(mainIntent, 0);
 
                         for (android.content.pm.ResolveInfo info : launchables) {
-                            app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem item = 
-                                     new app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem();
+                            AppDrawerFragment.AppItem item = 
+                                     new AppDrawerFragment.AppItem();
                             item.label = info.loadLabel(pm).toString();
                             item.packageName = info.activityInfo.packageName;
                             list.add(item);
@@ -964,13 +964,13 @@ public class WidgetPickerDialog extends DialogFragment {
                 }
 
                 @Override
-                protected void onPostExecute(List<app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem> result) {
+                protected void onPostExecute(List<AppDrawerFragment.AppItem> result) {
                     if (result != null && !result.isEmpty() && container != null) {
-                        for (app.organicmaps.carlauncher.ui.AppDrawerFragment.AppItem item : result) {
-                            if (app.organicmaps.carlauncher.dock.InternalApp.isInternalApp(item.packageName)) {
+                        for (AppDrawerFragment.AppItem item : result) {
+                            if (InternalApp.isInternalApp(item.packageName)) {
                                 continue;
                             }
-                            Drawable icon = app.organicmaps.carlauncher.ui.AppDrawerFragment.getAppIcon(ctx, item.packageName);
+                            Drawable icon = AppDrawerFragment.getAppIcon(ctx, item.packageName);
                             container.addView(createShortcutCard(ctx, item.packageName, item.label, icon));
                         }
                     }

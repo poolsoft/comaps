@@ -1,4 +1,5 @@
 package app.organicmaps.carlauncher.ui;
+import app.organicmaps.R;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class VehicleDataConfigDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.OsmandDarkTheme));
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.MwmTheme));
         builder.setTitle("GÃƒÂ¶rÃƒÂ¼ntÃƒÂ¼lenecek Veriler");
 
         ScrollView scrollView = new ScrollView(getContext());
