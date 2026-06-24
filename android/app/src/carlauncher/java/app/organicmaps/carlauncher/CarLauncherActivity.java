@@ -1,11 +1,11 @@
 package app.organicmaps.carlauncher;
 
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.carlauncher.telemetry.TelemetryManager;
-import com.mapswithme.util.log.Logger;
 
 public class CarLauncherActivity extends MwmActivity implements CarLauncherInterface, TelemetryManager.TelemetryListener {
     
@@ -39,7 +39,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public void onTelemetryUpdated(TelemetryManager.LocationState loc, TelemetryManager.NavigationState nav, TelemetryManager.ObdState obd) {
-        Logger.d("CarLauncherTelemetry", "Speed: " + loc.speedKmh + " km/h | Nav: " + nav.distanceStr);
+        Log.d("CarLauncherTelemetry", "Speed: " + loc.speedKmh + " km/h | Nav: " + nav.distanceStr);
     }
 
     @Override
