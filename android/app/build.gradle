@@ -41,8 +41,8 @@ android {
 
   sourceSets {
       main {
-          java.srcDirs += 'src-carlauncher/java'
-          res.srcDirs += 'src-carlauncher/res'
+          java.srcDirs += 'src/carlauncher/java'
+          res.srcDirs += 'src/carlauncher/res'
       }
   }
 
