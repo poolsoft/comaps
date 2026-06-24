@@ -26,8 +26,8 @@ import app.organicmaps.carlauncher.widgets.MusicVisualizerView;
 import android.location.Location;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.utils.FormattedValue;
-import app.organicmaps.utils.OsmAndFormatter;
+
+
 import android.os.Handler;
 import android.os.Looper;
 import java.text.SimpleDateFormat;
@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Date;
 
 /**
- * Birlesik MÃƒÆ’Ã‚Â¼zik ve Arama/Bildirim Paneli.
+ * Birlesik MÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼zik ve Arama/Bildirim Paneli.
  * Normal modda sag taraftaki panelde gosterilir.
  */
 public class UnifiedPanelFragment extends Fragment 
@@ -125,7 +125,7 @@ public class UnifiedPanelFragment extends Fragment
     }
 
     private void setupListeners() {
-        // Muzik alanÃƒâ€Ã‚Â± tiklandiginda buyuk oynaticiyi ac
+        // Muzik alanÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â± tiklandiginda buyuk oynaticiyi ac
         if (musicArea != null) {
             musicArea.setOnClickListener(v -> {
                 if (getActivity() instanceof CarLauncherInterface) {
@@ -172,8 +172,8 @@ public class UnifiedPanelFragment extends Fragment
         popup.getMenu().add(0, 1, 0, "Harita Modu");
         popup.getMenu().add(0, 2, 1, "Masaustu Modu");
         popup.getMenu().add(0, 3, 2, "Ayarlar");
-        popup.getMenu().add(0, 4, 3, "EkranÃƒâ€Ã‚Â± Kapat");
-        popup.getMenu().add(0, 5, 4, "HafÃƒâ€Ã‚Â±zayÃƒâ€Ã‚Â± Temizle (RAM)");
+        popup.getMenu().add(0, 4, 3, "EkranÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â± Kapat");
+        popup.getMenu().add(0, 5, 4, "HafÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â±zayÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â± Temizle (RAM)");
         
         popup.setOnMenuItemClickListener(item -> {
             if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
@@ -324,4 +324,5 @@ public class UnifiedPanelFragment extends Fragment
     }
 
 }
+
 

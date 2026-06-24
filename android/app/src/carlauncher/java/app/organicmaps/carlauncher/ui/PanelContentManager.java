@@ -9,8 +9,8 @@ import app.organicmaps.R;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 /**
- * SaÄŸ panel iÃ§eriÄŸini yÃ¶neten sÄ±nÄ±f.
- * Android Auto UI mantÄ±ÄŸÄ±: panel mÃ¼zik/bildirim/app drawer gÃ¶sterir.
+ * SaÃ„Å¸ panel iÃƒÂ§eriÃ„Å¸ini yÃƒÂ¶neten sÃ„Â±nÃ„Â±f.
+ * Android Auto UI mantÃ„Â±Ã„Å¸Ã„Â±: panel mÃƒÂ¼zik/bildirim/app drawer gÃƒÂ¶sterir.
  */
 public class PanelContentManager {
 
@@ -102,3 +102,4 @@ public class PanelContentManager {
         return currentContent;
     }
 }
+

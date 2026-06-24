@@ -39,8 +39,8 @@ import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
 
-import app.organicmaps.plugins.odb.VehicleMetricsPlugin;
-import app.organicmaps.plugins.PluginsHelper;
+
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -443,7 +443,7 @@ public class WidgetPickerDialog extends DialogFragment {
         cardBg.setStroke(dpToPx(1), 0x1FFFFFFF);
         card.setBackground(cardBg);
 
-        // Canvas Tabanli Sistem Widget Ãƒâ€“nizleme
+        // Canvas Tabanli Sistem Widget ÃƒÆ’Ã¢â‚¬â€œnizleme
         WidgetPreviewView preview = new WidgetPreviewView(ctx, "system");
         if (appIcon != null) {
             preview.setAppIcon(appIcon);
@@ -526,7 +526,7 @@ public class WidgetPickerDialog extends DialogFragment {
         list.add(new WidgetInfo("music", "Medya Calar", "Muzik kontrol paneli", BaseWidget.WidgetSize.LARGE));
         list.add(new WidgetInfo("navigation", "Navigasyon", "Donus yonleri", BaseWidget.WidgetSize.MEDIUM));
 
-        VehicleMetricsPlugin obdPlugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
+        VehicleMetricsPlugin obdPlugin = null;
         if (obdPlugin != null && obdPlugin.isActive()) {
             list.add(new WidgetInfo("obd", "OBD Verileri", "Motor gostergeleri", BaseWidget.WidgetSize.LARGE));
         }
@@ -1076,4 +1076,6 @@ public class WidgetPickerDialog extends DialogFragment {
         }
     }
 }
+
+
 

@@ -23,8 +23,8 @@ import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
 
 import app.organicmaps.carlauncher.CarLauncherSettings;
-import app.organicmaps.plugins.odb.VehicleMetricsPlugin;
-import app.organicmaps.plugins.PluginsHelper;
+
+
 import app.organicmaps.carlauncher.AutoLaunchManager;
 import app.organicmaps.carlauncher.CarLauncherInterface;
 import app.organicmaps.MwmApplication;
@@ -542,7 +542,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         widgetManager.addWidget(new NavigationWidget(getContext(), app));
         widgetManager.addWidget(new MusicWidget(getContext(), app));
         
-        VehicleMetricsPlugin obdPlugin = PluginsHelper.getPlugin(VehicleMetricsPlugin.class);
+        VehicleMetricsPlugin obdPlugin = null;
         if (obdPlugin != null && obdPlugin.isActive()) {
             widgetManager.addWidget(new OBDWidget(getContext(), app));
         }
@@ -704,4 +704,6 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         }
     }
 }
+
+
 
