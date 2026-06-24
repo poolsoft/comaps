@@ -4,15 +4,42 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
+import app.organicmaps.carlauncher.telemetry.TelemetryManager;
+import app.organicmaps.util.log.Logger;
 
-public class CarLauncherActivity extends MwmActivity implements CarLauncherInterface {
+public class CarLauncherActivity extends MwmActivity implements CarLauncherInterface, TelemetryManager.TelemetryListener {
     
+    private TelemetryManager telemetryManager;
+
     @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         super.onSafeCreate(savedInstanceState);
         
         // Base layout'u ekle
         setContentView(R.layout.activity_car_launcher);
+
+        telemetryManager = TelemetryManager.getInstance();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (telemetryManager != null) {
+            telemetryManager.addListener(this);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (telemetryManager != null) {
+            telemetryManager.removeListener(this);
+        }
+    }
+
+    @Override
+    public void onTelemetryUpdated(TelemetryManager.LocationState loc, TelemetryManager.NavigationState nav, TelemetryManager.ObdState obd) {
+        Logger.d("CarLauncherTelemetry", "Speed: " + loc.speedKmh + " km/h | Nav: " + nav.distanceStr);
     }
 
     @Override
