@@ -5,7 +5,7 @@
         
         <activity
             android:name="app.organicmaps.carlauncher.CarLauncherActivity"
-            android:theme="@style/Theme.OrganicMaps"
+            android:theme="@style/MwmTheme"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
@@ -15,6 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="app.organicmaps.carlauncher.music.MusicPlaybackService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
 
     </application>
 
