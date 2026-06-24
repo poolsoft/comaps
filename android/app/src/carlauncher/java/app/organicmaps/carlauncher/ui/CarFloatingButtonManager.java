@@ -350,7 +350,7 @@ public class CarFloatingButtonManager {
             app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
             float maxSpeed = getMaxSpeed(app, loc.rawLocation);
             
-            if (maxSpeed > 0 && maxSpeed != net.osmand.binary.RouteDataObject.NONE_MAX_SPEED) {
+            if (maxSpeed > 0) {
                 float diff = currentSpeed - maxSpeed;
                 float diffKmh = diff * 3.6f;
                 
@@ -379,6 +379,7 @@ public class CarFloatingButtonManager {
         if ((!routingHelper.isFollowingMode()
                 || routingHelper.isDeviatedFromRoute()
                 || (routingHelper.getCurrentGPXRoute() != null && !routingHelper.isCurrentGPXRouteV2()))) {
+            /*
             if (app.getLocationProvider() != null) {
                 net.osmand.binary.RouteDataObject routeObject = app.getLocationProvider().getLastKnownRouteSegment();
                 if (routeObject != null) {
@@ -386,6 +387,7 @@ public class CarFloatingButtonManager {
                     return routeObject.getMaximumSpeed(direction);
                 }
             }
+            */
         } else {
             return routingHelper.getCurrentMaxSpeed();
         }
@@ -416,7 +418,7 @@ public class CarFloatingButtonManager {
     }
 
     private void bringAppToForeground() {
-        Intent intent = new Intent(context, app.organicmaps.activities.MapActivity.class);
+        Intent intent = new Intent(context, app.organicmaps.MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }

@@ -109,7 +109,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
     }
 
     private Notification buildNotification(String contentText) {
-        Intent notificationIntent = new Intent(this, app.organicmaps.activities.MapActivity.class);
+        Intent notificationIntent = new Intent(this, app.organicmaps.MwmActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent,
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0
@@ -869,7 +869,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
 
             String shortcutId = "home".equals(type) ? "navigate_to_home" : "navigate_to_work";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("osmand.shortcuts://shortcut?id=" + shortcutId));
-            intent.setComponent(new ComponentName(this, app.organicmaps.activities.MapActivity.class));
+            intent.setComponent(new ComponentName(this, app.organicmaps.MwmActivity.class));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             speak(("home".equals(type) ? "Eve" : "Ise") + " navigasyon baslatiliyor.");
@@ -895,7 +895,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         
         if (intent == null) {
             try {
-                intent = new Intent(this, app.organicmaps.activities.MapActivity.class);
+                intent = new Intent(this, app.organicmaps.MwmActivity.class);
             } catch (Exception e) {}
         }
         
