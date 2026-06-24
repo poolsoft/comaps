@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.antenna;
+﻿package app.organicmaps.carlauncher.antenna;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
 
-import net.osmand.Location;
+import android.location.Location;
 import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import app.organicmaps.MwmApplication;
@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Anten noktasi secim menÃ¼sÃ¼ â€” AlertDialog tabanli, FragmentManager gerektirmez.
- * show() static metodu ile dogrudan context Ã¼zerinden cagrilir.
+ * Anten noktasi secim menÃƒÂ¼sÃƒÂ¼ Ã¢â‚¬â€ AlertDialog tabanli, FragmentManager gerektirmez.
+ * show() static metodu ile dogrudan context ÃƒÂ¼zerinden cagrilir.
  */
 public class AntennaPointPickerDialog {
 
@@ -98,7 +98,7 @@ public class AntennaPointPickerDialog {
                 return;
             }
             
-            net.osmand.Location loc = app.getLocationProvider().getLastKnownLocation();
+            android.location.Location loc = app.getLocationProvider().getLastKnownLocation();
             if (loc != null) {
                 LatLon latLon = new LatLon(loc.getLatitude(), loc.getLongitude());
                 double altitude = loc.getAltitude();
@@ -173,7 +173,7 @@ public class AntennaPointPickerDialog {
             listener.onMapPickRequested(isSource);
         }
         Toast.makeText(context,
-                "Haritaya tiklayin â€” " + (isSource ? "Kaynak" : "Hedef") + " nokta ayarlanacak.",
+                "Haritaya tiklayin Ã¢â‚¬â€ " + (isSource ? "Kaynak" : "Hedef") + " nokta ayarlanacak.",
                 Toast.LENGTH_LONG).show();
     }
 
@@ -218,7 +218,7 @@ public class AntennaPointPickerDialog {
                         double alt = altStr.isEmpty() ? 0 : Double.parseDouble(altStr);
 
                         if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
-                            Toast.makeText(context, "Gecersiz koordinat araligÄ±.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Gecersiz koordinat araligÃ„Â±.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         LatLon latLon = new LatLon(lat, lon);

@@ -1,4 +1,4 @@
-package app.organicmaps.carlauncher.widgets.weather;
+﻿package app.organicmaps.carlauncher.widgets.weather;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import net.osmand.Location;
+import android.location.Location;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 

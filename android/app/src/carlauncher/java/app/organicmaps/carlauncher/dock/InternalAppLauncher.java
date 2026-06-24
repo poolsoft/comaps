@@ -1,9 +1,9 @@
-package app.organicmaps.carlauncher.dock;
+﻿package app.organicmaps.carlauncher.dock;
 
 import android.content.Context;
 import android.content.Intent;
 
-import app.organicmaps.activities.MapActivity;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.carlauncher.ui.NeonDashboardActivity;
 import app.organicmaps.carlauncher.ui.PanelContentManager;
 

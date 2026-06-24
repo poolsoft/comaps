@@ -1,7 +1,7 @@
-package app.organicmaps.carlauncher;
+﻿package app.organicmaps.carlauncher;
 
 import app.organicmaps.carlauncher.ui.PanelContentManager;
-import app.organicmaps.views.OsmandMapTileView;
+import app.organicmaps.views.Object;
 
 /**
  * Interface to expose CarLauncher specific methods from MapActivity.
@@ -20,10 +20,10 @@ public interface CarLauncherInterface {
     void openAntennaAlignmentFullscreen();
 
     /**
-     * SaÄŸ panel iÃ§eriÄŸini deÄŸiÅŸtirir (Android Auto UI).
-     * @param content PanelContent enum deÄŸeri
+     * SaÃ„Å¸ panel iÃƒÂ§eriÃ„Å¸ini deÃ„Å¸iÃ…Å¸tirir (Android Auto UI).
+     * @param content PanelContent enum deÃ„Å¸eri
      */
     void setPanelContent(PanelContentManager.PanelContent content);
 
-    OsmandMapTileView getMapView();
+    Object getMapView();
 }
