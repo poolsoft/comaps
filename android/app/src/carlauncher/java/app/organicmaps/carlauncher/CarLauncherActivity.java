@@ -18,7 +18,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Base layout'u ekle
         setContentView(R.layout.activity_car_launcher);
 
-        telemetryManager = TelemetryManager.getInstance();
+        telemetryManager = TelemetryManager.getInstance(this);
     }
 
     @Override

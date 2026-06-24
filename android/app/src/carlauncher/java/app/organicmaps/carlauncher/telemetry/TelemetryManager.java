@@ -64,8 +64,8 @@ public class TelemetryManager implements LocationListener {
         }
     };
 
-    private TelemetryManager() {
-        app.organicmaps.MwmApplication.from(app.organicmaps.MwmApplication.get()).getLocationHelper().addListener(this);
+    private TelemetryManager(android.content.Context context) {
+        app.organicmaps.MwmApplication.from(context).getLocationHelper().addListener(this);
         mainHandler.postDelayed(staleGpsRunnable, 1000);
     }
 
@@ -73,9 +73,9 @@ public class TelemetryManager implements LocationListener {
     public NavigationState getNavigationState() { return navigationState; }
     public ObdState getObdState() { return obdState; }
 
-    public static TelemetryManager getInstance() {
+    public static synchronized TelemetryManager getInstance(android.content.Context context) {
         if (instance == null) {
-            instance = new TelemetryManager();
+            instance = new TelemetryManager(context);
         }
         return instance;
     }

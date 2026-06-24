@@ -76,11 +76,8 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             if (!tracks.isEmpty()) {
                 internalPlayer.setPlaylist(tracks, 0, false);
                 
-                net.osmand.plus.carlauncher.CarLauncherSettings settings = 
-                     new net.osmand.plus.carlauncher.CarLauncherSettings(this.context);
-                if (settings.isAutoPlayMusicEnabled()) {
-                     internalPlayer.play();
-                }
+                // Varsayilan olarak autoplay eklenebilir veya kaldirilabilir.
+                // internalPlayer.play();
             }
         });
     }
