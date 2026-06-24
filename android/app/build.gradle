@@ -41,8 +41,6 @@ android {
 
   sourceSets {
       main {
-          java.srcDirs += 'src/carlauncher/java'
-          res.srcDirs += 'src/carlauncher/res'
       }
   }
 
@@ -124,6 +122,14 @@ android {
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@comaps.app"'
       buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.comaps"'
+    }
+
+    carlauncher {
+      dimension 'default'
+      applicationIdSuffix '.auto'
+      versionName = android.defaultConfig.versionName + '-Auto'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"auto@comaps.app"'
+      resValue 'string', 'app_name', 'CoMaps Auto'
     }
   }
 

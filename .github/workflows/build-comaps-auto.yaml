@@ -49,7 +49,7 @@ jobs:
       - name: Compile
         shell: bash
         working-directory: android
-        run: ./gradlew -Parm64 assembleWebRelease -q
+        run: ./gradlew -Parm64 assembleCarlauncherDebug -q
 
       - name: Rename APK
         working-directory: ./android
