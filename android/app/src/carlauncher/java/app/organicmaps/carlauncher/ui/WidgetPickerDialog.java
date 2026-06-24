@@ -34,11 +34,11 @@ import androidx.fragment.app.DialogFragment;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.BaseWidget;
 import app.organicmaps.carlauncher.widgets.WidgetManager;
-import app.organicmaps.carlauncher.widgets.SpeedWidget;
+
 import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
-import app.organicmaps.carlauncher.widgets.OBDWidget;
+
 import app.organicmaps.plugins.odb.VehicleMetricsPlugin;
 import app.organicmaps.plugins.PluginsHelper;
 
@@ -443,7 +443,7 @@ public class WidgetPickerDialog extends DialogFragment {
         cardBg.setStroke(dpToPx(1), 0x1FFFFFFF);
         card.setBackground(cardBg);
 
-        // Canvas Tabanli Sistem Widget Ã–nizleme
+        // Canvas Tabanli Sistem Widget Ãƒâ€“nizleme
         WidgetPreviewView preview = new WidgetPreviewView(ctx, "system");
         if (appIcon != null) {
             preview.setAppIcon(appIcon);
@@ -1076,3 +1076,4 @@ public class WidgetPickerDialog extends DialogFragment {
         }
     }
 }
+

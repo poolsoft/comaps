@@ -17,11 +17,11 @@ import androidx.preference.PreferenceManager;
 
 import app.organicmaps.carlauncher.widgets.BaseWidget;
 import app.organicmaps.carlauncher.widgets.WidgetManager;
-import app.organicmaps.carlauncher.widgets.SpeedWidget;
+
 import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
-import app.organicmaps.carlauncher.widgets.OBDWidget;
+
 import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.plugins.odb.VehicleMetricsPlugin;
 import app.organicmaps.plugins.PluginsHelper;
@@ -704,3 +704,4 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         }
     }
 }
+

@@ -25,7 +25,7 @@ import android.provider.Settings;
 import android.net.Uri;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.myplaces.favorites.FavouritesHelper;
+
 import app.organicmaps.carlauncher.music.MusicManager;
 
 import org.json.JSONObject;
@@ -276,7 +276,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 }
 
                 handler.post(() -> {
-                    Toast.makeText(VoiceCommandService.this, "Model USB'den baÅŸarÄ±yla kuruldu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceCommandService.this, "Model USB'den baÃ…Å¸arÃ„Â±yla kuruldu!", Toast.LENGTH_SHORT).show();
                     loadModel(targetDir.getAbsolutePath());
                 });
 
@@ -468,7 +468,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         }
     }
 
-    // --- Vosk RecognitionListener MetotlarÄ± ---
+    // --- Vosk RecognitionListener MetotlarÃ„Â± ---
 
     @Override
     public void onResult(String hypothesis) {
@@ -504,13 +504,13 @@ public class VoiceCommandService extends Service implements RecognitionListener 
 
             // Ekranda orjinal metni goster
             handler.post(() -> {
-                android.widget.Toast.makeText(VoiceCommandService.this, "ğŸ—£ï¸ Duyulan: " + originalText, android.widget.Toast.LENGTH_SHORT).show();
+                android.widget.Toast.makeText(VoiceCommandService.this, "ÄŸÅ¸â€”Â£Ã¯Â¸Â Duyulan: " + originalText, android.widget.Toast.LENGTH_SHORT).show();
             });
 
             // Turkce karakterleri Ingilizce karakterlere cevir (Normalizasyon)
-            String text = originalText.replace("Ã§", "c").replace("ÄŸ", "g")
-                       .replace("Ä±", "i").replace("Ã¶", "o")
-                       .replace("ÅŸ", "s").replace("Ã¼", "u");
+            String text = originalText.replace("ÃƒÂ§", "c").replace("Ã„Å¸", "g")
+                       .replace("Ã„Â±", "i").replace("ÃƒÂ¶", "o")
+                       .replace("Ã…Å¸", "s").replace("ÃƒÂ¼", "u");
 
             android.util.Log.d("VoiceCommandService", "Algilanan Metin: " + text);
 
@@ -565,7 +565,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         sendVoiceStateBroadcast("LISTENING");
         
         handler.post(() -> {
-            android.widget.Toast.makeText(VoiceCommandService.this, "ğŸ™ï¸ Dinliyorum... Komutunuzu soyleyin.", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(VoiceCommandService.this, "ÄŸÅ¸Ââ„¢Ã¯Â¸Â Dinliyorum... Komutunuzu soyleyin.", android.widget.Toast.LENGTH_SHORT).show();
         });
 
         try {
@@ -596,7 +596,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         sendVoiceStateBroadcast("CLOSED");
         
         handler.post(() -> {
-            android.widget.Toast.makeText(VoiceCommandService.this, "ğŸ’¤ Uyku moduna gecildi ('Hey Car' bekliyor)", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(VoiceCommandService.this, "ÄŸÅ¸â€™Â¤ Uyku moduna gecildi ('Hey Car' bekliyor)", android.widget.Toast.LENGTH_SHORT).show();
         });
         
         startSpeechService(wakeWordRecognizer);
@@ -643,7 +643,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 } catch (Exception e) {}
             });
             return true;
-        } else if (text.contains("sesi") && (text.contains("yuzde") || text.contains("yÃ¼zde"))) {
+        } else if (text.contains("sesi") && (text.contains("yuzde") || text.contains("yÃƒÂ¼zde"))) {
             sendVoiceStateBroadcast("PROCESSING");
             handler.post(() -> {
                 int pct = parsePercentage(text);
@@ -717,7 +717,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
             sendVoiceStateBroadcast("PROCESSING");
             handler.post(() -> openExternalMap());
             return true;
-        } else if (text.contains("parlaklik") || text.contains("parlaklÄ±k") || text.contains("karart") || (text.contains("ekran") && (text.contains("kis") || text.contains("kÄ±s") || text.contains("azalt") || text.contains("dusur")))) {
+        } else if (text.contains("parlaklik") || text.contains("parlaklÃ„Â±k") || text.contains("karart") || (text.contains("ekran") && (text.contains("kis") || text.contains("kÃ„Â±s") || text.contains("azalt") || text.contains("dusur")))) {
             sendVoiceStateBroadcast("PROCESSING");
             handler.post(() -> adjustBrightness(text));
             return true;
@@ -836,24 +836,24 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 return Integer.parseInt(matcher.group());
             } catch (Exception e) {}
         }
-        if (text.contains("yuz") || text.contains("yÃ¼z")) return 100;
+        if (text.contains("yuz") || text.contains("yÃƒÂ¼z")) return 100;
         if (text.contains("doksan")) return 90;
         if (text.contains("seksen")) return 80;
-        if (text.contains("yetmis") || text.contains("yetmiÅŸ")) return 70;
-        if (text.contains("altmis") || text.contains("altmÄ±ÅŸ")) return 60;
+        if (text.contains("yetmis") || text.contains("yetmiÃ…Å¸")) return 70;
+        if (text.contains("altmis") || text.contains("altmÃ„Â±Ã…Å¸")) return 60;
         if (text.contains("elli")) return 50;
-        if (text.contains("kirk") || text.contains("kÄ±rk")) return 40;
+        if (text.contains("kirk") || text.contains("kÃ„Â±rk")) return 40;
         if (text.contains("otuz")) return 30;
         if (text.contains("yirmi")) return 20;
         if (text.contains("on")) return 10;
-        if (text.contains("sifir") || text.contains("sÄ±fÄ±r")) return 0;
+        if (text.contains("sifir") || text.contains("sÃ„Â±fÃ„Â±r")) return 0;
         return -1;
     }
 
     private void startNavigationTo(String type) {
         try {
             MwmApplication app = (MwmApplication) getApplication();
-            FavouritesHelper favoritesHelper = app.getFavoritesHelper();
+            Object dummy = app.getFavoritesHelper();
             boolean hasPoint = false;
             
             if ("home".equals(type)) {
@@ -928,7 +928,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                     Settings.System.SCREEN_BRIGHTNESS
             );
 
-            if (text.contains("art") || text.contains("yÃ¼ksel") || text.contains("yuksel") || text.contains("artÄ±r") || text.contains("arttÄ±r")) {
+            if (text.contains("art") || text.contains("yÃƒÂ¼ksel") || text.contains("yuksel") || text.contains("artÃ„Â±r") || text.contains("arttÃ„Â±r")) {
                 int target = Math.min(255, currentBrightness + 51); // Increase by 20%
                 Settings.System.putInt(
                         getContentResolver(),
@@ -937,7 +937,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 );
                 int pct = (target * 100) / 255;
                 speak("Parlaklik yuzde " + pct + " yapildi.");
-            } else if (text.contains("azal") || text.contains("kÄ±s") || text.contains("kis") || text.contains("dÃ¼ÅŸÃ¼r") || text.contains("dusur") || text.contains("karart")) {
+            } else if (text.contains("azal") || text.contains("kÃ„Â±s") || text.contains("kis") || text.contains("dÃƒÂ¼Ã…Å¸ÃƒÂ¼r") || text.contains("dusur") || text.contains("karart")) {
                 int target = Math.max(10, currentBrightness - 51); // Decrease by 20%
                 Settings.System.putInt(
                         getContentResolver(),
@@ -946,7 +946,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 );
                 int pct = (target * 100) / 255;
                 speak("Parlaklik yuzde " + pct + " yapildi.");
-            } else if (text.contains("yuzde") || text.contains("yÃ¼zde")) {
+            } else if (text.contains("yuzde") || text.contains("yÃƒÂ¼zde")) {
                 int pct = parsePercentage(text);
                 if (pct >= 0 && pct <= 100) {
                     int target = (pct * 255) / 100;
@@ -1143,3 +1143,4 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         return null;
     }
 }
+
