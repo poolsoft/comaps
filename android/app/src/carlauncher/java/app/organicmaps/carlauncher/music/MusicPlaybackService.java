@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 
 import app.organicmaps.MwmApplication;
-import net.osmand.plus.R;
+import app.organicmaps.R;
 
 public class MusicPlaybackService extends Service {
 

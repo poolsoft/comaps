@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.carlauncher.telemetry.TelemetryManager;
-import app.organicmaps.util.log.Logger;
+import com.mapswithme.util.log.Logger;
 
 public class CarLauncherActivity extends MwmActivity implements CarLauncherInterface, TelemetryManager.TelemetryListener {
     

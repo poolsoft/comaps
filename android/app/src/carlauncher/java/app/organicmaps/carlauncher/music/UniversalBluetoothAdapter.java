@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
-import net.osmand.plus.carlauncher.hardware.CarHardwareManager;
+import app.organicmaps.carlauncher.hardware.CarHardwareManager;
 
 /**
  * Her multimedya platformu (XYAuto, HCN, Standart) icin 
