@@ -25,7 +25,7 @@ import app.organicmaps.carlauncher.widgets.NavigationWidget;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 
-import app.organicmaps.carlauncher.AutoLaunchManager;
+
 import app.organicmaps.carlauncher.CarLauncherInterface;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.WorkspacePageAdapter;
@@ -188,8 +188,8 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                 showWidgetControlDialog();
                 return true;
             } else if (id == 2) {
-                if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                    ((app.organicmaps.activities.MapActivity) getActivity()).openCarLauncherSettings();
+                if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                    ((app.organicmaps.MwmActivity) getActivity()).openCarLauncherSettings();
                 }
                 return true;
             } else if (id == 6) {
@@ -476,13 +476,13 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
             WidgetManager wm = WidgetManager.getInstance(getContext());
             if (!wm.isHasAutoLaunched()) {
                 wm.setHasAutoLaunched(true);
-                new AutoLaunchManager(getContext()).execute();
+                // new AutoLaunchManager(getContext()).execute();
             }
         }
         if (widgetManager != null) {
             boolean isPanelOpen = true;
-            if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                isPanelOpen = ((app.organicmaps.activities.MapActivity) getActivity()).isWidgetPanelOpen();
+            if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                isPanelOpen = ((app.organicmaps.MwmActivity) getActivity()).isWidgetPanelOpen();
             }
             
             if (isPanelOpen) {
@@ -574,8 +574,8 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         if (navSettings != null) {
             navSettings.setOnClickListener(v -> {
                 setActiveNav(navSettings);
-                if (getActivity() instanceof app.organicmaps.activities.MapActivity) {
-                    ((app.organicmaps.activities.MapActivity) getActivity()).openCarLauncherSettings();
+                if (getActivity() instanceof app.organicmaps.MwmActivity) {
+                    ((app.organicmaps.MwmActivity) getActivity()).openCarLauncherSettings();
                 }
             });
         }

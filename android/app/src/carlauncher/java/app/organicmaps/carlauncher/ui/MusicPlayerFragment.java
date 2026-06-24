@@ -34,7 +34,7 @@ import app.organicmaps.carlauncher.music.MusicManager;
 import app.organicmaps.carlauncher.music.MusicRepository;
 import app.organicmaps.carlauncher.music.PlaylistManager;
 import app.organicmaps.carlauncher.dock.AppPickerDialog;
-import app.organicmaps.activities.MapActivity;
+import app.organicmaps.MwmActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1407,8 +1407,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     }
 
     private void closeFragment() {
-        if (getActivity() instanceof MapActivity) {
-            ((MapActivity) getActivity()).closeAppDrawer();
+        if (getActivity() instanceof MwmActivity) {
+            ((MwmActivity) getActivity()).closeAppDrawer();
         } else if (getParentFragmentManager() != null) {
             getParentFragmentManager().beginTransaction().remove(this).commit();
         }

@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import app.organicmaps.R;
-import app.organicmaps.activities.app.organicmaps.MwmActivity;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 /**

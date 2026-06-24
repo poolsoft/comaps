@@ -1,7 +1,7 @@
 package app.organicmaps.carlauncher;
 
 import app.organicmaps.carlauncher.ui.PanelContentManager;
-import app.organicmaps.views.Object;
+
 
 /**
  * Interface to expose CarLauncher specific methods from MapActivity.

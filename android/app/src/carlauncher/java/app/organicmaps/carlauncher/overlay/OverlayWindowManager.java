@@ -25,8 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.organicmaps.carlauncher.antenna.AlignmentView;
-import app.organicmaps.carlauncher.antenna.AntennaManager;
+
 
 /**
  * Overlay window yoneticisi.
@@ -154,13 +153,13 @@ public class OverlayWindowManager {
         // --- Icerik yukleme mantigi ---
         if (packageName.equals("internal://antenna")) {
             // 1. Dahili Anten Hizalama (Yuzen compass - Turkce karakter yok)
-            AlignmentView alignmentView = new AlignmentView(context, null);
+            // AlignmentView alignmentView = new AlignmentView(context, null);
             alignmentView.setLayoutParams(new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, 
                     ViewGroup.LayoutParams.MATCH_PARENT));
             
             // Canli verileri dinle
-            AntennaManager manager = AntennaManager.getInstance(context);
+            // AntennaManager manager = AntennaManager.getInstance(context);
             float targetAz = (float) manager.getAzimuthSourceToTarget();
             if (targetAz < 0) targetAz += 360;
             float targetPitch = (float) manager.getElevationSourceToTarget();

@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import app.organicmaps.activities.MapActivity;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.carlauncher.CarLauncherInterface;
 import app.organicmaps.carlauncher.dock.AppDockManager;
 import app.organicmaps.carlauncher.dock.AppShortcut;
