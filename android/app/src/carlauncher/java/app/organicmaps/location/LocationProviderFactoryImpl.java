@@ -24,4 +24,4 @@ public class LocationProviderFactoryImpl implements LocationProviderFactory
   {
     return new AndroidNativeProvider(context, listener);
   }
-
+}
