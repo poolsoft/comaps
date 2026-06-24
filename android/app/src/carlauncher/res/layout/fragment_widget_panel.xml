@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Content Area -->
+    <FrameLayout
+        android:id="@+id/widget_content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Parallax Arka Plan (ViewPager arkasinda kalir) -->
+        <ImageView
+            android:id="@+id/workspace_parallax_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_panel_modern" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/widget_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="6dp" />
+
+        <!-- Page Indicator Dots -->
+        <LinearLayout
+            android:id="@+id/workspace_page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:gravity="center" />
+
+        <!-- Floating Preset Menu Button (Top Right - Left of Menu) -->
+        <ImageButton
+            android:id="@+id/btn_widget_presets"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|top"
+            android:layout_marginEnd="52dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_action_view"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:tint="#FFFFFF"
+            android:visibility="gone"
+            android:contentDescription="Presets" />
+
+        <!-- Floating 3-Dot Menu Button (Top Right) -->
+        <ImageButton
+            android:id="@+id/btn_widget_menu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|top"
+            android:layout_margin="4dp"
+            android:src="@android:drawable/ic_menu_more"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:contentDescription="Menu" />
+    </FrameLayout>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#CC1A1A1A"
+        android:elevation="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/nav_widgets"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Widgets"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:drawableTop="@drawable/ic_action_view"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/nav_navigation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Route"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:drawableTop="@drawable/ic_action_direction"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/nav_apps"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Apps"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:drawableTop="@drawable/ic_action_view_as_list"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/nav_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Settings"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:drawableTop="@drawable/ic_action_view_as_list"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="4dp" />
+    </LinearLayout>
+
+</LinearLayout>
