@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher;
+package app.organicmaps.carlauncher;
 
 import app.organicmaps.carlauncher.ui.PanelContentManager;
 import app.organicmaps.views.Object;

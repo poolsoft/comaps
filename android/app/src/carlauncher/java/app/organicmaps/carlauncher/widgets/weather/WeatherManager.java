@@ -1,4 +1,4 @@
-﻿package app.organicmaps.carlauncher.widgets.weather;
+package app.organicmaps.carlauncher.widgets.weather;
 
 import android.content.Context;
 import android.content.SharedPreferences;
