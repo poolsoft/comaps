@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.concurrent.Executors;
 
 /**
- * Car Launcher guncelleme ve APK indirme/yukleme yardimci sinifi.
+ * CoMaps Auto (Car Launcher) guncelleme ve APK indirme/yukleme yardimci sinifi.
  * DownloadManager yerine dogrudan HttpURLConnection ile bagimsiz indirme yapilir.
  * Ekranda anlik ilerleme yuzdesi gosteren ProgressDialog entegre edilmistir.
  * Kod icerisinde kesinlikle Turkce karakter kullanilmamistir.
@@ -32,9 +32,9 @@ import java.util.concurrent.Executors;
 public class UpdaterHelper {
 
     // Latest Release altindaki version.json'a ulasacagiz.
-    private static final String VERSION_JSON_URL = "https://github.com/poolsoft/OsmAnd/releases/latest/download/version.json";
+    private static final String VERSION_JSON_URL = "https://github.com/poolsoft/comaps/releases/latest/download/version.json";
 
-    // Indirme durumunu takip eden ve mukerrer tiklamalari onleyen bayrak (Turkce karakter yok)
+    // Indirme durumunu takip eden ve mukerrer tiklamalari onleyen bayrak
     private static boolean isDownloading = false;
 
     public static void checkUpdates(Context context, boolean showToastIfLatest) {
@@ -114,7 +114,7 @@ public class UpdaterHelper {
     private static void showUpdateDialog(Context context, String versionName, String apkUrl) {
         new AlertDialog.Builder(context)
                 .setTitle("Yeni Surum Mevcut!")
-                .setMessage("Car Launcher v" + versionName + " indirilebilir. Guncellemek istiyor musunuz?")
+                .setMessage("CoMaps Auto v" + versionName + " indirilebilir. Guncellemek istiyor musunuz?")
                 .setPositiveButton("Indir ve Yukle", (dialog, which) -> downloadAndInstallApk(context, apkUrl, versionName))
                 .setNegativeButton("Daha Sonra", null)
                 .show();
@@ -127,7 +127,7 @@ public class UpdaterHelper {
         }
         isDownloading = true;
 
-        String fileName = "CarLauncher_v" + versionName + ".apk";
+        String fileName = "CoMapsAuto_v" + versionName + ".apk";
 
         // Indirme baslamadan once eski indirilmis APK varsa siliyoruz
         try {
@@ -140,9 +140,8 @@ public class UpdaterHelper {
             android.util.Log.e("Updater", "Eski APK silinirken hata olustu", e);
         }
 
-        // Ana thread'de ProgressDialog baslatiyoruz (Turkce karakter yok)
         ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Car Launcher Guncelleniyor");
+        progressDialog.setTitle("CoMaps Auto Guncelleniyor");
         progressDialog.setMessage("Yeni surum indiriliyor, lutfen bekleyin...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setCancelable(false);
@@ -210,7 +209,7 @@ public class UpdaterHelper {
                     if (fileLength > 0) {
                         final int progress = (int) (total * 100 / fileLength);
                         long now = System.currentTimeMillis();
-                        if (now - lastUpdateTime > 500) { // Arayuzu yormamak icin 500ms'de bir guncelleme
+                        if (now - lastUpdateTime > 500) { 
                             new Handler(Looper.getMainLooper()).post(() -> {
                                 if (progressDialog.isShowing()) {
                                     progressDialog.setProgress(progress);
@@ -252,7 +251,6 @@ public class UpdaterHelper {
     }
 
     private static void installApkDirectly(Context context, File apkFile) {
-        // Android 8.0+ icin Bilinmeyen Kaynaklar yukleme izni kontrolu
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!context.getPackageManager().canRequestPackageInstalls()) {
                 Toast.makeText(context, "Uygulama yukleme izni verilmelidir. Ayarlar aciliyor...", Toast.LENGTH_LONG).show();
@@ -273,7 +271,7 @@ public class UpdaterHelper {
                 Uri contentUri = null;
                 try {
                     contentUri = FileProvider.getUriForFile(context, 
-                        context.getPackageName() + ".fileprovider", 
+                        context.getPackageName() + ".provider", 
                         apkFile);
                 } catch (Exception e) {
                     android.util.Log.e("Updater", "FileProvider URI olusturulurken hata", e);
