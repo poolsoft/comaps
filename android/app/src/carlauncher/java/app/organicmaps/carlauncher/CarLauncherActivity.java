@@ -330,7 +330,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public View getMapView() { 
-        return findViewById(R.id.map_view); 
+        return findViewById(R.id.map); 
     }
 
     @Override
