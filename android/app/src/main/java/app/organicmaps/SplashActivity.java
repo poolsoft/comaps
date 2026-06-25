@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity
     });
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
-    if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed())
+    if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed() && isCarDisplayRedirectEnabled())
     {
       startActivity(new Intent(this, MapPlaceholderActivity.class));
       finish();
@@ -196,6 +196,16 @@ public class SplashActivity extends AppCompatActivity
     Config.setFirstStartDialogSeen(this);
     startActivity(intent);
     finish();
+  }
+
+  /**
+   * Hook for subclasses to disable the car display placeholder redirect.
+   * Override and return {@code false} in flavors that run natively on the head unit
+   * (e.g. carlauncher) where Android Auto projected mode is not used.
+   */
+  protected boolean isCarDisplayRedirectEnabled()
+  {
+    return true;
   }
 
   private boolean isManageSpaceActivity(Intent intent)

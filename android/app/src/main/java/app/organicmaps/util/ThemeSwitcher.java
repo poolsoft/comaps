@@ -136,7 +136,10 @@ public enum ThemeSwitcher
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
+    // Exception: carlauncher flavor runs natively on the head unit (not Android Auto projected mode),
+    // so standard theme switching should continue to work.
+    boolean isCarLauncherFlavor = app.organicmaps.BuildConfig.FLAVOR.toLowerCase().contains("carlauncher");
+    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed() && !isCarLauncherFlavor)
       return;
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
