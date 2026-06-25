@@ -202,3 +202,15 @@ tools/unix/maps/settings.sh
 # VS Code
 .vscode
 .cache
+
+# CMake, Ninja & General Temp Files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+.ninja_deps
+.ninja_log
+*.ninja
+*.tmp
+*.bak
+*.log
