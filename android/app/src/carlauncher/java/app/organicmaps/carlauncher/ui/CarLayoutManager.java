@@ -62,7 +62,7 @@ public class CarLayoutManager {
         cs.clone(rootLayout);
 
         // 1. Reset all regions (widget_handle'i resetleme - elle yonetilir)
-        int[] ids = {R.id.app_dock, R.id.widget_panel, R.id.map_container, R.id.app_drawer_container};
+        int[] ids = {R.id.app_dock, R.id.widget_panel, R.id.car_map_container, R.id.app_drawer_container};
         for (int id : ids) {
             cs.clear(id, ConstraintSet.TOP);
             cs.clear(id, ConstraintSet.BOTTOM);
@@ -74,14 +74,14 @@ public class CarLayoutManager {
             cs.setVisibility(R.id.app_dock, View.GONE);
             cs.setVisibility(R.id.widget_panel, View.GONE);
             cs.setVisibility(R.id.widget_handle, View.GONE);
-            cs.setVisibility(R.id.map_container, View.VISIBLE);
+            cs.setVisibility(R.id.car_map_container, View.VISIBLE);
 
-            cs.connect(R.id.map_container, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            cs.connect(R.id.map_container, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-            cs.connect(R.id.map_container, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            cs.connect(R.id.map_container, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            cs.constrainWidth(R.id.map_container, 0);
-            cs.constrainHeight(R.id.map_container, 0);
+            cs.connect(R.id.car_map_container, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+            cs.connect(R.id.car_map_container, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+            cs.connect(R.id.car_map_container, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+            cs.connect(R.id.car_map_container, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+            cs.constrainWidth(R.id.car_map_container, 0);
+            cs.constrainHeight(R.id.car_map_container, 0);
 
             cs.applyTo(rootLayout);
             return;
@@ -137,7 +137,7 @@ public class CarLayoutManager {
         int screenHeight = activity.getResources().getDisplayMetrics().heightPixels;
 
         if (activity.isDesktopMode()) {
-            cs.setVisibility(R.id.map_container, View.GONE);
+            cs.setVisibility(R.id.car_map_container, View.GONE);
             cs.setVisibility(R.id.widget_handle, View.GONE);
             cs.setVisibility(R.id.widget_panel, View.VISIBLE);
 
@@ -159,23 +159,23 @@ public class CarLayoutManager {
             cs.constrainWidth(R.id.widget_panel, 0);
             cs.constrainHeight(R.id.widget_panel, 0);
         } else if (!isWidgetPanelOpen) {
-            cs.setVisibility(R.id.map_container, View.VISIBLE);
+            cs.setVisibility(R.id.car_map_container, View.VISIBLE);
             cs.setVisibility(R.id.widget_panel, View.GONE);
             // Harita tum ekrani kaplar (dock haric)
-            cs.connect(R.id.map_container, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+            cs.connect(R.id.car_map_container, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
             if (isPortrait) {
-                cs.connect(R.id.map_container, ConstraintSet.BOTTOM, "bottom".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "bottom".equals(dockPos) ? ConstraintSet.TOP : ConstraintSet.BOTTOM);
-                cs.connect(R.id.map_container, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-                cs.connect(R.id.map_container, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+                cs.connect(R.id.car_map_container, ConstraintSet.BOTTOM, "bottom".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "bottom".equals(dockPos) ? ConstraintSet.TOP : ConstraintSet.BOTTOM);
+                cs.connect(R.id.car_map_container, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+                cs.connect(R.id.car_map_container, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
             } else {
-                cs.connect(R.id.map_container, ConstraintSet.START, "left".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "left".equals(dockPos) ? ConstraintSet.END : ConstraintSet.START);
-                cs.connect(R.id.map_container, ConstraintSet.END, "right".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "right".equals(dockPos) ? ConstraintSet.START : ConstraintSet.END);
-                cs.connect(R.id.map_container, ConstraintSet.BOTTOM, "bottom".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "bottom".equals(dockPos) ? ConstraintSet.TOP : ConstraintSet.BOTTOM);
+                cs.connect(R.id.car_map_container, ConstraintSet.START, "left".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "left".equals(dockPos) ? ConstraintSet.END : ConstraintSet.START);
+                cs.connect(R.id.car_map_container, ConstraintSet.END, "right".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "right".equals(dockPos) ? ConstraintSet.START : ConstraintSet.END);
+                cs.connect(R.id.car_map_container, ConstraintSet.BOTTOM, "bottom".equals(dockPos) ? R.id.app_dock : ConstraintSet.PARENT_ID, "bottom".equals(dockPos) ? ConstraintSet.TOP : ConstraintSet.BOTTOM);
             }
-            cs.constrainWidth(R.id.map_container, 0);
-            cs.constrainHeight(R.id.map_container, 0);
+            cs.constrainWidth(R.id.car_map_container, 0);
+            cs.constrainHeight(R.id.car_map_container, 0);
         } else {
-            cs.setVisibility(R.id.map_container, View.VISIBLE);
+            cs.setVisibility(R.id.car_map_container, View.VISIBLE);
             cs.setVisibility(R.id.widget_panel, View.VISIBLE);
             boolean isSwapped = isContentFullScreen;
 
@@ -185,9 +185,9 @@ public class CarLayoutManager {
                 int bottomViewId;
                 if (isSwapped) {
                     topViewId = R.id.widget_panel;   // LARGE
-                    bottomViewId = R.id.map_container; // SMALL
+                    bottomViewId = R.id.car_map_container; // SMALL
                 } else {
-                    topViewId = R.id.map_container;  // LARGE
+                    topViewId = R.id.car_map_container;  // LARGE
                     bottomViewId = R.id.widget_panel;  // SMALL
                 }
 
@@ -249,31 +249,31 @@ public class CarLayoutManager {
                 if (isFixed) {
                     if (leftViewIsSmall) {
                         leftViewId = R.id.widget_panel;
-                        rightViewId = R.id.map_container;
+                        rightViewId = R.id.car_map_container;
                     } else {
-                        leftViewId = R.id.map_container;
+                        leftViewId = R.id.car_map_container;
                         rightViewId = R.id.widget_panel;
                     }
                 } else {
                     if (leftViewIsSmall) {
                         if (isSwapped) {
                             // SMALL solda (harita), LARGE sagda (widget)
-                            leftViewId = R.id.map_container;
+                            leftViewId = R.id.car_map_container;
                             rightViewId = R.id.widget_panel;
                         } else {
                             // SMALL solda (widget), LARGE sagda (harita)
                             leftViewId = R.id.widget_panel;
-                            rightViewId = R.id.map_container;
+                            rightViewId = R.id.car_map_container;
                         }
                     } else {
                         // Sagdaki panel SMALL
                         if (isSwapped) {
                             // LARGE solda (widget), SMALL sagda (harita)
                             leftViewId = R.id.widget_panel;
-                            rightViewId = R.id.map_container;
+                            rightViewId = R.id.car_map_container;
                         } else {
                             // LARGE solda (harita), SMALL sagda (widget)
-                            leftViewId = R.id.map_container;
+                            leftViewId = R.id.car_map_container;
                             rightViewId = R.id.widget_panel;
                         }
                     }
@@ -317,17 +317,17 @@ public class CarLayoutManager {
                     if (leftViewIsSmall) {
                         if (isSwapped) {
                             cs.constrainWidth(R.id.widget_panel, 0);
-                            cs.constrainWidth(R.id.map_container, smallWidth);
+                            cs.constrainWidth(R.id.car_map_container, smallWidth);
                         } else {
                             cs.constrainWidth(R.id.widget_panel, smallWidth);
-                            cs.constrainWidth(R.id.map_container, 0);
+                            cs.constrainWidth(R.id.car_map_container, 0);
                         }
                     } else {
                         if (isSwapped) {
-                            cs.constrainWidth(R.id.map_container, smallWidth);
+                            cs.constrainWidth(R.id.car_map_container, smallWidth);
                             cs.constrainWidth(R.id.widget_panel, 0);
                         } else {
-                            cs.constrainWidth(R.id.map_container, 0);
+                            cs.constrainWidth(R.id.car_map_container, 0);
                             cs.constrainWidth(R.id.widget_panel, smallWidth);
                         }
                     }
@@ -447,17 +447,17 @@ public class CarLayoutManager {
             cs.setVisibility(R.id.app_drawer_container, View.GONE);
 
             // Haritayi tam ekran yap (Turkce karakter yok)
-            cs.clear(R.id.map_container, ConstraintSet.TOP);
-            cs.clear(R.id.map_container, ConstraintSet.BOTTOM);
-            cs.clear(R.id.map_container, ConstraintSet.START);
-            cs.clear(R.id.map_container, ConstraintSet.END);
+            cs.clear(R.id.car_map_container, ConstraintSet.TOP);
+            cs.clear(R.id.car_map_container, ConstraintSet.BOTTOM);
+            cs.clear(R.id.car_map_container, ConstraintSet.START);
+            cs.clear(R.id.car_map_container, ConstraintSet.END);
 
-            cs.connect(R.id.map_container, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-            cs.connect(R.id.map_container, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-            cs.connect(R.id.map_container, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            cs.connect(R.id.map_container, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            cs.constrainWidth(R.id.map_container, 0);
-            cs.constrainHeight(R.id.map_container, 0);
+            cs.connect(R.id.car_map_container, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+            cs.connect(R.id.car_map_container, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+            cs.connect(R.id.car_map_container, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+            cs.connect(R.id.car_map_container, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+            cs.constrainWidth(R.id.car_map_container, 0);
+            cs.constrainHeight(R.id.car_map_container, 0);
         } else {
             // PiP modundan cikildiginda normal layout'a donmek icin applyLayout cagriliyor (Turkce karakter yok)
             cs.setVisibility(R.id.app_dock, View.VISIBLE);
