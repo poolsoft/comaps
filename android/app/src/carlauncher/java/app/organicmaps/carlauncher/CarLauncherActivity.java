@@ -45,16 +45,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 .commitAllowingStateLoss();
         }
 
-        // Orijinal MwmActivity arayuz bilesenlerini (arama, favoriler, menu vs) Car Launcher'da gizle (Turkce karakter yok)
-        android.view.View mapButtons = findViewById(R.id.map_buttons);
-        if (mapButtons != null) mapButtons.setVisibility(android.view.View.GONE);
-
-        android.view.View toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) toolbar.setVisibility(android.view.View.GONE);
-
-        android.view.View menu = findViewById(R.id.menu_frame); // Eger ID menu_frame ise (activity_map'te menu id'li include)
-        if (menu != null) menu.setVisibility(android.view.View.GONE);
+        // NOT: map_buttons (zoom, konum, katmanlar) ve toolbar GONE yapilmadi.
+        // MwmActivity otomatik olarak MapButtonsController fragment'ini yukler ve gorunur birakir.
     }
+
 
     @Override
     protected void onResume() {
