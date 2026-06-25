@@ -16,6 +16,16 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.util.Calendar;
 
+/**
+ * CarLauncher flavor override of ThemeSwitcher.
+ *
+ * CarLauncher, Android Auto'nun projected modunu kullanmaz; doğrudan araç ekranında (head unit) çalışır.
+ * Orijinal ThemeSwitcher, isCarDisplayUsed() true olduğunda tema değiştirmeyi durdurur çünkü
+ * Android Auto kendi tema mekanizmasını kullanır. Ancak CarLauncher için bu kısıtlama geçerli değildir:
+ * standart Android tema değiştirme mekanizması çalışmaya devam etmelidir.
+ *
+ * Orijinal src/main/ThemeSwitcher.java değiştirilmeden bu override kullanılır.
+ */
 public enum ThemeSwitcher
 {
   INSTANCE;
@@ -134,10 +144,12 @@ public enum ThemeSwitcher
 
   private void SetMapStyle(MapStyle style)
   {
-    // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
-    // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
-      return;
+    // CarLauncher flavor: isCarDisplayUsed() kontrolü burada atlanir.
+    // Orijinal ThemeSwitcher, Android Auto'nun kendi tema mekanizmasi oldugu icin
+    // isCarDisplayUsed() true olunca tema degistirmeyi durdurur.
+    // Ancak CarLauncher, dogrudan head unit'te calisir (projected mod degil),
+    // bu nedenle standart tema mekanizmasi kullanilmaya devam eder.
+
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
     if (mRendererActive)

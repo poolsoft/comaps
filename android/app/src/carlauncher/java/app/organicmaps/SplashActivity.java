@@ -32,6 +32,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * CarLauncher flavor override of SplashActivity.
+ *
+ * CarLauncher, Android Auto'nun projected modunu kullanmaz; doğrudan araç ekranında çalışır.
+ * Bu nedenle isCarDisplayUsed() true olsa bile MapPlaceholderActivity'ye yönlendirme yapılmaz.
+ * Orijinal src/main/SplashActivity.java değiştirilmeden bu override kullanılır.
+ */
 public class SplashActivity extends AppCompatActivity
 {
   private static final String TAG = SplashActivity.class.getSimpleName();
@@ -77,11 +84,10 @@ public class SplashActivity extends AppCompatActivity
     });
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
-    if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed())
-    {
-      startActivity(new Intent(this, MapPlaceholderActivity.class));
-      finish();
-    }
+    // CarLauncher flavor: araç ekranı kullanımda olsa bile MapPlaceholderActivity'ye geçme.
+    // CarLauncher doğrudan head unit üzerinde çalışır, Android Auto projected modunda değil.
+    // Bu nedenle isCarDisplayUsed() true olduğunda bile normal akışa devam edilir.
+    // (Orijinal SplashActivity'nin bu blokta MapPlaceholderActivity'ye yönlendirdiği kontrol atlanır.)
   }
 
   @Override
