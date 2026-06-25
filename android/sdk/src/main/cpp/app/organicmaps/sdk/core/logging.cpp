@@ -42,7 +42,9 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(level, src, s);
-  CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
+  std::string const out = DebugPrint(src) + s;
+  __android_log_print(ANDROID_LOG_ERROR, "OMcore_Native", "FATAL NATIVE ERROR: %s", out.c_str());
+  // CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
 bool AndroidAssertMessage(SrcPoint const & src, std::string const & s)

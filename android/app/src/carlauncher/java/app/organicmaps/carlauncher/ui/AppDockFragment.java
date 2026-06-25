@@ -225,10 +225,13 @@ public class AppDockFragment extends Fragment
 
         if (clockView != null) {
             clockView.setOnClickListener(v -> openSettings());
-            // Typeface digitalFont = Typeface.createFromAsset(context.getAssets(),
-            // "fonts/curved-seven-segment.ttf");
-            Typeface digitalFont = Typeface.createFromAsset(requireContext().getAssets(), "fonts/Cross Boxed.ttf");
-            clockView.setTypeface(digitalFont);
+            try {
+                Typeface digitalFont = Typeface.createFromAsset(requireContext().getAssets(), "fonts/Cross Boxed.ttf");
+                clockView.setTypeface(digitalFont);
+            } catch (Exception e) {
+                Log.e(TAG, "Font bulunamadi: " + e.getMessage());
+                clockView.setTypeface(Typeface.DEFAULT_BOLD);
+            }
         }
 
         // Dikey ve yatay ekran durumlarina gore mini player tasarimini ozellestir
