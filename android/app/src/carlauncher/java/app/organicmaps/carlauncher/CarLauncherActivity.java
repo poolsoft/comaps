@@ -23,14 +23,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private CarLayoutManager layoutManager;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_car_launcher;
-    }
-
-    @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         super.onSafeCreate(savedInstanceState);
-        // setContentView(R.layout.activity_car_launcher); artik gerek yok cunku getLayoutResId uzerinden MwmActivity yukluyor.
+        setContentView(R.layout.activity_car_launcher);
 
         telemetryManager = TelemetryManager.getInstance(this);
 

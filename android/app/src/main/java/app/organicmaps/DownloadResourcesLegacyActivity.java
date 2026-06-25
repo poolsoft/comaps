@@ -351,7 +351,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     // Re-use original intent to retain all flags and payload.
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());
-    intent.setComponent(new ComponentName(this, MwmActivity.class));
+    Class<?> activityClass = MwmActivity.class;
+    try {
+        activityClass = Class.forName("app.organicmaps.carlauncher.CarLauncherActivity");
+    } catch (ClassNotFoundException e) {
+        // Flavor carlauncher degilse MwmActivity devam eder
+    }
+    intent.setComponent(new ComponentName(this, activityClass));
 
     // Disable animation because MwmActivity should appear exactly over this one
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);

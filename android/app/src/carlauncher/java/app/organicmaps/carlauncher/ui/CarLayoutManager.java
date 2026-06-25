@@ -27,7 +27,7 @@ public class CarLayoutManager {
     public CarLayoutManager(app.organicmaps.MwmActivity activity) {
         this.activity = activity;
         this.rootLayout = activity.findViewById(R.id.root_layout);
-        this.mapContainer = activity.findViewById(R.id.map_container);
+        this.mapContainer = activity.findViewById(R.id.car_map_container);
         this.widgetPanel = activity.findViewById(R.id.widget_panel);
         this.appDock = activity.findViewById(R.id.app_dock);
         this.appDrawerContainer = activity.findViewById(R.id.app_drawer_container);

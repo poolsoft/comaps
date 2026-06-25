@@ -217,7 +217,11 @@ android {
       versionNameSuffix '-debug'
       zipAlignEnabled true
       signingConfig = signingConfigs.debug
-      resValue 'string', 'app_name', 'CoMaps Debug'
+      if (taskName.contains("carlauncher")) {
+          resValue 'string', 'app_name', 'CoMaps Auto Debug'
+      } else {
+          resValue 'string', 'app_name', 'CoMaps Debug'
+      }
     }
 
     release {
