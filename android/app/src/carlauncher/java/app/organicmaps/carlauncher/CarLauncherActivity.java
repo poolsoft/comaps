@@ -31,6 +31,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         super.onSafeCreate(savedInstanceState);
 
+        CarCrashLogger.init(this);
+
         telemetryManager = TelemetryManager.getInstance(this);
 
         layoutManager = new CarLayoutManager(this);

@@ -79,8 +79,14 @@ public class SplashActivity extends AppCompatActivity
 
     if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed())
     {
-      startActivity(new Intent(this, MapPlaceholderActivity.class));
-      finish();
+      Intent intent = getIntent();
+      if (intent != null && intent.getComponent() != null && "app.organicmaps.carlauncher.CarLauncherActivity".equals(intent.getComponent().getClassName())) {
+        // Flavor carlauncher ise placeholder'a gitmesine izin verme, baslatmaya devam et
+      } else {
+        startActivity(new Intent(this, MapPlaceholderActivity.class));
+        finish();
+        return;
+      }
     }
   }
 
