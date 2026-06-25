@@ -32,6 +32,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * CarLauncher flavor SplashActivity surumu.
+ *
+ * src/main/SplashActivity.java build'dan exclude edilir (build.gradle exclude filtresi).
+ * Bu surumu derleyici kullanir. Fark: isCarDisplayUsed() kontrolu yoktur.
+ * CarLauncher dogrudan head unit uzerinde calisir, Android Auto projected modunda degil.
+ * Bu nedenle MapPlaceholderActivity'ye yonlendirme yapilmaz.
+ */
 public class SplashActivity extends AppCompatActivity
 {
   private static final String TAG = SplashActivity.class.getSimpleName();
@@ -77,12 +85,9 @@ public class SplashActivity extends AppCompatActivity
     });
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
-    if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed())
-    {
-      startActivity(new Intent(this, MapPlaceholderActivity.class));
-      finish();
-      return;
-    }
+    // NOT: src/main/ surumundeki isCarDisplayUsed() yonlendirmesi burada YOKTUR.
+    // CarLauncher dogrudan head unit uzerinde calisir.
+    // isCarDisplayUsed() true olsa bile MapPlaceholderActivity'ye gitme, devam et.
   }
 
   @Override

@@ -17,12 +17,6 @@
             </intent-filter>
         </activity>
 
-        <!-- CarLauncher icin ozel SplashActivity: car display redirect olmadan baslatir -->
-        <activity
-            android:name="app.organicmaps.carlauncher.CarLauncherSplashActivity"
-            android:exported="false"
-            android:theme="@style/MwmTheme" />
-
         <activity-alias android:name="app.organicmaps.DownloadResourcesActivity">
             <intent-filter tools:node="remove">
                 <action android:name="android.intent.action.MAIN"/>

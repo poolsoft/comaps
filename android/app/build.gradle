@@ -412,6 +412,28 @@ android.applicationVariants.all { variant ->
   variant.resValue 'string', 'app_id', variant.applicationId
 }
 
+// OsmAnd yaklasimindaki gibi carlauncher build'inda src/main/ icindeki
+// belirli dosyalari compile'dan exclude et. src/carlauncher/ icindeki
+// tam override surumler kullanilir (duplicate class hatasi olmaz).
+android.applicationVariants.all { variant ->
+  if (variant.name.toLowerCase().contains("carlauncher")) {
+    variant.javaCompileProvider.configure { task ->
+      task.source = task.source.filter { file ->
+        boolean isSplashActivity = file.absolutePath.replace('\\', '/').contains(
+            "src/main/java/app/organicmaps/SplashActivity.java")
+        boolean isThemeSwitcher = file.absolutePath.replace('\\', '/').contains(
+            "src/main/java/app/organicmaps/util/ThemeSwitcher.java")
+
+        if (isSplashActivity || isThemeSwitcher) {
+          println "   [CarLauncher EXCLUDED] ${file.name} (src/main/ surumu)"
+          return false
+        }
+        return true
+      }
+    }
+  }
+}
+
 play {
   enabled.set(false)
   track.set('production')
