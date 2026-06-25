@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.telemetry.TelemetryManager;
+import app.organicmaps.R;
 
 /**
  * Navigasyon widget - Sonraki donus ve rota bilgisi.
@@ -39,7 +40,7 @@ public class NavigationWidget extends BaseWidget implements TelemetryManager.Tel
     public View createView() {
         // Modern Kart Yapisi
         FrameLayout rootFrame = new FrameLayout(context);
-        rootFrame.setBackgroundResource(app.organicmaps.R.drawable.bg_widget_modern);
+        rootFrame.setBackgroundResource(R.drawable.bg_widget_modern);
         rootFrame.setElevation(4f);
 
         LinearLayout container = new LinearLayout(context);

@@ -16,9 +16,9 @@ public class InternalAppLauncher {
         InternalApp app = InternalApp.fromPackageName(uri);
         if (app == null) return;
 
-        MapActivity mapActivity = null;
-        if (context instanceof MapActivity) {
-            mapActivity = (MapActivity) context;
+        MwmActivity mapActivity = null;
+        if (context instanceof MwmActivity) {
+            mapActivity = (MwmActivity) context;
         }
 
         switch (app) {
@@ -26,14 +26,18 @@ public class InternalAppLauncher {
                 if (mapActivity != null) mapActivity.openCarLauncherSettings();
                 break;
             case MUSIC:
-                if (mapActivity != null) mapActivity.openMusicPlayer();
+                if (mapActivity instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
+                    ((app.organicmaps.carlauncher.CarLauncherInterface) mapActivity).openMusicPlayer();
+                }
                 break;
             case ANTENNA:
-                if (mapActivity != null) mapActivity.openAntennaAlignmentInPanel();
+                if (mapActivity instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
+                    // mapActivity.openAntennaAlignmentInPanel();
+                }
                 break;
             case DASHBOARD:
-                if (mapActivity != null) {
-                    mapActivity.getPanelContentManager().setContent(PanelContentManager.PanelContent.DASHBOARD);
+                if (mapActivity instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
+                    // mapActivity.getPanelContentManager().setContent(PanelContentManager.PanelContent.DASHBOARD);
                 }
                 break;
             case NEON_DASHBOARD:

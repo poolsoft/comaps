@@ -851,32 +851,9 @@ public class VoiceCommandService extends Service implements RecognitionListener 
     }
 
     private void startNavigationTo(String type) {
-        try {
-            MwmApplication app = (MwmApplication) getApplication();
-            Object dummy = app.getFavoritesHelper();
-            boolean hasPoint = false;
-            
-            if ("home".equals(type)) {
-                hasPoint = favoritesHelper.getSpecialPoint(net.osmand.data.SpecialPointType.HOME) != null;
-            } else if ("work".equals(type)) {
-                hasPoint = favoritesHelper.getSpecialPoint(net.osmand.data.SpecialPointType.WORK) != null;
-            }
-
-            if (!hasPoint) {
-                speak(("home".equals(type) ? "Ev" : "Is") + " adresi OsmAnd icinde tanimli degil.");
-                return;
-            }
-
-            String shortcutId = "home".equals(type) ? "navigate_to_home" : "navigate_to_work";
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("osmand.shortcuts://shortcut?id=" + shortcutId));
-            intent.setComponent(new ComponentName(this, app.organicmaps.MwmActivity.class));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            speak(("home".equals(type) ? "Eve" : "Ise") + " navigasyon baslatiliyor.");
-        } catch (Exception e) {
-            android.util.Log.e("VoiceCommandService", "Navigasyon baslatilamadi", e);
-            speak("Navigasyon baslatilamadi.");
-        }
+        handler.post(() -> {
+             speak(("home".equals(type) ? "Ev" : "Is") + " navigasyonu henüz yapilandirilmadi.");
+        });
     }
 
     private void openExternalMap() {

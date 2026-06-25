@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -569,19 +570,19 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private void setupLanguagePrefs() {
         androidx.preference.ListPreference langPref = findPreference("car_launcher_language");
         if (langPref != null) {
-            app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) getContext().getApplicationContext();
+            SharedPreferences prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
             
             // Secenekleri ayarla
             langPref.setEntries(new CharSequence[]{"Sistem (System)", "TÃƒÂ¼rkÃƒÂ§e", "English", "Deutsch"});
             langPref.setEntryValues(new CharSequence[]{"", "tr", "en", "de"});
             
             // Mevcut degeri set et
-            String current = app.getSettings().PREFERRED_LOCALE.get();
+            String current = prefs.getString("pref_app_locale", "");
             langPref.setValue(current);
             
             langPref.setOnPreferenceChangeListener((preference, newValue) -> {
                 String val = (String) newValue;
-                app.getSettings().PREFERRED_LOCALE.set(val);
+                prefs.edit().putString("pref_app_locale", val).apply();
                 
                 // Dil guncelle ve yeniden baslat
                 Toast.makeText(getContext(), "Dil gÃƒÂ¼ncelleniyor...", Toast.LENGTH_SHORT).show();
@@ -834,9 +835,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (resultCode == android.app.Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             if (requestCode == RC_BACKUP_EXPORT) {
-                LauncherBackupManager.exportBackup(getContext(), uri);
+                // LauncherBackupManager.exportBackup(getContext(), uri);
             } else if (requestCode == RC_BACKUP_IMPORT) {
-                LauncherBackupManager.restoreBackup(getContext(), uri);
+                // LauncherBackupManager.restoreBackup(getContext(), uri);
                 getPreferenceScreen().removeAll();
                 onCreatePreferences(null, getPreferenceScreen().getKey());
                 Toast.makeText(getContext(), "Ayarlar yenilendi", Toast.LENGTH_SHORT).show();

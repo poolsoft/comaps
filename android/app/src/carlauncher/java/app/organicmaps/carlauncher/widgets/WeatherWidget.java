@@ -238,9 +238,9 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
     private int getIconResource(String iconName) {
         int resId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
         if (resId == 0) {
-            if (iconName.contains("clear")) return app.organicmaps.R.drawable.ic_action_sun; 
-            if (iconName.contains("cloud")) return app.organicmaps.R.drawable.ic_action_cloud;
-            return app.organicmaps.R.drawable.ic_action_umbrella;
+            if (iconName.contains("clear")) return android.R.drawable.ic_menu_view; 
+            if (iconName.contains("cloud")) return android.R.drawable.ic_menu_gallery;
+            return android.R.drawable.ic_menu_view;
         }
         return resId;
     }

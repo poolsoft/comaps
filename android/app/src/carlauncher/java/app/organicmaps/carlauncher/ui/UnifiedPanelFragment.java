@@ -42,7 +42,7 @@ public class UnifiedPanelFragment extends Fragment
         implements MusicManager.MusicUIListener, MusicManager.MusicVisualizerListener {
 
     private MusicManager musicManager;
-    private MwmApplication app;
+    private MwmApplication mApplication;
 
     // Arayuz Elemanlari
     private ImageView albumArtBg;
@@ -89,7 +89,7 @@ public class UnifiedPanelFragment extends Fragment
         super.onCreate(savedInstanceState);
         if (getContext() != null) {
             musicManager = MusicManager.getInstance(getContext());
-            app = (MwmApplication) getContext().getApplicationContext();
+            mApplication = (MwmApplication) getContext().getApplicationContext();
         }
     }
 

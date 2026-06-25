@@ -30,7 +30,7 @@ public class WidgetManager {
     private static final String KEY_WIDGET_CONFIG = "widget_config";
 
     private final Context context;
-    private final MwmApplication app;
+    private final MwmApplication mApplication;
     private final SharedPreferences prefs;
 
     private final List<BaseWidget> allWidgets;
@@ -58,7 +58,7 @@ public class WidgetManager {
 
     private WidgetManager(@NonNull Context context) {
         this.context = context.getApplicationContext(); // Use App Context for storage/prefs
-        this.app = (MwmApplication) context.getApplicationContext();
+        this.mApplication = (MwmApplication) context.getApplicationContext();
         this.prefs = this.context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         this.allWidgets = new ArrayList<>();
         this.visibleWidgets = new ArrayList<>();
@@ -607,19 +607,18 @@ public class WidgetManager {
                     } catch (Exception e) {
                         android.util.Log.e("WidgetManager", "AppShortcutWidget geri yuklenirken hata: " + e.getMessage());
                     }
-                } else {
                     String type = id.split("_")[0];
                     if (processingIds.contains(id)) {
-                        widget = WidgetRegistry.createUniqueWidget(context, app, type);
+                        widget = WidgetRegistry.createUniqueWidget(context, mApplication, type);
                     } else {
-                        widget = WidgetRegistry.createWidget(context, app, type);
-                        if (widget != null) {
-                             try {
-                                java.lang.reflect.Field idField = BaseWidget.class.getDeclaredField("id");
-                                idField.setAccessible(true);
-                                idField.set(widget, id);
-                            } catch (Exception e) {}
-                        }
+                        widget = WidgetRegistry.createWidget(context, mApplication, type);
+                    }
+                    if (widget != null) {
+                        try {
+                            java.lang.reflect.Field idField = BaseWidget.class.getDeclaredField("id");
+                            idField.setAccessible(true);
+                            idField.set(widget, id);
+                        } catch (Exception e) {}
                     }
                 }
             } else {

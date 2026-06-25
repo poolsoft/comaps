@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,8 +48,8 @@ public class VehicleDataConfigDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.OsmandDarkTheme));
-        builder.setTitle("GÃ¶rÃ¼ntÃ¼lenecek Veriler");
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), android.R.style.Theme_DeviceDefault_Dialog));
+        builder.setTitle("Arac Veri Kaynagi Secimi");
 
         ScrollView scrollView = new ScrollView(getContext());
         LinearLayout layout = new LinearLayout(getContext());
@@ -90,9 +91,11 @@ public class VehicleDataConfigDialog extends DialogFragment {
             String configConfig = TextUtils.join(",", newItems);
             settings.setWidgetConfig(widget.getId(), configConfig);
             
-            // Trigger refresh
-            if (widget instanceof app.organicmaps.carlauncher.widgets.OBDWidget) {
-                 ((app.organicmaps.carlauncher.widgets.OBDWidget) widget).updateFromConfig();
+            if (getContext() != null) {
+                // if (widget instanceof app.organicmaps.carlauncher.widgets.OBDWidget) {
+                //      ((app.organicmaps.carlauncher.widgets.OBDWidget) widget).updateFromConfig();
+                // }
+                Toast.makeText(getContext(), "Ayarlar kaydedildi", Toast.LENGTH_SHORT).show();
             }
         });
 

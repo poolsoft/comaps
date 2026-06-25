@@ -30,7 +30,7 @@ public class WeatherConfigDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.OsmandDarkTheme));
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), android.R.style.Theme_DeviceDefault_Dialog));
         builder.setTitle("Hava Durumu Ayarlari");
 
         android.widget.LinearLayout layout = new android.widget.LinearLayout(getContext());

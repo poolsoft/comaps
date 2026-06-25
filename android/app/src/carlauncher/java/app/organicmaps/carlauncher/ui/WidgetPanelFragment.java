@@ -29,6 +29,7 @@ import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.carlauncher.CarLauncherInterface;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.WorkspacePageAdapter;
+import app.organicmaps.R;
 
 /**
  * Cok Sayfali Premium Grid Widget Workspace Fragment.
@@ -42,7 +43,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
     private androidx.viewpager2.widget.ViewPager2 viewPager;
     private android.widget.LinearLayout pageIndicator;
     private WidgetManager widgetManager;
-    private MwmApplication app;
+    private MwmApplication mApplication;
     private ViewGroup rootContent;
     private View widgetContentFrame;
     private android.widget.ImageView parallaxBg;
@@ -55,7 +56,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getContext() != null) {
-            app = (MwmApplication) getContext().getApplicationContext();
+            mApplication = (MwmApplication) getContext().getApplicationContext();
             widgetManager = WidgetManager.getInstance(getContext());
             widgetManager.forceResetForNewSession(); // Temiz baslangic
             widgetManager.updateActivityContext(getContext());
@@ -75,24 +76,24 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root;
         try {
-            root = inflater.inflate(app.organicmaps.R.layout.fragment_widget_panel, container, false);
+            root = inflater.inflate(R.layout.fragment_widget_panel, container, false);
         } catch (Exception e) {
             return createProgrammaticView();
         }
 
-        viewPager = root.findViewById(app.organicmaps.R.id.widget_view_pager);
-        pageIndicator = root.findViewById(app.organicmaps.R.id.workspace_page_indicator);
-        menuBtn = root.findViewById(app.organicmaps.R.id.btn_widget_menu);
+        viewPager = root.findViewById(R.id.widget_view_pager);
+        pageIndicator = root.findViewById(R.id.workspace_page_indicator);
+        menuBtn = root.findViewById(R.id.btn_widget_menu);
         
         // Parallax arka plan baglantisi
-        parallaxBg = root.findViewById(app.organicmaps.R.id.workspace_parallax_bg);
+        parallaxBg = root.findViewById(R.id.workspace_parallax_bg);
         updateBackgroundStyle();
         
         // Bottom Navigation
-        View navWidgets = root.findViewById(app.organicmaps.R.id.nav_widgets);
-        View navNavigation = root.findViewById(app.organicmaps.R.id.nav_navigation);
-        View navApps = root.findViewById(app.organicmaps.R.id.nav_apps);
-        View navSettings = root.findViewById(app.organicmaps.R.id.nav_settings);
+        View navWidgets = root.findViewById(R.id.nav_widgets);
+        View navNavigation = root.findViewById(R.id.nav_navigation);
+        View navApps = root.findViewById(R.id.nav_apps);
+        View navSettings = root.findViewById(R.id.nav_settings);
         
         setupBottomNav(navWidgets, navNavigation, navApps, navSettings);
         
@@ -258,18 +259,18 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         switch (preset) {
             case NAVIGATION:
                 widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-                widgetManager.addWidget(new SpeedWidget(getContext(), app));
-                widgetManager.addWidget(new DirectionWidget(getContext(), app));
-                widgetManager.addWidget(new NavigationWidget(getContext(), app));
+                // widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
+                widgetManager.addWidget(new DirectionWidget(getContext(), mApplication));
+                widgetManager.addWidget(new NavigationWidget(getContext(), mApplication));
                 break;
             case MEDIA:
                 widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-                widgetManager.addWidget(new MusicWidget(getContext(), app));
-                widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), app));
+                widgetManager.addWidget(new MusicWidget(getContext(), mApplication));
+                widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), mApplication));
                 break;
             case MINIMALIST:
                 widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-                widgetManager.addWidget(new SpeedWidget(getContext(), app));
+                // widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
                 break;
             case USER:
                 if (!widgetManager.loadUserLayout()) {
@@ -526,26 +527,26 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
     }
 
     private void initializeWidgets() {
-        if (widgetManager == null || app == null) return;
+        if (widgetManager == null || mApplication == null) return;
         
         widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-        widgetManager.addWidget(new SpeedWidget(getContext(), app));
-        widgetManager.addWidget(new DirectionWidget(getContext(), app));
+        // widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
+        widgetManager.addWidget(new DirectionWidget(getContext(), mApplication));
         
         // app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = app.organicmaps.plugins.PluginsHelper
         //        .getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
         // if (antennaPlugin != null && antennaPlugin.isActive()) {
-        //     widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), app));
+        //     widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), mApplication));
         // }
         
-        widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), app));
-        widgetManager.addWidget(new NavigationWidget(getContext(), app));
-        widgetManager.addWidget(new MusicWidget(getContext(), app));
+        widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), mApplication));
+        widgetManager.addWidget(new NavigationWidget(getContext(), mApplication));
+        widgetManager.addWidget(new MusicWidget(getContext(), mApplication));
         
-        VehicleMetricsPlugin obdPlugin = null;
-        if (obdPlugin != null && obdPlugin.isActive()) {
-            widgetManager.addWidget(new OBDWidget(getContext(), app));
-        }
+        // VehicleMetricsPlugin obdPlugin = null;
+        // if (obdPlugin != null && obdPlugin.isActive()) {
+        //     widgetManager.addWidget(new OBDWidget(getContext(), mApplication));
+        // }
     }
 
     private void setupBottomNav(View navWidgets, View navNavigation, View navApps, View navSettings) {
@@ -584,8 +585,8 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
     private void setActiveNav(View active) {
         View root = getView();
         if (root == null) return;
-        int[] navIds = {app.organicmaps.R.id.nav_widgets, app.organicmaps.R.id.nav_navigation, 
-                        app.organicmaps.R.id.nav_apps, app.organicmaps.R.id.nav_settings};
+        int[] navIds = {R.id.nav_widgets, R.id.nav_navigation, 
+                        R.id.nav_apps, R.id.nav_settings};
         for (int id : navIds) {
             View v = root.findViewById(id);
             if (v instanceof TextView) {
@@ -639,11 +640,11 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
             }
         }
         
-        int resId = app.organicmaps.R.drawable.bg_panel_modern;
+        int resId = R.drawable.bg_panel_modern;
         if ("carbon".equals(style)) {
-            resId = app.organicmaps.R.drawable.bg_panel_carbon;
+            resId = R.drawable.bg_panel_carbon;
         } else if ("space".equals(style)) {
-            resId = app.organicmaps.R.drawable.bg_panel_space;
+            resId = R.drawable.bg_panel_space;
         }
         parallaxBg.setImageResource(resId);
     }

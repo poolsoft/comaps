@@ -61,7 +61,7 @@ public class WidgetPickerDialog extends DialogFragment {
 
     private WidgetManager widgetManager;
     private Runnable onDismissCallback;
-    private MwmApplication app;
+    private MwmApplication mApplication;
 
     private int activePageIndex = 0;
     private int pendingAppWidgetId = -1;
@@ -85,7 +85,7 @@ public class WidgetPickerDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_TITLE, 0);
         if (getContext() != null) {
-            app = (MwmApplication) getContext().getApplicationContext();
+            mApplication = (MwmApplication) getContext().getApplicationContext();
         }
     }
 
@@ -132,9 +132,9 @@ public class WidgetPickerDialog extends DialogFragment {
         titleView.setLayoutParams(titleLp);
         header.addView(titleView);
 
-        // Kapat Butonu (Orijinal modern X simgesi)
+        // Dialog Kapatma Butonu (Sag Ust)
         ImageView closeBtn = new ImageView(ctx);
-        closeBtn.setImageResource(app.organicmaps.R.drawable.ic_action_close);
+        closeBtn.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
         closeBtn.setColorFilter(Color.WHITE);
         
         LinearLayout.LayoutParams closeLp = new LinearLayout.LayoutParams(dpToPx(24), dpToPx(24));
@@ -526,39 +526,39 @@ public class WidgetPickerDialog extends DialogFragment {
         list.add(new WidgetInfo("music", "Medya Calar", "Muzik kontrol paneli", BaseWidget.WidgetSize.LARGE));
         list.add(new WidgetInfo("navigation", "Navigasyon", "Donus yonleri", BaseWidget.WidgetSize.MEDIUM));
 
-        VehicleMetricsPlugin obdPlugin = null;
-        if (obdPlugin != null && obdPlugin.isActive()) {
-            list.add(new WidgetInfo("obd", "OBD Verileri", "Motor gostergeleri", BaseWidget.WidgetSize.LARGE));
-        }
+        // VehicleMetricsPlugin obdPlugin = null;
+        // if (obdPlugin != null && obdPlugin.isActive()) {
+        //     list.add(new WidgetInfo("obd", "OBD Verileri", "Motor gostergeleri", BaseWidget.WidgetSize.LARGE));
+        // }
 
         // app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = PluginsHelper.getPlugin(app.organicmaps.carlauncher.antenna.AntennaPlugin.class);
-        if (antennaPlugin != null && antennaPlugin.isActive()) {
-            list.add(new WidgetInfo("antenna", "Anten Durumu", "Anten sinyali", BaseWidget.WidgetSize.SMALL));
-        }
+        // if (antennaPlugin != null && antennaPlugin.isActive()) {
+        //     list.add(new WidgetInfo("antenna", "Anten Durumu", "Anten sinyali", BaseWidget.WidgetSize.SMALL));
+        // }
 
         return list;
     }
 
     private void addNewWidget(WidgetInfo info) {
-        if (widgetManager == null || getContext() == null || app == null) return;
+        if (widgetManager == null || getContext() == null || mApplication == null) return;
 
         BaseWidget widget = null;
         if (info.type.equals("clock")) {
             widget = new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext());
         } else if (info.type.equals("speed")) {
-            widget = new SpeedWidget(getContext(), app);
+            // widget = new SpeedWidget(getContext(), mApplication);
         } else if (info.type.equals("direction")) {
-            widget = new DirectionWidget(getContext(), app);
+            widget = new DirectionWidget(getContext(), mApplication);
         } else if (info.type.equals("weather")) {
-            widget = new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), app);
+            widget = new app.organicmaps.carlauncher.widgets.WeatherWidget(getContext(), mApplication);
         } else if (info.type.equals("music")) {
-            widget = new MusicWidget(getContext(), app);
+            widget = new MusicWidget(getContext(), mApplication);
         } else if (info.type.equals("navigation")) {
-            widget = new NavigationWidget(getContext(), app);
+            widget = new NavigationWidget(getContext(), mApplication);
         } else if (info.type.equals("obd")) {
-            widget = new OBDWidget(getContext(), app);
+            // widget = new OBDWidget(getContext(), mApplication);
         } else if (info.type.equals("antenna")) {
-            widget = new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), app);
+            // widget = new app.organicmaps.carlauncher.widgets.AntennaWidget(getContext(), mApplication);
         }
 
         if (widget != null) {
@@ -932,10 +932,10 @@ public class WidgetPickerDialog extends DialogFragment {
             {"internal://music", "Muzik Calici"},
             {"internal://antenna", "Anten Hizalama"}
         };
-        for (String[] app : internalApps) {
-            String packageName = app[0];
-            String label = app[1];
-            Drawable icon = app.organicmaps.carlauncher.ui.AppDrawerFragment.getAppIcon(ctx, packageName);
+        for (String[] appArr : internalApps) {
+            String packageName = appArr[0];
+            String label = appArr[1];
+            Drawable icon = AppDrawerFragment.getAppIcon(ctx, packageName);
             container.addView(createShortcutCard(ctx, packageName, label, icon));
         }
     }

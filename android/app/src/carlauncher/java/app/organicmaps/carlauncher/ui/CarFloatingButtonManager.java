@@ -248,8 +248,8 @@ public class CarFloatingButtonManager {
             windowManager.addView(floatingView, params);
             isAdded = true;
             
-            app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
-            app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(app).addListener(telemetryListener);
+            app.organicmaps.MwmApplication mwmapp = (app.organicmaps.MwmApplication) context.getApplicationContext();
+            app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(mwmapp).addListener(telemetryListener);
 
             // Native GPS Speed Listener
             if (locationManager == null) {
@@ -284,8 +284,8 @@ public class CarFloatingButtonManager {
             isAdded = false;
             floatingView = null;
             
-            app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
-            app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(app).removeListener(telemetryListener);
+            app.organicmaps.MwmApplication mwmapp = (app.organicmaps.MwmApplication) context.getApplicationContext();
+            app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(mwmapp).removeListener(telemetryListener);
 
             if (locationManager != null && locationListener != null) {
                 try {
@@ -371,26 +371,7 @@ public class CarFloatingButtonManager {
         }
     };
 
-    private float getMaxSpeed(app.organicmaps.MwmApplication app, android.location.Location location) {
-        if (location == null || app == null) return 0;
-        app.organicmaps.routing.RoutingHelper routingHelper = app.getRoutingHelper();
-        if (routingHelper == null) return 0;
-        
-        if ((!routingHelper.isFollowingMode()
-                || routingHelper.isDeviatedFromRoute()
-                || (routingHelper.getCurrentGPXRoute() != null && !routingHelper.isCurrentGPXRouteV2()))) {
-            /*
-            if (app.getLocationProvider() != null) {
-                net.osmand.binary.RouteDataObject routeObject = app.getLocationProvider().getLastKnownRouteSegment();
-                if (routeObject != null) {
-                    boolean direction = routeObject.bearingVsRouteDirection(location);
-                    return routeObject.getMaximumSpeed(direction);
-                }
-            }
-            */
-        } else {
-            return routingHelper.getCurrentMaxSpeed();
-        }
+    private float getMaxSpeed(app.organicmaps.MwmApplication mApplication, android.location.Location location) {
         return 0;
     }
 

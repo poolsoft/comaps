@@ -350,6 +350,7 @@ dependencies {
         exclude group: 'net.java.dev.jna', module: 'jna'
     }
 
+  implementation 'com.squareup.picasso:picasso:2.8'
   implementation project(':sdk')
 
   coreLibraryDesugaring libs.android.tools.desugar

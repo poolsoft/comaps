@@ -154,7 +154,7 @@ public class OverlayWindowManager {
         if (packageName.equals("internal://antenna")) {
             // 1. Dahili Anten Hizalama (Yuzen compass - Turkce karakter yok)
             // AlignmentView alignmentView = new AlignmentView(context, null);
-            alignmentView.setLayoutParams(new FrameLayout.LayoutParams(
+            /* alignmentView.setLayoutParams(new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, 
                     ViewGroup.LayoutParams.MATCH_PARENT));
             
@@ -165,7 +165,7 @@ public class OverlayWindowManager {
             float targetPitch = (float) manager.getElevationSourceToTarget();
             alignmentView.setTarget(targetAz, targetPitch);
             
-            contentFrame.addView(alignmentView);
+            contentFrame.addView(alignmentView); */
         } else if (packageName.equals("com.google.android.youtube") || packageName.equals("com.google.android.youtube.tv")) {
             // 2. Youtube WebView (Mobil site emulasyonu)
             contentFrame.addView(createWebView("https://m.youtube.com"));

@@ -239,7 +239,7 @@ public class WidgetListAdapter extends RecyclerView.Adapter<WidgetListAdapter.Wi
             
             // 1. Icon (Move Symbol)
             ImageView icon = new ImageView(itemView.getContext());
-            icon.setImageResource(app.organicmaps.R.drawable.ic_action_settings); 
+            icon.setImageResource(android.R.drawable.ic_menu_manage); 
             
             icon.setColorFilter(0xFFFFFFFF); // White icon
             

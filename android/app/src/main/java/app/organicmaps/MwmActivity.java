@@ -2585,4 +2585,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
+  // --- CAR LAUNCHER MIGRATION DUMMY METHODS ---
+  public void openCarLauncherSettings() {}
+  public boolean isDesktopMode() { return false; }
+  public void onDesktopModeToggle() {}
+  public Object getAppDockFragment() { return null; }
+  public void checkAndRefreshDockFragmentIfNeeded() {}
+  public Object getPanelContentManager() { return null; }
+  public void closeAppDrawer() {}
+  public void onLayoutModeToggle() {}
+  public int getLayoutMode() { return 0; }
+  public void applyNightDimMode() {}
+  public void applyStatusBarVisibility() {}
+  public boolean isWidgetPanelOpen() { return false; }
+  // --- CAR LAUNCHER MIGRATION DUMMY METHODS END ---
+
 }

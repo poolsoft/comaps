@@ -69,9 +69,9 @@ public class AppDrawerFragment extends Fragment {
         if (context == null || packageName == null) {
             return null;
         }
-        if (app.organicmaps.carlauncher.dock.InternalApp.isInternalApp(packageName)) {
-            app.organicmaps.carlauncher.dock.InternalApp app = app.organicmaps.carlauncher.dock.InternalApp.fromPackageName(packageName);
-            if (app != null) return app.getIcon(context);
+        if (packageName.startsWith("internal://")) {
+            app.organicmaps.carlauncher.dock.InternalApp internalAppObj = app.organicmaps.carlauncher.dock.InternalApp.fromPackageName(packageName);
+            if (internalAppObj != null) return internalAppObj.getIcon(context);
         } else {
             try {
                 return context.getPackageManager().getApplicationIcon(packageName);

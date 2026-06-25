@@ -62,4 +62,16 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public void openCarLauncherSettings() {}
+
+    @Override
+    public android.view.View getMapView() { return null; }
+
+    @Override
+    public void setPanelContent(app.organicmaps.carlauncher.ui.PanelContentManager.PanelContent content) {}
+
+    @Override
+    public void openAntennaAlignmentFullscreen() {}
+
+    @Override
+    public void openAntennaAlignmentInPanel() {}
 }

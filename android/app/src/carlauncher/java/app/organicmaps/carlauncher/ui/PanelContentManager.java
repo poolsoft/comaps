@@ -84,7 +84,7 @@ public class PanelContentManager {
                 fragment = new WeatherDashboardFragment();
                 break;
             case ANTENNA:
-                fragment = new app.organicmaps.carlauncher.antenna.AntennaWidgetFragment();
+                // fragment = new app.organicmaps.carlauncher.antenna.AntennaWidgetFragment();
                 break;
             case DASHBOARD:
                 fragment = new DashboardFragment();

@@ -236,4 +236,29 @@ public class MwmApplication extends Application implements Application.ActivityL
       getLocationHelper().stop();
     }
   }
+
+  // --- CAR LAUNCHER MIGRATION PROXIES ---
+  public DummySettings getSettings() { return new DummySettings(); }
+  public DummyRoutingHelper getRoutingHelper() { return new DummyRoutingHelper(); }
+  public DummyFavoritesHelper getFavoritesHelper() { return new DummyFavoritesHelper(); }
+
+  public static class DummySettings {
+    public final DummyPref PREFERRED_LOCALE = new DummyPref();
+    public static class DummyPref {
+      public String get() { return "tr"; } 
+      public void set(String val) { }
+    }
+  }
+
+  public static class DummyRoutingHelper {
+    public boolean isFollowingMode() { return false; }
+    public boolean isRouteNavigated() { return false; }
+    public boolean isRouteCalculated() { return false; }
+    public float getCurrentMaxSpeed() { return 0f; }
+  }
+
+  public static class DummyFavoritesHelper {
+    public Object getSpecialPoint(Object type) { return null; }
+  }
+  // --- CAR LAUNCHER MIGRATION END ---
 }

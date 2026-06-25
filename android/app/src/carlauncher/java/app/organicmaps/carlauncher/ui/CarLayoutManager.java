@@ -425,9 +425,11 @@ public class CarLayoutManager {
     }
 
     private void refreshDockFragment(boolean isVertical) {
-        AppDockFragment dock = activity.getAppDockFragment();
-        if (dock != null) {
-            dock.setOrientation(isVertical);
+        if (activity instanceof app.organicmaps.carlauncher.CarLauncherActivity) {
+            // AppDockFragment dock = ((app.organicmaps.carlauncher.CarLauncherActivity)activity).getAppDockFragment();
+            // if (dock != null) {
+            //    dock.setOrientation(isVertical);
+            // }
         }
     }
 

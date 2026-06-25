@@ -46,7 +46,7 @@ public class AppPickerDialog {
     }
 
     public void show() {
-        dialog = new BottomSheetDialog(context, app.organicmaps.R.style.Theme_Design_BottomSheetDialog);
+        dialog = new BottomSheetDialog(context);
         
         LinearLayout root = new LinearLayout(context);
         root.setOrientation(LinearLayout.VERTICAL);
