@@ -11,7 +11,7 @@
 
     <!-- MAP CONTAINER (Exact FrameLayout to prevent DrawerLayout measure crash) -->
     <app.organicmaps.carlauncher.ui.ExactFrameLayout
-        android:id="@+id/map_container"
+        android:id="@+id/car_map_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/map_margin_side"
@@ -22,7 +22,12 @@
         app:layout_constraintBottom_toTopOf="@+id/app_dock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/widget_panel"
-        android:elevation="4dp"/>
+        android:elevation="4dp">
+        
+        <!-- INCLUDE ORIGINAL MAP ACTIVITY HERE SO MwmActivity FINDS ALL ITS VIEWS -->
+        <include layout="@layout/activity_map" />
+
+    </app.organicmaps.carlauncher.ui.ExactFrameLayout>
 
     <!-- WIDGET PANEL CONTAINER (Icerik Paneli) -->
     <FrameLayout

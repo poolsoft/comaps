@@ -482,6 +482,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     recreate();
   }
 
+  protected int getLayoutResId() {
+    return R.layout.activity_map;
+  }
+
   @SuppressLint("InlinedApi")
   @CallSuper
   @Override
@@ -494,7 +498,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsTabletLayout)
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-    setContentView(R.layout.activity_map);
+    setContentView(getLayoutResId());
     makeNavigationBarTransparentInLightMode();
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
