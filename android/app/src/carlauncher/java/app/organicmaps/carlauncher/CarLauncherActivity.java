@@ -229,6 +229,16 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
             new IntentFilter("net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE"));
+        
+        applyStatusBarVisibility();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyStatusBarVisibility();
+        }
     }
 
     @Override

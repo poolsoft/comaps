@@ -66,6 +66,11 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name="app.organicmaps.carlauncher.ui.CarFloatingButtonService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
     </application>
 
 </manifest>

@@ -433,6 +433,16 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (floatingButtonPref != null) {
             floatingButtonPref.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean val = (Boolean) newValue;
+                if (val && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    if (getContext() != null && !android.provider.Settings.canDrawOverlays(getContext())) {
+                        android.widget.Toast.makeText(getContext(), "Lütfen 'Diğer uygulamaların üzerinde göster' iznini verin.", android.widget.Toast.LENGTH_LONG).show();
+                        android.content.Intent intent = new android.content.Intent(
+                                android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                android.net.Uri.parse("package:" + getContext().getPackageName()));
+                        startActivity(intent);
+                        return false; // Toggle'ın açılmasını engelle
+                    }
+                }
                 if (settings != null) {
                     settings.setFloatingButtonEnabled(val);
                 }

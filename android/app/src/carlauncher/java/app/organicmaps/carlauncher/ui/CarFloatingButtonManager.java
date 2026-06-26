@@ -124,9 +124,16 @@ public class CarFloatingButtonManager {
         boolean enabled = settings.isFloatingButtonEnabled();
 
         if (enabled && !isInPipMode) {
-            showButton();
+            Intent intent = new Intent(context, CarFloatingButtonService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
         } else {
-            hideButton();
+            Intent intent = new Intent(context, CarFloatingButtonService.class);
+            intent.setAction("STOP_SERVICE");
+            context.startService(intent);
         }
     }
 
