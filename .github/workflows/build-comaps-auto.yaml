@@ -25,7 +25,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Parallel submodules checkout
         shell: bash
@@ -34,15 +34,12 @@ jobs:
       - name: Prepare Dynamic Version Info
         working-directory: ./android
         run: |
-          BASE_VERSION=$(grep -E 'versionName\s+"[0-9.]+"' app/build.gradle 2>/dev/null | head -n 1 | sed -E 's/.*"([0-9.]+)".*/\1/')
-          if [ -z "$BASE_VERSION" ]; then BASE_VERSION="1.0.0"; fi
-          
-          VERSION_CODE=$((GITHUB_RUN_NUMBER + 20000))
-          VERSION_NAME="${BASE_VERSION}.${GITHUB_RUN_NUMBER}"
+          VERSION_CODE=$(bash ../tools/unix/version.sh android_code)
+          VERSION_NAME=$(bash ../tools/unix/version.sh android_name)
           
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
           echo "APK_NUMBER_VERSION=${VERSION_CODE}" >> $GITHUB_ENV
-          echo "APK_VERSION=${BASE_VERSION}" >> $GITHUB_ENV
+          echo "APK_VERSION=${VERSION_NAME}" >> $GITHUB_ENV
           echo "APK_VERSION_SUFFIX=.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
           echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher.apk\"}" > version.json
 
