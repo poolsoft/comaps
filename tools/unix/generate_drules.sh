@@ -14,7 +14,7 @@ function BuildDrawingRules() {
   # Store old txt version for diff
   mv -f "$DATA_PATH"/drules_proto$suffix.txt{,.prev} || true
   # Run script to build style
-  python3 "$OMIM_PATH/tools/kothic/src/libkomwm.py" --txt \
+  python "$OMIM_PATH/tools/kothic/src/libkomwm.py" --txt \
     -s "$DATA_PATH/styles/$styleType/$styleName/style.mapcss" \
     -o "$DATA_PATH/drules_proto$suffix" \
     -p "$DATA_PATH/styles/$styleType/include/"
@@ -47,13 +47,13 @@ BuildDrawingRules vehicle  dark _vehicle_dark
 # cp $OMIM_PATH/data/drules_proto_default_light.bin $OMIM_PATH/data/drules_proto_default_design.bin
 
 echo "Exporting transit colors..."
-python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
+python "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
   "$DATA_PATH/colors.txt" > /dev/null
 
 # Merged drules_proto.bin is used by the map generator.
 # It contains max visibilities (min visible zoom) for features across all styles.
 echo "Merging styles..."
-python3 "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
+python "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
   "$DATA_PATH/drules_proto_default_light.bin" \
   "$DATA_PATH/drules_proto_vehicle_light.bin" \
   "$DATA_PATH/drules_proto_outdoors_light.bin" \

@@ -165,7 +165,7 @@ public class TelemetryManager implements LocationListener {
             RoutingInfo info = routingController.getCachedRoutingInfo();
             if (info != null) {
                 // OrganicMaps RoutingInfo mapping
-                navigationState.distanceStr = info.distToTurn != null ? Utils.formatDistance(mContext, info.distToTurn) : "";
+                navigationState.distanceStr = info.distToTurn != null ? Utils.formatDistance(mContext, info.distToTurn).toString() : "";
                 
                 // RoutingInfo turn res mapping
                 if (info.carDirection != null) {
@@ -178,9 +178,9 @@ public class TelemetryManager implements LocationListener {
                 
                 // ETA formatlama
                 if (info.totalTimeInSeconds > 0) {
-                    navigationState.etaStr = Utils.formatMovingMinutesOfDay(mContext, info.totalTimeInSeconds);
+                    navigationState.etaStr = Utils.formatArrivalTime(info.totalTimeInSeconds);
                 } else {
-                    navigationState.etaStr = info.distToTarget != null ? Utils.formatDistance(mContext, info.distToTarget) : "";
+                    navigationState.etaStr = info.distToTarget != null ? Utils.formatDistance(mContext, info.distToTarget).toString() : "";
                 }
             }
         } else {
