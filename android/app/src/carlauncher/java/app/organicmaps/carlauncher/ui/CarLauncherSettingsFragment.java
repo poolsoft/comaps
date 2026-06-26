@@ -766,9 +766,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         Toast.makeText(getContext(), "Dock sÃ„Â±fÃ„Â±rlandÃ„Â±", Toast.LENGTH_SHORT).show();
     }
 
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-    // OTOMATÃ„Â°K BAÃ…ÂLATMA
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+    // Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â 
+    // OTOMATÃ„Â°K BAÃ…ÂžLATMA
+    // Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â 
 
     private void setupAutoLaunchPrefs() {
         bindAutoLaunchSlot(1);
@@ -807,22 +807,34 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     // YEDEKLEME
     // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
-    private static final int RC_BACKUP_EXPORT = 101;
-    private static final int RC_BACKUP_IMPORT = 102;
+    private static final int RC_BACKUP_EXPORT_FOLDER = 101;
+    private static final int RC_BACKUP_EXPORT_ZIP = 102;
+    private static final int RC_BACKUP_IMPORT_FOLDER = 104;
+    private static final int RC_BACKUP_IMPORT_ZIP = 105;
 
     private void setupBackupPrefs() {
         Preference exportPref = findPreference("action_backup_export");
         if (exportPref != null) {
             exportPref.setOnPreferenceClickListener(preference -> {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("application/json");
-                    intent.putExtra(Intent.EXTRA_TITLE, "CarLauncher_Backup_" + System.currentTimeMillis() + ".json");
-                    startActivityForResult(intent, RC_BACKUP_EXPORT);
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), "Dosya oluÃ…Å¸turulamadÃ„Â±", Toast.LENGTH_SHORT).show();
-                }
+                new android.app.AlertDialog.Builder(getContext())
+                    .setTitle("Yedekleme Türü")
+                    .setItems(new CharSequence[]{"Klasör olarak kaydet (Hızlı, Önerilen)", "ZIP olarak kaydet (Tek Dosya)"}, (dialog, which) -> {
+                        try {
+                            Intent intent;
+                            if (which == 0) {
+                                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                startActivityForResult(intent, RC_BACKUP_EXPORT_FOLDER);
+                            } else {
+                                intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                                intent.setType("application/zip");
+                                intent.putExtra(Intent.EXTRA_TITLE, "CoMaps_Backup_" + System.currentTimeMillis() + ".zip");
+                                startActivityForResult(intent, RC_BACKUP_EXPORT_ZIP);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), "Dosya seçici açılamadı", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
                 return true;
             });
         }
@@ -830,14 +842,24 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         Preference importPref = findPreference("action_backup_import");
         if (importPref != null) {
             importPref.setOnPreferenceClickListener(preference -> {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("application/json"); 
-                    startActivityForResult(intent, RC_BACKUP_IMPORT);
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), "Dosya seÃƒÂ§ici aÃƒÂ§Ã„Â±lamadÃ„Â±", Toast.LENGTH_SHORT).show();
-                }
+                new android.app.AlertDialog.Builder(getContext())
+                    .setTitle("Geri Yükleme Türü")
+                    .setItems(new CharSequence[]{"Klasörden geri yükle", "ZIP dosyasından geri yükle"}, (dialog, which) -> {
+                        try {
+                            Intent intent;
+                            if (which == 0) {
+                                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                startActivityForResult(intent, RC_BACKUP_IMPORT_FOLDER);
+                            } else {
+                                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                                intent.setType("application/zip"); 
+                                startActivityForResult(intent, RC_BACKUP_IMPORT_ZIP);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), "Dosya seçici açılamadı", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
                 return true;
             });
         }
@@ -850,17 +872,61 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == android.app.Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
-            if (requestCode == RC_BACKUP_EXPORT) {
-                // LauncherBackupManager.exportBackup(getContext(), uri);
-            } else if (requestCode == RC_BACKUP_IMPORT) {
-                // LauncherBackupManager.restoreBackup(getContext(), uri);
-                getPreferenceScreen().removeAll();
-                onCreatePreferences(null, getPreferenceScreen().getKey());
-                Toast.makeText(getContext(), "Ayarlar yenilendi", Toast.LENGTH_SHORT).show();
+            if (requestCode == RC_BACKUP_EXPORT_FOLDER) {
+                showBackupProgress();
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToFolder(getContext(), uri, createBackupCallback());
+            } else if (requestCode == RC_BACKUP_EXPORT_ZIP) {
+                showBackupProgress();
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToZip(getContext(), uri, createBackupCallback());
+            } else if (requestCode == RC_BACKUP_IMPORT_FOLDER) {
+                showBackupProgress();
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(getContext(), uri, createBackupCallback());
+            } else if (requestCode == RC_BACKUP_IMPORT_ZIP) {
+                showBackupProgress();
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(getContext(), uri, createBackupCallback());
             } else if (requestCode == RC_IMPORT_VOICE_MODEL) {
                 importVoiceModelFromUri(uri);
             }
         }
+    }
+
+    private android.app.ProgressDialog mBackupDialog;
+
+    private app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback createBackupCallback() {
+        return new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
+            @Override
+            public void onProgress(String message) {
+                if (mBackupDialog != null && mBackupDialog.isShowing()) {
+                    mBackupDialog.setMessage(message);
+                }
+            }
+
+            @Override
+            public void onSuccess() {
+                if (mBackupDialog != null && mBackupDialog.isShowing()) {
+                    mBackupDialog.dismiss();
+                }
+                Toast.makeText(getContext(), "İşlem başarıyla tamamlandı!", Toast.LENGTH_LONG).show();
+                getPreferenceScreen().removeAll();
+                onCreatePreferences(null, getPreferenceScreen().getKey());
+            }
+
+            @Override
+            public void onError(String error) {
+                if (mBackupDialog != null && mBackupDialog.isShowing()) {
+                    mBackupDialog.dismiss();
+                }
+                Toast.makeText(getContext(), "Hata: " + error, Toast.LENGTH_LONG).show();
+            }
+        };
+    }
+
+    private void showBackupProgress() {
+        mBackupDialog = new android.app.ProgressDialog(getContext());
+        mBackupDialog.setTitle("Lütfen Bekleyin");
+        mBackupDialog.setMessage("İşlem başlatılıyor...");
+        mBackupDialog.setCancelable(false);
+        mBackupDialog.show();
     }
 
     // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
