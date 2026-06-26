@@ -62,6 +62,23 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
     };
 
+    private final BroadcastReceiver notificationPermissionReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION".equals(intent.getAction())) {
+                new android.app.AlertDialog.Builder(CarLauncherActivity.this)
+                    .setTitle("Bildirim İzni Gerekli")
+                    .setMessage("Harici müzik uygulamalarını kontrol edebilmek için 'Bildirim Erişimi' izni gereklidir. Ayarlara gidip açmak ister misiniz?")
+                    .setPositiveButton("Ayarlara Git", (dialog, which) -> {
+                        Intent settingsIntent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                        startActivity(settingsIntent);
+                    })
+                    .setNegativeButton("İptal", null)
+                    .show();
+            }
+        }
+    };
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_car_launcher;
@@ -229,6 +246,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
             new IntentFilter("net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE"));
+            
+        LocalBroadcastManager.getInstance(this).registerReceiver(notificationPermissionReceiver, 
+            new IntentFilter("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION"));
         
         applyStatusBarVisibility();
     }
@@ -246,6 +266,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         super.onPause();
         if (telemetryManager != null) telemetryManager.removeListener(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(desktopToggleReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(notificationPermissionReceiver);
     }
 
     @Override

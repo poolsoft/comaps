@@ -375,7 +375,8 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
     }
     public void play() {
         if (!checkNotificationAccess()) {
-            android.widget.Toast.makeText(context, "Harici kontrol icin 'Bildirim Erisimi' izni gerekli!", android.widget.Toast.LENGTH_LONG).show();
+            android.content.Intent intent = new android.content.Intent("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION");
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
 
         if (mediaSessionManager != null) {
@@ -432,7 +433,8 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
 
     public void togglePlayPause() {
         if (!checkNotificationAccess()) {
-            android.widget.Toast.makeText(context, "Harici kontrol icin 'Bildirim Erisimi' izni gerekli!", android.widget.Toast.LENGTH_LONG).show();
+            android.content.Intent intent = new android.content.Intent("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION");
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
 
         if (mediaSessionManager != null) {
