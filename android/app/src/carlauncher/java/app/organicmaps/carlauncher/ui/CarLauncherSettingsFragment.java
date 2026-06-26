@@ -73,8 +73,15 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        // Wrap inflater context with Material 3 Dark theme to fix black text on dark background
+        android.content.Context context = getContext();
+        LayoutInflater themedInflater = inflater;
+        if (context != null) {
+            android.content.Context themedContext = new androidx.appcompat.view.ContextThemeWrapper(context, com.google.android.material.R.style.Theme_Material3_Dark);
+            themedInflater = inflater.cloneInContext(themedContext);
+        }
         // Super creates the RecyclerView for preferences default view
-        View prefsView = super.onCreateView(inflater, container, savedInstanceState);
+        View prefsView = super.onCreateView(themedInflater, container, savedInstanceState);
         if (prefsView == null) return null;
 
         // Determine Orientation
@@ -102,7 +109,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
         // Title
         android.widget.TextView titleView = new android.widget.TextView(getContext());
-        titleView.setText("AraÃƒÂ§ AyarlarÃ„Â±");
+        titleView.setText(R.string.car_settings_title);
         titleView.setTextColor(0xFFFFFFFF);
         titleView.setTextSize(22);
         titleView.setTypeface(android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.BOLD));
