@@ -18,6 +18,10 @@ import app.organicmaps.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.organicmaps.carlauncher.obd.OBDConnectionManager;
+import app.organicmaps.carlauncher.obd.OBDCommand;
+import app.organicmaps.carlauncher.obd.OBDDataField;
+
 public class TelemetryManager implements LocationListener {
 
     private static TelemetryManager instance;
@@ -73,6 +77,41 @@ public class TelemetryManager implements LocationListener {
         this.mContext = context.getApplicationContext();
         app.organicmaps.MwmApplication.from(context).getLocationHelper().addListener(this);
         mainHandler.postDelayed(staleGpsRunnable, 1000);
+
+        OBDConnectionManager.getInstance(mContext).addListener(new OBDConnectionManager.OBDConnectionListener() {
+            @Override
+            public void onConnectionStatusChanged(boolean connected) {
+                obdState.isActive = connected;
+                if (!connected) {
+                    obdState.rpm = "--";
+                    obdState.temp = "--";
+                    obdState.volt = "--";
+                    obdState.load = "--";
+                }
+                notifyListeners();
+            }
+
+            @Override
+            public void onDataReceived(java.util.Map<OBDCommand, OBDDataField<Object>> data) {
+                OBDDataField<Object> rpmField = data.get(OBDCommand.OBD_RPM_COMMAND);
+                if (rpmField != null && rpmField != OBDDataField.NO_DATA) {
+                    obdState.rpm = String.valueOf(((Number) rpmField.getValue()).intValue());
+                }
+                OBDDataField<Object> tempField = data.get(OBDCommand.OBD_ENGINE_COOLANT_TEMP_COMMAND);
+                if (tempField != null && tempField != OBDDataField.NO_DATA) {
+                    obdState.temp = String.valueOf(((Number) tempField.getValue()).intValue());
+                }
+                OBDDataField<Object> voltField = data.get(OBDCommand.OBD_BATTERY_VOLTAGE_COMMAND);
+                if (voltField != null && voltField != OBDDataField.NO_DATA) {
+                    obdState.volt = String.format(java.util.Locale.US, "%.1f", ((Number) voltField.getValue()).floatValue());
+                }
+                OBDDataField<Object> loadField = data.get(OBDCommand.OBD_CALCULATED_ENGINE_LOAD_COMMAND);
+                if (loadField != null && loadField != OBDDataField.NO_DATA) {
+                    obdState.load = String.format(java.util.Locale.US, "%.1f", ((Number) loadField.getValue()).floatValue());
+                }
+                notifyListeners();
+            }
+        });
     }
 
     public LocationState getLocationState() { return locationState; }
