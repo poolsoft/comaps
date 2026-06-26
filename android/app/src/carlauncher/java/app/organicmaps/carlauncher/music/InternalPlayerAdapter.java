@@ -9,10 +9,12 @@ import android.graphics.Bitmap;
  */
 public class InternalPlayerAdapter implements BaseMediaAdapter {
 
+    private final Context context;
     private final InternalMusicPlayer player;
     private final String packageName;
 
     public InternalPlayerAdapter(Context context, InternalMusicPlayer player) {
+        this.context = context;
         this.player = player;
         this.packageName = "usage.internal.player";
     }
@@ -66,7 +68,18 @@ public class InternalPlayerAdapter implements BaseMediaAdapter {
 
     @Override
     public Bitmap getAlbumArt() {
-        return null;
+        MusicRepository.AudioTrack track = player.getCurrentTrack();
+        if (track == null || track.getAlbumArtUri() == null) return null;
+
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                return android.graphics.ImageDecoder.decodeBitmap(android.graphics.ImageDecoder.createSource(context.getContentResolver(), track.getAlbumArtUri()));
+            } else {
+                return android.provider.MediaStore.Images.Media.getBitmap(context.getContentResolver(), track.getAlbumArtUri());
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

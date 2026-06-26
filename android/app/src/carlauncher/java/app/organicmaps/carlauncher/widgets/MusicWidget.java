@@ -275,7 +275,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
                         int color = getDominantColor(albumArt);
                         visualizerView.setDominantColor(color);
                     } else {
-                        visualizerView.setDominantColor(0);
+                        visualizerView.setDominantColor(0x88FFFFFF);
                     }
                 }
 

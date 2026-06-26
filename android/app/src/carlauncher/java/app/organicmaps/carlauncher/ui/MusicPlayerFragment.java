@@ -1526,7 +1526,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (visualizerView != null) {
             app.organicmaps.carlauncher.CarLauncherSettings clSettings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
             // Ambians gorsellestirici ayarina gore dinamik renk veya varsayilan (0) secimi (Turkce karakter yok)
-            final int visualizerColor = (albumArt != null && clSettings.isAmbianceVisualizerEnabled()) ? finalColor : 0;
+            final int visualizerColor = (albumArt != null && clSettings.isAmbianceVisualizerEnabled()) ? finalColor : 0x88FFFFFF;
             visualizerView.post(() -> visualizerView.setDominantColor(visualizerColor));
             if (ambianceGlowLayer != null) {
                 // Sadece RGB kÄ±smÄ±nÄ± al, Alpha kÄ±smÄ±nÄ± arkaplan iÃ§in tamamen kapat

@@ -35,7 +35,7 @@ public class CarFloatingButtonService extends Service {
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText("Yüzen Buton (GPS) çalışıyor...")
+                .setContentText(getString(R.string.floating_button_running))
                 .setSmallIcon(R.drawable.ic_logo)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();

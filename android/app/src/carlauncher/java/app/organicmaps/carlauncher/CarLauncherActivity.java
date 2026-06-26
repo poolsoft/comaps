@@ -67,13 +67,13 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         public void onReceive(Context context, Intent intent) {
             if ("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION".equals(intent.getAction())) {
                 new android.app.AlertDialog.Builder(CarLauncherActivity.this)
-                    .setTitle("Bildirim İzni Gerekli")
-                    .setMessage("Harici müzik uygulamalarını kontrol edebilmek için 'Bildirim Erişimi' izni gereklidir. Ayarlara gidip açmak ister misiniz?")
-                    .setPositiveButton("Ayarlara Git", (dialog, which) -> {
+                    .setTitle(R.string.notification_permission_required_title)
+                    .setMessage(R.string.notification_permission_required_message)
+                    .setPositiveButton(R.string.go_to_settings, (dialog, which) -> {
                         Intent settingsIntent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                         startActivity(settingsIntent);
                     })
-                    .setNegativeButton("İptal", null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
             }
         }
@@ -251,6 +251,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             new IntentFilter("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION"));
         
         applyStatusBarVisibility();
+
+        app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this).setAppInForeground(true);
     }
 
     @Override
@@ -267,6 +269,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         if (telemetryManager != null) telemetryManager.removeListener(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(desktopToggleReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(notificationPermissionReceiver);
+
+        app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this).setAppInForeground(false);
     }
 
     @Override
