@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Project only name, app_name is added to strings in build.gradle & can contain "Debug" etc. prefixes. -->
     <string name="project_name" translatable="false">CoMaps</string>
@@ -8,6 +8,7 @@
     <string name="back">Back</string>
     <!-- Button text (should be short) -->
     <!-- Button which deletes downloaded country -->
+    <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="download_maps">Download Maps</string>
     <!-- Settings/Downloader - info for country when download fails -->
