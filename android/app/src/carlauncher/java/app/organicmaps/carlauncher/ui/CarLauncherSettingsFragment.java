@@ -775,7 +775,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             if (settings.getAutoLaunchPackage(slot) != null) {
                 pref.setSummary(appName);
             } else {
-                pref.setSummary("SeÃƒÂ§mek iÃƒÂ§in metne tÃ„Â±klayÃ„Â±n");
+                pref.setSummary("Seçmek için metne tıklayın");
             }
 
             pref.setOnPreferenceClickListener(preference -> {
