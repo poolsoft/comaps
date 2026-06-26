@@ -813,6 +813,15 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private static final int RC_BACKUP_IMPORT_ZIP = 105;
 
     private void setupBackupPrefs() {
+        Preference downloadMapsPref = findPreference("action_download_maps");
+        if (downloadMapsPref != null) {
+            downloadMapsPref.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(getContext(), app.organicmaps.downloader.DownloaderActivity.class);
+                startActivity(intent);
+                return true;
+            });
+        }
+
         Preference exportPref = findPreference("action_backup_export");
         if (exportPref != null) {
             exportPref.setOnPreferenceClickListener(preference -> {

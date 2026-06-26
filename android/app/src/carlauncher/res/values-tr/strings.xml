@@ -81,8 +81,10 @@
     <string name="car_pref_autolaunch_app3_title">Uygulama 3</string>
     
     <!-- Backup -->
-    <string name="car_pref_category_backup">Yedekle ve Geri Yükle</string>
-    <string name="car_pref_backup_export_title">Ayarları Dışa Aktar</string>
+    <string name="car_pref_category_backup">Haritalar ve Yedekleme</string>
+    <string name="car_pref_download_maps_title">Haritaları İndir</string>
+    <string name="car_pref_download_maps_summary">Dünya genelindeki tüm haritaları arayın ve indirin.</string>
+    <string name="car_pref_backup_export_title">Ayarları ve Haritaları Dışa Aktar</string>
     <string name="car_pref_backup_export_summary">Widget düzenini ve ayarları dosyaya kaydet</string>
     <string name="car_pref_backup_import_title">Ayarları Geri Yükle</string>
     <string name="car_pref_backup_import_summary">Dosyadan geri yükle</string>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -240,6 +240,12 @@
         android:title="@string/car_pref_category_backup"
         app:icon="@android:drawable/ic_menu_save"
         android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="action_download_maps"
+            android:title="@string/car_pref_download_maps_title"
+            android:summary="@string/car_pref_download_maps_summary"
+            app:iconSpaceReserved="false" />
 
         <androidx.preference.Preference
             android:key="action_backup_export"

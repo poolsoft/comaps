@@ -81,8 +81,10 @@
     <string name="car_pref_autolaunch_app3_title">App 3</string>
     
     <!-- Backup -->
-    <string name="car_pref_category_backup">Backup and Restore</string>
-    <string name="car_pref_backup_export_title">Export Settings</string>
+    <string name="car_pref_category_backup">Maps and Backup</string>
+    <string name="car_pref_download_maps_title">Download Maps</string>
+    <string name="car_pref_download_maps_summary">Search and download offline maps worldwide.</string>
+    <string name="car_pref_backup_export_title">Export Settings and Maps</string>
     <string name="car_pref_backup_export_summary">Save widget layout and settings to file</string>
     <string name="car_pref_backup_import_title">Restore Settings</string>
     <string name="car_pref_backup_import_summary">Restore from file</string>
