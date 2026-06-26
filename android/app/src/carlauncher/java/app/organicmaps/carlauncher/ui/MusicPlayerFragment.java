@@ -737,7 +737,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text1.setText(folder.getName());
             holder.text1.setTextColor(android.graphics.Color.WHITE);
             holder.text1.setTextSize(18);
-            holder.text2.setText(folder.getTracks().size() + " Parça");
+            holder.text2.setText(folder.getTracks().size() + " " + getContext().getString(app.organicmaps.R.string.car_music_tracks));
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onFolderClick(folder));
             holder.itemView.setPadding(32, 24, 32, 24);
@@ -784,7 +784,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text1.setText(artist.getName());
             holder.text1.setTextColor(android.graphics.Color.WHITE);
             holder.text1.setTextSize(18);
-            holder.text2.setText(artist.getTracks().size() + " Parça");
+            holder.text2.setText(artist.getTracks().size() + " " + getContext().getString(app.organicmaps.R.string.car_music_tracks));
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onArtistClick(artist));
             holder.itemView.setPadding(32, 24, 32, 24);
@@ -814,8 +814,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             return;
 
         List<String> options = new ArrayList<>();
-        options.add("Seçiniz..."); // 0
-        options.add("Favoriler"); // 1
+        options.add(getContext().getString(app.organicmaps.R.string.car_music_select_playlist)); // 0
+        options.add(getContext().getString(app.organicmaps.R.string.car_music_favorites)); // 1
 
         List<PlaylistManager.Playlist> playlists = playlistManager.getAllPlaylists();
         for (PlaylistManager.Playlist p : playlists) {
@@ -848,7 +848,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         }
                     }
                     if (favTracks.isEmpty()) {
-                        Toast.makeText(getContext(), "Favori listeniz boş", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_favorites_empty), Toast.LENGTH_SHORT).show();
                     }
                     showTracks(favTracks);
                 } else {
@@ -1002,7 +1002,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 loadAllTracks();
             } else {
-                Toast.makeText(getContext(), "Müzik taramak için izin gerekli!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_permission_required), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1019,7 +1019,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(() -> {
                             if (allTracks.isEmpty()) {
-                                Toast.makeText(getContext(), "Cihazda müzik bulunamadı", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_not_found), Toast.LENGTH_SHORT).show();
                             }
                             showTracks(allTracks);
                         });
@@ -1134,13 +1134,13 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             return;
         List<PlaylistManager.Playlist> playlists = playlistManager.getAllPlaylists();
         String[] options = new String[playlists.size() + 1];
-        options[0] = "+ Yeni Playlist Oluştur";
+        options[0] = getContext().getString(app.organicmaps.R.string.car_music_new_playlist);
         for (int i = 0; i < playlists.size(); i++) {
             options[i + 1] = playlists.get(i).name;
         }
 
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle("Playlist'e Ekle: " + track.getTitle())
+                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_add_to_playlist) + " " + track.getTitle())
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         showCreatePlaylistAndAddTrackDialog(track);
@@ -1148,7 +1148,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         PlaylistManager.Playlist p = playlists.get(which - 1);
                         p.tracks.add(track.getPath());
                         playlistManager.savePlaylist(p);
-                        Toast.makeText(getContext(), "Eklendi: " + p.name, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_added) + " " + p.name, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("İptal", null)
@@ -1159,18 +1159,18 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (getContext() == null)
             return;
         EditText input = new EditText(getContext());
-        input.setHint("Playlist adi");
+        input.setHint(getContext().getString(app.organicmaps.R.string.car_music_playlist_name_hint));
         input.setTextColor(0xFFFFFFFF);
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle("Yeni Playlist Oluştur ve Ekle")
+                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_create_and_add))
                 .setView(input)
-                .setPositiveButton("Oluştur", (dialog, which) -> {
+                .setPositiveButton(getContext().getString(app.organicmaps.R.string.car_music_create), (dialog, which) -> {
                     String name = input.getText().toString().trim();
                     if (!name.isEmpty()) {
                         PlaylistManager.Playlist p = new PlaylistManager.Playlist(name);
                         p.tracks.add(track.getPath());
                         playlistManager.savePlaylist(p);
-                        Toast.makeText(getContext(), "Playlist oluşturuldu ve şarkı eklendi", Toast.LENGTH_SHORT)
+                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_playlist_created), Toast.LENGTH_SHORT)
                                 .show();
                         setupPlaylistSpinner();
                     }
@@ -1181,7 +1181,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private void showPlaylistOptionsDialog(PlaylistManager.Playlist playlist) {
         if (getContext() == null)
             return;
-        String[] options = { "Çal", "Parçaları Gör/Düzenle", "Sil" };
+        String[] options = { getContext().getString(app.organicmaps.R.string.car_music_play), getContext().getString(app.organicmaps.R.string.car_music_view_edit_tracks), getContext().getString(app.organicmaps.R.string.car_music_delete) };
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle(playlist.name)
                 .setItems(options, (dialog, which) -> {
@@ -1262,35 +1262,35 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     if (!playlist.tracks.contains(path)) {
                         playlist.tracks.add(path);
                         playlistManager.savePlaylist(playlist);
-                        Toast.makeText(getContext(), "Eklendi!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_added_excl), Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("İptal", null).show();
+                .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_music_cancel), null).show();
     }
 
     private void showRemoveTrackDialog(PlaylistManager.Playlist playlist, int index) {
         if (getContext() == null)
             return;
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle("Kaldir?")
-                .setPositiveButton("Kaldir", (dialog, which) -> {
+                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_remove_q))
+                .setPositiveButton(getContext().getString(app.organicmaps.R.string.car_music_remove), (dialog, which) -> {
                     playlist.tracks.remove(index);
                     playlistManager.savePlaylist(playlist);
                     showPlaylistTracksDialog(playlist);
                 })
-                .setNegativeButton("İptal", null).show();
+                .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_music_cancel), null).show();
     }
 
     private void confirmDeletePlaylist(PlaylistManager.Playlist playlist) {
         if (getContext() == null)
             return;
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle("Sil?")
-                .setPositiveButton("Sil", (dialog, which) -> {
+                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_delete_q))
+                .setPositiveButton(getContext().getString(app.organicmaps.R.string.car_music_delete), (dialog, which) -> {
                     playlistManager.deletePlaylist(playlist.id);
-                    Toast.makeText(getContext(), "Silindi!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_deleted), Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("İptal", null).show();
+                .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_music_cancel), null).show();
     }
 
     private void openEqualizer() {

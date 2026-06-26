@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Music Player Strings -->
+    <string name="car_music_select_playlist">Select...</string>
+    <string name="car_music_favorites">Favorites</string>
+    <string name="car_music_favorites_empty">Your favorite list is empty</string>
+    <string name="car_music_permission_required">Permission required to scan music!</string>
+    <string name="car_music_not_found">No music found on device</string>
+    <string name="car_music_new_playlist">+ Create New Playlist</string>
+    <string name="car_music_add_to_playlist">Add to Playlist:</string>
+    <string name="car_music_added">Added!</string>
+    <string name="car_music_cancel">Cancel</string>
+    <string name="car_music_create_and_add">Create New Playlist and Add</string>
+    <string name="car_music_create">Create</string>
+    <string name="car_music_playlist_created">Playlist created and track added</string>
+    <string name="car_music_play">Play</string>
+    <string name="car_music_view_edit_tracks">View/Edit Tracks</string>
+    <string name="car_music_delete">Delete</string>
+    <string name="car_music_playlist_empty">Playlist is empty!</string>
+    <string name="car_music_track_removed">Track removed</string>
+    <string name="car_music_delete_playlist">Delete Playlist</string>
+    <string name="car_music_confirm_delete">Are you sure you want to delete: </string>
+    <string name="car_music_playlist_deleted">Deleted!</string>
+    <string name="car_music_playlist_tracks">Playlist Tracks: </string>
+    <string name="car_music_playlist_name_hint">Playlist name</string>
+    
+    <!-- Settings Fragment Strings -->
+    <string name="car_settings_language_updating">Updating language...</string>
+    <string name="car_settings_lang_system">System</string>
+    <string name="car_settings_lang_turkish">Türkçe</string>
+    <string name="car_settings_lang_english">English</string>
+    <string name="car_settings_lang_german">Deutsch</string>
+    
+    <!-- Preferences XML Strings -->
+    <!-- Appearance -->
+    <string name="car_pref_category_appearance">Appearance</string>
+    <string name="car_pref_status_bar_title">Show Status Bar</string>
+    <string name="car_pref_status_bar_summary">Toggles the system status bar</string>
+    <string name="car_pref_dark_theme_title">Dark Theme</string>
+    <string name="car_pref_dark_theme_summary">Use dark background</string>
+    <string name="car_pref_portrait_map_title">Show Map Only (Portrait)</string>
+    <string name="car_pref_portrait_map_summary">Hides widget panel and dock in portrait mode</string>
+    <string name="car_pref_floating_btn_title">Floating Assistant Button</string>
+    <string name="car_pref_floating_btn_summary">Shows a movable system menu button</string>
+    <string name="car_pref_floating_btn_size_title">Floating Button Size</string>
+    <string name="car_pref_floating_btn_size_summary">Adjust the area it occupies on screen</string>
+    <string name="car_pref_night_dim_title">Night Dim Mode</string>
+    <string name="car_pref_parallax_intensity_title">Parallax Background Intensity</string>
+    <string name="car_pref_parallax_intensity_summary">Adjusts the amount of background sliding while scrolling ViewPager (Default: %20)</string>
+    <string name="car_pref_bg_style_title">Parallax Background Selector</string>
+    <string name="car_pref_pip_mode_title">Floating Map (Picture-in-Picture)</string>
+    <string name="car_pref_pip_mode_summary">Keeps the map open as a floating window when moved to background</string>
+    <string name="car_pref_panel_pos_title">Large Panel Position</string>
+    <string name="car_pref_panel_expansion_title">Large Panel Expansion Strategy</string>
+
+    <!-- Music -->
+    <string name="car_pref_category_music">Music</string>
+    <string name="car_pref_music_app_title">Default Music App</string>
+    <string name="car_pref_music_app_summary">Click to select</string>
+    <string name="car_pref_vis_type_small_title">Visualizer Type (Small Panel)</string>
+    <string name="car_pref_vis_type_large_title">Visualizer Type (Large Panel)</string>
+    <string name="car_pref_auto_play_title">Auto Play on Startup</string>
+    <string name="car_pref_auto_play_summary">Starts music when app launches</string>
+    <string name="car_pref_ambiance_vis_title">Ambiance Visualizer</string>
+    <string name="car_pref_ambiance_vis_summary">Dynamically sets visualizer colors based on album art</string>
+    <string name="car_pref_equalizer_title">Equalizer</string>
+    <string name="car_pref_equalizer_summary">Open system audio settings</string>
+    <string name="car_pref_scan_music_title">Rescan Music</string>
+    <string name="car_pref_scan_music_summary">Scan internal storage and USB drives</string>
+    
+    <!-- Weather -->
+    <string name="car_pref_category_weather">Weather</string>
+    <string name="car_pref_weather_enabled_title">Weather Service</string>
+    <string name="car_pref_weather_enabled_summary">Shows weather in clock widget</string>
+    
+    <!-- Auto Launch -->
+    <string name="car_pref_category_autolaunch">Auto Launch</string>
+    <string name="car_pref_autolaunch_app1_title">App 1</string>
+    <string name="car_pref_autolaunch_app_summary">Click text to select</string>
+    <string name="car_pref_autolaunch_app2_title">App 2</string>
+    <string name="car_pref_autolaunch_app3_title">App 3</string>
+    
+    <!-- Backup -->
+    <string name="car_pref_category_backup">Backup and Restore</string>
+    <string name="car_pref_backup_export_title">Export Settings</string>
+    <string name="car_pref_backup_export_summary">Save widget layout and settings to file</string>
+    <string name="car_pref_backup_import_title">Restore Settings</string>
+    <string name="car_pref_backup_import_summary">Restore from file</string>
+    
+    <!-- Dock -->
+    <string name="car_pref_category_dock">App Dock (Sidebar)</string>
+    <string name="car_pref_dock_pos_title">Dock Position</string>
+    <string name="car_pref_dock_size_title">Dock Size</string>
+    <string name="car_pref_dock_size_summary">0: Small, 50: Normal, 100: Large</string>
+    <string name="car_pref_max_shortcuts_title">Maximum Shortcut Count</string>
+    <string name="car_pref_reset_dock_title">Reset Dock</string>
+    <string name="car_pref_reset_dock_summary">Remove all shortcuts</string>
+    
+    <!-- Assistant -->
+    <string name="car_pref_category_assistant">Assistant</string>
+    <string name="car_pref_import_voice_title">Load Voice Model from USB/File</string>
+    <string name="car_pref_import_voice_summary">Load the downloaded zip model if there is no internet</string>
+    
+    <!-- About -->
+    <string name="car_pref_category_about">About</string>
+    <string name="car_pref_version_title">Version</string>
+    <string name="car_pref_check_updates_title">Check for Updates</string>
+    <string name="car_pref_check_updates_summary">Check if a new version is available</string>
+    <string name="car_pref_github_title">GitHub</string>
+    <string name="car_pref_github_summary">View source code</string>
+    <string name="car_music_tracks">Tracks</string>
+    <string name="car_music_added_excl">Added!</string>
+    <string name="car_music_remove_q">Remove?</string>
+    <string name="car_music_remove">Remove</string>
+    <string name="car_music_delete_q">Delete?</string>
+    <string name="car_music_deleted">Deleted!</string>
+</resources>

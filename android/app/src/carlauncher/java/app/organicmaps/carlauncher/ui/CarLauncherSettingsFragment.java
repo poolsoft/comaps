@@ -584,7 +584,12 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             SharedPreferences prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
             
             // Secenekleri ayarla
-            langPref.setEntries(new CharSequence[]{"Sistem (System)", "Türkçe", "English", "Deutsch"});
+            langPref.setEntries(new CharSequence[]{
+                getContext().getString(app.organicmaps.R.string.car_settings_lang_system), 
+                getContext().getString(app.organicmaps.R.string.car_settings_lang_turkish), 
+                getContext().getString(app.organicmaps.R.string.car_settings_lang_english), 
+                getContext().getString(app.organicmaps.R.string.car_settings_lang_german)
+            });
             langPref.setEntryValues(new CharSequence[]{"", "tr", "en", "de"});
             
             // Mevcut degeri set et
@@ -596,7 +601,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 prefs.edit().putString("pref_app_locale", val).apply();
                 
                 // Dil guncelle ve yeniden baslat
-                Toast.makeText(getContext(), "Dil güncelleniyor...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_settings_language_updating), Toast.LENGTH_SHORT).show();
                 if (getActivity() != null) {
                     Intent intent = getActivity().getIntent();
                     getActivity().finish();
