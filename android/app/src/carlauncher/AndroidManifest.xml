@@ -43,6 +43,20 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="app.organicmaps.carlauncher.ui.NeonDashboardActivity"
+            android:theme="@style/MwmTheme"
+            android:screenOrientation="landscape"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name="app.organicmaps.carlauncher.ui.CarLauncherSettingsActivity"
+            android:theme="@style/MwmTheme.Settings"
+            android:screenOrientation="landscape"
+            android:exported="false">
+        </activity>
+
         <service
             android:name="app.organicmaps.carlauncher.music.MusicPlaybackService"
             android:exported="false"

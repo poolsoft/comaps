@@ -687,8 +687,11 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
              }
         } else {
              intent.setAction(MusicPlaybackService.ACTION_UPDATE);
+             // Do not start FGS if not playing on Android 14+ to prevent SecurityException
              if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                 context.startForegroundService(intent);
+                 // We can start it as a normal service to stop it, or just send a close action
+                 intent.setAction(MusicPlaybackService.ACTION_CLOSE);
+                 context.startService(intent); // Normal service start is allowed to process a stop or close
              } else {
                  context.startService(intent);
              }
