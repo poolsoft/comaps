@@ -26,6 +26,11 @@ import android.view.View;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.content.res.Configuration;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class CarLauncherActivity extends MwmActivity implements CarLauncherInterface, TelemetryManager.TelemetryListener, AppDockFragment.OnAppDockListener {
     
@@ -47,6 +52,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private int previousLayoutMode = -1;
     
     private static PanelContentManager.PanelContent lastPanelContent = null;
+
+    private final BroadcastReceiver desktopToggleReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE".equals(intent.getAction())) {
+                onDesktopModeToggle();
+            }
+        }
+    };
 
     @Override
     protected int getLayoutResId() {
@@ -138,6 +152,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 }
             });
         }
+        
+        applyStatusBarVisibility();
     }
 
     private void updateCarWidgetPanelSize(float rawX, float rawY) {
@@ -211,12 +227,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     protected void onResume() {
         super.onResume();
         if (telemetryManager != null) telemetryManager.addListener(this);
+        LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
+            new IntentFilter("net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE"));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if (telemetryManager != null) telemetryManager.removeListener(this);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(desktopToggleReceiver);
     }
 
     @Override
@@ -384,5 +403,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     public void openAntennaAlignmentInPanel() {
         // Panel entegrasyonu henuz yapilmadiysa bos kalabilir
+    }
+
+    @Override
+    public void applyStatusBarVisibility() {
+        CarLauncherSettings settings = new CarLauncherSettings(this);
+        boolean showStatusBar = settings.isStatusBarVisible();
+        if (showStatusBar) {
+            getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        } else {
+            getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            );
+        }
     }
 }

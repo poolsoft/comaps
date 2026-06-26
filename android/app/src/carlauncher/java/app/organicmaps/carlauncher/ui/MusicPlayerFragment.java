@@ -737,7 +737,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text1.setText(folder.getName());
             holder.text1.setTextColor(android.graphics.Color.WHITE);
             holder.text1.setTextSize(18);
-            holder.text2.setText(folder.getTracks().size() + " Parca");
+            holder.text2.setText(folder.getTracks().size() + " Parça");
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onFolderClick(folder));
             holder.itemView.setPadding(32, 24, 32, 24);
@@ -784,7 +784,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text1.setText(artist.getName());
             holder.text1.setTextColor(android.graphics.Color.WHITE);
             holder.text1.setTextSize(18);
-            holder.text2.setText(artist.getTracks().size() + " Parca");
+            holder.text2.setText(artist.getTracks().size() + " Parça");
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onArtistClick(artist));
             holder.itemView.setPadding(32, 24, 32, 24);
@@ -814,7 +814,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             return;
 
         List<String> options = new ArrayList<>();
-        options.add("Seciniz..."); // 0
+        options.add("Seçiniz..."); // 0
         options.add("Favoriler"); // 1
 
         List<PlaylistManager.Playlist> playlists = playlistManager.getAllPlaylists();
@@ -848,7 +848,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         }
                     }
                     if (favTracks.isEmpty()) {
-                        Toast.makeText(getContext(), "Favori listeniz bos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Favori listeniz boş", Toast.LENGTH_SHORT).show();
                     }
                     showTracks(favTracks);
                 } else {
@@ -1002,7 +1002,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 loadAllTracks();
             } else {
-                Toast.makeText(getContext(), "Muzik taramak icin izin gerekli!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Müzik taramak için izin gerekli!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1019,7 +1019,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(() -> {
                             if (allTracks.isEmpty()) {
-                                Toast.makeText(getContext(), "Cihazda muzik bulunamadi", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Cihazda müzik bulunamadı", Toast.LENGTH_SHORT).show();
                             }
                             showTracks(allTracks);
                         });
@@ -1134,13 +1134,13 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             return;
         List<PlaylistManager.Playlist> playlists = playlistManager.getAllPlaylists();
         String[] options = new String[playlists.size() + 1];
-        options[0] = "+ Yeni Playlist Olustur";
+        options[0] = "+ Yeni Playlist Oluştur";
         for (int i = 0; i < playlists.size(); i++) {
             options[i + 1] = playlists.get(i).name;
         }
 
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle("Playliste Ekle: " + track.getTitle())
+                .setTitle("Playlist'e Ekle: " + track.getTitle())
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         showCreatePlaylistAndAddTrackDialog(track);
@@ -1151,7 +1151,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         Toast.makeText(getContext(), "Eklendi: " + p.name, Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("Iptal", null)
+                .setNegativeButton("İptal", null)
                 .show();
     }
 
@@ -1162,26 +1162,26 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         input.setHint("Playlist adi");
         input.setTextColor(0xFFFFFFFF);
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle("Yeni Playlist ve Ekle")
+                .setTitle("Yeni Playlist Oluştur ve Ekle")
                 .setView(input)
-                .setPositiveButton("Olustur", (dialog, which) -> {
+                .setPositiveButton("Oluştur", (dialog, which) -> {
                     String name = input.getText().toString().trim();
                     if (!name.isEmpty()) {
                         PlaylistManager.Playlist p = new PlaylistManager.Playlist(name);
                         p.tracks.add(track.getPath());
                         playlistManager.savePlaylist(p);
-                        Toast.makeText(getContext(), "Playlist olusturuldu ve sarki eklendi", Toast.LENGTH_SHORT)
+                        Toast.makeText(getContext(), "Playlist oluşturuldu ve şarkı eklendi", Toast.LENGTH_SHORT)
                                 .show();
                         setupPlaylistSpinner();
                     }
                 })
-                .setNegativeButton("Iptal", null).show();
+                .setNegativeButton("İptal", null).show();
     }
 
     private void showPlaylistOptionsDialog(PlaylistManager.Playlist playlist) {
         if (getContext() == null)
             return;
-        String[] options = { "Cal", "Parcalari Gor/Duzenle", "Sil" };
+        String[] options = { "Çal", "Parçaları Gör/Düzenle", "Sil" };
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle(playlist.name)
                 .setItems(options, (dialog, which) -> {
@@ -1202,7 +1202,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
     private void playPlaylist(PlaylistManager.Playlist playlist) {
         if (playlist.tracks.isEmpty()) {
-            Toast.makeText(getContext(), "Playlist bos!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Playlist boş!", Toast.LENGTH_SHORT).show();
             return;
         }
         List<MusicRepository.AudioTrack> queue = new ArrayList<>();
@@ -1265,7 +1265,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         Toast.makeText(getContext(), "Eklendi!", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("Iptal", null).show();
+                .setNegativeButton("İptal", null).show();
     }
 
     private void showRemoveTrackDialog(PlaylistManager.Playlist playlist, int index) {
@@ -1278,7 +1278,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     playlistManager.savePlaylist(playlist);
                     showPlaylistTracksDialog(playlist);
                 })
-                .setNegativeButton("Iptal", null).show();
+                .setNegativeButton("İptal", null).show();
     }
 
     private void confirmDeletePlaylist(PlaylistManager.Playlist playlist) {
@@ -1290,7 +1290,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     playlistManager.deletePlaylist(playlist.id);
                     Toast.makeText(getContext(), "Silindi!", Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("Iptal", null).show();
+                .setNegativeButton("İptal", null).show();
     }
 
     private void openEqualizer() {

@@ -569,7 +569,11 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void applyStatusBarVisibility(boolean show) {
-        if (getActivity() instanceof app.organicmaps.MwmActivity) {
+        if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherActivity) {
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                ((app.organicmaps.carlauncher.CarLauncherActivity) getActivity()).applyStatusBarVisibility();
+            });
+        } else if (getActivity() instanceof app.organicmaps.MwmActivity) {
             ((app.organicmaps.MwmActivity) getActivity()).applyStatusBarVisibility();
         }
     }
@@ -580,7 +584,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             SharedPreferences prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
             
             // Secenekleri ayarla
-            langPref.setEntries(new CharSequence[]{"Sistem (System)", "TÃƒÂ¼rkÃƒÂ§e", "English", "Deutsch"});
+            langPref.setEntries(new CharSequence[]{"Sistem (System)", "Türkçe", "English", "Deutsch"});
             langPref.setEntryValues(new CharSequence[]{"", "tr", "en", "de"});
             
             // Mevcut degeri set et
@@ -592,7 +596,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 prefs.edit().putString("pref_app_locale", val).apply();
                 
                 // Dil guncelle ve yeniden baslat
-                Toast.makeText(getContext(), "Dil gÃƒÂ¼ncelleniyor...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Dil güncelleniyor...", Toast.LENGTH_SHORT).show();
                 if (getActivity() != null) {
                     Intent intent = getActivity().getIntent();
                     getActivity().finish();
