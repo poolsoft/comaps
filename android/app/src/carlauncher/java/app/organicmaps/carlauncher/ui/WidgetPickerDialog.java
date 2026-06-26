@@ -38,6 +38,7 @@ import app.organicmaps.carlauncher.widgets.WidgetManager;
 import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
+import app.organicmaps.carlauncher.widgets.SpeedWidget;
 
 
 
@@ -546,7 +547,7 @@ public class WidgetPickerDialog extends DialogFragment {
         if (info.type.equals("clock")) {
             widget = new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext());
         } else if (info.type.equals("speed")) {
-            // widget = new SpeedWidget(getContext(), mApplication);
+            widget = new SpeedWidget(getContext(), mApplication);
         } else if (info.type.equals("direction")) {
             widget = new DirectionWidget(getContext(), mApplication);
         } else if (info.type.equals("weather")) {

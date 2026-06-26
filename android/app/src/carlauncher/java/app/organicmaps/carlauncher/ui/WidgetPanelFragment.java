@@ -21,6 +21,7 @@ import app.organicmaps.carlauncher.widgets.WidgetManager;
 import app.organicmaps.carlauncher.widgets.DirectionWidget;
 import app.organicmaps.carlauncher.widgets.MusicWidget;
 import app.organicmaps.carlauncher.widgets.NavigationWidget;
+import app.organicmaps.carlauncher.widgets.SpeedWidget;
 
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
@@ -259,7 +260,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         switch (preset) {
             case NAVIGATION:
                 widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-                // widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
+                widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
                 widgetManager.addWidget(new DirectionWidget(getContext(), mApplication));
                 widgetManager.addWidget(new NavigationWidget(getContext(), mApplication));
                 break;
@@ -270,7 +271,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                 break;
             case MINIMALIST:
                 widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-                // widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
+                widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
                 break;
             case USER:
                 if (!widgetManager.loadUserLayout()) {
@@ -530,7 +531,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         if (widgetManager == null || mApplication == null) return;
         
         widgetManager.addWidget(new app.organicmaps.carlauncher.widgets.Material3ClockWidget(getContext()));
-        // widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
+        widgetManager.addWidget(new SpeedWidget(getContext(), mApplication));
         widgetManager.addWidget(new DirectionWidget(getContext(), mApplication));
         
         // app.organicmaps.carlauncher.antenna.AntennaPlugin antennaPlugin = app.organicmaps.plugins.PluginsHelper

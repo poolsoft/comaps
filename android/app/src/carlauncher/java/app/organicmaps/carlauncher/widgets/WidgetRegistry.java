@@ -47,8 +47,8 @@ public class WidgetRegistry {
     // Statik blok ile temel widget'lari kaydediyoruz.
     static {
         // register(TYPE_COMBINED, "Dashboard (Saat+HÃ„Â±z)", CombinedWidget::new);
-        // register(TYPE_SPEED, "HÃ„Â±z GÃƒÂ¶stergesi", SpeedWidget::new);
-        register(TYPE_MUSIC, "MÃƒÂ¼zik Ãƒâ€¡alar", MusicWidget::new);
+        register(TYPE_SPEED, "Hiz Gostergesi", SpeedWidget::new);
+        register(TYPE_MUSIC, "Müzik Çalar", MusicWidget::new);
         register(TYPE_NAVIGATION, "Navigasyon", NavigationWidget::new);
         register(TYPE_COMPASS, "Pusula", DirectionWidget::new);
         // register(TYPE_OBD, "OBD Bilgileri", OBDWidget::new);
