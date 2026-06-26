@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Car Launcher Ayarları -->
-    <string name="car_settings_title">Araç Ayarları</string>
+    <string name="car_settings_title">Car Settings</string>
+    <string name="car_pref_floating_button_title">Floating Assistant Button</string>
+    <string name="car_pref_floating_button_desc">Shows a movable system menu button on the screen</string>
+    <string name="car_pref_floating_button_size_title">Floating Button Size</string>
+    <string name="car_floating_menu_layout_toggle">Toggle Layout</string>
+    <string name="car_floating_menu_desktop_toggle">Desktop Mode</string>
+    <string name="car_floating_menu_settings">Car Launcher Settings</string>
     <string name="car_pref_category_language">Language / Dil</string>
     <string name="car_pref_language_title">App Language</string>
     <string name="car_pref_language_desc">Change interface language (Requires restart)</string>
     
-    <!-- İleride eklenebilecek çeviriler -->
-    <!-- <string name="car_launcher_example">Example Text</string> -->
     <!-- Floating Button Force GPS -->
     <string name="car_floating_button_force_gps">Continuous GPS (Floating Button)</string>
     <string name="car_floating_button_force_gps_desc">Keeps GPS active even in the background to continuously update speed. Consumes more battery.</string>
 
+    <!-- Navigation Directions -->
+    <string name="car_nav_straight">Go straight</string>
+    <string name="car_nav_turn_right">Turn right</string>
+    <string name="car_nav_turn_sharp_right">Turn sharp right</string>
+    <string name="car_nav_turn_slight_right">Turn slight right</string>
+    <string name="car_nav_turn_left">Turn left</string>
+    <string name="car_nav_turn_sharp_left">Turn sharp left</string>
+    <string name="car_nav_turn_slight_left">Turn slight left</string>
+    <string name="car_nav_u_turn">Make a U-turn</string>
+    <string name="car_nav_roundabout">At the roundabout, take the %1$d exit</string>
+    <string name="car_nav_roundabout_no_exit">Enter the roundabout</string>
+    <string name="car_nav_reached_destination">You have reached your destination</string>
+    <string name="car_nav_exit_highway_left">Exit highway to the left</string>
+    <string name="car_nav_exit_highway_right">Exit highway to the right</string>
+    <string name="car_nav_continue">Continue</string>
 </resources>

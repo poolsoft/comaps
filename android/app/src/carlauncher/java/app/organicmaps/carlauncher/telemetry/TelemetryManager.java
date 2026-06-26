@@ -1,15 +1,19 @@
 package app.organicmaps.carlauncher.telemetry;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
+import app.organicmaps.R;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
+import app.organicmaps.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,7 @@ public class TelemetryManager implements LocationListener {
         public String load = "--";
     }
 
+    private final android.content.Context mContext;
     private final LocationState locationState = new LocationState();
     private final NavigationState navigationState = new NavigationState();
     private final ObdState obdState = new ObdState();
@@ -65,6 +70,7 @@ public class TelemetryManager implements LocationListener {
     };
 
     private TelemetryManager(android.content.Context context) {
+        this.mContext = context.getApplicationContext();
         app.organicmaps.MwmApplication.from(context).getLocationHelper().addListener(this);
         mainHandler.postDelayed(staleGpsRunnable, 1000);
     }
@@ -120,17 +126,87 @@ public class TelemetryManager implements LocationListener {
             RoutingInfo info = routingController.getCachedRoutingInfo();
             if (info != null) {
                 // OrganicMaps RoutingInfo mapping
-                navigationState.distanceStr = info.distToTurn.toString();
+                navigationState.distanceStr = info.distToTurn != null ? Utils.formatDistance(mContext, info.distToTurn) : "";
                 
-                // TODO: RoutingInfo turn res mapping
-                navigationState.turnIconRes = 0; 
-                navigationState.instructionStr = "Devam Et";
+                // RoutingInfo turn res mapping
+                if (info.carDirection != null) {
+                    navigationState.turnIconRes = info.carDirection.getTurnRes();
+                    navigationState.instructionStr = getTurnInstruction(info.carDirection, info.exitNum, info.nextStreet);
+                } else {
+                    navigationState.turnIconRes = 0;
+                    navigationState.instructionStr = "";
+                }
                 
-                navigationState.etaStr = info.distToTarget.toString();
+                // ETA formatlama
+                if (info.totalTimeInSeconds > 0) {
+                    navigationState.etaStr = Utils.formatMovingMinutesOfDay(mContext, info.totalTimeInSeconds);
+                } else {
+                    navigationState.etaStr = info.distToTarget != null ? Utils.formatDistance(mContext, info.distToTarget) : "";
+                }
             }
         } else {
             navigationState.isActive = false;
         }
+    }
+
+    private String getTurnInstruction(CarDirection direction, int exitNum, String nextStreet) {
+        if (direction == null) return "";
+        String instruction;
+        
+        switch (direction) {
+            case NO_TURN:
+            case GO_STRAIGHT:
+                instruction = mContext.getString(R.string.car_nav_straight);
+                break;
+            case TURN_RIGHT:
+                instruction = mContext.getString(R.string.car_nav_turn_right);
+                break;
+            case TURN_SHARP_RIGHT:
+                instruction = mContext.getString(R.string.car_nav_turn_sharp_right);
+                break;
+            case TURN_SLIGHT_RIGHT:
+                instruction = mContext.getString(R.string.car_nav_turn_slight_right);
+                break;
+            case TURN_LEFT:
+                instruction = mContext.getString(R.string.car_nav_turn_left);
+                break;
+            case TURN_SHARP_LEFT:
+                instruction = mContext.getString(R.string.car_nav_turn_sharp_left);
+                break;
+            case TURN_SLIGHT_LEFT:
+                instruction = mContext.getString(R.string.car_nav_turn_slight_left);
+                break;
+            case U_TURN_LEFT:
+            case U_TURN_RIGHT:
+                instruction = mContext.getString(R.string.car_nav_u_turn);
+                break;
+            case ENTER_ROUND_ABOUT:
+            case LEAVE_ROUND_ABOUT:
+            case STAY_ON_ROUND_ABOUT:
+                if (exitNum > 0) {
+                    instruction = mContext.getString(R.string.car_nav_roundabout, exitNum);
+                } else {
+                    instruction = mContext.getString(R.string.car_nav_roundabout_no_exit);
+                }
+                break;
+            case REACHED_YOUR_DESTINATION:
+                instruction = mContext.getString(R.string.car_nav_reached_destination);
+                break;
+            case EXIT_HIGHWAY_TO_LEFT:
+                instruction = mContext.getString(R.string.car_nav_exit_highway_left);
+                break;
+            case EXIT_HIGHWAY_TO_RIGHT:
+                instruction = mContext.getString(R.string.car_nav_exit_highway_right);
+                break;
+            default:
+                instruction = mContext.getString(R.string.car_nav_continue);
+                break;
+        }
+        
+        if (nextStreet != null && !nextStreet.isEmpty()) {
+            instruction += "\n" + nextStreet;
+        }
+        return instruction;
     }
 
     private void notifyListeners() {

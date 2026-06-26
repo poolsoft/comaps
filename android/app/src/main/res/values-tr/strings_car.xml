@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Car Launcher Ayarları -->
+    <string name="car_settings_title">Araç Ayarları</string>
+    <string name="car_pref_floating_button_title">Yüzen Yardımcı Buton (Floating Button)</string>
+    <string name="car_pref_floating_button_desc">Ekranda taşınabilir sistem menü butonu gösterir</string>
+    <string name="car_pref_floating_button_size_title">Yüzen Buton Boyutu</string>
+    <string name="car_floating_menu_layout_toggle">Görünümü Değiştir</string>
+    <string name="car_floating_menu_desktop_toggle">Masaüstü Modu (Desktop)</string>
+    <string name="car_floating_menu_settings">Car Launcher Ayarları</string>
     <string name="car_pref_category_language">Dil / Language</string>
     <string name="car_pref_language_title">Uygulama Dili</string>
     <string name="car_pref_language_desc">Arayüz dilini değiştirin (Yeniden başlatma gerektirir)</string>
@@ -9,4 +16,19 @@
     <string name="car_floating_button_force_gps">Sürekli GPS</string>
     <string name="car_floating_button_force_gps_desc">Arka planda dahi hızı güncellemek için GPS\'i açık tutar. Daha fazla batarya harcar.</string>
 
+    <!-- Navigation Directions -->
+    <string name="car_nav_straight">Düz devam edin</string>
+    <string name="car_nav_turn_right">Sağa dönün</string>
+    <string name="car_nav_turn_sharp_right">Keskin sağa dönün</string>
+    <string name="car_nav_turn_slight_right">Hafif sağa dönün</string>
+    <string name="car_nav_turn_left">Sola dönün</string>
+    <string name="car_nav_turn_sharp_left">Keskin sola dönün</string>
+    <string name="car_nav_turn_slight_left">Hafif sola dönün</string>
+    <string name="car_nav_u_turn">U dönüşü yapın</string>
+    <string name="car_nav_roundabout">Döner kavşaktan %1$d. çıkıştan çıkın</string>
+    <string name="car_nav_roundabout_no_exit">Döner kavşağa girin</string>
+    <string name="car_nav_reached_destination">Hedefinize ulaştınız</string>
+    <string name="car_nav_exit_highway_left">Otobandan sola çıkın</string>
+    <string name="car_nav_exit_highway_right">Otobandan sağa çıkın</string>
+    <string name="car_nav_continue">Devam edin</string>
 </resources>
