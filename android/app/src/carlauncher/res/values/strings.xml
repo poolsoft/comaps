@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Music Player Strings -->
     <string name="car_music_select_playlist">Select...</string>
@@ -27,7 +27,7 @@
     <!-- Settings Fragment Strings -->
     <string name="car_settings_language_updating">Updating language...</string>
     <string name="car_settings_lang_system">System</string>
-    <string name="car_settings_lang_turkish">Türkçe</string>
+    <string name="car_settings_lang_turkish">TÃ¼rkÃ§e</string>
     <string name="car_settings_lang_english">English</string>
     <string name="car_settings_lang_german">Deutsch</string>
     
@@ -116,4 +116,9 @@
     <string name="car_music_remove">Remove</string>
     <string name="car_music_delete_q">Delete?</string>
     <string name="car_music_deleted">Deleted!</string>
+    <string name="floating_button_running">Floating Button (GPS) is running...</string>
+    <string name="notification_permission_required_title">Notification Permission Required</string>
+    <string name="notification_permission_required_message">Notification Access is required to control external music apps. Do you want to go to settings to enable it?</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="car_cancel">Cancel</string>
 </resources>

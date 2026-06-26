@@ -73,7 +73,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                         Intent settingsIntent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                         startActivity(settingsIntent);
                     })
-                    .setNegativeButton(R.string.cancel, null)
+                    .setNegativeButton(R.string.car_cancel, null)
                     .show();
             }
         }

@@ -900,9 +900,5 @@
     <string name="pref_alt_map_lang_handling_local_only">Sadece anadil olduÄŸu yerlerde tercih et</string>
     <string name="download_resources_custom_url_title">Ã–zel Harita Sunucusu</string>
     <string name="download_resources_custom_url_message">Harita indirmek iÃ§in kullanÄ±lan varsayÄ±lan sunucu yerine farklÄ± sunucu kullanabilirsiniz. CoMaps varsayÄ±lan sunucusunu kullanmak iÃ§in boÅŸ bÄ±rakÄ±n.</string>
-    <string name="floating_button_running">Yüzen Buton (GPS) çalışıyor...</string>
-    <string name="notification_permission_required_title">Bildirim İzni Gerekli</string>
-    <string name="notification_permission_required_message">Harici müzik uygulamalarını kontrol edebilmek için 'Bildirim Erişimi' izni gereklidir. Ayarlara gidip açmak ister misiniz?</string>
-    <string name="go_to_settings">Ayarlara Git</string>
-    <string name="cancel">İptal</string>
 </resources>
+

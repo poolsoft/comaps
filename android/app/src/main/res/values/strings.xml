@@ -7,7 +7,6 @@
     <!-- Button text (should be short) -->
     <string name="back">Back</string>
     <!-- Button text (should be short) -->
-    <string name="cancel">Cancel</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Delete</string>
     <string name="download_maps">Download Maps</string>
@@ -1028,9 +1027,4 @@
     <string name="pref_aa_support_summary_no">The app has not been installed from Google Play, you can\'t use it in your car. Press the setting to get more details on our FAQ.</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
-    <string name="floating_button_running">Floating Button (GPS) is running...</string>
-    <string name="notification_permission_required_title">Notification Permission Required</string>
-    <string name="notification_permission_required_message">Notification Access is required to control external music apps. Do you want to go to settings to enable it?</string>
-    <string name="go_to_settings">Go to Settings</string>
-    <string name="cancel">Cancel</string>
 </resources>

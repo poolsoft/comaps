@@ -1,119 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Music Player Strings -->
-    <string name="car_music_select_playlist">Seçiniz...</string>
+    <string name="car_music_select_playlist">SeÃ§iniz...</string>
     <string name="car_music_favorites">Favoriler</string>
-    <string name="car_music_favorites_empty">Favori listeniz boş</string>
-    <string name="car_music_permission_required">Müzik taramak için izin gerekli!</string>
-    <string name="car_music_not_found">Cihazda müzik bulunamadı</string>
-    <string name="car_music_new_playlist">+ Yeni Playlist Oluştur</string>
+    <string name="car_music_favorites_empty">Favori listeniz boÅŸ</string>
+    <string name="car_music_permission_required">MÃ¼zik taramak iÃ§in izin gerekli!</string>
+    <string name="car_music_not_found">Cihazda mÃ¼zik bulunamadÄ±</string>
+    <string name="car_music_new_playlist">+ Yeni Playlist OluÅŸtur</string>
     <string name="car_music_add_to_playlist">Playlist\'e Ekle:</string>
     <string name="car_music_added">Eklendi!</string>
-    <string name="car_music_cancel">İptal</string>
-    <string name="car_music_create_and_add">Yeni Playlist Oluştur ve Ekle</string>
-    <string name="car_music_create">Oluştur</string>
-    <string name="car_music_playlist_created">Playlist oluşturuldu ve şarkı eklendi</string>
-    <string name="car_music_play">Çal</string>
-    <string name="car_music_view_edit_tracks">Parçaları Gör/Düzenle</string>
+    <string name="car_music_cancel">Ä°ptal</string>
+    <string name="car_music_create_and_add">Yeni Playlist OluÅŸtur ve Ekle</string>
+    <string name="car_music_create">OluÅŸtur</string>
+    <string name="car_music_playlist_created">Playlist oluÅŸturuldu ve ÅŸarkÄ± eklendi</string>
+    <string name="car_music_play">Ã‡al</string>
+    <string name="car_music_view_edit_tracks">ParÃ§alarÄ± GÃ¶r/DÃ¼zenle</string>
     <string name="car_music_delete">Sil</string>
-    <string name="car_music_playlist_empty">Playlist boş!</string>
-    <string name="car_music_track_removed">Parça kaldırıldı</string>
+    <string name="car_music_playlist_empty">Playlist boÅŸ!</string>
+    <string name="car_music_track_removed">ParÃ§a kaldÄ±rÄ±ldÄ±</string>
     <string name="car_music_delete_playlist">Playlist Sil</string>
-    <string name="car_music_confirm_delete">Silmek istediğine emin misin: </string>
+    <string name="car_music_confirm_delete">Silmek istediÄŸine emin misin: </string>
     <string name="car_music_playlist_deleted">Silindi!</string>
-    <string name="car_music_playlist_tracks">Playlist Parçaları: </string>
-    <string name="car_music_playlist_name_hint">Playlist adı</string>
+    <string name="car_music_playlist_tracks">Playlist ParÃ§alarÄ±: </string>
+    <string name="car_music_playlist_name_hint">Playlist adÄ±</string>
     
     <!-- Settings Fragment Strings -->
-    <string name="car_settings_language_updating">Dil güncelleniyor...</string>
+    <string name="car_settings_language_updating">Dil gÃ¼ncelleniyor...</string>
     <string name="car_settings_lang_system">Sistem (System)</string>
-    <string name="car_settings_lang_turkish">Türkçe</string>
+    <string name="car_settings_lang_turkish">TÃ¼rkÃ§e</string>
     <string name="car_settings_lang_english">English</string>
     <string name="car_settings_lang_german">Deutsch</string>
     
     <!-- Preferences XML Strings -->
     <!-- Appearance -->
-    <string name="car_pref_category_appearance">Görünüm</string>
-    <string name="car_pref_status_bar_title">Status Bar Göster</string>
-    <string name="car_pref_status_bar_summary">Sistem çubuğunu açıp kapatır</string>
+    <string name="car_pref_category_appearance">GÃ¶rÃ¼nÃ¼m</string>
+    <string name="car_pref_status_bar_title">Status Bar GÃ¶ster</string>
+    <string name="car_pref_status_bar_summary">Sistem Ã§ubuÄŸunu aÃ§Ä±p kapatÄ±r</string>
     <string name="car_pref_dark_theme_title">Koyu Tema</string>
-    <string name="car_pref_dark_theme_summary">Karanlık arka plan kullan</string>
-    <string name="car_pref_portrait_map_title">Dikey Ekranda Sadece Harita Göster</string>
-    <string name="car_pref_portrait_map_summary">Dikey modda widget paneli ve rıhtımı gizler</string>
-    <string name="car_pref_floating_btn_title">Yüzen Yardımcı Buton (Floating Button)</string>
-    <string name="car_pref_floating_btn_summary">Ekranda taşınabilir sistem menü butonu gösterir</string>
-    <string name="car_pref_floating_btn_size_title">Yüzen Buton Boyutu</string>
-    <string name="car_pref_floating_btn_size_summary">Ekranda kapladığı alanı ayarla</string>
+    <string name="car_pref_dark_theme_summary">KaranlÄ±k arka plan kullan</string>
+    <string name="car_pref_portrait_map_title">Dikey Ekranda Sadece Harita GÃ¶ster</string>
+    <string name="car_pref_portrait_map_summary">Dikey modda widget paneli ve rÄ±htÄ±mÄ± gizler</string>
+    <string name="car_pref_floating_btn_title">YÃ¼zen YardÄ±mcÄ± Buton (Floating Button)</string>
+    <string name="car_pref_floating_btn_summary">Ekranda taÅŸÄ±nabilir sistem menÃ¼ butonu gÃ¶sterir</string>
+    <string name="car_pref_floating_btn_size_title">YÃ¼zen Buton Boyutu</string>
+    <string name="car_pref_floating_btn_size_summary">Ekranda kapladÄ±ÄŸÄ± alanÄ± ayarla</string>
     <string name="car_pref_night_dim_title">Gece Karartma Modu</string>
-    <string name="car_pref_parallax_intensity_title">Parallax Arka Plan Gücü</string>
-    <string name="car_pref_parallax_intensity_summary">ViewPager kaydırılırken arka planın kayma miktarını ayarlar (Varsayılan: %20)</string>
-    <string name="car_pref_bg_style_title">Parallax Arka Plan Seçici</string>
-    <string name="car_pref_pip_mode_title">Yüzen Harita (Picture-in-Picture)</string>
-    <string name="car_pref_pip_mode_summary">Arka plana geçildiğinde haritayı yüzen küçük ekran olarak açık tutar</string>
-    <string name="car_pref_panel_pos_title">Büyük Panel Konumu</string>
-    <string name="car_pref_panel_expansion_title">Büyük Panel Açılış Stratejisi</string>
+    <string name="car_pref_parallax_intensity_title">Parallax Arka Plan GÃ¼cÃ¼</string>
+    <string name="car_pref_parallax_intensity_summary">ViewPager kaydÄ±rÄ±lÄ±rken arka planÄ±n kayma miktarÄ±nÄ± ayarlar (VarsayÄ±lan: %20)</string>
+    <string name="car_pref_bg_style_title">Parallax Arka Plan SeÃ§ici</string>
+    <string name="car_pref_pip_mode_title">YÃ¼zen Harita (Picture-in-Picture)</string>
+    <string name="car_pref_pip_mode_summary">Arka plana geÃ§ildiÄŸinde haritayÄ± yÃ¼zen kÃ¼Ã§Ã¼k ekran olarak aÃ§Ä±k tutar</string>
+    <string name="car_pref_panel_pos_title">BÃ¼yÃ¼k Panel Konumu</string>
+    <string name="car_pref_panel_expansion_title">BÃ¼yÃ¼k Panel AÃ§Ä±lÄ±ÅŸ Stratejisi</string>
 
     <!-- Music -->
-    <string name="car_pref_category_music">Müzik</string>
-    <string name="car_pref_music_app_title">Varsayılan Müzik Uygulaması</string>
-    <string name="car_pref_music_app_summary">Tıklayarak seçin</string>
-    <string name="car_pref_vis_type_small_title">Görselleştirici Tipi (Küçük Panel)</string>
-    <string name="car_pref_vis_type_large_title">Görselleştirici Tipi (Büyük Panel)</string>
-    <string name="car_pref_auto_play_title">Açılışta Otomatik Oynat</string>
-    <string name="car_pref_auto_play_summary">Uygulama başladığında müziği başlat</string>
-    <string name="car_pref_ambiance_vis_title">Ambians Görselleştirici</string>
-    <string name="car_pref_ambiance_vis_summary">Müzik görselleştirici renklerini albüm kapağına göre dinamik olarak belirler</string>
+    <string name="car_pref_category_music">MÃ¼zik</string>
+    <string name="car_pref_music_app_title">VarsayÄ±lan MÃ¼zik UygulamasÄ±</string>
+    <string name="car_pref_music_app_summary">TÄ±klayarak seÃ§in</string>
+    <string name="car_pref_vis_type_small_title">GÃ¶rselleÅŸtirici Tipi (KÃ¼Ã§Ã¼k Panel)</string>
+    <string name="car_pref_vis_type_large_title">GÃ¶rselleÅŸtirici Tipi (BÃ¼yÃ¼k Panel)</string>
+    <string name="car_pref_auto_play_title">AÃ§Ä±lÄ±ÅŸta Otomatik Oynat</string>
+    <string name="car_pref_auto_play_summary">Uygulama baÅŸladÄ±ÄŸÄ±nda mÃ¼ziÄŸi baÅŸlat</string>
+    <string name="car_pref_ambiance_vis_title">Ambians GÃ¶rselleÅŸtirici</string>
+    <string name="car_pref_ambiance_vis_summary">MÃ¼zik gÃ¶rselleÅŸtirici renklerini albÃ¼m kapaÄŸÄ±na gÃ¶re dinamik olarak belirler</string>
     <string name="car_pref_equalizer_title">Equalizer</string>
-    <string name="car_pref_equalizer_summary">Sistem ses ayarlarını aç</string>
-    <string name="car_pref_scan_music_title">Müzikleri Yeniden Tara</string>
+    <string name="car_pref_equalizer_summary">Sistem ses ayarlarÄ±nÄ± aÃ§</string>
+    <string name="car_pref_scan_music_title">MÃ¼zikleri Yeniden Tara</string>
     <string name="car_pref_scan_music_summary">Dahili depolama ve USB bellekleri tara</string>
     
     <!-- Weather -->
     <string name="car_pref_category_weather">Hava Durumu</string>
     <string name="car_pref_weather_enabled_title">Hava Durumu Servisi</string>
-    <string name="car_pref_weather_enabled_summary">Saat widget\'ında hava durumu gösterimi</string>
+    <string name="car_pref_weather_enabled_summary">Saat widget\'Ä±nda hava durumu gÃ¶sterimi</string>
     
     <!-- Auto Launch -->
-    <string name="car_pref_category_autolaunch">Otomatik Başlatma</string>
+    <string name="car_pref_category_autolaunch">Otomatik BaÅŸlatma</string>
     <string name="car_pref_autolaunch_app1_title">Uygulama 1</string>
-    <string name="car_pref_autolaunch_app_summary">Seçmek için metne tıklayın</string>
+    <string name="car_pref_autolaunch_app_summary">SeÃ§mek iÃ§in metne tÄ±klayÄ±n</string>
     <string name="car_pref_autolaunch_app2_title">Uygulama 2</string>
     <string name="car_pref_autolaunch_app3_title">Uygulama 3</string>
     
     <!-- Backup -->
     <string name="car_pref_category_backup">Haritalar ve Yedekleme</string>
-    <string name="car_pref_download_maps_title">Haritaları İndir</string>
-    <string name="car_pref_download_maps_summary">Dünya genelindeki tüm haritaları arayın ve indirin.</string>
-    <string name="car_pref_backup_export_title">Ayarları ve Haritaları Dışa Aktar</string>
-    <string name="car_pref_backup_export_summary">Widget düzenini ve ayarları dosyaya kaydet</string>
-    <string name="car_pref_backup_import_title">Ayarları Geri Yükle</string>
-    <string name="car_pref_backup_import_summary">Dosyadan geri yükle</string>
+    <string name="car_pref_download_maps_title">HaritalarÄ± Ä°ndir</string>
+    <string name="car_pref_download_maps_summary">DÃ¼nya genelindeki tÃ¼m haritalarÄ± arayÄ±n ve indirin.</string>
+    <string name="car_pref_backup_export_title">AyarlarÄ± ve HaritalarÄ± DÄ±ÅŸa Aktar</string>
+    <string name="car_pref_backup_export_summary">Widget dÃ¼zenini ve ayarlarÄ± dosyaya kaydet</string>
+    <string name="car_pref_backup_import_title">AyarlarÄ± Geri YÃ¼kle</string>
+    <string name="car_pref_backup_import_summary">Dosyadan geri yÃ¼kle</string>
     
     <!-- Dock -->
     <string name="car_pref_category_dock">Uygulama Dock (Sidebar)</string>
     <string name="car_pref_dock_pos_title">Dock Konumu</string>
     <string name="car_pref_dock_size_title">Dock Boyutu</string>
-    <string name="car_pref_dock_size_summary">0: Küçük, 50: Normal, 100: Büyük</string>
-    <string name="car_pref_max_shortcuts_title">Maksimum Kısayol Sayısı</string>
-    <string name="car_pref_reset_dock_title">Dock\'u Sıfırla</string>
-    <string name="car_pref_reset_dock_summary">Tüm kısayolları kaldır</string>
+    <string name="car_pref_dock_size_summary">0: KÃ¼Ã§Ã¼k, 50: Normal, 100: BÃ¼yÃ¼k</string>
+    <string name="car_pref_max_shortcuts_title">Maksimum KÄ±sayol SayÄ±sÄ±</string>
+    <string name="car_pref_reset_dock_title">Dock\'u SÄ±fÄ±rla</string>
+    <string name="car_pref_reset_dock_summary">TÃ¼m kÄ±sayollarÄ± kaldÄ±r</string>
     
     <!-- Assistant -->
     <string name="car_pref_category_assistant">Asistan</string>
-    <string name="car_pref_import_voice_title">Ses Modelini USB/Dosyadan Yükle</string>
-    <string name="car_pref_import_voice_summary">İnternet yoksa USB\'den indirdiğiniz zip modelini yükleyin</string>
+    <string name="car_pref_import_voice_title">Ses Modelini USB/Dosyadan YÃ¼kle</string>
+    <string name="car_pref_import_voice_summary">Ä°nternet yoksa USB\'den indirdiÄŸiniz zip modelini yÃ¼kleyin</string>
     
     <!-- About -->
-    <string name="car_pref_category_about">Hakkında</string>
+    <string name="car_pref_category_about">HakkÄ±nda</string>
     <string name="car_pref_version_title">Versiyon</string>
-    <string name="car_pref_check_updates_title">Güncellemeleri Denetle</string>
-    <string name="car_pref_check_updates_summary">Yeni bir sürüm olup olmadığını kontrol et</string>
+    <string name="car_pref_check_updates_title">GÃ¼ncellemeleri Denetle</string>
+    <string name="car_pref_check_updates_summary">Yeni bir sÃ¼rÃ¼m olup olmadÄ±ÄŸÄ±nÄ± kontrol et</string>
     <string name="car_pref_github_title">GitHub</string>
-    <string name="car_pref_github_summary">Kaynak kodunu görüntüle</string>
-    <string name="car_music_tracks">Parça</string>
+    <string name="car_pref_github_summary">Kaynak kodunu gÃ¶rÃ¼ntÃ¼le</string>
+    <string name="car_music_tracks">ParÃ§a</string>
     <string name="car_music_added_excl">Eklendi!</string>
-    <string name="car_music_remove_q">Kaldır?</string>
-    <string name="car_music_remove">Kaldır</string>
+    <string name="car_music_remove_q">KaldÄ±r?</string>
+    <string name="car_music_remove">KaldÄ±r</string>
     <string name="car_music_delete_q">Sil?</string>
     <string name="car_music_deleted">Silindi!</string>
+    <string name="floating_button_running">Yuzen Buton (GPS) calisyor...</string>
+    <string name="notification_permission_required_title">Bildirim Izni Gerekli</string>
+    <string name="notification_permission_required_message">Harici muzik uygulamalarini kontrol etmek icin Bildirim Erisimi izni gereklidir. Ayarlara gidip acmak ister misiniz?</string>
+    <string name="go_to_settings">Ayarlara Git</string>
+    <string name="car_cancel">Iptal</string>
 </resources>
