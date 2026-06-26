@@ -52,7 +52,7 @@
 
         <activity
             android:name="app.organicmaps.carlauncher.ui.CarLauncherSettingsActivity"
-            android:theme="@style/MwmTheme.Settings"
+            android:theme="@style/MwmTheme"
             android:screenOrientation="landscape"
             android:exported="false">
         </activity>
