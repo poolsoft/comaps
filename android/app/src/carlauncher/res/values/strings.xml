@@ -27,7 +27,7 @@
     <!-- Settings Fragment Strings -->
     <string name="car_settings_language_updating">Updating language...</string>
     <string name="car_settings_lang_system">System</string>
-    <string name="car_settings_lang_turkish">TÃ¼rkÃ§e</string>
+    <string name="car_settings_lang_turkish">Türkçe</string>
     <string name="car_settings_lang_english">English</string>
     <string name="car_settings_lang_german">Deutsch</string>
     

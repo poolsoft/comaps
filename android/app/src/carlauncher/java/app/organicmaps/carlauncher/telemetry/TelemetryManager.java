@@ -43,6 +43,9 @@ public class TelemetryManager implements LocationListener {
         public String distanceStr = "";
         public String instructionStr = "";
         public String etaStr = "";
+        // Hiz limiti bilgisi (navigasyon aktifken doldurulur, negatif = bilgi yok)
+        public double speedLimitMps = -1.0;
+        public boolean isSpeedLimitExceeded = false;
     }
 
     // OBD OrganicMaps tarafindan desteklenmiyor, placeholder.
@@ -182,9 +185,20 @@ public class TelemetryManager implements LocationListener {
                 } else {
                     navigationState.etaStr = info.distToTarget != null ? Utils.formatDistance(mContext, info.distToTarget).toString() : "";
                 }
+
+                // Hiz limiti: RoutingInfo'dan dogrudan aliniyor (negatif = bilgi yok)
+                navigationState.speedLimitMps = info.speedLimitMps;
+                // Hiz asimi kontrolu: mevcut hiz vs limit
+                if (info.speedLimitMps > 0 && locationState.rawLocation != null && locationState.rawLocation.hasSpeed()) {
+                    navigationState.isSpeedLimitExceeded = locationState.rawLocation.getSpeed() > info.speedLimitMps;
+                } else {
+                    navigationState.isSpeedLimitExceeded = false;
+                }
             }
         } else {
             navigationState.isActive = false;
+            navigationState.speedLimitMps = -1.0;
+            navigationState.isSpeedLimitExceeded = false;
         }
     }
 
