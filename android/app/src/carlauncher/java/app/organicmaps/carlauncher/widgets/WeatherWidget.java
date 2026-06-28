@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.widgets;
 
+import app.organicmaps.R;
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -34,7 +36,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public WeatherWidget(@NonNull Context context, MwmApplication app) {
-        super(context, "weather", context.getString(app.organicmaps.R.string.car_widget_weather));
+        super(context, "weather", context.getString(R.string.car_widget_weather));
         this.weatherManager = WeatherManager.getInstance(context);
         this.order = 10; // Default order towards end
     }
@@ -43,18 +45,18 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
     public View createView() {
         // Parent belirtilmediÃ„Å¸i iÃƒÂ§in layout params manuel ayarlanmalÃ„Â± veya 
         // view eklendiÃ„Å¸i yerde ayarlanacaÃ„Å¸Ã„Â± varsayÃ„Â±lmalÃ„Â±dÃ„Â±r.
-        View view = LayoutInflater.from(context).inflate(app.organicmaps.R.layout.widget_weather, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.widget_weather, null);
         
         // LayoutParams dÃƒÂ¼zeltmesi (Ã„Â°htiyaca gÃƒÂ¶re deÃ„Å¸iÃ…Å¸tirin, genelde gereklidir)
         view.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        tvLocation = view.findViewById(app.organicmaps.R.id.weather_location);
-        tvTemp = view.findViewById(app.organicmaps.R.id.weather_temp);
-        tvDesc = view.findViewById(app.organicmaps.R.id.weather_desc);
-        ivIcon = view.findViewById(app.organicmaps.R.id.weather_icon);
-        progressBar = view.findViewById(app.organicmaps.R.id.weather_loading);
+        tvLocation = view.findViewById(R.id.weather_location);
+        tvTemp = view.findViewById(R.id.weather_temp);
+        tvDesc = view.findViewById(R.id.weather_desc);
+        ivIcon = view.findViewById(R.id.weather_icon);
+        progressBar = view.findViewById(R.id.weather_loading);
 
         rootView = view;
 
@@ -214,7 +216,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
         }
         
         if (tvLocation != null) {
-             tvLocation.setText(context.getString(app.organicmaps.R.string.car_widget_weather_location));
+             tvLocation.setText(context.getString(R.string.car_widget_weather_location));
         }
         
         // Enforcement for specific sizes if layout reset properties
@@ -225,14 +227,14 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
     }
     
     private String getWeatherDescription(int code) {
-        if (code == 0) return context.getString(app.organicmaps.R.string.car_weather_clear);
-        if (code >= 1 && code <= 3) return context.getString(app.organicmaps.R.string.car_weather_partly_cloudy);
-        if (code >= 45 && code <= 48) return context.getString(app.organicmaps.R.string.car_weather_foggy);
-        if (code >= 51 && code <= 67) return context.getString(app.organicmaps.R.string.car_weather_rainy);
-        if (code >= 71 && code <= 77) return context.getString(app.organicmaps.R.string.car_weather_snowy);
-        if (code >= 80 && code <= 82) return context.getString(app.organicmaps.R.string.car_weather_showers);
-        if (code >= 95) return context.getString(app.organicmaps.R.string.car_weather_storm);
-        return context.getString(app.organicmaps.R.string.car_weather_unknown);
+        if (code == 0) return context.getString(R.string.car_weather_clear);
+        if (code >= 1 && code <= 3) return context.getString(R.string.car_weather_partly_cloudy);
+        if (code >= 45 && code <= 48) return context.getString(R.string.car_weather_foggy);
+        if (code >= 51 && code <= 67) return context.getString(R.string.car_weather_rainy);
+        if (code >= 71 && code <= 77) return context.getString(R.string.car_weather_snowy);
+        if (code >= 80 && code <= 82) return context.getString(R.string.car_weather_showers);
+        if (code >= 95) return context.getString(R.string.car_weather_storm);
+        return context.getString(R.string.car_weather_unknown);
     }
 
     private int getIconResource(String iconName) {

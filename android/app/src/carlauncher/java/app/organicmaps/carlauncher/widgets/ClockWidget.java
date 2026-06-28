@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.widgets;
 
+import app.organicmaps.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -52,7 +54,7 @@ public class ClockWidget extends BaseWidget implements WeatherManager.WeatherLis
     private WeatherManager.WeatherData lastWeatherData;
 
     public ClockWidget(@NonNull Context context) {
-        super(context, "smart_clock", context.getString(app.organicmaps.R.string.car_widget_classic_clock));
+        super(context, "smart_clock", context.getString(R.string.car_widget_classic_clock));
         init();
     }
 
@@ -71,7 +73,7 @@ public class ClockWidget extends BaseWidget implements WeatherManager.WeatherLis
     @Override
     public View createView() {
         rootFrame = new FrameLayout(context);
-        rootFrame.setBackgroundResource(app.organicmaps.R.drawable.bg_widget_modern);
+        rootFrame.setBackgroundResource(R.drawable.bg_widget_modern);
         rootFrame.setPadding(0, 0, 0, 0);
 
         // Initial Layout (Default S)

@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.widgets;
 
+import app.organicmaps.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -43,7 +45,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
     private LinearLayout limitContainer;
 
     public SpeedWidget(@NonNull Context context, @NonNull MwmApplication app) {
-        super(context, "speed", context.getString(app.organicmaps.R.string.car_widget_speed));
+        super(context, "speed", context.getString(R.string.car_widget_speed));
         this.app = app;
         this.order = 1;
     }

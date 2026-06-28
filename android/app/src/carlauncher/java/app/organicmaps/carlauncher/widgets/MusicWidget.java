@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.widgets;
 
+import app.organicmaps.R;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,28 +40,28 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
     private final MusicManager musicManager;
 
     public MusicWidget(@NonNull Context context, @NonNull MwmApplication app) {
-        super(context, "music", context.getString(app.organicmaps.R.string.car_widget_music));
+        super(context, "music", context.getString(R.string.car_widget_music));
         this.musicManager = MusicManager.getInstance(context);
         this.order = 3;
     }
 
     @Override
     public View createView() {
-        View view = android.view.LayoutInflater.from(context).inflate(app.organicmaps.R.layout.widget_music_modern, null);
+        View view = android.view.LayoutInflater.from(context).inflate(R.layout.widget_music_modern, null);
 
         // --- Bind Views ---
-        appIconView = view.findViewById(app.organicmaps.R.id.widget_app_icon);
-        statusText = view.findViewById(app.organicmaps.R.id.widget_track_title);
-        artistText = view.findViewById(app.organicmaps.R.id.widget_track_artist);
-        albumArtView = view.findViewById(app.organicmaps.R.id.widget_album_art);
-        visualizerView = view.findViewById(app.organicmaps.R.id.widget_visualizer);
+        appIconView = view.findViewById(R.id.widget_app_icon);
+        statusText = view.findViewById(R.id.widget_track_title);
+        artistText = view.findViewById(R.id.widget_track_artist);
+        albumArtView = view.findViewById(R.id.widget_album_art);
+        visualizerView = view.findViewById(R.id.widget_visualizer);
         if (visualizerView != null) {
             visualizerView.setVisualizerContext(true); // Kucuk panel (Small context)
         }
 
-        ImageButton btnPrev = view.findViewById(app.organicmaps.R.id.widget_btn_prev);
-        ImageButton btnNext = view.findViewById(app.organicmaps.R.id.widget_btn_next);
-        btnPlay = view.findViewById(app.organicmaps.R.id.widget_btn_play);
+        ImageButton btnPrev = view.findViewById(R.id.widget_btn_prev);
+        ImageButton btnNext = view.findViewById(R.id.widget_btn_next);
+        btnPlay = view.findViewById(R.id.widget_btn_play);
 
         // --- Listeners ---
         appIconView.setOnClickListener(v -> {
@@ -82,16 +84,16 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
 
         if (btnPrev != null) {
             btnPrev.setOnClickListener(v -> musicManager.skipToPrevious());
-            btnPrev.setImageResource(app.organicmaps.R.drawable.ic_music_prev);
+            btnPrev.setImageResource(R.drawable.ic_music_prev);
         }
         if (btnPlay != null)
             btnPlay.setOnClickListener(v -> musicManager.togglePlayPause());
         if (btnNext != null) {
             btnNext.setOnClickListener(v -> musicManager.skipToNext());
-            btnNext.setImageResource(app.organicmaps.R.drawable.ic_music_next);
+            btnNext.setImageResource(R.drawable.ic_music_next);
         }
 
-        View contentArea = view.findViewById(app.organicmaps.R.id.widget_track_title);
+        View contentArea = view.findViewById(R.id.widget_track_title);
         if (contentArea != null) {
             contentArea.setOnClickListener(v -> openMusicDrawer());
         }
@@ -146,7 +148,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         try {
             appIconView.setImageDrawable(context.getPackageManager().getApplicationIcon(target));
         } catch (Exception e) {
-            appIconView.setImageResource(app.organicmaps.R.drawable.ic_music_play);
+            appIconView.setImageResource(R.drawable.ic_music_play);
         }
     }
 
@@ -175,12 +177,12 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         }
 
         // Views
-        View btnPrev = rootView.findViewById(app.organicmaps.R.id.widget_btn_prev);
-        View btnNext = rootView.findViewById(app.organicmaps.R.id.widget_btn_next);
-        TextView artist = rootView.findViewById(app.organicmaps.R.id.widget_track_artist);
-        TextView title = rootView.findViewById(app.organicmaps.R.id.widget_track_title);
-        View btnPlay = rootView.findViewById(app.organicmaps.R.id.widget_btn_play);
-        View controlsContainer = rootView.findViewById(app.organicmaps.R.id.controls_container);
+        View btnPrev = rootView.findViewById(R.id.widget_btn_prev);
+        View btnNext = rootView.findViewById(R.id.widget_btn_next);
+        TextView artist = rootView.findViewById(R.id.widget_track_artist);
+        TextView title = rootView.findViewById(R.id.widget_track_title);
+        View btnPlay = rootView.findViewById(R.id.widget_btn_play);
+        View controlsContainer = rootView.findViewById(R.id.controls_container);
 
         // Visibility
         int visibility = isSmall ? View.GONE : View.VISIBLE;
@@ -256,7 +258,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         if (rootView != null) {
             rootView.post(() -> {
                 if (statusText != null)
-                    statusText.setText(title != null ? title : context.getString(app.organicmaps.R.string.car_widget_music_select));
+                    statusText.setText(title != null ? title : context.getString(R.string.car_widget_music_select));
                 if (artistText != null)
                     artistText.setText(artist != null ? artist : "");
 
@@ -264,7 +266,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
                     if (albumArt != null) {
                         albumArtView.setImageBitmap(albumArt);
                     } else {
-                        albumArtView.setImageResource(app.organicmaps.R.drawable.ic_default_album_art);
+                        albumArtView.setImageResource(R.drawable.ic_default_album_art);
                     }
                 }
 
@@ -301,7 +303,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         if (btnPlay != null) {
             btnPlay.post(() -> {
                 btnPlay.setImageResource(
-                        isPlaying ? app.organicmaps.R.drawable.ic_music_pause : app.organicmaps.R.drawable.ic_music_play);
+                        isPlaying ? R.drawable.ic_music_pause : R.drawable.ic_music_play);
             });
         }
     }

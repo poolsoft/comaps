@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.widgets;
 
+import app.organicmaps.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
