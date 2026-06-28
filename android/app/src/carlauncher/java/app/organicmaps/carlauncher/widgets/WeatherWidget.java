@@ -34,18 +34,18 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public WeatherWidget(@NonNull Context context, MwmApplication app) {
-        super(context, "weather", "Hava Durumu");
+        super(context, "weather", context.getString(app.organicmaps.R.string.car_widget_weather));
         this.weatherManager = WeatherManager.getInstance(context);
         this.order = 10; // Default order towards end
     }
 
     @Override
     public View createView() {
-        // Parent belirtilmediÄŸi iÃ§in layout params manuel ayarlanmalÄ± veya 
-        // view eklendiÄŸi yerde ayarlanacaÄŸÄ± varsayÄ±lmalÄ±dÄ±r.
+        // Parent belirtilmediÃ„Å¸i iÃƒÂ§in layout params manuel ayarlanmalÃ„Â± veya 
+        // view eklendiÃ„Å¸i yerde ayarlanacaÃ„Å¸Ã„Â± varsayÃ„Â±lmalÃ„Â±dÃ„Â±r.
         View view = LayoutInflater.from(context).inflate(app.organicmaps.R.layout.widget_weather, null);
         
-        // LayoutParams dÃ¼zeltmesi (Ä°htiyaca gÃ¶re deÄŸiÅŸtirin, genelde gereklidir)
+        // LayoutParams dÃƒÂ¼zeltmesi (Ã„Â°htiyaca gÃƒÂ¶re deÃ„Å¸iÃ…Å¸tirin, genelde gereklidir)
         view.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -58,7 +58,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
 
         rootView = view;
 
-        // Listener'Ä± bir deÄŸiÅŸkene atayÄ±p tekrar kullanmak daha temizdir
+        // Listener'Ã„Â± bir deÃ„Å¸iÃ…Å¸kene atayÃ„Â±p tekrar kullanmak daha temizdir
         View.OnClickListener openDashboardListener = v -> {
             app.organicmaps.carlauncher.CarLauncherInterface callback = null;
             Context ctx = context;
@@ -81,18 +81,18 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
                 // 3. Bir alt context'e in
                 ctx = ((android.content.ContextWrapper) ctx).getBaseContext();
                 
-                // Null check (GÃ¼venlik iÃ§in)
+                // Null check (GÃƒÂ¼venlik iÃƒÂ§in)
                 if (ctx == null) break;
             }
             
             if (callback != null) {
                 callback.openWeatherDashboard();
             } else {
-                android.util.Log.e("WeatherWidget", "Context, CarLauncherInterface'i uygulamÄ±yor veya bulunamadÄ±: " + context.getClass().getName());
+                android.util.Log.e("WeatherWidget", "Context, CarLauncherInterface'i uygulamÃ„Â±yor veya bulunamadÃ„Â±: " + context.getClass().getName());
             }
         };
 
-        // Listener'Ä± hem ikona hem de kÃ¶k gÃ¶rÃ¼nÃ¼me ata
+        // Listener'Ã„Â± hem ikona hem de kÃƒÂ¶k gÃƒÂ¶rÃƒÂ¼nÃƒÂ¼me ata
         if (ivIcon != null) {
             ivIcon.setOnClickListener(openDashboardListener);
         }
@@ -201,7 +201,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
         if (progressBar != null) progressBar.setVisibility(View.GONE);
 
         if (tvTemp != null) {
-            tvTemp.setText(String.format(Locale.US, "%.0fÂ°", data.temp));
+            tvTemp.setText(String.format(Locale.US, "%.0fÃ‚Â°", data.temp));
         }
         
         if (tvDesc != null) {
@@ -214,7 +214,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
         }
         
         if (tvLocation != null) {
-             tvLocation.setText("Konum");
+             tvLocation.setText(context.getString(app.organicmaps.R.string.car_widget_weather_location));
         }
         
         // Enforcement for specific sizes if layout reset properties
@@ -225,14 +225,14 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
     }
     
     private String getWeatherDescription(int code) {
-        if (code == 0) return "AÃ§Ä±k";
-        if (code >= 1 && code <= 3) return "ParÃ§alÄ± Bulutlu";
-        if (code >= 45 && code <= 48) return "Sisli";
-        if (code >= 51 && code <= 67) return "YaÄŸmurlu";
-        if (code >= 71 && code <= 77) return "KarlÄ±";
-        if (code >= 80 && code <= 82) return "SaÄŸanak";
-        if (code >= 95) return "FÄ±rtÄ±na";
-        return "Bilinmiyor";
+        if (code == 0) return context.getString(app.organicmaps.R.string.car_weather_clear);
+        if (code >= 1 && code <= 3) return context.getString(app.organicmaps.R.string.car_weather_partly_cloudy);
+        if (code >= 45 && code <= 48) return context.getString(app.organicmaps.R.string.car_weather_foggy);
+        if (code >= 51 && code <= 67) return context.getString(app.organicmaps.R.string.car_weather_rainy);
+        if (code >= 71 && code <= 77) return context.getString(app.organicmaps.R.string.car_weather_snowy);
+        if (code >= 80 && code <= 82) return context.getString(app.organicmaps.R.string.car_weather_showers);
+        if (code >= 95) return context.getString(app.organicmaps.R.string.car_weather_storm);
+        return context.getString(app.organicmaps.R.string.car_weather_unknown);
     }
 
     private int getIconResource(String iconName) {

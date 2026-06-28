@@ -23,7 +23,7 @@ public class DirectionWidget extends BaseWidget implements TelemetryManager.Tele
     private final MwmApplication app;
 
     public DirectionWidget(@NonNull Context context, @NonNull MwmApplication app) {
-        super(context, "compass", "Yon");
+        super(context, "compass", context.getString(app.organicmaps.R.string.car_widget_compass));
         this.app = app;
         this.order = 2;
     }
@@ -58,7 +58,7 @@ public class DirectionWidget extends BaseWidget implements TelemetryManager.Tele
 
         // Label
         labelText = new TextView(context);
-        labelText.setText("YON");
+        labelText.setText(context.getString(app.organicmaps.R.string.car_widget_compass_label));
         labelText.setTextColor(android.graphics.Color.LTGRAY);
         labelText.setTextSize(12);
         labelText.setGravity(Gravity.CENTER);
@@ -88,7 +88,7 @@ public class DirectionWidget extends BaseWidget implements TelemetryManager.Tele
         if (directionText != null) {
             int bearing = (int) loc.bearing;
             String direction = getDirectionString(bearing);
-            String text = direction + " " + bearing + "Â°";
+            String text = direction + " " + bearing + "Ã‚Â°";
             directionText.post(() -> directionText.setText(text));
         }
     }
@@ -98,21 +98,21 @@ public class DirectionWidget extends BaseWidget implements TelemetryManager.Tele
      */
     private String getDirectionString(int bearing) {
         if (bearing >= 337.5 || bearing < 22.5)
-            return "K"; // Kuzey
+            return context.getString(app.organicmaps.R.string.car_compass_n);
         if (bearing >= 22.5 && bearing < 67.5)
-            return "KD"; // Kuzeydogu
+            return context.getString(app.organicmaps.R.string.car_compass_ne);
         if (bearing >= 67.5 && bearing < 112.5)
-            return "D"; // Dogu
+            return context.getString(app.organicmaps.R.string.car_compass_e);
         if (bearing >= 112.5 && bearing < 157.5)
-            return "GD"; // Guneydogu
+            return context.getString(app.organicmaps.R.string.car_compass_se);
         if (bearing >= 157.5 && bearing < 202.5)
-            return "G"; // Guney
+            return context.getString(app.organicmaps.R.string.car_compass_s);
         if (bearing >= 202.5 && bearing < 247.5)
-            return "GB"; // Guneybati
+            return context.getString(app.organicmaps.R.string.car_compass_sw);
         if (bearing >= 247.5 && bearing < 292.5)
-            return "B"; // Bati
+            return context.getString(app.organicmaps.R.string.car_compass_w);
         if (bearing >= 292.5 && bearing < 337.5)
-            return "KB"; // Kuzeybati
+            return context.getString(app.organicmaps.R.string.car_compass_nw);
         return "";
     }
 

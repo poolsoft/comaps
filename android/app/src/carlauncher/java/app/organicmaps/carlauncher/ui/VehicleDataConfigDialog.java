@@ -49,7 +49,7 @@ public class VehicleDataConfigDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), android.R.style.Theme_DeviceDefault_Dialog));
-        builder.setTitle("Arac Veri Kaynagi Secimi");
+        builder.setTitle(R.string.car_obd_title);
 
         ScrollView scrollView = new ScrollView(getContext());
         LinearLayout layout = new LinearLayout(getContext());
@@ -62,12 +62,12 @@ public class VehicleDataConfigDialog extends DialogFragment {
         List<String> selectedItems = new ArrayList<>(Arrays.asList(currentConfig.split(",")));
 
         // Create Checkboxes
-        CheckBox cbRpm = createCheckBox("Motor Devri (RPM)", KEY_RPM, selectedItems);
-        CheckBox cbSpeed = createCheckBox("HÄ±z (OBD/GPS)", KEY_SPEED, selectedItems);
-        CheckBox cbTemp = createCheckBox("Motor Suyu SÄ±caklÄ±ÄŸÄ±", KEY_TEMP, selectedItems);
-        CheckBox cbVolt = createCheckBox("AkÃ¼ VoltajÄ±", KEY_VOLT, selectedItems);
-        CheckBox cbLoad = createCheckBox("Motor YÃ¼kÃ¼ (%)", KEY_LOAD, selectedItems);
-        CheckBox cbIntake = createCheckBox("Hava GiriÅŸ SÄ±caklÄ±ÄŸÄ±", KEY_INTAKE, selectedItems);
+        CheckBox cbRpm = createCheckBox(getString(R.string.car_obd_rpm), KEY_RPM, selectedItems);
+        CheckBox cbSpeed = createCheckBox(getString(R.string.car_obd_speed), KEY_SPEED, selectedItems);
+        CheckBox cbTemp = createCheckBox(getString(R.string.car_obd_temp), KEY_TEMP, selectedItems);
+        CheckBox cbVolt = createCheckBox(getString(R.string.car_obd_voltage), KEY_VOLT, selectedItems);
+        CheckBox cbLoad = createCheckBox(getString(R.string.car_obd_engine_load), KEY_LOAD, selectedItems);
+        CheckBox cbIntake = createCheckBox(getString(R.string.car_obd_intake), KEY_INTAKE, selectedItems);
         
         layout.addView(cbRpm);
         layout.addView(cbSpeed);
@@ -79,7 +79,7 @@ public class VehicleDataConfigDialog extends DialogFragment {
         scrollView.addView(layout);
         builder.setView(scrollView);
 
-        builder.setPositiveButton("Kaydet", (dialog, which) -> {
+        builder.setPositiveButton(R.string.car_save, (dialog, which) -> {
             List<String> newItems = new ArrayList<>();
             if (cbRpm.isChecked()) newItems.add(KEY_RPM);
             if (cbSpeed.isChecked()) newItems.add(KEY_SPEED);
@@ -95,11 +95,11 @@ public class VehicleDataConfigDialog extends DialogFragment {
                 // if (widget instanceof app.organicmaps.carlauncher.widgets.OBDWidget) {
                 //      ((app.organicmaps.carlauncher.widgets.OBDWidget) widget).updateFromConfig();
                 // }
-                Toast.makeText(getContext(), "Ayarlar kaydedildi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.car_obd_save_success, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Ä°ptal", null);
+        builder.setNegativeButton(R.string.car_music_cancel, null);
 
         return builder.create();
     }

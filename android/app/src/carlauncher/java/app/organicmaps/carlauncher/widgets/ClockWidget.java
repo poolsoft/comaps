@@ -52,7 +52,7 @@ public class ClockWidget extends BaseWidget implements WeatherManager.WeatherLis
     private WeatherManager.WeatherData lastWeatherData;
 
     public ClockWidget(@NonNull Context context) {
-        super(context, "smart_clock", "AkÄ±llÄ± Saat");
+        super(context, "smart_clock", context.getString(app.organicmaps.R.string.car_widget_classic_clock));
         init();
     }
 

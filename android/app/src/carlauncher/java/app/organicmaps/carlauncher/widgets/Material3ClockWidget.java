@@ -33,7 +33,7 @@ public class Material3ClockWidget extends BaseWidget {
     private Runnable updateRunnable;
 
     public Material3ClockWidget(@NonNull Context context) {
-        super(context, "clock", "Saat (M3)");
+        super(context, "clock", context.getString(app.organicmaps.R.string.car_widget_digital_clock));
         this.hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         this.minuteFormat = new SimpleDateFormat("mm", Locale.getDefault());
          // E.g. "Pazartesi, 30 AralÄ±k"

@@ -43,7 +43,7 @@ public class SpeedWidget extends BaseWidget implements TelemetryManager.Telemetr
     private LinearLayout limitContainer;
 
     public SpeedWidget(@NonNull Context context, @NonNull MwmApplication app) {
-        super(context, "speed", "Hiz Gostergesi");
+        super(context, "speed", context.getString(app.organicmaps.R.string.car_widget_speed));
         this.app = app;
         this.order = 1;
     }

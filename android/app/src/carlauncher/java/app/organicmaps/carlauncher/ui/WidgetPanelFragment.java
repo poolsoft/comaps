@@ -668,7 +668,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                     intent.setType("image/*");
                     startActivityForResult(intent, RC_SELECT_WALLPAPER);
                 } catch (Exception e) {
-                    android.widget.Toast.makeText(getContext(), "Dosya secici acilamadi", android.widget.Toast.LENGTH_SHORT).show();
+                    android.widget.Toast.makeText(getContext(), getString(app.organicmaps.R.string.car_wallpaper_error_picker), android.widget.Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -706,6 +706,5 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         }
     }
 }
-
 
 

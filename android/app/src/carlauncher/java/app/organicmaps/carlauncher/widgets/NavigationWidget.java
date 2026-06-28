@@ -30,7 +30,7 @@ public class NavigationWidget extends BaseWidget implements TelemetryManager.Tel
     private final MwmApplication app;
 
     public NavigationWidget(@NonNull Context context, @NonNull MwmApplication app) {
-        super(context, "navigation", "Navigasyon");
+        super(context, "navigation", context.getString(app.organicmaps.R.string.car_widget_navigation));
         this.app = app;
         this.order = 3; // Hiz/yon'den sonra
     }
@@ -54,7 +54,7 @@ public class NavigationWidget extends BaseWidget implements TelemetryManager.Tel
 
         // Label
         TextView label = new TextView(context);
-        label.setText("NAVIGASYON");
+        label.setText(context.getString(app.organicmaps.R.string.car_widget_nav_label));
         label.setTextColor(Color.LTGRAY);
         label.setTextSize(12);
         label.setGravity(Gravity.CENTER);
@@ -141,7 +141,7 @@ public class NavigationWidget extends BaseWidget implements TelemetryManager.Tel
 
     private void showNoNavigation() {
         if (distanceText != null) distanceText.post(() -> distanceText.setText("--"));
-        if (instructionText != null) instructionText.post(() -> instructionText.setText("Navigasyon yok"));
+        if (instructionText != null) instructionText.post(() -> instructionText.setText(context.getString(app.organicmaps.R.string.car_widget_nav_no_navigation)));
         if (etaText != null) etaText.post(() -> etaText.setText(""));
         if (turnIconView != null) turnIconView.post(() -> turnIconView.setVisibility(View.GONE));
     }

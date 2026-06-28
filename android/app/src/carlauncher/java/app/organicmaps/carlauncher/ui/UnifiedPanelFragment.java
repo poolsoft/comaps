@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Date;
 
 /**
- * Birlesik MÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼zik ve Arama/Bildirim Paneli.
+ * Birlesik Muzik ve Arama/Bildirim Paneli.
  * Normal modda sag taraftaki panelde gosterilir.
  */
 public class UnifiedPanelFragment extends Fragment 
@@ -125,7 +125,7 @@ public class UnifiedPanelFragment extends Fragment
     }
 
     private void setupListeners() {
-        // Muzik alanÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â± tiklandiginda buyuk oynaticiyi ac
+        // Muzik alani tiklandiginda buyuk oynaticiyi ac
         if (musicArea != null) {
             musicArea.setOnClickListener(v -> {
                 if (getActivity() instanceof CarLauncherInterface) {
@@ -169,11 +169,11 @@ public class UnifiedPanelFragment extends Fragment
         
         android.widget.PopupMenu popup = new android.widget.PopupMenu(getContext(), anchor);
         
-        popup.getMenu().add(0, 1, 0, "Harita Modu");
-        popup.getMenu().add(0, 2, 1, "Masaustu Modu");
-        popup.getMenu().add(0, 3, 2, "Ayarlar");
-        popup.getMenu().add(0, 4, 3, "EkranÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â± Kapat");
-        popup.getMenu().add(0, 5, 4, "HafÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â±zayÃƒÆ’Ã¢â‚¬ÂÃƒâ€šÃ‚Â± Temizle (RAM)");
+        popup.getMenu().add(0, 1, 0, getContext().getString(R.string.car_panel_map_mode));
+        popup.getMenu().add(0, 2, 1, getContext().getString(R.string.car_panel_desktop_mode));
+        popup.getMenu().add(0, 3, 2, getContext().getString(R.string.car_panel_settings));
+        popup.getMenu().add(0, 4, 3, getContext().getString(R.string.car_panel_turn_off_screen));
+        popup.getMenu().add(0, 5, 4, getContext().getString(R.string.car_panel_clear_ram));
         
         popup.setOnMenuItemClickListener(item -> {
             if (getActivity() instanceof app.organicmaps.MwmActivity) {
@@ -207,7 +207,7 @@ public class UnifiedPanelFragment extends Fragment
     private void showNotificationCard(String title, String message, String type) {
         if (cardNotification == null) return;
         
-        if (notifTitle != null) notifTitle.setText(title != null ? title : "Bildirim");
+        if (notifTitle != null) notifTitle.setText(title != null ? title : getContext().getString(R.string.car_panel_notification));
         if (notifMessage != null) notifMessage.setText(message != null ? message : "");
         
         if (notifIcon != null) {
@@ -275,7 +275,7 @@ public class UnifiedPanelFragment extends Fragment
 
     @Override
     public void onTrackChanged(String title, String artist, Bitmap albumArt, String packageName) {
-        if (musicTrackTitle != null) musicTrackTitle.setText(title != null ? title : "Parca Secin");
+        if (musicTrackTitle != null) musicTrackTitle.setText(title != null ? title : getContext().getString(R.string.car_panel_select_track));
         if (musicTrackArtist != null) musicTrackArtist.setText(artist != null ? artist : "");
 
         if (albumArt != null) {

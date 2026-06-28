@@ -2,6 +2,7 @@ package app.organicmaps.carlauncher.ui;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import app.organicmaps.R;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -39,7 +40,7 @@ public class UpdaterHelper {
 
     public static void checkUpdates(Context context, boolean showToastIfLatest) {
         if (isDownloading) {
-            Toast.makeText(context, "Guncelleme indirme islemi zaten devam ediyor...", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.car_update_downloading_in_progress), Toast.LENGTH_LONG).show();
             return;
         }
         Executors.newSingleThreadExecutor().execute(() -> {
@@ -96,14 +97,14 @@ public class UpdaterHelper {
                     if (latestVersionCode > currentVersionCode) {
                         showUpdateDialog(context, latestVersionName, apkUrl);
                     } else if (showToastIfLatest) {
-                        Toast.makeText(context, "Uygulama guncel (v" + pInfo.versionName + ")", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.car_update_app_up_to_date, pInfo.versionName), Toast.LENGTH_SHORT).show();
                     }
                 });
 
             } catch (Exception e) {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     if (showToastIfLatest) {
-                        Toast.makeText(context, "Guncelleme kontrolu basarisiz", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.car_update_check_failed), Toast.LENGTH_SHORT).show();
                     }
                     android.util.Log.e("Updater", "Check update error", e);
                 });
@@ -113,16 +114,16 @@ public class UpdaterHelper {
 
     private static void showUpdateDialog(Context context, String versionName, String apkUrl) {
         new AlertDialog.Builder(context)
-                .setTitle("Yeni Surum Mevcut!")
-                .setMessage("CoMaps Auto v" + versionName + " indirilebilir. Guncellemek istiyor musunuz?")
-                .setPositiveButton("Indir ve Yukle", (dialog, which) -> downloadAndInstallApk(context, apkUrl, versionName))
-                .setNegativeButton("Daha Sonra", null)
+                .setTitle(context.getString(R.string.car_update_new_version_available))
+                .setMessage(context.getString(R.string.car_update_dialog_message, versionName))
+                .setPositiveButton(context.getString(R.string.car_update_download_install), (dialog, which) -> downloadAndInstallApk(context, apkUrl, versionName))
+                .setNegativeButton(context.getString(R.string.car_update_later), null)
                 .show();
     }
 
     private static void downloadAndInstallApk(Context context, String url, String versionName) {
         if (isDownloading) {
-            Toast.makeText(context, "Guncelleme indirme islemi zaten devam ediyor...", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.car_update_downloading_in_progress), Toast.LENGTH_LONG).show();
             return;
         }
         isDownloading = true;
@@ -141,8 +142,8 @@ public class UpdaterHelper {
         }
 
         ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("CoMaps Auto Guncelleniyor");
-        progressDialog.setMessage("Yeni surum indiriliyor, lutfen bekleyin...");
+        progressDialog.setTitle(context.getString(R.string.car_update_title));
+        progressDialog.setMessage(context.getString(R.string.car_update_downloading_msg));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setCancelable(false);
         progressDialog.setMax(100);
@@ -230,7 +231,7 @@ public class UpdaterHelper {
                     if (progressDialog.isShowing()) {
                         progressDialog.dismiss();
                     }
-                    Toast.makeText(context, "Indirme tamamlandi. Kuruluma geciliyor...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.car_update_download_complete), Toast.LENGTH_SHORT).show();
                     installApkDirectly(context, finalApk);
                 });
 
@@ -243,7 +244,7 @@ public class UpdaterHelper {
                     if (progressDialog.isShowing()) {
                         progressDialog.dismiss();
                     }
-                    Toast.makeText(context, "Indirme basarisiz oldu: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, context.getString(R.string.car_update_download_failed, e.getMessage()), Toast.LENGTH_LONG).show();
                 });
                 android.util.Log.e("Updater", "Download error", e);
             }
@@ -253,7 +254,7 @@ public class UpdaterHelper {
     private static void installApkDirectly(Context context, File apkFile) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!context.getPackageManager().canRequestPackageInstalls()) {
-                Toast.makeText(context, "Uygulama yukleme izni verilmelidir. Ayarlar aciliyor...", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.car_update_install_permission_required), Toast.LENGTH_LONG).show();
                 try {
                     Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
                     intent.setData(Uri.parse("package:" + context.getPackageName()));
@@ -284,7 +285,7 @@ public class UpdaterHelper {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 } else {
-                    Toast.makeText(context, "Guncelleme dosyasi URI'si olusturulamadi", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, context.getString(R.string.car_update_uri_creation_failed), Toast.LENGTH_LONG).show();
                 }
             } else {
                 Uri apkUri = Uri.fromFile(apkFile);
@@ -294,7 +295,7 @@ public class UpdaterHelper {
                 context.startActivity(intent);
             }
         } else {
-            Toast.makeText(context, "Indirilen APK dosyasi bulunamadi", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.car_update_apk_not_found), Toast.LENGTH_LONG).show();
         }
     }
 }

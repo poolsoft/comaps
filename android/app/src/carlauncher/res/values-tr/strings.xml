@@ -121,4 +121,124 @@
     <string name="notification_permission_required_message">Harici müzik uygulamalarını kontrol etmek için Bildirim Erişimi izni gereklidir. Ayarlara gidip açmak ister misiniz?</string>
     <string name="go_to_settings">Ayarlara Git</string>
     <string name="car_cancel">İptal</string>
+
+    <!-- Unified Panel -->
+    <string name="car_panel_map_mode">Harita Modu</string>
+    <string name="car_panel_desktop_mode">Masaüstü Modu</string>
+    <string name="car_panel_settings">Ayarlar</string>
+    <string name="car_panel_turn_off_screen">Ekranı Kapat</string>
+    <string name="car_panel_clear_ram">Hafızayı Temizle (RAM)</string>
+    <string name="car_panel_notification">Bildirim</string>
+    <string name="car_panel_select_track">Parça Seçin</string>
+
+    <!-- Updater -->
+    <string name="car_update_downloading_in_progress">Güncelleme indirme işlemi zaten devam ediyor...</string>
+    <string name="car_update_app_up_to_date">Uygulama güncel (v%1$s)</string>
+    <string name="car_update_check_failed">Güncelleme kontrolü başarısız</string>
+    <string name="car_update_new_version_available">Yeni Sürüm Mevcut!</string>
+    <string name="car_update_dialog_message">CoMaps Auto v%1$s indirilebilir. Güncellemek istiyor musunuz?</string>
+    <string name="car_update_download_install">İndir ve Yükle</string>
+    <string name="car_update_later">Daha Sonra</string>
+    <string name="car_update_title">CoMaps Auto Güncelleniyor</string>
+    <string name="car_update_downloading_msg">Yeni sürüm indiriliyor, lütfen bekleyin...</string>
+    <string name="car_update_download_complete">İndirme tamamlandı. Kuruluma geçiliyor...</string>
+    <string name="car_update_download_failed">İndirme başarısız oldu: %1$s</string>
+    <string name="car_update_install_permission_required">Uygulama yükleme izni verilmelidir. Ayarlar açılıyor...</string>
+    <string name="car_update_uri_creation_failed">Güncelleme dosyası URI\'si oluşturulamadı</string>
+    <string name="car_update_apk_not_found">İndirilen APK dosyası bulunamadı</string>
+
+    <!-- OBD / Vehicle -->
+    <string name="car_obd_voltage">Akü Voltajı</string>
+    <string name="car_obd_engine_load">Motor Yükü (%)</string>
+
+    <!-- Settings Additional -->
+    <string name="car_settings_list_default">Liste (Varsayılan)</string>
+    <string name="car_settings_carousel">Sayfalı (Carousel)</string>
+    <string name="car_settings_widget_refresh_msg">Görünüm değişikliği için widget paneli yenilenecek</string>
+    <string name="car_settings_draw_overlays_permission">Lütfen \'Diğer uygulamaların üzerinde göster\' iznini verin.</string>
+    <string name="car_settings_equalizer_not_found">Equalizer bulunamadı</string>
+    <string name="car_settings_reset_dock_title">Dock\'u Sıfırla</string>
+    <string name="car_settings_reset_dock_msg">Tüm uygulama kısayolları silinecek. Emin misiniz?</string>
+    <string name="car_settings_reset_dock_confirm">Sıfırla</string>
+    <string name="car_settings_dock_reset_success">Dock sıfırlandı</string>
+    <string name="car_settings_autolaunch_select_hint">Seçmek için metne tıklayın</string>
+    <string name="car_settings_file_picker_error">Dosya seçici açılamadı</string>
+    <string name="car_settings_restore_type">Geri Yükleme Türü</string>
+    <string name="car_settings_restore_from_folder">Klasörden geri yükle</string>
+    <string name="car_settings_restore_from_zip">ZIP dosyasından geri yükle</string>
+    <string name="car_settings_please_wait">Lütfen Bekleyin</string>
+    <string name="car_settings_browser_error">Tarayıcı açılamadı</string>
+
+    <!-- ===================== -->
+    <!-- Widget Display Names  -->
+    <!-- ===================== -->
+    <string name="car_widget_speed">Hız Göstergesi</string>
+    <string name="car_widget_music">Müzik Çalar</string>
+    <string name="car_widget_navigation">Navigasyon</string>
+    <string name="car_widget_compass">Pusula</string>
+    <string name="car_widget_digital_clock">Dijital Saat (M3)</string>
+    <string name="car_widget_classic_clock">Klasik Saat</string>
+    <string name="car_widget_weather">Hava Durumu</string>
+    <string name="car_widget_obd">OBD Bilgileri</string>
+
+    <!-- Navigation Widget Strings -->
+    <string name="car_widget_nav_label">NAVİGASYON</string>
+    <string name="car_widget_nav_no_navigation">Navigasyon yok</string>
+
+    <!-- Music Widget Strings -->
+    <string name="car_widget_music_select">Müzik Seçin</string>
+
+    <!-- Compass Widget Strings -->
+    <string name="car_widget_compass_label">YÖN</string>
+
+    <!-- Weather Widget Strings -->
+    <string name="car_widget_weather_location">Konum</string>
+
+    <!-- Weather Descriptions -->
+    <string name="car_weather_clear">Açık</string>
+    <string name="car_weather_partly_cloudy">Parçalı Bulutlu</string>
+    <string name="car_weather_foggy">Sisli</string>
+    <string name="car_weather_rainy">Yağmurlu</string>
+    <string name="car_weather_snowy">Karlı</string>
+    <string name="car_weather_showers">Sağanak</string>
+    <string name="car_weather_storm">Fırtına</string>
+    <string name="car_weather_unknown">Bilinmiyor</string>
+
+    <!-- Compass Direction Strings -->
+    <string name="car_compass_n">K</string>
+    <string name="car_compass_ne">KD</string>
+    <string name="car_compass_e">D</string>
+    <string name="car_compass_se">GD</string>
+    <string name="car_compass_s">G</string>
+    <string name="car_compass_sw">GB</string>
+    <string name="car_compass_w">B</string>
+    <string name="car_compass_nw">KB</string>
+
+    <!-- Settings: Backup Dialog -->
+    <string name="car_backup_type_title">Yedekleme Türü</string>
+    <string name="car_backup_type_folder">Klasör olarak kaydet (Hızlı, Önerilen)</string>
+    <string name="car_backup_type_zip">ZIP olarak kaydet (Tek Dosya)</string>
+
+    <!-- Settings: Wallpaper -->
+    <string name="car_wallpaper_picker_title">Duvar Kağıdı Seçin</string>
+    <string name="car_wallpaper_error_picker">Dosya seçici açılamadı</string>
+    <string name="car_wallpaper_error_system">Sistem duvar kağıdı seçicisi açılamadı</string>
+
+    <!-- OBD Config Dialog Additional -->
+    <string name="car_obd_title">Araç Veri Kaynağı Seçimi</string>
+    <string name="car_obd_rpm">Motor Devri (RPM)</string>
+    <string name="car_obd_speed">Hız (OBD/GPS)</string>
+    <string name="car_obd_temp">Motor Suyu Sıcaklığı</string>
+    <string name="car_obd_intake">Hava Giriş Sıcaklığı</string>
+    <string name="car_obd_save_success">Ayarlar kaydedildi</string>
+    <string name="car_save">Kaydet</string>
+    <string name="car_settings_theme_restart">Tema değişikliği uygulamanın yeniden başlatılmasını gerektirir</string>
+    <string name="car_settings_widget_manager_edit">Widget ayarları üst panelde düzenlenir</string>
+    <string name="car_settings_backup_success">İşlem başarıyla tamamlandı!</string>
+    <string name="car_settings_backup_starting">İşlem başlatılıyor...</string>
+    <string name="car_settings_assistant_copying_model">Model dosyası kopyalanıyor, lütfen bekleyin...</string>
+    <string name="car_settings_error_generic">Hata: %1$s</string>
+    <string name="car_settings_voice_model_success">Ses modeli başarıyla kuruldu! Servis yeniden başlatılıyor...</string>
+    <string name="car_settings_voice_model_error">Ses modeli yüklenemedi!</string>
 </resources>
+

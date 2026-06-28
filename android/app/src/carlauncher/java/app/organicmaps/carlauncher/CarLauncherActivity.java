@@ -171,6 +171,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
         
         applyStatusBarVisibility();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyStatusBarVisibility();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyStatusBarVisibility();
+        }
+    }
     }
 
     private void updateCarWidgetPanelSize(float rawX, float rawY) {
@@ -252,6 +266,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         
         applyStatusBarVisibility();
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyStatusBarVisibility();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyStatusBarVisibility();
+        }
+    }
+
         app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this).setAppInForeground(true);
     }
 
@@ -260,6 +288,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             applyStatusBarVisibility();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyStatusBarVisibility();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyStatusBarVisibility();
+        }
+    }
         }
     }
 
@@ -442,6 +484,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public void applyStatusBarVisibility() {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        applyStatusBarVisibility();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyStatusBarVisibility();
+        }
+    }
         CarLauncherSettings settings = new CarLauncherSettings(this);
         boolean showStatusBar = settings.isStatusBarVisible();
         if (showStatusBar) {

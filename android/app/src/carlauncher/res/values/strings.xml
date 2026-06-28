@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Music Player Strings -->
     <string name="car_music_select_playlist">Select...</string>
@@ -121,4 +121,68 @@
     <string name="notification_permission_required_message">Notification Access is required to control external music apps. Do you want to go to settings to enable it?</string>
     <string name="go_to_settings">Go to Settings</string>
     <string name="car_cancel">Cancel</string>
+
+    <!-- Unified Panel -->
+    <string name="car_panel_map_mode">Map Mode</string>
+    <string name="car_panel_desktop_mode">Desktop Mode</string>
+    <string name="car_panel_settings">Settings</string>
+    <string name="car_panel_turn_off_screen">Turn Off Screen</string>
+    <string name="car_panel_clear_ram">Clear Memory (RAM)</string>
+    <string name="car_panel_notification">Notification</string>
+    <string name="car_panel_select_track">Select Track</string>
+
+    <!-- Updater -->
+    <string name="car_update_downloading_in_progress">Update download is already in progress...</string>
+    <string name="car_update_app_up_to_date">Application is up to date (v%1$s)</string>
+    <string name="car_update_check_failed">Update check failed</string>
+    <string name="car_update_new_version_available">New Version Available!</string>
+    <string name="car_update_dialog_message">CoMaps Auto v%1$s is available. Do you want to update?</string>
+    <string name="car_update_download_install">Download and Install</string>
+    <string name="car_update_later">Later</string>
+    <string name="car_update_title">CoMaps Auto Updating</string>
+    <string name="car_update_downloading_msg">New version is downloading, please wait...</string>
+    <string name="car_update_download_complete">Download complete. Installing...</string>
+    <string name="car_update_download_failed">Download failed: %1$s</string>
+    <string name="car_update_install_permission_required">Install permission must be granted. Settings is opening...</string>
+    <string name="car_update_uri_creation_failed">Update file URI could not be created</string>
+    <string name="car_update_apk_not_found">Downloaded APK file not found</string>
+
+    <!-- OBD / Vehicle -->
+    <string name="car_obd_voltage">Battery Voltage</string>
+    <string name="car_obd_engine_load">Engine Load (%)</string>
+
+    <!-- Settings Additional -->
+    <string name="car_settings_list_default">List (Default)</string>
+    <string name="car_settings_carousel">Pages (Carousel)</string>
+    <string name="car_settings_widget_refresh_msg">Widget panel will be refreshed for layout mode change</string>
+    <string name="car_settings_draw_overlays_permission">Please grant \'Display over other apps\' permission.</string>
+    <string name="car_settings_equalizer_not_found">Equalizer not found</string>
+    <string name="car_settings_reset_dock_title">Reset Dock</string>
+    <string name="car_settings_reset_dock_msg">All app shortcuts will be deleted. Are you sure?</string>
+    <string name="car_settings_reset_dock_confirm">Reset</string>
+    <string name="car_settings_dock_reset_success">Dock is reset</string>
+    <string name="car_settings_autolaunch_select_hint">Click text to select</string>
+    <string name="car_settings_file_picker_error">File picker could not be opened</string>
+    <string name="car_settings_restore_type">Restore Type</string>
+    <string name="car_settings_restore_from_folder">Restore from folder</string>
+    <string name="car_settings_restore_from_zip">Restore from ZIP file</string>
+    <string name="car_settings_please_wait">Please Wait</string>
+    <string name="car_settings_browser_error">Browser could not be opened</string>
+
+    <!-- OBD Config Dialog Additional -->
+    <string name="car_obd_title">Vehicle Data Source Selection</string>
+    <string name="car_obd_rpm">Engine RPM (RPM)</string>
+    <string name="car_obd_speed">Speed (OBD/GPS)</string>
+    <string name="car_obd_temp">Coolant Temperature</string>
+    <string name="car_obd_intake">Intake Air Temperature</string>
+    <string name="car_obd_save_success">Settings saved</string>
+    <string name="car_save">Save</string>
+    <string name="car_settings_theme_restart">Theme change requires app restart</string>
+    <string name="car_settings_widget_manager_edit">Widget settings are edited in the top panel</string>
+    <string name="car_settings_backup_success">Operation completed successfully!</string>
+    <string name="car_settings_backup_starting">Operation is starting...</string>
+    <string name="car_settings_assistant_copying_model">Model file is copying, please wait...</string>
+    <string name="car_settings_error_generic">Error: %1$s</string>
+    <string name="car_settings_voice_model_success">Voice model successfully installed! Service is restarting...</string>
+    <string name="car_settings_voice_model_error">Voice model could not be loaded!</string>
 </resources>

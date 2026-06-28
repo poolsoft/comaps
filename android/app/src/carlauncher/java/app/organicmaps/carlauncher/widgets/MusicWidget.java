@@ -38,7 +38,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
     private final MusicManager musicManager;
 
     public MusicWidget(@NonNull Context context, @NonNull MwmApplication app) {
-        super(context, "music", "Muzik");
+        super(context, "music", context.getString(app.organicmaps.R.string.car_widget_music));
         this.musicManager = MusicManager.getInstance(context);
         this.order = 3;
     }
@@ -256,7 +256,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         if (rootView != null) {
             rootView.post(() -> {
                 if (statusText != null)
-                    statusText.setText(title != null ? title : "MÃ¼zik SeÃ§in");
+                    statusText.setText(title != null ? title : context.getString(app.organicmaps.R.string.car_widget_music_select));
                 if (artistText != null)
                     artistText.setText(artist != null ? artist : "");
 

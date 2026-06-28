@@ -166,7 +166,7 @@ public class WidgetControlDialog extends DialogFragment {
                 adapter.notifyItemInserted(editingList.size() - 1);
             }
         });
-        builder.setNegativeButton("Ã„Â°ptal", null);
+        builder.setNegativeButton(R.string.car_music_cancel, null);
         builder.show();
     }
 

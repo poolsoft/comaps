@@ -249,8 +249,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 allCategories.add(cat);
                 addCategoryToMenu(cat);
                 
-                // SaÃ„Å¸ panelde (Detay) bu Kategori baÃ…Å¸lÃ„Â±Ã„Å¸Ã„Â±nÃ„Â±n gereksiz yer/padding kaplamamasÃ„Â± iÃƒÂ§in siliyoruz.
-                // Sol menÃƒÂ¼ye (Master) baÃ…Å¸lÃ„Â±k ve ikon kopyalandÃ„Â±Ã„Å¸Ã„Â± iÃƒÂ§in orasÃ„Â± etkilenmez.
+                // SaÃƒâ€Ã…Â¸ panelde (Detay) bu Kategori baÃƒâ€¦Ã…Â¸lÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â±nÃƒâ€Ã‚Â±n gereksiz yer/padding kaplamamasÃƒâ€Ã‚Â± iÃƒÆ’Ã‚Â§in siliyoruz.
+                // Sol menÃƒÆ’Ã‚Â¼ye (Master) baÃƒâ€¦Ã…Â¸lÃƒâ€Ã‚Â±k ve ikon kopyalandÃƒâ€Ã‚Â±Ãƒâ€Ã…Â¸Ãƒâ€Ã‚Â± iÃƒÆ’Ã‚Â§in orasÃƒâ€Ã‚Â± etkilenmez.
                 cat.setTitle(null);
                 cat.setIcon(null);
                 cat.setIconSpaceReserved(false);
@@ -352,9 +352,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
 
 
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-    // GÃƒâ€“RÃƒÅ“NÃƒÅ“M AYARLARI
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+    // ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
+    // GÃƒÆ’Ã¢â‚¬â€œRÃƒÆ’Ã…â€œNÃƒÆ’Ã…â€œM AYARLARI
+    // ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
 
     private void setupAppearancePrefs() {
         // Status Bar
@@ -371,7 +371,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         SwitchPreferenceCompat themePref = findPreference(CarLauncherSettings.KEY_DARK_THEME);
         if (themePref != null) {
             themePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                Toast.makeText(getContext(), "Tema degisikligi uygulamanin yeniden baslatilmasini gerektirir",
+                Toast.makeText(getContext(), getString(R.string.car_settings_theme_restart),
                         Toast.LENGTH_SHORT).show();
                 return true;
             });
@@ -380,7 +380,10 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         // Widget Display Mode
         androidx.preference.ListPreference displayModePref = findPreference(CarLauncherSettings.KEY_WIDGET_DISPLAY_MODE);
         if (displayModePref != null) {
-            displayModePref.setEntries(new CharSequence[]{"Liste (VarsayÃ„Â±lan)", "SayfalÃ„Â± (Carousel)"});
+            displayModePref.setEntries(new CharSequence[]{
+                    getString(R.string.car_settings_list_default),
+                    getString(R.string.car_settings_carousel)
+            });
             displayModePref.setEntryValues(new CharSequence[]{"0", "1"});
             displayModePref.setOnPreferenceChangeListener((preference, newValue) -> {
                 CarLauncherSettings settings = new CarLauncherSettings(getContext());
@@ -390,7 +393,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setWidgetDisplayMode(0);
                 }
 
-                Toast.makeText(getContext(), "GÃƒÂ¶rÃƒÂ¼nÃƒÂ¼m deÃ„Å¸iÃ…Å¸ikliÃ„Å¸i iÃƒÂ§in widget paneli yenilenecek",
+                Toast.makeText(getContext(), getString(R.string.car_settings_widget_mode_restart),
                         Toast.LENGTH_SHORT).show();
                 
                  if (getActivity() != null) {
@@ -406,7 +409,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (widgetPref != null) {
             widgetPref.setOnPreferenceClickListener(preference -> {
                 if (getContext() != null) {
-                    Toast.makeText(getContext(), "Widget ayarlari ust panelde duzenlenir", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.car_settings_widget_manager_edit), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -435,12 +438,12 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 boolean val = (Boolean) newValue;
                 if (val && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     if (getContext() != null && !android.provider.Settings.canDrawOverlays(getContext())) {
-                        android.widget.Toast.makeText(getContext(), "Lütfen 'Diğer uygulamaların üzerinde göster' iznini verin.", android.widget.Toast.LENGTH_LONG).show();
+                        android.widget.Toast.makeText(getContext(), getString(R.string.car_settings_draw_overlays_permission), android.widget.Toast.LENGTH_LONG).show();
                         android.content.Intent intent = new android.content.Intent(
                                 android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                 android.net.Uri.parse("package:" + getContext().getPackageName()));
                         startActivity(intent);
-                        return false; // Toggle'ın açılmasını engelle
+                        return false; 
                     }
                 }
                 if (settings != null) {
@@ -474,7 +477,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setFloatingButtonSize(val);
                 }
                 if (getContext() != null) {
-                    // Boyut degisikligini anlik yansitmak icin butonu kapatip aciyoruz
                     CarFloatingButtonManager mgr = CarFloatingButtonManager.getInstance(getContext());
                     mgr.hideButton();
                     mgr.updateButtonState();
@@ -483,7 +485,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Gece karartma modu (Turkce karakter yok)
+        // Gece karartma modu
         androidx.preference.ListPreference nightDimModePref = findPreference(CarLauncherSettings.KEY_NIGHT_DIM_MODE);
         if (nightDimModePref != null) {
             nightDimModePref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -533,7 +535,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Yuzen harita (PiP) ayari (Turkce karakter yok)
+        // Yuzen harita (PiP) ayari
         SwitchPreferenceCompat pipPref = findPreference(CarLauncherSettings.KEY_PIP_MODE);
         if (pipPref != null) {
             pipPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -545,7 +547,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Widget Paneli Konumu (Turkce karakter yok)
+        // Widget Paneli Konumu
         androidx.preference.ListPreference panelPositionPref = findPreference(CarLauncherSettings.KEY_WIDGET_PANEL_POSITION);
         if (panelPositionPref != null) {
             panelPositionPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -561,7 +563,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Panel Genisleme Davranisi (Turkce karakter yok)
+        // Panel Genisleme Davranisi
         androidx.preference.ListPreference expansionBehaviorPref = findPreference("car_launcher_expansion_behavior");
         if (expansionBehaviorPref != null) {
             expansionBehaviorPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -593,7 +595,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (langPref != null) {
             SharedPreferences prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
             
-            // Secenekleri ayarla
             langPref.setEntries(new CharSequence[]{
                 getContext().getString(app.organicmaps.R.string.car_settings_lang_system), 
                 getContext().getString(app.organicmaps.R.string.car_settings_lang_turkish), 
@@ -602,7 +603,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
             langPref.setEntryValues(new CharSequence[]{"", "tr", "en", "de"});
             
-            // Mevcut degeri set et
             String current = prefs.getString("pref_app_locale", "");
             langPref.setValue(current);
             
@@ -610,7 +610,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 String val = (String) newValue;
                 prefs.edit().putString("pref_app_locale", val).apply();
                 
-                // Dil guncelle ve yeniden baslat
                 Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_settings_language_updating), Toast.LENGTH_SHORT).show();
                 if (getActivity() != null) {
                     Intent intent = getActivity().getIntent();
@@ -621,10 +620,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
     }
-
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-    // MÃƒÅ“ZÃ„Â°K AYARLARI
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupMusicPrefs() {
         // Music App Picker
@@ -646,16 +641,16 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Muzikleri Yeniden Tara (Turkce karakter yok)
+        // Muzikleri Yeniden Tara
         Preference scanMusicPref = findPreference("car_launcher_scan_music");
         if (scanMusicPref != null) {
             scanMusicPref.setOnPreferenceClickListener(preference -> {
                 if (getContext() != null) {
-                    Toast.makeText(getContext(), "Muzik taramasi baslatildi...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.car_settings_music_scanning), Toast.LENGTH_SHORT).show();
                     MusicManager.getInstance(getContext()).getRepository().scanMusic((tracks, folders, artists) -> {
                         if (getActivity() != null) {
                             getActivity().runOnUiThread(() -> {
-                                Toast.makeText(getContext(), "Tarama tamamlandi. Bulunan sarki: " + tracks.size(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.car_settings_music_scan_results, tracks.size()), Toast.LENGTH_LONG).show();
                             });
                         }
                     });
@@ -664,7 +659,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Ambians gorsellestirici ayari (Turkce karakter yok)
+        // Ambians gorsellestirici ayari
         SwitchPreferenceCompat ambianceVisualizerPref = findPreference(CarLauncherSettings.KEY_AMBIANCE_VISUALIZER);
         if (ambianceVisualizerPref != null) {
             ambianceVisualizerPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -683,13 +678,13 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
         String pkg = settings.getMusicApp();
         if ("internal".equals(pkg)) {
-            pref.setSummary("Dahili Player");
+            pref.setSummary(getString(R.string.car_settings_music_app_internal));
         } else {
             try {
                 PackageManager pm = getContext().getPackageManager();
                 String appName = pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)).toString();
                 pref.setSummary(appName);
-            } catch (PackageManager.NameNotFoundException e) {
+            } catch (Exception e) {
                 pref.setSummary(pkg);
             }
         }
@@ -714,13 +709,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             intent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(getContext(), "Equalizer bulunamadÃ„Â±", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.car_settings_equalizer_not_found), Toast.LENGTH_SHORT).show();
         }
     }
-
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-    // DOCK AYARLARI
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupDockPrefs() {
         androidx.preference.ListPreference dockPosPref = findPreference(CarLauncherSettings.KEY_DOCK_POSITION);
@@ -760,10 +751,10 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private void confirmResetDock() {
         if (getContext() == null) return;
         new AlertDialog.Builder(getContext())
-                .setTitle("Dock'u SÃ„Â±fÃ„Â±rla")
-                .setMessage("TÃƒÂ¼m uygulama kÃ„Â±sayollarÃ„Â± silinecek. Emin misiniz?")
-                .setPositiveButton("SÃ„Â±fÃ„Â±rla", (dialog, which) -> resetDock())
-                .setNegativeButton("Iptal", null)
+                .setTitle(R.string.car_settings_reset_dock_title)
+                .setMessage(R.string.car_settings_reset_dock_msg)
+                .setPositiveButton(R.string.car_settings_reset_dock_confirm, (dialog, which) -> resetDock())
+                .setNegativeButton(R.string.car_music_cancel, null)
                 .show();
     }
 
@@ -773,12 +764,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         dockManager.clearAllShortcuts();
         Intent intent = new Intent("net.osmand.carlauncher.DOCK_UPDATED");
         getContext().sendBroadcast(intent);
-        Toast.makeText(getContext(), "Dock sÃ„Â±fÃ„Â±rlandÃ„Â±", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.car_settings_dock_reset_success), Toast.LENGTH_SHORT).show();
     }
-
-    // Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â 
-    // OTOMATÃ„Â°K BAÃ…ÂžLATMA
-    // Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â Ã¢â€¢Â 
 
     private void setupAutoLaunchPrefs() {
         bindAutoLaunchSlot(1);
@@ -794,7 +781,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             if (settings.getAutoLaunchPackage(slot) != null) {
                 pref.setSummary(appName);
             } else {
-                pref.setSummary("Seçmek için metne tıklayın");
+                pref.setSummary(R.string.car_settings_autolaunch_select_hint);
             }
 
             pref.setOnPreferenceClickListener(preference -> {
@@ -812,10 +799,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
     }
-
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-    // YEDEKLEME
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private static final int RC_BACKUP_EXPORT_FOLDER = 101;
     private static final int RC_BACKUP_EXPORT_ZIP = 102;
@@ -836,8 +819,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (exportPref != null) {
             exportPref.setOnPreferenceClickListener(preference -> {
                 new android.app.AlertDialog.Builder(getContext())
-                    .setTitle("Yedekleme Türü")
-                    .setItems(new CharSequence[]{"Klasör olarak kaydet (Hızlı, Önerilen)", "ZIP olarak kaydet (Tek Dosya)"}, (dialog, which) -> {
+                    .setTitle(getString(app.organicmaps.R.string.car_backup_type_title))
+                    .setItems(new CharSequence[]{getString(app.organicmaps.R.string.car_backup_type_folder), getString(app.organicmaps.R.string.car_backup_type_zip)}, (dialog, which) -> {
                         try {
                             Intent intent;
                             if (which == 0) {
@@ -851,7 +834,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                                 startActivityForResult(intent, RC_BACKUP_EXPORT_ZIP);
                             }
                         } catch (Exception e) {
-                            Toast.makeText(getContext(), "Dosya seçici açılamadı", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
                         }
                     }).show();
                 return true;
@@ -862,8 +845,11 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (importPref != null) {
             importPref.setOnPreferenceClickListener(preference -> {
                 new android.app.AlertDialog.Builder(getContext())
-                    .setTitle("Geri Yükleme Türü")
-                    .setItems(new CharSequence[]{"Klasörden geri yükle", "ZIP dosyasından geri yükle"}, (dialog, which) -> {
+                    .setTitle(R.string.car_settings_restore_type)
+                    .setItems(new CharSequence[]{
+                            getString(R.string.car_settings_restore_from_folder),
+                            getString(R.string.car_settings_restore_from_zip)
+                    }, (dialog, which) -> {
                         try {
                             Intent intent;
                             if (which == 0) {
@@ -876,7 +862,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                                 startActivityForResult(intent, RC_BACKUP_IMPORT_ZIP);
                             }
                         } catch (Exception e) {
-                            Toast.makeText(getContext(), "Dosya seçici açılamadı", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
                         }
                     }).show();
                 return true;
@@ -925,7 +911,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 if (mBackupDialog != null && mBackupDialog.isShowing()) {
                     mBackupDialog.dismiss();
                 }
-                Toast.makeText(getContext(), "İşlem başarıyla tamamlandı!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.car_settings_backup_success), Toast.LENGTH_LONG).show();
                 getPreferenceScreen().removeAll();
                 onCreatePreferences(null, getPreferenceScreen().getKey());
             }
@@ -935,22 +921,18 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 if (mBackupDialog != null && mBackupDialog.isShowing()) {
                     mBackupDialog.dismiss();
                 }
-                Toast.makeText(getContext(), "Hata: " + error, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.car_settings_error_generic, error), Toast.LENGTH_SHORT).show();
             }
         };
     }
 
     private void showBackupProgress() {
         mBackupDialog = new android.app.ProgressDialog(getContext());
-        mBackupDialog.setTitle("Lütfen Bekleyin");
-        mBackupDialog.setMessage("İşlem başlatılıyor...");
+        mBackupDialog.setTitle(getString(R.string.car_settings_please_wait));
+        mBackupDialog.setMessage(getString(R.string.car_settings_backup_starting));
         mBackupDialog.setCancelable(false);
         mBackupDialog.show();
     }
-
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-    // HAKKINDA
-    // Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
     private void setupAboutPrefs() {
         Preference versionPref = findPreference("car_launcher_version");
@@ -972,7 +954,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                             Uri.parse("https://github.com/poolsoft/OsmAnd/tree/right-panel-plugin"));
                     startActivity(intent);
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "TarayÃ„Â±cÃ„Â± aÃƒÂ§Ã„Â±lamadÃ„Â±", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.car_settings_browser_error), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -999,7 +981,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     intent.setType("application/zip");
                     startActivityForResult(intent, RC_IMPORT_VOICE_MODEL);
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "Dosya seÃƒÂ§ici aÃƒÂ§Ã„Â±lamadÃ„Â±", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -1008,7 +990,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     private void importVoiceModelFromUri(Uri uri) {
         if (getContext() == null) return;
-        Toast.makeText(getContext(), "Model dosyasÃ„Â± kopyalanÃ„Â±yor, lÃƒÂ¼tfen bekleyin...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.car_settings_assistant_copying_model), Toast.LENGTH_SHORT).show();
         
         java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> {
             File targetDir = new File(getContext().getExternalFilesDir(null), "vosk-model-tr");
@@ -1053,18 +1035,18 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), "Ses modeli baÃ…Å¸arÃ„Â±yla kuruldu! Servis yeniden baÃ…Å¸latÃ„Â±lÃ„Â±yor...", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.car_settings_voice_model_success), Toast.LENGTH_LONG).show();
                         restartVoiceService();
                     });
                 }
                 
             } catch (Exception e) {
-                android.util.Log.e("CarLauncherSettings", "Model kopyalama/unzip hatasÃ„Â±", e);
+                android.util.Log.e("CarLauncherSettings", "Model kopyalama/unzip hatasi", e);
                 if (tempZip.exists()) tempZip.delete();
                 if (tempExtractDir.exists()) deleteRecursive(tempExtractDir);
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), "Ses modeli yÃƒÂ¼klenemedi!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.car_settings_voice_model_error), Toast.LENGTH_LONG).show();
                     });
                 }
             }
@@ -1149,4 +1131,3 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         fileOrDirectory.delete();
     }
 }
-
