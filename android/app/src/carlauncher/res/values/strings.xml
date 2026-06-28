@@ -185,4 +185,49 @@
     <string name="car_settings_error_generic">Error: %1$s</string>
     <string name="car_settings_voice_model_success">Voice model successfully installed! Service is restarting...</string>
     <string name="car_settings_voice_model_error">Voice model could not be loaded!</string>
+
+    <!-- ===================== -->
+    <!-- Widget Display Names  -->
+    <!-- ===================== -->
+    <string name="car_widget_speed">Speedometer</string>
+    <string name="car_widget_music">Music Player</string>
+    <string name="car_widget_navigation">Navigation</string>
+    <string name="car_widget_compass">Compass</string>
+    <string name="car_widget_digital_clock">Digital Clock (M3)</string>
+    <string name="car_widget_classic_clock">Classic Clock</string>
+    <string name="car_widget_weather">Weather</string>
+    <string name="car_widget_obd">OBD Info</string>
+
+    <!-- Navigation Widget Strings -->
+    <string name="car_widget_nav_label">NAVIGATION</string>
+    <string name="car_widget_nav_no_navigation">No active navigation</string>
+
+    <!-- Music Widget Strings -->
+    <string name="car_widget_music_select">Select Music</string>
+
+    <!-- Compass Widget Strings -->
+    <string name="car_widget_compass_label">COMPASS</string>
+
+    <!-- Weather Widget Strings -->
+    <string name="car_widget_weather_location">Location</string>
+
+    <!-- Weather Descriptions -->
+    <string name="car_weather_clear">Clear</string>
+    <string name="car_weather_partly_cloudy">Partly Cloudy</string>
+    <string name="car_weather_foggy">Foggy</string>
+    <string name="car_weather_rainy">Rainy</string>
+    <string name="car_weather_snowy">Snowy</string>
+    <string name="car_weather_showers">Showers</string>
+    <string name="car_weather_storm">Storm</string>
+    <string name="car_weather_unknown">Unknown</string>
+
+    <!-- Compass Direction Strings -->
+    <string name="car_compass_n">N</string>
+    <string name="car_compass_ne">NE</string>
+    <string name="car_compass_e">E</string>
+    <string name="car_compass_se">SE</string>
+    <string name="car_compass_s">S</string>
+    <string name="car_compass_sw">SW</string>
+    <string name="car_compass_w">W</string>
+    <string name="car_compass_nw">NW</string>
 </resources>
