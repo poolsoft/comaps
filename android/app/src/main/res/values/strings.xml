@@ -7,14 +7,14 @@
     <!-- Button text (should be short) -->
     <string name="back">Back</string>
     <!-- Button text (should be short) -->
-    <!-- Button which deletes downloaded country -->
     <string name="cancel">Cancel</string>
+    <!-- Button which deletes downloaded country -->
     <string name="delete">Delete</string>
     <string name="download_maps">Download Maps</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">Download has failed, tap to try again</string>
     <!-- Settings/Downloader - info for country which started downloading -->
-    <string name="downloading">Downloadingâ€¦</string>
+    <string name="downloading">Downloading…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometers</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -41,11 +41,11 @@
     <!-- Text in About screen -->
     <string name="about_headline">Open project powered by the community</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">â€¢ Easy to use and polished</string>
+    <string name="about_proposition_1">• Easy to use and polished</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_2">â€¢ Privacy-focused and ads-free</string>
+    <string name="about_proposition_2">• Privacy-focused and ads-free</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">â€¢ Offline, fast and compact</string>
+    <string name="about_proposition_3">• Offline, fast and compact</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Fully open source, not for profit, transparent decision-making and finances.</string>
     <!-- The button that opens system location settings -->
@@ -100,7 +100,7 @@
     <string name="move_maps_error">Error moving map files</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">This can take several minutes.
-\nPlease waitâ€¦</string>
+\nPlease wait…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Measurement units</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -199,7 +199,7 @@
     <string name="copied_to_clipboard">Copied to clipboard: %s</string>
     <!-- Used for Favorite editing -->
     <string name="done">Done</string>
-    <!-- Data version in Â«AboutÂ» screen, %@ is replaced by a local, human readable date. -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">OpenStreetMap data: %s</string>
     <!-- Title for tracks category in Favorites manager -->
     <string name="tracks_title">Tracks</string>
@@ -213,33 +213,33 @@
     <string name="prefs_group_route">Navigation</string>
     <string name="pref_zoom_title">Zoom buttons</string>
     <string name="pref_zoom_summary">Display on the map</string>
-    <!-- Settings Â«MapÂ» category: Â«Night styleÂ» title -->
+    <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Night Mode</string>
-    <!-- Generic Â«OffÂ» string -->
+    <!-- Generic «Off» string -->
     <string name="off">Off</string>
-    <!-- Generic Â«OnÂ» string -->
+    <!-- Generic «On» string -->
     <string name="on">On</string>
-    <!-- Generic Â«AutoÂ» string -->
+    <!-- Generic «Auto» string -->
     <string name="auto">Auto</string>
-    <!-- Settings Â«MapÂ» category: Â«Perspective viewÂ» title -->
+    <!-- Settings «Map» category: «Perspective view» title -->
     <string name="pref_map_3d_title">Perspective view</string>
-    <!-- Settings Â«MapÂ» category: Â«3D buildingsÂ» title -->
+    <!-- Settings «Map» category: «3D buildings» title -->
     <string name="pref_map_3d_buildings_title">3D buildings</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D buildings are disabled in power saving mode</string>
-    <!-- Settings Â«RouteÂ» category: Â«Tts enabledÂ» title -->
+    <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Voice Instructions</string>
-    <!-- Settings Â«RouteÂ» category: Â«Tts announce street namesÂ» title -->
+    <!-- Settings «Route» category: «Tts announce street names» title -->
     <string name="pref_tts_street_names_title">Announce Street Names</string>
-    <!-- Settings Â«RouteÂ» category: Â«Tts announce street namesÂ» description -->
+    <!-- Settings «Route» category: «Tts announce street names» description -->
     <string name="pref_tts_street_names_description">When enabled, the name of the street or exit to turn onto will be spoken aloud.</string>
-    <!-- Settings Â«RouteÂ» category: Â«Tts languageÂ» title -->
+    <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Voice Language</string>
-    <!-- Settings Â«RouteÂ» category: Â«Test Voice DirectionsÂ» title -->
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Test Voice Directions</string>
-    <!-- Settings Â«RouteÂ» category: Pop-up message when clicking Â«Test Voice DirectionsÂ» -->
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'t hear the voice now</string>
-    <!-- Settings Â«RouteÂ» category: Â«Tts unavailableÂ» subtitle -->
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Not Available</string>
     <!-- Bottom nav when planning route: button that enables TTS -->
     <string name="tts_toggle_enable">Enable voice instructions</string>
@@ -366,10 +366,10 @@
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
-    <string name="dialog_routing_disclaimer_priority">â€” Road conditions, traffic laws, and road signs always take priority over navigation hints;</string>
-    <string name="dialog_routing_disclaimer_precision">â€” The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;</string>
-    <string name="dialog_routing_disclaimer_recommendations">â€” Suggested routes should only be understood as recommendations;</string>
-    <string name="dialog_routing_disclaimer_borders">â€” Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.</string>
+    <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints;</string>
+    <string name="dialog_routing_disclaimer_precision">— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Suggested routes should only be understood as recommendations;</string>
+    <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.</string>
     <string name="dialog_routing_disclaimer_beware">Please stay alert and safe on the roads!</string>
     <string name="dialog_routing_check_gps">Check GPS signal</string>
     <string name="dialog_routing_error_location_not_found">Unable to create route. Current GPS coordinates could not be identified.</string>
@@ -397,9 +397,9 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</string>
     <string name="search_select_map">Select Map</string>
-    <!-- Â«ShowÂ» context menu -->
+    <!-- «Show» context menu -->
     <string name="show">Show</string>
-    <!-- Â«HideÂ» context menu -->
+    <!-- «Hide» context menu -->
     <string name="hide">Hide</string>
     <string name="categories">Categories</string>
     <string name="history">History</string>
@@ -625,7 +625,7 @@
     <string name="feedback_general">General Feedback</string>
     <string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from the Google Play Store (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
     <string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from an app store (Google Play, Galaxy Store, App Gallery, F-Droid).
-\nOpen your device\'s settings â†’ Language and input â†’ Speech â†’ Text to speech output.
+\nOpen your device\'s settings → Language and input → Speech → Text to speech output.
 \nHere you can manage the settings for speech synthesis (for example, to download language a pack for offline use) and select a different text-to-speech engine.</string>
     <string name="prefs_languages_information_off_link">For more information please check this guide</string>
     <string name="prefs_speed_cameras_information">Speed camera warnings are disabled in countries where alerts are prohibited by local law.</string>
@@ -663,7 +663,7 @@
     <string name="bookmarks_new_list_hint">New list</string>
     <string name="bookmarks_error_title_list_name_already_taken">This name is already taken</string>
     <string name="bookmarks_error_message_list_name_already_taken">Please choose another name</string>
-    <string name="please_wait">Please waitâ€¦</string>
+    <string name="please_wait">Please wait…</string>
     <string name="phone_number">Phone number</string>
     <string name="profile">OpenStreetMap profile</string>
     <plurals name="bookmarks_detect_message">
@@ -685,7 +685,7 @@
     <string name="layers_title">Map Styles and Layers</string>
     <string name="bookmarks_empty_list_title">This list is empty</string>
     <string name="bookmarks_empty_list_message">To save a place, tap a place on the map and then tap the star icon</string>
-    <string name="category_desc_more">â€¦more</string>
+    <string name="category_desc_more">…more</string>
     <string name="export_file">Export KMZ</string>
     <string name="export_file_gpx">Export GPX</string>
     <string name="delete_list">Delete list</string>
@@ -739,7 +739,7 @@
     <string name="trip_finished">You have arrived!</string>
     <string name="ok">OK</string>
     <!-- max. 10 symbols, both iOS and Android -->
-    <string name="sort">Sortâ€¦</string>
+    <string name="sort">Sort…</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sort Favorites</string>
     <!-- Android, title for sorting categories -->
@@ -929,7 +929,7 @@
     <string name="pref_backup_summary">Automatically backup to a folder on your device</string>
     <string name="pref_backup_now_title">Backup now</string>
     <string name="pref_backup_now_summary">Create a backup immediately</string>
-    <string name="pref_backup_now_summary_progress">Backup in progressâ€¦</string>
+    <string name="pref_backup_now_summary_progress">Backup in progress…</string>
     <string name="pref_backup_now_summary_ok">Backup completed successfully</string>
     <string name="pref_backup_now_summary_empty_lists">No Favorites to backup</string>
     <string name="pref_backup_now_summary_failed">Backup failed</string>
@@ -963,7 +963,7 @@
     <string name="destination">Destination</string>
     <!-- Used in navigation panel. "Stop" as in "Intermediate Stop" -->
     <string name="stop">Stop</string>
-    <!-- Used in place page preview for next open/close time. eg. "closing in 30 min â€¢ at 19:30" -->
+    <!-- Used in place page preview for next open/close time. eg. "closing in 30 min • at 19:30" -->
     <string name="at">at %s</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Share Track</string>
@@ -1011,14 +1011,14 @@
     <string name="rooms">%s rooms</string>
     <!-- NavMenu: Route state strings -->
     <string name="invalid_route">Invalid route</string>
-    <string name="building_route">Building routeâ€¦</string>
+    <string name="building_route">Building route…</string>
     <string name="route_not_started">Route not started</string>
     <string name="on_route">On route</string>
     <string name="route_needs_rebuild">Route needs rebuilding</string>
     <string name="route_finished">Route finished</string>
     <string name="not_following_route">Not following route</string>
     <!-- Should match TTS string with the same id, eg. data/sound-strings/en.json/localize.json -->
-    <string name="route_recalculating">Recalculating the routeâ€¦</string>
+    <string name="route_recalculating">Recalculating the route…</string>
     <string name="pref_openexternallinks_title">Automatically open third-party links</string>
     <string name="pref_openexternallinks_summary">Open third-party links in CoMaps by default</string>
     <string name="pref_keyboard_typing_history_title">Keyboard incognito mode</string>
