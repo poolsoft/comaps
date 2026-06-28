@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.MwmApplication;
+import app.organicmaps.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class Material3ClockWidget extends BaseWidget {
     private Runnable updateRunnable;
 
     public Material3ClockWidget(@NonNull Context context) {
-        super(context, "clock", context.getString(app.organicmaps.R.string.car_widget_digital_clock));
+        super(context, "clock", context.getString(R.string.car_widget_digital_clock));
         this.hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         this.minuteFormat = new SimpleDateFormat("mm", Locale.getDefault());
          // E.g. "Pazartesi, 30 AralÄ±k"
@@ -47,13 +48,13 @@ public class Material3ClockWidget extends BaseWidget {
 
     @Override
     public View createView() {
-        View view = LayoutInflater.from(context).inflate(app.organicmaps.R.layout.widget_clock_material3, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.widget_clock_material3, null);
 
-        tvHourFirst = view.findViewById(app.organicmaps.R.id.hour_digit_1);
-        tvHourSecond = view.findViewById(app.organicmaps.R.id.hour_digit_2);
-        tvMinFirst = view.findViewById(app.organicmaps.R.id.min_digit_1);
-        tvMinSecond = view.findViewById(app.organicmaps.R.id.min_digit_2);
-        tvDate = view.findViewById(app.organicmaps.R.id.clock_date_text);
+        tvHourFirst = view.findViewById(R.id.hour_digit_1);
+        tvHourSecond = view.findViewById(R.id.hour_digit_2);
+        tvMinFirst = view.findViewById(R.id.min_digit_1);
+        tvMinSecond = view.findViewById(R.id.min_digit_2);
+        tvDate = view.findViewById(R.id.clock_date_text);
 
         try {
             clockTypeface = android.graphics.Typeface.createFromAsset(context.getAssets(),
