@@ -32,7 +32,7 @@ import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.carlauncher.CarLauncherInterface;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.WorkspacePageAdapter;
-import R;
+import app.organicmaps.R;
 
 /**
  * Cok Sayfali Premium Grid Widget Workspace Fragment.

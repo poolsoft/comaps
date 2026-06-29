@@ -24,7 +24,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import R;
+import app.organicmaps.R;
 
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
