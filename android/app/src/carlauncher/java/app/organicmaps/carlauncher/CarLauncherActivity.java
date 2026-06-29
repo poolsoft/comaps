@@ -87,6 +87,16 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         super.onSafeCreate(savedInstanceState);
+        
+        CarLauncherSettings carPrefs = new CarLauncherSettings(this);
+        String orientationMode = carPrefs.getScreenOrientation();
+        int requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        if ("portrait".equals(orientationMode)) {
+            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        } else if ("sensor".equals(orientationMode)) {
+            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+        }
+        setRequestedOrientation(requestedOrientation);
 
         CarCrashLogger.init(this);
 
@@ -244,8 +254,16 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     protected void onResume() {
         super.onResume();
-        // Dikey uygulamalardan geri donuldugunde ekranin yatayda kalmasini garanti et
-        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        // Kaydedilen ekran yonunu uygula (yatay, dikey veya otomatik sensor)
+        CarLauncherSettings carPrefs = new CarLauncherSettings(this);
+        String orientationMode = carPrefs.getScreenOrientation();
+        int requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        if ("portrait".equals(orientationMode)) {
+            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        } else if ("sensor".equals(orientationMode)) {
+            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+        }
+        setRequestedOrientation(requestedOrientation);
 
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 

@@ -278,4 +278,17 @@
     <string name="car_app_select">UYGULAMA SEÇ</string>
     <string name="car_music_error_notification_access">Lütfen \'Bildirim Erişimi\' iznini verin.</string>
     <string name="car_music_error_settings_failed">Ayarlar açılamadı, lütfen manuel gidin.</string>
+
+    <!-- Ekran Yönü -->
+    <string name="car_pref_orientation_title">Ekran Yönü</string>
+    <string-array name="orientation_entries">
+        <item>Yatay (Varsayılan)</item>
+        <item>Dikey</item>
+        <item>Otomatik (Sensör)</item>
+    </string-array>
+    <string-array name="orientation_values">
+        <item>landscape</item>
+        <item>portrait</item>
+        <item>sensor</item>
+    </string-array>
 </resources>

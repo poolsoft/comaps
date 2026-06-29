@@ -387,6 +387,19 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
+        // Screen Orientation
+        androidx.preference.ListPreference orientationPref = findPreference(CarLauncherSettings.KEY_SCREEN_ORIENTATION);
+        if (orientationPref != null) {
+            orientationPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                String val = (String) newValue;
+                if (settings != null) {
+                    settings.setScreenOrientation(val);
+                }
+                applyScreenOrientation(val);
+                return true;
+            });
+        }
+
         // Widget Display Mode
         androidx.preference.ListPreference displayModePref = findPreference(CarLauncherSettings.KEY_WIDGET_DISPLAY_MODE);
         if (displayModePref != null) {
@@ -1266,5 +1279,16 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     ? getString(R.string.car_perm_media_summary_ok)
                     : getString(R.string.car_perm_media_summary_missing));
         }
+    }
+
+    private void applyScreenOrientation(String mode) {
+        if (getActivity() == null) return;
+        int orientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        if ("portrait".equals(mode)) {
+            orientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        } else if ("sensor".equals(mode)) {
+            orientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+        }
+        getActivity().setRequestedOrientation(orientation);
     }
 }

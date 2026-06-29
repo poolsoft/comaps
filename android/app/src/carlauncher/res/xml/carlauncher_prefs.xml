@@ -67,6 +67,15 @@
             android:summary="@string/car_pref_language_desc"
             app:iconSpaceReserved="false" />
 
+        <androidx.preference.ListPreference
+            android:key="car_launcher_screen_orientation"
+            android:title="@string/car_pref_orientation_title"
+            android:summary="%s"
+            android:entries="@array/orientation_entries"
+            android:entryValues="@array/orientation_values"
+            android:defaultValue="landscape"
+            app:iconSpaceReserved="false" />
+
         <androidx.preference.SwitchPreferenceCompat
             android:key="car_launcher_portrait_map_only"
             android:title="@string/car_pref_portrait_map_title"

@@ -389,6 +389,16 @@ public class CarLauncherSettings {
         prefs.edit().putBoolean(KEY_PIP_MODE, enabled).apply();
     }
 
+    public static final String KEY_SCREEN_ORIENTATION = "car_launcher_screen_orientation";
+
+    public String getScreenOrientation() {
+        return prefs.getString(KEY_SCREEN_ORIENTATION, "landscape");
+    }
+
+    public void setScreenOrientation(String orientation) {
+        prefs.edit().putString(KEY_SCREEN_ORIENTATION, orientation).apply();
+    }
+
     public SharedPreferences getPrefs() {
         return prefs;
     }

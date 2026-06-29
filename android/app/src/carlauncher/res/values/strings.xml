@@ -275,4 +275,17 @@
     <string name="car_app_select">SELECT APP</string>
     <string name="car_music_error_notification_access">Please grant \'Notification Access\' permission.</string>
     <string name="car_music_error_settings_failed">Could not open settings, please go manually.</string>
+
+    <!-- Screen Orientation -->
+    <string name="car_pref_orientation_title">Screen Orientation</string>
+    <string-array name="orientation_entries">
+        <item>Landscape (Default)</item>
+        <item>Portrait</item>
+        <item>Sensor (Auto)</item>
+    </string-array>
+    <string-array name="orientation_values">
+        <item>landscape</item>
+        <item>portrait</item>
+        <item>sensor</item>
+    </string-array>
 </resources>
