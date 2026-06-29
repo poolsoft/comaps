@@ -213,6 +213,13 @@ public final class UiUtils
 
   public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)
   {
+    if (activity instanceof app.organicmaps.carlauncher.CarLauncherActivity)
+    {
+      app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(activity);
+      if (!settings.isStatusBarVisible())
+        fullscreen = true;
+    }
+
     final Window window = activity.getWindow();
 
     if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R)

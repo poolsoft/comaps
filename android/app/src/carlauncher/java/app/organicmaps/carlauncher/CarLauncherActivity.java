@@ -471,14 +471,31 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     public void applyStatusBarVisibility() {
         CarLauncherSettings settings = new CarLauncherSettings(this);
         boolean showStatusBar = settings.isStatusBarVisible();
-        if (showStatusBar) {
-            getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        
+        final Window window = getWindow();
+        if (window == null) return;
+        
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R) {
+            if (showStatusBar) {
+                window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+            } else {
+                window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                );
+            }
         } else {
-            getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            );
+            final View decorView = window.getDecorView();
+            androidx.core.view.WindowInsetsControllerCompat wic = androidx.core.view.WindowCompat.getInsetsController(window, decorView);
+            if (wic != null) {
+                if (showStatusBar) {
+                    wic.show(androidx.core.view.WindowInsetsCompat.Type.statusBars());
+                } else {
+                    wic.hide(androidx.core.view.WindowInsetsCompat.Type.statusBars());
+                    wic.setSystemBarsBehavior(androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+                }
+            }
         }
     }
 
