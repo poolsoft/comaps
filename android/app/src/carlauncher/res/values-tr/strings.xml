@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Izin Paneli Stringleri -->
+    <string name="car_pref_category_permissions">İzinler</string>
+    <string name="car_perm_overlay_title">Diğer Uygulamaların Üzerine Çiz</string>
+    <string name="car_perm_overlay_summary_ok">✅ Verildi - Yüzen buton uygulamaların üstünde görünebilir</string>
+    <string name="car_perm_overlay_summary_missing">⚠️ Verilmedi - Yüzen hız butonu için gereklidir</string>
+    <string name="car_perm_bg_location_title">Arka Plan Konumu (Her Zaman)</string>
+    <string name="car_perm_bg_location_summary_ok">✅ Verildi - Uygulama arka planda olunca da hız gösterilir</string>
+    <string name="car_perm_bg_location_summary_missing">⚠️ Verilmedi - Ayarlar &gt; Konum &gt; Her Zaman seçin</string>
+    <string name="car_perm_notification_title">Bildirim Erişimi</string>
+    <string name="car_perm_notification_summary_ok">✅ Verildi - Harici müzik uygulamaları kontrol edilebilir</string>
+    <string name="car_perm_notification_summary_missing">⚠️ Verilmedi - Harici müzik kontrolü için gereklidir</string>
+    <string name="car_perm_media_title">Depolama / Medya Sesi</string>
+    <string name="car_perm_media_summary_ok">✅ Verildi - Cihazdaki müzik kitaplığına erişilebilir</string>
+    <string name="car_perm_media_summary_missing">⚠️ Verilmedi - Cihaz müziklerini taramak için gereklidir</string>
+
     <!-- Music Player Strings -->
     <string name="car_music_select_playlist">Seçiniz...</string>
     <string name="car_music_favorites">Favoriler</string>

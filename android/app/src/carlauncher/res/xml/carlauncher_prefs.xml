@@ -4,6 +4,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- İZİNLER -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_permissions"
+        android:title="@string/car_pref_category_permissions"
+        app:icon="@android:drawable/ic_lock_lock"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="perm_overlay"
+            android:title="@string/car_perm_overlay_title"
+            android:summary="@string/car_perm_overlay_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_bg_location"
+            android:title="@string/car_perm_bg_location_title"
+            android:summary="@string/car_perm_bg_location_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_notification"
+            android:title="@string/car_perm_notification_title"
+            android:summary="@string/car_perm_notification_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_media"
+            android:title="@string/car_perm_media_title"
+            android:summary="@string/car_perm_media_summary_missing"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- GÖRÜNÜM AYARLARI -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory

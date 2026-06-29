@@ -43,11 +43,11 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
 
     @Override
     public View createView() {
-        // Parent belirtilmediÃ„S¸i iÃƒÂ§in layout params manuel ayarlanmalÃ„Â± veya 
-        // view eklendiÃ„S¸i yerde ayarlanacaÃ„S¸Ã„Â± varsayÃ„Â±lmalÃ„Â±dÃ„Â±r.
+        // Parent belirtilmedği için layout params manuel ayarlanmalı veya 
+        // view eklendği yerde ayarlanacağı varsayılmalıdır.
         View view = LayoutInflater.from(context).inflate(R.layout.widget_weather, null);
         
-        // LayoutParams dÃƒÂ¼zeltmesi (Ã„Â°htiyaca gÃƒÂ¶re deÃ„S¸iÃ…S¸tirin, genelde gereklidir)
+        // LayoutParams düzeltmesi (İhtiyaca göre değişitirin, genelde gereklidir)
         view.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -60,7 +60,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
 
         rootView = view;
 
-        // Listener'Ã„Â± bir deÃ„S¸iÃ…S¸kene atayÃ„Â±p tekrar kullanmak daha temizdir
+        // Listener'ı bir değişkene atayıp tekrar kullanmak daha temizdir
         View.OnClickListener openDashboardListener = v -> {
             app.organicmaps.carlauncher.CarLauncherInterface callback = null;
             Context ctx = context;
@@ -83,18 +83,18 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
                 // 3. Bir alt context'e in
                 ctx = ((android.content.ContextWrapper) ctx).getBaseContext();
                 
-                // Null check (GÃƒÂ¼venlik iÃƒÂ§in)
+                // Null check (Güvenlik için)
                 if (ctx == null) break;
             }
             
             if (callback != null) {
                 callback.openWeatherDashboard();
             } else {
-                android.util.Log.e("WeatherWidget", "Context, CarLauncherInterface'i uygulamÃ„Â±yor veya bulunamadÃ„Â±: " + context.getClass().getName());
+                android.util.Log.e("WeatherWidget", "Context, CarLauncherInterface'i uygulamıyor veya bulunamadı: " + context.getClass().getName());
             }
         };
 
-        // Listener'Ã„Â± hem ikona hem de kÃƒÂ¶k gÃƒÂ¶rÃƒÂ¼nÃƒÂ¼me ata
+        // Listener'ı hem ikona hem de kök görünüme ata
         if (ivIcon != null) {
             ivIcon.setOnClickListener(openDashboardListener);
         }

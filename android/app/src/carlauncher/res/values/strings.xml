@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Permissions Panel Strings -->
+    <string name="car_pref_category_permissions">Permissions</string>
+    <string name="car_perm_overlay_title">Draw Over Other Apps</string>
+    <string name="car_perm_overlay_summary_ok">✅ Granted - Floating button can appear over apps</string>
+    <string name="car_perm_overlay_summary_missing">⚠️ Not Granted - Required for floating speed button</string>
+    <string name="car_perm_bg_location_title">Background Location (Always)</string>
+    <string name="car_perm_bg_location_summary_ok">✅ Granted - Speed shown when app is in background</string>
+    <string name="car_perm_bg_location_summary_missing">⚠️ Not Granted - Grant via Settings > Location > Always</string>
+    <string name="car_perm_notification_title">Notification Listener</string>
+    <string name="car_perm_notification_summary_ok">✅ Granted - External music apps can be controlled</string>
+    <string name="car_perm_notification_summary_missing">⚠️ Not Granted - Required for external music control</string>
+    <string name="car_perm_media_title">Storage / Media Audio</string>
+    <string name="car_perm_media_summary_ok">✅ Granted - Internal music library accessible</string>
+    <string name="car_perm_media_summary_missing">⚠️ Not Granted - Required to scan music on device</string>
+
     <!-- Music Player Strings -->
     <string name="car_music_select_playlist">Select...</string>
     <string name="car_music_favorites">Favorites</string>

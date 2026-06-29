@@ -64,6 +64,14 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         setupDockPrefs();
         setupAssistantPrefs();
         setupAboutPrefs();
+        setupPermissionsPrefs();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Kullanici ayarlardan donunce izin durumlarini guncelle
+        updatePermissionSummaries();
     }
 
     private android.widget.LinearLayout splitContainer;
@@ -1131,5 +1139,132 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             }
         }
         fileOrDirectory.delete();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // İZİN YÖNETİMİ
+    // ═══════════════════════════════════════════════════════════════
+
+    private void setupPermissionsPrefs() {
+        // Ekranin Uzerinde Ciz izni
+        Preference overlayPref = findPreference("perm_overlay");
+        if (overlayPref != null) {
+            overlayPref.setOnPreferenceClickListener(preference -> {
+                if (getContext() != null) {
+                    android.content.Intent intent = new android.content.Intent(
+                            android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            android.net.Uri.parse("package:" + getContext().getPackageName()));
+                    startActivity(intent);
+                }
+                return true;
+            });
+        }
+
+        // Arka Plan Konumu (Her Zaman) izni
+        Preference bgLocationPref = findPreference("perm_bg_location");
+        if (bgLocationPref != null) {
+            bgLocationPref.setOnPreferenceClickListener(preference -> {
+                if (getContext() != null) {
+                    android.content.Intent intent = new android.content.Intent(
+                            android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    android.net.Uri uri = android.net.Uri.fromParts("package", getContext().getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                }
+                return true;
+            });
+        }
+
+        // Bildirim Erisimi izni
+        Preference notificationPref = findPreference("perm_notification");
+        if (notificationPref != null) {
+            notificationPref.setOnPreferenceClickListener(preference -> {
+                android.content.Intent intent = new android.content.Intent(
+                        android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                startActivity(intent);
+                return true;
+            });
+        }
+
+        // Depolama / Medya izni
+        Preference mediaPref = findPreference("perm_media");
+        if (mediaPref != null) {
+            mediaPref.setOnPreferenceClickListener(preference -> {
+                if (getContext() == null) return true;
+                List<String> perms = new ArrayList<>();
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                    if (getContext().checkSelfPermission(android.Manifest.permission.READ_MEDIA_AUDIO)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        perms.add(android.Manifest.permission.READ_MEDIA_AUDIO);
+                    }
+                } else {
+                    if (getContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        perms.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                    }
+                }
+                if (!perms.isEmpty()) {
+                    requestPermissions(perms.toArray(new String[0]), 300);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.car_perm_media_summary_ok), Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            });
+        }
+
+        updatePermissionSummaries();
+    }
+
+    private void updatePermissionSummaries() {
+        if (getContext() == null) return;
+
+        // Overlay izni durumu
+        Preference overlayPref = findPreference("perm_overlay");
+        if (overlayPref != null) {
+            boolean hasOverlay = android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M
+                    || android.provider.Settings.canDrawOverlays(getContext());
+            overlayPref.setSummary(hasOverlay
+                    ? getString(R.string.car_perm_overlay_summary_ok)
+                    : getString(R.string.car_perm_overlay_summary_missing));
+        }
+
+        // Arka plan konumu durumu
+        Preference bgLocationPref = findPreference("perm_bg_location");
+        if (bgLocationPref != null) {
+            boolean hasBgLocation = android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q
+                    || androidx.core.content.ContextCompat.checkSelfPermission(getContext(),
+                            android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED;
+            bgLocationPref.setSummary(hasBgLocation
+                    ? getString(R.string.car_perm_bg_location_summary_ok)
+                    : getString(R.string.car_perm_bg_location_summary_missing));
+        }
+
+        // Bildirim erisimi durumu
+        Preference notificationPref = findPreference("perm_notification");
+        if (notificationPref != null) {
+            String listeners = android.provider.Settings.Secure.getString(
+                    getContext().getContentResolver(), "enabled_notification_listeners");
+            boolean hasNotification = listeners != null && listeners.contains(getContext().getPackageName());
+            notificationPref.setSummary(hasNotification
+                    ? getString(R.string.car_perm_notification_summary_ok)
+                    : getString(R.string.car_perm_notification_summary_missing));
+        }
+
+        // Medya / Depolama izni durumu
+        Preference mediaPref = findPreference("perm_media");
+        if (mediaPref != null) {
+            boolean hasMedia;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                hasMedia = getContext().checkSelfPermission(android.Manifest.permission.READ_MEDIA_AUDIO)
+                        == PackageManager.PERMISSION_GRANTED;
+            } else {
+                hasMedia = getContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED;
+            }
+            mediaPref.setSummary(hasMedia
+                    ? getString(R.string.car_perm_media_summary_ok)
+                    : getString(R.string.car_perm_media_summary_missing));
+        }
     }
 }
