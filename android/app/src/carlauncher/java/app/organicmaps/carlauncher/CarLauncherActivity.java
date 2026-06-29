@@ -213,8 +213,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     private void applyWidgetPanelState() {
+        applyWidgetPanelState(true);
+    }
+
+    private void applyWidgetPanelState(boolean animate) {
         if (layoutManager != null) {
-            if (rootLayout != null && rootLayout.isAttachedToWindow()) {
+            if (animate && rootLayout != null && rootLayout.isAttachedToWindow()) {
                 isTransitioning = true;
                 rootLayout.postDelayed(() -> isTransitioning = false, 500);
 
@@ -480,5 +484,16 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         applyStatusBarVisibility();
+    }
+
+    @Override
+    public void checkAndRefreshDockFragmentIfNeeded() {
+        applyWidgetPanelState(false); // Konum degisiminde animasyonu pas gec (Kacinilmaz anlik titremeleri ve TransitionManager buglarini onler)
+        
+        if (appDock != null) {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
+                .commitAllowingStateLoss();
+        }
     }
 }
