@@ -1002,7 +1002,32 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 loadAllTracks();
             } else {
-                Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_permission_required), Toast.LENGTH_SHORT).show();
+                // Kullanici izni reddetti: Kalici reddetme kontrolu
+                boolean showRationale = false;
+                for (String perm : permissions) {
+                    if (shouldShowRequestPermissionRationale(perm)) {
+                        showRationale = true;
+                        break;
+                    }
+                }
+
+                if (showRationale) {
+                    // Gecici ret: sadece bilgilendir
+                    Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_permission_required), Toast.LENGTH_SHORT).show();
+                } else {
+                    // Kalici ret ("Bir daha sorma" secildi): Ayarlara yonlendir
+                    new android.app.AlertDialog.Builder(requireContext())
+                        .setTitle(getContext().getString(app.organicmaps.R.string.car_music_permission_required))
+                        .setMessage(getContext().getString(app.organicmaps.R.string.car_music_permission_settings_message))
+                        .setPositiveButton(getContext().getString(app.organicmaps.R.string.go_to_settings), (dialog, which) -> {
+                            android.content.Intent intent = new android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            android.net.Uri uri = android.net.Uri.fromParts("package", requireContext().getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_cancel), null)
+                        .show();
+                }
             }
         }
     }

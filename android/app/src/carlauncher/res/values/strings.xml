@@ -5,6 +5,7 @@
     <string name="car_music_favorites">Favorites</string>
     <string name="car_music_favorites_empty">Your favorite list is empty</string>
     <string name="car_music_permission_required">Permission required to scan music!</string>
+    <string name="car_music_permission_settings_message">Music access permission was permanently denied. Please go to App Settings and grant Storage/Media permission manually.</string>
     <string name="car_music_not_found">No music found on device</string>
     <string name="car_music_new_playlist">+ Create New Playlist</string>
     <string name="car_music_add_to_playlist">Add to Playlist:</string>

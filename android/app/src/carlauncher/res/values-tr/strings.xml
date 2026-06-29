@@ -5,6 +5,7 @@
     <string name="car_music_favorites">Favoriler</string>
     <string name="car_music_favorites_empty">Favori listeniz boş</string>
     <string name="car_music_permission_required">Müzik taramak için izin gerekli!</string>
+    <string name="car_music_permission_settings_message">Depolama/Medya izni kalıcı olarak reddedildi. Lütfen Uygulama Ayarları\'na gidip izni manuel olarak verin.</string>
     <string name="car_music_not_found">Cihazda müzik bulunamadı</string>
     <string name="car_music_new_playlist">+ Yeni Playlist Oluştur</string>
     <string name="car_music_add_to_playlist">Playlist\'e Ekle:</string>
