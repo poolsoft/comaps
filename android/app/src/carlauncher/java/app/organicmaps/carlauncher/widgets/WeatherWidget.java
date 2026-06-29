@@ -43,11 +43,11 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
 
     @Override
     public View createView() {
-        // Parent belirtilmediÃ„Å¸i iÃƒÂ§in layout params manuel ayarlanmalÃ„Â± veya 
-        // view eklendiÃ„Å¸i yerde ayarlanacaÃ„Å¸Ã„Â± varsayÃ„Â±lmalÃ„Â±dÃ„Â±r.
+        // Parent belirtilmediÃ„S¸i iÃƒÂ§in layout params manuel ayarlanmalÃ„Â± veya 
+        // view eklendiÃ„S¸i yerde ayarlanacaÃ„S¸Ã„Â± varsayÃ„Â±lmalÃ„Â±dÃ„Â±r.
         View view = LayoutInflater.from(context).inflate(R.layout.widget_weather, null);
         
-        // LayoutParams dÃƒÂ¼zeltmesi (Ã„Â°htiyaca gÃƒÂ¶re deÃ„Å¸iÃ…Å¸tirin, genelde gereklidir)
+        // LayoutParams dÃƒÂ¼zeltmesi (Ã„Â°htiyaca gÃƒÂ¶re deÃ„S¸iÃ…S¸tirin, genelde gereklidir)
         view.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -60,7 +60,7 @@ public class WeatherWidget extends BaseWidget implements WeatherManager.WeatherL
 
         rootView = view;
 
-        // Listener'Ã„Â± bir deÃ„Å¸iÃ…Å¸kene atayÃ„Â±p tekrar kullanmak daha temizdir
+        // Listener'Ã„Â± bir deÃ„S¸iÃ…S¸kene atayÃ„Â±p tekrar kullanmak daha temizdir
         View.OnClickListener openDashboardListener = v -> {
             app.organicmaps.carlauncher.CarLauncherInterface callback = null;
             Context ctx = context;

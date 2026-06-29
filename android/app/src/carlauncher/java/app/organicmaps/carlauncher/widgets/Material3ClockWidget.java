@@ -39,7 +39,7 @@ public class Material3ClockWidget extends BaseWidget {
         super(context, "clock", context.getString(R.string.car_widget_digital_clock));
         this.hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         this.minuteFormat = new SimpleDateFormat("mm", Locale.getDefault());
-         // E.g. "Pazartesi, 30 AralÄ±k"
+         // E.g. "Pazartesi, 30 Aralik"
         this.dateFormat = new SimpleDateFormat("EEEE, d MMMM", Locale.getDefault());
         this.order = 0; // Top position
     }

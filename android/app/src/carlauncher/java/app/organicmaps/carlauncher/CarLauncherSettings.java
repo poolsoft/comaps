@@ -258,7 +258,7 @@ public class CarLauncherSettings {
     }
     
     public String getAutoLaunchAppName(int slot) {
-        return prefs.getString(KEY_AUTOLAUNCH_NAME_PREFIX + slot, "SeÃ§ilmedi");
+        return prefs.getString(KEY_AUTOLAUNCH_NAME_PREFIX + slot, "Seçilmedi");
     }
 
     public void setAutoLaunchApp(int slot, String pkg, String name) {

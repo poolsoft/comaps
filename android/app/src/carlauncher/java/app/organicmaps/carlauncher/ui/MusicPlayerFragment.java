@@ -262,7 +262,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
 
 
-        // BaÅŸlangÄ±Ã§ta playlist aÃ§Ä±k olduÄŸundan visualizer gizli olmalÄ±
+        // Baslangicta playlist acik oldugundan visualizer gizli olmali
         if (visualizerView != null) {
             visualizerView.setVisibility(isPlaylistVisible ? View.GONE : View.VISIBLE);
         }
@@ -281,14 +281,14 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         
         if (ambianceGlowLayer != null && fft != null && fft.length > 2) {
             float totalMag = 0;
-            // Ä°lk dÃ¼ÅŸÃ¼k frekans bantlarÄ± (Bass) hesaplanÄ±yor
+            // Ilk dusuk frekans bantlari (Bass) hesaplaniyor
             int count = Math.min(10, fft.length / 2);
             for (int i = 0; i < count; i++) {
                 byte rfk = fft[i * 2];
                 totalMag += Math.abs(rfk);
             }
             float avg = totalMag / count;
-            // Ortalama ÅŸiddeti alpha (0.0 - 0.6) aralÄ±ÄŸÄ±na Ã§eviriyoruz
+            // Ortalama siddeti alpha (0.0 - 0.6) araligina ceviriyoruz
             float targetAlpha = (avg / 128f) * 0.7f;
             if (targetAlpha > 0.6f) targetAlpha = 0.6f;
             if (targetAlpha < 0.0f) targetAlpha = 0.0f;
@@ -357,7 +357,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (btnClose != null)
             btnClose.setOnClickListener(v -> closeFragment());
 
-        // Playback Controls (MusicManager metod isimleri dÃ¼zeltildi)
+        // Playback Controls (MusicManager metod isimleri duzeltildi)
         // Playback Controls
         if (btnPlay != null) {
             btnPlay.setOnClickListener(v -> {
@@ -1043,7 +1043,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 // Switch to internal mode
                 if (isExternalMode) {
                     isExternalMode = false;
-                    // Harici oynatÄ±cÄ±yÄ± durdur
+                    // Harici oynaticiyi durdur
                     if (musicManager.getActiveExternalController() != null) {
                         try {
                             musicManager.getActiveExternalController().getTransportControls().pause();
@@ -1127,7 +1127,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
     }
 
-    // --- Playlist & Dialog Logic (KÄ±saltÄ±ldÄ±, orijinal mantÄ±k korundu) ---
+    // --- Playlist & Dialog Logic (Kisaltildi, orijinal mantik korundu) ---
 
     private void showAddTrackToPlaylistDialog(MusicRepository.AudioTrack track) {
         if (getContext() == null)
@@ -1415,7 +1415,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     }
      private void updatePlaylistButtonUI() { }
 
-    // --- Lifecycle & Seek Updater (BÄ°RLEÅTÄ°RÄ°LMÄ°Å) ---
+    // --- Lifecycle & Seek Updater (BIRLESTIRILMIS) ---
 
     @Override
     public void onStart() {
@@ -1435,7 +1435,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             @Override
             public void run() {
                 updateSeekbar();
-                seekHandler.postDelayed(this, 1000); // 1 saniyede bir gÃ¼ncelle
+                seekHandler.postDelayed(this, 1000); // 1 saniyede bir guncelle
             }
         };
         seekHandler.post(seekRunnable);
@@ -1529,7 +1529,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             final int visualizerColor = (albumArt != null && clSettings.isAmbianceVisualizerEnabled()) ? finalColor : 0x88FFFFFF;
             visualizerView.post(() -> visualizerView.setDominantColor(visualizerColor));
             if (ambianceGlowLayer != null) {
-                // Sadece RGB kÄ±smÄ±nÄ± al, Alpha kÄ±smÄ±nÄ± arkaplan iÃ§in tamamen kapat
+                // Sadece RGB kismini al, Alpha kismini arkaplan icin tamamen kapat
                 int glowColor = (0xFFFFFF & visualizerColor) | 0xFF000000;
                 if (visualizerColor == 0) glowColor = 0xFF000000; // Eger ambians kapaliysa siyah yap
                 final int fglow = glowColor;
@@ -1789,7 +1789,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             musicManager.setPreferredPackage(packageName);
             musicManager.forceSetActiveController(packageName);
             
-            // Arkaplanda play komutu gonder (Uygulamayi ekranin onune zÄ±platma)
+            // Arkaplanda play komutu gonder (Uygulamayi ekranin onune ziplatma)
             if (packageName != null) {
                 // Sadece arkaplanda (servis/media controller uzerinden) calismasini tetikliyoruz
                 // Teyplerde (XyAuto vs) Broadcast/MediaSession uzerinden arkada calmaya baslar

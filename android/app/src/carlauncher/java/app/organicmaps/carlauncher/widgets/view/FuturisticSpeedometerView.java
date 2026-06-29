@@ -121,9 +121,9 @@ public class FuturisticSpeedometerView extends View {
         arcBounds.set(padding, padding, w - padding, h - padding);
         outerBounds.set(padding - dpToPx(35), padding - dpToPx(35), w - padding + dpToPx(35), h - padding + dpToPx(35));
         
-        // Ã‡ok daha canli ve parlak gradient
+        // Cok daha canli ve parlak gradient
         int[] colors = {
-            Color.parseColor("#00FFFF"), // Ã‡ok parlak Cyan
+            Color.parseColor("#00FFFF"), // Cok parlak Cyan
             Color.parseColor("#00B4DB"), // Mavi
             Color.parseColor("#8E2DE2"), // Mor
             Color.parseColor("#FF007F")  // Neon Pembe
@@ -148,7 +148,7 @@ public class FuturisticSpeedometerView extends View {
         float startAngle = 135f;
         float sweepAngle = 270f;
         
-        // 1. IÃ§ Ä°Ã§e GeÃ§en HUD Ã‡emberleri (Sci-Fi Hissi)
+        // 1. Ic Ice Gecen HUD Cemberleri (Sci-Fi Hissi)
         float hudRadius = arcBounds.width() / 2f - dpToPx(35);
         canvas.drawCircle(cx, cy, hudRadius, innerHudPaint);
         
@@ -171,7 +171,7 @@ public class FuturisticSpeedometerView extends View {
         pulsePaint.setAlpha(alpha2);
         canvas.drawCircle(cx, cy, currentRadius2, pulsePaint);
 
-        // 3. Modern Dis Kadran Ã‡izgileri (Tick marks)
+        // 3. Modern Dis Kadran Cizgileri (Tick marks)
         float radius = outerBounds.width() / 2f;
         int tickCount = 60;
         for (int i = 0; i <= tickCount; i++) {
@@ -198,7 +198,7 @@ public class FuturisticSpeedometerView extends View {
         // 4. Kalin Arka Plan Yayi
         canvas.drawArc(arcBounds, startAngle, sweepAngle, false, bgArcPaint);
         
-        // 5. Hiz Ä°lerleyiÅŸi (Progress)
+        // 5. Hiz Ilerleyisi (Progress)
         float progressSweep = (currentSpeed / maxSpeed) * sweepAngle;
         
         // Eger Hiz 0 ise sadece parlayan cok estetik bir "Nokta" (Neon Dot) goster
@@ -221,7 +221,7 @@ public class FuturisticSpeedometerView extends View {
             canvas.drawArc(arcBounds, startAngle, progressSweep, false, glowPaint);
             canvas.drawArc(arcBounds, startAngle, progressSweep, false, progressArcPaint);
             
-            // Ã‡izginin Ucunda Parlayan Top
+            // Cizginin Ucunda Parlayan Top
             double endRad = Math.toRadians(startAngle + progressSweep);
             float endDotX = cx + (float) Math.cos(endRad) * arcRadius;
             float endDotY = cy + (float) Math.sin(endRad) * arcRadius;
@@ -233,7 +233,7 @@ public class FuturisticSpeedometerView extends View {
             canvas.drawCircle(endDotX, endDotY, dpToPx(5), dotCore);
         }
         
-        // 6. Devasa Ä°nce Tipografi HÄ±z Metni
+        // 6. Devasa Ince Tipografi Hiz Metni
         canvas.drawText(String.valueOf((int) currentSpeed), cx, cy + dpToPx(18), textSpeedPaint);
         canvas.drawText("KM/H", cx, cy + dpToPx(54), textUnitPaint);
     }

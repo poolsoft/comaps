@@ -46,7 +46,7 @@
                 android:maxLines="1" />
         </LinearLayout>
 
-        <!-- AyÄ±rÄ±cÄ± BoÅŸluk -->
+        <!-- Ayirici Bosluk -->
         <Space
             android:layout_width="8dp"
             android:layout_height="wrap_content" />
@@ -89,7 +89,7 @@
         android:id="@+id/clock_date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pazartesi, 30 AralÄ±k"
+        android:text="Pazartesi, 30 Aralik"
         android:textColor="#DDFFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

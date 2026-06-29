@@ -323,7 +323,7 @@ public class CarFloatingButtonManager {
         // Ã„Â°kon yerine hiz yazisi (Turkce karakter yok)
         speedText = new android.widget.TextView(context);
         speedText.setTextColor(0xFFFFFFFF);
-        speedText.setTextSize(28); // 3 rakam sÃ„Â±Ã„Å¸acak font boyutu
+        speedText.setTextSize(28); // 3 rakam sÃ„Â±Ã„S¸acak font boyutu
         speedText.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
         speedText.setGravity(Gravity.CENTER);
         

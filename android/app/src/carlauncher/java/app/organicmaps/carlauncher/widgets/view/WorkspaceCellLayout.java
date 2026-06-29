@@ -16,7 +16,7 @@ import app.organicmaps.carlauncher.widgets.WidgetManager;
 /**
  * Cok Sayfali Premium Workspace icin Ozel 4x4 Izgara Yerlesim Sinifi (CellLayout).
  * Ekran alanini milimetrik olarak 4x4 esit hucreye boler ve widget'lari konumlandirir.
- * SÃ¼rÃ¼kle-BÄ±rak (Drag & Drop) sirasinda kÄ±lavuz cizgileri ve yeÅŸil/kÄ±rmÄ±zÄ± hedef alan maskeleri cizer.
+ * Surukle-Birak (Drag & Drop) sirasinda kilavuz cizgileri ve yesil/kirmizi hedef alan maskeleri cizer.
  * Kod icerisinde kesinlikle Turkce karakter kullanilmamistir.
  */
 public class WorkspaceCellLayout extends ViewGroup implements View.OnDragListener {

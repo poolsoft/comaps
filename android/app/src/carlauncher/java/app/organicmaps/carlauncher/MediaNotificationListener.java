@@ -14,13 +14,13 @@ import app.organicmaps.carlauncher.music.MusicManager;
 import java.util.List;
 
 /**
- * NotificationListenerService - Harici mÃ¼zik uygulamalarÄ±nÄ±n (Spotify, YouTube Music, vb.)
- * bildirimlerini dinleyerek medya session bilgilerine eriÅŸim saÄŸlar.
+ * NotificationListenerService - Harici muzik uygulamalarinin (Spotify, YouTube Music, vb.)
+ * bildirimlerini dinleyerek medya session bilgilerine erisim saglar.
  *
  * Android'in MediaSessionManager.getActiveSessions() API'si bu servisin ComponentName'i
- * Ã¼zerinden Ã§alÄ±ÅŸÄ±r. Servis aktif olarak bildirim dinlemezse session listesi boÅŸ dÃ¶ner.
+ * uzerinden calisir. Servis aktif olarak bildirim dinlemezse session listesi bos doner.
  *
- * Permission: KullanÄ±cÄ±nÄ±n Ayarlar > Bildirim EriÅŸimi'nden izin vermesi gerekir.
+ * Permission: Kullanicinin Ayarlar > Bildirim Erisimi'nden izin vermesi gerekir.
  */
 public class MediaNotificationListener extends NotificationListenerService {
 
@@ -29,7 +29,7 @@ public class MediaNotificationListener extends NotificationListenerService {
     @Override
     public void onListenerConnected() {
         Log.d(TAG, "NotificationListener connected. Ready to receive media sessions.");
-        // BaÄŸlantÄ± kurulunca mevcut session'larÄ± hemen yÃ¼kle
+        // Baglanti kurulunca mevcut session'lari hemen yukle
         refreshActiveSessions();
     }
 
@@ -42,7 +42,7 @@ public class MediaNotificationListener extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         if (isMediaNotification(sbn)) {
             Log.v(TAG, "Media notification posted from: " + sbn.getPackageName());
-            // Bildirim geldikten sonra session'Ä±n aktifleÅŸmesi iÃ§in kÄ±sa gecikme
+            // Bildirim geldikten sonra session'in aktiflesmesi icin kisa gecikme
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 refreshActiveSessions();
             }, 500);
@@ -60,7 +60,7 @@ public class MediaNotificationListener extends NotificationListenerService {
     }
 
     /**
-     * Bildirimin medya kategorisinde olup olmadÄ±ÄŸÄ±nÄ± kontrol eder.
+     * Bildirimin medya kategorisinde olup olmadigini kontrol eder.
      */
     private boolean isMediaNotification(StatusBarNotification sbn) {
         if (sbn == null || sbn.getNotification() == null) return false;
@@ -70,8 +70,8 @@ public class MediaNotificationListener extends NotificationListenerService {
     }
 
     /**
-     * Aktif medya session'larÄ±nÄ± yeniler ve MusicManager'a bildirir.
-     * Reflection kullanmaz, direkt public metod Ã§aÄŸÄ±rÄ±r.
+     * Aktif medya session'larini yeniler ve MusicManager'a bildirir.
+     * Reflection kullanmaz, direkt public metod cagirir.
      */
     private void refreshActiveSessions() {
         try {
@@ -84,7 +84,7 @@ public class MediaNotificationListener extends NotificationListenerService {
 
             if (controllers != null) {
                 Log.d(TAG, "Active sessions: " + controllers.size());
-                // MusicManager singleton'Ä±na direkt bildir
+                // MusicManager singleton'ina direkt bildir
                 MusicManager musicManager = MusicManager.getInstance(getApplicationContext());
                 musicManager.onSessionsRefreshed(controllers);
             }

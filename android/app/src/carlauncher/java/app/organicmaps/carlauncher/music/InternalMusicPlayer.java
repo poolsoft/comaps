@@ -66,23 +66,23 @@ public class InternalMusicPlayer {
         this.repeatMode = repeatMode;
     }
 
-    // --- Audio Focus Listener (Navigasyon ve Aramalar iÃ§in) ---
+    // --- Audio Focus Listener (Navigasyon ve Aramalar icin) ---
     private final AudioManager.OnAudioFocusChangeListener focusChangeListener = focusChange -> {
         switch (focusChange) {
             case AudioManager.AUDIOFOCUS_LOSS:
-                // KalÄ±cÄ± kayÄ±p (BaÅŸka mÃ¼zik uygulamasÄ± aÃ§Ä±ldÄ± veya arama var)
+                // Kalici kayip (Baska muzik uygulamasi acildi veya arama var)
                 playOnFocusGain = false;
                 pause();
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                // GeÃ§ici kayÄ±p (KÄ±sa konuÅŸma vs.)
+                // Gecici kayip (Kisa konusma vs.)
                 if (isPlaying()) {
                     playOnFocusGain = true;
                     pause();
                 }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                // Navigasyon konuÅŸuyor -> Sesi kÄ±s
+                // Navigasyon konusuyor -> Sesi kis
                 if (mediaPlayer != null) {
                     mediaPlayer.setVolume(0.2f, 0.2f);
                 }
@@ -90,7 +90,7 @@ public class InternalMusicPlayer {
             case AudioManager.AUDIOFOCUS_GAIN:
                 // Odak geri geldi
                 if (mediaPlayer != null) {
-                    mediaPlayer.setVolume(1.0f, 1.0f); // Sesi normale dÃ¶ndÃ¼r
+                    mediaPlayer.setVolume(1.0f, 1.0f); // Sesi normale dondur
                 }
                 if (playOnFocusGain) {
                     play();
@@ -104,7 +104,7 @@ public class InternalMusicPlayer {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
 
-        // AraÃ§ kullanÄ±mÄ± iÃ§in Attributes
+        // Arac kullanimi icin Attributes
         mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -113,7 +113,7 @@ public class InternalMusicPlayer {
 
         mediaPlayer.setOnPreparedListener(mp -> {
             isPrepared = true;
-            // HazÄ±r olunca Ã§al (EÄER isteniyorsa)
+            // Hazir olunca cal (EIER isteniyorsa)
             if (autoPlayOnPrepared) {
                 play();
             }
@@ -156,7 +156,7 @@ public class InternalMusicPlayer {
         if (index < 0 || index >= playlist.size())
             return;
 
-        // Ã–nceki durdur
+        // Onceki durdur
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }
@@ -186,7 +186,7 @@ public class InternalMusicPlayer {
         if (!isPrepared)
             return;
 
-        // Ã‡almadan Ã¶nce Audio Focus iste
+        // Calmadan once Audio Focus iste
         int result = audioManager.requestAudioFocus(focusChangeListener,
                 AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);
@@ -208,9 +208,9 @@ public class InternalMusicPlayer {
 
             saveState(); // Save position on pause
 
-            // Focus'u bÄ±rakmaya gerek yok (Abandon focus), belki kullanÄ±cÄ± hemen devam
+            // Focus'u birakmaya gerek yok (Abandon focus), belki kullanici hemen devam
             // ettirir.
-            // Ancak kalÄ±cÄ± durdurma durumunda abandonAudioFocus yapÄ±labilir.
+            // Ancak kalici durdurma durumunda abandonAudioFocus yapilabilir.
         }
     }
 

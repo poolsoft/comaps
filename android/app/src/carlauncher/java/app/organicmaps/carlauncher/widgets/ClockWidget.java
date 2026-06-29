@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * GeliÅŸmiÅŸ Saat Widget'Ä±.
+ * Gelismis Saat Widget'i.
  * S: Dijital Saat + Tarih
  * M: Dijital Saat + Tarih + Hava Durumu
  * L: Analog Saat + Tarih

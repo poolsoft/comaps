@@ -162,7 +162,7 @@ public class AppDockAdapter extends RecyclerView.Adapter<AppDockAdapter.ViewHold
             iconView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             container.addView(iconView);
 
-            // itemView'Ä±n kendi ripple'Ä± var, animate kodunu dokunma hissiyatÄ± (basÄ±lma) olarak koruyabiliriz ama onClickListener Ã§alÄ±ÅŸmasÄ±nÄ± bozmamasÄ± iÃ§in dÃ¶nÃ¼ÅŸ deÄŸerini false tutuyoruz.
+            // itemView'in kendi ripple'i var, animate kodunu dokunma hissiyati (basilma) olarak koruyabiliriz ama onClickListener calismasini bozmamasi icin donus degerini false tutuyoruz.
             itemView.setOnTouchListener((v, event) -> {
                 switch (event.getAction()) {
                     case android.view.MotionEvent.ACTION_DOWN:

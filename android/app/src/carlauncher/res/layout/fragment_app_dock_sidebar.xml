@@ -10,7 +10,7 @@
     android:paddingTop="2dp"
     android:paddingBottom="2dp">
 
-    <!-- ÃœST CONTAINER (Desktop Mode ve Apps) -->
+    <!-- UST CONTAINER (Desktop Mode ve Apps) -->
     <LinearLayout
         android:id="@+id/left_buttons_container"
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
 
     </LinearLayout>
 
-    <!-- ORTA CONTAINER (KÄ±sayollar) -->
+    <!-- ORTA CONTAINER (Kisayollar) -->
     <LinearLayout
         android:id="@+id/center_content_container"
         android:layout_width="match_parent"

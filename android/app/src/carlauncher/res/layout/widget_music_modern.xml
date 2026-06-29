@@ -6,7 +6,7 @@
     android:minHeight="120dp"
     android:clipToOutline="true">
 
-    <!-- AlbÃ¼m KapaÄŸÄ± Arka Plan -->
+    <!-- Album Kapagi Arka Plan -->
     <ImageView
         android:id="@+id/widget_album_art"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:text="ParÃ§a AdÄ±"
+        android:text="@string/car_music_track_name"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -62,7 +62,7 @@
         android:id="@+id/widget_track_artist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="SanatÃ§Ä±"
+        android:text="@string/car_music_artist"
         android:textColor="#BBBBBB"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/widget_track_title"

@@ -540,7 +540,7 @@ public class WorkspacePageAdapter extends RecyclerView.Adapter<WorkspacePageAdap
                 targetSpanY = 6;
             }
 
-            // Cakisma kontrolÃ¼: Bu sayfadaki diger widget'lar ile cakismadan bu boyuta gecip gecemeyecegini kontrol et
+            // Cakisma kontrolu: Bu sayfadaki diger widget'lar ile cakismadan bu boyuta gecip gecemeyecegini kontrol et
             boolean fits = canWidgetFitAt(widget, widget.getPageIndex(), widget.getCellX(), widget.getCellY(), targetSpanX, targetSpanY);
             
             if (fits) {

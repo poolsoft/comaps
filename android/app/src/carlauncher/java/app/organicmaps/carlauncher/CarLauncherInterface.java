@@ -20,8 +20,8 @@ public interface CarLauncherInterface {
     void openAntennaAlignmentFullscreen();
 
     /**
-     * SaÃ„Å¸ panel iÃƒÂ§eriÃ„Å¸ini deÃ„Å¸iÃ…Å¸tirir (Android Auto UI).
-     * @param content PanelContent enum deÃ„Å¸eri
+     * Sağ panel içeriğini değiştirir (Android Auto UI).
+     * @param content PanelContent enum değeri
      */
     void setPanelContent(PanelContentManager.PanelContent content);
 

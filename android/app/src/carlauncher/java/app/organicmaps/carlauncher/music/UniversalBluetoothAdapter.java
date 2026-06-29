@@ -102,7 +102,7 @@ public class UniversalBluetoothAdapter implements BaseMediaAdapter {
 
     @Override
     public String getTitle() {
-        return TextUtils.isEmpty(trackTitle) ? "Bluetooth MÃ¼zik" : trackTitle;
+        return TextUtils.isEmpty(trackTitle) ? "Bluetooth Muzik" : trackTitle;
     }
 
     @Override

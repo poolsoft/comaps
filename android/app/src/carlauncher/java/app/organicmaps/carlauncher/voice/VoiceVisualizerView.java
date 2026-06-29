@@ -27,11 +27,11 @@ public class VoiceVisualizerView extends View {
 
     private ValueAnimator animator;
 
-    // Renk paleti (Siri tarzÄ± neon renkler)
+    // Renk paleti (Siri tarzi neon renkler)
     private final int[] colors = {
-            Color.parseColor("#32c5ff"), // AÃ§Ä±k mavi
+            Color.parseColor("#32c5ff"), // Acik mavi
             Color.parseColor("#ff3274"), // Pembe
-            Color.parseColor("#32ff8d"), // YeÅŸil
+            Color.parseColor("#32ff8d"), // Yesil
             Color.parseColor("#9e32ff")  // Mor
     };
 
@@ -91,7 +91,7 @@ public class VoiceVisualizerView extends View {
         super.onDraw(canvas);
 
         if (amplitude < 0.01f) {
-            return; // Eger ses yoksa hic cizme (gÃ¶rÃ¼nmez)
+            return; // Eger ses yoksa hic cizme (gorunmez)
         }
 
         float w = getWidth();

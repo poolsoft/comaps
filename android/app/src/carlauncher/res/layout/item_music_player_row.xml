@@ -40,7 +40,7 @@
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ã‡alÄ±yor"
+            android:text="Caliyor"
             android:textSize="14sp"
             android:textColor="#4CAF50"/>
     </LinearLayout>

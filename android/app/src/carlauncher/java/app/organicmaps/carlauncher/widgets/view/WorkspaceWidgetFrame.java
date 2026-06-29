@@ -94,7 +94,7 @@ public class WorkspaceWidgetFrame extends FrameLayout {
         leftHandle = new WhiteDotHandleView(context);
         LayoutParams leftParams = new LayoutParams(handleSize, handleSize);
         leftParams.gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-        leftParams.leftMargin = -dpToPx(16); // Tam sÄ±nÄ±r Ã§izgisine ortala
+        leftParams.leftMargin = -dpToPx(16); // Tam sinir cizgisine ortala
         leftHandle.setLayoutParams(leftParams);
         leftHandle.setOnTouchListener(new OnTouchListener() {
             private float initialX;

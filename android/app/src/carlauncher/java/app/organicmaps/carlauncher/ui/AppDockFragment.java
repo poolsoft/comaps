@@ -297,7 +297,7 @@ public class AppDockFragment extends Fragment
             });
         }
 
-        // BÃ¼tÃ¼n dock butonlarÄ±nÄ±n boyutunu kÄ±sayollar ile (AppDockAdapter) eÅŸitle
+        // Butun dock butonlarinin boyutunu kisayollar ile (AppDockAdapter) esitle
         adjustButtonSizes();
 
         // Sag Buton: 3-nokta Menu (Tiklandiginda acilir menu gosterir)
@@ -896,12 +896,12 @@ public class AppDockFragment extends Fragment
             updateIconSize(appListButton, scale);
             updateIconSize(btnAssistant, scale);
             
-            // Adapter ikonlarÄ±nÄ±n gÃ¼ncellenmesi iÃ§in
+            // Adapter ikonlarinin guncellenmesi icin
             if (adapter != null) {
                 adapter.notifyDataSetChanged();
             }
             
-            // Layout ve Apps butonlarÄ±nÄ±n aralÄ±k/boÅŸluk ayarÄ±
+            // Layout ve Apps butonlarinin aralik/bosluk ayari
             if (leftContainer != null) {
                 leftContainer.setPadding(isVertical ? 0 : dpToPx(16), isVertical ? dpToPx(16) : 0, isVertical ? 0 : dpToPx(8), isVertical ? dpToPx(8) : 0);
             }
@@ -926,7 +926,7 @@ public class AppDockFragment extends Fragment
     private void updateIconSize(View v, float scale) {
         if (v == null) return;
         
-        int baseSize = dpToPx(48); // VarsayÄ±lan buton boyutu
+        int baseSize = dpToPx(48); // Varsayilan buton boyutu
         int scaledSize = (int) (baseSize * scale);
         
         ViewGroup.LayoutParams lp = v.getLayoutParams();

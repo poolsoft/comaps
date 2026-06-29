@@ -276,7 +276,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 }
 
                 handler.post(() -> {
-                    Toast.makeText(VoiceCommandService.this, "Model USB'den baÃ…Å¸arÃ„Â±yla kuruldu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceCommandService.this, "Model USB'den baÃ…S¸arÃ„Â±yla kuruldu!", Toast.LENGTH_SHORT).show();
                     loadModel(targetDir.getAbsolutePath());
                 });
 
@@ -504,13 +504,13 @@ public class VoiceCommandService extends Service implements RecognitionListener 
 
             // Ekranda orjinal metni goster
             handler.post(() -> {
-                android.widget.Toast.makeText(VoiceCommandService.this, "ÄŸÅ¸â€”Â£Ã¯Â¸Â Duyulan: " + originalText, android.widget.Toast.LENGTH_SHORT).show();
+                android.widget.Toast.makeText(VoiceCommandService.this, "gS¸â€”Â£Ã¯Â¸Â Duyulan: " + originalText, android.widget.Toast.LENGTH_SHORT).show();
             });
 
             // Turkce karakterleri Ingilizce karakterlere cevir (Normalizasyon)
-            String text = originalText.replace("ÃƒÂ§", "c").replace("Ã„Å¸", "g")
+            String text = originalText.replace("ÃƒÂ§", "c").replace("Ã„S¸", "g")
                        .replace("Ã„Â±", "i").replace("ÃƒÂ¶", "o")
-                       .replace("Ã…Å¸", "s").replace("ÃƒÂ¼", "u");
+                       .replace("Ã…S¸", "s").replace("ÃƒÂ¼", "u");
 
             android.util.Log.d("VoiceCommandService", "Algilanan Metin: " + text);
 
@@ -565,7 +565,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         sendVoiceStateBroadcast("LISTENING");
         
         handler.post(() -> {
-            android.widget.Toast.makeText(VoiceCommandService.this, "ÄŸÅ¸Ââ„¢Ã¯Â¸Â Dinliyorum... Komutunuzu soyleyin.", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(VoiceCommandService.this, "gS¸Ââ„¢Ã¯Â¸Â Dinliyorum... Komutunuzu soyleyin.", android.widget.Toast.LENGTH_SHORT).show();
         });
 
         try {
@@ -596,7 +596,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         sendVoiceStateBroadcast("CLOSED");
         
         handler.post(() -> {
-            android.widget.Toast.makeText(VoiceCommandService.this, "ÄŸÅ¸â€™Â¤ Uyku moduna gecildi ('Hey Car' bekliyor)", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(VoiceCommandService.this, "gS¸â€™Â¤ Uyku moduna gecildi ('Hey Car' bekliyor)", android.widget.Toast.LENGTH_SHORT).show();
         });
         
         startSpeechService(wakeWordRecognizer);
@@ -839,8 +839,8 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         if (text.contains("yuz") || text.contains("yÃƒÂ¼z")) return 100;
         if (text.contains("doksan")) return 90;
         if (text.contains("seksen")) return 80;
-        if (text.contains("yetmis") || text.contains("yetmiÃ…Å¸")) return 70;
-        if (text.contains("altmis") || text.contains("altmÃ„Â±Ã…Å¸")) return 60;
+        if (text.contains("yetmis") || text.contains("yetmiÃ…S¸")) return 70;
+        if (text.contains("altmis") || text.contains("altmÃ„Â±Ã…S¸")) return 60;
         if (text.contains("elli")) return 50;
         if (text.contains("kirk") || text.contains("kÃ„Â±rk")) return 40;
         if (text.contains("otuz")) return 30;
@@ -914,7 +914,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 );
                 int pct = (target * 100) / 255;
                 speak("Parlaklik yuzde " + pct + " yapildi.");
-            } else if (text.contains("azal") || text.contains("kÃ„Â±s") || text.contains("kis") || text.contains("dÃƒÂ¼Ã…Å¸ÃƒÂ¼r") || text.contains("dusur") || text.contains("karart")) {
+            } else if (text.contains("azal") || text.contains("kÃ„Â±s") || text.contains("kis") || text.contains("dÃƒÂ¼Ã…S¸ÃƒÂ¼r") || text.contains("dusur") || text.contains("karart")) {
                 int target = Math.max(10, currentBrightness - 51); // Decrease by 20%
                 Settings.System.putInt(
                         getContentResolver(),

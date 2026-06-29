@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- ARKA PLAN GÃ–RSELLERÄ° (Tam Ekran YansÄ±masÄ±) -->
+    <!-- ARKA PLAN GORSELLERI (Tam Ekran Yansimasi) -->
     <ImageView
         android:id="@+id/now_playing_art_blur"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:src="@drawable/bg_default_music_art"
         android:alpha="0.25"/>
 
-    <!-- AMBÄ°ANS PARLAMA KATMANI -->
+    <!-- AMBIANS PARLAMA KATMANI -->
     <View
         android:id="@+id/ambiance_glow_layer"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_music_player_overlay_gradient"/>
 
-    <!-- SOL DÄ°KEY DOCK (Music Side Dock - Asistan KaldÄ±rÄ±ldÄ±) -->
+    <!-- SOL DIKEY DOCK (Music Side Dock - Asistan Kaldirildi) -->
     <LinearLayout
         android:id="@+id/music_side_dock"
         android:layout_width="72dp"
@@ -79,12 +79,12 @@
             android:src="@android:drawable/ic_menu_agenda"
             android:tint="#FFFFFF"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Ã‡alma Listesi GÃ¶rÃ¼nÃ¼mÃ¼"
+            android:contentDescription="Calma Listesi Gorunumu"
             android:scaleType="centerInside"
             android:padding="12dp"
             android:visibility="visible"/>
 
-        <!-- btn_dock_voice KESÄ°NLÄ°KLE YOK! -->
+        <!-- btn_dock_voice KESINLIKLE YOK! -->
 
         <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
 
@@ -100,7 +100,7 @@
             android:padding="12dp"/>
     </LinearLayout>
 
-    <!-- SAÄ TARAF: Liste + Bottom Bar -->
+    <!-- SAI TARAF: Liste + Bottom Bar -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- DEV NOW PLAYING EKRANI (LÄ°STE KAPALIYKEN GÃ–RÃœNÃœR) -->
+        <!-- DEV NOW PLAYING EKRANI (LISTE KAPALIYKEN GORUNUR) -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/now_playing_center_panel"
             android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_default_album_art"/>
                     
-                <!-- GLASS MORPHISM PANEL (KapaÄŸÄ±n Ã¼stÃ¼ne biniyor) -->
+                <!-- GLASS MORPHISM PANEL (Kapagin ustune biniyor) -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             
-            <!-- GÃ–RSELLEÅTÄ°RÄ°CÄ° (KapaÄŸÄ±n SAÄ boÅŸluÄŸunu tamamen doldurur) -->
+            <!-- GORSELLESTIRICI (Kapagin SAI boslugunu tamamen doldurur) -->
             <app.organicmaps.carlauncher.widgets.MusicVisualizerView
                 android:id="@+id/player_visualizer"
                 android:layout_width="0dp"
@@ -188,7 +188,7 @@
                 app:layout_constraintTop_toTopOf="@+id/now_playing_center_art_card"
                 app:layout_constraintBottom_toBottomOf="@+id/now_playing_center_art_card" />
 
-            <!-- GÃ¶rselleÅŸtirici DeÄŸiÅŸtirme Butonu (GÃ¶rÃ¼nmez / SaÄŸ Ãœst KÃ¶ÅŸe) -->
+            <!-- Gorsellestirici Degistirme Butonu (Gorunmez / Sag Ust Kose) -->
             <View
                 android:id="@+id/btn_change_visualizer"
                 android:layout_width="100dp"
@@ -201,7 +201,7 @@
                 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- ÃœST ALAN: PLAYLIST (TAM GENÄ°ÅLÄ°K) -->
+        <!-- UST ALAN: PLAYLIST (TAM GENISLIK) -->
         <LinearLayout
             android:id="@+id/track_list_panel"
             android:layout_width="match_parent"
@@ -211,7 +211,7 @@
             android:background="#0A0A0E"
             android:padding="8dp">
 
-            <!-- Yatay KaydÄ±rÄ±labilir Sekmeler (Horizontal Tabs) -->
+            <!-- Yatay Kaydirilabilir Sekmeler (Horizontal Tabs) -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -249,7 +249,7 @@
                         android:paddingHorizontal="16dp"
                         android:background="?android:attr/selectableItemBackground"/>
                     
-                    <!-- YENÄ°: KLASÃ–RLER (FOLDERS) -->
+                    <!-- YENI: KLASORLER (FOLDERS) -->
                     <TextView
                         android:id="@+id/tab_folders"
                         android:layout_width="wrap_content"
@@ -262,7 +262,7 @@
                         android:paddingHorizontal="16dp"
                         android:background="?android:attr/selectableItemBackground"/>
                     
-                    <!-- YENÄ°: SANATÃ‡ILAR (ARTISTS) -->
+                    <!-- YENI: SANATCILAR (ARTISTS) -->
                     <TextView
                         android:id="@+id/tab_artists"
                         android:layout_width="wrap_content"
@@ -363,7 +363,7 @@
                     android:visibility="gone"/>
             </FrameLayout>
 
-            <!-- Alt KlasÃ¶r BaÅŸlÄ±ÄŸÄ± ve Geri DÃ¶n Butonu (KlasÃ¶r iÃ§ine girildiÄŸinde aÃ§Ä±lÄ±r) -->
+            <!-- Alt Klasor Basligi ve Geri Don Butonu (Klasor icine girildiginde acilir) -->
             <LinearLayout
                 android:id="@+id/folder_header_container"
                 android:layout_width="match_parent"
@@ -414,7 +414,7 @@
             android:paddingBottom="8dp"
             android:elevation="8dp">
 
-            <!-- Ä°lerleme Ã‡ubuÄŸu (Seekbar) ve SÃ¼reler -->
+            <!-- Ilerleme Cubugu (Seekbar) ve Sureler -->
             <LinearLayout
                 android:id="@+id/player_progress_container"
                 android:layout_width="match_parent"
@@ -453,14 +453,14 @@
                     android:minWidth="40dp"/>
             </LinearLayout>
 
-            <!-- Medya Kontrolleri ve ÅarkÄ± Bilgisi -->
+            <!-- Medya Kontrolleri ve Sarki Bilgisi -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <!-- AlbÃ¼m KapaÄŸÄ± -->
+                <!-- Album Kapagi -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_album_art"
                     android:visibility="gone"
@@ -479,7 +479,7 @@
                         android:tint="#88FFFFFF"/>
                 </androidx.cardview.widget.CardView>
 
-                <!-- ÅarkÄ± Ä°smi & SanatÃ§Ä± -->
+                <!-- Sarki Ismi & Sanatci -->
                 <LinearLayout
                     android:id="@+id/player_info_container"
                     android:visibility="gone"
@@ -586,8 +586,8 @@
 
     </LinearLayout>
 
-    <!-- GÄ°ZLÄ° OYUNCU PANELÄ° (Kodun Ã§Ã¶kmemesi iÃ§in referans amaÃ§lÄ± ID'ler) -->
-    <!-- Bu alanlar koddaki getViewById null pointer hatasÄ±nÄ± engellemek iÃ§in saklanmÄ±ÅŸtÄ±r -->
+    <!-- GIZLI OYUNCU PANELI (Kodun cokmemesi icin referans amacli ID'ler) -->
+    <!-- Bu alanlar koddaki getViewById null pointer hatasini engellemek icin saklanmistir -->
     <FrameLayout android:id="@+id/player_panel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
     <TextView android:id="@+id/app_name" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 

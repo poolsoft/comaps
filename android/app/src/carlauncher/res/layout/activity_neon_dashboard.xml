@@ -58,7 +58,7 @@
                 android:textColor="#00FFCC"
                 android:textSize="14sp"
                 android:maxLines="2"
-                android:text="AtatÃ¼rk BulvarÄ±"/>
+                android:text="Ataturk Bulvari"/>
                 
             <TextView
                 android:id="@+id/nav_eta"

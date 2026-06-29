@@ -45,7 +45,7 @@
 
     </LinearLayout>
 
-    <!-- ORTA CONTAINER (KÄ±sayollar ve Mini MÃ¼zik Ã‡alar) -->
+    <!-- ORTA CONTAINER (Kisayollar ve Mini Muzik Calar) -->
     <LinearLayout
         android:id="@+id/center_content_container"
         android:layout_width="0dp"
@@ -127,7 +127,7 @@
 
     </LinearLayout>
 
-    <!-- SAÄ CONTAINER (Asistan ve Saat) -->
+    <!-- SAI CONTAINER (Asistan ve Saat) -->
     <LinearLayout
         android:id="@+id/right_buttons_container"
         android:layout_width="wrap_content"

@@ -163,19 +163,19 @@ public abstract class BaseWidget {
     }
 
     /**
-     * Widget'in ayarlanabilir olup olmadÄ±ÄŸÄ±nÄ± belirtir.
-     * @return VarsayÄ±lan olarak false.
+     * Widget'in ayarlanabilir olup olmadigini belirtir.
+     * @return Varsayilan olarak false.
      */
     public boolean isConfigurable() {
         return false;
     }
 
     /**
-     * Widget ayar ekranÄ±nÄ± aÃ§ar.
-     * @param fragmentManager Dialog gÃ¶stermek iÃ§in gerekli.
+     * Widget ayar ekranini acar.
+     * @param fragmentManager Dialog gostermek icin gerekli.
      */
     public void openConfig(androidx.fragment.app.FragmentManager fragmentManager) {
-        // VarsayÄ±lan boÅŸ implementation
+        // Varsayilan bos implementation
     }
 
     public int getPageIndex() { return pageIndex; }
