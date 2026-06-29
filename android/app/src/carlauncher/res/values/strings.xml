@@ -243,4 +243,18 @@
     <string name="car_wallpaper_picker_title">Choose Wallpaper</string>
     <string name="car_wallpaper_error_picker">Could not open file picker</string>
     <string name="car_wallpaper_error_system">Could not open system wallpaper picker</string>
+
+    <string name="car_music_tab_all_tracks">All Tracks</string>
+    <string name="car_music_tab_folders">Folders</string>
+    <string name="car_music_tab_artists">Artists</string>
+    <string name="car_music_tab_recent">Recently Played</string>
+    <string name="car_music_tab_playlists">Playlists: </string>
+    <string name="car_music_search_hint">Search...</string>
+    <string name="car_music_folder_name">Folder Name</string>
+    <string name="car_music_track_name">Track Name</string>
+    <string name="car_music_artist">Artist</string>
+    <string name="car_music_now_playing_title">Car Launcher Sound System</string>
+    <string name="car_music_now_playing_artist">Ready</string>
+    <string name="car_music_app_select">SELECT MUSIC APP</string>
+    <string name="car_app_select">SELECT APP</string>
 </resources>

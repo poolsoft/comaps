@@ -61,7 +61,7 @@ public class AppPickerDialog {
         root.addView(handle, handleLp);
 
         TextView titleView = new TextView(context);
-        titleView.setText(onlyMusicApps ? "MÃœZÄ°K UYGULAMASI SEÃ‡" : "UYGULAMA SEÃ‡");
+        titleView.setText(onlyMusicApps ? context.getString(app.organicmaps.R.string.car_music_app_select) : context.getString(app.organicmaps.R.string.car_app_select));
         titleView.setTextColor(android.graphics.Color.WHITE);
         titleView.setTextSize(18);
         titleView.setGravity(Gravity.CENTER);

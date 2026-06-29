@@ -247,5 +247,18 @@
     <string name="car_settings_music_scan_results">%1$d adet müzik bulundu.</string>
     <string name="car_settings_music_app_internal">Dahili Müzik Çalar</string>
 
+    <string name="car_music_tab_all_tracks">Tüm Parçalar</string>
+    <string name="car_music_tab_folders">Klasörler</string>
+    <string name="car_music_tab_artists">Sanatçılar</string>
+    <string name="car_music_tab_recent">Son Çalınanlar</string>
+    <string name="car_music_tab_playlists">Listeler: </string>
+    <string name="car_music_search_hint">Ara...</string>
+    <string name="car_music_folder_name">Klasör Adı</string>
+    <string name="car_music_track_name">Parça Adı</string>
+    <string name="car_music_artist">Sanatçı</string>
+    <string name="car_music_now_playing_title">Car Launcher Ses Sistemi</string>
+    <string name="car_music_now_playing_artist">Hazır</string>
+    <string name="car_music_app_select">MÜZİK UYGULAMASI SEÇ</string>
+    <string name="car_app_select">UYGULAMA SEÇ</string>
 </resources>
 
