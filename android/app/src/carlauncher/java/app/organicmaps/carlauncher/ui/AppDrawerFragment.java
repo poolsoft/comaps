@@ -488,7 +488,7 @@ public class AppDrawerFragment extends Fragment {
             Toast.makeText(getContext(), item.label + " dock'a eklendi.", Toast.LENGTH_SHORT).show();
 
             // Send broadcast to refresh Dock (Both Local and Global for safety)
-            Intent updateIntent = new Intent("net.osmand.carlauncher.DOCK_UPDATED");
+            Intent updateIntent = new Intent("app.organicmaps.carlauncher.DOCK_UPDATED");
             updateIntent.setPackage(getContext().getPackageName()); // Security
             getContext().sendBroadcast(updateIntent);
             androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(getContext()).sendBroadcast(updateIntent);

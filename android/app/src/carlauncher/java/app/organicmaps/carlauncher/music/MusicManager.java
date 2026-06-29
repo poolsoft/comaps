@@ -375,7 +375,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
     }
     public void play() {
         if (!checkNotificationAccess()) {
-            android.content.Intent intent = new android.content.Intent("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION");
+            android.content.Intent intent = new android.content.Intent("app.organicmaps.carlauncher.REQUEST_NOTIFICATION_PERMISSION");
             androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
 
@@ -433,7 +433,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
 
     public void togglePlayPause() {
         if (!checkNotificationAccess()) {
-            android.content.Intent intent = new android.content.Intent("net.osmand.carlauncher.REQUEST_NOTIFICATION_PERMISSION");
+            android.content.Intent intent = new android.content.Intent("app.organicmaps.carlauncher.REQUEST_NOTIFICATION_PERMISSION");
             androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
 

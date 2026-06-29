@@ -117,7 +117,7 @@ public class AppDockFragment extends Fragment
                 }
             };
             android.content.IntentFilter filter = new android.content.IntentFilter(
-                    "net.osmand.carlauncher.DOCK_UPDATED");
+                    "app.organicmaps.carlauncher.DOCK_UPDATED");
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                 getContext().registerReceiver(dockUpdateReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
             } else {
@@ -127,7 +127,7 @@ public class AppDockFragment extends Fragment
         
         // Register Local Broadcast Receiver
         androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(getContext())
-                .registerReceiver(dockUpdateReceiver, new android.content.IntentFilter("net.osmand.carlauncher.DOCK_UPDATED"));
+                .registerReceiver(dockUpdateReceiver, new android.content.IntentFilter("app.organicmaps.carlauncher.DOCK_UPDATED"));
     }
 
     private android.content.BroadcastReceiver dockUpdateReceiver;
@@ -242,12 +242,12 @@ public class AppDockFragment extends Fragment
 
         View.OnClickListener musicDrawerOpener = v -> {
             // Use both global and local broadcast for compatibility (Turkce karakter yok)
-            Intent intent = new Intent("net.osmand.carlauncher.OPEN_MUSIC_DRAWER");
+            Intent intent = new Intent("app.organicmaps.carlauncher.OPEN_MUSIC_DRAWER");
             intent.setPackage(getContext().getPackageName());
             getContext().sendBroadcast(intent);
 
             androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(getContext())
-                    .sendBroadcast(new Intent("net.osmand.carlauncher.OPEN_MUSIC_DRAWER"));
+                    .sendBroadcast(new Intent("app.organicmaps.carlauncher.OPEN_MUSIC_DRAWER"));
         };
 
         if (miniMusicTitle != null) {
