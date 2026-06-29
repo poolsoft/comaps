@@ -170,7 +170,7 @@ public class TelemetryManager implements LocationListener {
 
         // O anki cadde/sokak ismini native JNI ile al
         try {
-            if (app.organicmaps.sdk.OrganicMaps.isInitialized()) {
+            if (app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
                 String address = app.organicmaps.sdk.Framework.nativeGetAddress(location.getLatitude(), location.getLongitude());
                 locationState.streetName = address != null ? address : "";
             }
@@ -232,12 +232,12 @@ public class TelemetryManager implements LocationListener {
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < info.lanes.length; i++) {
                         if (i > 0) sb.append("|");
-                        sb.append(info.lanes[i].mActive ? "1" : "0");
+                        sb.append(info.lanes[i].mActiveLaneWay != null ? "1" : "0");
                         sb.append(",");
-                        if (info.lanes[i].mLane != null) {
-                            for (int j = 0; j < info.lanes[i].mLane.length; j++) {
+                        if (info.lanes[i].mLaneWays != null) {
+                            for (int j = 0; j < info.lanes[i].mLaneWays.length; j++) {
                                 if (j > 0) sb.append(";");
-                                sb.append(info.lanes[i].mLane[j]);
+                                sb.append(info.lanes[i].mLaneWays[j].name());
                             }
                         }
                     }
