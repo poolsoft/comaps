@@ -244,6 +244,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     protected void onResume() {
         super.onResume();
+        // Dikey uygulamalardan geri donuldugunde ekranin yatayda kalmasini garanti et
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
             new IntentFilter("net.osmand.carlauncher.ACTION_DESKTOP_TOGGLE"));
