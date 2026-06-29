@@ -111,11 +111,11 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
     private void showMusicAppPicker(View v) {
         Context activityContext = v.getContext();
         if (!musicManager.checkNotificationAccess()) {
-             android.widget.Toast.makeText(activityContext, "LÃ¼tfen 'Bildirim EriÅŸimi' iznini verin.", android.widget.Toast.LENGTH_LONG).show();
+             android.widget.Toast.makeText(activityContext, R.string.car_music_error_notification_access, android.widget.Toast.LENGTH_LONG).show();
              try {
                 activityContext.startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
              } catch (Exception e) {
-                  android.widget.Toast.makeText(activityContext, "Ayarlar aÃ§Ä±lamadÄ±, manuel gidin.", android.widget.Toast.LENGTH_SHORT).show();
+                  android.widget.Toast.makeText(activityContext, R.string.car_music_error_settings_failed, android.widget.Toast.LENGTH_SHORT).show();
              }
              return;
         }

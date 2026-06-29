@@ -257,4 +257,6 @@
     <string name="car_music_now_playing_artist">Ready</string>
     <string name="car_music_app_select">SELECT MUSIC APP</string>
     <string name="car_app_select">SELECT APP</string>
+    <string name="car_music_error_notification_access">Please grant \'Notification Access\' permission.</string>
+    <string name="car_music_error_settings_failed">Could not open settings, please go manually.</string>
 </resources>

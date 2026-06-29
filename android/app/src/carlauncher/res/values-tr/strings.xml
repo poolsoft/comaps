@@ -260,5 +260,6 @@
     <string name="car_music_now_playing_artist">Hazır</string>
     <string name="car_music_app_select">MÜZİK UYGULAMASI SEÇ</string>
     <string name="car_app_select">UYGULAMA SEÇ</string>
+    <string name="car_music_error_notification_access">Lütfen \'Bildirim Erişimi\' iznini verin.</string>
+    <string name="car_music_error_settings_failed">Ayarlar açılamadı, lütfen manuel gidin.</string>
 </resources>
-
