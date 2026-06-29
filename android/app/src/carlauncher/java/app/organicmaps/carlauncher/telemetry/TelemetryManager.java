@@ -222,7 +222,7 @@ public class TelemetryManager implements LocationListener {
                 navigationState.nextStreet = info.nextStreet != null ? info.nextStreet : "";
                 navigationState.nextNextStreet = info.nextNextStreet != null ? info.nextNextStreet : "";
                 navigationState.completionPercent = info.completionPercent;
-                navigationState.distanceToTargetMeters = info.distToTarget != null ? info.distToTarget.mValue : 0.0;
+                navigationState.distanceToTargetMeters = info.distToTarget != null ? info.distToTarget.mDistance : 0.0;
                 navigationState.timeToTargetSeconds = info.totalTimeInSeconds;
                 navigationState.nextTurnDirection = info.nextCarDirection != null ? info.nextCarDirection.ordinal() : 0;
 

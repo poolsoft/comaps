@@ -23,6 +23,7 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.transition.Transition;
 import android.view.View;
+import android.view.Window;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.content.res.Configuration;
