@@ -903,15 +903,18 @@ public class AppDockFragment extends Fragment
             
             // Layout ve Apps butonlarinin aralik/bosluk ayari
             if (leftContainer != null) {
-                leftContainer.setPadding(isVertical ? 0 : dpToPx(16), isVertical ? dpToPx(16) : 0, isVertical ? 0 : dpToPx(8), isVertical ? dpToPx(8) : 0);
+                int topPadding = (int) (dpToPx(12) * scale);
+                int bottomPadding = (int) (dpToPx(4) * scale);
+                leftContainer.setPadding(isVertical ? 0 : topPadding, isVertical ? topPadding : 0, isVertical ? 0 : bottomPadding, isVertical ? bottomPadding : 0);
             }
             if (appListButton != null && appListButton.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) appListButton.getLayoutParams();
                 if (isVertical) {
-                    mlp.topMargin = dpToPx(12);
+                    // Dikeyde aradaki boslugu kuculttuk ve dinamik yaptik
+                    mlp.topMargin = (int) (dpToPx(4) * scale);
                     mlp.leftMargin = 0;
                 } else {
-                    mlp.leftMargin = dpToPx(12);
+                    mlp.leftMargin = (int) (dpToPx(12) * scale);
                     mlp.topMargin = 0;
                 }
                 appListButton.setLayoutParams(mlp);
