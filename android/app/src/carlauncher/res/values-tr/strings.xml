@@ -247,11 +247,5 @@
     <string name="car_settings_music_scan_results">%1$d adet müzik bulundu.</string>
     <string name="car_settings_music_app_internal">Dahili Müzik Çalar</string>
 
-    <string name="car_backup_type_title">Yedekleme Türü</string>
-    <string name="car_backup_type_folder">Klasör olarak kaydet (Hızlı, Önerilen)</string>
-    <string name="car_backup_type_zip">ZIP olarak kaydet (Tek Dosya)</string>
-    <string name="car_wallpaper_picker_title">Duvar Kağıdı Seçin</string>
-    <string name="car_wallpaper_error_picker">Dosya seçici açılamadı</string>
-    <string name="car_wallpaper_error_system">Sistem duvar kağıdı seçicisi açılamadı</string>
 </resources>
 
