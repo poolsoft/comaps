@@ -185,13 +185,8 @@ public class AppDockFragment extends Fragment
         root.post(() -> {
             ViewGroup.LayoutParams lp = root.getLayoutParams();
             if (lp != null) {
-                if (isVerticalMode) {
-                    lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                } else {
-                    lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                }
+                lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 root.setLayoutParams(lp);
             }
         });
@@ -836,13 +831,8 @@ public class AppDockFragment extends Fragment
 
             ViewGroup.LayoutParams rootLp = root.getLayoutParams();
             if (rootLp != null) {
-                if (isVertical) {
-                    rootLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    rootLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                } else {
-                    rootLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    rootLp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                }
+                rootLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                rootLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 root.setLayoutParams(rootLp);
             }
 
@@ -892,9 +882,7 @@ public class AppDockFragment extends Fragment
 
             app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
             float scale = 0.3f + (settings.getDockSize() / 100.0f) * 1.4f;
-            updateIconSize(btnDesktopMode, scale);
-            updateIconSize(appListButton, scale);
-            updateIconSize(btnAssistant, scale);
+            adjustButtonSizes();
             
             // Adapter ikonlarinin guncellenmesi icin
             if (adapter != null) {
