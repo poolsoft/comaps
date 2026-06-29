@@ -143,21 +143,15 @@ public class CarFloatingButtonManager {
         // Overlay izni kontrolu (Android M ve uzeri)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(context)) {
-                return; // Ã„Â°zin yoksa sessizce cik
+                return; // İzin yoksa sessizce cik
             }
         }
 
-        // Arka plan konum izni uyarisi ve istegi (Android 10 ve uzeri)
+        // Arka plan konum izni yoksa sadece bilgilendir, ama butonu yine de goster
+        // (Uygulama acilisinda otomatik ayarlar ekrani acmak kullanici deneyimini bozar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(context, "Arka planda hiz gosterebilmek icin Ayarlar'dan Konum iznini 'Her Zaman' olarak ayarlayiniz.", Toast.LENGTH_LONG).show();
-                
-                // Ayarlar ekranina yonlendir
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                android.net.Uri uri = android.net.Uri.fromParts("package", context.getPackageName(), null);
-                intent.setData(uri);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+                Toast.makeText(context, "Arka planda hiz icin Ayarlar > Konum > 'Her Zaman' seceneği gereklidir.", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -307,7 +301,7 @@ public class CarFloatingButtonManager {
         buttonBg.setStroke(dpToPx(3), 0xFF3D63FF); // Modern mavi kenarlik
         floatingView.setBackground(buttonBg);
 
-        // Ã„Â°kon yerine hiz yazisi (Turkce karakter yok)
+        // İkon yerine hiz yazisi (Turkce karakter yok)
         speedText = new android.widget.TextView(context);
         speedText.setTextColor(0xFFFFFFFF);
         speedText.setTextSize(28); // 3 rakam sÃ„Â±Ã„S¸acak font boyutu
