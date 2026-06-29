@@ -44,6 +44,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private android.widget.ImageButton widgetHandle;
     private android.view.View appDock;
     private android.view.View appDrawerContainer;
+    private android.view.View currentStreetPanel;
+    private android.widget.TextView currentStreetText;
 
     private boolean isWidgetPanelOpen = true;
     private boolean isDesktopMode = false;
@@ -110,6 +112,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         widgetHandle = findViewById(R.id.widget_handle);
         appDock = findViewById(R.id.app_dock);
         appDrawerContainer = findViewById(R.id.app_drawer_container);
+        currentStreetPanel = findViewById(R.id.current_street_panel);
+        currentStreetText = findViewById(R.id.current_street_text);
 
         if (widgetPanel != null) {
             widgetPanel.setBackgroundResource(R.drawable.bg_panel_rounded);
@@ -325,7 +329,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public void onTelemetryUpdated(TelemetryManager.LocationState loc, TelemetryManager.NavigationState nav, TelemetryManager.ObdState obd) {
-        // Log.d("CarLauncherTelemetry", "Speed: " + loc.speedKmh + " km/h | Nav: " + nav.distanceStr);
+        if (loc != null && currentStreetText != null && currentStreetPanel != null) {
+            String street = loc.streetName;
+            if (street != null && !street.isEmpty()) {
+                currentStreetText.setText(street);
+                currentStreetPanel.setVisibility(View.VISIBLE);
+            } else {
+                currentStreetPanel.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override

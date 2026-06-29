@@ -27,6 +27,34 @@
         <!-- INCLUDE ORIGINAL MAP ACTIVITY HERE SO MwmActivity FINDS ALL ITS VIEWS -->
         <include layout="@layout/activity_map" />
 
+        <!-- CURRENT STREET NAME FLOATING OVERLAY (Haritanin ustunde yuzen cadde ismi - Turkce karakter yok) -->
+        <FrameLayout
+            android:id="@+id/current_street_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_street_panel"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:visibility="gone"
+            android:elevation="6dp">
+            
+            <TextView
+                android:id="@+id/current_street_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:shadowColor="#80000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </FrameLayout>
+
     </app.organicmaps.carlauncher.ui.ExactFrameLayout>
 
     <!-- WIDGET PANEL CONTAINER (Icerik Paneli) -->
