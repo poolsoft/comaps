@@ -147,6 +147,13 @@ public class CarFloatingButtonManager {
             }
         }
 
+        // Arka plan konum izni uyarisi (Android 10 ve uzeri)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(context, "Arka planda hiz gosterebilmek icin Ayarlar'dan Konum iznini 'Her Zaman' olarak ayarlayiniz.", Toast.LENGTH_LONG).show();
+            }
+        }
+
         try {
             createFloatingView();
 
@@ -258,26 +265,6 @@ public class CarFloatingButtonManager {
             app.organicmaps.MwmApplication mwmapp = (app.organicmaps.MwmApplication) context.getApplicationContext();
             app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(mwmapp).addListener(telemetryListener);
 
-            // Native GPS Speed Listener
-            if (locationManager == null) {
-                locationManager = (android.location.LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                locationListener = new android.location.LocationListener() {
-                    @Override
-                    public void onLocationChanged(android.location.Location location) {
-                        if (location != null && location.hasSpeed()) {
-                            nativeGpsSpeed = location.getSpeed() * 3.6f;
-                        }
-                    }
-                    @Override public void onStatusChanged(String provider, int status, android.os.Bundle extras) {}
-                    @Override public void onProviderEnabled(String provider) {}
-                    @Override public void onProviderDisabled(String provider) {}
-                };
-            }
-            try {
-                locationManager.requestLocationUpdates(android.location.LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
-            } catch (SecurityException e) {
-                // ignore
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -294,13 +281,6 @@ public class CarFloatingButtonManager {
             app.organicmaps.MwmApplication mwmapp = (app.organicmaps.MwmApplication) context.getApplicationContext();
             app.organicmaps.carlauncher.telemetry.TelemetryManager.getInstance(mwmapp).removeListener(telemetryListener);
 
-            if (locationManager != null && locationListener != null) {
-                try {
-                    locationManager.removeUpdates(locationListener);
-                } catch (SecurityException e) {
-                    // ignore
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -340,41 +320,49 @@ public class CarFloatingButtonManager {
         floatingView.addView(speedText, textLp);
     }
 
+    public void setNativeGpsSpeed(float speedKmh) {
+        this.nativeGpsSpeed = speedKmh;
+        updateSpeedUI(speedKmh, 0f);
+    }
+
+    private void updateSpeedUI(float speedKmh, float maxSpeed) {
+        if (floatingView == null || speedText == null || buttonBg == null) return;
+        
+        float currentSpeed = speedKmh / 3.6f;
+        int speedKmhInt = Math.round(speedKmh);
+        
+        String speedStr = String.valueOf(speedKmhInt);
+        android.text.SpannableString span = new android.text.SpannableString(speedStr + "\nkm/h");
+        span.setSpan(new android.text.style.RelativeSizeSpan(0.4f), speedStr.length(), span.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        speedText.setText(span);
+
+        if (maxSpeed > 0) {
+            float diff = currentSpeed - maxSpeed;
+            float diffKmh = diff * 3.6f;
+            
+            if (diffKmh > 5) {
+                buttonBg.setStroke(dpToPx(3), 0xFFFF0000); // Kirmizi border
+                speedText.setTextColor(0xFFFF0000);
+            } else if (diffKmh > 0) {
+                buttonBg.setStroke(dpToPx(3), 0xFFFFA500); // Turuncu border
+                speedText.setTextColor(0xFFFFA500);
+            } else {
+                buttonBg.setStroke(dpToPx(2), 0xFF3D63FF); // Normal Mavi
+                speedText.setTextColor(0xFFFFFFFF);
+            }
+        } else {
+            buttonBg.setStroke(dpToPx(2), 0xFF3D63FF);
+            speedText.setTextColor(0xFFFFFFFF);
+        }
+    }
+
     private app.organicmaps.carlauncher.telemetry.TelemetryManager.TelemetryListener telemetryListener = new app.organicmaps.carlauncher.telemetry.TelemetryManager.TelemetryListener() {
         @Override
         public void onTelemetryUpdated(app.organicmaps.carlauncher.telemetry.TelemetryManager.LocationState loc, app.organicmaps.carlauncher.telemetry.TelemetryManager.NavigationState nav, app.organicmaps.carlauncher.telemetry.TelemetryManager.ObdState obd) {
-            if (floatingView == null || speedText == null || buttonBg == null) return;
-            
             float speedKmh = (nativeGpsSpeed >= 0) ? nativeGpsSpeed : loc.speedKmh;
-            float currentSpeed = speedKmh / 3.6f;
-            int speedKmhInt = Math.round(speedKmh);
-            
-            String speedStr = String.valueOf(speedKmhInt);
-            android.text.SpannableString span = new android.text.SpannableString(speedStr + "\nkm/h");
-            span.setSpan(new android.text.style.RelativeSizeSpan(0.4f), speedStr.length(), span.length(), android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            speedText.setText(span);
-
             app.organicmaps.MwmApplication app = (app.organicmaps.MwmApplication) context.getApplicationContext();
             float maxSpeed = getMaxSpeed(app, loc.rawLocation);
-            
-            if (maxSpeed > 0) {
-                float diff = currentSpeed - maxSpeed;
-                float diffKmh = diff * 3.6f;
-                
-                if (diffKmh > 5) {
-                    buttonBg.setStroke(dpToPx(3), 0xFFFF0000); // Kirmizi border
-                    speedText.setTextColor(0xFFFF0000);
-                } else if (diffKmh > 0) {
-                    buttonBg.setStroke(dpToPx(3), 0xFFFFA500); // Turuncu border
-                    speedText.setTextColor(0xFFFFA500);
-                } else {
-                    buttonBg.setStroke(dpToPx(2), 0xFF3D63FF); // Normal Mavi
-                    speedText.setTextColor(0xFFFFFFFF);
-                }
-            } else {
-                buttonBg.setStroke(dpToPx(2), 0xFF3D63FF);
-                speedText.setTextColor(0xFFFFFFFF);
-            }
+            updateSpeedUI(speedKmh, maxSpeed);
         }
     };
 

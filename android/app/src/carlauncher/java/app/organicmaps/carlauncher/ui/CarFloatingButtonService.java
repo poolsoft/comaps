@@ -18,6 +18,9 @@ public class CarFloatingButtonService extends Service {
     private static final String CHANNEL_ID = "CarFloatingButtonChannel";
     private static final int NOTIFICATION_ID = 4568;
 
+    private android.location.LocationManager locationManager;
+    private android.location.LocationListener locationListener;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,6 +30,7 @@ public class CarFloatingButtonService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && "STOP_SERVICE".equals(intent.getAction())) {
+            stopLocationUpdates();
             CarFloatingButtonManager.getInstance(this).hideButton();
             stopForeground(true);
             stopSelf();
@@ -48,8 +52,42 @@ public class CarFloatingButtonService extends Service {
 
         // Butonu goster ve GPS guncellemelerini aktif tut
         CarFloatingButtonManager.getInstance(this).showButton();
+        startLocationUpdates();
 
         return START_STICKY;
+    }
+
+    private void startLocationUpdates() {
+        if (locationManager == null) {
+            locationManager = (android.location.LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationListener = new android.location.LocationListener() {
+                @Override
+                public void onLocationChanged(android.location.Location location) {
+                    if (location != null && location.hasSpeed()) {
+                        float speedKmh = location.getSpeed() * 3.6f;
+                        CarFloatingButtonManager.getInstance(CarFloatingButtonService.this).setNativeGpsSpeed(speedKmh);
+                    }
+                }
+                @Override public void onStatusChanged(String provider, int status, android.os.Bundle extras) {}
+                @Override public void onProviderEnabled(String provider) {}
+                @Override public void onProviderDisabled(String provider) {}
+            };
+        }
+        try {
+            locationManager.requestLocationUpdates(android.location.LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+        } catch (SecurityException e) {
+            // ignore
+        }
+    }
+
+    private void stopLocationUpdates() {
+        if (locationManager != null && locationListener != null) {
+            try {
+                locationManager.removeUpdates(locationListener);
+            } catch (SecurityException e) {
+                // ignore
+            }
+        }
     }
 
     @Nullable
@@ -61,6 +99,7 @@ public class CarFloatingButtonService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopLocationUpdates();
         CarFloatingButtonManager.getInstance(this).hideButton();
     }
 
