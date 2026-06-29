@@ -137,7 +137,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
         if (widgetHandle != null) {
             widgetHandle.bringToFront();
-            widgetHandle.setImageResource(R.drawable.ic_chevron_left);
+            widgetHandle.setImageResource(R.drawable.ic_more_vert);
+            widgetHandle.setColorFilter(0xCCFFFFFF, android.graphics.PorterDuff.Mode.SRC_IN);
             widgetHandle.setVisibility(View.VISIBLE);
             
             widgetHandle.setOnTouchListener(new View.OnTouchListener() {
