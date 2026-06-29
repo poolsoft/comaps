@@ -475,4 +475,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             );
         }
     }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        applyStatusBarVisibility();
+    }
 }
