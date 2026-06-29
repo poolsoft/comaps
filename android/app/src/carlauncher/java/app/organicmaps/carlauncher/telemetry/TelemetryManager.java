@@ -47,6 +47,17 @@ public class TelemetryManager implements LocationListener {
         // Hiz limiti bilgisi (navigasyon aktifken doldurulur, negatif = bilgi yok)
         public double speedLimitMps = -1.0;
         public boolean isSpeedLimitExceeded = false;
+
+        // OsmAnd benzeri zenginlestirilmis yeni alanlar (Turkce karakter yok)
+        public String currentStreet = "";
+        public String nextStreet = "";
+        public String nextNextStreet = "";
+        public double completionPercent = 0.0;
+        public double distanceToTargetMeters = 0.0;
+        public int timeToTargetSeconds = 0;
+        public int nextTurnDirection = 0;
+        public boolean hasLanes = false;
+        public String lanesInfoRaw = "";
     }
 
     // OBD OrganicMaps tarafindan desteklenmiyor, placeholder.
@@ -179,7 +190,7 @@ public class TelemetryManager implements LocationListener {
             RoutingInfo info = routingController.getCachedRoutingInfo();
             if (info != null) {
                 // OrganicMaps RoutingInfo mapping
-                navigationState.distanceStr = info.distToTurn != null ? Utils.formatDistance(mContext, info.distToTurn).toString() : "";
+                navigationState.distanceStr = info.distToTarget != null ? Utils.formatDistance(mContext, info.distToTurn).toString() : "";
                 
                 // RoutingInfo turn res mapping
                 if (info.carDirection != null) {
@@ -205,11 +216,55 @@ public class TelemetryManager implements LocationListener {
                 } else {
                     navigationState.isSpeedLimitExceeded = false;
                 }
+
+                // OsmAnd benzeri yeni alanlarin doldurulmasi (Turkce karakter yok)
+                navigationState.currentStreet = info.currentStreet != null ? info.currentStreet : "";
+                navigationState.nextStreet = info.nextStreet != null ? info.nextStreet : "";
+                navigationState.nextNextStreet = info.nextNextStreet != null ? info.nextNextStreet : "";
+                navigationState.completionPercent = info.completionPercent;
+                navigationState.distanceToTargetMeters = info.distToTarget != null ? info.distToTarget.mValue : 0.0;
+                navigationState.timeToTargetSeconds = info.totalTimeInSeconds;
+                navigationState.nextTurnDirection = info.nextCarDirection != null ? info.nextCarDirection.ordinal() : 0;
+
+                // Serit bilgileri serialization
+                if (info.lanes != null && info.lanes.length > 0) {
+                    navigationState.hasLanes = true;
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < info.lanes.length; i++) {
+                        if (i > 0) sb.append("|");
+                        sb.append(info.lanes[i].mActive ? "1" : "0");
+                        sb.append(",");
+                        if (info.lanes[i].mLane != null) {
+                            for (int j = 0; j < info.lanes[i].mLane.length; j++) {
+                                if (j > 0) sb.append(";");
+                                sb.append(info.lanes[i].mLane[j]);
+                            }
+                        }
+                    }
+                    navigationState.lanesInfoRaw = sb.toString();
+                } else {
+                    navigationState.hasLanes = false;
+                    navigationState.lanesInfoRaw = "";
+                }
+
+                // Navigasyondan gelen gecerli cadde bilgisi varsa konum durumunu da besle
+                if (!navigationState.currentStreet.isEmpty()) {
+                    locationState.streetName = navigationState.currentStreet;
+                }
             }
         } else {
             navigationState.isActive = false;
             navigationState.speedLimitMps = -1.0;
             navigationState.isSpeedLimitExceeded = false;
+            navigationState.currentStreet = "";
+            navigationState.nextStreet = "";
+            navigationState.nextNextStreet = "";
+            navigationState.completionPercent = 0.0;
+            navigationState.distanceToTargetMeters = 0.0;
+            navigationState.timeToTargetSeconds = 0;
+            navigationState.nextTurnDirection = 0;
+            navigationState.hasLanes = false;
+            navigationState.lanesInfoRaw = "";
         }
     }
 
