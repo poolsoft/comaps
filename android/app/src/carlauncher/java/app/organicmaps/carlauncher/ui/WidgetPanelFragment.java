@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.ui;
 
+import app.organicmaps.R;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +32,7 @@ import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.carlauncher.CarLauncherInterface;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.carlauncher.widgets.WorkspacePageAdapter;
-import app.organicmaps.R;
+import R;
 
 /**
  * Cok Sayfali Premium Grid Widget Workspace Fragment.
@@ -668,7 +670,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                     intent.setType("image/*");
                     startActivityForResult(intent, RC_SELECT_WALLPAPER);
                 } catch (Exception e) {
-                    android.widget.Toast.makeText(getContext(), getString(app.organicmaps.R.string.car_wallpaper_error_picker), android.widget.Toast.LENGTH_SHORT).show();
+                    android.widget.Toast.makeText(getContext(), getString(R.string.car_wallpaper_error_picker), android.widget.Toast.LENGTH_SHORT).show();
                 }
             }
 

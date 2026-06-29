@@ -46,7 +46,9 @@ jobs:
       - name: Compile
         shell: bash
         working-directory: android
-        run: ./gradlew -Parm64 assembleCarlauncherDebug -q
+        run: |
+          ./gradlew -Parm64 assembleCarlauncherDebug -q 2>&1 | awk '!/warning: \[deprecation\]/'
+          exit ${PIPESTATUS[0]}
 
       - name: Rename APK
         working-directory: ./android

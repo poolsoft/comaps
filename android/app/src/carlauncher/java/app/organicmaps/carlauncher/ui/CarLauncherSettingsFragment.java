@@ -1,5 +1,7 @@
 package app.organicmaps.carlauncher.ui;
 
+import app.organicmaps.R;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,7 +24,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import app.organicmaps.R;
+import R;
 
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
@@ -596,10 +598,10 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             SharedPreferences prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
             
             langPref.setEntries(new CharSequence[]{
-                getContext().getString(app.organicmaps.R.string.car_settings_lang_system), 
-                getContext().getString(app.organicmaps.R.string.car_settings_lang_turkish), 
-                getContext().getString(app.organicmaps.R.string.car_settings_lang_english), 
-                getContext().getString(app.organicmaps.R.string.car_settings_lang_german)
+                getContext().getString(R.string.car_settings_lang_system), 
+                getContext().getString(R.string.car_settings_lang_turkish), 
+                getContext().getString(R.string.car_settings_lang_english), 
+                getContext().getString(R.string.car_settings_lang_german)
             });
             langPref.setEntryValues(new CharSequence[]{"", "tr", "en", "de"});
             
@@ -610,7 +612,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 String val = (String) newValue;
                 prefs.edit().putString("pref_app_locale", val).apply();
                 
-                Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_settings_language_updating), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getContext().getString(R.string.car_settings_language_updating), Toast.LENGTH_SHORT).show();
                 if (getActivity() != null) {
                     Intent intent = getActivity().getIntent();
                     getActivity().finish();
@@ -819,8 +821,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (exportPref != null) {
             exportPref.setOnPreferenceClickListener(preference -> {
                 new android.app.AlertDialog.Builder(getContext())
-                    .setTitle(getString(app.organicmaps.R.string.car_backup_type_title))
-                    .setItems(new CharSequence[]{getString(app.organicmaps.R.string.car_backup_type_folder), getString(app.organicmaps.R.string.car_backup_type_zip)}, (dialog, which) -> {
+                    .setTitle(getString(R.string.car_backup_type_title))
+                    .setItems(new CharSequence[]{getString(R.string.car_backup_type_folder), getString(R.string.car_backup_type_zip)}, (dialog, which) -> {
                         try {
                             Intent intent;
                             if (which == 0) {

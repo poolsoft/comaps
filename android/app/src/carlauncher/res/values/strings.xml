@@ -230,4 +230,10 @@
     <string name="car_compass_sw">SW</string>
     <string name="car_compass_w">W</string>
     <string name="car_compass_nw">NW</string>
+
+    <!-- Additional Settings Strings -->
+    <string name="car_settings_widget_mode_restart">Widget mode change requires app restart</string>
+    <string name="car_settings_music_scanning">Scanning music...</string>
+    <string name="car_settings_music_scan_results">Found %1$d tracks.</string>
+    <string name="car_settings_music_app_internal">Internal Music Player</string>
 </resources>

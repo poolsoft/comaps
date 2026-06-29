@@ -240,5 +240,11 @@
     <string name="car_settings_error_generic">Hata: %1$s</string>
     <string name="car_settings_voice_model_success">Ses modeli başarıyla kuruldu! Servis yeniden başlatılıyor...</string>
     <string name="car_settings_voice_model_error">Ses modeli yüklenemedi!</string>
+
+    <!-- Additional Settings Strings -->
+    <string name="car_settings_widget_mode_restart">Widget mod değişikliği uygulamanın yeniden başlatılmasını gerektirir</string>
+    <string name="car_settings_music_scanning">Müzikler taranıyor...</string>
+    <string name="car_settings_music_scan_results">%1$d adet müzik bulundu.</string>
+    <string name="car_settings_music_app_internal">Dahili Müzik Çalar</string>
 </resources>
 
