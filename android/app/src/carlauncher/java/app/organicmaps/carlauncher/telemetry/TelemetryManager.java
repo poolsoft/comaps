@@ -35,6 +35,7 @@ public class TelemetryManager implements LocationListener {
         public float speedKmh = 0f;
         public double altitudeMeters = 0.0;
         public float bearing = 0f;
+        public String streetName = "";
     }
 
     public static class NavigationState {
@@ -155,6 +156,16 @@ public class TelemetryManager implements LocationListener {
         }
         if (location.hasAltitude()) locationState.altitudeMeters = location.getAltitude();
         if (location.hasBearing()) locationState.bearing = location.getBearing();
+
+        // O anki cadde/sokak ismini native JNI ile al
+        try {
+            if (app.organicmaps.sdk.OrganicMaps.isInitialized()) {
+                String address = app.organicmaps.sdk.Framework.nativeGetAddress(location.getLatitude(), location.getLongitude());
+                locationState.streetName = address != null ? address : "";
+            }
+        } catch (Exception e) {
+            locationState.streetName = "";
+        }
 
         pollNavigation();
 
