@@ -236,4 +236,11 @@
     <string name="car_settings_music_scanning">Scanning music...</string>
     <string name="car_settings_music_scan_results">Found %1$d tracks.</string>
     <string name="car_settings_music_app_internal">Internal Music Player</string>
+
+    <string name="car_backup_type_title">Backup Type</string>
+    <string name="car_backup_type_folder">Save as Folder (Fast, Recommended)</string>
+    <string name="car_backup_type_zip">Save as ZIP (Single File)</string>
+    <string name="car_wallpaper_picker_title">Choose Wallpaper</string>
+    <string name="car_wallpaper_error_picker">Could not open file picker</string>
+    <string name="car_wallpaper_error_system">Could not open system wallpaper picker</string>
 </resources>
