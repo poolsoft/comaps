@@ -147,10 +147,17 @@ public class CarFloatingButtonManager {
             }
         }
 
-        // Arka plan konum izni uyarisi (Android 10 ve uzeri)
+        // Arka plan konum izni uyarisi ve istegi (Android 10 ve uzeri)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(context, "Arka planda hiz gosterebilmek icin Ayarlar'dan Konum iznini 'Her Zaman' olarak ayarlayiniz.", Toast.LENGTH_LONG).show();
+                
+                // Ayarlar ekranina yonlendir
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                android.net.Uri uri = android.net.Uri.fromParts("package", context.getPackageName(), null);
+                intent.setData(uri);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         }
 
