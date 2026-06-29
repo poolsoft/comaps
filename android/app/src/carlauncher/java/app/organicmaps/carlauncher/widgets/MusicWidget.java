@@ -130,7 +130,7 @@ public class MusicWidget extends BaseWidget implements MusicManager.MusicUIListe
         if (context instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
             ((app.organicmaps.carlauncher.CarLauncherInterface) context).openMusicPlayer();
         } else {
-            Intent intent = new Intent("app.organicmaps.carlauncher.OPEN_MUSIC_DRAWER");
+            Intent intent = new Intent(context.getPackageName() + ".OPEN_MUSIC_DRAWER");
             intent.setPackage(context.getPackageName());
             context.sendBroadcast(intent);
         }

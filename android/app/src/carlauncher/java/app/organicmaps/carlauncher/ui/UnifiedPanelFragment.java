@@ -72,13 +72,15 @@ public class UnifiedPanelFragment extends Fragment
         public void onReceive(Context context, Intent intent) {
             if (intent == null) return;
             String action = intent.getAction();
-            if ("app.organicmaps.carlauncher.SHOW_NOTIFICATION".equals(action)) {
+            String showAction = context.getPackageName() + ".SHOW_NOTIFICATION";
+            String hideAction = context.getPackageName() + ".HIDE_NOTIFICATION";
+            if (showAction.equals(action)) {
                 String title = intent.getStringExtra("title");
                 String message = intent.getStringExtra("message");
                 String type = intent.getStringExtra("type"); // "call" veya "notification"
 
                 showNotificationCard(title, message, type);
-            } else if ("app.organicmaps.carlauncher.HIDE_NOTIFICATION".equals(action)) {
+            } else if (hideAction.equals(action)) {
                 hideNotificationCard();
             }
         }
@@ -243,8 +245,8 @@ public class UnifiedPanelFragment extends Fragment
         // BroadcastReceiver kaydi (Android 14+ icin RECEIVER_EXPORTED zorunlu - Turkce karakter yok)
         if (getContext() != null) {
             IntentFilter filter = new IntentFilter();
-            filter.addAction("app.organicmaps.carlauncher.SHOW_NOTIFICATION");
-            filter.addAction("app.organicmaps.carlauncher.HIDE_NOTIFICATION");
+            filter.addAction(getContext().getPackageName() + ".SHOW_NOTIFICATION");
+            filter.addAction(getContext().getPackageName() + ".HIDE_NOTIFICATION");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 getContext().registerReceiver(notificationReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {

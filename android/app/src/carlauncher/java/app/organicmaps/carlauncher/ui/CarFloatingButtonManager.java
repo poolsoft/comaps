@@ -64,9 +64,11 @@ public class CarFloatingButtonManager {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if ("app.organicmaps.carlauncher.ACTION_SHOW_ASSISTANT_MENU".equals(action)) {
+            String showAction = context.getPackageName() + ".ACTION_SHOW_ASSISTANT_MENU";
+            String layoutAction = context.getPackageName() + ".ACTION_LAYOUT_TOGGLE";
+            if (showAction.equals(action)) {
                 showOverlayMenuFromDock();
-            } else if ("app.organicmaps.carlauncher.ACTION_LAYOUT_TOGGLE".equals(action)) {
+            } else if (layoutAction.equals(action)) {
                 // Layout degistiginde buton gosterim durumunu guncelle (Turkce karakter yok)
                 gestureHandler.postDelayed(new Runnable() {
                     @Override
@@ -84,8 +86,8 @@ public class CarFloatingButtonManager {
 
         // AlÃ„Â±cÃ„Â± kaydÃ„Â± (TÃƒÂ¼rkÃƒÂ§e karakter yok)
         android.content.IntentFilter filter = new android.content.IntentFilter();
-        filter.addAction("app.organicmaps.carlauncher.ACTION_SHOW_ASSISTANT_MENU");
-        filter.addAction("app.organicmaps.carlauncher.ACTION_LAYOUT_TOGGLE");
+        filter.addAction(this.context.getPackageName() + ".ACTION_SHOW_ASSISTANT_MENU");
+        filter.addAction(this.context.getPackageName() + ".ACTION_LAYOUT_TOGGLE");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.context.registerReceiver(assistantReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
@@ -376,12 +378,12 @@ public class CarFloatingButtonManager {
             bringAppToForeground();
         } else {
             // On planda tek tiklandiginda: Desktop modu toggle yapar (Kisa Basim)
-            Intent intent = new Intent("app.organicmaps.carlauncher.ACTION_DESKTOP_TOGGLE");
+            Intent intent = new Intent(context.getPackageName() + ".ACTION_DESKTOP_TOGGLE");
             intent.setPackage(context.getPackageName());
             context.sendBroadcast(intent);
             
             androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context)
-                    .sendBroadcast(new Intent("app.organicmaps.carlauncher.ACTION_DESKTOP_TOGGLE"));
+                    .sendBroadcast(new Intent(context.getPackageName() + ".ACTION_DESKTOP_TOGGLE"));
         }
     }
 
@@ -431,9 +433,9 @@ public class CarFloatingButtonManager {
         menuOverlayView.addView(content, contentLp);
 
         // MenÃƒÂ¼ elemanlarÃ„Â± (TÃƒÂ¼rkÃƒÂ§e karakter yok!)
-        addMenuItem(content, "Gorunumu Degistir", "app.organicmaps.carlauncher.ACTION_LAYOUT_TOGGLE");
-        addMenuItem(content, "Masaustu Modu (Desktop)", "app.organicmaps.carlauncher.ACTION_DESKTOP_TOGGLE");
-        addMenuItem(content, "Car Launcher Ayarlari", "app.organicmaps.carlauncher.ACTION_OPEN_SETTINGS");
+        addMenuItem(content, "Gorunumu Degistir", context.getPackageName() + ".ACTION_LAYOUT_TOGGLE");
+        addMenuItem(content, "Masaustu Modu (Desktop)", context.getPackageName() + ".ACTION_DESKTOP_TOGGLE");
+        addMenuItem(content, "Car Launcher Ayarlari", context.getPackageName() + ".ACTION_OPEN_SETTINGS");
 
         int layoutType;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -510,9 +512,9 @@ public class CarFloatingButtonManager {
         menuOverlayView.addView(content, contentLp);
 
         // MenÃƒÂ¼ elemanlarÃ„Â± (TÃƒÂ¼rkÃƒÂ§e karakter yok!)
-        addMenuItem(content, "Gorunumu Degistir", "app.organicmaps.carlauncher.ACTION_LAYOUT_TOGGLE");
-        addMenuItem(content, "Masaustu Modu (Desktop)", "app.organicmaps.carlauncher.ACTION_DESKTOP_TOGGLE");
-        addMenuItem(content, "Car Launcher Ayarlari", "app.organicmaps.carlauncher.ACTION_OPEN_SETTINGS");
+        addMenuItem(content, "Gorunumu Degistir", context.getPackageName() + ".ACTION_LAYOUT_TOGGLE");
+        addMenuItem(content, "Masaustu Modu (Desktop)", context.getPackageName() + ".ACTION_DESKTOP_TOGGLE");
+        addMenuItem(content, "Car Launcher Ayarlari", context.getPackageName() + ".ACTION_OPEN_SETTINGS");
 
         int layoutType;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

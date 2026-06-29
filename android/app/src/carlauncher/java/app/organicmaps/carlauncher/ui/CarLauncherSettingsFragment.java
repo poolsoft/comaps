@@ -364,7 +364,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     // ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
     // GÃƒÆ’Ã¢â‚¬â€œRÃƒÆ’Ã…â€œNÃƒÆ’Ã…â€œM AYARLARI
-    // ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â ÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â 
+    // 
+    // GÖRÜNÜM AYARLARI
+    // 
 
     private void setupAppearancePrefs() {
         // Status Bar
@@ -420,7 +422,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                         Toast.LENGTH_SHORT).show();
                 
                  if (getActivity() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.WIDGET_MODE_CHANGED");
+                    Intent intent = new Intent(getActivity().getPackageName() + ".WIDGET_MODE_CHANGED");
                     getActivity().sendBroadcast(intent);
                 }
                 return true;
@@ -447,7 +449,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setPortraitMapOnly(val);
                 }
                 if (getActivity() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.WIDGET_MODE_CHANGED");
+                    Intent intent = new Intent(getActivity().getPackageName() + ".WIDGET_MODE_CHANGED");
                     getActivity().sendBroadcast(intent);
                 }
                 return true;
@@ -519,7 +521,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 if (getActivity() instanceof app.organicmaps.MwmActivity) {
                     ((app.organicmaps.MwmActivity) getActivity()).applyNightDimMode();
                 } else if (getContext() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.NIGHT_DIM_CHANGED");
+                    Intent intent = new Intent(getContext().getPackageName() + ".NIGHT_DIM_CHANGED");
                     getContext().sendBroadcast(intent);
                 }
                 return true;
@@ -535,7 +537,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setParallaxIntensity(val);
                 }
                 if (getActivity() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.WIDGET_MODE_CHANGED");
+                    Intent intent = new Intent(getActivity().getPackageName() + ".WIDGET_MODE_CHANGED");
                     getActivity().sendBroadcast(intent);
                 }
                 return true;
@@ -551,7 +553,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setBackgroundStyle(val);
                 }
                 if (getActivity() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.WIDGET_MODE_CHANGED");
+                    Intent intent = new Intent(getActivity().getPackageName() + ".WIDGET_MODE_CHANGED");
                     getActivity().sendBroadcast(intent);
                 }
                 return true;
@@ -579,7 +581,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setWidgetPanelPosition(val);
                 }
                 if (getActivity() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.WIDGET_MODE_CHANGED");
+                    Intent intent = new Intent(getActivity().getPackageName() + ".WIDGET_MODE_CHANGED");
                     getActivity().sendBroadcast(intent);
                 }
                 return true;
@@ -595,7 +597,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     settings.setExpansionBehavior(val);
                 }
                 if (getActivity() != null) {
-                    Intent intent = new Intent("app.organicmaps.carlauncher.WIDGET_MODE_CHANGED");
+                    Intent intent = new Intent(getActivity().getPackageName() + ".WIDGET_MODE_CHANGED");
                     getActivity().sendBroadcast(intent);
                 }
                 return true;
@@ -785,7 +787,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (getContext() == null) return;
         AppDockManager dockManager = new AppDockManager(getContext());
         dockManager.clearAllShortcuts();
-        Intent intent = new Intent("app.organicmaps.carlauncher.DOCK_UPDATED");
+        Intent intent = new Intent(getContext().getPackageName() + ".DOCK_UPDATED");
         getContext().sendBroadcast(intent);
         Toast.makeText(getContext(), getString(R.string.car_settings_dock_reset_success), Toast.LENGTH_SHORT).show();
     }

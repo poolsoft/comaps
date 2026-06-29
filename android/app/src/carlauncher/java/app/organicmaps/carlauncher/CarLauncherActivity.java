@@ -56,7 +56,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private final BroadcastReceiver desktopToggleReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if ("app.organicmaps.carlauncher.ACTION_DESKTOP_TOGGLE".equals(intent.getAction())) {
+            String desktopAction = getPackageName() + ".ACTION_DESKTOP_TOGGLE";
+            if (desktopAction.equals(intent.getAction())) {
                 onDesktopModeToggle();
             }
         }
@@ -65,7 +66,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private final BroadcastReceiver notificationPermissionReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if ("app.organicmaps.carlauncher.REQUEST_NOTIFICATION_PERMISSION".equals(intent.getAction())) {
+            String permissionAction = getPackageName() + ".REQUEST_NOTIFICATION_PERMISSION";
+            if (permissionAction.equals(intent.getAction())) {
                 new android.app.AlertDialog.Builder(CarLauncherActivity.this)
                     .setTitle(R.string.notification_permission_required_title)
                     .setMessage(R.string.notification_permission_required_message)
@@ -271,10 +273,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
-            new IntentFilter("app.organicmaps.carlauncher.ACTION_DESKTOP_TOGGLE"));
+            new IntentFilter(getPackageName() + ".ACTION_DESKTOP_TOGGLE"));
             
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationPermissionReceiver, 
-            new IntentFilter("app.organicmaps.carlauncher.REQUEST_NOTIFICATION_PERMISSION"));
+            new IntentFilter(getPackageName() + ".REQUEST_NOTIFICATION_PERMISSION"));
         
         applyStatusBarVisibility();
         app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this).setAppInForeground(true);
