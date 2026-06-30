@@ -673,8 +673,6 @@
 "yes_available" = "כן";
 /* E.g. "WiFi:No" */
 "no_available" = "לא";
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
-"capacity" = "קיבולת: %@";
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "רשת: %@";
 "trip_finished" = "הגעת!";
@@ -876,3 +874,4 @@
 "downloader_check_updates_error" = "Error checking for updates";
 "editor_add_select_category_recent_subtitle" = "Recently Used";
 "oh_unknown" = "Opening hours unknown";
+"carplay_highway_exit" = "Exit %@";

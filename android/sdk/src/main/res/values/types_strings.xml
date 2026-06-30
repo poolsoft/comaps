@@ -212,6 +212,7 @@
     <string name="type.amenity.waste_transfer_station">Waste Transfer Station</string>
     <string name="type.amenity.water_point">Water Tank Refill Point</string>
     <string name="type.amenity.water_point.drinking_water_no">Water Tank Refill Point</string>
+    <string name="type.amenity.stage">Stage</string>
     <string name="type.barrier">Barrier</string>
     <string name="type.barrier.yes">Barrier</string>
     <string name="type.barrier.block">Block</string>
@@ -945,7 +946,7 @@
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.funicular.bridge">Funicular Bridge</string>
     <string name="type.railway.funicular.tunnel">Funicular Tunnel</string>
-    <string name="type.railway.halt">Rail Halt</string>
+    <string name="type.railway.halt">Rail Stop</string>
     <string name="type.railway.level_crossing">Level Crossing</string>
     <string name="type.railway.light_rail">Light Rail</string>
     <string name="type.railway.light_rail.bridge">Light Rail Bridge</string>

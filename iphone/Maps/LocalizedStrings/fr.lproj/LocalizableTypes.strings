@@ -424,7 +424,7 @@
 "type.entrance.garage" = "Entrée du garage";
 "type.entrance.service" = "Entrée de service";
 "type.entrance.entry" = "Entrée (uniquement)";
-"type.entrance.exit" = "Sortie";
+"type.entrance.exit" = "Sortie (uniquement)";
 "type.entrance.emergency" = "Issue de secours";
 "type.fee.yes" = "€";
 "type.fee.no" = "Gratuit";
@@ -694,6 +694,7 @@
 "type.landuse.plant_nursery" = "Pépinière";
 "type.leisure" = "Loisir";
 "type.leisure.bandstand" = "Kiosque à musique";
+"type.amenity.stage" = "Scène";
 "type.leisure.common" = "Terrain public";
 "type.leisure.dog_park" = "Parc canin";
 "type.leisure.escape_game" = "Escape room";
