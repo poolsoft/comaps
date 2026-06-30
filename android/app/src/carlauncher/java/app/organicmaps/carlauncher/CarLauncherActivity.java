@@ -45,8 +45,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private android.widget.ImageButton widgetHandle;
     private android.view.View appDock;
     private android.view.View appDrawerContainer;
-    private android.view.View currentStreetPanel;
-    private android.widget.TextView currentStreetText;
 
     private boolean isWidgetPanelOpen = true;
     private boolean isDesktopMode = false;
@@ -113,8 +111,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         widgetHandle = findViewById(R.id.widget_handle);
         appDock = findViewById(R.id.app_dock);
         appDrawerContainer = findViewById(R.id.app_drawer_container);
-        currentStreetPanel = findViewById(R.id.current_street_panel);
-        currentStreetText = findViewById(R.id.current_street_text);
 
         if (widgetPanel != null) {
             widgetPanel.setBackgroundResource(R.drawable.bg_panel_rounded);
@@ -330,14 +326,46 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public void onTelemetryUpdated(TelemetryManager.LocationState loc, TelemetryManager.NavigationState nav, TelemetryManager.ObdState obd) {
-        if (loc != null && currentStreetText != null && currentStreetPanel != null) {
-            String street = loc.streetName;
-            if (street != null && !street.isEmpty()) {
-                currentStreetText.setText(street);
-                currentStreetPanel.setVisibility(View.VISIBLE);
-            } else {
-                currentStreetPanel.setVisibility(View.GONE);
-            }
+        if (loc != null) {
+            updateFreeDrivingStreetDisplay(loc.streetName);
+        }
+    }
+
+    private void updateFreeDrivingStreetDisplay(String streetName) {
+        // Rota takibi aktifse orijinal navigasyon paneli yonetsin, biz dokunmayalim
+        if (app.organicmaps.sdk.routing.RoutingController.get().isNavigating()) {
+            return;
+        }
+
+        final android.view.View navFrame = findViewById(R.id.navigation_frame);
+        final android.view.View streetFrame = findViewById(R.id.street_frame);
+        final android.widget.TextView streetText = findViewById(R.id.street);
+        final android.view.View nextTurnContainer = findViewById(R.id.nav_next_turn_container);
+        final android.view.View lanesView = findViewById(R.id.lanes);
+        final android.view.View currentSpeedView = findViewById(R.id.nav_current_speed);
+        final android.view.View speedLimitView = findViewById(R.id.nav_speed_limit);
+        final android.view.View navBottomSheetCoordinator = findViewById(R.id.nav_bottom_sheet_coordinator);
+
+        if (navFrame == null || streetFrame == null || streetText == null) {
+            return;
+        }
+
+        if (streetName != null && !streetName.isEmpty()) {
+            // Gereksiz tum navigasyon kontrollerini serbest suruste gizle
+            if (nextTurnContainer != null) nextTurnContainer.setVisibility(View.GONE);
+            if (lanesView != null) lanesView.setVisibility(View.GONE);
+            if (currentSpeedView != null) currentSpeedView.setVisibility(View.GONE);
+            if (speedLimitView != null) speedLimitView.setVisibility(View.GONE);
+            if (navBottomSheetCoordinator != null) navBottomSheetCoordinator.setVisibility(View.GONE);
+
+            // Sadece street barini ve ana nav_frame'i goster
+            navFrame.setVisibility(View.VISIBLE);
+            streetFrame.setVisibility(View.VISIBLE);
+            streetText.setText(streetName);
+        } else {
+            // Sokak ismi yoksa gizle
+            navFrame.setVisibility(View.GONE);
+            streetFrame.setVisibility(View.GONE);
         }
     }
 
