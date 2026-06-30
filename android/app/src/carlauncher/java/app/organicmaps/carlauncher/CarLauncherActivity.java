@@ -342,8 +342,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         final android.widget.TextView streetText = findViewById(R.id.street);
         final android.view.ViewGroup mapContainer = findViewById(R.id.car_map_container);
 
+        Log.d("CoMapsStreetReparent", "tryReparentStreetFrame: streetFrame=" + (streetFrame != null) 
+              + ", streetText=" + (streetText != null) + ", mapContainer=" + (mapContainer != null));
+
         if (streetFrame != null && streetText != null && mapContainer != null) {
             android.view.ViewGroup parent = (android.view.ViewGroup) streetFrame.getParent();
+            Log.d("CoMapsStreetReparent", "tryReparentStreetFrame: parent=" + (parent != null));
             if (parent != null) {
                 // Parent'indan sok
                 parent.removeView(streetFrame);
@@ -368,6 +372,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 originalStreetText = streetText;
                 isStreetFrameReparented = true;
 
+                Log.d("CoMapsStreetReparent", "tryReparentStreetFrame: Reparenting SUCCESSFUL!");
                 // Ilk etapta gizli baslasin
                 originalStreetFrame.setVisibility(android.view.View.GONE);
             }
@@ -378,20 +383,31 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Reparent etmeyi dene
         tryReparentStreetFrame();
 
+        Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: isStreetFrameReparented=" + isStreetFrameReparented 
+              + ", inputStreetName='" + streetName + "'");
+
         if (!isStreetFrameReparented || originalStreetFrame == null || originalStreetText == null) {
             return;
         }
 
         // Rota takibi aktifse orijinal navigasyon paneli yonetsin, biz dokunmayalim
         if (app.organicmaps.sdk.routing.RoutingController.get().isNavigating()) {
+            Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: Is navigating = true. Skipping.");
             return;
+        }
+
+        // Test amacli: Eger sokak ismi bos geliyorsa serbest suruste bos kalmasin, test metni koyalim
+        if (streetName == null || streetName.isEmpty()) {
+            streetName = "Serbest Surus Aktif";
         }
 
         if (streetName != null && !streetName.isEmpty()) {
             originalStreetFrame.setVisibility(android.view.View.VISIBLE);
             originalStreetText.setText(streetName);
+            Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: Bar set VISIBLE with text: " + streetName);
         } else {
             originalStreetFrame.setVisibility(android.view.View.GONE);
+            Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: Bar set GONE");
         }
     }
 
