@@ -168,19 +168,26 @@ public class TelemetryManager implements LocationListener {
         if (location.hasAltitude()) locationState.altitudeMeters = location.getAltitude();
         if (location.hasBearing()) locationState.bearing = location.getBearing();
 
-        // O anki cadde/sokak ismini native JNI ile al
-        try {
-            if (app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
-                String address = app.organicmaps.sdk.Framework.nativeGetAddress(location.getLatitude(), location.getLongitude());
-                locationState.streetName = address != null ? address : "";
+        // Harita JNI motoru sadece UI thread uzerinde guvenle calisabilir (Arka plan thread'inde null donmesini veya cokmesini onler)
+        mainHandler.post(() -> {
+            try {
+                if (app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
+                    String address = app.organicmaps.sdk.Framework.nativeGetAddress(location.getLatitude(), location.getLongitude());
+                    if (address != null && !address.isEmpty()) {
+                        // Sadece sokak/cadde adini almak icin ilk virgule kadar olan kismi al (OsmAnd stili)
+                        String[] parts = address.split(",");
+                        locationState.streetName = parts[0].trim();
+                    } else {
+                        locationState.streetName = "";
+                    }
+                }
+            } catch (Exception e) {
+                locationState.streetName = "";
             }
-        } catch (Exception e) {
-            locationState.streetName = "";
-        }
 
-        pollNavigation();
-
-        notifyListeners();
+            pollNavigation();
+            notifyListeners();
+        });
     }
 
     private void pollNavigation() {
