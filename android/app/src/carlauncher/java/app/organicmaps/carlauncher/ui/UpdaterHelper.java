@@ -212,9 +212,11 @@ public class UpdaterHelper {
                         long now = System.currentTimeMillis();
                         if (now - lastUpdateTime > 500) { 
                             new Handler(Looper.getMainLooper()).post(() -> {
-                                if (progressDialog.isShowing()) {
-                                    progressDialog.setProgress(progress);
-                                }
+                                try {
+                                    if (progressDialog.isShowing()) {
+                                        progressDialog.setProgress(progress);
+                                    }
+                                } catch (Exception ignored) {}
                             });
                             lastUpdateTime = now;
                         }
@@ -228,11 +230,15 @@ public class UpdaterHelper {
                 final File finalApk = tempApk;
                 new Handler(Looper.getMainLooper()).post(() -> {
                     isDownloading = false;
-                    if (progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-                    Toast.makeText(context, context.getString(R.string.car_update_download_complete), Toast.LENGTH_SHORT).show();
-                    installApkDirectly(context, finalApk);
+                    try {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    } catch (Exception ignored) {}
+                    try {
+                        Toast.makeText(context, context.getString(R.string.car_update_download_complete), Toast.LENGTH_SHORT).show();
+                        installApkDirectly(context, finalApk);
+                    } catch (Exception ignored) {}
                 });
 
             } catch (Exception e) {
@@ -241,10 +247,14 @@ public class UpdaterHelper {
                 }
                 new Handler(Looper.getMainLooper()).post(() -> {
                     isDownloading = false;
-                    if (progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-                    Toast.makeText(context, context.getString(R.string.car_update_download_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+                    try {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+                    } catch (Exception ignored) {}
+                    try {
+                        Toast.makeText(context, context.getString(R.string.car_update_download_failed, e.getMessage()), Toast.LENGTH_LONG).show();
+                    } catch (Exception ignored) {}
                 });
                 android.util.Log.e("Updater", "Download error", e);
             }

@@ -926,27 +926,37 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         return new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
             @Override
             public void onProgress(String message) {
-                if (mBackupDialog != null && mBackupDialog.isShowing()) {
-                    mBackupDialog.setMessage(message);
-                }
+                try {
+                    if (mBackupDialog != null && mBackupDialog.isShowing()) {
+                        mBackupDialog.setMessage(message);
+                    }
+                } catch (Exception ignored) {}
             }
 
             @Override
             public void onSuccess() {
-                if (mBackupDialog != null && mBackupDialog.isShowing()) {
-                    mBackupDialog.dismiss();
-                }
-                Toast.makeText(getContext(), getString(R.string.car_settings_backup_success), Toast.LENGTH_LONG).show();
-                getPreferenceScreen().removeAll();
-                onCreatePreferences(null, getPreferenceScreen().getKey());
+                try {
+                    if (mBackupDialog != null && mBackupDialog.isShowing()) {
+                        mBackupDialog.dismiss();
+                    }
+                } catch (Exception ignored) {}
+                try {
+                    Toast.makeText(getContext(), getString(R.string.car_settings_backup_success), Toast.LENGTH_LONG).show();
+                    getPreferenceScreen().removeAll();
+                    onCreatePreferences(null, getPreferenceScreen().getKey());
+                } catch (Exception ignored) {}
             }
 
             @Override
             public void onError(String error) {
-                if (mBackupDialog != null && mBackupDialog.isShowing()) {
-                    mBackupDialog.dismiss();
-                }
-                Toast.makeText(getContext(), getString(R.string.car_settings_error_generic, error), Toast.LENGTH_SHORT).show();
+                try {
+                    if (mBackupDialog != null && mBackupDialog.isShowing()) {
+                        mBackupDialog.dismiss();
+                    }
+                } catch (Exception ignored) {}
+                try {
+                    Toast.makeText(getContext(), getString(R.string.car_settings_error_generic, error), Toast.LENGTH_SHORT).show();
+                } catch (Exception ignored) {}
             }
         };
     }
@@ -1292,5 +1302,15 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             orientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
         }
         getActivity().setRequestedOrientation(orientation);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mBackupDialog != null && mBackupDialog.isShowing()) {
+            try {
+                mBackupDialog.dismiss();
+            } catch (Exception ignored) {}
+        }
+        super.onDestroy();
     }
 }
