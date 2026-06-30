@@ -154,16 +154,20 @@ public class TelemetryManager implements LocationListener {
     // 4 yonlu (Kuzey, Guney, Dogu, Bati) 12 metre yaricapli adres taramasi yapan yardimci metot (Turkce karakter yok)
     private String resolveStreetNameAtLocation(double lat, double lon) {
         if (!app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
+            android.util.Log.d("CoMapsStreetReparent", "resolveStreetNameAtLocation: Core NOT initialized!");
             return "";
         }
 
         // 1. Orijinal konumu dene
         try {
             String address = app.organicmaps.sdk.Framework.nativeGetAddress(lat, lon);
+            android.util.Log.d("CoMapsStreetReparent", "nativeGetAddress(" + lat + ", " + lon + ") result: " + address);
             if (address != null && !address.isEmpty()) {
                 return cleanStreetName(address);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            android.util.Log.e("CoMapsStreetReparent", "Exception in nativeGetAddress (original position)", e);
+        }
 
         // 2. Yakindaki 4 yonu tara (Yol kenarindaki binalara/parsellere erismek icin)
         double deltaLat = 12.0 / 111111.0;
@@ -178,11 +182,16 @@ public class TelemetryManager implements LocationListener {
 
         for (double[] offset : offsets) {
             try {
-                String address = app.organicmaps.sdk.Framework.nativeGetAddress(lat + offset[0], lon + offset[1]);
+                double targetLat = lat + offset[0];
+                double targetLon = lon + offset[1];
+                String address = app.organicmaps.sdk.Framework.nativeGetAddress(targetLat, targetLon);
+                android.util.Log.d("CoMapsStreetReparent", "nativeGetAddress(" + targetLat + ", " + targetLon + ") offset result: " + address);
                 if (address != null && !address.isEmpty()) {
                     return cleanStreetName(address);
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                android.util.Log.e("CoMapsStreetReparent", "Exception in nativeGetAddress (offset)", e);
+            }
         }
 
         return "";
