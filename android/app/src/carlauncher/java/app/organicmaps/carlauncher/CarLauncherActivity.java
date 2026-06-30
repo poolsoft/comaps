@@ -46,6 +46,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private android.view.View appDock;
     private android.view.View appDrawerContainer;
 
+    private android.view.View originalStreetFrame;
+    private android.widget.TextView originalStreetText;
+    private boolean isStreetFrameReparented = false;
+
     private boolean isWidgetPanelOpen = true;
     private boolean isDesktopMode = false;
     private boolean isTransitioning = false;
@@ -331,41 +335,63 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
     }
 
+    private void tryReparentStreetFrame() {
+        if (isStreetFrameReparented) return;
+
+        final android.view.View streetFrame = findViewById(R.id.street_frame);
+        final android.widget.TextView streetText = findViewById(R.id.street);
+        final android.view.ViewGroup mapContainer = findViewById(R.id.car_map_container);
+
+        if (streetFrame != null && streetText != null && mapContainer != null) {
+            android.view.ViewGroup parent = (android.view.ViewGroup) streetFrame.getParent();
+            if (parent != null) {
+                // Parent'indan sok
+                parent.removeView(streetFrame);
+
+                // ExactFrameLayout (FrameLayout) parametrelerini hazirla
+                android.widget.FrameLayout.LayoutParams lp = new android.widget.FrameLayout.LayoutParams(
+                        android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                        android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                lp.gravity = android.view.Gravity.TOP;
+
+                // Kenar bosluklarini (margin) set et
+                int marginStart = getResources().getDimensionPixelSize(R.dimen.margin_base);
+                int marginEnd = getResources().getDimensionPixelSize(R.dimen.margin_base);
+                int marginTop = getResources().getDimensionPixelSize(R.dimen.margin_base);
+                lp.setMargins(marginStart, marginTop, marginEnd, 0);
+
+                // mapContainer icine ekle
+                mapContainer.addView(streetFrame, lp);
+
+                originalStreetFrame = streetFrame;
+                originalStreetText = streetText;
+                isStreetFrameReparented = true;
+
+                // Ilk etapta gizli baslasin
+                originalStreetFrame.setVisibility(android.view.View.GONE);
+            }
+        }
+    }
+
     private void updateFreeDrivingStreetDisplay(String streetName) {
+        // Reparent etmeyi dene
+        tryReparentStreetFrame();
+
+        if (!isStreetFrameReparented || originalStreetFrame == null || originalStreetText == null) {
+            return;
+        }
+
         // Rota takibi aktifse orijinal navigasyon paneli yonetsin, biz dokunmayalim
         if (app.organicmaps.sdk.routing.RoutingController.get().isNavigating()) {
             return;
         }
 
-        final android.view.View navFrame = findViewById(R.id.navigation_frame);
-        final android.view.View streetFrame = findViewById(R.id.street_frame);
-        final android.widget.TextView streetText = findViewById(R.id.street);
-        final android.view.View nextTurnContainer = findViewById(R.id.nav_next_turn_container);
-        final android.view.View lanesView = findViewById(R.id.lanes);
-        final android.view.View currentSpeedView = findViewById(R.id.nav_current_speed);
-        final android.view.View speedLimitView = findViewById(R.id.nav_speed_limit);
-        final android.view.View navBottomSheetCoordinator = findViewById(R.id.nav_bottom_sheet_coordinator);
-
-        if (navFrame == null || streetFrame == null || streetText == null) {
-            return;
-        }
-
         if (streetName != null && !streetName.isEmpty()) {
-            // Gereksiz tum navigasyon kontrollerini serbest suruste gizle
-            if (nextTurnContainer != null) nextTurnContainer.setVisibility(View.GONE);
-            if (lanesView != null) lanesView.setVisibility(View.GONE);
-            if (currentSpeedView != null) currentSpeedView.setVisibility(View.GONE);
-            if (speedLimitView != null) speedLimitView.setVisibility(View.GONE);
-            if (navBottomSheetCoordinator != null) navBottomSheetCoordinator.setVisibility(View.GONE);
-
-            // Sadece street barini ve ana nav_frame'i goster
-            navFrame.setVisibility(View.VISIBLE);
-            streetFrame.setVisibility(View.VISIBLE);
-            streetText.setText(streetName);
+            originalStreetFrame.setVisibility(android.view.View.VISIBLE);
+            originalStreetText.setText(streetName);
         } else {
-            // Sokak ismi yoksa gizle
-            navFrame.setVisibility(View.GONE);
-            streetFrame.setVisibility(View.GONE);
+            originalStreetFrame.setVisibility(android.view.View.GONE);
         }
     }
 
