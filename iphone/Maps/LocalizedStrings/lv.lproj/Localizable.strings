@@ -681,8 +681,6 @@
 "yes_available" = "Pieejams";
 /* E.g. "WiFi:No" */
 "no_available" = "Nav pieejams";
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
-"capacity" = "Ietilpība: %@";
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Tīkls: %@";
 "trip_finished" = "Ieradāties galamērķī!";
@@ -878,3 +876,4 @@
 "downloader_check_updates_error" = "Error checking for updates";
 "editor_add_select_category_recent_subtitle" = "Nesen izmantotās";
 "oh_unknown" = "Darba laiks nav zināms";
+"carplay_highway_exit" = "Izbraukt %@";

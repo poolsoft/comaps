@@ -30,7 +30,7 @@ void MetadataDeserializer::Header::Read(Reader & reader)
   m_metadataMapSize = ReadPrimitiveFromSource<uint32_t>(source);
 }
 
-bool MetadataDeserializer::Get(uint32_t featureId, feature::MetadataBase & meta)
+bool MetadataDeserializer::Get(uint32_t featureId, feature::Metadata & meta)
 {
   MetaIds metaIds;
   if (!GetIds(featureId, metaIds))

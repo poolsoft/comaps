@@ -150,7 +150,7 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
   // Process only _main_ tag here, needed for editor ser/des. Actual postcode parsing happens in GetNameAndType.
   else if (k == "addr:postcode")
     outType = Metadata::FMD_POSTCODE;
-  else if (k == "wikipedia")
+  else if (k == "wikipedia" || k == "subject:wikipedia")
     outType = Metadata::FMD_WIKIPEDIA;
   else if (k == "wikimedia_commons")
     outType = Metadata::FMD_WIKIMEDIA_COMMONS;
@@ -200,6 +200,10 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_CHARGE;
   else if (k == "population")
     outType = Metadata::FMD_POPULATION;
+  else if (k == "capacity:disabled")
+    outType = Metadata::FMD_CAPACITY_DISABLED;
+  else if (k == "capacity:charging")
+    outType = Metadata::FMD_CAPACITY_CHARGING;
   else
     return false;
 
@@ -350,6 +354,8 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_ROOMS: return "rooms";
   case Metadata::FMD_CHARGE: return "charge";
   case Metadata::FMD_POPULATION: return "population";
+  case Metadata::FMD_CAPACITY_DISABLED: return "capacity:disabled";
+  case Metadata::FMD_CAPACITY_CHARGING: return "capacity:charging";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
