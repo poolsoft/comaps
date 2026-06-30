@@ -151,6 +151,49 @@ public class TelemetryManager implements LocationListener {
         listeners.remove(listener);
     }
 
+    // 4 yonlu (Kuzey, Guney, Dogu, Bati) 12 metre yaricapli adres taramasi yapan yardimci metot (Turkce karakter yok)
+    private String resolveStreetNameAtLocation(double lat, double lon) {
+        if (!app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
+            return "";
+        }
+
+        // 1. Orijinal konumu dene
+        try {
+            String address = app.organicmaps.sdk.Framework.nativeGetAddress(lat, lon);
+            if (address != null && !address.isEmpty()) {
+                return cleanStreetName(address);
+            }
+        } catch (Exception ignored) {}
+
+        // 2. Yakindaki 4 yonu tara (Yol kenarindaki binalara/parsellere erismek icin)
+        double deltaLat = 12.0 / 111111.0;
+        double deltaLon = 12.0 / (111111.0 * Math.cos(Math.toRadians(lat)));
+
+        double[][] offsets = {
+            {deltaLat, 0},   // Kuzey
+            {-deltaLat, 0},  // Guney
+            {0, deltaLon},   // Dogu
+            {0, -deltaLon}   // Bati
+        };
+
+        for (double[] offset : offsets) {
+            try {
+                String address = app.organicmaps.sdk.Framework.nativeGetAddress(lat + offset[0], lon + offset[1]);
+                if (address != null && !address.isEmpty()) {
+                    return cleanStreetName(address);
+                }
+            } catch (Exception ignored) {}
+        }
+
+        return "";
+    }
+
+    private String cleanStreetName(String address) {
+        if (address == null || address.isEmpty()) return "";
+        String[] parts = address.split(",");
+        return parts[0].trim();
+    }
+
     @Override
     public void onLocationUpdated(@NonNull Location location) {
         lastLocationTime = System.currentTimeMillis();
@@ -171,16 +214,7 @@ public class TelemetryManager implements LocationListener {
         // Harita JNI motoru sadece UI thread uzerinde guvenle calisabilir (Arka plan thread'inde null donmesini veya cokmesini onler)
         mainHandler.post(() -> {
             try {
-                if (app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
-                    String address = app.organicmaps.sdk.Framework.nativeGetAddress(location.getLatitude(), location.getLongitude());
-                    if (address != null && !address.isEmpty()) {
-                        // Sadece sokak/cadde adini almak icin ilk virgule kadar olan kismi al (OsmAnd stili)
-                        String[] parts = address.split(",");
-                        locationState.streetName = parts[0].trim();
-                    } else {
-                        locationState.streetName = "";
-                    }
-                }
+                locationState.streetName = resolveStreetNameAtLocation(location.getLatitude(), location.getLongitude());
             } catch (Exception e) {
                 locationState.streetName = "";
             }

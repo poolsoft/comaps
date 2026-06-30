@@ -396,18 +396,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             return;
         }
 
-        // Test amacli: Eger sokak ismi bos geliyorsa serbest suruste bos kalmasin, test metni koyalim
-        if (streetName == null || streetName.isEmpty()) {
-            streetName = "Serbest Surus Aktif";
-        }
-
         if (streetName != null && !streetName.isEmpty()) {
             originalStreetFrame.setVisibility(android.view.View.VISIBLE);
             originalStreetText.setText(streetName);
-            Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: Bar set VISIBLE with text: " + streetName);
         } else {
             originalStreetFrame.setVisibility(android.view.View.GONE);
-            Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: Bar set GONE");
         }
     }
 
