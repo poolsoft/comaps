@@ -681,8 +681,6 @@
 "yes_available" = "Có";
 /* E.g. "WiFi:No" */
 "no_available" = "Không";
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
-"capacity" = "Công suất: %@";
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Mạng: %@";
 "trip_finished" = "Bạn đã tới nơi!";
@@ -878,3 +876,4 @@
 "downloader_check_updates_error" = "Xảy ra lỗi khi kiểm tra cập nhật";
 "editor_add_select_category_recent_subtitle" = "Đã dùng gần đây";
 "oh_unknown" = "Giờ mở cửa không được biết";
+"carplay_highway_exit" = "Exit %@";

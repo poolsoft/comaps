@@ -717,7 +717,7 @@
     <string name="avoid_paved">Avoid paved roads</string>
     <string name="unable_to_calc_alert_title">Unable to calculate route</string>
     <string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
-    <string name="define_to_avoid_btn">Define roads to avoid</string>
+    <string name="define_to_avoid_btn">Choose routing options</string>
     <string name="change_driving_options_btn">Routing options enabled</string>
     <string name="toll_road">Toll road</string>
     <string name="unpaved_road">Unpaved road</string>
@@ -1028,4 +1028,10 @@
     <string name="pref_aa_support_summary_no">The app has not been installed from Google Play, you can\'t use it in your car. Press the setting to get more details on our FAQ.</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
+    <string name="capacity_disabled">Disabled parking spaces: %s</string>
+    <string name="capacity_disabled_yes">Has dedicated disabled space</string>
+    <string name="capacity_disabled_no">No dedicated disabled spaces</string>
+    <string name="capacity_charging">Spaces with chargers: %s</string>
+    <string name="capacity_charging_yes">Has spaces with chargers</string>
+    <string name="capacity_charging_no">No spaces with chargers</string>
 </resources>

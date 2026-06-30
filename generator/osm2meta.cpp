@@ -400,9 +400,18 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_brand(std::string const 
   return v;
 }
 
-std::string MetadataTagProcessorImpl::ValidateAndFormat_capacity(std::string const & v)
+std::string MetadataTagProcessorImpl::ValidateAndFormat_capacity(std::string v)
 {
-  return v;
+  strings::AsciiToLower(v);
+  if (v == "yes" || v == "no")
+    return v;
+
+  strings::NormalizeDigits(v);
+  unsigned int i = 0;
+  if (strings::to_uint(v, i))
+    return v;
+  else
+    return {};
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_local_ref(std::string const & v)
@@ -664,6 +673,8 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_OUTDOOR_SEATING: valid = ValidateAndFormat_outdoor_seating(v); break;
   case Metadata::FMD_NETWORK: valid = ValidateAndFormat_operator(v); break;
   case Metadata::FMD_CHARGE_SOCKETS: m_chargeSockets.AggregateChargeSocketKey(k, v); break;
+  case Metadata::FMD_CAPACITY_DISABLED: valid = ValidateAndFormat_capacity(v); break;
+  case Metadata::FMD_CAPACITY_CHARGING: valid = ValidateAndFormat_capacity(v); break;
 
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:

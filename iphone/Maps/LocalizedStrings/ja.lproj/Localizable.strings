@@ -681,8 +681,6 @@
 "yes_available" = "はい";
 /* E.g. "WiFi:No" */
 "no_available" = "いいえ";
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
-"capacity" = "定員：%@";
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "ネットワーク： %@";
 "trip_finished" = "到着しました!";
@@ -878,3 +876,4 @@
 "downloader_check_updates_error" = "アップデート確認中のエラー";
 "editor_add_select_category_recent_subtitle" = "Recently Used";
 "oh_unknown" = "営業時間不明";
+"carplay_highway_exit" = "Exit %@";

@@ -262,7 +262,10 @@ public class EditorHostFragment
 
   private void showSearchControls(boolean showSearch)
   {
-    ((SearchToolbarController) getToolbarController()).showSearchControls(showSearch);
+    SearchToolbarController toolbarController = (SearchToolbarController) getToolbarController();
+    toolbarController.deactivate();
+    toolbarController.showSearchControls(showSearch);
+    toolbarController.clear();
     if (mToolbarInnerLayout != null && mSave != null)
     {
       // Make room for the toolbar title if the search controls are hidden.

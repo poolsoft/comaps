@@ -345,7 +345,7 @@
     <string name="type.entrance">Entrée</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Entrée principale</string>
-    <string name="type.entrance.exit">Sortie</string>
+    <string name="type.entrance.exit">Sortie (uniquement)</string>
     <string name="type.fee.no">Gratuit</string>
     <string name="type.healthcare.laboratory">Laboratoire médical</string>
     <string name="type.healthcare.physiotherapist">Physiothérapeute</string>
@@ -1390,6 +1390,7 @@
     <string name="type.amenity.ranger_station">Poste de garde forestier</string>
     <string name="type.leisure.escape_game">Escape room</string>
     <string name="type.amenity.animal_shelter">Abri pour animaux</string>
+    <string name="type.amenity.stage">Scène</string>
     <string name="type.barrier.wicket_gate">Portillon</string>
     <string name="type.office.security">Bureau des agents de sécurité</string>
     <string name="type.building.guardhouse">Guérite de sécurité</string>
