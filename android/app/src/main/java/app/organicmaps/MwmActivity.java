@@ -1185,12 +1185,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    // mMapController, onSafeCreate->initViews icinde olusturulur.
-    // Cold start sirasinda BaseMwmFragmentActivity.onCreate() core hazir degilse finish() cagirabilir.
-    // Bu durumda onSafeCreate (ve initViews) cagrilmaz, mMapController = null kalir.
-    // MIUI/HyperOS finish() sonrasinda da onResume tetikleyebilir; null guard ile NPE'yi onluyoruz.
-    if (mMapController == null)
-      return;
     ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
