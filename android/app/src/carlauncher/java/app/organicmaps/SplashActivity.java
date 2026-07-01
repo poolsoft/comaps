@@ -183,7 +183,27 @@ public class SplashActivity extends AppCompatActivity
     }
     else
     {
-      intent.setComponent(new ComponentName(this, DownloadResourcesLegacyActivity.class));
+      boolean hasResources = true;
+      try
+      {
+        hasResources = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() == 0;
+      }
+      catch (Exception ignored) {}
+
+      if (hasResources)
+      {
+        Class<?> activityClass = MwmActivity.class;
+        try
+        {
+          activityClass = Class.forName("app.organicmaps.carlauncher.CarLauncherActivity");
+        }
+        catch (ClassNotFoundException ignored) {}
+        intent.setComponent(new ComponentName(this, activityClass));
+      }
+      else
+      {
+        intent.setComponent(new ComponentName(this, DownloadResourcesLegacyActivity.class));
+      }
     }
 
     // FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED break the cold start.
