@@ -189,27 +189,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
         
         // Dinamik olarak haritanin veya sistemin status bar'i acmasini engelle (MwmActivity ile uyumlu izole cozum)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().getDecorView().setOnApplyWindowInsetsListener((v, insets) -> {
-                CarLauncherSettings s = new CarLauncherSettings(CarLauncherActivity.this);
-                if (!s.isStatusBarVisible()) {
-                    boolean isVisible = insets.isVisible(android.view.WindowInsets.Type.statusBars());
-                    if (isVisible) {
-                        applyStatusBarVisibility();
-                    }
-                }
-                return v.onApplyWindowInsets(insets);
-            });
-        } else {
-            getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(visibility -> {
-                CarLauncherSettings s = new CarLauncherSettings(CarLauncherActivity.this);
-                if (!s.isStatusBarVisible()) {
-                    if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                        applyStatusBarVisibility();
-                    }
-                }
-            });
-        }
+        // NOT: Burada setOnApplyWindowInsetsListener kullanmak UI thread'de sonsuz donguye sebep oluyordu.
+        // Android zaten BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE ile bunu yonetir.
+        // Gerekli baslangic ayarlari applyStatusBarVisibility() ile asagida ve onResume'da yapilmaktadir.
         
         applyStatusBarVisibility();
     }
