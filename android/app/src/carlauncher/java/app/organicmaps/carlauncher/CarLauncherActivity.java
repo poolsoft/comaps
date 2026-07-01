@@ -291,7 +291,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Eger core hazir degilse veya activity zaten kapaniyorsa (isFinishing), 
         // setRequestedOrientation gibi lifecycle transaction'ı tetikleyen cagrilar
         // MIUI/HyperOS'ta ClassCastException firlatarak app'in siyah ekranda (arka planda canli) kalmasina sebep olur.
-        if (isFinishing() || !app.organicmaps.OrganicMaps.isCoreInitialized()) {
+        if (isFinishing() || !app.organicmaps.MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized()) {
             Log.d("CarLauncherActivity", "onResume: core not initialized or finishing, skipping to prevent transaction crash");
             try {
                 super.onResume(); // Zaten kapaniyor/SplashActivity'ye yonlendirildi. Super icindeki NPE'leri yutuyoruz.
