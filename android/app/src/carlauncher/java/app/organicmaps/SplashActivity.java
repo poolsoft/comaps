@@ -211,6 +211,8 @@ public class SplashActivity extends AppCompatActivity
     // FORWARD_RESULT_FLAG conflicts with the ActivityResultLauncher.
     // https://github.com/organicmaps/organicmaps/issues/8984
     intent.setFlags(intent.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    // singleTask olan CarLauncherActivity'nin baslatilabilmesi icin NEW_TASK bayragi eklendi
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
     if (Factory.isStartedForApiResult(intent))
     {
