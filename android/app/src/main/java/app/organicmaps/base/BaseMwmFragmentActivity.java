@@ -74,6 +74,10 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
+    // mSafeCreated = false ise onSafeCreate cagrilmamistir (core initialize olmadi, finish() yapildi).
+    // Bu durumda native context set etme girisimi yapilmamali.
+    if (!mSafeCreated)
+      return;
     OrganicMaps.nativeSetContext(this);
   }
 
