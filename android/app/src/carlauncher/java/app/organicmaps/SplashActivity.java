@@ -64,6 +64,13 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+    Intent intent = getIntent();
+    Log.i("CarLauncherLifecycle", "SplashActivity.onCreate called. Action: " 
+        + (intent != null ? intent.getAction() : "null") 
+        + ", isTaskRoot: " + isTaskRoot() + ", TaskId: " + getTaskId() 
+        + ", Flags: " + (intent != null ? intent.getFlags() : 0));
+
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     setContentView(R.layout.activity_splash);
 
@@ -94,6 +101,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
+    Log.i("CarLauncherLifecycle", "SplashActivity.onResume called. mCanceled=" + mCanceled);
     if (mCanceled)
       return;
     if (!Config.isLocationRequested() && !LocationUtils.checkLocationPermission(this))
@@ -110,6 +118,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onPause()
   {
     super.onPause();
+    Log.i("CarLauncherLifecycle", "SplashActivity.onPause called.");
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
   }
 
@@ -117,6 +126,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onDestroy()
   {
     super.onDestroy();
+    Log.i("CarLauncherLifecycle", "SplashActivity.onDestroy called.");
     mPermissionRequest.unregister();
     mPermissionRequest = null;
     mApiRequest.unregister();
@@ -167,6 +177,8 @@ public class SplashActivity extends AppCompatActivity
   @SuppressWarnings({"unused", "unchecked"})
   public void processNavigation()
   {
+    Log.i("CarLauncherLifecycle", "SplashActivity.processNavigation called.");
+    
     if (isDestroyed())
     {
       Logger.w(TAG, "Ignore late callback from core because activity is already destroyed");
