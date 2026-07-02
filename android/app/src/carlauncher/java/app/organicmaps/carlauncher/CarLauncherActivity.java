@@ -367,12 +367,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("CarLauncherLifecycle", "onDestroy called.");
-    }
-
-    @Override
     public void onTelemetryUpdated(TelemetryManager.LocationState loc, TelemetryManager.NavigationState nav, TelemetryManager.ObdState obd) {
         if (loc != null) {
             updateFreeDrivingStreetDisplay(loc.streetName);
