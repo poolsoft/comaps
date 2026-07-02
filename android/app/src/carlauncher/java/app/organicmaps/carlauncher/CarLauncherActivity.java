@@ -92,6 +92,27 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        
+        // Android "Clear All" senaryosunda Process hayatta iken Task silinirse,
+        // singleTask mevcut Activity instance'ini tekrar kullanmaya calisir.
+        // Ancak Task koptugu icin isTaskRoot() false doner (Ghost Task bug).
+        if (intent != null && Intent.ACTION_MAIN.equals(intent.getAction()) && intent.hasCategory(Intent.CATEGORY_LAUNCHER)) {
+            if (!isTaskRoot()) {
+                Log.w("CarLauncherActivity", "Ghost task detected in onNewIntent! Recreating root task...");
+                Intent restartIntent = new Intent(this, CarLauncherActivity.class);
+                restartIntent.setAction(Intent.ACTION_MAIN);
+                restartIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                restartIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(restartIntent);
+                finish();
+            }
+        }
+    }
+
+    @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         super.onSafeCreate(savedInstanceState);
         
