@@ -96,12 +96,16 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         super.onNewIntent(intent);
         setIntent(intent);
         
+        Log.i("CarLauncherLifecycle", "onNewIntent called. Action: " + (intent != null ? intent.getAction() : "null") 
+            + ", isTaskRoot: " + isTaskRoot() + ", TaskId: " + getTaskId() 
+            + ", Flags: " + (intent != null ? intent.getFlags() : 0));
+        
         // Android "Clear All" senaryosunda Process hayatta iken Task silinirse,
         // singleTask mevcut Activity instance'ini tekrar kullanmaya calisir.
         // Ancak Task koptugu icin isTaskRoot() false doner (Ghost Task bug).
         if (intent != null && Intent.ACTION_MAIN.equals(intent.getAction()) && intent.hasCategory(Intent.CATEGORY_LAUNCHER)) {
             if (!isTaskRoot()) {
-                Log.w("CarLauncherActivity", "Ghost task detected in onNewIntent! Recreating root task...");
+                Log.w("CarLauncherLifecycle", "Ghost task detected in onNewIntent! Recreating root task...");
                 Intent restartIntent = new Intent(this, CarLauncherActivity.class);
                 restartIntent.setAction(Intent.ACTION_MAIN);
                 restartIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -115,6 +119,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         super.onSafeCreate(savedInstanceState);
+        
+        Log.i("CarLauncherLifecycle", "onSafeCreate called. savedInstanceState=" + (savedInstanceState != null) 
+            + ", isTaskRoot=" + isTaskRoot() + ", TaskId=" + getTaskId());
         
         CarLauncherSettings carPrefs = new CarLauncherSettings(this);
         String orientationMode = carPrefs.getScreenOrientation();
@@ -289,7 +296,14 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("CarLauncherLifecycle", "onStart called.");
+    }
+
+    @Override
     protected void onResume() {
+        Log.i("CarLauncherLifecycle", "onResume called. isFinishing=" + isFinishing());
         // Cold start senaryosu: Core hazir olmadiginda SplashActivity'ye yonlendirme yapilir.
         // Eger core hazir degilse veya activity zaten kapaniyorsa (isFinishing), 
         // setRequestedOrientation gibi lifecycle transaction'ı tetikleyen cagrilar
@@ -338,11 +352,24 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     protected void onPause() {
         super.onPause();
+        Log.i("CarLauncherLifecycle", "onPause called.");
         if (telemetryManager != null) telemetryManager.removeListener(this);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(desktopToggleReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(notificationPermissionReceiver);
 
         app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this).setAppInForeground(false);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("CarLauncherLifecycle", "onStop called.");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("CarLauncherLifecycle", "onDestroy called.");
     }
 
     @Override
