@@ -43,9 +43,13 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
-      final Intent intent = Objects.requireNonNull(getIntent());
-      intent.setComponent(new ComponentName(this, SplashActivity.class));
-      startActivity(intent);
+      Intent splashIntent = new Intent(this, SplashActivity.class);
+      if (getIntent() != null) {
+        if (getIntent().getExtras() != null) splashIntent.putExtras(getIntent().getExtras());
+        if (getIntent().getAction() != null) splashIntent.setAction(getIntent().getAction());
+        if (getIntent().getData() != null) splashIntent.setData(getIntent().getData());
+      }
+      startActivity(splashIntent);
       finish();
       return;
     }
