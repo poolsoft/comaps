@@ -134,6 +134,13 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         setRequestedOrientation(requestedOrientation);
 
         CarCrashLogger.init(this);
+        
+        // Start TaskMonitorService to catch swipe-to-kill events and explicitly kill the process
+        try {
+            startService(new Intent(this, TaskMonitorService.class));
+        } catch (Exception e) {
+            Log.e("CarLauncherLifecycle", "Failed to start TaskMonitorService", e);
+        }
 
         telemetryManager = TelemetryManager.getInstance(this);
 

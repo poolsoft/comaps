@@ -73,6 +73,11 @@
             android:exported="false"
             android:foregroundServiceType="location" />
 
+        <service
+            android:name="app.organicmaps.carlauncher.TaskMonitorService"
+            android:exported="false"
+            android:stopWithTask="false" />
+
     </application>
 
 </manifest>
