@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.CarLauncherDownloadResourcesActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
