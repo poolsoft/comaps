@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_widget_modern"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="4dp">
+
+    <!-- Clock Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Saat Grubu -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center|end">
+
+            <TextView
+                android:id="@+id/hour_digit_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="#FFFFFF"
+                android:textSize="56sp"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/hour_digit_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="#A8C7FA"
+                android:textSize="56sp"
+                android:includeFontPadding="false"
+                android:layout_marginStart="-2dp"
+                android:lines="1"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <!-- Ayirici Bosluk -->
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="wrap_content" />
+
+        <!-- Dakika Grubu -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center|start">
+
+            <TextView
+                android:id="@+id/min_digit_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="#A8C7FA"
+                android:textSize="56sp"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/min_digit_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textColor="#FFFFFF"
+                android:textSize="56sp"
+                android:includeFontPadding="false"
+                android:layout_marginStart="-2dp"
+                android:lines="1"
+                android:maxLines="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Date Row (Hidden by default) -->
+    <TextView
+        android:id="@+id/clock_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pazartesi, 30 Aralik"
+        android:textColor="#DDFFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="-4dp"/>
+
+</LinearLayout>

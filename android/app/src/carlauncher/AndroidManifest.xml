@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.BIND_APPWIDGET" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.BIND_REMOTEVIEWS" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <application>
+
+        <!-- Standart CoMaps launcher girisini yalnizca bu flavor'da kaldir. -->
+        <activity-alias
+            android:name="app.organicmaps.DownloadResourcesActivity"
+            tools:node="remove" />
+
+        <activity
+            android:name="app.organicmaps.carlauncher.CarLauncherBootstrapActivity"
+            android:theme="@style/MwmTheme.Splash"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="app.organicmaps.CarLauncherDownloadResourcesActivity"
+            android:theme="@style/MwmTheme.DownloadResourcesLegacy"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:screenOrientation="fullUser"
+            android:exported="false" />
+
+        <activity
+            android:name="app.organicmaps.carlauncher.CarLauncherActivity"
+            android:theme="@style/MwmTheme"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:configChanges="uiMode|orientation|screenLayout|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+
+        <activity
+            android:name="app.organicmaps.carlauncher.ui.NeonDashboardActivity"
+            android:theme="@style/MwmTheme"
+            android:screenOrientation="landscape"
+            android:exported="false">
+        </activity>
+
+        <service
+            android:name="app.organicmaps.carlauncher.music.MusicPlaybackService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="app.organicmaps.carlauncher.ui.CarFloatingButtonService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+    </application>
+
+</manifest>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_widget_modern"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp">
+
+    <!-- Saat Karti (Material 3 style box) -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="86dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#2A3B5F"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/hour_digit_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="#D2E3FC"
+                android:textSize="54sp"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/hour_digit_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="#D2E3FC"
+                android:textSize="54sp"
+                android:includeFontPadding="false"
+                android:layout_marginStart="-3dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Dakika Karti (Material 3 style box) -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="86dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#3B4C74">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/min_digit_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="#FFFFFF"
+                android:textSize="54sp"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/min_digit_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textColor="#FFFFFF"
+                android:textSize="54sp"
+                android:includeFontPadding="false"
+                android:layout_marginStart="-3dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

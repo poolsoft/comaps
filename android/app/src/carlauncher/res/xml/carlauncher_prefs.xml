@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- İZİNLER -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_permissions"
+        android:title="@string/car_pref_category_permissions"
+        app:icon="@android:drawable/ic_lock_lock"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="perm_overlay"
+            android:title="@string/car_perm_overlay_title"
+            android:summary="@string/car_perm_overlay_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_bg_location"
+            android:title="@string/car_perm_bg_location_title"
+            android:summary="@string/car_perm_bg_location_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_notification"
+            android:title="@string/car_perm_notification_title"
+            android:summary="@string/car_perm_notification_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_media"
+            android:title="@string/car_perm_media_title"
+            android:summary="@string/car_perm_media_summary_missing"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- GÖRÜNÜM AYARLARI -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_appearance"
+        android:title="@string/car_pref_category_appearance"
+        app:icon="@android:drawable/ic_menu_view"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_status_bar"
+            android:title="@string/car_pref_status_bar_title"
+            android:summary="@string/car_pref_status_bar_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_dark_theme"
+            android:title="@string/car_pref_dark_theme_title"
+            android:summary="@string/car_pref_dark_theme_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_language"
+            android:title="@string/car_pref_language_title"
+            android:summary="@string/car_pref_language_desc"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_screen_orientation"
+            android:title="@string/car_pref_orientation_title"
+            android:summary="%s"
+            android:entries="@array/orientation_entries"
+            android:entryValues="@array/orientation_values"
+            android:defaultValue="landscape"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_portrait_map_only"
+            android:title="@string/car_pref_portrait_map_title"
+            android:summary="@string/car_pref_portrait_map_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_floating_button"
+            android:title="@string/car_pref_floating_btn_title"
+            android:summary="@string/car_pref_floating_btn_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_floating_button_force_gps"
+            android:title="@string/car_floating_button_force_gps"
+            android:summary="@string/car_floating_button_force_gps_desc"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SeekBarPreference
+            android:key="car_launcher_floating_button_size"
+            android:title="@string/car_pref_floating_btn_size_title"
+            android:summary="@string/car_pref_floating_btn_size_summary"
+            android:defaultValue="86"
+            android:max="140"
+            app:min="50"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_night_dim_mode"
+            android:title="@string/car_pref_night_dim_title"
+            android:summary="%s"
+            android:entries="@array/night_dim_mode_entries"
+            android:entryValues="@array/night_dim_mode_values"
+            android:defaultValue="osmand"
+            app:iconSpaceReserved="false" />
+
+        <!-- Premium Kisiklestirme Ayarlari -->
+        <androidx.preference.SeekBarPreference
+            android:key="car_launcher_parallax_intensity"
+            android:title="Parallax Arka Plan Gucu"
+            android:summary="ViewPager kaydirilirken arka planin kayma miktarini ayarlar (Varsayilan: %20)"
+            android:defaultValue="20"
+            android:max="50"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_background_style"
+            android:title="Parallax Arka Plan Secici"
+            android:summary="%s"
+            android:entries="@array/background_style_entries"
+            android:entryValues="@array/background_style_values"
+            android:defaultValue="modern"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_pip_mode"
+            android:title="@string/car_pref_pip_mode_title"
+            android:summary="@string/car_pref_pip_mode_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="widget_panel_position"
+            android:title="@string/car_pref_panel_pos_title"
+            android:summary="%s"
+            android:entries="@array/widget_panel_position_entries"
+            android:entryValues="@array/widget_panel_position_values"
+            android:defaultValue="right"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_expansion_behavior"
+            android:title="@string/car_pref_panel_expansion_title"
+            android:summary="%s"
+            android:entries="@array/expansion_behavior_entries"
+            android:entryValues="@array/expansion_behavior_values"
+            android:defaultValue="swap"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- MÜZİK AYARLARI -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_music"
+        android:title="@string/car_pref_category_music"
+        app:icon="@android:drawable/ic_media_play"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="car_launcher_music_app"
+            android:title="@string/car_pref_music_app_title"
+            android:summary="@string/car_pref_music_app_summary"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_visualizer_type_small"
+            android:title="@string/car_pref_vis_type_small_title"
+            android:summary="%s"
+            android:entries="@array/visualizer_type_entries"
+            android:entryValues="@array/visualizer_type_values"
+            android:defaultValue="2"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_visualizer_type_large"
+            android:title="@string/car_pref_vis_type_large_title"
+            android:summary="%s"
+            android:entries="@array/visualizer_type_entries"
+            android:entryValues="@array/visualizer_type_values"
+            android:defaultValue="4"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_auto_play_music"
+            android:title="@string/car_pref_auto_play_title"
+            android:summary="@string/car_pref_auto_play_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_ambiance_visualizer"
+            android:title="@string/car_pref_ambiance_vis_title"
+            android:summary="@string/car_pref_ambiance_vis_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="car_launcher_equalizer"
+            android:title="@string/car_pref_equalizer_title"
+            android:summary="@string/car_pref_equalizer_summary"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="car_launcher_scan_music"
+            android:title="@string/car_pref_scan_music_title"
+            android:summary="@string/car_pref_scan_music_summary"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- HAVA DURUMU AYARLARI -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_weather"
+        android:title="@string/car_pref_category_weather"
+        app:icon="@android:drawable/ic_menu_my_calendar"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_weather_enabled"
+            android:title="@string/car_pref_weather_enabled_title"
+            android:summary="@string/car_pref_weather_enabled_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- OTOMATİK BAŞLATMA -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_autolaunch"
+        android:title="@string/car_pref_category_autolaunch"
+        app:icon="@android:drawable/ic_menu_recent_history"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="autolaunch_enable_1"
+            android:title="@string/car_pref_autolaunch_app1_title"
+            android:summary="@string/car_pref_autolaunch_app_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="autolaunch_enable_2"
+            android:title="@string/car_pref_autolaunch_app2_title"
+            android:summary="@string/car_pref_autolaunch_app_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="autolaunch_enable_3"
+            android:title="@string/car_pref_autolaunch_app3_title"
+            android:summary="@string/car_pref_autolaunch_app_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- YEDEKLEME -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_backup"
+        android:title="@string/car_pref_category_backup"
+        app:icon="@android:drawable/ic_menu_save"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="action_download_maps"
+            android:title="@string/car_pref_download_maps_title"
+            android:summary="@string/car_pref_download_maps_summary"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="action_backup_export"
+            android:title="@string/car_pref_backup_export_title"
+            android:summary="@string/car_pref_backup_export_summary"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="action_backup_import"
+            android:title="@string/car_pref_backup_import_title"
+            android:summary="@string/car_pref_backup_import_summary"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- DOCK AYARLARI -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_dock"
+        android:title="@string/car_pref_category_dock"
+        app:icon="@android:drawable/ic_menu_sort_by_size"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.ListPreference
+            android:key="car_launcher_dock_position"
+            android:title="@string/car_pref_dock_pos_title"
+            android:summary="%s"
+            android:entries="@array/dock_position_entries"
+            android:entryValues="@array/dock_position_values"
+            android:defaultValue="bottom"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SeekBarPreference
+            android:key="car_launcher_dock_size"
+            android:title="@string/car_pref_dock_size_title"
+            android:summary="@string/car_pref_dock_size_summary"
+            android:defaultValue="50"
+            android:max="100"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SeekBarPreference
+            android:key="car_launcher_max_shortcuts"
+            android:title="@string/car_pref_max_shortcuts_title"
+            android:defaultValue="6"
+            android:max="10"
+            app:min="3"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="car_launcher_reset_dock"
+            android:title="@string/car_pref_reset_dock_title"
+            android:summary="@string/car_pref_reset_dock_summary"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- ASİSTAN AYARLARI -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_assistant"
+        android:title="@string/car_pref_category_assistant"
+        app:icon="@android:drawable/ic_btn_speak_now"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="car_launcher_import_voice_model"
+            android:title="Ses Modelini USB/Dosyadan Yukle"
+            android:summary="@string/car_pref_import_voice_summary"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- HAKKINDA -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory
+        android:key="category_about"
+        android:title="@string/car_pref_category_about"
+        app:icon="@android:drawable/ic_menu_info_details"
+        android:iconSpaceReserved="true">
+
+        <androidx.preference.Preference
+            android:key="car_launcher_version"
+            android:title="@string/car_pref_version_title"
+            android:summary="1.0.0"
+            android:selectable="false"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="car_launcher_check_updates"
+            android:title="@string/car_pref_check_updates_title"
+            android:summary="@string/car_pref_check_updates_summary"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="car_launcher_github"
+            android:title="@string/car_pref_github_title"
+            android:summary="@string/car_pref_github_summary"
+            app:iconSpaceReserved="false" />
+
+    </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

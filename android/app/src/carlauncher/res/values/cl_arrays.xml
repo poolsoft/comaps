@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="widget_display_mode_entries">
+        <item>Liste (Varsayılan)</item>
+        <item>Sayfalı (Carousel)</item>
+    </string-array>
+
+    <string-array name="widget_display_mode_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <!-- Dock Konumu -->
+    <string-array name="dock_position_entries">
+        <item>Alt (Varsayılan)</item>
+        <item>Sol (Modern Auto)</item>
+        <item>Sağ</item>
+    </string-array>
+    <string-array name="dock_position_values">
+        <item>bottom</item>
+        <item>left</item>
+        <item>right</item>
+    </string-array>
+
+    <!-- Büyük Panel Konumu -->
+    <string-array name="widget_panel_position_entries">
+        <item>Sol (Varsayılan)</item>
+        <item>Alt</item>
+        <item>Sağ</item>
+    </string-array>
+    <string-array name="widget_panel_position_values">
+        <item>right</item>
+        <item>bottom</item>
+        <item>left</item>
+    </string-array>
+
+    <!-- Widget Kart Stili -->
+    <string-array name="widget_card_style_entries">
+        <item>Modern (Cam Efekti)</item>
+        <item>Klasik (Düz)</item>
+        <item>Minimal (Sadece Değerler)</item>
+    </string-array>
+    <string-array name="widget_card_style_values">
+        <item>modern</item>
+        <item>classic</item>
+        <item>minimal</item>
+    </string-array>
+
+    <!-- Gece Karartma Modu Secenekleri (Turkce karakter yok) -->
+    <string-array name="night_dim_mode_entries">
+        <item>OsmAnd Ayari</item>
+        <item>Otomatik (Zamana Gore)</item>
+        <item>Gunduz (Her Zaman Pasif)</item>
+        <item>Gece (Her Zaman Aktif)</item>
+    </string-array>
+    <string-array name="night_dim_mode_values">
+        <item>osmand</item>
+        <item>auto</item>
+        <item>day</item>
+        <item>night</item>
+    </string-array>
+    
+    <!-- Masaustu Arka Plan Temalari -->
+    <string-array name="background_style_entries">
+        <item>Modern Gradient (Mavi/Mor)</item>
+        <item>Carbon Black (Spor Siyah)</item>
+        <item>Deep Space (Uzay Grisi)</item>
+    </string-array>
+    <string-array name="background_style_values">
+        <item>modern</item>
+        <item>carbon</item>
+        <item>space</item>
+    </string-array>
+
+    <!-- Büyük Panel Açılış Stratejisi -->
+    <string-array name="expansion_behavior_entries">
+        <item>Büyük Panelde Aç (İçerik Değiştir)</item>
+        <item>Olduğu Yerde Genişlet (Boyut Değiştir)</item>
+    </string-array>
+    <string-array name="expansion_behavior_values">
+        <item>swap</item>
+        <item>fixed</item>
+    </string-array>
+
+    <!-- Müzik Görselleştirici Tipleri -->
+    <string-array name="visualizer_type_entries">
+        <item>Klasik</item>
+        <item>Glow Peak</item>
+        <item>Neon Modern</item>
+        <item>Akici Dalga</item>
+        <item>Dairesel Patlama</item>
+        <item>Ortadan Simetrik</item>
+        <item>Noktacik Particle</item>
+        <item>Ic Ice Halkalar</item>
+    </string-array>
+    <string-array name="visualizer_type_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+</resources>

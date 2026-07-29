@@ -50,6 +50,7 @@ android {
   }
 
   buildFeatures {
+    aidl = true
     dataBinding = true
     buildConfig = true
   }
@@ -116,6 +117,14 @@ android {
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@comaps.app"'
       buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.comaps"'
+    }
+
+    carlauncher {
+      dimension 'default'
+      applicationIdSuffix '.auto'
+      versionName = android.defaultConfig.versionName + '-Auto'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"auto@comaps.app"'
+      resValue 'string', 'app_name', 'CoMaps Auto'
     }
   }
 
@@ -203,7 +212,11 @@ android {
       versionNameSuffix '-debug'
       zipAlignEnabled true
       signingConfig = signingConfigs.debug
-      resValue 'string', 'app_name', 'CoMaps Debug'
+      if (taskName.contains('carlauncher')) {
+        resValue 'string', 'app_name', 'CoMaps Auto Debug'
+      } else {
+        resValue 'string', 'app_name', 'CoMaps Debug'
+      }
     }
 
     release {
@@ -330,6 +343,12 @@ android {
 }
 
 dependencies {
+  implementation('com.alphacephei:vosk-android:0.3.38') {
+    exclude group: 'net.java.dev.jna', module: 'jna'
+  }
+  implementation 'net.java.dev.jna:jna:5.13.0@aar'
+  implementation 'com.squareup.picasso:picasso:2.8'
+
   implementation project(':sdk')
 
   coreLibraryDesugaring libs.android.tools.desugar
