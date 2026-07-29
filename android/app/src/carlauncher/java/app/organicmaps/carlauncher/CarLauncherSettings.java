@@ -48,6 +48,7 @@ public class CarLauncherSettings {
     public static final String KEY_DOCK_POSITION = "car_launcher_dock_position"; // "bottom", "left", "right"
     public static final String KEY_DOCK_STYLE = "car_launcher_dock_style"; // "glass", "solid", "transparent"
     public static final String KEY_DOCK_SIZE = "car_launcher_dock_size"; // 0-100 arasi boyut yuzdesi
+    public static final String KEY_DOCK_SIZE_PORTRAIT = "car_launcher_dock_size_portrait";
 
     // Widget Panel Keys
     public static final String KEY_WIDGET_PANEL_POSITION = "widget_panel_position"; // "right", "bottom", "left"
@@ -329,6 +330,23 @@ public class CarLauncherSettings {
 
     public void setDockSize(int sizePercent) {
         prefs.edit().putInt(KEY_DOCK_SIZE, Math.max(0, Math.min(100, sizePercent))).apply();
+    }
+
+    public String getEffectiveDockPosition(boolean isPortrait) {
+        if (isPortrait) {
+            return "bottom";
+        }
+        String position = getDockPosition();
+        return "left".equals(position) || "right".equals(position) ? position : "bottom";
+    }
+
+    public int getEffectiveDockSize(boolean isPortrait) {
+        return isPortrait ? prefs.getInt(KEY_DOCK_SIZE_PORTRAIT, 50) : getDockSize();
+    }
+
+    public void setDockSizePortrait(int sizePercent) {
+        prefs.edit().putInt(KEY_DOCK_SIZE_PORTRAIT,
+                Math.max(0, Math.min(100, sizePercent))).apply();
     }
 
     // --- General ---

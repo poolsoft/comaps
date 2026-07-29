@@ -756,6 +756,30 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
+        SeekBarPreference dockSizePref =
+                findPreference(CarLauncherSettings.KEY_DOCK_SIZE);
+        if (dockSizePref != null) {
+            dockSizePref.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (settings != null) {
+                    settings.setDockSize((Integer) newValue);
+                }
+                refreshLauncherLayout();
+                return true;
+            });
+        }
+
+        SeekBarPreference portraitDockSizePref =
+                findPreference(CarLauncherSettings.KEY_DOCK_SIZE_PORTRAIT);
+        if (portraitDockSizePref != null) {
+            portraitDockSizePref.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (settings != null) {
+                    settings.setDockSizePortrait((Integer) newValue);
+                }
+                refreshLauncherLayout();
+                return true;
+            });
+        }
+
         SeekBarPreference maxShortcutsPref = findPreference(CarLauncherSettings.KEY_MAX_SHORTCUTS);
         if (maxShortcutsPref != null) {
             maxShortcutsPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -773,6 +797,13 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 confirmResetDock();
                 return true;
             });
+        }
+    }
+
+    private void refreshLauncherLayout() {
+        if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
+            ((app.organicmaps.carlauncher.CarLauncherInterface) getActivity())
+                    .checkAndRefreshDockFragmentIfNeeded();
         }
     }
 

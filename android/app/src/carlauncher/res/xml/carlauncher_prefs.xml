@@ -334,6 +334,16 @@
             app:iconSpaceReserved="false" />
 
         <androidx.preference.SeekBarPreference
+            android:key="car_launcher_dock_size_portrait"
+            android:title="@string/car_pref_dock_size_portrait_title"
+            android:summary="@string/car_pref_dock_size_portrait_summary"
+            android:defaultValue="50"
+            android:max="100"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.SeekBarPreference
             android:key="car_launcher_max_shortcuts"
             android:title="@string/car_pref_max_shortcuts_title"
             android:defaultValue="6"

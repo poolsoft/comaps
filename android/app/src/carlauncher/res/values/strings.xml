@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_pref_dock_size_portrait_title">Dock size — portrait</string>
+    <string name="car_pref_dock_size_portrait_summary">Portrait screens always use a bottom dock; its size is stored separately</string>
     <!-- Permissions Panel Strings -->
     <string name="car_pref_category_permissions">Permissions</string>
     <string name="car_perm_overlay_title">Draw Over Other Apps</string>

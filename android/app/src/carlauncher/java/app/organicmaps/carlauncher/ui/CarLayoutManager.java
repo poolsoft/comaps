@@ -44,6 +44,70 @@ public class CarLayoutManager {
         return isContentFullScreen;
     }
 
+    private boolean rootMatchesCurrentOrientation() {
+        if (rootLayout == null || rootLayout.getWidth() <= 0 || rootLayout.getHeight() <= 0) {
+            return false;
+        }
+        boolean portrait = activity.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+        return portrait == (rootLayout.getHeight() >= rootLayout.getWidth());
+    }
+
+    private int getCurrentContentWidth() {
+        if (rootMatchesCurrentOrientation()) {
+            return rootLayout.getWidth() - rootLayout.getPaddingLeft()
+                    - rootLayout.getPaddingRight();
+        }
+        return activity.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    private int getCurrentContentHeight() {
+        if (rootMatchesCurrentOrientation()) {
+            return rootLayout.getHeight() - rootLayout.getPaddingTop()
+                    - rootLayout.getPaddingBottom();
+        }
+        return activity.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    public int getAvailablePanelWidth() {
+        int width = getCurrentContentWidth();
+        boolean portrait = activity.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+        String dockPosition =
+                new CarLauncherSettings(activity).getEffectiveDockPosition(portrait);
+        if (appDock != null && appDock.getVisibility() == View.VISIBLE
+                && ("left".equals(dockPosition) || "right".equals(dockPosition))) {
+            width -= appDock.getWidth();
+        }
+        return Math.max(0, width);
+    }
+
+    public int getAvailablePanelHeight() {
+        int height = getCurrentContentHeight();
+        boolean portrait = activity.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+        String dockPosition =
+                new CarLauncherSettings(activity).getEffectiveDockPosition(portrait);
+        if (appDock != null && appDock.getVisibility() == View.VISIBLE
+                && "bottom".equals(dockPosition)) {
+            height -= appDock.getHeight();
+        }
+        return Math.max(0, height);
+    }
+
+    public float getRenderedSmallPanelFraction() {
+        boolean portrait = activity.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+        View smallView = isContentFullScreen ? mapContainer : widgetPanel;
+        int available = portrait ? getAvailablePanelHeight() : getAvailablePanelWidth();
+        int rendered = smallView == null ? 0
+                : (portrait ? smallView.getHeight() : smallView.getWidth());
+        if (available <= 0 || rendered <= 0) {
+            return -1f;
+        }
+        return Math.max(0.15f, Math.min(0.65f, rendered / (float) available));
+    }
+
     public void applyLayout(boolean isWidgetPanelOpen, int layoutMode) {
         if (rootLayout == null || widgetPanel == null || appDock == null) return;
 
@@ -54,9 +118,9 @@ public class CarLayoutManager {
         }
 
         CarLauncherSettings carSettings = new CarLauncherSettings(activity);
-        String dockPos = carSettings.getDockPosition(); 
-        String widgetPos = carSettings.getWidgetPanelPosition();
         boolean isPortrait = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        String dockPos = carSettings.getEffectiveDockPosition(isPortrait);
+        String widgetPos = carSettings.getWidgetPanelPosition();
 
         ConstraintSet cs = new ConstraintSet();
         cs.clone(rootLayout);
@@ -91,7 +155,7 @@ public class CarLayoutManager {
 
         // 2. Dock Region - dockSize (0-100) ayarina gore olceklendir
         // 0=min(0.3x), 50=normal(1.0x), 100=max(1.7x)
-        int dockSizePercent = carSettings.getDockSize();
+        int dockSizePercent = carSettings.getEffectiveDockSize(isPortrait);
         float dockScale = 0.3f + (dockSizePercent / 100.0f) * 1.4f;
         int dockSize = (int) (activity.getResources().getDimension(R.dimen.dock_height) * dockScale);
         int sidebarWidth = (int) (64 * activity.getResources().getDisplayMetrics().density * dockScale);
@@ -105,8 +169,6 @@ public class CarLayoutManager {
             sidebarWidth = minAllowedSize;
         }
         
-        if (isPortrait) dockPos = "bottom";
-
         switch (dockPos) {
             case "left":
                 cs.connect(R.id.app_dock, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
@@ -133,8 +195,8 @@ public class CarLayoutManager {
 
         // 3. Widget ve Harita Alanlari - Harita herzaman ekranda kalacak sekilde swap mantigi
         float panelPercent = carSettings.getWidgetPanelWidthPercent();
-        int screenWidth = activity.getResources().getDisplayMetrics().widthPixels;
-        int screenHeight = activity.getResources().getDisplayMetrics().heightPixels;
+        int screenWidth = getCurrentContentWidth();
+        int screenHeight = getCurrentContentHeight();
 
         if (activity.isDesktopMode()) {
             cs.setVisibility(R.id.car_map_container, View.GONE);
@@ -191,8 +253,9 @@ public class CarLayoutManager {
                     bottomViewId = R.id.widget_panel;  // SMALL
                 }
 
-                float portraitPanelHeight = isPortrait ? carSettings.getWidgetPanelHeightPortrait() : 0.30f;
-                int smallHeight = (int) (screenHeight * portraitPanelHeight);
+                float portraitPanelHeight = carSettings.getWidgetPanelHeightPortrait();
+                int availableHeight = screenHeight - ("bottom".equals(dockPos) ? dockSize : 0);
+                int smallHeight = (int) (availableHeight * portraitPanelHeight);
                 float density = activity.getResources().getDisplayMetrics().density;
                 int gapSize = (int) (8 * density); // Premium 8dp bosluk
 
@@ -280,7 +343,10 @@ public class CarLayoutManager {
                 }
 
                 float density = activity.getResources().getDisplayMetrics().density;
-                int smallWidth = (int) (screenWidth * panelPercent);
+                int availableWidth = screenWidth
+                        - (("left".equals(dockPos) || "right".equals(dockPos))
+                        ? sidebarWidth : 0);
+                int smallWidth = (int) (availableWidth * panelPercent);
                 int gapSize = (int) (8 * density); // Premium 8dp bosluk
 
                 // Her iki gorunum de dikeyde yayilir

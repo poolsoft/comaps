@@ -168,8 +168,8 @@ public class AppDockFragment extends Fragment
             @Nullable Bundle savedInstanceState) {
         
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        String dockPos = settings.getDockPosition();
         boolean isPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        String dockPos = settings.getEffectiveDockPosition(isPortrait);
         this.isVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
 
         int layoutId;
@@ -977,8 +977,8 @@ public class AppDockFragment extends Fragment
     public boolean needsLayoutUpdate() {
         if (getContext() == null) return false;
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        String dockPos = settings.getDockPosition();
         boolean isPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        String dockPos = settings.getEffectiveDockPosition(isPortrait);
         boolean expectedVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
 
         int expectedLayoutId;
@@ -991,6 +991,21 @@ public class AppDockFragment extends Fragment
         }
         
         return currentLayoutId != 0 && currentLayoutId != expectedLayoutId;
+    }
+
+    public void refreshLayout() {
+        View root = getView();
+        Context context = getContext();
+        if (root == null || context == null) return;
+        app.organicmaps.carlauncher.CarLauncherSettings settings =
+                new app.organicmaps.carlauncher.CarLauncherSettings(context);
+        boolean portrait = getResources().getConfiguration().orientation
+                == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        String dockPos = settings.getEffectiveDockPosition(portrait);
+        boolean vertical = !portrait
+                && ("left".equals(dockPos) || "right".equals(dockPos));
+        isVerticalMode = vertical;
+        applyOrientationState(root, vertical);
     }
 
     private void showDockPopupMenu(View anchor) {
@@ -1042,13 +1057,13 @@ public class AppDockFragment extends Fragment
         if (getContext() == null || getView() == null) return;
 
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        String dockPos = settings.getDockPosition();
         boolean isPortrait = newConfig.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        String dockPos = settings.getEffectiveDockPosition(isPortrait);
         this.isVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
 
+        if (needsLayoutUpdate()) return;
         if (adapter != null) {
             adapter.setVerticalMode(isVerticalMode);
-            adapter.notifyDataSetChanged();
         }
 
         applyOrientationState(getView(), isVerticalMode);

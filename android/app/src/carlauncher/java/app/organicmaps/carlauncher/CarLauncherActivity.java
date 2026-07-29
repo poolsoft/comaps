@@ -17,6 +17,7 @@ import app.organicmaps.carlauncher.ui.CarLayoutManager;
 import app.organicmaps.carlauncher.ui.AppDockFragment;
 import app.organicmaps.carlauncher.ui.WidgetPanelFragment;
 import app.organicmaps.carlauncher.ui.PanelContentManager;
+import app.organicmaps.carlauncher.performance.LauncherStartupProfile;
 
 import androidx.fragment.app.Fragment;
 import android.transition.AutoTransition;
@@ -57,6 +58,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private int previousLayoutMode = -1;
     
     private static PanelContentManager.PanelContent lastPanelContent = null;
+    private LauncherStartupProfile startupProfile;
+    private boolean panelContentLoadedInProcess;
+    private View.OnLayoutChangeListener configurationLayoutListener;
+    private final Runnable configurationLayoutFallback =
+            this::finishConfigurationLayoutUpdate;
 
     private final BroadcastReceiver desktopToggleReceiver = new BroadcastReceiver() {
         @Override
@@ -99,6 +105,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
+        startupProfile = new LauncherStartupProfile(this);
         super.onSafeCreate(savedInstanceState);
 
         // MwmActivity once kendi activity_map agacini ve tum controller'larini
@@ -174,10 +181,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                     .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
                     .commitAllowingStateLoss();
             }
-            if (widgetPanel != null && panelContentManager != null) {
+            if (widgetPanel != null && panelContentManager != null
+                    && !startupProfile.isLowRam()) {
                 PanelContentManager.PanelContent contentToRestore = 
                     (lastPanelContent != null) ? lastPanelContent : PanelContentManager.PanelContent.WIDGETS;
                 panelContentManager.setContent(contentToRestore);
+                panelContentLoadedInProcess = true;
             }
         }
 
@@ -190,6 +199,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             widgetHandle.setOnTouchListener(new View.OnTouchListener() {
                 private float initialTouchX;
                 private float initialTouchY;
+                private float initialPanelPercent;
+                private boolean portraitDrag;
                 private boolean isDragging = false;
                 private static final int TOUCH_SLOP = 10;
 
@@ -199,6 +210,18 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                         case MotionEvent.ACTION_DOWN:
                             initialTouchX = event.getRawX();
                             initialTouchY = event.getRawY();
+                            portraitDrag = getResources().getConfiguration().orientation
+                                    == Configuration.ORIENTATION_PORTRAIT;
+                            CarLauncherSettings dragSettings =
+                                    new CarLauncherSettings(CarLauncherActivity.this);
+                            initialPanelPercent = portraitDrag
+                                    ? dragSettings.getWidgetPanelHeightPortrait()
+                                    : dragSettings.getWidgetPanelWidthPercent();
+                            float renderedPercent =
+                                    layoutManager.getRenderedSmallPanelFraction();
+                            if (renderedPercent > 0f) {
+                                initialPanelPercent = renderedPercent;
+                            }
                             isDragging = false;
                             break;
                         case MotionEvent.ACTION_MOVE:
@@ -208,7 +231,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                                 isDragging = true;
                             }
                             if (isDragging) {
-                                updateCarWidgetPanelSize(event.getRawX(), event.getRawY());
+                                updateCarWidgetPanelSize(dx, dy, initialPanelPercent);
                             }
                             break;
                     }
@@ -223,34 +246,41 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Gerekli baslangic ayarlari applyStatusBarVisibility() ile asagida ve onResume'da yapilmaktadir.
         
         applyStatusBarVisibility();
+        if (rootLayout != null) {
+            rootLayout.post(startupProfile::markUiReady);
+        }
     }
 
-    private void updateCarWidgetPanelSize(float rawX, float rawY) {
+    private void updateCarWidgetPanelSize(float deltaX, float deltaY,
+                                          float initialPercent) {
         if (layoutManager == null) return;
         boolean isPortrait = getResources().getConfiguration().orientation 
                 == Configuration.ORIENTATION_PORTRAIT;
         CarLauncherSettings carSettings = new CarLauncherSettings(this);
         if (isPortrait) {
-            int screenHeight = getResources().getDisplayMetrics().heightPixels;
-            if (screenHeight <= 0) return;
-            float rawPercent = (screenHeight - rawY) / (float) screenHeight;
-            float percent = Math.max(0.25f, Math.min(0.50f, rawPercent));
+            int availableHeight = layoutManager.getAvailablePanelHeight();
+            if (availableHeight <= 0) return;
+            boolean smallViewOnTop = layoutManager.isContentFullScreen();
+            float direction = smallViewOnTop ? 1f : -1f;
+            float rawPercent =
+                    initialPercent + direction * (deltaY / availableHeight);
+            float percent = Math.max(0.15f, Math.min(0.65f, rawPercent));
             carSettings.setWidgetPanelHeightPortrait(percent);
         } else {
-            int screenWidth = getResources().getDisplayMetrics().widthPixels;
-            if (screenWidth <= 0) return;
+            int availableWidth = layoutManager.getAvailablePanelWidth();
+            if (availableWidth <= 0) return;
             String widgetPos = carSettings.getWidgetPanelPosition();
-            boolean isLeft = "left".equals(widgetPos);
-            float rawPercent;
-            if (isLeft) {
-                rawPercent = rawX / (float) screenWidth;
-            } else {
-                rawPercent = (screenWidth - rawX) / (float) screenWidth;
+            boolean smallViewOnLeft = "left".equals(widgetPos);
+            if (layoutManager.isContentFullScreen()) {
+                smallViewOnLeft = !smallViewOnLeft;
             }
-            float percent = Math.max(0.25f, Math.min(0.50f, rawPercent));
+            float direction = smallViewOnLeft ? 1f : -1f;
+            float rawPercent =
+                    initialPercent + direction * (deltaX / availableWidth);
+            float percent = Math.max(0.15f, Math.min(0.65f, rawPercent));
             carSettings.setWidgetPanelWidthPercent(percent);
         }
-        applyWidgetPanelState();
+        applyWidgetPanelState(false);
     }
 
     private void applyWidgetPanelState() {
@@ -594,6 +624,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     public void setPanelContent(PanelContentManager.PanelContent content) {
         if (isTransitioning) return;
         if (panelContentManager != null) {
+            panelContentLoadedInProcess = true;
             if (content != PanelContentManager.PanelContent.DESKTOP && isDesktopMode) {
                 isDesktopMode = false;
                 applyWidgetPanelState();
@@ -679,16 +710,69 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         applyStatusBarVisibility();
+        scheduleConfigurationLayoutUpdate(newConfig);
+    }
+
+    private void scheduleConfigurationLayoutUpdate(Configuration configuration) {
+        if (rootLayout == null) {
+            finishConfigurationLayoutUpdate();
+            return;
+        }
+        rootLayout.removeCallbacks(configurationLayoutFallback);
+        if (configurationLayoutListener != null) {
+            rootLayout.removeOnLayoutChangeListener(configurationLayoutListener);
+        }
+        final boolean expectPortrait =
+                configuration.orientation == Configuration.ORIENTATION_PORTRAIT;
+        configurationLayoutListener = (view, left, top, right, bottom,
+                oldLeft, oldTop, oldRight, oldBottom) -> {
+            int width = right - left;
+            int height = bottom - top;
+            if (width > 0 && height > 0
+                    && (height >= width) == expectPortrait) {
+                finishConfigurationLayoutUpdate();
+            }
+        };
+        rootLayout.addOnLayoutChangeListener(configurationLayoutListener);
+        rootLayout.requestLayout();
+        rootLayout.postDelayed(configurationLayoutFallback, 250L);
+    }
+
+    private void finishConfigurationLayoutUpdate() {
+        if (rootLayout != null) {
+            rootLayout.removeCallbacks(configurationLayoutFallback);
+            if (configurationLayoutListener != null) {
+                rootLayout.removeOnLayoutChangeListener(configurationLayoutListener);
+                configurationLayoutListener = null;
+            }
+        }
+        checkAndRefreshDockFragmentIfNeeded();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (rootLayout != null) {
+            rootLayout.removeCallbacks(configurationLayoutFallback);
+            if (configurationLayoutListener != null) {
+                rootLayout.removeOnLayoutChangeListener(configurationLayoutListener);
+                configurationLayoutListener = null;
+            }
+        }
+        super.onDestroy();
     }
 
     @Override
     public void checkAndRefreshDockFragmentIfNeeded() {
-        applyWidgetPanelState(false); // Konum degisiminde animasyonu pas gec (Kacinilmaz anlik titremeleri ve TransitionManager buglarini onler)
-        
-        if (appDock != null) {
+        Fragment fragment =
+                getSupportFragmentManager().findFragmentByTag("app_dock");
+        if (fragment instanceof AppDockFragment
+                && ((AppDockFragment) fragment).needsLayoutUpdate()) {
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
                 .commitAllowingStateLoss();
+        } else if (fragment instanceof AppDockFragment) {
+            ((AppDockFragment) fragment).refreshLayout();
         }
+        applyWidgetPanelState(false);
     }
 }
