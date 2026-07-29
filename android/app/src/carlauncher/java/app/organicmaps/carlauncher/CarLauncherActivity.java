@@ -750,7 +750,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onSafeDestroy() {
         if (rootLayout != null) {
             rootLayout.removeCallbacks(configurationLayoutFallback);
             if (configurationLayoutListener != null) {
@@ -758,7 +758,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 configurationLayoutListener = null;
             }
         }
-        super.onDestroy();
+        super.onSafeDestroy();
     }
 
     @Override
