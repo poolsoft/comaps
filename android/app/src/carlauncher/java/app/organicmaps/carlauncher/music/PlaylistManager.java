@@ -2,10 +2,7 @@ package app.organicmaps.carlauncher.music;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import net.osmand.PlatformUtil;
-
-import org.apache.commons.logging.Log;
+import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +18,7 @@ import java.util.UUID;
  */
 public class PlaylistManager {
 
-    private static final Log LOG = PlatformUtil.getLog(PlaylistManager.class);
+    private static final String TAG = "PlaylistManager";
     private static final String PREFS_NAME = "music_playlists";
     private static final String KEY_PLAYLISTS = "playlists";
     private static final String KEY_RECENTLY_PLAYED = "recently_played";
@@ -53,7 +50,7 @@ public class PlaylistManager {
                 result.add(p);
             }
         } catch (JSONException e) {
-            LOG.error("Unable to read saved playlists", e);
+            Log.e(TAG, "Unable to read saved playlists", e);
         }
         return result;
     }
@@ -98,7 +95,7 @@ public class PlaylistManager {
                     .putString(KEY_PLAYLISTS, arr.toString())
                     .apply();
         } catch (JSONException e) {
-            LOG.error("Unable to save playlists", e);
+            Log.e(TAG, "Unable to save playlists", e);
         }
     }
 
