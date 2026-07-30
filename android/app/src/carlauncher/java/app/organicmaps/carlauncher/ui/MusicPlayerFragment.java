@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -32,9 +33,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.carlauncher.music.MusicManager;
 import app.organicmaps.carlauncher.music.MusicRepository;
+import app.organicmaps.carlauncher.music.MusicTrackIdentity;
 import app.organicmaps.carlauncher.music.PlaylistManager;
 import app.organicmaps.carlauncher.dock.AppPickerDialog;
-import app.organicmaps.MwmActivity;
+import app.organicmaps.carlauncher.CarLauncherInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,7 +63,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private LinearLayout trackListPanel;
     private View playerPanel;
     private View musicSideDock;
-    private ImageButton btnDockPlaylist;
+    private ImageButton btnDockPlaylist, btnScanMusic, btnTabScan;
     private ImageView appIcon;
     private View appSelectorLaunch;
     private ImageButton btnPlaylist, btnClose, btnEqualizer;
@@ -70,32 +72,36 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private TextView nowPlayingTitle, nowPlayingArtist;
     private SeekBar seekbar;
     private TextView timeCurrent, timeTotal;
+    private View playerProgressContainer;
     private ImageButton btnShuffle, btnPrev, btnPlay, btnNext, btnRepeat;
     private Spinner playlistSpinner;
     private EditText searchInput;
     private View searchBarContainer;
     private View searchClearBtn;
 
-    // New Tab Views
-    private TextView tabAllTracks, tabRecent, tabPlaylistLabel, appName;
-    private View tabPlaylistsContainer;
-    private ImageButton tabBtnSearch;
-    private TextView tabFavorites;
-    
-    // YENI CAR RADIO UIs
-    private TextView tabFolders;
-    private TextView tabArtists;
+    // New 4-Tab Views
+    private TextView tabQueue, tabAllTracks, tabFolders, tabPlaylists;
+    private ImageButton tabBtnSearch, tabBtnMenu;
     private View folderHeaderContainer;
     private ImageButton btnBackFolder;
     private TextView folderHeaderTitle;
 
-    // View Modes
-    private enum ViewMode {
-        ALL_TRACKS, FOLDERS, ARTISTS, RECENT, FAVORITES, PLAYLIST, FOLDER_DETAIL, ARTIST_DETAIL
+    // View Modes & Klasor Hiyerarsisi
+    public enum ViewMode {
+        QUEUE, ALL_TRACKS, FOLDERS, PLAYLIST, FOLDER_DETAIL
+    }
+    public enum SortOrder {
+        TITLE, ARTIST, ALBUM, RECENTLY_ADDED, MOST_PLAYED
+    }
+    private enum FolderViewLevel {
+        STORAGE_ROOT, FOLDER_LIST, TRACK_LIST
     }
     private ViewMode currentViewMode = ViewMode.ALL_TRACKS;
+    private FolderViewLevel currentFolderLevel = FolderViewLevel.STORAGE_ROOT;
+    private MusicRepository.StorageType selectedStorageType = MusicRepository.StorageType.INTERNAL;
     private MusicRepository.AudioFolder currentFolder = null;
-    private MusicRepository.AudioArtist currentArtist = null;
+    private PlaylistManager.Playlist currentPlaylist = null;
+
 
     // State
     private boolean isExternalMode = true; // Default: external app control
@@ -138,6 +144,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         playerPanel = root.findViewById(app.organicmaps.R.id.player_panel);
         musicSideDock = root.findViewById(app.organicmaps.R.id.music_side_dock);
         btnDockPlaylist = root.findViewById(app.organicmaps.R.id.btn_dock_playlist);
+        btnScanMusic = root.findViewById(app.organicmaps.R.id.btn_scan_music);
+        btnTabScan = root.findViewById(app.organicmaps.R.id.tab_btn_scan);
         appIcon = root.findViewById(app.organicmaps.R.id.app_icon);
         appSelectorLaunch = root.findViewById(app.organicmaps.R.id.app_selector_launch);
         // btnPlaylist = root.findViewById(app.organicmaps.R.id.btn_playlist);
@@ -148,7 +156,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         ambianceGlowLayer = root.findViewById(app.organicmaps.R.id.ambiance_glow_layer);
         nowPlayingTitle = root.findViewById(app.organicmaps.R.id.now_playing_title);
         nowPlayingArtist = root.findViewById(app.organicmaps.R.id.now_playing_artist);
-        
+
         nowPlayingCenterPanel = root.findViewById(app.organicmaps.R.id.now_playing_center_panel);
         nowPlayingCenterArt = root.findViewById(app.organicmaps.R.id.now_playing_center_art);
         nowPlayingCenterTitle = root.findViewById(app.organicmaps.R.id.now_playing_center_title);
@@ -156,6 +164,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         seekbar = root.findViewById(app.organicmaps.R.id.seekbar);
         timeCurrent = root.findViewById(app.organicmaps.R.id.time_current);
         timeTotal = root.findViewById(app.organicmaps.R.id.time_total);
+        playerProgressContainer = root.findViewById(app.organicmaps.R.id.player_progress_container);
         btnShuffle = root.findViewById(app.organicmaps.R.id.btn_shuffle);
         btnPrev = root.findViewById(app.organicmaps.R.id.btn_prev);
         btnPlay = root.findViewById(app.organicmaps.R.id.btn_play);
@@ -165,7 +174,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         searchInput = root.findViewById(app.organicmaps.R.id.search_input);
         searchBarContainer = root.findViewById(app.organicmaps.R.id.search_bar_container);
         searchClearBtn = root.findViewById(app.organicmaps.R.id.search_clear_btn);
-        
+
         // Responsive Layout Listener
         root.getViewTreeObserver().addOnGlobalLayoutListener(new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
             private int lastWidth = 0;
@@ -181,19 +190,17 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         recyclerView = root.findViewById(app.organicmaps.R.id.music_recycler);
 
+        tabQueue = root.findViewById(app.organicmaps.R.id.tab_queue);
         tabAllTracks = root.findViewById(app.organicmaps.R.id.tab_all_tracks);
-        tabRecent = root.findViewById(app.organicmaps.R.id.tab_recent);
-        tabPlaylistsContainer = root.findViewById(app.organicmaps.R.id.tab_playlists_container);
-        tabPlaylistLabel = root.findViewById(app.organicmaps.R.id.tab_playlist_label);
-        appName = root.findViewById(app.organicmaps.R.id.app_name);
-        tabBtnSearch = root.findViewById(app.organicmaps.R.id.tab_btn_search);
-        tabFavorites = root.findViewById(app.organicmaps.R.id.tab_favorites);
-        
         tabFolders = root.findViewById(app.organicmaps.R.id.tab_folders);
-        tabArtists = root.findViewById(app.organicmaps.R.id.tab_artists);
+        tabPlaylists = root.findViewById(app.organicmaps.R.id.tab_playlists);
+        tabBtnSearch = root.findViewById(app.organicmaps.R.id.tab_btn_search);
+        tabBtnMenu = root.findViewById(app.organicmaps.R.id.tab_btn_menu);
+
         folderHeaderContainer = root.findViewById(app.organicmaps.R.id.folder_header_container);
         btnBackFolder = root.findViewById(app.organicmaps.R.id.btn_back_folder);
         folderHeaderTitle = root.findViewById(app.organicmaps.R.id.folder_header_title);
+
 
         // Marquee
         if (nowPlayingTitle != null)
@@ -217,13 +224,13 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (btnShuffle != null) btnShuffle.setImageResource(app.organicmaps.R.drawable.ic_music_shuffle);
         if (btnRepeat != null) btnRepeat.setImageResource(app.organicmaps.R.drawable.ic_music_repeat);
         if (btnClose != null) btnClose.setImageResource(app.organicmaps.R.drawable.ic_music_close);
-        
+
         // Find Visualizer
         visualizerView = root.findViewById(app.organicmaps.R.id.player_visualizer);
         if (visualizerView != null) {
             visualizerView.setVisualizerContext(false); // Buyuk panel (Large context)
         }
-        
+
         View btnChangeVisualizer = root.findViewById(app.organicmaps.R.id.btn_change_visualizer);
         if (btnChangeVisualizer != null) {
             btnChangeVisualizer.setOnClickListener(v -> {
@@ -262,7 +269,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
 
 
-        // Baslangicta playlist acik oldugundan visualizer gizli olmali
+        // Başlangıçta playlist açık olduğundan visualizer gizli olmalı
         if (visualizerView != null) {
             visualizerView.setVisibility(isPlaylistVisible ? View.GONE : View.VISIBLE);
         }
@@ -278,21 +285,21 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (visualizerView != null) {
             visualizerView.updateVisualizer(fft);
         }
-        
+
         if (ambianceGlowLayer != null && fft != null && fft.length > 2) {
             float totalMag = 0;
-            // Ilk dusuk frekans bantlari (Bass) hesaplaniyor
+            // İlk düşük frekans bantları (Bass) hesaplanıyor
             int count = Math.min(10, fft.length / 2);
             for (int i = 0; i < count; i++) {
                 byte rfk = fft[i * 2];
                 totalMag += Math.abs(rfk);
             }
             float avg = totalMag / count;
-            // Ortalama siddeti alpha (0.0 - 0.6) araligina ceviriyoruz
+            // Ortalama şiddeti alpha (0.0 - 0.6) aralığına çeviriyoruz
             float targetAlpha = (avg / 128f) * 0.7f;
             if (targetAlpha > 0.6f) targetAlpha = 0.6f;
             if (targetAlpha < 0.0f) targetAlpha = 0.0f;
-            
+
             final float alpha = targetAlpha;
             ambianceGlowLayer.post(() -> ambianceGlowLayer.setAlpha(alpha));
         }
@@ -308,7 +315,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             musicManager.addListener(this);
             musicManager.addVisualizerListener(this); // Centralized Visualizer
             // Update UI state
-            updateModeUI(); 
+            updateModeUI();
         }
     }
 
@@ -333,31 +340,80 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             });
         }
 
-        // Yeni Klasor ve Sanatci tab listenerlari
-        if (tabFolders != null) {
-            tabFolders.setOnClickListener(v -> switchViewMode(ViewMode.FOLDERS));
+        if (btnScanMusic != null) {
+            btnScanMusic.setOnClickListener(v -> rescanMusic());
         }
-        if (tabArtists != null) {
-            tabArtists.setOnClickListener(v -> switchViewMode(ViewMode.ARTISTS));
+        if (btnTabScan != null) {
+            btnTabScan.setOnClickListener(v -> rescanMusic());
+        }
+
+        // 4 Ana Sekme Listener'ları (Sıra, Parçalar, Klasörler, Listeler)
+        if (tabQueue != null) {
+            tabQueue.setOnClickListener(v -> switchViewMode(ViewMode.QUEUE));
         }
         if (tabAllTracks != null) {
             tabAllTracks.setOnClickListener(v -> switchViewMode(ViewMode.ALL_TRACKS));
         }
+        if (tabFolders != null) {
+            tabFolders.setOnClickListener(v -> switchViewMode(ViewMode.FOLDERS));
+        }
+        if (tabPlaylists != null) {
+            tabPlaylists.setOnClickListener(v -> switchViewMode(ViewMode.PLAYLIST));
+        }
+        if (tabBtnMenu != null) {
+            tabBtnMenu.setOnClickListener(this::showTopOverflowMenu);
+        }
         if (btnBackFolder != null) {
             btnBackFolder.setOnClickListener(v -> {
-                if (currentViewMode == ViewMode.FOLDER_DETAIL) {
+                if (currentViewMode == ViewMode.FOLDER_DETAIL || currentFolderLevel == FolderViewLevel.TRACK_LIST) {
+                    currentFolderLevel = FolderViewLevel.FOLDER_LIST;
+                    if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+                    if (folderHeaderTitle != null) {
+                        folderHeaderTitle.setText(selectedStorageType == MusicRepository.StorageType.USB ? "💾 USB Depolama" : "📱 Dahili Hafıza");
+                    }
+                    showFolders(musicManager.getRepository().getFoldersByStorage(selectedStorageType));
+                } else if (currentFolderLevel == FolderViewLevel.FOLDER_LIST) {
+                    currentFolderLevel = FolderViewLevel.STORAGE_ROOT;
+                    showStorageRoots();
+                } else {
                     switchViewMode(ViewMode.FOLDERS);
-                } else if (currentViewMode == ViewMode.ARTIST_DETAIL) {
-                    switchViewMode(ViewMode.ARTISTS);
                 }
             });
         }
+        View fragmentView = getView();
+        View btnFolderPlayAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_play_all) : null;
+        View btnFolderShuffleAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_shuffle_all) : null;
+
+        if (btnFolderPlayAll != null) {
+            btnFolderPlayAll.setOnClickListener(v -> {
+                Log.d("MusicPlayer", "Folder Play All clicked. Folder: " + (currentFolder != null ? currentFolder.getName() : "null") + ", Track Count: " + (filteredTracks != null ? filteredTracks.size() : 0));
+                if (filteredTracks != null && !filteredTracks.isEmpty() && musicManager != null && musicManager.getInternalPlayer() != null) {
+                    isShuffleOn = false;
+                    if (musicManager != null) musicManager.setShuffleOn(false);
+                    playTrackFromCollection(filteredTracks, filteredTracks.get(0));
+                    Toast.makeText(getContext(), "▶ " + filteredTracks.size() + " Şarkı Çalınıyor", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        if (btnFolderShuffleAll != null) {
+            btnFolderShuffleAll.setOnClickListener(v -> {
+                Log.d("MusicPlayer", "Folder Shuffle clicked. Folder: " + (currentFolder != null ? currentFolder.getName() : "null") + ", Track Count: " + (filteredTracks != null ? filteredTracks.size() : 0));
+                if (filteredTracks != null && !filteredTracks.isEmpty() && musicManager != null && musicManager.getInternalPlayer() != null) {
+                    isShuffleOn = true;
+                    if (musicManager != null) musicManager.setShuffleOn(true);
+                    playTrackFromCollection(filteredTracks, filteredTracks.get(0));
+                    Toast.makeText(getContext(), "🔀 " + filteredTracks.size() + " Şarkı Karıştırılıyor", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
 
         // Close
         if (btnClose != null)
             btnClose.setOnClickListener(v -> closeFragment());
 
-        // Playback Controls (MusicManager metod isimleri duzeltildi)
+        // Playback Controls (MusicManager metod isimleri düzeltildi)
         // Playback Controls
         if (btnPlay != null) {
             btnPlay.setOnClickListener(v -> {
@@ -383,6 +439,9 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     musicManager.setShuffleOn(isShuffleOn);
                 }
                 updateShuffleUI();
+                if (currentViewMode == ViewMode.QUEUE) {
+                    switchViewMode(ViewMode.QUEUE);
+                }
             });
 
         // Repeat (Turkce karakter yok)
@@ -424,20 +483,27 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 isPlaylistVisible = !isPlaylistVisible;
                 if (trackListPanel != null) trackListPanel.setVisibility(isPlaylistVisible ? View.VISIBLE : View.GONE);
                 if (nowPlayingCenterPanel != null) nowPlayingCenterPanel.setVisibility(isPlaylistVisible ? View.GONE : View.VISIBLE);
-                
+
                 if (visualizerView != null && !isExternalMode) {
                     int widthPx = getView() != null ? getView().getWidth() : 1000;
                     float widthDp = widthPx / getResources().getDisplayMetrics().density;
                     visualizerView.setVisibility(isPlaylistVisible || widthDp < 500 ? android.view.View.GONE : android.view.View.VISIBLE);
                 }
-                
+
                 btnDockPlaylist.setColorFilter(isPlaylistVisible ? 0xFFFFFFFF : 0xFF00FFFF);
+
+                if (playerProgressContainer != null && !isExternalMode) {
+                    playerProgressContainer.setVisibility(isPlaylistVisible ? View.GONE : View.VISIBLE);
+                }
             });
         }
-        
+
         if (btnPlaylist != null)
             btnPlaylist.setOnClickListener(v -> {
                 isExternalMode = !isExternalMode;
+                if (!isExternalMode) {
+                    musicManager.setPreferredPackage("usage.internal.player");
+                }
                 updateModeUI();
             });
 
@@ -518,34 +584,19 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             });
         }
 
-        // Playlist Spinner
-        setupPlaylistSpinner();
-
         // Tab Listeners
         if (tabAllTracks != null)
-            tabAllTracks.setOnClickListener(v -> {
-                selectTab(0);
-                checkPermissionsAndLoadTracks();
-            });
+            tabAllTracks.setOnClickListener(v -> switchViewMode(ViewMode.ALL_TRACKS));
 
-        if (tabRecent != null)
-            tabRecent.setOnClickListener(v -> {
-                selectTab(1);
-                loadRecentlyPlayed();
-            });
+        if (tabQueue != null)
+            tabQueue.setOnClickListener(v -> switchViewMode(ViewMode.QUEUE));
 
-        if (tabFavorites != null)
-            tabFavorites.setOnClickListener(v -> {
-                selectTab(2);
-                loadFavorites();
-            });
+        if (tabFolders != null)
+            tabFolders.setOnClickListener(v -> switchViewMode(ViewMode.FOLDERS));
 
-        if (tabPlaylistsContainer != null)
-            tabPlaylistsContainer.setOnClickListener(v -> {
-                selectTab(3);
-                if (playlistSpinner != null)
-                    playlistSpinner.performClick();
-            });
+        if (tabPlaylists != null)
+            tabPlaylists.setOnClickListener(v -> switchViewMode(ViewMode.PLAYLIST));
+
 
         if (tabBtnSearch != null) {
             tabBtnSearch.setOnClickListener(v -> {
@@ -562,7 +613,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         if (searchInput != null) {
                             searchInput.requestFocus();
                             try {
-                                android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) 
+                                android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager)
                                     getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 if (imm != null) {
                                     imm.showSoftInput(searchInput, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
@@ -577,31 +628,6 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
     }
 
-    private void selectTab(int index) {
-        // 0: All, 1: Recent, 2: Favorites, 3: Playlist (Listeler)
-        int selectedColor = 0xFFFFFFFF;
-        int unselectedColor = 0xFF888888;
-
-        if (tabAllTracks != null) {
-            tabAllTracks.setTextColor(index == 0 ? selectedColor : unselectedColor);
-            tabAllTracks.setBackgroundResource(index == 0 ? app.organicmaps.R.drawable.bg_tab_active : 0);
-        }
-        if (tabRecent != null) {
-            tabRecent.setTextColor(index == 1 ? selectedColor : unselectedColor);
-            tabRecent.setBackgroundResource(index == 1 ? app.organicmaps.R.drawable.bg_tab_active : 0);
-        }
-        if (tabFavorites != null) {
-            tabFavorites.setTextColor(index == 2 ? selectedColor : unselectedColor);
-            tabFavorites.setBackgroundResource(index == 2 ? app.organicmaps.R.drawable.bg_tab_active : 0);
-        }
-        if (tabPlaylistsContainer != null) {
-            tabPlaylistsContainer.setBackgroundResource(index == 3 ? app.organicmaps.R.drawable.bg_tab_active : 0);
-        }
-        if (tabPlaylistLabel != null) {
-            tabPlaylistLabel.setTextColor(index == 3 ? selectedColor : unselectedColor);
-        }
-    }
-
     private void setupRecyclerView() {
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -612,105 +638,465 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private void switchViewMode(ViewMode mode) {
         currentViewMode = mode;
         updateTabUIForMode(mode);
-        
+
         if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.GONE);
         if (searchBarContainer != null) searchBarContainer.setVisibility(View.GONE);
 
         switch (mode) {
+            case QUEUE:
+                if (musicManager != null && musicManager.getInternalPlayer() != null) {
+                    showTracks(musicManager.getInternalPlayer().getPlayingQueue());
+                }
+                break;
             case ALL_TRACKS:
                 if (searchBarContainer != null) searchBarContainer.setVisibility(View.VISIBLE);
                 showTracks(allTracks);
                 break;
-            case RECENT:
-                showTracks(getRecentTracks());
-                break;
-            case FAVORITES:
-                showTracks(getFavoriteTracks());
-                break;
             case FOLDERS:
-                showFolders(musicManager.getRepository().getCachedFolders());
-                break;
-            case ARTISTS:
-                showArtists(musicManager.getRepository().getCachedArtists());
+                showStorageRoots();
                 break;
             case FOLDER_DETAIL:
                 if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
-                if (folderHeaderTitle != null && currentFolder != null) folderHeaderTitle.setText(currentFolder.getName());
+                if (folderHeaderTitle != null && currentFolder != null) folderHeaderTitle.setText("📁 " + currentFolder.getName());
                 if (currentFolder != null) showTracks(currentFolder.getTracks());
                 break;
-            case ARTIST_DETAIL:
-                if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
-                if (folderHeaderTitle != null && currentArtist != null) folderHeaderTitle.setText(currentArtist.getName());
-                if (currentArtist != null) showTracks(currentArtist.getTracks());
-                break;
             case PLAYLIST:
-                // Spinner yonetiyor
+                showPlaylistsList();
                 break;
         }
     }
+
 
     private void updateTabUIForMode(ViewMode mode) {
-        int selectedColor = 0xFFFFFFFF;
+        int selectedColor = 0xFF00FFFF; // Turkuaz ana vurgu rengi
         int unselectedColor = 0xFF888888;
         int activeBg = app.organicmaps.R.drawable.bg_tab_active;
-        
-        if (tabAllTracks != null) {
-            tabAllTracks.setTextColor(mode == ViewMode.ALL_TRACKS ? selectedColor : unselectedColor);
-            tabAllTracks.setBackgroundResource(mode == ViewMode.ALL_TRACKS ? activeBg : 0);
-        }
-        if (tabFolders != null) {
-            tabFolders.setTextColor((mode == ViewMode.FOLDERS || mode == ViewMode.FOLDER_DETAIL) ? selectedColor : unselectedColor);
-            tabFolders.setBackgroundResource((mode == ViewMode.FOLDERS || mode == ViewMode.FOLDER_DETAIL) ? activeBg : 0);
-        }
-        if (tabArtists != null) {
-            tabArtists.setTextColor((mode == ViewMode.ARTISTS || mode == ViewMode.ARTIST_DETAIL) ? selectedColor : unselectedColor);
-            tabArtists.setBackgroundResource((mode == ViewMode.ARTISTS || mode == ViewMode.ARTIST_DETAIL) ? activeBg : 0);
-        }
-        if (tabRecent != null) {
-            tabRecent.setTextColor(mode == ViewMode.RECENT ? selectedColor : unselectedColor);
-            tabRecent.setBackgroundResource(mode == ViewMode.RECENT ? activeBg : 0);
-        }
-        if (tabFavorites != null) {
-            tabFavorites.setTextColor(mode == ViewMode.FAVORITES ? selectedColor : unselectedColor);
-            tabFavorites.setBackgroundResource(mode == ViewMode.FAVORITES ? activeBg : 0);
+
+        // 1. Reset ALL tabs first to prevent double-highlighting
+        if (tabQueue != null) { tabQueue.setTextColor(unselectedColor); tabQueue.setBackgroundResource(0); }
+        if (tabAllTracks != null) { tabAllTracks.setTextColor(unselectedColor); tabAllTracks.setBackgroundResource(0); }
+        if (tabFolders != null) { tabFolders.setTextColor(unselectedColor); tabFolders.setBackgroundResource(0); }
+        if (tabPlaylists != null) { tabPlaylists.setTextColor(unselectedColor); tabPlaylists.setBackgroundResource(0); }
+
+        // 2. Highlight ONLY active tab
+        switch (mode) {
+            case QUEUE:
+                if (tabQueue != null) { tabQueue.setTextColor(selectedColor); tabQueue.setBackgroundResource(activeBg); }
+                break;
+            case ALL_TRACKS:
+                if (tabAllTracks != null) { tabAllTracks.setTextColor(selectedColor); tabAllTracks.setBackgroundResource(activeBg); }
+                break;
+            case FOLDERS:
+            case FOLDER_DETAIL:
+                if (tabFolders != null) { tabFolders.setTextColor(selectedColor); tabFolders.setBackgroundResource(activeBg); }
+                break;
+            case PLAYLIST:
+                if (tabPlaylists != null) { tabPlaylists.setTextColor(selectedColor); tabPlaylists.setBackgroundResource(activeBg); }
+                break;
         }
     }
 
+
     private List<MusicRepository.AudioTrack> getRecentTracks() {
-        return allTracks; // TODO: Implement real recent logic
+        if (playlistManager == null) return new ArrayList<>();
+        List<String> recentPaths = playlistManager.getRecentlyPlayed();
+        List<MusicRepository.AudioTrack> recentTracks = new ArrayList<>();
+        for (String path : recentPaths) {
+            MusicRepository.AudioTrack t = musicManager != null && musicManager.getRepository() != null
+                    ? musicManager.getRepository().findTrackPortAgnostic(path) : null;
+            if (t != null) {
+                recentTracks.add(t);
+            }
+        }
+        return recentTracks;
     }
 
     private List<MusicRepository.AudioTrack> getFavoriteTracks() {
-        List<String> favPaths = playlistManager.getFavorites();
         List<MusicRepository.AudioTrack> favTracks = new ArrayList<>();
-        for (String path : favPaths) {
-            for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getPath().equals(path)) {
-                    favTracks.add(t);
-                    break;
-                }
+        for (String reference : playlistManager.getFavorites()) {
+            MusicRepository.AudioTrack track = findTrackByReference(reference);
+            if (track != null) {
+                favTracks.add(track);
             }
         }
         return favTracks;
     }
 
+    private void showStorageRoots() {
+        if (recyclerView == null) return;
+        if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+        if (folderHeaderTitle != null) folderHeaderTitle.setText("Klasör Kaynağı Seçin");
+        currentFolderLevel = FolderViewLevel.STORAGE_ROOT;
+
+        View fragmentView = getView();
+        View btnFolderPlayAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_play_all) : null;
+        View btnFolderShuffleAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_shuffle_all) : null;
+        if (btnFolderPlayAll != null) btnFolderPlayAll.setVisibility(View.GONE);
+        if (btnFolderShuffleAll != null) btnFolderShuffleAll.setVisibility(View.GONE);
+
+        List<StorageRootItem> roots = new ArrayList<>();
+        roots.add(new StorageRootItem(MusicRepository.StorageType.INTERNAL, "📱 Dahili Hafıza", "Cihaz üzerindeki müzik klasörleri"));
+
+        List<MusicRepository.AudioFolder> usbFolders = musicManager != null && musicManager.getRepository() != null ?
+                musicManager.getRepository().getFoldersByStorage(MusicRepository.StorageType.USB) : new ArrayList<>();
+        if (!usbFolders.isEmpty()) {
+            roots.add(new StorageRootItem(MusicRepository.StorageType.USB, "💾 USB Depolama", usbFolders.size() + " Klasör Bulundu"));
+        } else {
+            roots.add(new StorageRootItem(MusicRepository.StorageType.USB, "💾 USB Depolama (Takılı Değil)", "Takılı USB bellek bulunamadı"));
+        }
+
+        StorageRootAdapter rootAdapter = new StorageRootAdapter(roots, item -> {
+            if (item.type == MusicRepository.StorageType.USB && usbFolders.isEmpty()) {
+                Toast.makeText(getContext(), "Takılı USB bellek bulunamadı!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            selectedStorageType = item.type;
+            currentFolderLevel = FolderViewLevel.FOLDER_LIST;
+            if (folderHeaderTitle != null) {
+                folderHeaderTitle.setText(item.type == MusicRepository.StorageType.USB ? "💾 USB Depolama Klasörleri" : "📱 Dahili Hafıza Klasörleri");
+            }
+            showFolders(musicManager.getRepository().getFoldersByStorage(item.type));
+        });
+        recyclerView.setAdapter(rootAdapter);
+    }
+
+    private static class StorageRootItem {
+        MusicRepository.StorageType type;
+        String title;
+        String subtitle;
+        StorageRootItem(MusicRepository.StorageType type, String title, String subtitle) {
+            this.type = type;
+            this.title = title;
+            this.subtitle = subtitle;
+        }
+    }
+
+    private class StorageRootAdapter extends RecyclerView.Adapter<StorageRootAdapter.ViewHolder> {
+        private final List<StorageRootItem> items;
+        private final StorageRootClickListener listener;
+
+        interface StorageRootClickListener {
+            void onClick(StorageRootItem item);
+        }
+
+        public StorageRootAdapter(List<StorageRootItem> items, StorageRootClickListener listener) {
+            this.items = items;
+            this.listener = listener;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            StorageRootItem item = items.get(position);
+            holder.text1.setText(item.title);
+            holder.text1.setTextColor(0xFFFFFFFF);
+            holder.text1.setTextSize(18);
+            holder.text1.setTypeface(null, android.graphics.Typeface.BOLD);
+            holder.text2.setText(item.subtitle);
+            holder.text2.setTextColor(0xFF888888);
+            holder.itemView.setPadding(32, 28, 32, 28);
+            holder.itemView.setOnClickListener(v -> listener.onClick(item));
+        }
+
+        @Override
+        public int getItemCount() {
+            return items != null ? items.size() : 0;
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            TextView text1, text2;
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                text1 = itemView.findViewById(android.R.id.text1);
+                text2 = itemView.findViewById(android.R.id.text2);
+            }
+        }
+    }
+
     private void showFolders(List<MusicRepository.AudioFolder> folders) {
+        View fragmentView = getView();
+        View btnFolderPlayAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_play_all) : null;
+        View btnFolderShuffleAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_shuffle_all) : null;
+        if (btnFolderPlayAll != null) btnFolderPlayAll.setVisibility(View.VISIBLE);
+        if (btnFolderShuffleAll != null) btnFolderShuffleAll.setVisibility(View.VISIBLE);
+
         if (recyclerView != null) {
             FolderAdapter folderAdapter = new FolderAdapter(folders, folder -> {
                 currentFolder = folder;
+                currentFolderLevel = FolderViewLevel.TRACK_LIST;
+                if (getContext() != null) {
+                    getContext().getSharedPreferences("music_prefs", Context.MODE_PRIVATE).edit().putString("key_last_folder_path", folder.getPath()).apply();
+                }
                 switchViewMode(ViewMode.FOLDER_DETAIL);
             });
             recyclerView.setAdapter(folderAdapter);
         }
     }
 
-    private void showArtists(List<MusicRepository.AudioArtist> artists) {
-        if (recyclerView != null) {
-            ArtistAdapter artistAdapter = new ArtistAdapter(artists, artist -> {
-                currentArtist = artist;
-                switchViewMode(ViewMode.ARTIST_DETAIL);
+
+    private void showTopOverflowMenu(View anchor) {
+        if (getContext() == null) return;
+        List<String> optionsList = new ArrayList<>();
+        optionsList.add("🔀 Akıllı Karıştır (Smart Shuffle)");
+        optionsList.add("🔄 Müzikleri Yeniden Tara");
+        optionsList.add("🔀 Sıralama: Parça Adına Göre");
+        optionsList.add("🎙️ Sıralama: Sanatçıya Göre");
+        optionsList.add("💿 Sıralama: Albüme Göre");
+        optionsList.add("📅 Sıralama: Son Eklenenler");
+        optionsList.add("🔥 Sıralama: En Çok Çalınanlar");
+
+        String[] options = optionsList.toArray(new String[0]);
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle("Müzik Çalar Seçenekleri")
+                .setItems(options, (dialog, which) -> {
+                    String selected = options[which];
+                    if (selected.contains("Akıllı Karıştır")) {
+                        playQuickMix();
+                    } else if (selected.contains("Yeniden Tara")) {
+                        Toast.makeText(getContext(), "Müzik kütüphanesi taranıyor...", Toast.LENGTH_SHORT).show();
+                        rescanMusic();
+                    } else if (selected.contains("Parça Adına Göre")) {
+                        sortFilteredTracks(SortOrder.TITLE);
+                    } else if (selected.contains("Sanatçıya Göre")) {
+                        sortFilteredTracks(SortOrder.ARTIST);
+                    } else if (selected.contains("Albüme Göre")) {
+                        sortFilteredTracks(SortOrder.ALBUM);
+                    } else if (selected.contains("Son Eklenenler")) {
+                        sortFilteredTracks(SortOrder.RECENTLY_ADDED);
+                    } else if (selected.contains("En Çok Çalınanlar")) {
+                        sortFilteredTracks(SortOrder.MOST_PLAYED);
+                    }
+                })
+                .setNegativeButton("Kapat", null)
+                .show();
+    }
+
+    private void sortFilteredTracks(SortOrder order) {
+        if (filteredTracks == null || filteredTracks.isEmpty()) return;
+        switch (order) {
+            case TITLE:
+                filteredTracks.sort((t1, t2) -> t1.getTitle().compareToIgnoreCase(t2.getTitle()));
+                break;
+            case ARTIST:
+                filteredTracks.sort((t1, t2) -> (t1.getArtist() != null ? t1.getArtist() : "").compareToIgnoreCase(t2.getArtist() != null ? t2.getArtist() : ""));
+                break;
+            case ALBUM:
+                filteredTracks.sort((t1, t2) -> (t1.getAlbum() != null ? t1.getAlbum() : "").compareToIgnoreCase(t2.getAlbum() != null ? t2.getAlbum() : ""));
+                break;
+            case RECENTLY_ADDED:
+                filteredTracks.sort((t1, t2) -> Long.compare(t2.getDateAdded(), t1.getDateAdded()));
+                break;
+            case MOST_PLAYED:
+                filteredTracks.sort((t1, t2) -> Integer.compare(
+                        playlistManager.getPlayCount(t2), playlistManager.getPlayCount(t1)));
+                break;
+        }
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private static class PlaylistItem {
+        String id;
+        String title;
+        String subtitle;
+        boolean isAction;
+        PlaylistManager.Playlist playlist;
+
+        PlaylistItem(String id, String title, String subtitle, boolean isAction) {
+            this.id = id;
+            this.title = title;
+            this.subtitle = subtitle;
+            this.isAction = isAction;
+        }
+
+        PlaylistItem(String id, String title, String subtitle, boolean isAction, PlaylistManager.Playlist playlist) {
+            this(id, title, subtitle, isAction);
+            this.playlist = playlist;
+        }
+    }
+
+    private void showPlaylistsList() {
+        if (recyclerView == null) return;
+        if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.GONE);
+
+        List<PlaylistItem> items = new ArrayList<>();
+        items.add(new PlaylistItem("create_new", "➕ Yeni Çalma Listesi Oluştur", "Yeni liste eklemek için dokunun", true));
+        items.add(new PlaylistItem("favorites", "⭐ Favoriler", getFavoriteTracks().size() + " Parça", false));
+        items.add(new PlaylistItem("recent", "🕒 Son Çalınanlar", getRecentTracks().size() + " Parça", false));
+        items.add(new PlaylistItem("most_played", "🔥 En Çok Çalınanlar", allTracks.size() + " Parça", false));
+        items.add(new PlaylistItem("recently_added", "📅 Son Eklenenler", allTracks.size() + " Parça", false));
+
+        if (playlistManager != null) {
+            List<PlaylistManager.Playlist> userPlaylists = playlistManager.getAllPlaylists();
+            for (PlaylistManager.Playlist p : userPlaylists) {
+                items.add(new PlaylistItem("user_playlist:" + p.id, "📜 " + p.name, p.tracks.size() + " Parça", false, p));
+            }
+        }
+
+        PlaylistsAdapter playlistsAdapter = new PlaylistsAdapter(items, new PlaylistsAdapter.PlaylistClickListener() {
+            @Override
+            public void onClick(PlaylistItem item) {
+                if ("create_new".equals(item.id)) {
+                    showCreatePlaylistDialog();
+                } else if ("favorites".equals(item.id)) {
+                    currentPlaylist = null;
+                    if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+                    if (folderHeaderTitle != null) folderHeaderTitle.setText("⭐ Favoriler");
+                    showTracks(getFavoriteTracks());
+                } else if ("recent".equals(item.id)) {
+                    currentPlaylist = null;
+                    if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+                    if (folderHeaderTitle != null) folderHeaderTitle.setText("🕒 Son Çalınanlar");
+                    showTracks(getRecentTracks());
+                } else if ("most_played".equals(item.id)) {
+                    currentPlaylist = null;
+                    if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+                    if (folderHeaderTitle != null) folderHeaderTitle.setText("🔥 En Çok Çalınanlar");
+                    List<MusicRepository.AudioTrack> mostPlayed = new ArrayList<>(allTracks);
+                    mostPlayed.sort((t1, t2) -> Integer.compare(
+                            playlistManager.getPlayCount(t2), playlistManager.getPlayCount(t1)));
+                    showTracks(mostPlayed);
+                } else if ("recently_added".equals(item.id)) {
+                    currentPlaylist = null;
+                    if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+                    if (folderHeaderTitle != null) folderHeaderTitle.setText("📅 Son Eklenenler");
+                    List<MusicRepository.AudioTrack> recentlyAdded = new ArrayList<>(allTracks);
+                    recentlyAdded.sort((t1, t2) -> Long.compare(t2.getDateAdded(), t1.getDateAdded()));
+                    showTracks(recentlyAdded);
+                } else if (item.id.startsWith("user_playlist:") && item.playlist != null) {
+                    currentPlaylist = item.playlist;
+                    if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+                    if (folderHeaderTitle != null) folderHeaderTitle.setText("📜 " + item.playlist.name);
+
+                    List<MusicRepository.AudioTrack> playlistTracks = new ArrayList<>();
+                    for (String path : item.playlist.tracks) {
+                        MusicRepository.AudioTrack t = musicManager != null && musicManager.getRepository() != null
+                                ? musicManager.getRepository().findTrackPortAgnostic(path) : null;
+                        if (t != null) playlistTracks.add(t);
+                    }
+                    showTracks(playlistTracks);
+                }
+            }
+
+            @Override
+            public void onLongClick(PlaylistItem item) {
+                if (item.playlist != null) {
+                    showUserPlaylistOptionsMenu(item.playlist);
+                }
+            }
+        });
+        recyclerView.setAdapter(playlistsAdapter);
+    }
+
+    private void showCreatePlaylistDialog() {
+        if (getContext() == null || playlistManager == null) return;
+        final EditText input = new EditText(getContext());
+        input.setHint("Liste Adı (Örn: Yolculuk)");
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle("Yeni Çalma Listesi")
+                .setView(input)
+                .setPositiveButton("Oluştur", (dialog, which) -> {
+                    String name = input.getText().toString().trim();
+                    if (!name.isEmpty()) {
+                        PlaylistManager.Playlist p = new PlaylistManager.Playlist(name);
+                        playlistManager.savePlaylist(p);
+                        Toast.makeText(getContext(), "Liste oluşturuldu: " + name, Toast.LENGTH_SHORT).show();
+                        showPlaylistsList();
+                    }
+                })
+                .setNegativeButton("İptal", null)
+                .show();
+    }
+
+    private void showUserPlaylistOptionsMenu(PlaylistManager.Playlist playlist) {
+        if (getContext() == null || playlist == null) return;
+        String[] options = {"✏️ Adını Değiştir", "🗑️ Listeyi Sil"};
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle(playlist.name)
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        final EditText input = new EditText(getContext());
+                        input.setText(playlist.name);
+                        new android.app.AlertDialog.Builder(getContext())
+                                .setTitle("Liste Adını Değiştir")
+                                .setView(input)
+                                .setPositiveButton("Kaydet", (d, w) -> {
+                                    String name = input.getText().toString().trim();
+                                    if (!name.isEmpty()) {
+                                        playlist.name = name;
+                                        playlistManager.savePlaylist(playlist);
+                                        showPlaylistsList();
+                                    }
+                                })
+                                .setNegativeButton("İptal", null)
+                                .show();
+                    } else if (which == 1) {
+                        playlistManager.deletePlaylist(playlist.id);
+                        Toast.makeText(getContext(), "Liste silindi: " + playlist.name, Toast.LENGTH_SHORT).show();
+                        showPlaylistsList();
+                    }
+                })
+                .setNegativeButton("İptal", null)
+                .show();
+    }
+
+    private class PlaylistsAdapter extends RecyclerView.Adapter<PlaylistsAdapter.ViewHolder> {
+        private final List<PlaylistItem> items;
+        private final PlaylistClickListener listener;
+
+        interface PlaylistClickListener {
+            void onClick(PlaylistItem item);
+            void onLongClick(PlaylistItem item);
+        }
+
+        PlaylistsAdapter(List<PlaylistItem> items, PlaylistClickListener listener) {
+            this.items = items;
+            this.listener = listener;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            PlaylistItem item = items.get(position);
+            holder.text1.setText(item.title);
+            holder.text1.setTextColor(item.isAction ? 0xFF00FFFF : 0xFFFFFFFF);
+            holder.text1.setTextSize(18);
+            holder.text1.setTypeface(null, item.isAction ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
+            holder.text2.setText(item.subtitle);
+            holder.text2.setTextColor(0xFF888888);
+            holder.itemView.setPadding(32, 24, 32, 24);
+            holder.itemView.setOnClickListener(v -> listener.onClick(item));
+            holder.itemView.setOnLongClickListener(v -> {
+                listener.onLongClick(item);
+                return true;
             });
-            recyclerView.setAdapter(artistAdapter);
+        }
+
+        @Override
+        public int getItemCount() {
+            return items != null ? items.size() : 0;
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            TextView text1, text2;
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                text1 = itemView.findViewById(android.R.id.text1);
+                text2 = itemView.findViewById(android.R.id.text2);
+            }
         }
     }
 
@@ -734,14 +1120,16 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         @Override
         public void onBindViewHolder(@NonNull FolderViewHolder holder, int position) {
             MusicRepository.AudioFolder folder = folders.get(position);
-            holder.text1.setText(folder.getName());
-            holder.text1.setTextColor(android.graphics.Color.WHITE);
+            String prefix = folder.isUsb() ? "🔌 [USB Bellek] " : "📱 [Dahili Hafıza] ";
+            holder.text1.setText(prefix + folder.getName());
+            holder.text1.setTextColor(folder.isUsb() ? 0xFF00E5FF : android.graphics.Color.WHITE);
             holder.text1.setTextSize(18);
-            holder.text2.setText(folder.getTracks().size() + " " + getContext().getString(app.organicmaps.R.string.car_music_tracks));
+            holder.text2.setText(folder.getTracks().size() + " Parça • " + folder.getPath());
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onFolderClick(folder));
             holder.itemView.setPadding(32, 24, 32, 24);
         }
+
 
         @Override
         public int getItemCount() {
@@ -757,7 +1145,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             }
         }
     }
-    
+
     private interface FolderClickListener {
         void onFolderClick(MusicRepository.AudioFolder folder);
     }
@@ -784,7 +1172,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text1.setText(artist.getName());
             holder.text1.setTextColor(android.graphics.Color.WHITE);
             holder.text1.setTextSize(18);
-            holder.text2.setText(artist.getTracks().size() + " " + getContext().getString(app.organicmaps.R.string.car_music_tracks));
+            holder.text2.setText(artist.getTracks().size() + " Parca");
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onArtistClick(artist));
             holder.itemView.setPadding(32, 24, 32, 24);
@@ -804,7 +1192,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             }
         }
     }
-    
+
     private interface ArtistClickListener {
         void onArtistClick(MusicRepository.AudioArtist artist);
     }
@@ -814,8 +1202,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             return;
 
         List<String> options = new ArrayList<>();
-        options.add(getContext().getString(app.organicmaps.R.string.car_music_select_playlist)); // 0
-        options.add(getContext().getString(app.organicmaps.R.string.car_music_favorites)); // 1
+        options.add("Seciniz..."); // 0
+        options.add("Favoriler"); // 1
 
         List<PlaylistManager.Playlist> playlists = playlistManager.getAllPlaylists();
         for (PlaylistManager.Playlist p : playlists) {
@@ -833,33 +1221,57 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 if (position == 0)
                     return;
 
-                selectTab(3);
+                switchViewMode(ViewMode.PLAYLIST);
+                if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
+
+                View fragmentView = getView();
+                View btnFolderPlayAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_play_all) : null;
+                View btnFolderShuffleAll = fragmentView != null ? fragmentView.findViewById(app.organicmaps.R.id.btn_folder_shuffle_all) : null;
+                if (btnFolderPlayAll != null) btnFolderPlayAll.setVisibility(View.VISIBLE);
+                if (btnFolderShuffleAll != null) btnFolderShuffleAll.setVisibility(View.VISIBLE);
 
                 if (position == 1) {
                     // Favorites
+                    currentPlaylist = null;
+                    if (folderHeaderTitle != null) folderHeaderTitle.setText("⭐ Favoriler");
                     List<String> favPaths = playlistManager.getFavorites();
                     List<MusicRepository.AudioTrack> favTracks = new ArrayList<>();
                     for (String path : favPaths) {
-                        for (MusicRepository.AudioTrack t : allTracks) {
-                            if (t.getPath().equals(path)) {
-                                favTracks.add(t);
-                                break;
-                            }
+                        MusicRepository.AudioTrack t = musicManager != null && musicManager.getRepository() != null
+                                ? musicManager.getRepository().findTrackPortAgnostic(path) : null;
+                        if (t != null) {
+                            favTracks.add(t);
+                        } else {
+                            // Ghost track (Port degismis veya USB sökülmüs)
+                            favTracks.add(new MusicRepository.AudioTrack(-1, new java.io.File(path).getName(), "Bilinmeyen", "USB", 0, path, android.net.Uri.EMPTY, android.net.Uri.EMPTY, MusicRepository.StorageType.USB, false));
                         }
                     }
                     if (favTracks.isEmpty()) {
-                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_favorites_empty), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Favori listeniz boş", Toast.LENGTH_SHORT).show();
                     }
                     showTracks(favTracks);
                 } else {
-                    // Playlists
+                    // User Playlists
                     int playlistIndex = position - 2;
                     if (playlistIndex >= 0 && playlistIndex < playlists.size()) {
-                        List<MusicRepository.AudioTrack> playlistTracks = getPlaylistTracks(
-                                playlists.get(playlistIndex));
+                        PlaylistManager.Playlist pl = playlists.get(playlistIndex);
+                        currentPlaylist = pl;
+                        if (folderHeaderTitle != null) folderHeaderTitle.setText("📜 Playlist: " + pl.name);
+                        List<MusicRepository.AudioTrack> playlistTracks = new ArrayList<>();
+                        for (String path : pl.tracks) {
+                            MusicRepository.AudioTrack t = musicManager != null && musicManager.getRepository() != null
+                                    ? musicManager.getRepository().findTrackPortAgnostic(path) : null;
+                            if (t != null) {
+                                playlistTracks.add(t);
+                            } else {
+                                // Ghost track (Port degismis veya USB sökülmüs)
+                                playlistTracks.add(new MusicRepository.AudioTrack(-1, new java.io.File(path).getName(), "Bilinmeyen", "USB", 0, path, android.net.Uri.EMPTY, android.net.Uri.EMPTY, MusicRepository.StorageType.USB, false));
+                            }
+                        }
                         showTracks(playlistTracks);
                     }
                 }
+
             }
 
             @Override
@@ -870,18 +1282,18 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private void updateResponsiveLayout(int widthPx) {
         if (getContext() == null || getView() == null) return;
         float widthDp = widthPx / getResources().getDisplayMetrics().density;
-        
+
         android.view.View visualizer = getView().findViewById(app.organicmaps.R.id.player_visualizer);
         android.view.View bottomArt = getView().findViewById(app.organicmaps.R.id.card_album_art);
         android.view.View centerCard = getView().findViewById(app.organicmaps.R.id.now_playing_center_art_card);
         androidx.constraintlayout.widget.ConstraintLayout centerPanel = getView().findViewById(app.organicmaps.R.id.now_playing_center_panel);
-        
+
         if (centerPanel == null || centerCard == null) return;
-        
+
         if (widthDp < 500) { // Dar Ekran (Split Screen) Modu
             if (visualizer != null) visualizer.setVisibility(android.view.View.GONE);
             if (bottomArt != null) bottomArt.setVisibility(android.view.View.GONE);
-            
+
             androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
             set.clone(centerPanel);
             set.constrainPercentWidth(app.organicmaps.R.id.now_playing_center_art_card, 0.70f);
@@ -890,7 +1302,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         } else { // Genis Ekran (Normal) Modu
             if (visualizer != null && !isExternalMode && !isPlaylistVisible) visualizer.setVisibility(android.view.View.VISIBLE);
             if (bottomArt != null) bottomArt.setVisibility(android.view.View.VISIBLE);
-            
+
             androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
             set.clone(centerPanel);
             set.constrainPercentWidth(app.organicmaps.R.id.now_playing_center_art_card, 0.45f);
@@ -917,17 +1329,19 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (playerPanel != null) {
             playerPanel.setVisibility(View.VISIBLE);
         }
-        
+
         if (isExternalMode) {
             isPlaylistVisible = false;
             if (trackListPanel != null) trackListPanel.setVisibility(View.GONE);
             if (nowPlayingCenterPanel != null) nowPlayingCenterPanel.setVisibility(View.VISIBLE);
             if (btnDockPlaylist != null) btnDockPlaylist.setColorFilter(0xFFFFFFFF);
+            if (playerProgressContainer != null) playerProgressContainer.setVisibility(View.VISIBLE);
         } else {
             if (btnPlay != null) btnPlay.setVisibility(View.VISIBLE);
             if (btnNext != null) btnNext.setVisibility(View.VISIBLE);
             if (btnPrev != null) btnPrev.setVisibility(View.VISIBLE);
-            
+            if (playerProgressContainer != null) playerProgressContainer.setVisibility(isPlaylistVisible ? View.GONE : View.VISIBLE);
+
             if (musicManager != null && musicManager.getInternalPlayer() != null) {
                 MusicRepository.AudioTrack current = musicManager.getInternalPlayer().getCurrentTrack();
                 if (current != null) {
@@ -958,21 +1372,21 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         // Calma listesi butonu her zaman aktif kalmalidir
         btnDockPlaylist.setEnabled(true);
         btnDockPlaylist.setAlpha(1.0f);
-        
+
         if (trackListPanel != null && trackListPanel.getVisibility() == View.VISIBLE) {
             // Panel aciksa buton cyan rengine boyanir ve yari saydam beyaz arka plan verilir
-            btnDockPlaylist.setColorFilter(0xFF00FFFF); 
+            btnDockPlaylist.setColorFilter(0xFF00FFFF);
             btnDockPlaylist.setBackgroundResource(app.organicmaps.R.drawable.bg_circle_translucent_white);
         } else {
             // Panel kapaliysa buton beyaz renge boyanir ve arka plan temizlenir
-            btnDockPlaylist.setColorFilter(0xFFFFFFFF); 
+            btnDockPlaylist.setColorFilter(0xFFFFFFFF);
             btnDockPlaylist.setBackgroundResource(0);
         }
     }
 
     private void checkPermissionsAndLoadTracks() {
         List<String> perms = new ArrayList<>();
-        
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
              if (getContext().checkSelfPermission(android.Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                  perms.add(android.Manifest.permission.READ_MEDIA_AUDIO);
@@ -982,7 +1396,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                  perms.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
              }
         }
-        
+
         if (getContext().checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             perms.add(android.Manifest.permission.RECORD_AUDIO);
         }
@@ -1002,32 +1416,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 loadAllTracks();
             } else {
-                // Kullanici izni reddetti: Kalici reddetme kontrolu
-                boolean showRationale = false;
-                for (String perm : permissions) {
-                    if (shouldShowRequestPermissionRationale(perm)) {
-                        showRationale = true;
-                        break;
-                    }
-                }
-
-                if (showRationale) {
-                    // Gecici ret: sadece bilgilendir
-                    Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_permission_required), Toast.LENGTH_SHORT).show();
-                } else {
-                    // Kalici ret ("Bir daha sorma" secildi): Ayarlara yonlendir
-                    new android.app.AlertDialog.Builder(requireContext())
-                        .setTitle(getContext().getString(app.organicmaps.R.string.car_music_permission_required))
-                        .setMessage(getContext().getString(app.organicmaps.R.string.car_music_permission_settings_message))
-                        .setPositiveButton(getContext().getString(app.organicmaps.R.string.go_to_settings), (dialog, which) -> {
-                            android.content.Intent intent = new android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            android.net.Uri uri = android.net.Uri.fromParts("package", requireContext().getPackageName(), null);
-                            intent.setData(uri);
-                            startActivity(intent);
-                        })
-                        .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_cancel), null)
-                        .show();
-                }
+                Toast.makeText(getContext(), "Muzik taramak icin izin gerekli!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1037,18 +1426,17 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             List<MusicRepository.AudioFolder> folders = musicManager.getRepository().getCachedFolders();
             if (folders == null || folders.isEmpty()) {
                 musicManager.getRepository().scanMusic((tracks, f, a) -> {
+                    if (!isAdded() || getView() == null) {
+                        return;
+                    }
                     allTracks.clear();
                     for (MusicRepository.AudioFolder folder : f) {
                         allTracks.addAll(folder.getTracks());
                     }
-                    if (getActivity() != null) {
-                        getActivity().runOnUiThread(() -> {
-                            if (allTracks.isEmpty()) {
-                                Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_not_found), Toast.LENGTH_SHORT).show();
-                            }
-                            showTracks(allTracks);
-                        });
+                    if (allTracks.isEmpty()) {
+                        Toast.makeText(getContext(), "Cihazda muzik bulunamadi", Toast.LENGTH_SHORT).show();
                     }
+                    showTracks(allTracks);
                 });
             } else {
                 allTracks.clear();
@@ -1060,6 +1448,45 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
     }
 
+    private void rescanMusic() {
+        if (musicManager == null || musicManager.getRepository() == null) return;
+
+        if (btnScanMusic != null) {
+            btnScanMusic.setEnabled(false);
+            btnScanMusic.setAlpha(0.45f);
+        }
+        if (btnTabScan != null) {
+            btnTabScan.setEnabled(false);
+            btnTabScan.setAlpha(0.45f);
+        }
+        Toast.makeText(getContext(), app.organicmaps.R.string.car_music_scan_started, Toast.LENGTH_SHORT).show();
+
+        musicManager.getRepository().scanMusic((tracks, folders, artists) -> {
+            if (!isAdded() || getView() == null) return;
+
+            allTracks.clear();
+            allTracks.addAll(tracks);
+            showTracks(allTracks);
+
+            if (!tracks.isEmpty() && musicManager.getInternalPlayer() != null
+                    && musicManager.getInternalPlayer().getCurrentTrack() == null) {
+                musicManager.getInternalPlayer().setPlaylist(tracks, 0, false);
+            }
+
+            if (btnScanMusic != null) {
+                btnScanMusic.setEnabled(true);
+                btnScanMusic.setAlpha(1.0f);
+            }
+            if (btnTabScan != null) {
+                btnTabScan.setEnabled(true);
+                btnTabScan.setAlpha(1.0f);
+            }
+            Toast.makeText(requireContext(),
+                    getString(app.organicmaps.R.string.car_music_scan_completed, tracks.size()),
+                    Toast.LENGTH_LONG).show();
+        });
+    }
+
     private void showTracks(List<MusicRepository.AudioTrack> tracks) {
         filteredTracks = new ArrayList<>(tracks);
         adapter = new MusicAdapter(filteredTracks, new MusicAdapter.OnTrackClickListener() {
@@ -1068,7 +1495,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 // Switch to internal mode
                 if (isExternalMode) {
                     isExternalMode = false;
-                    // Harici oynaticiyi durdur
+                    // Harici oynatıcıyı durdur
                     if (musicManager.getActiveExternalController() != null) {
                         try {
                             musicManager.getActiveExternalController().getTransportControls().pause();
@@ -1077,8 +1504,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         }
                     }
                     // Force MusicManager to drop external preference so it picks up internal player
-                    musicManager.setPreferredPackage(null);
-                    
+                    musicManager.setPreferredPackage("usage.internal.player");
+
                     updateModeUI();
                 }
 
@@ -1088,7 +1515,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 }
 
                 MusicRepository.AudioTrack current = musicManager.getInternalPlayer().getCurrentTrack();
-                if (current != null && current.getPath().equals(track.getPath())) {
+                if (MusicTrackIdentity.matches(current, track)) {
                     // Toggle Logic
                     if (musicManager.getInternalPlayer().isPlaying()) {
                         musicManager.getInternalPlayer().pause();
@@ -1098,22 +1525,16 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     return;
                 }
 
-                // Use current list (filteredTracks) as queue!
-                int index = filteredTracks.indexOf(track);
-                List<MusicRepository.AudioTrack> queue = isShuffleOn ? shuffleWithFirst(filteredTracks, track)
-                        : filteredTracks;
-                musicManager.getInternalPlayer().setPlaylist(queue, isShuffleOn ? 0 : index);
-
-                // Add to recently played
-                playlistManager.addToRecentlyPlayed(track.getPath());
+                // Centralized track playback call
+                playTrackFromCollection(filteredTracks, track);
             }
 
             @Override
             public void onAddClick(MusicRepository.AudioTrack track) {
-                showAddTrackToPlaylistDialog(track);
+                showTrackOptionsMenu(track);
             }
         }, playlistManager);
-        
+
         // Sync Adapter State immediately
         if (!isExternalMode && musicManager != null && musicManager.getInternalPlayer() != null) {
             MusicRepository.AudioTrack current = musicManager.getInternalPlayer().getCurrentTrack();
@@ -1124,6 +1545,60 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
+        }
+    }
+
+    private void playTrackFromCollection(List<MusicRepository.AudioTrack> collection, MusicRepository.AudioTrack selectedTrack) {
+        if (musicManager == null || musicManager.getInternalPlayer() == null || selectedTrack == null) return;
+
+        if (isExternalMode) {
+            isExternalMode = false;
+            if (musicManager.getActiveExternalController() != null) {
+                try {
+                    musicManager.getActiveExternalController().getTransportControls().pause();
+                } catch (Exception e) {}
+            }
+            musicManager.setPreferredPackage("usage.internal.player");
+            updateModeUI();
+        }
+
+        // Special case: If user is in QUEUE view mode, navigate inside existing queue
+        if (currentViewMode == ViewMode.QUEUE) {
+            int qIndex = -1;
+            List<MusicRepository.AudioTrack> queue = musicManager.getInternalPlayer().getPlayingQueue();
+            for (int i = 0; i < queue.size(); i++) {
+                if (MusicTrackIdentity.matches(queue.get(i), selectedTrack)) {
+                    qIndex = i;
+                    break;
+                }
+            }
+            if (qIndex != -1) {
+                musicManager.getInternalPlayer().playTrackInQueue(qIndex);
+            } else {
+                musicManager.getInternalPlayer().playTrackFromCollection(collection, selectedTrack, true);
+            }
+        } else {
+            // Any other list (Tüm Parçalar, Klasörler, Sanatçılar, Favoriler, Son Çalınanlar, Playlistler)
+            musicManager.getInternalPlayer().playTrackFromCollection(collection, selectedTrack, true);
+        }
+
+        updateAdapterHighlightAndScroll(selectedTrack.getPath());
+    }
+
+    private void updateAdapterHighlightAndScroll(String playingTrackPath) {
+        if (adapter != null && filteredTracks != null) {
+            boolean isPlaying = musicManager != null && musicManager.getInternalPlayer() != null && musicManager.getInternalPlayer().isPlaying();
+            adapter.updateCurrentTrack(playingTrackPath, isPlaying);
+
+            if (playingTrackPath != null && recyclerView != null) {
+                for (int i = 0; i < filteredTracks.size(); i++) {
+                    if (filteredTracks.get(i).getPath().equals(playingTrackPath)) {
+                        final int pos = i;
+                        recyclerView.post(() -> recyclerView.smoothScrollToPosition(pos));
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -1143,8 +1618,9 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             String lower = query.toLowerCase(Locale.getDefault());
             List<MusicRepository.AudioTrack> filtered = new ArrayList<>();
             for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getTitle().toLowerCase(Locale.getDefault()).contains(lower) ||
-                        t.getArtist().toLowerCase(Locale.getDefault()).contains(lower)) {
+                if ((t.getTitle() != null && t.getTitle().toLowerCase(Locale.getDefault()).contains(lower)) ||
+                        (t.getArtist() != null && t.getArtist().toLowerCase(Locale.getDefault()).contains(lower)) ||
+                        (t.getAlbum() != null && t.getAlbum().toLowerCase(Locale.getDefault()).contains(lower))) {
                     filtered.add(t);
                 }
             }
@@ -1152,31 +1628,203 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
     }
 
-    // --- Playlist & Dialog Logic (Kisaltildi, orijinal mantik korundu) ---
+    // --- Track Options Menu ---
+
+    private void showTrackOptionsMenu(MusicRepository.AudioTrack track) {
+        if (getContext() == null || track == null) return;
+
+        boolean isFav = playlistManager.isFavorite(track);
+        String favOption = isFav ? "♥ Favorilerden Çıkar" : "♡ Favorilere Ekle";
+
+        List<String> optionsList = new ArrayList<>();
+        optionsList.add("⏭ Sonraki Çal (Play Next)");
+        optionsList.add("➕ Kuyruğa Ekle (Add to Queue)");
+        optionsList.add("📑 Playliste Ekle");
+        optionsList.add(favOption);
+
+        if (currentViewMode == ViewMode.QUEUE) {
+            optionsList.add("🗑️ Sıradan Çıkar");
+        } else if (currentViewMode == ViewMode.PLAYLIST) {
+            optionsList.add("🗑️ Listeden Çıkar");
+        }
+
+        optionsList.add("ℹ️ Şarkı Bilgisi");
+
+        if (track.isUsb()) {
+            optionsList.add("📥 Cihaza Kopyala (Offline Yap)");
+        }
+
+        String[] options = optionsList.toArray(new String[0]);
+
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle(track.getTitle() + (track.getArtist() != null && !track.getArtist().isEmpty() ? " - " + track.getArtist() : ""))
+                .setItems(options, (dialog, which) -> {
+                    String selected = options[which];
+                    if (selected.contains("Şarkı Bilgisi")) {
+                        showTrackInfoDialog(track);
+                    } else if (selected.contains("Sonraki Çal")) {
+                        if (musicManager != null && musicManager.getInternalPlayer() != null) {
+                            boolean added = musicManager.getInternalPlayer().playNextInQueue(track);
+                            if (added) {
+                                Toast.makeText(getContext(), "Sonraki şarkı olarak eklendi: " + track.getTitle(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else if (selected.contains("Kuyruğa Ekle")) {
+                        if (musicManager != null && musicManager.getInternalPlayer() != null) {
+                            boolean added = musicManager.getInternalPlayer().addToQueue(track);
+                            if (added) {
+                                Toast.makeText(getContext(), "Kuyruğun sonuna eklendi: " + track.getTitle(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else if (selected.contains("Playliste Ekle")) {
+                        showAddTrackToPlaylistDialog(track);
+                    } else if (selected.contains("Favori")) {
+                        if (isFav) {
+                            playlistManager.removeFromFavorites(track);
+                            Toast.makeText(getContext(), "Favorilerden çıkarıldı", Toast.LENGTH_SHORT).show();
+                        } else {
+                            playlistManager.addToFavorites(track);
+                            Toast.makeText(getContext(), "Favorilere eklendi", Toast.LENGTH_SHORT).show();
+                        }
+                        if (adapter != null) {
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else if (selected.contains("Sıradan Çıkar")) {
+                        if (musicManager != null && musicManager.getInternalPlayer() != null) {
+                            musicManager.getInternalPlayer().removeFromQueue(track);
+                            if (currentViewMode == ViewMode.QUEUE) {
+                                switchViewMode(ViewMode.QUEUE);
+                            }
+                        }
+                    } else if (selected.contains("Listeden Çıkar")) {
+                        if (currentPlaylist != null) {
+                            currentPlaylist.tracks.removeIf(reference ->
+                                    MusicTrackIdentity.matchesReference(reference, track));
+                            playlistManager.savePlaylist(currentPlaylist);
+                            Toast.makeText(getContext(), "Listeden çıkarıldı: " + track.getTitle(), Toast.LENGTH_SHORT).show();
+                            // Refresh playlist view
+                            List<MusicRepository.AudioTrack> playlistTracks = new ArrayList<>();
+                            for (String path : currentPlaylist.tracks) {
+                                MusicRepository.AudioTrack t = musicManager != null && musicManager.getRepository() != null
+                                        ? musicManager.getRepository().findTrackPortAgnostic(path) : null;
+                                if (t != null) playlistTracks.add(t);
+                            }
+                            showTracks(playlistTracks);
+                        } else {
+                            // Favorites view
+                            playlistManager.removeFromFavorites(track);
+                            Toast.makeText(getContext(), "Favorilerden çıkarıldı", Toast.LENGTH_SHORT).show();
+                            showTracks(getFavoriteTracks());
+                        }
+                    } else if (selected.contains("Cihaza Kopyala")) {
+                        if (musicManager != null && musicManager.getRepository() != null) {
+                            Toast.makeText(getContext(), "Cihaz hafızasına kopyalanıyor...", Toast.LENGTH_SHORT).show();
+                            musicManager.getRepository().copyTrackToInternalStorage(track, (success, messageOrPath) -> {
+                                if (getActivity() == null) return;
+                                getActivity().runOnUiThread(() -> {
+                                    if (success) {
+                                        Toast.makeText(requireContext(), "Kopyalandı: " + track.getTitle(), Toast.LENGTH_LONG).show();
+                                        rescanMusic();
+                                    } else {
+                                        Toast.makeText(requireContext(), "Kopyalama başarısız: " + messageOrPath, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            });
+                        }
+                    }
+                })
+                .setNegativeButton("İptal", null)
+                .show();
+    }
+
+    private void showTrackInfoDialog(MusicRepository.AudioTrack track) {
+        if (getContext() == null || track == null) return;
+        StringBuilder info = new StringBuilder();
+        info.append("🎵 Başlık: ").append(track.getTitle()).append("\n");
+        info.append("🎙️ Sanatçı: ").append(track.getArtist() != null ? track.getArtist() : "Bilinmiyor").append("\n");
+        info.append("💿 Albüm: ").append(track.getAlbum() != null ? track.getAlbum() : "Bilinmiyor").append("\n");
+        info.append("⏱️ Süre: ").append(formatTime(track.getDuration())).append("\n");
+        info.append("💾 Kaynak: ").append(track.isUsb() ? "USB Depolama" : "Dahili Hafıza").append("\n");
+        info.append("📁 Yol: ").append(track.getPath());
+
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle("Şarkı Bilgisi")
+                .setMessage(info.toString())
+                .setPositiveButton("Tamam", null)
+                .show();
+    }
+
+    // --- Akıllı Karıştır (Quick Mix) ---
+    private void playQuickMix() {
+        List<MusicRepository.AudioTrack> physicalTracks = musicManager != null && musicManager.getRepository() != null ?
+                musicManager.getRepository().getCachedTracks() : allTracks;
+        if (physicalTracks == null || physicalTracks.isEmpty() || musicManager == null || musicManager.getInternalPlayer() == null) {
+            Toast.makeText(getContext(), "Çalınacak müzik bulunamadı!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        List<MusicRepository.AudioTrack> mix = new ArrayList<>(physicalTracks);
+        Collections.shuffle(mix);
+
+        // Karıştırılan listeyi doğrudan ekrandaki RecyclerView üzerinde göster!
+        showTracks(mix);
+
+        musicManager.getInternalPlayer().setPlaylist(mix, 0);
+        Toast.makeText(getContext(), "⚡ Akıllı Karıştır: " + mix.size() + " Parça Listelendi", Toast.LENGTH_SHORT).show();
+    }
+
+
+    // --- Faz 2: Kıyıda Kalanlar (Unplayed Tracks) ---
+    private void loadForgottenTracks() {
+        if (allTracks == null || playlistManager == null) return;
+        List<String> recentReferences = playlistManager.getRecentlyPlayed();
+        List<MusicRepository.AudioTrack> forgotten = new ArrayList<>();
+
+        for (MusicRepository.AudioTrack t : allTracks) {
+            boolean played = false;
+            for (String reference : recentReferences) {
+                if (MusicTrackIdentity.matchesReference(reference, t)) {
+                    played = true;
+                    break;
+                }
+            }
+            if (!played) {
+                forgotten.add(t);
+            }
+        }
+
+        if (forgotten.isEmpty()) {
+            Toast.makeText(getContext(), "Tüm şarkılar dinlenmiş!", Toast.LENGTH_SHORT).show();
+            showTracks(allTracks);
+        } else {
+            Toast.makeText(getContext(), "📻 Kıyıda Kalanlar: " + forgotten.size() + " Parça", Toast.LENGTH_SHORT).show();
+            showTracks(forgotten);
+        }
+    }
+
 
     private void showAddTrackToPlaylistDialog(MusicRepository.AudioTrack track) {
         if (getContext() == null)
             return;
         List<PlaylistManager.Playlist> playlists = playlistManager.getAllPlaylists();
         String[] options = new String[playlists.size() + 1];
-        options[0] = getContext().getString(app.organicmaps.R.string.car_music_new_playlist);
+        options[0] = "+ Yeni Playlist Olustur";
         for (int i = 0; i < playlists.size(); i++) {
             options[i + 1] = playlists.get(i).name;
         }
 
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_add_to_playlist) + " " + track.getTitle())
+                .setTitle("Playliste Ekle: " + track.getTitle())
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         showCreatePlaylistAndAddTrackDialog(track);
                     } else {
                         PlaylistManager.Playlist p = playlists.get(which - 1);
-                        p.tracks.add(track.getPath());
+                        p.tracks.add(track.getMediaId());
                         playlistManager.savePlaylist(p);
-                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_added) + " " + p.name, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Eklendi: " + p.name, Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("İptal", null)
+                .setNegativeButton("Iptal", null)
                 .show();
     }
 
@@ -1184,29 +1832,29 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (getContext() == null)
             return;
         EditText input = new EditText(getContext());
-        input.setHint(getContext().getString(app.organicmaps.R.string.car_music_playlist_name_hint));
+        input.setHint("Playlist adi");
         input.setTextColor(0xFFFFFFFF);
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_create_and_add))
+                .setTitle("Yeni Playlist ve Ekle")
                 .setView(input)
-                .setPositiveButton(getContext().getString(app.organicmaps.R.string.car_music_create), (dialog, which) -> {
+                .setPositiveButton("Olustur", (dialog, which) -> {
                     String name = input.getText().toString().trim();
                     if (!name.isEmpty()) {
                         PlaylistManager.Playlist p = new PlaylistManager.Playlist(name);
-                        p.tracks.add(track.getPath());
+                        p.tracks.add(track.getMediaId());
                         playlistManager.savePlaylist(p);
-                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_playlist_created), Toast.LENGTH_SHORT)
+                        Toast.makeText(getContext(), "Playlist olusturuldu ve sarki eklendi", Toast.LENGTH_SHORT)
                                 .show();
                         setupPlaylistSpinner();
                     }
                 })
-                .setNegativeButton("İptal", null).show();
+                .setNegativeButton("Iptal", null).show();
     }
 
     private void showPlaylistOptionsDialog(PlaylistManager.Playlist playlist) {
         if (getContext() == null)
             return;
-        String[] options = { getContext().getString(app.organicmaps.R.string.car_music_play), getContext().getString(app.organicmaps.R.string.car_music_view_edit_tracks), getContext().getString(app.organicmaps.R.string.car_music_delete) };
+        String[] options = { "Cal", "Parcalari Gor/Duzenle", "Sil" };
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle(playlist.name)
                 .setItems(options, (dialog, which) -> {
@@ -1227,16 +1875,14 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
     private void playPlaylist(PlaylistManager.Playlist playlist) {
         if (playlist.tracks.isEmpty()) {
-            Toast.makeText(getContext(), "Playlist boş!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Playlist bos!", Toast.LENGTH_SHORT).show();
             return;
         }
         List<MusicRepository.AudioTrack> queue = new ArrayList<>();
-        for (String path : playlist.tracks) {
-            for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getPath().equals(path)) {
-                    queue.add(t);
-                    break;
-                }
+        for (String reference : playlist.tracks) {
+            MusicRepository.AudioTrack track = findTrackByReference(reference);
+            if (track != null) {
+                queue.add(track);
             }
         }
         if (!queue.isEmpty()) {
@@ -1252,14 +1898,9 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         String[] options = new String[playlist.tracks.size() + 1];
         options[0] = "+ Parcha Ekle";
         for (int i = 0; i < playlist.tracks.size(); i++) {
-            String path = playlist.tracks.get(i);
-            String name = path;
-            for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getPath().equals(path)) {
-                    name = t.getTitle();
-                    break;
-                }
-            }
+            String reference = playlist.tracks.get(i);
+            MusicRepository.AudioTrack track = findTrackByReference(reference);
+            String name = track != null ? track.getTitle() : reference;
             options[i + 1] = name;
         }
         new android.app.AlertDialog.Builder(getContext())
@@ -1283,39 +1924,46 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         new android.app.AlertDialog.Builder(getContext())
                 .setTitle("Parcha Ekle")
                 .setItems(trackNames, (dialog, which) -> {
-                    String path = allTracks.get(which).getPath();
-                    if (!playlist.tracks.contains(path)) {
-                        playlist.tracks.add(path);
+                    MusicRepository.AudioTrack track = allTracks.get(which);
+                    boolean exists = false;
+                    for (String reference : playlist.tracks) {
+                        if (MusicTrackIdentity.matchesReference(reference, track)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        playlist.tracks.add(track.getMediaId());
                         playlistManager.savePlaylist(playlist);
-                        Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_added_excl), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Eklendi!", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_music_cancel), null).show();
+                .setNegativeButton("Iptal", null).show();
     }
 
     private void showRemoveTrackDialog(PlaylistManager.Playlist playlist, int index) {
         if (getContext() == null)
             return;
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_remove_q))
-                .setPositiveButton(getContext().getString(app.organicmaps.R.string.car_music_remove), (dialog, which) -> {
+                .setTitle("Kaldir?")
+                .setPositiveButton("Kaldir", (dialog, which) -> {
                     playlist.tracks.remove(index);
                     playlistManager.savePlaylist(playlist);
                     showPlaylistTracksDialog(playlist);
                 })
-                .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_music_cancel), null).show();
+                .setNegativeButton("Iptal", null).show();
     }
 
     private void confirmDeletePlaylist(PlaylistManager.Playlist playlist) {
         if (getContext() == null)
             return;
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle(getContext().getString(app.organicmaps.R.string.car_music_delete_q))
-                .setPositiveButton(getContext().getString(app.organicmaps.R.string.car_music_delete), (dialog, which) -> {
+                .setTitle("Sil?")
+                .setPositiveButton("Sil", (dialog, which) -> {
                     playlistManager.deletePlaylist(playlist.id);
-                    Toast.makeText(getContext(), getContext().getString(app.organicmaps.R.string.car_music_deleted), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Silindi!", Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton(getContext().getString(app.organicmaps.R.string.car_music_cancel), null).show();
+                .setNegativeButton("Iptal", null).show();
     }
 
     private void openEqualizer() {
@@ -1334,12 +1982,10 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         List<String> recentPaths = playlistManager.getRecentlyPlayed();
         List<MusicRepository.AudioTrack> recentTracks = new ArrayList<>();
-        for (String path : recentPaths) {
-            for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getPath().equals(path)) {
-                    recentTracks.add(t);
-                    break;
-                }
+        for (String reference : recentPaths) {
+            MusicRepository.AudioTrack track = findTrackByReference(reference);
+            if (track != null) {
+                recentTracks.add(track);
             }
         }
         showTracks(recentTracks);
@@ -1347,14 +1993,11 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
     private void loadFavorites() {
         if (playlistManager == null) return;
-        List<String> favPaths = playlistManager.getFavorites();
         List<MusicRepository.AudioTrack> favTracks = new ArrayList<>();
-        for (String path : favPaths) {
-            for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getPath().equals(path)) {
-                    favTracks.add(t);
-                    break;
-                }
+        for (String reference : playlistManager.getFavorites()) {
+            MusicRepository.AudioTrack track = findTrackByReference(reference);
+            if (track != null) {
+                favTracks.add(track);
             }
         }
         showTracks(favTracks);
@@ -1362,15 +2005,21 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
     private List<MusicRepository.AudioTrack> getPlaylistTracks(PlaylistManager.Playlist playlist) {
         List<MusicRepository.AudioTrack> result = new ArrayList<>();
-        for (String path : playlist.tracks) {
-            for (MusicRepository.AudioTrack t : allTracks) {
-                if (t.getPath().equals(path)) {
-                    result.add(t);
-                    break;
-                }
+        for (String reference : playlist.tracks) {
+            MusicRepository.AudioTrack track = findTrackByReference(reference);
+            if (track != null) {
+                result.add(track);
             }
         }
         return result;
+    }
+
+    @Nullable
+    private MusicRepository.AudioTrack findTrackByReference(@Nullable String reference) {
+        if (reference == null || musicManager == null || musicManager.getRepository() == null) {
+            return null;
+        }
+        return musicManager.getRepository().findTrackByReference(reference);
     }
 
     private void updateAppIcon() {
@@ -1380,20 +2029,14 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         try {
             PackageManager pm = getContext().getPackageManager();
             Drawable icon = (pkg != null) ? pm.getApplicationIcon(pkg) : null;
-            CharSequence label = (pkg != null) ? pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)) : "Dahili Muzik";
 
             if (icon != null)
                 appIcon.setImageDrawable(icon);
             else
                 appIcon.setImageResource(app.organicmaps.R.drawable.ic_music_play);
 
-            if (appName != null) {
-                appName.setText(label);
-            }
         } catch (Exception e) {
             appIcon.setImageResource(app.organicmaps.R.drawable.ic_music_play);
-            if (appName != null)
-                appName.setText("Muzik");
         }
     }
 
@@ -1422,25 +2065,23 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
     }
 
-    // Calma listesi acikken shuffle ve repeat butonlarini gizle, kapaliyken goster (Turkce karakter yok)
+    // Shuffle ve repeat butonlarinin her zaman gorunur olmasi saglanir
     private void updateShuffleAndRepeatVisibility() {
         if (btnShuffle == null || btnRepeat == null) return;
-        boolean isListVisible = trackListPanel != null && trackListPanel.getVisibility() == View.VISIBLE;
-        int visibility = isListVisible ? View.GONE : View.VISIBLE;
-        btnShuffle.setVisibility(visibility);
-        btnRepeat.setVisibility(visibility);
+        btnShuffle.setVisibility(View.VISIBLE);
+        btnRepeat.setVisibility(View.VISIBLE);
     }
 
     private void closeFragment() {
-        if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
-            ((app.organicmaps.carlauncher.CarLauncherInterface) getActivity()).closeAppDrawer();
+        if (getActivity() instanceof CarLauncherInterface) {
+            ((CarLauncherInterface) getActivity()).closeAppDrawer();
         } else if (getParentFragmentManager() != null) {
             getParentFragmentManager().beginTransaction().remove(this).commit();
         }
     }
      private void updatePlaylistButtonUI() { }
 
-    // --- Lifecycle & Seek Updater (BIRLESTIRILMIS) ---
+    // --- Lifecycle & Seek Updater (BİRLEŞTİRİLMİŞ) ---
 
     @Override
     public void onStart() {
@@ -1454,13 +2095,28 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         stopSeekbarUpdater();
     }
 
+    @Override
+    public void onDestroyView() {
+        stopSeekbarUpdater();
+        if (musicManager != null) {
+            musicManager.removeListener(this);
+            musicManager.removeVisualizerListener(this);
+        }
+        if (recyclerView != null) {
+            recyclerView.setAdapter(null);
+        }
+        adapter = null;
+        recyclerView = null;
+        super.onDestroyView();
+    }
+
     private void startSeekbarUpdater() {
         stopSeekbarUpdater(); // Varsa eskisini durdur
         seekRunnable = new Runnable() {
             @Override
             public void run() {
                 updateSeekbar();
-                seekHandler.postDelayed(this, 1000); // 1 saniyede bir guncelle
+                seekHandler.postDelayed(this, 1000); // 1 saniyede bir güncelle
             }
         };
         seekHandler.post(seekRunnable);
@@ -1549,19 +2205,31 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         final int finalColor = color;
         if (visualizerView != null) {
-            app.organicmaps.carlauncher.CarLauncherSettings clSettings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
+            app.organicmaps.carlauncher.CarLauncherSettings clSettings =
+                    new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
             // Ambians gorsellestirici ayarina gore dinamik renk veya varsayilan (0) secimi (Turkce karakter yok)
-            final int visualizerColor = (albumArt != null && clSettings.isAmbianceVisualizerEnabled()) ? finalColor : 0x88FFFFFF;
-            visualizerView.post(() -> visualizerView.setDominantColor(visualizerColor));
+            final int visualizerColor = (albumArt != null && clSettings.isAmbianceVisualizerEnabled()) ? finalColor : 0;
+            // Lambda gecikmeli calisir, bu surede view detach/null olabilir. Null kontrolu zorunlu.
+            visualizerView.post(() -> {
+                if (visualizerView != null) {
+                    visualizerView.setDominantColor(visualizerColor);
+                }
+            });
             if (ambianceGlowLayer != null) {
-                // Sadece RGB kismini al, Alpha kismini arkaplan icin tamamen kapat
+                // Sadece RGB kısmını al, Alpha kısmını arkaplan için tamamen kapat
                 int glowColor = (0xFFFFFF & visualizerColor) | 0xFF000000;
                 if (visualizerColor == 0) glowColor = 0xFF000000; // Eger ambians kapaliysa siyah yap
                 final int fglow = glowColor;
-                ambianceGlowLayer.post(() -> ambianceGlowLayer.setBackgroundColor(fglow));
+                // Post gecikmeli calisir, lambda tetiklendiginde view null olabilir. Null kontrolu zorunlu.
+                ambianceGlowLayer.post(() -> {
+                    if (ambianceGlowLayer != null) {
+                        ambianceGlowLayer.setBackgroundColor(fglow);
+                    }
+                });
             }
         }
-        
+
+
         if (getActivity() == null)
             return;
         getActivity().runOnUiThread(() -> {
@@ -1582,7 +2250,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 }
                 nowPlayingArtist.setText(artistText);
                 if (nowPlayingCenterArtist != null) {
-                    nowPlayingCenterArtist.setText(artistText.isEmpty() ? "Hazir" : artistText);
+                    nowPlayingCenterArtist.setText(artistText);
                 }
             }
 
@@ -1600,7 +2268,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         nowPlayingArtBlur.setVisibility(android.view.View.VISIBLE);
                         nowPlayingArtBlur.setImageBitmap(albumArt);
                     }
-                    
+
                     // Dinamik renk analizi ve yumusak renk gecisi (Turkce karakter yok)
                     int dominantColor = getDominantColor(albumArt);
                     int visibleColor = ensureVisibleColor(dominantColor);
@@ -1610,7 +2278,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     nowPlayingArt.setPadding(p, p, p, p);
                     nowPlayingArt.setImageResource(app.organicmaps.R.drawable.ic_default_album_art);
                     nowPlayingArt.setColorFilter(0x88FFFFFF, android.graphics.PorterDuff.Mode.SRC_IN);
-                    
+
                     if (nowPlayingCenterArt != null) {
                         nowPlayingCenterArt.setImageResource(app.organicmaps.R.drawable.ic_default_album_art);
                         nowPlayingCenterArt.setColorFilter(0x88FFFFFF, android.graphics.PorterDuff.Mode.SRC_IN);
@@ -1620,21 +2288,31 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     if (nowPlayingArtBlur != null) {
                         nowPlayingArtBlur.setVisibility(android.view.View.GONE);
                     }
-                    
+
                     // Varsayilan Cyan temaya yumusak gecis (Turkce karakter yok)
                     animateThemeColorChange(0xFF00FFFF);
                 }
             }
 
-            // Update Adapter Highlight
-            if (!isExternalMode && musicManager.getInternalPlayer() != null) {
+            // Update Adapter Highlight & Auto-scroll
+            if (!isExternalMode && musicManager != null && musicManager.getInternalPlayer() != null) {
                 MusicRepository.AudioTrack current = musicManager.getInternalPlayer().getCurrentTrack();
                 String path = current != null ? current.getPath() : null;
                 boolean isPlaying = musicManager.getInternalPlayer().isPlaying();
                 if (adapter != null) {
                     adapter.updateCurrentTrack(path, isPlaying);
+                    if (path != null && filteredTracks != null && recyclerView != null) {
+                        for (int i = 0; i < filteredTracks.size(); i++) {
+                            if (path.equals(filteredTracks.get(i).getPath())) {
+                                final int targetIndex = i;
+                                recyclerView.post(() -> recyclerView.smoothScrollToPosition(targetIndex));
+                                break;
+                            }
+                        }
+                    }
                 }
             }
+
 
 
         });
@@ -1650,6 +2328,9 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                         isPlaying ? app.organicmaps.R.drawable.ic_music_pause : app.organicmaps.R.drawable.ic_music_play);
                 btnPlay.setColorFilter(0xFF000000, android.graphics.PorterDuff.Mode.SRC_IN);
             }
+            if (!isPlaying && visualizerView != null) {
+                visualizerView.clear();
+            }
 
             // Update Adapter Icon
             if (!isExternalMode && musicManager.getInternalPlayer() != null) {
@@ -1659,7 +2340,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     adapter.updateCurrentTrack(path, isPlaying);
                 }
             }
-            
+
             // Visualizer Control
             // Centralized in MusicManager
         });
@@ -1716,7 +2397,17 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             MusicRepository.AudioTrack track = tracks.get(position);
             holder.title.setText(track.getTitle());
-            holder.artist.setText(track.getArtist());
+            String trackArtist = track.getArtist();
+            if (trackArtist != null) {
+                String cleanArtist = trackArtist.trim().toLowerCase(java.util.Locale.ROOT);
+                if (cleanArtist.equals("unknown") || cleanArtist.equals("<unknown>") || cleanArtist.equals("bilinmeyen") || cleanArtist.isEmpty()) {
+                    trackArtist = "";
+                }
+            } else {
+                trackArtist = "";
+            }
+            holder.artist.setText(trackArtist);
+            holder.artist.setVisibility(trackArtist.isEmpty() ? android.view.View.GONE : android.view.View.VISIBLE);
 
             if (holder.trackArt != null) {
                 if (track.getAlbumArtUri() != null) {
@@ -1730,8 +2421,19 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 }
             }
 
-            // Calan sarkinin arka planini vurgula
+            // Çalan Şarkı Belirteci Mantığı
             boolean isCurrent = track.getPath().equals(currentTrackPath);
+            if (holder.trackPlayingIndicator != null) {
+                if (isCurrent && isPlaying) {
+                    holder.trackPlayingIndicator.setVisibility(View.VISIBLE);
+                    if (holder.trackArt != null) holder.trackArt.setColorFilter(0x88000000); // Darken art
+                } else {
+                    holder.trackPlayingIndicator.setVisibility(View.GONE);
+                    if (holder.trackArt != null) holder.trackArt.clearColorFilter();
+                }
+            }
+
+            // Calan sarkinin arka planini vurgula
             if (holder.icon != null) {
                 if (isCurrent) {
                     holder.icon.setVisibility(View.VISIBLE);
@@ -1749,9 +2451,18 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
             }
 
+            // Kayıp/Pasif Dosya (Ghost File) veya USB Görselleştirmesi
+            boolean isAvailable = track.isAvailable();
+            if (!isAvailable) {
+                holder.itemView.setAlpha(0.40f); // Soluk/Gri gösterim
+                holder.title.setText("[USB Takılı Değil] " + track.getTitle());
+            } else {
+                holder.itemView.setAlpha(1.0f);
+            }
+
             // Favori ve Oynatma Listesi Mantigi
             if (holder.btnFavorite != null && playlistManager != null) {
-                boolean isFav = playlistManager.isFavorite(track.getPath());
+                boolean isFav = playlistManager.isFavorite(track);
                 holder.btnFavorite.setImageResource(isFav ? android.R.drawable.star_on : android.R.drawable.star_off);
 
                 // Tint: Favori ise Altin, degilse Gri
@@ -1764,25 +2475,34 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 // Yildiza kisa basildiginda favori durumunu degistir
                 holder.btnFavorite.setOnClickListener(v -> {
                     if (isFav) {
-                        playlistManager.removeFromFavorites(track.getPath());
+                        playlistManager.removeFromFavorites(track);
                     } else {
-                        playlistManager.addToFavorites(track.getPath());
+                        playlistManager.addToFavorites(track);
                     }
                     notifyItemChanged(position);
                 });
 
-                // Yildiza uzun basildiginda calma listesi ekleme dialogunu ac
+                // Yildiza uzun basildiginda veya öğeye uzun basıldığında menüyü aç
                 holder.btnFavorite.setOnLongClickListener(v -> {
                     listener.onAddClick(track);
                     return true;
                 });
             }
 
-            holder.itemView.setOnClickListener(v -> listener.onClick(track));
-            if (holder.btnAdd != null) {
-                holder.btnAdd.setOnClickListener(v -> listener.onAddClick(track));
-            }
+            holder.itemView.setOnClickListener(v -> {
+                if (!track.isAvailable()) {
+                    Toast.makeText(v.getContext(), "USB Bellek takılı değil! Lütfen USB sürücüsünü bağlayın.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                listener.onClick(track);
+            });
+
+            holder.itemView.setOnLongClickListener(v -> {
+                listener.onAddClick(track);
+                return true;
+            });
         }
+
 
         @Override
         public int getItemCount() {
@@ -1795,6 +2515,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             ImageButton btnFavorite;
             ImageView icon = null;
             ImageView trackArt;
+            ImageView trackPlayingIndicator;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
@@ -1802,28 +2523,29 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 artist = itemView.findViewById(app.organicmaps.R.id.music_artist);
                 btnFavorite = itemView.findViewById(app.organicmaps.R.id.btn_favorite);
                 trackArt = itemView.findViewById(app.organicmaps.R.id.track_art);
+                trackPlayingIndicator = itemView.findViewById(app.organicmaps.R.id.track_playing_indicator);
             }
         }
     }
 
     // --- Smart Player Selector Dialog (NEW) ---
-    
+
     private void showAppPicker() {
         if (getContext() == null) return;
         AppPickerDialog dialog = new AppPickerDialog(getContext(), true, (packageName, appName, icon) -> {
             musicManager.setPreferredPackage(packageName);
             musicManager.forceSetActiveController(packageName);
-            
-            // Arkaplanda play komutu gonder (Uygulamayi ekranin onune ziplatma)
+
+            // Arkaplanda play komutu gonder (Uygulamayi ekranin onune zıplatma)
             if (packageName != null) {
                 // Sadece arkaplanda (servis/media controller uzerinden) calismasini tetikliyoruz
                 // Teyplerde (XyAuto vs) Broadcast/MediaSession uzerinden arkada calmaya baslar
-                musicManager.play();
+                musicManager.playFocusedSource();
             }
-            
+
             updateAppIcon();
         });
-        
+
         // Aktif paketi dialoga bildir (Highlight icin)
         dialog.setActivePackage(musicManager.getPreferredPackage());
         dialog.show();
@@ -1839,17 +2561,17 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         Bitmap resized = Bitmap.createScaledBitmap(bitmap, 16, 16, false);
         int width = resized.getWidth();
         int height = resized.getHeight();
-        
+
         long sumR = 0, sumG = 0, sumB = 0;
         int count = 0;
-        
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 int color = resized.getPixel(x, y);
                 int r = (color >> 16) & 0xFF;
                 int g = (color >> 8) & 0xFF;
                 int b = color & 0xFF;
-                
+
                 // Cok karanlik veya cok parlak olan pikselleri analiz disi birakalim ki (Turkce karakter yok)
                 // daha canli ve belirgin bir renk yakalayalim
                 int luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
@@ -1861,15 +2583,15 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 }
             }
         }
-        
+
         resized.recycle();
-        
+
         if (count == 0) return 0xFF00FFFF;
-        
+
         int avgR = (int) (sumR / count);
         int avgG = (int) (sumG / count);
         int avgB = (int) (sumB / count);
-        
+
         return 0xFF000000 | (avgR << 16) | (avgG << 8) | avgB;
     }
 

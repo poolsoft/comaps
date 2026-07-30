@@ -3,6 +3,9 @@ package app.organicmaps.carlauncher.music;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import net.osmand.PlatformUtil;
+
+import org.apache.commons.logging.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,6 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Playlist ve son calinanlar yonetimi.
@@ -17,11 +21,15 @@ import java.util.List;
  */
 public class PlaylistManager {
 
+    private static final Log LOG = PlatformUtil.getLog(PlaylistManager.class);
     private static final String PREFS_NAME = "music_playlists";
     private static final String KEY_PLAYLISTS = "playlists";
     private static final String KEY_RECENTLY_PLAYED = "recently_played";
     private static final String KEY_FAVORITES = "favorites";
+    private static final String KEY_PLAY_COUNTS = "play_counts";
     private static final int MAX_RECENT = 50;
+    private static final int DATA_VERSION = 2;
+    private static final String KEY_DATA_VERSION = "data_version";
 
     private final SharedPreferences prefs;
 
@@ -31,7 +39,7 @@ public class PlaylistManager {
 
     // --- Playlist CRUD ---
 
-    public List<Playlist> getAllPlaylists() {
+    public synchronized List<Playlist> getAllPlaylists() {
         List<Playlist> result = new ArrayList<>();
         try {
             String json = prefs.getString(KEY_PLAYLISTS, "[]");
@@ -45,12 +53,12 @@ public class PlaylistManager {
                 result.add(p);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            LOG.error("Unable to read saved playlists", e);
         }
         return result;
     }
 
-    public void savePlaylist(Playlist playlist) {
+    public synchronized void savePlaylist(Playlist playlist) {
         List<Playlist> all = getAllPlaylists();
 
         // Update or add
@@ -69,7 +77,7 @@ public class PlaylistManager {
         savePlaylists(all);
     }
 
-    public void deletePlaylist(String playlistId) {
+    public synchronized void deletePlaylist(String playlistId) {
         List<Playlist> all = getAllPlaylists();
         all.removeIf(p -> p.id.equals(playlistId));
         savePlaylists(all);
@@ -85,15 +93,18 @@ public class PlaylistManager {
                 obj.put("tracks", new JSONArray(p.tracks));
                 arr.put(obj);
             }
-            prefs.edit().putString(KEY_PLAYLISTS, arr.toString()).apply();
+            prefs.edit()
+                    .putInt(KEY_DATA_VERSION, DATA_VERSION)
+                    .putString(KEY_PLAYLISTS, arr.toString())
+                    .apply();
         } catch (JSONException e) {
-            e.printStackTrace();
+            LOG.error("Unable to save playlists", e);
         }
     }
 
     // --- Recently Played ---
 
-    public List<String> getRecentlyPlayed() {
+    public synchronized List<String> getRecentlyPlayed() {
         try {
             String json = prefs.getString(KEY_RECENTLY_PLAYED, "[]");
             return jsonArrayToList(new JSONArray(json));
@@ -102,21 +113,70 @@ public class PlaylistManager {
         }
     }
 
-    public void addToRecentlyPlayed(String trackPath) {
+    public synchronized void addToRecentlyPlayed(String trackReference) {
         List<String> recent = getRecentlyPlayed();
 
         // Remove if exists (to move to top)
-        recent.remove(trackPath);
+        recent.remove(trackReference);
 
         // Add to beginning
-        recent.add(0, trackPath);
+        recent.add(0, trackReference);
 
         // Limit size
         while (recent.size() > MAX_RECENT) {
             recent.remove(recent.size() - 1);
         }
 
-        prefs.edit().putString(KEY_RECENTLY_PLAYED, new JSONArray(recent).toString()).apply();
+        saveStringList(KEY_RECENTLY_PLAYED, recent);
+    }
+
+    public synchronized void addToRecentlyPlayed(MusicRepository.AudioTrack track) {
+        if (track != null) {
+            List<String> recent = getRecentlyPlayed();
+            recent.removeIf(reference -> MusicTrackIdentity.matchesReference(reference, track));
+            recent.add(0, track.getMediaId());
+            while (recent.size() > MAX_RECENT) {
+                recent.remove(recent.size() - 1);
+            }
+            saveStringList(KEY_RECENTLY_PLAYED, recent);
+            incrementPlayCount(track);
+        }
+    }
+
+    public synchronized int getPlayCount(MusicRepository.AudioTrack track) {
+        if (track == null) return 0;
+        JSONObject counts = getPlayCounts();
+        int count = counts.optInt(track.getMediaId(), -1);
+        if (count >= 0) {
+            return count;
+        }
+        // Read an old absolute-path key until it is migrated by the next play.
+        return track.getPath() == null ? 0 : counts.optInt(track.getPath(), 0);
+    }
+
+    private synchronized void incrementPlayCount(MusicRepository.AudioTrack track) {
+        JSONObject counts = getPlayCounts();
+        int current = getPlayCount(track);
+        try {
+            counts.put(track.getMediaId(), current + 1);
+            if (track.getPath() != null) {
+                counts.remove(track.getPath());
+            }
+            prefs.edit()
+                    .putInt(KEY_DATA_VERSION, DATA_VERSION)
+                    .putString(KEY_PLAY_COUNTS, counts.toString())
+                    .apply();
+        } catch (JSONException ignored) {
+            // JSONObject accepts string keys and integer values; this is defensive.
+        }
+    }
+
+    private JSONObject getPlayCounts() {
+        try {
+            return new JSONObject(prefs.getString(KEY_PLAY_COUNTS, "{}"));
+        } catch (JSONException e) {
+            return new JSONObject();
+        }
     }
 
     // --- Shuffle ---
@@ -129,7 +189,7 @@ public class PlaylistManager {
 
     // --- Favorites ---
 
-    public List<String> getFavorites() {
+    public synchronized List<String> getFavorites() {
         try {
             String json = prefs.getString(KEY_FAVORITES, "[]");
             return jsonArrayToList(new JSONArray(json));
@@ -138,23 +198,49 @@ public class PlaylistManager {
         }
     }
 
-    public void addToFavorites(String trackPath) {
+    public synchronized void addToFavorites(String trackReference) {
         List<String> favs = getFavorites();
-        if (!favs.contains(trackPath)) {
-            favs.add(trackPath);
-            prefs.edit().putString(KEY_FAVORITES, new JSONArray(favs).toString()).apply();
+        if (!favs.contains(trackReference)) {
+            favs.add(trackReference);
+            saveStringList(KEY_FAVORITES, favs);
         }
     }
 
-    public void removeFromFavorites(String trackPath) {
-        List<String> favs = getFavorites();
-        if (favs.remove(trackPath)) {
-            prefs.edit().putString(KEY_FAVORITES, new JSONArray(favs).toString()).apply();
+    public void addToFavorites(MusicRepository.AudioTrack track) {
+        if (track != null) {
+            addToFavorites(track.getMediaId());
         }
     }
 
-    public boolean isFavorite(String trackPath) {
-        return getFavorites().contains(trackPath);
+    public synchronized void removeFromFavorites(String trackReference) {
+        List<String> favs = getFavorites();
+        if (favs.remove(trackReference)) {
+            saveStringList(KEY_FAVORITES, favs);
+        }
+    }
+
+    public synchronized void removeFromFavorites(MusicRepository.AudioTrack track) {
+        if (track == null) return;
+        List<String> favorites = getFavorites();
+        boolean changed = favorites.removeIf(reference ->
+                MusicTrackIdentity.matchesReference(reference, track));
+        if (changed) {
+            saveStringList(KEY_FAVORITES, favorites);
+        }
+    }
+
+    public synchronized boolean isFavorite(String trackReference) {
+        return getFavorites().contains(trackReference);
+    }
+
+    public synchronized boolean isFavorite(MusicRepository.AudioTrack track) {
+        if (track == null) return false;
+        for (String reference : getFavorites()) {
+            if (MusicTrackIdentity.matchesReference(reference, track)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // --- Helpers ---
@@ -167,6 +253,13 @@ public class PlaylistManager {
         return list;
     }
 
+    private void saveStringList(String key, List<String> values) {
+        prefs.edit()
+                .putInt(KEY_DATA_VERSION, DATA_VERSION)
+                .putString(key, new JSONArray(values).toString())
+                .apply();
+    }
+
     // --- Data Classes ---
 
     public static class Playlist {
@@ -175,7 +268,7 @@ public class PlaylistManager {
         public List<String> tracks = new ArrayList<>();
 
         public Playlist() {
-            this.id = String.valueOf(System.currentTimeMillis());
+            this.id = UUID.randomUUID().toString();
         }
 
         public Playlist(String name) {
