@@ -13,6 +13,12 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <application>
 
+        <provider
+            android:name="app.organicmaps.carlauncher.startup.ResourceLocaleGuardProvider"
+            android:authorities="${applicationId}.resource-locale-guard"
+            android:exported="false"
+            android:initOrder="1000" />
+
         <!-- Standart CoMaps launcher girisini yalnizca bu flavor'da kaldir. -->
         <activity-alias
             android:name="app.organicmaps.DownloadResourcesActivity"
