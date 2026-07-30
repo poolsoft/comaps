@@ -128,15 +128,16 @@ public class UnifiedPanelFragment extends Fragment
 
     private void setupListeners() {
         // Muzik alani tiklandiginda buyuk oynaticiyi ac
-        if (musicArea != null) {
-            musicArea.setOnClickListener(v -> {
-                if (getActivity() instanceof CarLauncherInterface) {
-                    CarLauncherInterface ci = (CarLauncherInterface) getActivity();
-                    ci.setPanelContent(PanelContentManager.PanelContent.MUSIC);
-                    ci.openMusicPlayer();
-                }
-            });
-        }
+        View.OnClickListener openMusicPlayer = v -> {
+            if (getActivity() instanceof CarLauncherInterface) {
+                ((CarLauncherInterface) getActivity()).openMusicPlayer();
+            }
+        };
+        if (musicArea != null) musicArea.setOnClickListener(openMusicPlayer);
+        if (musicMiniArt != null) musicMiniArt.setOnClickListener(openMusicPlayer);
+        if (musicTrackTitle != null) musicTrackTitle.setOnClickListener(openMusicPlayer);
+        if (musicTrackArtist != null) musicTrackArtist.setOnClickListener(openMusicPlayer);
+        if (musicVisualizer != null) musicVisualizer.setOnClickListener(openMusicPlayer);
 
         // Ayarlari acan 3 nokta butonu
         if (panelMenuBtn != null) {
