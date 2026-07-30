@@ -724,50 +724,59 @@ public class AppDockFragment extends Fragment
     }
 
     public void updateLayoutIcon(int mode) {
-        if (layoutButton == null) return;
-        
-        layoutButton.post(() -> {
+        ImageButton button = layoutButton;
+        if (button == null) return;
+
+        button.post(() -> {
+            if (!isAdded() || getView() == null || layoutButton != button
+                    || !button.isAttachedToWindow()) {
+                return;
+            }
             switch (mode) {
                 case 0: // Normal (Widgets Visible)
-                    layoutButton.setImageResource(app.organicmaps.R.drawable.ic_layout_full);
+                    button.setImageResource(app.organicmaps.R.drawable.ic_layout_full);
                     break;
                 case 2: // Full Screen (Map Only)
-                    layoutButton.setImageResource(app.organicmaps.R.drawable.ic_layout_split);
+                    button.setImageResource(app.organicmaps.R.drawable.ic_layout_split);
                     break;
                 default: 
-                    layoutButton.setImageResource(app.organicmaps.R.drawable.ic_layout_split);
+                    button.setImageResource(app.organicmaps.R.drawable.ic_layout_split);
                     break;
             }
         });
     }
 
     public void updateDesktopModeState(boolean active) {
-        if (btnDesktopMode == null) return;
-        
-        btnDesktopMode.post(() -> {
+        ImageButton desktopButton = btnDesktopMode;
+        if (desktopButton == null) return;
+
+        desktopButton.post(() -> {
+            Context context = getContext();
+            View fragmentView = getView();
+            if (!isAdded() || context == null || fragmentView == null
+                    || btnDesktopMode != desktopButton
+                    || !desktopButton.isAttachedToWindow()) {
+                return;
+            }
             if (active) {
                 // Aktifken premium primary brand rengiyle vurgula
-                if (getContext() != null) {
-                    btnDesktopMode.setColorFilter(androidx.core.content.ContextCompat.getColor(getContext(), app.organicmaps.R.color.cl_primary));
-                } else {
-                    btnDesktopMode.setColorFilter(0xFF0084FF); // Fallback premium blue
-                }
+                desktopButton.setColorFilter(androidx.core.content.ContextCompat.getColor(
+                        context, app.organicmaps.R.color.cl_primary));
             } else {
                 // Pasifken beyaz / yari transparan hint rengi
                 if (isVerticalMode) {
-                    btnDesktopMode.setColorFilter(0x88FFFFFF); // Dikey mod pasif rengi
+                    desktopButton.setColorFilter(0x88FFFFFF); // Dikey mod pasif rengi
                 } else {
-                    if (getContext() != null) {
-                        btnDesktopMode.setColorFilter(androidx.core.content.ContextCompat.getColor(getContext(), app.organicmaps.R.color.cl_text_hint));
-                    } else {
-                        btnDesktopMode.setColorFilter(0xFF888888);
-                    }
+                    desktopButton.setColorFilter(androidx.core.content.ContextCompat.getColor(
+                            context, app.organicmaps.R.color.cl_text_hint));
                 }
             }
 
             // Mini muzik calarin gorunurlugunu desktop/harita moduna gore guncelle
-            if (miniMusicContainer != null) {
-                boolean isScreenPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+            LinearLayout musicContainer = miniMusicContainer;
+            if (musicContainer != null) {
+                boolean isScreenPortrait = context.getResources().getConfiguration().orientation
+                        == android.content.res.Configuration.ORIENTATION_PORTRAIT;
                 int layoutMode = 0;
                 if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
                     layoutMode =
@@ -780,7 +789,7 @@ public class AppDockFragment extends Fragment
                         shouldShow = true;
                     }
                 }
-                miniMusicContainer.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
+                musicContainer.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
                 if (shouldShow) {
                     adjustMiniPlayerLayout();
                 }
