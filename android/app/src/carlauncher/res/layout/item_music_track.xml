@@ -24,6 +24,16 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/bg_playlist_default_art"/>
+
+        <!-- Çalan Şarkı Belirteci (Görünmez/Gizli Başlar) -->
+        <ImageView
+            android:id="@+id/track_playing_indicator"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_music_equalizer"
+            android:tint="#00FFFF"
+            android:visibility="gone"/>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout

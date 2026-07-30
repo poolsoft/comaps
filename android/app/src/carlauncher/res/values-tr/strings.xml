@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="car_music_scan">Müzikleri tara</string>
+    <string name="car_music_scan_started">Dahili depolama ve USB bellekler taranıyor…</string>
+    <string name="car_music_scan_completed">Tarama tamamlandı: %1$d parça bulundu</string>
     <string name="car_pref_dock_size_portrait_title">Dock boyutu — dikey ekran</string>
     <string name="car_pref_dock_size_portrait_summary">Dikey ekran daima alt dock kullanır; boyutu yatay ekrandan ayrı saklanır</string>
     <!-- Izin Paneli Stringleri -->
