@@ -585,6 +585,22 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
+    public void onRoutingStart() {
+        super.onRoutingStart();
+        // CoMaps resets its map chrome when navigation starts. Re-apply the
+        // launcher constraints after that transaction so navigation remains
+        // inside the Car Launcher shell instead of looking like stock CoMaps.
+        if (rootLayout != null) {
+            rootLayout.post(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                applyWidgetPanelState(false);
+                checkAndRefreshDockFragmentIfNeeded();
+                applyStatusBarVisibility();
+            });
+        }
+    }
+
+    @Override
     public int getLayoutMode() {
         return layoutMode;
     }

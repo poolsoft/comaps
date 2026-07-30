@@ -122,7 +122,12 @@ android {
     carlauncher {
       dimension 'default'
       applicationIdSuffix '.auto'
-      versionName = android.defaultConfig.versionName + '-Auto'
+      def autoVersionName = project.findProperty('autoVersionName')
+      def autoVersionCode = project.findProperty('autoVersionCode')
+      versionName = (autoVersionName ?: android.defaultConfig.versionName) + '-Auto'
+      if (autoVersionCode != null) {
+        versionCode = Integer.parseInt(autoVersionCode.toString())
+      }
       buildConfigField 'String', 'SUPPORT_MAIL', '"auto@comaps.app"'
       resValue 'string', 'app_name', 'CoMaps Auto'
     }

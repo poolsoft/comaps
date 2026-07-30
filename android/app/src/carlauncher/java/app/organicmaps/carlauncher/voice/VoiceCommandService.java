@@ -109,7 +109,8 @@ public class VoiceCommandService extends Service implements RecognitionListener 
     }
 
     private Notification buildNotification(String contentText) {
-        Intent notificationIntent = new Intent(this, app.organicmaps.MwmActivity.class);
+        Intent notificationIntent =
+                new Intent(this, app.organicmaps.carlauncher.CarLauncherActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent,
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0
@@ -872,7 +873,8 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         
         if (intent == null) {
             try {
-                intent = new Intent(this, app.organicmaps.MwmActivity.class);
+                intent = new Intent(this,
+                        app.organicmaps.carlauncher.CarLauncherActivity.class);
             } catch (Exception e) {}
         }
         

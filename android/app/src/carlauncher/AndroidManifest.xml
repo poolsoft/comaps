@@ -18,6 +18,12 @@
             android:name="app.organicmaps.DownloadResourcesActivity"
             tools:node="remove" />
 
+        <!-- Keep every upstream explicit MwmActivity intent inside the launcher
+             shell for this flavor (navigation notification, search, bookmarks). -->
+        <activity
+            android:name="app.organicmaps.MwmActivity"
+            tools:node="remove" />
+
         <activity
             android:name="app.organicmaps.carlauncher.CarLauncherBootstrapActivity"
             android:theme="@style/MwmTheme.Splash"
@@ -47,6 +53,12 @@
             android:configChanges="uiMode|orientation|screenLayout|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />
+
+        <activity-alias
+            android:name="app.organicmaps.MwmActivity"
+            android:enabled="true"
+            android:exported="false"
+            android:targetActivity="app.organicmaps.carlauncher.CarLauncherActivity" />
 
         <activity
             android:name="app.organicmaps.carlauncher.ui.NeonDashboardActivity"
