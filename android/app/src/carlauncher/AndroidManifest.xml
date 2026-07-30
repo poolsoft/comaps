@@ -56,8 +56,9 @@
         </activity>
 
         <service
-            android:name="app.organicmaps.carlauncher.music.MusicPlaybackService"
-            android:exported="false"
+            android:name="app.organicmaps.carlauncher.media.CarMediaService"
+            android:enabled="true"
+            android:exported="true"
             android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />

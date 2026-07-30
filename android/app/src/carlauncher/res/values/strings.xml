@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_media_channel_name">Music Playback</string>
+    <string name="car_media_channel_description">Car Launcher music controls</string>
+    <string name="car_media_action_previous">Previous</string>
+    <string name="car_media_action_next">Next</string>
+    <string name="car_media_action_play">Play</string>
+    <string name="car_media_action_pause">Pause</string>
+    <string name="car_media_action_close">Close</string>
     <string name="car_music_scan">Scan music</string>
     <string name="car_music_scan_started">Scanning internal storage and USB drives…</string>
     <string name="car_music_scan_completed">Scan completed: %1$d tracks found</string>

@@ -330,6 +330,24 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     protected void onStart() {
         super.onStart();
         Log.i("CarLauncherLifecycle", "onStart called.");
+        try {
+            startService(new Intent(this,
+                    app.organicmaps.carlauncher.media.CarMediaService.class));
+        } catch (RuntimeException e) {
+            Log.w("CarLauncherActivity", "Media service could not start", e);
+        }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(android.view.KeyEvent event) {
+        if (event != null && event.getAction() == android.view.KeyEvent.ACTION_DOWN
+                && app.organicmaps.carlauncher.headunit.HardwareMediaKeyRouter
+                .getInstance(this)
+                .route(app.organicmaps.carlauncher.headunit.HardwareMediaKeyRouter
+                        .Source.ACTIVITY, event.getKeyCode())) {
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     @Override
