@@ -169,7 +169,7 @@
             </androidx.cardview.widget.CardView>
             
             <!-- GÖRSELLEŞTİRİCİ (Kapağın ALT boşluğunu tamamen doldurur) -->
-            <net.osmand.plus.carlauncher.widgets.MusicVisualizerView
+            <app.organicmaps.carlauncher.widgets.MusicVisualizerView
                 android:id="@+id/player_visualizer"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
