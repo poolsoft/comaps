@@ -385,6 +385,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (statusBarPref != null) {
             statusBarPref.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean show = (Boolean) newValue;
+                if (getContext() != null) {
+                    new CarLauncherSettings(getContext()).setStatusBarVisible(show);
+                }
                 applyStatusBarVisibility(show);
                 return true;
             });
