@@ -614,6 +614,37 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         }
     }
 
+    private android.graphics.Bitmap loadScaledBitmapFromUri(android.net.Uri uri, int reqWidth, int reqHeight) {
+        if (getContext() == null || uri == null) return null;
+        try {
+            android.content.ContentResolver cr = getContext().getContentResolver();
+            android.graphics.BitmapFactory.Options options = new android.graphics.BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            try (java.io.InputStream input = cr.openInputStream(uri)) {
+                if (input != null) {
+                    android.graphics.BitmapFactory.decodeStream(input, null, options);
+                }
+            }
+            if (options.outWidth <= 0 || options.outHeight <= 0) return null;
+
+            int sampleSize = 1;
+            while ((options.outWidth / sampleSize) > reqWidth * 1.5 || (options.outHeight / sampleSize) > reqHeight * 1.5) {
+                sampleSize *= 2;
+            }
+            options.inSampleSize = sampleSize;
+            options.inJustDecodeBounds = false;
+
+            try (java.io.InputStream input = cr.openInputStream(uri)) {
+                if (input != null) {
+                    return android.graphics.BitmapFactory.decodeStream(input, null, options);
+                }
+            }
+        } catch (Throwable t) {
+            android.util.Log.e(TAG, "Guvenli bitmap yukleme hatasi", t);
+        }
+        return null;
+    }
+
     private void updateBackgroundStyle() {
         if (parallaxBg == null || getContext() == null) return;
         CarLauncherSettings settings = new CarLauncherSettings(getContext());
@@ -624,10 +655,15 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
             if (uriString != null) {
                 try {
                     android.net.Uri uri = android.net.Uri.parse(uriString);
-                    parallaxBg.setImageURI(uri);
-                    return;
-                } catch (Exception e) {
-                    android.util.Log.e("WidgetPanelFragment", "Wallpaper yuklenemedi", e);
+                    int targetW = getResources().getDisplayMetrics().widthPixels;
+                    int targetH = getResources().getDisplayMetrics().heightPixels;
+                    android.graphics.Bitmap bitmap = loadScaledBitmapFromUri(uri, targetW, targetH);
+                    if (bitmap != null) {
+                        parallaxBg.setImageBitmap(bitmap);
+                        return;
+                    }
+                } catch (Throwable t) {
+                    android.util.Log.e("WidgetPanelFragment", "Wallpaper yuklenemedi", t);
                 }
             }
         } else if ("system".equals(style)) {
@@ -638,8 +674,8 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                     parallaxBg.setImageDrawable(drawable);
                     return;
                 }
-            } catch (Exception e) {
-                android.util.Log.e("WidgetPanelFragment", "Sistem duvar kagidi yuklenemedi", e);
+            } catch (Throwable t) {
+                android.util.Log.e("WidgetPanelFragment", "Sistem duvar kagidi yuklenemedi", t);
             }
         }
         
@@ -649,7 +685,11 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         } else if ("space".equals(style)) {
             resId = R.drawable.bg_panel_space;
         }
-        parallaxBg.setImageResource(resId);
+        try {
+            parallaxBg.setImageResource(resId);
+        } catch (Throwable t) {
+            android.util.Log.e("WidgetPanelFragment", "Varsayilan wallpaper yuklenemedi", t);
+        }
     }
 
     private void showWallpaperChooserDialog() {
@@ -669,7 +709,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     intent.setType("image/*");
                     startActivityForResult(intent, RC_SELECT_WALLPAPER);
-                } catch (Exception e) {
+                } catch (Throwable t) {
                     android.widget.Toast.makeText(getContext(), getString(R.string.car_wallpaper_error_picker), android.widget.Toast.LENGTH_SHORT).show();
                 }
             }
@@ -685,12 +725,15 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
             public void onOpenSystemWallpaperChooser() {
                 try {
                     Intent intent = new Intent(Intent.ACTION_SET_WALLPAPER);
-                    startActivity(Intent.createChooser(intent, "Duvar Kagidi Secin"));
-                    
-                    // Geri donuldugunde otomatik sistemi yuklesin
+                    Intent chooser = Intent.createChooser(intent, "Duvar Kagidi Secin");
+                    if (getContext() != null && intent.resolveActivity(getContext().getPackageManager()) != null) {
+                        startActivity(chooser);
+                    } else if (getContext() != null) {
+                        startActivity(Intent.createChooser(intent, "Duvar Kagidi Secin"));
+                    }
                     CarLauncherSettings settings = new CarLauncherSettings(getContext());
                     settings.setBackgroundStyle("system");
-                } catch (Exception e) {
+                } catch (Throwable t) {
                     android.widget.Toast.makeText(getContext(), "Sistem duvar kagidi secicisi acilamadi", android.widget.Toast.LENGTH_SHORT).show();
                 }
             }

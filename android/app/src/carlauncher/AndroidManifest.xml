@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.BIND_REMOTEVIEWS" tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions"/>
     <application>
 
         <!-- SplashActivity'nin MAIN ve LAUNCHER ozelliklerini CarLauncher modulu icin siliyoruz -->
@@ -77,6 +82,16 @@
             android:name="app.organicmaps.carlauncher.TaskMonitorService"
             android:exported="false"
             android:stopWithTask="false" />
+
+        <service
+            android:name="app.organicmaps.carlauncher.MediaNotificationListener"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
 
     </application>
 
