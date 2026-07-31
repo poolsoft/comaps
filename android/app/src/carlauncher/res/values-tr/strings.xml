@@ -14,6 +14,8 @@
     <string name="car_pref_dock_size_portrait_summary">Dikey ekran daima alt dock kullanır; boyutu yatay ekrandan ayrı saklanır</string>
     <!-- Izin Paneli Stringleri -->
     <string name="car_pref_category_permissions">İzinler</string>
+    <string name="car_perm_grant_all_title">Eksik İzinleri Tek Seferde Al</string>
+    <string name="car_perm_grant_all_summary">Standart izinleri birlikte ister, ardından özel sistem izinlerine yönlendirir</string>
     <string name="car_perm_overlay_title">Diğer Uygulamaların Üzerine Çiz</string>
     <string name="car_perm_overlay_summary_ok">✅ Verildi - Yüzen buton uygulamaların üstünde görünebilir</string>
     <string name="car_perm_overlay_summary_missing">⚠️ Verilmedi - Yüzen hız butonu için gereklidir</string>
@@ -26,6 +28,11 @@
     <string name="car_perm_media_title">Depolama / Medya Sesi</string>
     <string name="car_perm_media_summary_ok">✅ Verildi - Cihazdaki müzik kitaplığına erişilebilir</string>
     <string name="car_perm_media_summary_missing">⚠️ Verilmedi - Cihaz müziklerini taramak için gereklidir</string>
+    <string name="car_perm_microphone_title">Ses Görselleştirici</string>
+    <string name="car_perm_microphone_summary_ok">✅ Verildi - Müzik görselleştirici sese tepki verebilir</string>
+    <string name="car_perm_microphone_summary_missing">⚠️ İsteğe bağlı - Yalnızca ses görselleştirici için gereklidir</string>
+    <string name="car_perm_all_runtime_done">Standart izinler tamamlandı</string>
+    <string name="car_perm_opening_special">Standart izinler işlendi. Sıradaki özel izin ayarı açılıyor…</string>
 
     <!-- Music Player Strings -->
     <string name="car_music_select_playlist">Seçiniz...</string>

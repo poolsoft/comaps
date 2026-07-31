@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Repository for scanning and managing local music files.
@@ -30,7 +29,9 @@ public class MusicRepository {
     private final Context context;
     private final ExecutorService ioExecutor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
-    private final AtomicInteger scanGeneration = new AtomicInteger();
+    private final Object scanLock = new Object();
+    private boolean scanInProgress;
+    private final List<OnScanCompletedListener> pendingScanListeners = new ArrayList<>();
     private List<AudioTrack> cachedTracks = new ArrayList<>();
     private List<AudioFolder> cachedFolders = new ArrayList<>();
     private List<AudioArtist> cachedArtists = new ArrayList<>();
@@ -88,26 +89,48 @@ public class MusicRepository {
      * Scan device for music files asynchronously.
      */
     public void scanMusic(final OnScanCompletedListener listener) {
-        final int generation = scanGeneration.incrementAndGet();
+        synchronized (scanLock) {
+            if (listener != null) {
+                pendingScanListeners.add(listener);
+            }
+            if (scanInProgress) {
+                return;
+            }
+            scanInProgress = true;
+        }
         ioExecutor.execute(() -> {
-            List<AudioTrack> tracks = scanDeviceForAudio();
+            List<AudioTrack> tracks = hasMusicReadPermission()
+                    ? scanDeviceForAudio() : new ArrayList<>();
             List<AudioFolder> folders = organizeIntoFolders(tracks);
             List<AudioArtist> artists = organizeIntoArtists(tracks);
 
-            if (generation != scanGeneration.get()) {
-                return;
-            }
             synchronized (this) {
                 cachedTracks = tracks;
                 cachedFolders = folders;
                 cachedArtists = artists;
             }
 
-            if (listener != null) {
-                mainHandler.post(() -> listener.onScanCompleted(
-                        new ArrayList<>(tracks), new ArrayList<>(folders), new ArrayList<>(artists)));
+            List<OnScanCompletedListener> callbacks;
+            synchronized (scanLock) {
+                callbacks = new ArrayList<>(pendingScanListeners);
+                pendingScanListeners.clear();
+                scanInProgress = false;
+            }
+            for (OnScanCompletedListener callback : callbacks) {
+                mainHandler.post(() -> callback.onScanCompleted(
+                        new ArrayList<>(tracks), new ArrayList<>(folders),
+                        new ArrayList<>(artists)));
             }
         });
+    }
+
+    public boolean hasMusicReadPermission() {
+        String permission = android.os.Build.VERSION.SDK_INT
+                >= android.os.Build.VERSION_CODES.TIRAMISU
+                ? android.Manifest.permission.READ_MEDIA_AUDIO
+                : android.Manifest.permission.READ_EXTERNAL_STORAGE;
+        return androidx.core.content.ContextCompat.checkSelfPermission(context, permission)
+                == android.content.pm.PackageManager.PERMISSION_GRANTED;
     }
 
     private void notifyCopyCompleted(OnCopyCompletedListener listener, boolean success, String messageOrPath) {

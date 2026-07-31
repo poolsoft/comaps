@@ -14,6 +14,8 @@
     <string name="car_pref_dock_size_portrait_summary">Portrait screens always use a bottom dock; its size is stored separately</string>
     <!-- Permissions Panel Strings -->
     <string name="car_pref_category_permissions">Permissions</string>
+    <string name="car_perm_grant_all_title">Grant Missing Permissions</string>
+    <string name="car_perm_grant_all_summary">Requests standard permissions together, then guides you to special system permissions</string>
     <string name="car_perm_overlay_title">Draw Over Other Apps</string>
     <string name="car_perm_overlay_summary_ok">✅ Granted - Floating button can appear over apps</string>
     <string name="car_perm_overlay_summary_missing">⚠️ Not Granted - Required for floating speed button</string>
@@ -26,6 +28,11 @@
     <string name="car_perm_media_title">Storage / Media Audio</string>
     <string name="car_perm_media_summary_ok">✅ Granted - Internal music library accessible</string>
     <string name="car_perm_media_summary_missing">⚠️ Not Granted - Required to scan music on device</string>
+    <string name="car_perm_microphone_title">Audio Visualizer</string>
+    <string name="car_perm_microphone_summary_ok">✅ Granted - Music visualizer can react to audio</string>
+    <string name="car_perm_microphone_summary_missing">⚠️ Optional - Required only for the audio visualizer</string>
+    <string name="car_perm_all_runtime_done">Standard permissions are complete</string>
+    <string name="car_perm_opening_special">Standard permissions processed. Opening the next special permission setting…</string>
 
     <!-- Music Player Strings -->
     <string name="car_music_select_playlist">Select...</string>

@@ -122,6 +122,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private TextView nowPlayingCenterTitle;
     private TextView nowPlayingCenterArtist;
     private boolean isPlaylistVisible = true;
+    private boolean mediaPermissionRequestInFlight;
+    private boolean mediaPermissionNoticeShown;
     private View ambianceGlowLayer;
 
     @Override
@@ -859,7 +861,6 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     if (selected.contains("Akıllı Karıştır")) {
                         playQuickMix();
                     } else if (selected.contains("Yeniden Tara")) {
-                        Toast.makeText(getContext(), "Müzik kütüphanesi taranıyor...", Toast.LENGTH_SHORT).show();
                         rescanMusic();
                     } else if (selected.contains("Parça Adına Göre")) {
                         sortFilteredTracks(SortOrder.TITLE);
@@ -1385,6 +1386,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     }
 
     private void checkPermissionsAndLoadTracks() {
+        if (getContext() == null || mediaPermissionRequestInFlight) return;
         List<String> perms = new ArrayList<>();
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
@@ -1397,11 +1399,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
              }
         }
 
-        if (getContext().checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            perms.add(android.Manifest.permission.RECORD_AUDIO);
-        }
-
         if (!perms.isEmpty()) {
+            mediaPermissionRequestInFlight = true;
             requestPermissions(perms.toArray(new String[0]), 100);
         } else {
             loadAllTracks();
@@ -1413,10 +1412,17 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 100) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            mediaPermissionRequestInFlight = false;
+            boolean mediaGranted = musicManager != null
+                    && musicManager.getRepository() != null
+                    && musicManager.getRepository().hasMusicReadPermission();
+            if (mediaGranted) {
+                mediaPermissionNoticeShown = false;
                 loadAllTracks();
-            } else {
-                Toast.makeText(getContext(), "Muzik taramak icin izin gerekli!", Toast.LENGTH_SHORT).show();
+            } else if (!mediaPermissionNoticeShown && getContext() != null) {
+                mediaPermissionNoticeShown = true;
+                Toast.makeText(getContext(), app.organicmaps.R.string.car_music_permission_required,
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1450,6 +1456,10 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
     private void rescanMusic() {
         if (musicManager == null || musicManager.getRepository() == null) return;
+        if (!musicManager.getRepository().hasMusicReadPermission()) {
+            checkPermissionsAndLoadTracks();
+            return;
+        }
 
         if (btnScanMusic != null) {
             btnScanMusic.setEnabled(false);

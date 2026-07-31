@@ -43,8 +43,15 @@ import java.util.List;
 public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     public static final String TAG = "CarLauncherSettingsFragment";
+    private static final int REQUEST_MEDIA_PERMISSION = 300;
+    private static final int REQUEST_ALL_RUNTIME_PERMISSIONS = 301;
 
     private CarLauncherSettings settings;
+    private boolean permissionGuideActive;
+    private boolean runtimePermissionRequestInFlight;
+    private boolean overlayStepVisited;
+    private boolean notificationStepVisited;
+    private boolean backgroundLocationStepVisited;
 
 
     @Override
@@ -72,6 +79,10 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         super.onResume();
         // Kullanici ayarlardan donunce izin durumlarini guncelle
         updatePermissionSummaries();
+        if (permissionGuideActive && !runtimePermissionRequestInFlight) {
+            new android.os.Handler(android.os.Looper.getMainLooper())
+                    .postDelayed(this::openNextSpecialPermission, 250);
+        }
     }
 
     private android.widget.LinearLayout splitContainer;
@@ -1205,6 +1216,14 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     // ═══════════════════════════════════════════════════════════════
 
     private void setupPermissionsPrefs() {
+        Preference grantAllPref = findPreference("perm_grant_all");
+        if (grantAllPref != null) {
+            grantAllPref.setOnPreferenceClickListener(preference -> {
+                startPermissionGuide();
+                return true;
+            });
+        }
+
         // Ekranin Uzerinde Ciz izni
         Preference overlayPref = findPreference("perm_overlay");
         if (overlayPref != null) {
@@ -1263,9 +1282,26 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     }
                 }
                 if (!perms.isEmpty()) {
-                    requestPermissions(perms.toArray(new String[0]), 300);
+                    requestPermissions(perms.toArray(new String[0]), REQUEST_MEDIA_PERMISSION);
                 } else {
                     Toast.makeText(getContext(), getString(R.string.car_perm_media_summary_ok), Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            });
+        }
+
+        Preference microphonePref = findPreference("perm_microphone");
+        if (microphonePref != null) {
+            microphonePref.setOnPreferenceClickListener(preference -> {
+                if (getContext() == null) return true;
+                if (getContext().checkSelfPermission(android.Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO},
+                            REQUEST_ALL_RUNTIME_PERMISSIONS);
+                } else {
+                    Toast.makeText(getContext(),
+                            getString(R.string.car_perm_microphone_summary_ok),
+                            Toast.LENGTH_SHORT).show();
                 }
                 return true;
             });
@@ -1324,6 +1360,109 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             mediaPref.setSummary(hasMedia
                     ? getString(R.string.car_perm_media_summary_ok)
                     : getString(R.string.car_perm_media_summary_missing));
+        }
+
+        Preference microphonePref = findPreference("perm_microphone");
+        if (microphonePref != null) {
+            boolean hasMicrophone = androidx.core.content.ContextCompat.checkSelfPermission(
+                    getContext(), android.Manifest.permission.RECORD_AUDIO)
+                    == PackageManager.PERMISSION_GRANTED;
+            microphonePref.setSummary(hasMicrophone
+                    ? getString(R.string.car_perm_microphone_summary_ok)
+                    : getString(R.string.car_perm_microphone_summary_missing));
+        }
+    }
+
+    private void startPermissionGuide() {
+        if (getContext() == null) return;
+        permissionGuideActive = true;
+        overlayStepVisited = false;
+        notificationStepVisited = false;
+        backgroundLocationStepVisited = false;
+
+        List<String> permissions = new ArrayList<>();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            addMissingPermission(permissions, android.Manifest.permission.READ_MEDIA_AUDIO);
+            addMissingPermission(permissions, android.Manifest.permission.POST_NOTIFICATIONS);
+        } else {
+            addMissingPermission(permissions, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        addMissingPermission(permissions, android.Manifest.permission.RECORD_AUDIO);
+        addMissingPermission(permissions, android.Manifest.permission.ACCESS_FINE_LOCATION);
+        addMissingPermission(permissions, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (!permissions.isEmpty()) {
+            runtimePermissionRequestInFlight = true;
+            requestPermissions(permissions.toArray(new String[0]),
+                    REQUEST_ALL_RUNTIME_PERMISSIONS);
+        } else {
+            openNextSpecialPermission();
+        }
+    }
+
+    private void addMissingPermission(List<String> permissions, String permission) {
+        if (getContext() != null
+                && androidx.core.content.ContextCompat.checkSelfPermission(getContext(), permission)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(permission);
+        }
+    }
+
+    private void openNextSpecialPermission() {
+        if (!permissionGuideActive || getContext() == null || !isAdded()) return;
+        updatePermissionSummaries();
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                && !android.provider.Settings.canDrawOverlays(getContext())
+                && !overlayStepVisited) {
+            overlayStepVisited = true;
+            startActivity(new android.content.Intent(
+                    android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    android.net.Uri.parse("package:" + getContext().getPackageName())));
+            return;
+        }
+
+        String listeners = android.provider.Settings.Secure.getString(
+                getContext().getContentResolver(), "enabled_notification_listeners");
+        boolean hasNotificationListener = listeners != null
+                && listeners.contains(getContext().getPackageName());
+        if (!hasNotificationListener && !notificationStepVisited) {
+            notificationStepVisited = true;
+            startActivity(new android.content.Intent(
+                    android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+            return;
+        }
+
+        boolean hasBackgroundLocation = android.os.Build.VERSION.SDK_INT
+                < android.os.Build.VERSION_CODES.Q
+                || androidx.core.content.ContextCompat.checkSelfPermission(getContext(),
+                android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+        if (!hasBackgroundLocation && !backgroundLocationStepVisited) {
+            backgroundLocationStepVisited = true;
+            android.content.Intent intent = new android.content.Intent(
+                    android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    android.net.Uri.parse("package:" + getContext().getPackageName()));
+            startActivity(intent);
+            return;
+        }
+
+        permissionGuideActive = false;
+        Toast.makeText(getContext(), getString(R.string.car_perm_all_runtime_done),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        updatePermissionSummaries();
+        if (requestCode == REQUEST_ALL_RUNTIME_PERMISSIONS && permissionGuideActive) {
+            runtimePermissionRequestInFlight = false;
+            Toast.makeText(getContext(), getString(R.string.car_perm_opening_special),
+                    Toast.LENGTH_SHORT).show();
+            new android.os.Handler(android.os.Looper.getMainLooper())
+                    .post(this::openNextSpecialPermission);
         }
     }
 

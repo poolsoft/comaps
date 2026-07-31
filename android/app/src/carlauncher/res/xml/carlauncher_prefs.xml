@@ -13,6 +13,12 @@
         android:iconSpaceReserved="true">
 
         <androidx.preference.Preference
+            android:key="perm_grant_all"
+            android:title="@string/car_perm_grant_all_title"
+            android:summary="@string/car_perm_grant_all_summary"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
             android:key="perm_overlay"
             android:title="@string/car_perm_overlay_title"
             android:summary="@string/car_perm_overlay_summary_missing"
@@ -34,6 +40,12 @@
             android:key="perm_media"
             android:title="@string/car_perm_media_title"
             android:summary="@string/car_perm_media_summary_missing"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:key="perm_microphone"
+            android:title="@string/car_perm_microphone_title"
+            android:summary="@string/car_perm_microphone_summary_missing"
             app:iconSpaceReserved="false" />
 
     </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
