@@ -8,10 +8,8 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.R;
-import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.CarDirection;
-import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.util.Utils;
 
@@ -21,6 +19,8 @@ import java.util.List;
 import app.organicmaps.carlauncher.obd.OBDConnectionManager;
 import app.organicmaps.carlauncher.obd.OBDCommand;
 import app.organicmaps.carlauncher.obd.OBDDataField;
+import app.organicmaps.carlauncher.api.CarMapApi;
+import app.organicmaps.carlauncher.api.CoMapsCarMapApi;
 
 public class TelemetryManager implements LocationListener {
 
@@ -70,6 +70,7 @@ public class TelemetryManager implements LocationListener {
     }
 
     private final android.content.Context mContext;
+    private final CarMapApi mapApi;
     private final LocationState locationState = new LocationState();
     private final NavigationState navigationState = new NavigationState();
     private final ObdState obdState = new ObdState();
@@ -90,6 +91,7 @@ public class TelemetryManager implements LocationListener {
 
     private TelemetryManager(android.content.Context context) {
         this.mContext = context.getApplicationContext();
+        this.mapApi = CoMapsCarMapApi.getInstance(context);
         app.organicmaps.MwmApplication.from(context).getLocationHelper().addListener(this);
         mainHandler.postDelayed(staleGpsRunnable, 1000);
 
@@ -151,56 +153,9 @@ public class TelemetryManager implements LocationListener {
         listeners.remove(listener);
     }
 
-    // 4 yonlu (Kuzey, Guney, Dogu, Bati) 12 metre yaricapli adres taramasi yapan yardimci metot (Turkce karakter yok)
+    // Surus yonunu onceleyen yakin cadde cozumlemesi CarMapApi adapter'inda yapilir.
     private String resolveStreetNameAtLocation(double lat, double lon) {
-        if (!app.organicmaps.MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized()) {
-            android.util.Log.d("CoMapsStreetReparent", "resolveStreetNameAtLocation: Core NOT initialized!");
-            return "";
-        }
-
-        // 1. Orijinal konumu dene
-        try {
-            String address = app.organicmaps.sdk.Framework.nativeGetAddress(lat, lon);
-            android.util.Log.d("CoMapsStreetReparent", "nativeGetAddress(" + lat + ", " + lon + ") result: " + address);
-            if (address != null && !address.isEmpty()) {
-                return cleanStreetName(address);
-            }
-        } catch (Exception e) {
-            android.util.Log.e("CoMapsStreetReparent", "Exception in nativeGetAddress (original position)", e);
-        }
-
-        // 2. Yakindaki 4 yonu tara (Yol kenarindaki binalara/parsellere erismek icin)
-        double deltaLat = 12.0 / 111111.0;
-        double deltaLon = 12.0 / (111111.0 * Math.cos(Math.toRadians(lat)));
-
-        double[][] offsets = {
-            {deltaLat, 0},   // Kuzey
-            {-deltaLat, 0},  // Guney
-            {0, deltaLon},   // Dogu
-            {0, -deltaLon}   // Bati
-        };
-
-        for (double[] offset : offsets) {
-            try {
-                double targetLat = lat + offset[0];
-                double targetLon = lon + offset[1];
-                String address = app.organicmaps.sdk.Framework.nativeGetAddress(targetLat, targetLon);
-                android.util.Log.d("CoMapsStreetReparent", "nativeGetAddress(" + targetLat + ", " + targetLon + ") offset result: " + address);
-                if (address != null && !address.isEmpty()) {
-                    return cleanStreetName(address);
-                }
-            } catch (Exception e) {
-                android.util.Log.e("CoMapsStreetReparent", "Exception in nativeGetAddress (offset)", e);
-            }
-        }
-
-        return "";
-    }
-
-    private String cleanStreetName(String address) {
-        if (address == null || address.isEmpty()) return "";
-        String[] parts = address.split(",");
-        return parts[0].trim();
+        return mapApi.resolveNearbyStreet(lat, lon, locationState.bearing);
     }
 
     @Override
@@ -234,10 +189,9 @@ public class TelemetryManager implements LocationListener {
     }
 
     private void pollNavigation() {
-        RoutingController routingController = RoutingController.get();
-        if (routingController != null && routingController.isNavigating()) {
+        if (mapApi.isNavigating()) {
             navigationState.isActive = true;
-            RoutingInfo info = routingController.getCachedRoutingInfo();
+            RoutingInfo info = mapApi.getNavigationInfo();
             if (info != null) {
                 // OrganicMaps RoutingInfo mapping
                 navigationState.distanceStr = info.distToTarget != null ? Utils.formatDistance(mContext, info.distToTurn).toString() : "";
