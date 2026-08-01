@@ -218,8 +218,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                         case MotionEvent.ACTION_DOWN:
                             initialTouchX = event.getRawX();
                             initialTouchY = event.getRawY();
-                            portraitDrag = getResources().getConfiguration().orientation
-                                    == Configuration.ORIENTATION_PORTRAIT;
+                            portraitDrag = CarLayoutManager.isPortraitWindow(CarLauncherActivity.this);
                             CarLauncherSettings dragSettings =
                                     new CarLauncherSettings(CarLauncherActivity.this);
                             initialPanelPercent = portraitDrag
@@ -262,8 +261,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private void updateCarWidgetPanelSize(float deltaX, float deltaY,
                                           float initialPercent) {
         if (layoutManager == null) return;
-        boolean isPortrait = getResources().getConfiguration().orientation 
-                == Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = CarLayoutManager.isPortraitWindow(this);
         CarLauncherSettings carSettings = new CarLauncherSettings(this);
         if (isPortrait) {
             int availableHeight = layoutManager.getAvailablePanelHeight();

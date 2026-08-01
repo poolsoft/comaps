@@ -34,6 +34,21 @@ public class CarLayoutManager {
         this.widgetHandle = activity.findViewById(R.id.widget_handle);
     }
 
+    /** Uses actual window bounds because some head-unit ROMs report stale orientation. */
+    public static boolean isPortraitWindow(android.app.Activity activity) {
+        View root = activity.findViewById(R.id.root_layout);
+        if (root != null && root.getWidth() > 0 && root.getHeight() > 0) {
+            return root.getHeight() >= root.getWidth();
+        }
+        android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+        if (metrics.widthPixels > 0 && metrics.heightPixels > 0) {
+            return metrics.heightPixels >= metrics.widthPixels;
+        }
+        return activity.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+    }
+
     private boolean isContentFullScreen = false;
 
     public void setContentFullScreen(boolean fullScreen) {
@@ -48,8 +63,7 @@ public class CarLayoutManager {
         if (rootLayout == null || rootLayout.getWidth() <= 0 || rootLayout.getHeight() <= 0) {
             return false;
         }
-        boolean portrait = activity.getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_PORTRAIT;
+        boolean portrait = isPortraitWindow(activity);
         return portrait == (rootLayout.getHeight() >= rootLayout.getWidth());
     }
 
@@ -71,8 +85,7 @@ public class CarLayoutManager {
 
     public int getAvailablePanelWidth() {
         int width = getCurrentContentWidth();
-        boolean portrait = activity.getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_PORTRAIT;
+        boolean portrait = isPortraitWindow(activity);
         String dockPosition =
                 new CarLauncherSettings(activity).getEffectiveDockPosition(portrait);
         if (appDock != null && appDock.getVisibility() == View.VISIBLE
@@ -84,8 +97,7 @@ public class CarLayoutManager {
 
     public int getAvailablePanelHeight() {
         int height = getCurrentContentHeight();
-        boolean portrait = activity.getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_PORTRAIT;
+        boolean portrait = isPortraitWindow(activity);
         String dockPosition =
                 new CarLauncherSettings(activity).getEffectiveDockPosition(portrait);
         if (appDock != null && appDock.getVisibility() == View.VISIBLE
@@ -96,8 +108,7 @@ public class CarLayoutManager {
     }
 
     public float getRenderedSmallPanelFraction() {
-        boolean portrait = activity.getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_PORTRAIT;
+        boolean portrait = isPortraitWindow(activity);
         View smallView = isContentFullScreen ? mapContainer : widgetPanel;
         int available = portrait ? getAvailablePanelHeight() : getAvailablePanelWidth();
         int rendered = smallView == null ? 0
@@ -118,7 +129,14 @@ public class CarLayoutManager {
         }
 
         CarLauncherSettings carSettings = new CarLauncherSettings(activity);
-        boolean isPortrait = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = isPortraitWindow(activity);
+        boolean configurationPortrait = activity.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+        if (isPortrait != configurationPortrait) {
+            android.util.Log.w("CarLayoutManager", "Orientation mismatch: windowPortrait="
+                    + isPortrait + ", configurationPortrait=" + configurationPortrait
+                    + ", root=" + rootLayout.getWidth() + "x" + rootLayout.getHeight());
+        }
         String dockPos = carSettings.getEffectiveDockPosition(isPortrait);
         String widgetPos = carSettings.getWidgetPanelPosition();
 
@@ -467,8 +485,7 @@ public class CarLayoutManager {
         widgetHandle.setColorFilter(0xCCFFFFFF, android.graphics.PorterDuff.Mode.SRC_IN);
         
         // Yonelime gore 3-noktayi donduruyoruz (Dikey modda yatay dots, yatay modda dikey dots)
-        boolean isPortrait = activity.getResources().getConfiguration().orientation 
-                == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = isPortraitWindow(activity);
         if (isPortrait) {
             widgetHandle.setRotation(90f);
         } else {

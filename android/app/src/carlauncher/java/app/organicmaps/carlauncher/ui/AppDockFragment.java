@@ -168,7 +168,7 @@ public class AppDockFragment extends Fragment
             @Nullable Bundle savedInstanceState) {
         
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        boolean isPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = CarLayoutManager.isPortraitWindow(requireActivity());
         String dockPos = settings.getEffectiveDockPosition(isPortrait);
         this.isVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
 
@@ -392,7 +392,7 @@ public class AppDockFragment extends Fragment
         // Ensure orientation is correct based on global settings before creating adapter
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
         String dockPos = settings.getDockPosition();
-        boolean isPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = CarLayoutManager.isPortraitWindow(requireActivity());
         this.isVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
         
         adapter = new AppDockAdapter(getContext(), this);
@@ -775,8 +775,8 @@ public class AppDockFragment extends Fragment
             // Mini muzik calarin gorunurlugunu desktop/harita moduna gore guncelle
             LinearLayout musicContainer = miniMusicContainer;
             if (musicContainer != null) {
-                boolean isScreenPortrait = context.getResources().getConfiguration().orientation
-                        == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+                boolean isScreenPortrait = getActivity() != null
+                        && CarLayoutManager.isPortraitWindow(requireActivity());
                 int layoutMode = 0;
                 if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
                     layoutMode =
@@ -841,7 +841,7 @@ public class AppDockFragment extends Fragment
     private void applyOrientationState(View root, boolean isVertical) {
         root.post(() -> {
             if (getContext() == null) return;
-            boolean isScreenPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+            boolean isScreenPortrait = CarLayoutManager.isPortraitWindow(requireActivity());
 
             ViewGroup.LayoutParams rootLp = root.getLayoutParams();
             if (rootLp != null) {
@@ -986,7 +986,7 @@ public class AppDockFragment extends Fragment
     public boolean needsLayoutUpdate() {
         if (getContext() == null) return false;
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        boolean isPortrait = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = CarLayoutManager.isPortraitWindow(requireActivity());
         String dockPos = settings.getEffectiveDockPosition(isPortrait);
         boolean expectedVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
 
@@ -1008,8 +1008,7 @@ public class AppDockFragment extends Fragment
         if (root == null || context == null) return;
         app.organicmaps.carlauncher.CarLauncherSettings settings =
                 new app.organicmaps.carlauncher.CarLauncherSettings(context);
-        boolean portrait = getResources().getConfiguration().orientation
-                == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        boolean portrait = CarLayoutManager.isPortraitWindow(requireActivity());
         String dockPos = settings.getEffectiveDockPosition(portrait);
         boolean vertical = !portrait
                 && ("left".equals(dockPos) || "right".equals(dockPos));
@@ -1066,7 +1065,7 @@ public class AppDockFragment extends Fragment
         if (getContext() == null || getView() == null) return;
 
         app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        boolean isPortrait = newConfig.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = CarLayoutManager.isPortraitWindow(requireActivity());
         String dockPos = settings.getEffectiveDockPosition(isPortrait);
         this.isVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
 
