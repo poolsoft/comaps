@@ -56,8 +56,6 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        requireContext().getTheme().applyStyle(
-                com.google.android.material.R.style.Theme_Material3_Dark, true);
         getPreferenceManager().setSharedPreferencesName("car_launcher_prefs");
         setPreferencesFromResource(R.xml.carlauncher_prefs, rootKey);
 
@@ -132,12 +130,24 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 new androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener() {
                     @Override
                     public void onChildViewAttachedToWindow(@NonNull View view) {
-                        applyDarkPreferenceText(view);
+                        // PreferenceGroupAdapter binds text colors after attaching the row.
+                        // Apply on the next frame so vendor themes cannot overwrite them.
+                        view.post(() -> applyDarkPreferenceText(view));
                     }
 
                     @Override
                     public void onChildViewDetachedFromWindow(@NonNull View view) {}
                 });
+        recycler.addItemDecoration(new androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+            @Override
+            public void onDrawOver(@NonNull android.graphics.Canvas canvas,
+                    @NonNull androidx.recyclerview.widget.RecyclerView parent,
+                    @NonNull androidx.recyclerview.widget.RecyclerView.State state) {
+                for (int i = 0; i < parent.getChildCount(); i++) {
+                    applyDarkPreferenceText(parent.getChildAt(i));
+                }
+            }
+        });
         recycler.post(() -> {
             for (int i = 0; i < recycler.getChildCount(); i++) {
                 applyDarkPreferenceText(recycler.getChildAt(i));
@@ -164,8 +174,11 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private void applyDarkPreferenceText(@NonNull View view) {
         if (view instanceof android.widget.TextView) {
             android.widget.TextView text = (android.widget.TextView) view;
-            text.setTextColor(text.getId() == android.R.id.summary
-                    ? 0xFFB8B8C2 : 0xFFF4F4F7);
+            int color = text.getId() == android.R.id.summary
+                    ? 0xFFB8B8C2 : 0xFFF4F4F7;
+            if (text.getCurrentTextColor() != color) {
+                text.setTextColor(color);
+            }
         }
         if (view instanceof ViewGroup) {
             ViewGroup group = (ViewGroup) view;
