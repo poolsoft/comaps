@@ -475,7 +475,7 @@ public class AppDrawerFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             AppItem item = displayedApps.get(position);
-            holder.textView.setText(item.label);
+            holder.textView.setText(item.label.replace('\n', ' ').replace('\r', ' ').trim());
             
             // Geri donusum sirasinda yanlis ikon gosterilmesini engelle (Turkce karakter yok)
             holder.iconView.setTag(item.packageName);
