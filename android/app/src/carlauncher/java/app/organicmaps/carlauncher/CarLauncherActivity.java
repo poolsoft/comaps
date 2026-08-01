@@ -779,6 +779,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this)
+                .onConfigurationChanged();
         applyStatusBarVisibility();
         scheduleConfigurationLayoutUpdate(newConfig);
     }
