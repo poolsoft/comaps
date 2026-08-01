@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import java.util.Locale;
 
+import app.organicmaps.carlauncher.CarCrashLogger;
+
 /**
  * CoMaps builds default drawable names during Application.onCreate() with the
  * process default locale. In Turkish, "ISLAM".toLowerCase() becomes "ıslam",
@@ -25,6 +27,9 @@ public final class ResourceLocaleGuardProvider extends ContentProvider
   @Override
   public boolean onCreate()
   {
+    if (getContext() != null)
+      CarCrashLogger.init(getContext());
+    CarCrashLogger.recordStartupStage("ResourceLocaleGuardProvider.onCreate");
     Locale originalLocale = Locale.getDefault();
     Locale.setDefault(Locale.ROOT);
     new Handler(Looper.getMainLooper()).post(() -> Locale.setDefault(originalLocale));

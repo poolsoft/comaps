@@ -108,8 +108,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onSafeCreate.beforeSuper");
         startupProfile = new LauncherStartupProfile(this);
         super.onSafeCreate(savedInstanceState);
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onSafeCreate.afterSuper");
 
         // MwmActivity once kendi activity_map agacini ve tum controller'larini
         // normal sekilde kurar. Hazir harita View'ini Car Launcher kabuguna
@@ -122,6 +124,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             contentRoot.removeView(initializedMapRoot);
         }
         setContentView(R.layout.activity_car_launcher);
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.layoutInflated");
         app.organicmaps.carlauncher.ui.ExactFrameLayout launcherMapContainer =
                 findViewById(R.id.car_map_container);
         if (initializedMapRoot != null && launcherMapContainer != null) {
@@ -136,8 +139,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         
         applyRequestedOrientationIfNeeded();
 
-        CarCrashLogger.init(this);
-        
         telemetryManager = TelemetryManager.getInstance(this);
 
         rootLayout = findViewById(R.id.root_layout);
@@ -146,6 +147,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         widgetHandle = findViewById(R.id.widget_handle);
         appDock = findViewById(R.id.app_dock);
         appDrawerContainer = findViewById(R.id.app_drawer_container);
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.launcherViewsBound");
         installStatusBarInsetsListener();
 
         if (widgetPanel != null) {

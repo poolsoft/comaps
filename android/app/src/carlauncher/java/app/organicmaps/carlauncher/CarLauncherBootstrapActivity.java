@@ -64,7 +64,9 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
+    CarCrashLogger.recordStartupStage("Bootstrap.onCreate.beforeSuper");
     super.onCreate(savedInstanceState);
+    CarCrashLogger.recordStartupStage("Bootstrap.onCreate.afterSuper");
 
     Intent intent = getIntent();
     Log.i("CarLauncherLifecycle", "Bootstrap.onCreate called. Action: "
@@ -102,6 +104,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
+    CarCrashLogger.recordStartupStage("Bootstrap.onResume");
     Log.i("CarLauncherLifecycle", "Bootstrap.onResume called. mCanceled=" + mCanceled);
     if (mCanceled)
       return;
@@ -149,14 +152,17 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
 
   private void init()
   {
+    CarCrashLogger.recordStartupStage("Bootstrap.initCore.begin");
     MwmApplication app = MwmApplication.from(this);
     boolean asyncContinue = false;
     try
     {
       asyncContinue = app.initOrganicMaps(this::processNavigation);
+      CarCrashLogger.recordStartupStage("Bootstrap.initCore.returned async=" + asyncContinue);
     }
     catch (IOException error)
     {
+      CarCrashLogger.recordStartupStage("Bootstrap.initCore.IOException " + error);
       showFatalErrorDialog(R.string.dialog_error_storage_title, R.string.dialog_error_storage_message, error);
       return;
     }
@@ -178,6 +184,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   @SuppressWarnings({"unused", "unchecked"})
   public void processNavigation()
   {
+    CarCrashLogger.recordStartupStage("Bootstrap.processNavigation");
     Log.i("CarLauncherLifecycle", "Bootstrap.processNavigation called.");
     
     if (isDestroyed())
@@ -204,6 +211,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
 
       if (hasResources)
       {
+        CarCrashLogger.recordStartupStage("Bootstrap.target.CarLauncherActivity");
         intent.setComponent(new ComponentName(this, CarLauncherActivity.class));
       }
       else
