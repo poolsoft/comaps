@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -82,22 +83,48 @@ public class AppDrawerFragment extends Fragment {
         if (context == null || packageName == null) {
             return null;
         }
-        if (packageName.startsWith("internal://")) {
-            app.organicmaps.carlauncher.dock.InternalApp internalAppObj = app.organicmaps.carlauncher.dock.InternalApp.fromPackageName(packageName);
-            if (internalAppObj != null) return internalAppObj.getIcon(context);
+        Drawable icon = null;
+        boolean internal = app.organicmaps.carlauncher.dock.InternalApp
+                .isInternalApp(packageName);
+        if (internal) {
+            app.organicmaps.carlauncher.dock.InternalApp internalAppObj =
+                    app.organicmaps.carlauncher.dock.InternalApp.fromPackageName(packageName);
+            if (internalAppObj != null) icon = internalAppObj.getIcon(context);
         } else {
             try {
-                return context.getPackageManager().getApplicationIcon(packageName);
+                icon = context.getPackageManager().getApplicationIcon(packageName);
             } catch (Exception e) {
                 // fallback
             }
         }
-        // Varsayilan sistem ikonunu don (Turkce karakter yok)
-        try {
-            return context.getPackageManager().getDefaultActivityIcon();
-        } catch (Exception e) {
-            return null;
+        if (icon == null) {
+            try {
+                icon = context.getPackageManager().getDefaultActivityIcon();
+            } catch (Exception e) {
+                return null;
+            }
         }
+
+        // Internal SVGs already contain an automotive tile. Normalize legacy external
+        // icons so applications with very different source artwork have equal weight.
+        if (!internal && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && !(icon instanceof android.graphics.drawable.AdaptiveIconDrawable)) {
+            return createCircularIcon(context, icon);
+        }
+        return icon;
+    }
+
+    private static Drawable createCircularIcon(Context context, Drawable icon) {
+        android.graphics.drawable.GradientDrawable background =
+                new android.graphics.drawable.GradientDrawable();
+        background.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+        background.setColor(0xFF2A2C32);
+
+        android.graphics.drawable.LayerDrawable tile =
+                new android.graphics.drawable.LayerDrawable(new Drawable[]{background, icon});
+        int padding = Math.round(14f * context.getResources().getDisplayMetrics().density);
+        tile.setLayerInset(1, padding, padding, padding, padding);
+        return tile;
     }
 
     // Arka planda ikon yukleyen asenkron gorev sinifi (Turkce karakter yok)
