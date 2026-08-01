@@ -1062,19 +1062,8 @@ public class AppDockFragment extends Fragment
     @Override
     public void onConfigurationChanged(@NonNull android.content.res.Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (getContext() == null || getView() == null) return;
-
-        app.organicmaps.carlauncher.CarLauncherSettings settings = new app.organicmaps.carlauncher.CarLauncherSettings(getContext());
-        boolean isPortrait = CarLayoutManager.isPortraitWindow(requireActivity());
-        String dockPos = settings.getEffectiveDockPosition(isPortrait);
-        this.isVerticalMode = ("left".equals(dockPos) || "right".equals(dockPos)) && !isPortrait;
-
-        if (needsLayoutUpdate()) return;
-        if (adapter != null) {
-            adapter.setVerticalMode(isVerticalMode);
-        }
-
-        applyOrientationState(getView(), isVerticalMode);
+        // The activity owns the debounced orientation refresh. Mutating this
+        // RecyclerView here as well races with dock fragment replacement.
     }
 
     private void checkVoicePermissionAndToggle() {

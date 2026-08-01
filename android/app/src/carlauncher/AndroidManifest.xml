@@ -60,7 +60,7 @@
             android:name="app.organicmaps.carlauncher.CarLauncherActivity"
             android:theme="@style/MwmTheme"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"
+            android:screenOrientation="unspecified"
             android:configChanges="uiMode|orientation|screenLayout|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />

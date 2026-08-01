@@ -62,6 +62,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private LauncherStartupProfile startupProfile;
     private boolean panelContentLoadedInProcess;
     private View.OnLayoutChangeListener configurationLayoutListener;
+    private int pendingConfigurationSignature = Integer.MIN_VALUE;
+    private int appliedConfigurationSignature = Integer.MIN_VALUE;
     private final Runnable configurationLayoutFallback =
             this::finishConfigurationLayoutUpdate;
 
@@ -132,15 +134,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         Log.i("CarLauncherLifecycle", "onSafeCreate called. savedInstanceState=" + (savedInstanceState != null) 
             + ", isTaskRoot=" + isTaskRoot() + ", TaskId=" + getTaskId());
         
-        CarLauncherSettings carPrefs = new CarLauncherSettings(this);
-        String orientationMode = carPrefs.getScreenOrientation();
-        int requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-        if ("portrait".equals(orientationMode)) {
-            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-        } else if ("sensor".equals(orientationMode)) {
-            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
-        }
-        setRequestedOrientation(requestedOrientation);
+        applyRequestedOrientationIfNeeded();
 
         CarCrashLogger.init(this);
         
@@ -374,15 +368,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
         super.onResume();
         // Kaydedilen ekran yonunu uygula (yatay, dikey veya otomatik sensor)
-        CarLauncherSettings carPrefs = new CarLauncherSettings(this);
-        String orientationMode = carPrefs.getScreenOrientation();
-        int requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-        if ("portrait".equals(orientationMode)) {
-            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-        } else if ("sensor".equals(orientationMode)) {
-            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
-        }
-        setRequestedOrientation(requestedOrientation);
+        applyRequestedOrientationIfNeeded();
 
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
@@ -797,7 +783,28 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         scheduleConfigurationLayoutUpdate(newConfig);
     }
 
+    private void applyRequestedOrientationIfNeeded() {
+        String orientationMode = new CarLauncherSettings(this).getScreenOrientation();
+        int desiredOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        if ("portrait".equals(orientationMode)) {
+            desiredOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        } else if ("sensor".equals(orientationMode)) {
+            desiredOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+        }
+        if (getRequestedOrientation() != desiredOrientation) {
+            setRequestedOrientation(desiredOrientation);
+        }
+    }
+
     private void scheduleConfigurationLayoutUpdate(Configuration configuration) {
+        int signature = configuration.orientation;
+        signature = 31 * signature + configuration.screenWidthDp;
+        signature = 31 * signature + configuration.screenHeightDp;
+        if (signature == pendingConfigurationSignature
+                || signature == appliedConfigurationSignature) {
+            return;
+        }
+        pendingConfigurationSignature = signature;
         if (rootLayout == null) {
             finishConfigurationLayoutUpdate();
             return;
@@ -830,6 +837,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 configurationLayoutListener = null;
             }
         }
+        appliedConfigurationSignature = pendingConfigurationSignature;
+        pendingConfigurationSignature = Integer.MIN_VALUE;
         checkAndRefreshDockFragmentIfNeeded();
     }
 
