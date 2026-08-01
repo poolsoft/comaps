@@ -33,7 +33,9 @@ public class CarLauncherSettings {
     // Appearance Keys
     public static final String KEY_STATUS_BAR = "car_launcher_status_bar";
     public static final String KEY_DARK_THEME = "car_launcher_dark_theme";
-    public static final String KEY_PORTRAIT_MAP_ONLY = "car_launcher_portrait_map_only";
+    // Older builds could leave this hidden preference enabled after the portrait shell
+    // was restored. A versioned key prevents an upgrade from opening as map-only.
+    public static final String KEY_PORTRAIT_MAP_ONLY = "car_launcher_portrait_map_only_v2";
     public static final String KEY_FLOATING_BUTTON = "car_launcher_floating_button";
     public static final String KEY_NIGHT_DIM_MODE = "car_launcher_night_dim_mode";
     public static final String KEY_PARALLAX_INTENSITY = "car_launcher_parallax_intensity";

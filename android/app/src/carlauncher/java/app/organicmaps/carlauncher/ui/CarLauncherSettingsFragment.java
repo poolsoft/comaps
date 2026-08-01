@@ -56,6 +56,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        requireContext().getTheme().applyStyle(
+                com.google.android.material.R.style.Theme_Material3_Dark, true);
         getPreferenceManager().setSharedPreferencesName("car_launcher_prefs");
         setPreferencesFromResource(R.xml.carlauncher_prefs, rootKey);
 
@@ -104,6 +106,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         // Super creates the RecyclerView for preferences default view
         View prefsView = super.onCreateView(themedInflater, container, savedInstanceState);
         if (prefsView == null) return null;
+        configureDarkPreferenceList(prefsView);
 
         // Determine Orientation
         boolean isLandscape = getResources().getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
@@ -118,6 +121,58 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private int dpToPx(int dp) {
         if (getContext() == null) return dp;
         return (int) (dp * getContext().getResources().getDisplayMetrics().density);
+    }
+
+    private void configureDarkPreferenceList(@NonNull View prefsView) {
+        prefsView.setBackgroundColor(0xFF0B0B0E);
+        androidx.recyclerview.widget.RecyclerView recycler = findPreferenceRecycler(prefsView);
+        if (recycler == null) return;
+        recycler.setBackgroundColor(0xFF0B0B0E);
+        recycler.addOnChildAttachStateChangeListener(
+                new androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener() {
+                    @Override
+                    public void onChildViewAttachedToWindow(@NonNull View view) {
+                        applyDarkPreferenceText(view);
+                    }
+
+                    @Override
+                    public void onChildViewDetachedFromWindow(@NonNull View view) {}
+                });
+        recycler.post(() -> {
+            for (int i = 0; i < recycler.getChildCount(); i++) {
+                applyDarkPreferenceText(recycler.getChildAt(i));
+            }
+        });
+    }
+
+    @Nullable
+    private androidx.recyclerview.widget.RecyclerView findPreferenceRecycler(@NonNull View view) {
+        if (view instanceof androidx.recyclerview.widget.RecyclerView) {
+            return (androidx.recyclerview.widget.RecyclerView) view;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                androidx.recyclerview.widget.RecyclerView result =
+                        findPreferenceRecycler(group.getChildAt(i));
+                if (result != null) return result;
+            }
+        }
+        return null;
+    }
+
+    private void applyDarkPreferenceText(@NonNull View view) {
+        if (view instanceof android.widget.TextView) {
+            android.widget.TextView text = (android.widget.TextView) view;
+            text.setTextColor(text.getId() == android.R.id.summary
+                    ? 0xFFB8B8C2 : 0xFFF4F4F7);
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                applyDarkPreferenceText(group.getChildAt(i));
+            }
+        }
     }
 
     private View createTitleBar() {
@@ -1260,9 +1315,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         Preference notificationPref = findPreference("perm_notification");
         if (notificationPref != null) {
             notificationPref.setOnPreferenceClickListener(preference -> {
-                android.content.Intent intent = new android.content.Intent(
-                        android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                startActivity(intent);
+                openNotificationListenerSettings();
                 return true;
             });
         }
@@ -1341,9 +1394,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         // Bildirim erisimi durumu
         Preference notificationPref = findPreference("perm_notification");
         if (notificationPref != null) {
-            String listeners = android.provider.Settings.Secure.getString(
-                    getContext().getContentResolver(), "enabled_notification_listeners");
-            boolean hasNotification = listeners != null && listeners.contains(getContext().getPackageName());
+            boolean hasNotification = androidx.core.app.NotificationManagerCompat
+                    .getEnabledListenerPackages(getContext())
+                    .contains(getContext().getPackageName());
             notificationPref.setSummary(hasNotification
                     ? getString(R.string.car_perm_notification_summary_ok)
                     : getString(R.string.car_perm_notification_summary_missing));
@@ -1425,14 +1478,12 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             return;
         }
 
-        String listeners = android.provider.Settings.Secure.getString(
-                getContext().getContentResolver(), "enabled_notification_listeners");
-        boolean hasNotificationListener = listeners != null
-                && listeners.contains(getContext().getPackageName());
+        boolean hasNotificationListener = androidx.core.app.NotificationManagerCompat
+                .getEnabledListenerPackages(getContext())
+                .contains(getContext().getPackageName());
         if (!hasNotificationListener && !notificationStepVisited) {
             notificationStepVisited = true;
-            startActivity(new android.content.Intent(
-                    android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+            openNotificationListenerSettings();
             return;
         }
 
@@ -1453,6 +1504,21 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         permissionGuideActive = false;
         Toast.makeText(getContext(), getString(R.string.car_perm_all_runtime_done),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    private void openNotificationListenerSettings() {
+        if (getContext() == null) return;
+        android.content.ComponentName component = new android.content.ComponentName(
+                getContext(), app.organicmaps.carlauncher.MediaNotificationListener.class);
+        android.content.Intent detail = new android.content.Intent(
+                "android.settings.NOTIFICATION_LISTENER_DETAIL_SETTINGS");
+        detail.putExtra("android.provider.extra.NOTIFICATION_LISTENER_COMPONENT_NAME", component);
+        if (detail.resolveActivity(getContext().getPackageManager()) != null) {
+            startActivity(detail);
+        } else {
+            startActivity(new android.content.Intent(
+                    android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+        }
     }
 
     @Override

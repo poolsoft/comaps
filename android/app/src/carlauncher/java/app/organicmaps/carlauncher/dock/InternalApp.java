@@ -9,11 +9,11 @@ import app.organicmaps.R;
  * Tum dahili uygulamalarin merkezi listesi ve ozellikleri.
  */
 public enum InternalApp {
-    SETTINGS("internal://settings", "Ayarlar", android.R.drawable.ic_menu_preferences),
-    MUSIC("internal://music", "Muzik", android.R.drawable.ic_media_play),
-    ANTENNA("internal://antenna", "Anten", android.R.drawable.ic_menu_compass),
-    DASHBOARD("internal://dashboard", "Dashboard", android.R.drawable.ic_menu_compass),
-    NEON_DASHBOARD("internal://neon_dashboard", "Dijital Gosterge", android.R.drawable.ic_menu_view);
+    SETTINGS("internal://settings", "Ayarlar", R.drawable.ic_internal_settings),
+    MUSIC("internal://music", "Muzik", R.drawable.ic_internal_music),
+    ANTENNA("internal://antenna", "Anten", R.drawable.ic_internal_antenna),
+    DASHBOARD("internal://dashboard", "Dashboard", R.drawable.ic_internal_dashboard),
+    NEON_DASHBOARD("internal://neon_dashboard", "Dijital Gosterge", R.drawable.ic_internal_neon_dashboard);
 
     private final String packageName;
     private final String defaultName;

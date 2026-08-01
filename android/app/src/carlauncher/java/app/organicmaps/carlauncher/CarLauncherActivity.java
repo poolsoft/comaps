@@ -46,6 +46,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private android.widget.ImageButton widgetHandle;
     private android.view.View appDock;
     private android.view.View appDrawerContainer;
+    private boolean statusBarInsetsListenerInstalled;
 
     private android.view.View originalStreetFrame;
     private android.widget.TextView originalStreetText;
@@ -151,6 +152,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         widgetHandle = findViewById(R.id.widget_handle);
         appDock = findViewById(R.id.app_dock);
         appDrawerContainer = findViewById(R.id.app_drawer_container);
+        installStatusBarInsetsListener();
 
         if (widgetPanel != null) {
             widgetPanel.setBackgroundResource(R.drawable.bg_panel_rounded);
@@ -174,6 +176,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
         layoutManager = new CarLayoutManager(this);
         applyWidgetPanelState();
+        if (rootLayout != null) {
+            rootLayout.post(() -> {
+                applyWidgetPanelState(false);
+                applyStatusBarVisibility();
+            });
+        }
 
         if (savedInstanceState == null) {
             if (appDock != null) {
@@ -716,24 +724,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         final Window window = getWindow();
         if (window == null) return;
         
-        int statusBarHeight = 0;
-        if (showStatusBar) {
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-            }
-        }
-
-        if (rootLayout != null) {
-            rootLayout.setPadding(0, statusBarHeight, 0, 0);
-        }
-        
         try {
+            androidx.core.view.WindowCompat.setDecorFitsSystemWindows(window, false);
             if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R) {
                 if (showStatusBar) {
                     window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                 } else {
+                    window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                     window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     window.getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -744,17 +743,53 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 androidx.core.view.WindowInsetsControllerCompat wic = androidx.core.view.WindowCompat.getInsetsController(window, decorView);
                 if (wic != null) {
                     if (showStatusBar) {
+                        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                         wic.show(androidx.core.view.WindowInsetsCompat.Type.statusBars());
                         wic.setAppearanceLightStatusBars(false);
                     } else {
+                        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+                        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
                         wic.hide(androidx.core.view.WindowInsetsCompat.Type.statusBars());
                         wic.setSystemBarsBehavior(androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
                     }
                 }
             }
+            applyStatusBarInsetFallback(showStatusBar);
+            if (rootLayout != null) {
+                rootLayout.post(() -> androidx.core.view.ViewCompat.requestApplyInsets(rootLayout));
+                rootLayout.postDelayed(
+                        () -> androidx.core.view.ViewCompat.requestApplyInsets(rootLayout), 250L);
+            }
         } catch (Throwable t) {
             Log.e("CarLauncherActivity", "Status bar ayarlama hatasi", t);
         }
+    }
+
+    private void installStatusBarInsetsListener() {
+        if (rootLayout == null || statusBarInsetsListenerInstalled) return;
+        statusBarInsetsListenerInstalled = true;
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(rootLayout, (view, insets) -> {
+            boolean show = new CarLauncherSettings(this).isStatusBarVisible();
+            int top = show
+                    ? insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.statusBars()).top
+                    : 0;
+            if (view.getPaddingTop() != top) {
+                view.setPadding(0, top, 0, 0);
+                view.post(() -> applyWidgetPanelState(false));
+            }
+            return insets;
+        });
+    }
+
+    private void applyStatusBarInsetFallback(boolean showStatusBar) {
+        if (rootLayout == null) return;
+        int top = 0;
+        if (showStatusBar) {
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) top = getResources().getDimensionPixelSize(resourceId);
+        }
+        rootLayout.setPadding(0, top, 0, 0);
     }
 
     @Override

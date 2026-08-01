@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,7 +34,13 @@ import app.organicmaps.carlauncher.dock.LaunchMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AppDrawerFragment extends Fragment {
 
@@ -48,6 +53,12 @@ public class AppDrawerFragment extends Fragment {
     private BroadcastReceiver packageReceiver; // Paket degisikliklerini izlemek icin alici (Turkce karakter yok)
     private final android.os.Handler searchHandler = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable searchRunnable;
+    private static final ExecutorService APP_LIST_EXECUTOR = Executors.newSingleThreadExecutor();
+    private static final ExecutorService ICON_EXECUTOR = Executors.newFixedThreadPool(2);
+    private static final android.os.Handler MAIN_HANDLER =
+            new android.os.Handler(android.os.Looper.getMainLooper());
+    private Future<?> loadAppsFuture;
+    private int loadGeneration;
     
     // Asynchronous LruCache for holding app icons (Turkce karakter yok)
     private static android.util.LruCache<String, Drawable> iconCache;
@@ -88,35 +99,21 @@ public class AppDrawerFragment extends Fragment {
     }
 
     // Arka planda ikon yukleyen asenkron gorev sinifi (Turkce karakter yok)
-    private static class LoadIconTask extends AsyncTask<Void, Void, Drawable> {
-        private final java.lang.ref.WeakReference<ImageView> imageViewReference;
-        private final Context context;
-        private final String packageName;
-
-        LoadIconTask(ImageView imageView, Context context, String packageName) {
-            this.imageViewReference = new java.lang.ref.WeakReference<>(imageView);
-            this.context = context.getApplicationContext();
-            this.packageName = packageName;
-        }
-
-        @Override
-        protected Drawable doInBackground(Void... voids) {
-            return getAppIcon(context, packageName);
-        }
-
-        @Override
-        protected void onPostExecute(Drawable drawable) {
+    private static void loadIconAsync(ImageView imageView, Context context, String packageName) {
+        java.lang.ref.WeakReference<ImageView> imageRef = new java.lang.ref.WeakReference<>(imageView);
+        Context appContext = context.getApplicationContext();
+        ICON_EXECUTOR.execute(() -> {
+            Drawable drawable = getAppIcon(appContext, packageName);
             if (drawable != null && iconCache != null) {
                 iconCache.put(packageName, drawable);
             }
-            ImageView imageView = imageViewReference.get();
-            if (imageView != null) {
-                String tag = (String) imageView.getTag();
-                if (tag != null && tag.equals(packageName)) {
-                    imageView.setImageDrawable(drawable);
+            MAIN_HANDLER.post(() -> {
+                ImageView target = imageRef.get();
+                if (target != null && packageName.equals(target.getTag())) {
+                    target.setImageDrawable(drawable);
                 }
-            }
-        }
+            });
+        });
     }
 
     private final android.content.ComponentCallbacks2 componentCallbacks = new android.content.ComponentCallbacks2() {
@@ -165,17 +162,30 @@ public class AppDrawerFragment extends Fragment {
         
         // Initialize Icon Cache dynamically if not exists (Turkce karakter yok)
         if (iconCache == null) {
-            int cacheSize = 60; // Dusuk RAM durumlarinda guvenli varsayilan
+            int cacheSizeBytes = 4 * 1024 * 1024;
             try {
                 android.app.ActivityManager am = (android.app.ActivityManager) requireContext().getSystemService(Context.ACTIVITY_SERVICE);
                 if (am != null) {
                     int memoryClass = am.getMemoryClass();
-                    cacheSize = Math.max(40, Math.min(150, memoryClass / 2));
+                    cacheSizeBytes = Math.max(4, Math.min(16, memoryClass / 32))
+                            * 1024 * 1024;
                 }
             } catch (Exception e) {
                 // fallback
             }
-            iconCache = new android.util.LruCache<>(cacheSize);
+            iconCache = new android.util.LruCache<String, Drawable>(cacheSizeBytes) {
+                @Override
+                protected int sizeOf(String key, Drawable drawable) {
+                    if (drawable instanceof android.graphics.drawable.BitmapDrawable) {
+                        android.graphics.Bitmap bitmap =
+                                ((android.graphics.drawable.BitmapDrawable) drawable).getBitmap();
+                        if (bitmap != null) return Math.max(1, bitmap.getAllocationByteCount());
+                    }
+                    int width = Math.max(48, drawable.getIntrinsicWidth());
+                    int height = Math.max(48, drawable.getIntrinsicHeight());
+                    return Math.max(1, width * height * 4);
+                }
+            };
         }
 
         // Paket degisikliklerini dinlemek icin alici (Turkce karakter yok)
@@ -183,6 +193,11 @@ public class AppDrawerFragment extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 clearCache();
+                if (loadAppsFuture != null) {
+                    loadAppsFuture.cancel(true);
+                    loadAppsFuture = null;
+                }
+                loadGeneration++;
                 if (isAdded() && !isDetached()) {
                     loadApps();
                 }
@@ -200,10 +215,14 @@ public class AppDrawerFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (searchRunnable != null) {
             searchHandler.removeCallbacks(searchRunnable);
         }
+        if (loadAppsFuture != null) {
+            loadAppsFuture.cancel(true);
+            loadAppsFuture = null;
+        }
+        loadGeneration++;
         if (packageReceiver != null && getContext() != null) {
             try {
                 getContext().unregisterReceiver(packageReceiver);
@@ -217,6 +236,28 @@ public class AppDrawerFragment extends Fragment {
             }
         } catch (Exception e) {
             // ignore
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (searchRunnable != null) {
+            searchHandler.removeCallbacks(searchRunnable);
+            searchRunnable = null;
+        }
+        recyclerView = null;
+        adapter = null;
+        loadingView = null;
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull android.content.res.Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (recyclerView != null && recyclerView.getLayoutManager() instanceof GridLayoutManager) {
+            ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanCount(
+                    newConfig.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE ? 6 : 4);
         }
     }
 
@@ -241,7 +282,9 @@ public class AppDrawerFragment extends Fragment {
         // Logic
         closeBtn.setOnClickListener(v -> closeDrawer());
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        boolean landscape = getResources().getConfiguration().orientation
+                == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), landscape ? 6 : 4));
 
         // Search Filter (Debounced)
         searchInput.addTextChangedListener(new android.text.TextWatcher() {
@@ -254,9 +297,10 @@ public class AppDrawerFragment extends Fragment {
                 if (searchRunnable != null) {
                     searchHandler.removeCallbacks(searchRunnable);
                 }
+                String query = s == null ? "" : s.toString();
                 searchRunnable = () -> {
                     if (adapter != null) {
-                        adapter.filter(s.toString());
+                        adapter.filter(query);
                     }
                 };
                 searchHandler.postDelayed(searchRunnable, 200); // 200ms gecikme (Debounce)
@@ -288,50 +332,48 @@ public class AppDrawerFragment extends Fragment {
             return;
         }
 
-        // Cache yoksa yukle
-        // Cache yoksa yukle
+        if (loadAppsFuture != null) return;
         if (loadingView != null)
             loadingView.setVisibility(View.VISIBLE);
         if (getContext() != null) {
-            new LoadAppsTask(getContext()).execute();
+            Context appContext = getContext().getApplicationContext();
+            int generation = ++loadGeneration;
+            loadAppsFuture = APP_LIST_EXECUTOR.submit(() -> {
+                List<AppItem> items = queryApps(appContext);
+                MAIN_HANDLER.post(() -> applyLoadedApps(generation, items));
+            });
         }
     }
 
-    // Broadcast Receiver for App Updates
-    private class LoadAppsTask extends AsyncTask<Void, Void, List<AppItem>> {
-        private final Context context;
-
-        public LoadAppsTask(Context context) {
-            this.context = context.getApplicationContext(); // Use application context
-        }
-
-        @Override
-        protected List<AppItem> doInBackground(Void... voids) {
+    private List<AppItem> queryApps(Context context) {
             List<AppItem> apps = new ArrayList<>();
-            if (context == null)
-                return apps;
             PackageManager pm = context.getPackageManager();
 
             Intent intent = new Intent(Intent.ACTION_MAIN, null);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
 
             List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
+            Set<String> seenPackages = new HashSet<>();
 
             for (ResolveInfo info : activities) {
+                if (Thread.currentThread().isInterrupted()) return Collections.emptyList();
+                if (info.activityInfo == null || !seenPackages.add(info.activityInfo.packageName)) continue;
                 AppItem item = new AppItem();
-                item.label = info.loadLabel(pm).toString();
+                CharSequence label = info.loadLabel(pm);
+                item.label = label == null ? info.activityInfo.packageName : label.toString();
                 item.packageName = info.activityInfo.packageName;
                 apps.add(item);
             }
 
-            Collections.sort(apps, (a, b) -> a.label.compareToIgnoreCase(b.label));
+            java.text.Collator collator = java.text.Collator.getInstance();
+            Collections.sort(apps, (a, b) -> collator.compare(a.label, b.label));
 
             // Add internal apps at the beginning
             List<AppItem> internalApps = getInternalApps();
             apps.addAll(0, internalApps);
 
             return apps;
-        }
+    }
 
         private List<AppItem> getInternalApps() {
             List<AppItem> internal = new ArrayList<>();
@@ -344,8 +386,9 @@ public class AppDrawerFragment extends Fragment {
             return internal;
         }
 
-        @Override
-        protected void onPostExecute(List<AppItem> appItems) {
+        private void applyLoadedApps(int generation, List<AppItem> appItems) {
+            if (generation != loadGeneration) return;
+            loadAppsFuture = null;
             cachedApps = appItems; // Cache'e kaydet
             if (loadingView != null)
                 loadingView.setVisibility(View.GONE);
@@ -353,7 +396,6 @@ public class AppDrawerFragment extends Fragment {
             if (recyclerView != null)
                 recyclerView.setAdapter(adapter);
         }
-    }
 
 
 
@@ -365,6 +407,7 @@ public class AppDrawerFragment extends Fragment {
         AppDrawerAdapter(List<AppItem> apps) {
             this.originalApps = new ArrayList<>(apps);
             this.displayedApps = new ArrayList<>(apps);
+            setHasStableIds(true);
         }
 
         void filter(String query) {
@@ -372,9 +415,9 @@ public class AppDrawerFragment extends Fragment {
             if (android.text.TextUtils.isEmpty(query)) {
                 displayedApps.addAll(originalApps);
             } else {
-                String q = query.toLowerCase();
+                String q = query.toLowerCase(Locale.getDefault());
                 for (AppItem item : originalApps) {
-                    if (item.label.toLowerCase().contains(q)) {
+                    if (item.label.toLowerCase(Locale.getDefault()).contains(q)) {
                         displayedApps.add(item);
                     }
                 }
@@ -407,7 +450,7 @@ public class AppDrawerFragment extends Fragment {
                 // Varsayilan bos/placeholder ikon set et (Turkce karakter yok)
                 holder.iconView.setImageDrawable(null);
                 if (holder.iconView.getContext() != null) {
-                    new LoadIconTask(holder.iconView, holder.iconView.getContext(), item.packageName).execute();
+                    loadIconAsync(holder.iconView, holder.iconView.getContext(), item.packageName);
                 }
             }
 
@@ -425,6 +468,11 @@ public class AppDrawerFragment extends Fragment {
         @Override
         public int getItemCount() {
             return displayedApps.size();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return displayedApps.get(position).packageName.hashCode();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

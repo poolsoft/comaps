@@ -89,13 +89,6 @@
             app:iconSpaceReserved="false" />
 
         <androidx.preference.SwitchPreferenceCompat
-            android:key="car_launcher_portrait_map_only"
-            android:title="@string/car_pref_portrait_map_title"
-            android:summary="@string/car_pref_portrait_map_summary"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false" />
-
-        <androidx.preference.SwitchPreferenceCompat
             android:key="car_launcher_floating_button"
             android:title="@string/car_pref_floating_btn_title"
             android:summary="@string/car_pref_floating_btn_summary"
