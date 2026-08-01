@@ -49,7 +49,7 @@ public class AppDrawerFragment extends Fragment {
     private RecyclerView recyclerView;
     private AppDrawerAdapter adapter;
     private View loadingView;
-    private static List<AppItem> cachedApps; // Static Cache to prevent reloading
+    private static volatile List<AppItem> cachedApps; // Static Cache to prevent reloading
     private BroadcastReceiver packageReceiver; // Paket degisikliklerini izlemek icin alici (Turkce karakter yok)
     private final android.os.Handler searchHandler = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable searchRunnable;
@@ -62,9 +62,11 @@ public class AppDrawerFragment extends Fragment {
     
     // Asynchronous LruCache for holding app icons (Turkce karakter yok)
     private static android.util.LruCache<String, Drawable> iconCache;
+    private static int iconCacheGeneration;
 
-    public static void clearCache() {
+    public static synchronized void clearCache() {
         cachedApps = null;
+        iconCacheGeneration++;
         if (iconCache != null) {
             iconCache.evictAll();
         }
@@ -102,12 +104,19 @@ public class AppDrawerFragment extends Fragment {
     private static void loadIconAsync(ImageView imageView, Context context, String packageName) {
         java.lang.ref.WeakReference<ImageView> imageRef = new java.lang.ref.WeakReference<>(imageView);
         Context appContext = context.getApplicationContext();
+        final int generation;
+        synchronized (AppDrawerFragment.class) {
+            generation = iconCacheGeneration;
+        }
         ICON_EXECUTOR.execute(() -> {
             Drawable drawable = getAppIcon(appContext, packageName);
-            if (drawable != null && iconCache != null) {
-                iconCache.put(packageName, drawable);
-            }
             MAIN_HANDLER.post(() -> {
+                synchronized (AppDrawerFragment.class) {
+                    if (generation != iconCacheGeneration) return;
+                    if (drawable != null && iconCache != null) {
+                        iconCache.put(packageName, drawable);
+                    }
+                }
                 ImageView target = imageRef.get();
                 if (target != null && packageName.equals(target.getTag())) {
                     target.setImageDrawable(drawable);
@@ -285,6 +294,7 @@ public class AppDrawerFragment extends Fragment {
         boolean landscape = getResources().getConfiguration().orientation
                 == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), landscape ? 6 : 4));
+        recyclerView.setHasFixedSize(true);
 
         // Search Filter (Debounced)
         searchInput.addTextChangedListener(new android.text.TextWatcher() {
