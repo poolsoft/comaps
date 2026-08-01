@@ -397,9 +397,22 @@ public class CarFloatingButtonManager {
     }
 
     private void bringAppToForeground() {
-        Intent intent = new Intent(context, app.organicmaps.carlauncher.CarLauncherActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        context.startActivity(intent);
+        // Always enter through the bootstrap activity. The overlay service may keep the
+        // process alive after CarLauncherActivity/core has been destroyed; launching the
+        // map activity directly then bypasses CoMaps initialization and can crash.
+        Intent intent = new Intent(context,
+                app.organicmaps.carlauncher.CarLauncherBootstrapActivity.class);
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        try {
+            context.startActivity(intent);
+        } catch (RuntimeException error) {
+            android.util.Log.e("CarFloatingButton", "Launcher could not be restored", error);
+            Toast.makeText(context, R.string.app_name, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showOverlayMenu() {
