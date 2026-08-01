@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -744,8 +743,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         // Equalizer
         Preference eqPref = findPreference("car_launcher_equalizer");
         if (eqPref != null) {
+            updateEqualizerSummary(eqPref);
             eqPref.setOnPreferenceClickListener(preference -> {
-                openEqualizer();
+                showEqualizerAppOptions(eqPref);
                 return true;
             });
         }
@@ -811,14 +811,44 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         }).show();
     }
 
-    private void openEqualizer() {
+    private void showEqualizerAppOptions(@NonNull Preference pref) {
+        if (getContext() == null || settings == null) return;
+        String[] options = {
+                getString(R.string.car_settings_equalizer_auto),
+                getString(R.string.car_settings_equalizer_choose_app)
+        };
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.car_pref_equalizer_title)
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        settings.setEqualizerApp(null);
+                        updateEqualizerSummary(pref);
+                    } else {
+                        AppPickerDialog picker = new AppPickerDialog(getContext(), false, false,
+                                (packageName, name, icon) -> {
+                                    settings.setEqualizerApp(packageName);
+                                    updateEqualizerSummary(pref);
+                                });
+                        picker.setActivePackage(settings.getEqualizerApp());
+                        picker.show();
+                    }
+                })
+                .show();
+    }
+
+    private void updateEqualizerSummary(@NonNull Preference pref) {
+        if (getContext() == null || settings == null) return;
+        String packageName = settings.getEqualizerApp();
+        if (android.text.TextUtils.isEmpty(packageName)) {
+            pref.setSummary(R.string.car_settings_equalizer_auto_summary);
+            return;
+        }
         try {
-            Intent intent = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
-            intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, 0);
-            intent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
-            startActivity(intent);
+            PackageManager pm = getContext().getPackageManager();
+            CharSequence label = pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0));
+            pref.setSummary(label);
         } catch (Exception e) {
-            Toast.makeText(getContext(), getString(R.string.car_settings_equalizer_not_found), Toast.LENGTH_SHORT).show();
+            pref.setSummary(packageName);
         }
     }
 

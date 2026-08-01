@@ -100,6 +100,9 @@
     <string name="car_pref_ambiance_vis_summary">Müzik görselleştirici renklerini albüm kapağına göre dinamik olarak belirler</string>
     <string name="car_pref_equalizer_title">Equalizer</string>
     <string name="car_pref_equalizer_summary">Sistem ses ayarlarını aç</string>
+    <string name="car_settings_equalizer_auto">Otomatik (ROM/sistem)</string>
+    <string name="car_settings_equalizer_choose_app">Uygulama seç</string>
+    <string name="car_settings_equalizer_auto_summary">Otomatik ROM algılama ve sistem equalizer yedeği</string>
     <string name="car_pref_scan_music_title">Müzikleri Yeniden Tara</string>
     <string name="car_pref_scan_music_summary">Dahili depolama ve USB bellekleri tara</string>
     

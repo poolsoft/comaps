@@ -43,6 +43,7 @@ public class CarLauncherSettings {
 
     // Music Keys
     public static final String KEY_MUSIC_APP = "car_launcher_music_app";
+    public static final String KEY_EQUALIZER_APP = "car_launcher_equalizer_app";
     public static final String KEY_AMBIANCE_VISUALIZER = "car_launcher_ambiance_visualizer";
 
     // Dock Keys
@@ -212,6 +213,14 @@ public class CarLauncherSettings {
 
     public void setMusicApp(String packageName) {
         prefs.edit().putString(KEY_MUSIC_APP, packageName).apply();
+    }
+
+    public String getEqualizerApp() {
+        return prefs.getString(KEY_EQUALIZER_APP, null);
+    }
+
+    public void setEqualizerApp(String packageName) {
+        prefs.edit().putString(KEY_EQUALIZER_APP, packageName).apply();
     }
     
     private static final String KEY_AUTO_PLAY_MUSIC = "car_launcher_auto_play_music";

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import app.organicmaps.carlauncher.CarLauncherSettings;
+
 /**
  * Evrensel Arac Donanim Yoneticisi (CarHardwareManager).
  * Farkli multimedya teyp markalarini (XYAuto, HCN, Standart) algilar
@@ -74,6 +76,14 @@ public class CarHardwareManager {
      * Donanimsal Ekolayziri (DSP / Ses Efektleri) acar.
      */
     public void openEqualizer(Context activityContext) {
+        String selectedPackage = new CarLauncherSettings(context).getEqualizerApp();
+        if (!TextUtils.isEmpty(selectedPackage)) {
+            if (launchApp(activityContext, selectedPackage)) {
+                return;
+            }
+            Log.w(TAG, "Secilen equalizer uygulamasi acilamadi: " + selectedPackage);
+        }
+
         if (currentPlatform == Platform.XY_AUTO) {
             if (launchApp(activityContext, "sys.xy.tumu.app")) {
                 return;

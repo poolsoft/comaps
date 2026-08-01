@@ -100,6 +100,9 @@
     <string name="car_pref_ambiance_vis_summary">Dynamically sets visualizer colors based on album art</string>
     <string name="car_pref_equalizer_title">Equalizer</string>
     <string name="car_pref_equalizer_summary">Open system audio settings</string>
+    <string name="car_settings_equalizer_auto">Automatic (ROM/system)</string>
+    <string name="car_settings_equalizer_choose_app">Choose application</string>
+    <string name="car_settings_equalizer_auto_summary">Automatic ROM detection and system equalizer fallback</string>
     <string name="car_pref_scan_music_title">Rescan Music</string>
     <string name="car_pref_scan_music_summary">Scan internal storage and USB drives</string>
     

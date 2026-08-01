@@ -28,6 +28,7 @@ public class AppPickerDialog {
     private final Context context;
     private final OnAppSelectedListener listener;
     private final boolean onlyMusicApps;
+    private final boolean includeInternalApps;
     private BottomSheetDialog dialog;
     private String activePackage;
 
@@ -36,8 +37,14 @@ public class AppPickerDialog {
     }
 
     public AppPickerDialog(@NonNull Context context, boolean onlyMusicApps, @NonNull OnAppSelectedListener listener) {
+        this(context, onlyMusicApps, true, listener);
+    }
+
+    public AppPickerDialog(@NonNull Context context, boolean onlyMusicApps, boolean includeInternalApps,
+            @NonNull OnAppSelectedListener listener) {
         this.context = context;
         this.onlyMusicApps = onlyMusicApps;
+        this.includeInternalApps = includeInternalApps;
         this.listener = listener;
     }
 
@@ -103,7 +110,7 @@ public class AppPickerDialog {
 
     private List<AppInfo> getInstalledApps() {
         if (onlyMusicApps && cachedMusicApps != null) return cachedMusicApps;
-        if (!onlyMusicApps && cachedAllApps != null) return cachedAllApps;
+        if (!onlyMusicApps && includeInternalApps && cachedAllApps != null) return cachedAllApps;
 
         List<AppInfo> apps = new ArrayList<>();
         
@@ -121,7 +128,7 @@ public class AppPickerDialog {
             apps.add(internalPlayer);
         }
 
-        if (!onlyMusicApps) {
+        if (!onlyMusicApps && includeInternalApps) {
             // Dahili Sistem Uygulamalari (Picker uzerinden secilebilmesi icin)
             for (app.organicmaps.carlauncher.dock.InternalApp internalApp : app.organicmaps.carlauncher.dock.InternalApp.values()) {
                 AppInfo app = new AppInfo();
@@ -198,7 +205,7 @@ public class AppPickerDialog {
             }
             Collections.sort(apps, (a1, a2) -> a1.name.compareToIgnoreCase(a2.name));
             if (onlyMusicApps) cachedMusicApps = apps;
-            else cachedAllApps = apps;
+            else if (includeInternalApps) cachedAllApps = apps;
             return apps;
         }
 
@@ -256,7 +263,7 @@ public class AppPickerDialog {
         }
         Collections.sort(apps, (a1, a2) -> a1.name.compareToIgnoreCase(a2.name));
         if (onlyMusicApps) cachedMusicApps = apps;
-        else cachedAllApps = apps;
+        else if (includeInternalApps) cachedAllApps = apps;
         return apps;
     }
 
