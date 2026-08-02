@@ -234,7 +234,9 @@ public class CarHardwareManager {
                     isPlaying = intent.getBooleanExtra("playing", false);
                 } else if ("android.bluetooth.a2dp-sink.profile.action.PLAYING_STATE_CHANGED".equals(action)) {
                     int state = intent.getIntExtra("android.bluetooth.profile.extra.STATE", 0);
-                    isPlaying = (state == 10 || state == 2); // Playing or Connected
+                    // A2DP sink state 2 means merely connected. Treating it as
+                    // playback steals Smart Focus as soon as a phone connects.
+                    isPlaying = (state == 10); // BluetoothA2dpSink.STATE_PLAYING
                 }
 
                 if (listener != null) {

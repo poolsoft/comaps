@@ -96,8 +96,9 @@ public class UniversalBluetoothAdapter implements BaseMediaAdapter {
 
     @Override
     public boolean isActive() {
-        // Bluetooth her zaman donanimda mevcuttur (Turkce karakter yok)
-        return true;
+        // A connection alone is not an active media source. This keeps idle
+        // Bluetooth from replacing the configured/default player.
+        return isPlaying;
     }
 
     @Override
