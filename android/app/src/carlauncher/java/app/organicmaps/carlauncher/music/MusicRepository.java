@@ -8,8 +8,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.AtomicFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Repository for scanning and managing local music files.
@@ -38,7 +44,8 @@ public class MusicRepository {
 
     // Singleton support if needed, or instantiated by MusicManager
     public MusicRepository(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
+        loadCachedIndex();
     }
 
     public interface OnCopyCompletedListener {
@@ -99,8 +106,9 @@ public class MusicRepository {
             scanInProgress = true;
         }
         ioExecutor.execute(() -> {
-            List<AudioTrack> tracks = hasMusicReadPermission()
-                    ? scanDeviceForAudio() : new ArrayList<>();
+            boolean canRefreshIndex = hasMusicReadPermission();
+            List<AudioTrack> tracks = canRefreshIndex
+                    ? scanDeviceForAudio() : getCachedTracks();
             List<AudioFolder> folders = organizeIntoFolders(tracks);
             List<AudioArtist> artists = organizeIntoArtists(tracks);
 
@@ -109,6 +117,7 @@ public class MusicRepository {
                 cachedFolders = folders;
                 cachedArtists = artists;
             }
+            if (canRefreshIndex) saveCachedIndex(tracks);
 
             List<OnScanCompletedListener> callbacks;
             synchronized (scanLock) {
@@ -122,6 +131,87 @@ public class MusicRepository {
                         new ArrayList<>(artists)));
             }
         });
+    }
+
+    public boolean isScanInProgress() {
+        synchronized (scanLock) {
+            return scanInProgress;
+        }
+    }
+
+    private File getIndexFile() {
+        return new File(context.getFilesDir(), "car_music_index_v1.json");
+    }
+
+    private void loadCachedIndex() {
+        File indexFile = getIndexFile();
+        if (!indexFile.isFile()) return;
+        try (FileInputStream input = new FileInputStream(indexFile)) {
+            byte[] data = new byte[(int) indexFile.length()];
+            int offset = 0;
+            while (offset < data.length) {
+                int read = input.read(data, offset, data.length - offset);
+                if (read < 0) break;
+                offset += read;
+            }
+            JSONArray array = new JSONArray(new String(data, 0, offset,
+                    java.nio.charset.StandardCharsets.UTF_8));
+            List<AudioTrack> tracks = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(i);
+                String path = item.optString("path", null);
+                String content = item.optString("content", null);
+                String art = item.optString("art", null);
+                StorageType storage;
+                try {
+                    storage = StorageType.valueOf(item.optString("storage", StorageType.INTERNAL.name()));
+                } catch (Exception ignored) {
+                    storage = StorageType.INTERNAL;
+                }
+                tracks.add(new AudioTrack(item.optLong("id"), item.optString("title"),
+                        item.optString("artist"), item.optString("album"), item.optLong("duration"),
+                        path, content == null ? null : Uri.parse(content),
+                        art == null ? null : Uri.parse(art), storage, true, item.optLong("dateAdded")));
+            }
+            List<AudioTrack> physical = getPhysicalTracks(tracks);
+            synchronized (this) {
+                cachedTracks = physical;
+                cachedFolders = organizeIntoFolders(physical);
+                cachedArtists = organizeIntoArtists(physical);
+            }
+            Log.i(TAG, "Loaded cached music index: " + physical.size() + " tracks");
+        } catch (Exception e) {
+            Log.w(TAG, "Cached music index could not be loaded", e);
+        }
+    }
+
+    private void saveCachedIndex(List<AudioTrack> tracks) {
+        File target = getIndexFile();
+        AtomicFile atomicFile = new AtomicFile(target);
+        FileOutputStream output = null;
+        try {
+            JSONArray array = new JSONArray();
+            for (AudioTrack track : tracks) {
+                JSONObject item = new JSONObject();
+                item.put("id", track.getId());
+                item.put("title", track.getTitle());
+                item.put("artist", track.getArtist());
+                item.put("album", track.getAlbum());
+                item.put("duration", track.getDuration());
+                item.put("path", track.getPath());
+                item.put("content", track.getContentUri() != null ? track.getContentUri().toString() : null);
+                item.put("art", track.getAlbumArtUri() != null ? track.getAlbumArtUri().toString() : null);
+                item.put("storage", track.getStorageType().name());
+                item.put("dateAdded", track.getDateAdded());
+                array.put(item);
+            }
+            output = atomicFile.startWrite();
+            output.write(array.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            atomicFile.finishWrite(output);
+        } catch (Exception e) {
+            Log.w(TAG, "Music index could not be saved", e);
+            if (output != null) atomicFile.failWrite(output);
+        }
     }
 
     public boolean hasMusicReadPermission() {

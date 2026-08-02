@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Executors;
+import java.lang.ref.WeakReference;
 
 /**
  * CoMaps Auto (Car Launcher) guncelleme ve APK indirme/yukleme yardimci sinifi.
@@ -37,10 +38,13 @@ public class UpdaterHelper {
 
     // Indirme durumunu takip eden ve mukerrer tiklamalari onleyen bayrak
     private static boolean isDownloading = false;
+    private static int downloadProgress = 0;
+    private static String downloadingVersion = "";
+    private static WeakReference<ProgressDialog> progressDialogRef = new WeakReference<>(null);
 
     public static void checkUpdates(Context context, boolean showToastIfLatest) {
         if (isDownloading) {
-            Toast.makeText(context, context.getString(R.string.car_update_downloading_in_progress), Toast.LENGTH_LONG).show();
+            showOrAttachProgressDialog(context);
             return;
         }
         Executors.newSingleThreadExecutor().execute(() -> {
@@ -123,10 +127,12 @@ public class UpdaterHelper {
 
     private static void downloadAndInstallApk(Context context, String url, String versionName) {
         if (isDownloading) {
-            Toast.makeText(context, context.getString(R.string.car_update_downloading_in_progress), Toast.LENGTH_LONG).show();
+            showOrAttachProgressDialog(context);
             return;
         }
         isDownloading = true;
+        downloadProgress = 0;
+        downloadingVersion = versionName;
 
         String fileName = "CoMapsAuto_v" + versionName + ".apk";
 
@@ -141,14 +147,7 @@ public class UpdaterHelper {
             android.util.Log.e("Updater", "Eski APK silinirken hata olustu", e);
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle(context.getString(R.string.car_update_title));
-        progressDialog.setMessage(context.getString(R.string.car_update_downloading_msg));
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setCancelable(false);
-        progressDialog.setMax(100);
-        progressDialog.setProgress(0);
-        progressDialog.show();
+        showOrAttachProgressDialog(context);
 
         Executors.newSingleThreadExecutor().execute(() -> {
             File tempApk = null;
@@ -209,14 +208,11 @@ public class UpdaterHelper {
                     
                     if (fileLength > 0) {
                         final int progress = (int) (total * 100 / fileLength);
+                        downloadProgress = progress;
                         long now = System.currentTimeMillis();
                         if (now - lastUpdateTime > 500) { 
                             new Handler(Looper.getMainLooper()).post(() -> {
-                                try {
-                                    if (progressDialog.isShowing()) {
-                                        progressDialog.setProgress(progress);
-                                    }
-                                } catch (Exception ignored) {}
+                                updateVisibleProgress(progress);
                             });
                             lastUpdateTime = now;
                         }
@@ -230,11 +226,8 @@ public class UpdaterHelper {
                 final File finalApk = tempApk;
                 new Handler(Looper.getMainLooper()).post(() -> {
                     isDownloading = false;
-                    try {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    } catch (Exception ignored) {}
+                    downloadProgress = 100;
+                    dismissVisibleProgress();
                     try {
                         Toast.makeText(context, context.getString(R.string.car_update_download_complete), Toast.LENGTH_SHORT).show();
                         installApkDirectly(context, finalApk);
@@ -247,11 +240,7 @@ public class UpdaterHelper {
                 }
                 new Handler(Looper.getMainLooper()).post(() -> {
                     isDownloading = false;
-                    try {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                    } catch (Exception ignored) {}
+                    dismissVisibleProgress();
                     try {
                         Toast.makeText(context, context.getString(R.string.car_update_download_failed, e.getMessage()), Toast.LENGTH_LONG).show();
                     } catch (Exception ignored) {}
@@ -259,6 +248,35 @@ public class UpdaterHelper {
                 android.util.Log.e("Updater", "Download error", e);
             }
         });
+    }
+
+    private static ProgressDialog showOrAttachProgressDialog(Context context) {
+        ProgressDialog previous = progressDialogRef.get();
+        if (previous != null && previous.isShowing()) return previous;
+
+        ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setTitle(context.getString(R.string.car_update_title));
+        dialog.setMessage(context.getString(R.string.car_update_downloading_msg)
+                + (downloadingVersion.isEmpty() ? "" : " v" + downloadingVersion));
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setMax(100);
+        dialog.setProgress(downloadProgress);
+        dialog.show();
+        progressDialogRef = new WeakReference<>(dialog);
+        return dialog;
+    }
+
+    private static void updateVisibleProgress(int progress) {
+        ProgressDialog dialog = progressDialogRef.get();
+        if (dialog != null && dialog.isShowing()) dialog.setProgress(progress);
+    }
+
+    private static void dismissVisibleProgress() {
+        ProgressDialog dialog = progressDialogRef.get();
+        if (dialog != null && dialog.isShowing()) dialog.dismiss();
+        progressDialogRef.clear();
     }
 
     private static void installApkDirectly(Context context, File apkFile) {
