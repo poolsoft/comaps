@@ -41,23 +41,27 @@ jobs:
           
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
           echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
-          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher.apk\"}" > version.json
+          REPO_URL="https://github.com/${{ github.repository }}/releases/latest/download"
+          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": {\"arm64\": \"${REPO_URL}/CarLauncher-arm64.apk\", \"arm32\": \"${REPO_URL}/CarLauncher-arm32.apk\"}}" > version.json
 
       - name: Compile
         shell: bash
         working-directory: android
-        run: ./gradlew -Parm64 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
+        run: ./gradlew -Parm64 -Parm32 -PsplitApk -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
 
-      - name: Rename APK
+      - name: Rename APKs
         working-directory: ./android
         run: |
-          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher.apk \;
+          find app/build/outputs/apk -name "*arm64*" -name "*.apk" -exec cp {} CarLauncher-arm64.apk \;
+          find app/build/outputs/apk -name "*armeabi*" -name "*.apk" -exec cp {} CarLauncher-arm32.apk \;
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: CarLauncher-APK
-          path: android/CarLauncher.apk
+          path: |
+            android/CarLauncher-arm64.apk
+            android/CarLauncher-arm32.apk
 
       - name: Force Update Latest Tag
         working-directory: ./android
@@ -77,9 +81,14 @@ jobs:
             - **Versiyon:** `${{ env.VERSION_NAME }}`
             - **İşlem (SHA):** `${{ github.sha }}`
             
+            **📦 İndirme Linkleri:**
+            - **64-bit (arm64):** `CarLauncher-arm64.apk` — Yeni nesil cihazlar
+            - **32-bit (arm32):** `CarLauncher-arm32.apk` — Eski/düşük seviye cihazlar
+            
             *Bu sürüm her başarılı derleme sonrası otomatik olarak güncellenir.*
           files: |
-            android/CarLauncher.apk
+            android/CarLauncher-arm64.apk
+            android/CarLauncher-arm32.apk
             android/version.json
           draft: false
           prerelease: false
