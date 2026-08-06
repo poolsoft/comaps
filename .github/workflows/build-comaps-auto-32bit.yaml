@@ -1,0 +1,57 @@
+name: Build CoMaps Auto 32-Bit
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64
+  SKIP_MAP_DOWNLOAD: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build qt6-base-dev qt6-declarative-dev qt6-positioning-dev libqt6svg6-dev optipng libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev python3-pip zlib1g-dev
+          pip install "protobuf<3.21" --break-system-packages
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Prepare Dynamic Version Info
+        working-directory: ./android
+        run: |
+          VERSION_DATE=$(date -u +%Y.%m.%d)
+          VERSION_DATE_CODE=$(date -u +%y%m%d)
+          VERSION_CODE=$((10#$VERSION_DATE_CODE * 1000 + GITHUB_RUN_NUMBER % 1000))
+          VERSION_NAME="${VERSION_DATE}.${GITHUB_RUN_NUMBER}-32bit"
+          
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+          echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
+
+      - name: Compile 32-Bit
+        shell: bash
+        working-directory: android
+        run: ./gradlew -Parm32 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
+
+      - name: Rename APK
+        working-directory: ./android
+        run: |
+          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher-32bit.apk \;
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CarLauncher-32Bit-APK
+          path: android/CarLauncher-32bit.apk
