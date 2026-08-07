@@ -33,8 +33,13 @@ import java.lang.ref.WeakReference;
  */
 public class UpdaterHelper {
 
-    // Latest Release altindaki version.json'a ulasacagiz.
-    private static final String VERSION_JSON_URL = "https://github.com/poolsoft/comaps/releases/latest/download/version.json";
+    private static final String VERSION_JSON_URL_64 = "https://github.com/poolsoft/comaps/releases/latest/download/version.json";
+    private static final String VERSION_JSON_URL_32 = "https://github.com/poolsoft/comaps/releases/latest/download/version-32bit.json";
+
+    private static String getVersionJsonUrl() {
+        boolean is64Bit = Build.SUPPORTED_64_BIT_ABIS != null && Build.SUPPORTED_64_BIT_ABIS.length > 0;
+        return is64Bit ? VERSION_JSON_URL_64 : VERSION_JSON_URL_32;
+    }
 
     // Indirme durumunu takip eden ve mukerrer tiklamalari onleyen bayrak
     private static boolean isDownloading = false;
@@ -49,7 +54,7 @@ public class UpdaterHelper {
         }
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
-                URL url = new URL(VERSION_JSON_URL);
+                URL url = new URL(getVersionJsonUrl());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setConnectTimeout(15000);
