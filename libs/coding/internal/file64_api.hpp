@@ -16,8 +16,8 @@
 
 // TODO: Always assert for 8 bytes after increasing min Android API to 24+.
 // See more details here: https://android.googlesource.com/platform/bionic/+/master/docs/32-bit-abi.md
-#if defined(OMIM_OS_ANDROID) && (defined(__arm__) || defined(__i386__)) && sizeof(off_t) == 4
-static_assert(sizeof(off_t) == 4, "32-bit Android NDK < API 24 has only 32-bit file operations support");
+#if defined(OMIM_OS_ANDROID) && (defined(__arm__) || defined(__i386__))
+static_assert(sizeof(off_t) == 8 || sizeof(off_t) == 4, "32-bit Android file operations support check");
 #else
 static_assert(sizeof(off_t) == 8 || sizeof(off_t) == 4, "FileReader and FileWriter require file operations support");
 #endif
