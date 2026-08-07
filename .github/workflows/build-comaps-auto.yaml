@@ -41,23 +41,36 @@ jobs:
           
           echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
           echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
-          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher.apk\"}" > version.json
+          
+          DOWNLOAD_BASE="https://github.com/${{ github.repository }}/releases/latest/download"
+          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": {\"arm64\": \"${DOWNLOAD_BASE}/CarLauncher-arm64.apk\", \"arm32\": \"${DOWNLOAD_BASE}/CarLauncher-arm32.apk\"}}" > version.json
 
-      - name: Compile
+      - name: Compile 64-Bit (arm64)
         shell: bash
         working-directory: android
-        run: ./gradlew -Parm64 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
-
-      - name: Rename APK
-        working-directory: ./android
         run: |
-          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher.apk \;
+          ./gradlew -Parm64 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
+          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher-arm64.apk \;
+
+      - name: Clean build outputs for 32-Bit
+        shell: bash
+        working-directory: android
+        run: ./gradlew clean -q
+
+      - name: Compile 32-Bit (arm32)
+        shell: bash
+        working-directory: android
+        run: |
+          ./gradlew -Parm32 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
+          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher-32bit.apk \;
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: CarLauncher-APK
-          path: android/CarLauncher.apk
+          path: |
+            android/CarLauncher-arm64.apk
+            android/CarLauncher-32bit.apk
 
       - name: Force Update Latest Tag
         working-directory: ./android
@@ -77,9 +90,14 @@ jobs:
             - **Versiyon:** `${{ env.VERSION_NAME }}`
             - **İşlem (SHA):** `${{ github.sha }}`
             
+            **📦 İndirme Bağlantıları:**
+            - **64-bit (ARM64):** `CarLauncher-arm64.apk`
+            - **32-bit (ARM32):** `CarLauncher-32bit.apk`
+            
             *Bu sürüm her başarılı derleme sonrası otomatik olarak güncellenir.*
           files: |
-            android/CarLauncher.apk
+            android/CarLauncher-arm64.apk
+            android/CarLauncher-32bit.apk
             android/version.json
           draft: false
           prerelease: false

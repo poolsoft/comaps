@@ -92,14 +92,32 @@ public class UpdaterHelper {
                 JSONObject json = new JSONObject(response.toString());
                 int latestVersionCode = json.getInt("versionCode");
                 String latestVersionName = json.getString("versionName");
-                String apkUrl = json.getString("apkUrl");
+
+                String apkUrl = "";
+                if (json.has("apkUrl")) {
+                    Object apkUrlObj = json.get("apkUrl");
+                    if (apkUrlObj instanceof JSONObject) {
+                        JSONObject apkUrlMap = (JSONObject) apkUrlObj;
+                        boolean is64Bit = Build.SUPPORTED_64_BIT_ABIS != null && Build.SUPPORTED_64_BIT_ABIS.length > 0;
+                        if (is64Bit && apkUrlMap.has("arm64")) {
+                            apkUrl = apkUrlMap.getString("arm64");
+                        } else if (apkUrlMap.has("arm32")) {
+                            apkUrl = apkUrlMap.getString("arm32");
+                        } else {
+                            apkUrl = apkUrlMap.optString("arm64", "");
+                        }
+                    } else {
+                        apkUrl = json.getString("apkUrl");
+                    }
+                }
 
                 PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                 long currentVersionCode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? pInfo.getLongVersionCode() : pInfo.versionCode;
 
+                final String finalApkUrl = apkUrl;
                 new Handler(Looper.getMainLooper()).post(() -> {
                     if (latestVersionCode > currentVersionCode) {
-                        showUpdateDialog(context, latestVersionName, apkUrl);
+                        showUpdateDialog(context, latestVersionName, finalApkUrl);
                     } else if (showToastIfLatest) {
                         Toast.makeText(context, context.getString(R.string.car_update_app_up_to_date, pInfo.versionName), Toast.LENGTH_SHORT).show();
                     }
