@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_playlist_options">Playlist options</string>
     <string name="car_music_play_list_now">Play now</string>
     <string name="car_music_add_list_to_queue_front">Add to front of queue</string>
     <string name="car_music_add_list_to_queue_end">Add to end of queue</string>

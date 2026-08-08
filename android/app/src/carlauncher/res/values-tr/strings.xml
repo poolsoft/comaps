@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_playlist_options">Liste seçenekleri</string>
     <string name="car_music_play_list_now">Şimdi çal</string>
     <string name="car_music_add_list_to_queue_front">Sıranın başına ekle</string>
     <string name="car_music_add_list_to_queue_end">Sıranın sonuna ekle</string>
