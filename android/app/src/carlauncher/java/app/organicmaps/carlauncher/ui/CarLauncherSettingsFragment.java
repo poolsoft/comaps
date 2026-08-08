@@ -1159,7 +1159,11 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 try {
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("application/zip");
+                    intent.setType("*/*");
+                    intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[] {
+                            "application/zip", "application/x-zip-compressed",
+                            "application/octet-stream"
+                    });
                     startActivityForResult(intent, RC_IMPORT_VOICE_MODEL);
                 } catch (Exception e) {
                     Toast.makeText(getContext(), getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
@@ -1171,16 +1175,21 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     private void importVoiceModelFromUri(Uri uri) {
         if (getContext() == null) return;
-        Toast.makeText(getContext(), getString(R.string.car_settings_assistant_copying_model), Toast.LENGTH_SHORT).show();
+        Context appContext = getContext().getApplicationContext();
+        Toast.makeText(appContext, getString(R.string.car_settings_assistant_copying_model), Toast.LENGTH_SHORT).show();
         
         java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> {
-            File targetDir = new File(getContext().getExternalFilesDir(null), "vosk-model-tr");
-            File tempZip = new File(getContext().getExternalFilesDir(null), "vosk-model-tr-temp.zip");
-            File tempExtractDir = new File(getContext().getExternalFilesDir(null), "vosk-model-temp-extract");
+            File storageDir = appContext.getExternalFilesDir(null);
+            if (storageDir == null) storageDir = appContext.getFilesDir();
+            File targetDir = new File(storageDir, "vosk-model-tr");
+            File stagingDir = new File(storageDir, "vosk-model-tr.installing");
+            File backupDir = new File(storageDir, "vosk-model-tr.backup");
+            File tempZip = new File(storageDir, "vosk-model-tr-temp.zip");
+            File tempExtractDir = new File(storageDir, "vosk-model-temp-extract");
             
-            try (android.os.ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(uri, "r");
-                 java.io.FileInputStream fis = new java.io.FileInputStream(pfd.getFileDescriptor());
+            try (java.io.InputStream fis = appContext.getContentResolver().openInputStream(uri);
                  java.io.FileOutputStream fos = new java.io.FileOutputStream(tempZip)) {
+                if (fis == null) throw new java.io.IOException("Secilen dosya okunamadi");
                 
                 byte[] buffer = new byte[8192];
                 int read;
@@ -1188,6 +1197,9 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     fos.write(buffer, 0, read);
                 }
                 fos.flush();
+                if (tempZip.length() < 1024L * 1024L) {
+                    throw new java.io.IOException("Secilen dosya gecerli bir Vosk model ZIP'i degil");
+                }
                 
                 if (tempExtractDir.exists()) {
                     deleteRecursive(tempExtractDir);
@@ -1197,15 +1209,30 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 unzip(tempZip, tempExtractDir);
                 
                 File actualModelDir = findModelDirRecursive(tempExtractDir);
-                if (actualModelDir != null && actualModelDir.exists()) {
-                    if (targetDir.exists()) {
-                        deleteRecursive(targetDir);
-                    }
-                    boolean success = actualModelDir.renameTo(targetDir);
-                    android.util.Log.d("CarLauncherSettings", "Model klasoru basariyla tasindi: " + success);
-                } else {
-                    throw new java.io.IOException("Zip icerisinde gecerli bir model klasoru bulunamadi");
+                if (actualModelDir == null) {
+                    throw new java.io.IOException("ZIP icinde gecerli Vosk modeli bulunamadi");
                 }
+                deleteRecursive(stagingDir);
+                copyDirectory(actualModelDir, stagingDir);
+                if (!isModelDirectoryValid(stagingDir)) {
+                    throw new java.io.IOException("Model dosyalari eksik");
+                }
+                deleteRecursive(backupDir);
+                if (targetDir.exists() && !targetDir.renameTo(backupDir)) {
+                    throw new java.io.IOException("Mevcut model yedeklenemedi");
+                }
+                if (!stagingDir.renameTo(targetDir)) {
+                    copyDirectory(stagingDir, targetDir);
+                    deleteRecursive(stagingDir);
+                }
+                if (!isModelDirectoryValid(targetDir)) {
+                    deleteRecursive(targetDir);
+                    backupDir.renameTo(targetDir);
+                    throw new java.io.IOException("Model hedef klasore kurulamadi");
+                }
+                deleteRecursive(backupDir);
+                appContext.getSharedPreferences("vosk_prefs", Context.MODE_PRIVATE)
+                        .edit().putBoolean("vosk_model_installed", false).apply();
                 
                 if (tempZip.exists()) {
                     tempZip.delete();
@@ -1214,22 +1241,24 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     deleteRecursive(tempExtractDir);
                 }
                 
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), getString(R.string.car_settings_voice_model_success), Toast.LENGTH_LONG).show();
-                        restartVoiceService();
-                    });
-                }
+                new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                    Toast.makeText(appContext, appContext.getString(R.string.car_settings_voice_model_success), Toast.LENGTH_LONG).show();
+                    restartVoiceService(appContext);
+                });
                 
             } catch (Exception e) {
                 android.util.Log.e("CarLauncherSettings", "Model kopyalama/unzip hatasi", e);
+                if (backupDir.exists()) {
+                    deleteRecursive(targetDir);
+                    backupDir.renameTo(targetDir);
+                }
                 if (tempZip.exists()) tempZip.delete();
                 if (tempExtractDir.exists()) deleteRecursive(tempExtractDir);
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(() -> {
-                        Toast.makeText(getContext(), getString(R.string.car_settings_voice_model_error), Toast.LENGTH_LONG).show();
-                    });
-                }
+                if (stagingDir.exists()) deleteRecursive(stagingDir);
+                new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
+                        Toast.makeText(appContext,
+                                appContext.getString(R.string.car_settings_voice_model_error) + ": " + e.getMessage(),
+                                Toast.LENGTH_LONG).show());
             }
         });
     }
@@ -1238,9 +1267,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (dir == null || !dir.exists() || !dir.isDirectory()) {
             return null;
         }
-        File amDir = new File(dir, "am");
-        File graphDir = new File(dir, "graph");
-        if ((amDir.exists() && amDir.isDirectory()) || (graphDir.exists() && graphDir.isDirectory())) {
+        if (isModelDirectoryValid(dir)) {
             return dir;
         }
         File[] children = dir.listFiles();
@@ -1257,16 +1284,44 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         return null;
     }
 
+    private boolean isModelDirectoryValid(File dir) {
+        return dir != null && new File(dir, "am/final.mdl").isFile()
+                && new File(dir, "conf/model.conf").isFile()
+                && new File(dir, "graph").isDirectory();
+    }
+
+    private void copyDirectory(File source, File destination) throws java.io.IOException {
+        if (source.isDirectory()) {
+            if (!destination.exists() && !destination.mkdirs()) {
+                throw new java.io.IOException("Klasor olusturulamadi: " + destination.getAbsolutePath());
+            }
+            File[] children = source.listFiles();
+            if (children == null) throw new java.io.IOException("Klasor okunamadi: " + source.getAbsolutePath());
+            for (File child : children) copyDirectory(child, new File(destination, child.getName()));
+            return;
+        }
+        try (java.io.FileInputStream input = new java.io.FileInputStream(source);
+             java.io.FileOutputStream output = new java.io.FileOutputStream(destination)) {
+            byte[] buffer = new byte[32 * 1024];
+            int count;
+            while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+        }
+    }
+
     private void restartVoiceService() {
         if (getContext() == null) return;
-        Intent intent = new Intent(getContext(), app.organicmaps.carlauncher.voice.VoiceCommandService.class);
+        restartVoiceService(getContext().getApplicationContext());
+    }
+
+    private void restartVoiceService(android.content.Context context) {
+        Intent intent = new Intent(context, app.organicmaps.carlauncher.voice.VoiceCommandService.class);
         if (app.organicmaps.carlauncher.voice.VoiceCommandService.isServiceRunning) {
-            getContext().stopService(intent);
+            context.stopService(intent);
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            getContext().startForegroundService(intent);
+            context.startForegroundService(intent);
         } else {
-            getContext().startService(intent);
+            context.startService(intent);
         }
     }
 
@@ -1279,6 +1334,10 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             byte[] buffer = new byte[8192];
             while ((ze = zis.getNextEntry()) != null) {
                 File file = new File(targetDirectory, ze.getName());
+                String targetPath = targetDirectory.getCanonicalPath() + File.separator;
+                if (!file.getCanonicalPath().startsWith(targetPath)) {
+                    throw new java.io.IOException("Gecersiz ZIP girdisi: " + ze.getName());
+                }
                 File dir = ze.isDirectory() ? file : file.getParentFile();
                 if (!dir.isDirectory() && !dir.mkdirs()) {
                     throw new java.io.IOException("Klasor olusturulamadi: " + dir.getAbsolutePath());
@@ -1301,6 +1360,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory == null || !fileOrDirectory.exists()) return;
         if (fileOrDirectory.isDirectory()) {
             File[] children = fileOrDirectory.listFiles();
             if (children != null) {

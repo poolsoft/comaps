@@ -137,11 +137,12 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         boolean isModelInstalled = prefs.getBoolean("vosk_model_installed", false);
 
         File parentDir = getExternalFilesDir(null);
+        if (parentDir == null) parentDir = getFilesDir();
         File modelDir = new File(parentDir, "vosk-model-tr");
         File backupModelDir = new File(parentDir, "vosk-model-small-tr-0.3");
         
         // Eger model daha onceden hatasiz yuklendiyse ve klasor silinmediyse direkt devam et
-        if (isModelInstalled && modelDir.exists()) {
+        if (isModelInstalled && isModelDirectoryValid(modelDir)) {
             loadModel(modelDir.getAbsolutePath());
             return;
         }
@@ -251,23 +252,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
 
                 unzip(tempZip, tempExtractDir);
 
-                File actualModelDir = tempExtractDir;
-                File[] extractedFiles = tempExtractDir.listFiles();
-                if (extractedFiles != null && extractedFiles.length == 1 && extractedFiles[0].isDirectory()) {
-                    actualModelDir = extractedFiles[0];
-                }
-
-                if (targetDir.exists()) {
-                    deleteRecursive(targetDir);
-                }
-                boolean success = moveDirectory(actualModelDir, targetDir);
-                android.util.Log.d("VoiceCommandService", "USB model klasoru basariyla tasindi: " + success);
-                if (success) {
-                    android.content.SharedPreferences prefs = getSharedPreferences("vosk_prefs", Context.MODE_PRIVATE);
-                    prefs.edit().putBoolean("vosk_model_installed", true).apply();
-                } else {
-                    throw new IOException("Klasor tasima islemi basarisiz oldu.");
-                }
+                installExtractedModel(tempExtractDir, targetDir);
 
                 if (tempZip.exists()) {
                     tempZip.delete();
@@ -294,8 +279,10 @@ public class VoiceCommandService extends Service implements RecognitionListener 
     }
 
     private boolean isModelDirectoryValid(File dir) {
-        // Model klasoru bos degilse (Vosk kendisi Model yuklerken dogrular)
-        return dir != null && dir.exists() && dir.isDirectory() && dir.listFiles() != null && dir.listFiles().length > 0;
+        return dir != null && dir.isDirectory()
+                && new File(dir, "am/final.mdl").isFile()
+                && new File(dir, "conf/model.conf").isFile()
+                && new File(dir, "graph").isDirectory();
     }
 
     private void loadModel(String modelPath) {
@@ -354,37 +341,39 @@ public class VoiceCommandService extends Service implements RecognitionListener 
             try {
                 URL url = new URL(MODEL_ZIP_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(30000);
+                connection.setReadTimeout(120000);
+                connection.setInstanceFollowRedirects(true);
                 connection.connect();
 
                 if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                     throw new IOException("Sunucu hatasi: " + connection.getResponseMessage());
                 }
 
-                int fileLength = connection.getContentLength();
-                InputStream input = new BufferedInputStream(connection.getInputStream(), 8192);
-                FileOutputStream output = new FileOutputStream(tempZip);
+                long fileLength = connection.getContentLength();
 
                 byte[] data = new byte[4096];
                 long total = 0;
                 int count;
                 long lastUpdateTime = 0;
 
-                while ((count = input.read(data)) != -1) {
-                    total += count;
-                    output.write(data, 0, count);
+                try (InputStream input = new BufferedInputStream(connection.getInputStream(), 8192);
+                     FileOutputStream output = new FileOutputStream(tempZip)) {
+                    while ((count = input.read(data)) != -1) {
+                        total += count;
+                        output.write(data, 0, count);
 
-                    // Bildirimi periyodik olarak guncelliyoruz
-                    long now = System.currentTimeMillis();
-                    if (now - lastUpdateTime > 1000) {
-                        int progress = (int) (total * 100 / fileLength);
-                        updateNotification("Model indiriliyor: %" + progress);
-                        lastUpdateTime = now;
+                        long now = System.currentTimeMillis();
+                        if (fileLength > 0 && now - lastUpdateTime > 1000) {
+                            int progress = (int) Math.min(100, total * 100 / fileLength);
+                            updateNotification("Model indiriliyor: %" + progress);
+                            lastUpdateTime = now;
+                        }
                     }
                 }
-
-                output.flush();
-                output.close();
-                input.close();
+                if (total < 1024 * 1024 || (fileLength > 0 && total != fileLength)) {
+                    throw new IOException("Model dosyasi eksik indirildi: " + total + "/" + fileLength);
+                }
 
                 updateNotification("Model dosyasi zipten cikariliyor...");
                 if (tempExtractDir.exists()) {
@@ -394,23 +383,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
 
                 unzip(tempZip, tempExtractDir);
 
-                File actualModelDir = tempExtractDir;
-                File[] extractedFiles = tempExtractDir.listFiles();
-                if (extractedFiles != null && extractedFiles.length == 1 && extractedFiles[0].isDirectory()) {
-                    actualModelDir = extractedFiles[0];
-                }
-
-                if (targetDir.exists()) {
-                    deleteRecursive(targetDir);
-                }
-                boolean success = moveDirectory(actualModelDir, targetDir);
-                android.util.Log.d("VoiceCommandService", "Model klasoru basariyla tasindi: " + success);
-                if (success) {
-                    android.content.SharedPreferences prefs = getSharedPreferences("vosk_prefs", Context.MODE_PRIVATE);
-                    prefs.edit().putBoolean("vosk_model_installed", true).apply();
-                } else {
-                    throw new IOException("Klasor tasima islemi basarisiz oldu.");
-                }
+                installExtractedModel(tempExtractDir, targetDir);
 
                 if (tempZip.exists()) {
                     tempZip.delete();
@@ -448,6 +421,10 @@ public class VoiceCommandService extends Service implements RecognitionListener 
             byte[] buffer = new byte[8192];
             while ((ze = zis.getNextEntry()) != null) {
                 File file = new File(targetDirectory, ze.getName());
+                String targetPath = targetDirectory.getCanonicalPath() + File.separator;
+                if (!file.getCanonicalPath().startsWith(targetPath)) {
+                    throw new IOException("Gecersiz zip yolu: " + ze.getName());
+                }
                 File dir = ze.isDirectory() ? file : file.getParentFile();
                 if (!dir.isDirectory() && !dir.mkdirs()) {
                     throw new IOException("Klasor olusturulamadi: " + dir.getAbsolutePath());
@@ -973,8 +950,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         if (dir == null || !dir.exists() || !dir.isDirectory()) {
             return null;
         }
-        File confDir = new File(dir, "conf");
-        if (confDir.exists()) {
+        if (isModelDirectoryValid(dir)) {
             return dir;
         }
         File[] children = dir.listFiles();
@@ -988,7 +964,24 @@ public class VoiceCommandService extends Service implements RecognitionListener 
                 }
             }
         }
-        return dir;
+        return null;
+    }
+
+    private void installExtractedModel(File extractionRoot, File targetDir) throws IOException {
+        File actualModelDir = findModelDirRecursive(extractionRoot);
+        if (actualModelDir == null) {
+            throw new IOException("Zip icinde gecerli Vosk modeli bulunamadi");
+        }
+        File stagingDir = new File(targetDir.getParentFile(), targetDir.getName() + ".installing");
+        if (stagingDir.exists()) deleteRecursive(stagingDir);
+        if (!moveDirectory(actualModelDir, stagingDir) || !isModelDirectoryValid(stagingDir)) {
+            deleteRecursive(stagingDir);
+            throw new IOException("Vosk modeli dogrulanamadi");
+        }
+        if (targetDir.exists()) deleteRecursive(targetDir);
+        if (!moveDirectory(stagingDir, targetDir) || !isModelDirectoryValid(targetDir)) {
+            throw new IOException("Vosk modeli hedef klasore kurulamadi");
+        }
     }
 
     private void deleteRecursive(File fileOrDirectory) {
