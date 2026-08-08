@@ -1600,7 +1600,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             boolean isPlaying = musicManager != null && musicManager.getInternalPlayer() != null && musicManager.getInternalPlayer().isPlaying();
             adapter.updateCurrentTrack(playingTrackPath, isPlaying);
 
-            if (playingTrackPath != null && recyclerView != null) {
+            if (currentViewMode == ViewMode.QUEUE
+                    && playingTrackPath != null && recyclerView != null) {
                 for (int i = 0; i < filteredTracks.size(); i++) {
                     if (filteredTracks.get(i).getPath().equals(playingTrackPath)) {
                         final int pos = i;
@@ -2311,7 +2312,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 boolean isPlaying = musicManager.getInternalPlayer().isPlaying();
                 if (adapter != null) {
                     adapter.updateCurrentTrack(path, isPlaying);
-                    if (path != null && filteredTracks != null && recyclerView != null) {
+                    if (currentViewMode == ViewMode.QUEUE
+                            && path != null && filteredTracks != null && recyclerView != null) {
                         for (int i = 0; i < filteredTracks.size(); i++) {
                             if (path.equals(filteredTracks.get(i).getPath())) {
                                 final int targetIndex = i;

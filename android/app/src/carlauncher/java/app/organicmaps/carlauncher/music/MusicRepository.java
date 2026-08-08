@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.media.MediaScannerConnection;
 import android.util.Log;
 import android.util.AtomicFile;
 
@@ -17,8 +18,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -398,6 +401,7 @@ public class MusicRepository {
                     tracks.add(dt);
                 }
             }
+            requestSystemMediaIndex(directTracks);
         } catch (Exception e) {
             Log.e(TAG, "Direct storage scan error: " + e.getMessage());
         }
@@ -408,6 +412,7 @@ public class MusicRepository {
 
     private List<AudioTrack> scanDeviceForAudioDirectly() {
         List<AudioTrack> tracks = new ArrayList<>();
+        Set<String> visitedDirectories = new HashSet<>();
         File storageDir = new File("/storage");
         if (storageDir.exists() && storageDir.isDirectory()) {
             File[] volumes = storageDir.listFiles();
@@ -418,7 +423,7 @@ public class MusicRepository {
                         // Dahili hafizayi ve gizli klasorleri atla (Turkce karakter yok)
                         if (!name.equals("emulated") && !name.equals("self") && !name.startsWith(".")) {
                             Log.d(TAG, "Taranan harici USB birimi: " + vol.getAbsolutePath());
-                            scanDirectoryDirectly(vol, tracks);
+                            scanDirectoryDirectly(vol, tracks, visitedDirectories);
                         }
                     }
                 }
@@ -436,7 +441,7 @@ public class MusicRepository {
         for (String path : fallbackPaths) {
             File fallbackDir = new File(path);
             if (fallbackDir.exists() && fallbackDir.isDirectory()) {
-                scanDirectoryDirectly(fallbackDir, tracks);
+                scanDirectoryDirectly(fallbackDir, tracks, visitedDirectories);
             }
         }
 
@@ -514,8 +519,15 @@ public class MusicRepository {
         return false;
     }
 
-    private void scanDirectoryDirectly(File dir, List<AudioTrack> tracks) {
+    private void scanDirectoryDirectly(File dir, List<AudioTrack> tracks,
+            Set<String> visitedDirectories) {
         if (dir == null || !dir.exists() || !dir.isDirectory()) return;
+
+        try {
+            if (!visitedDirectories.add(dir.getCanonicalPath())) return;
+        } catch (Exception e) {
+            if (!visitedDirectories.add(dir.getAbsolutePath())) return;
+        }
 
         // Skip folders containing .nomedia
         if (hasNoMediaInHierarchy(dir)) {
@@ -531,7 +543,7 @@ public class MusicRepository {
                 if (name.equals("android") || name.equals("lost.dir") || name.startsWith(".")) {
                     continue;
                 }
-                scanDirectoryDirectly(file, tracks);
+                scanDirectoryDirectly(file, tracks, visitedDirectories);
             } else {
                 String path = file.getAbsolutePath();
                 if (isUnwantedPath(path)) {
@@ -584,6 +596,19 @@ public class MusicRepository {
                     }
                 }
             }
+        }
+    }
+
+    private void requestSystemMediaIndex(List<AudioTrack> directTracks) {
+        if (directTracks == null || directTracks.isEmpty()) return;
+        List<String> paths = new ArrayList<>();
+        for (AudioTrack track : directTracks) {
+            if (track.getPath() != null) paths.add(track.getPath());
+        }
+        for (int start = 0; start < paths.size(); start += 200) {
+            int end = Math.min(start + 200, paths.size());
+            MediaScannerConnection.scanFile(context,
+                    paths.subList(start, end).toArray(new String[0]), null, null);
         }
     }
 

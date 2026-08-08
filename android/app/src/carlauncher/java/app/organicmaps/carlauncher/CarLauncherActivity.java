@@ -185,10 +185,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                     .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
                     .commitAllowingStateLoss();
             }
-            if (widgetPanel != null && panelContentManager != null
-                    && !startupProfile.isLowRam()) {
+            if (widgetPanel != null && panelContentManager != null) {
                 PanelContentManager.PanelContent contentToRestore = 
-                    (lastPanelContent != null) ? lastPanelContent : PanelContentManager.PanelContent.WIDGETS;
+                    PanelContentManager.PanelContent.MUSIC;
                 panelContentManager.setContent(contentToRestore);
                 panelContentLoadedInProcess = true;
             }
