@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_pref_startup_screen_title">Başlangıç Ekranı</string>
+    <string name="car_pref_desktop_cycle_title">Mod Döngüsünde Widget Masaüstü</string>
+    <string name="car_pref_desktop_cycle_summary">Mod düğmesinde tam haritadan sonra Widget masaüstünü gösterir</string>
     <string name="car_media_channel_name">Müzik Oynatma</string>
     <string name="car_media_channel_description">Car Launcher müzik kontrolleri</string>
     <string name="car_media_action_previous">Önceki</string>

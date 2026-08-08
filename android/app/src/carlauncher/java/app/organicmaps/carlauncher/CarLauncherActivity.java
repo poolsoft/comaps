@@ -180,16 +180,28 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
 
         if (savedInstanceState == null) {
+            CarLauncherSettings startupSettings = new CarLauncherSettings(this);
+            isDesktopMode = "desktop".equals(startupSettings.getStartupScreen());
+            layoutMode = 0;
+            isWidgetPanelOpen = true;
+            PanelContentManager.PanelContent startupContent = isDesktopMode
+                    ? PanelContentManager.PanelContent.DESKTOP
+                    : PanelContentManager.PanelContent.WIDGETS;
+            lastPanelContent = startupContent;
+            applyWidgetPanelState(false);
             if (appDock != null) {
                 getSupportFragmentManager().beginTransaction()
                     .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
                     .commitAllowingStateLoss();
             }
             if (widgetPanel != null && panelContentManager != null) {
-                PanelContentManager.PanelContent contentToRestore = 
-                    PanelContentManager.PanelContent.MUSIC;
-                panelContentManager.setContent(contentToRestore);
-                panelContentLoadedInProcess = true;
+                Runnable loadVisiblePanel = () -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    panelContentManager.setContent(startupContent);
+                    panelContentLoadedInProcess = true;
+                };
+                if (rootLayout != null) rootLayout.post(loadVisiblePanel);
+                else loadVisiblePanel.run();
             }
         }
 
@@ -535,11 +547,13 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             }
         }
 
+        boolean includeDesktop = new CarLauncherSettings(this)
+                .isDesktopInModeCycleEnabled();
         if (!isDesktopMode && layoutMode == 0) {
             layoutMode = 2;
             isWidgetPanelOpen = false;
             updateLayoutMode();
-        } else if (!isDesktopMode && layoutMode == 2) {
+        } else if (!isDesktopMode && layoutMode == 2 && includeDesktop) {
             layoutMode = 0;
             isWidgetPanelOpen = true;
             updateLayoutMode();

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_pref_startup_screen_title">Startup Screen</string>
+    <string name="car_pref_desktop_cycle_title">Include Widget Desktop in Mode Cycle</string>
+    <string name="car_pref_desktop_cycle_summary">Adds Widget Desktop after full map when using the mode button</string>
     <string name="car_media_channel_name">Music Playback</string>
     <string name="car_media_channel_description">Car Launcher music controls</string>
     <string name="car_media_action_previous">Previous</string>

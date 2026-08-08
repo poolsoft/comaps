@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="startup_screen_entries">
+        <item>Normal Launcher Ekranı</item>
+        <item>Widget Masaüstü</item>
+    </string-array>
+</resources>
