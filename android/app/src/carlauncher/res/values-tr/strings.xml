@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_play_list_now">Şimdi çal</string>
+    <string name="car_music_add_list_to_queue_front">Sıranın başına ekle</string>
+    <string name="car_music_add_list_to_queue_end">Sıranın sonuna ekle</string>
+    <string name="car_music_edit_playlist">Listeyi yeniden adlandır veya sil</string>
+    <string name="car_music_list_empty">Bu listede çalınabilir parça yok</string>
+    <string name="car_music_tracks_added_queue_front">%1$d parça sıranın başına eklendi</string>
+    <string name="car_music_tracks_added_queue_end">%1$d parça sıranın sonuna eklendi</string>
     <string name="car_pref_startup_screen_title">Başlangıç Ekranı</string>
     <string name="car_pref_desktop_cycle_title">Mod Döngüsünde Widget Masaüstü</string>
     <string name="car_pref_desktop_cycle_summary">Mod düğmesinde tam haritadan sonra Widget masaüstünü gösterir</string>

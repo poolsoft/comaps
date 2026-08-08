@@ -367,7 +367,10 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         }
         if (btnBackFolder != null) {
             btnBackFolder.setOnClickListener(v -> {
-                if (currentViewMode == ViewMode.FOLDER_DETAIL || currentFolderLevel == FolderViewLevel.TRACK_LIST) {
+                if (currentViewMode == ViewMode.PLAYLIST) {
+                    currentPlaylist = null;
+                    showPlaylistsList();
+                } else if (currentViewMode == ViewMode.FOLDER_DETAIL || currentFolderLevel == FolderViewLevel.TRACK_LIST) {
                     currentFolderLevel = FolderViewLevel.FOLDER_LIST;
                     if (folderHeaderContainer != null) folderHeaderContainer.setVisibility(View.VISIBLE);
                     if (folderHeaderTitle != null) {
@@ -988,9 +991,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
             @Override
             public void onLongClick(PlaylistItem item) {
-                if (item.playlist != null) {
-                    showUserPlaylistOptionsMenu(item.playlist);
-                }
+                if (!item.isAction) showPlaylistPlaybackMenu(item);
             }
         });
         recyclerView.setAdapter(playlistsAdapter);
@@ -1048,6 +1049,70 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 .show();
     }
 
+    private List<MusicRepository.AudioTrack> getTracksForPlaylistItem(PlaylistItem item) {
+        if (item == null) return new ArrayList<>();
+        if ("favorites".equals(item.id)) return getFavoriteTracks();
+        if ("recent".equals(item.id)) return getRecentTracks();
+        if ("most_played".equals(item.id)) {
+            List<MusicRepository.AudioTrack> tracks = new ArrayList<>(allTracks);
+            tracks.sort((t1, t2) -> Integer.compare(
+                    playlistManager.getPlayCount(t2), playlistManager.getPlayCount(t1)));
+            return tracks;
+        }
+        if ("recently_added".equals(item.id)) {
+            List<MusicRepository.AudioTrack> tracks = new ArrayList<>(allTracks);
+            tracks.sort((t1, t2) -> Long.compare(t2.getDateAdded(), t1.getDateAdded()));
+            return tracks;
+        }
+        List<MusicRepository.AudioTrack> tracks = new ArrayList<>();
+        if (item.playlist != null) {
+            for (String reference : item.playlist.tracks) {
+                MusicRepository.AudioTrack track = findTrackByReference(reference);
+                if (track != null) tracks.add(track);
+            }
+        }
+        return tracks;
+    }
+
+    private void showPlaylistPlaybackMenu(PlaylistItem item) {
+        if (getContext() == null || musicManager == null
+                || musicManager.getInternalPlayer() == null) return;
+        List<MusicRepository.AudioTrack> tracks = getTracksForPlaylistItem(item);
+        List<String> options = new ArrayList<>();
+        options.add(getString(app.organicmaps.R.string.car_music_play_list_now));
+        options.add(getString(app.organicmaps.R.string.car_music_add_list_to_queue_front));
+        options.add(getString(app.organicmaps.R.string.car_music_add_list_to_queue_end));
+        if (item.playlist != null) {
+            options.add(getString(app.organicmaps.R.string.car_music_edit_playlist));
+        }
+        new android.app.AlertDialog.Builder(getContext())
+                .setTitle(item.title)
+                .setItems(options.toArray(new String[0]), (dialog, which) -> {
+                    if (tracks.isEmpty() && which < 3) {
+                        Toast.makeText(getContext(), app.organicmaps.R.string.car_music_list_empty,
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (which == 0) {
+                        playTrackFromCollection(tracks, tracks.get(0));
+                    } else if (which == 1) {
+                        musicManager.getInternalPlayer().addTracksToQueue(tracks, true);
+                        Toast.makeText(getContext(), getString(
+                                app.organicmaps.R.string.car_music_tracks_added_queue_front,
+                                tracks.size()), Toast.LENGTH_SHORT).show();
+                    } else if (which == 2) {
+                        musicManager.getInternalPlayer().addTracksToQueue(tracks, false);
+                        Toast.makeText(getContext(), getString(
+                                app.organicmaps.R.string.car_music_tracks_added_queue_end,
+                                tracks.size()), Toast.LENGTH_SHORT).show();
+                    } else if (which == 3 && item.playlist != null) {
+                        showUserPlaylistOptionsMenu(item.playlist);
+                    }
+                })
+                .setNegativeButton(app.organicmaps.R.string.car_cancel, null)
+                .show();
+    }
+
     private class PlaylistsAdapter extends RecyclerView.Adapter<PlaylistsAdapter.ViewHolder> {
         private final List<PlaylistItem> items;
         private final PlaylistClickListener listener;
@@ -1076,7 +1141,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text1.setTextColor(item.isAction ? 0xFF00FFFF : 0xFFFFFFFF);
             holder.text1.setTextSize(18);
             holder.text1.setTypeface(null, item.isAction ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
-            holder.text2.setText(item.subtitle);
+            holder.text2.setText(item.subtitle + (item.isAction ? "" : "   ⋮"));
             holder.text2.setTextColor(0xFF888888);
             holder.itemView.setPadding(32, 24, 32, 24);
             holder.itemView.setOnClickListener(v -> listener.onClick(item));
@@ -1084,6 +1149,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 listener.onLongClick(item);
                 return true;
             });
+            holder.text2.setOnClickListener(item.isAction ? null : v -> listener.onLongClick(item));
         }
 
         @Override

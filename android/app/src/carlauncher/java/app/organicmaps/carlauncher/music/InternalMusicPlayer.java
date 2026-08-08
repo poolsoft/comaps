@@ -305,6 +305,33 @@ public class InternalMusicPlayer {
         return true;
     }
 
+    /** Adds a collection atomically while preserving its visible list order. */
+    public synchronized boolean addTracksToQueue(List<MusicRepository.AudioTrack> tracks,
+                                                  boolean afterCurrentTrack) {
+        if (tracks == null || tracks.isEmpty()) return false;
+        List<MusicRepository.AudioTrack> additions = new ArrayList<>();
+        for (MusicRepository.AudioTrack track : tracks) {
+            if (track != null) additions.add(track);
+        }
+        if (additions.isEmpty()) return false;
+
+        List<MusicRepository.AudioTrack> queue = getPlayingQueue();
+        if (queue.isEmpty()) {
+            setPlaylist(additions, 0, true);
+            return true;
+        }
+        if (afterCurrentTrack) {
+            int insertIndex = Math.max(0, Math.min(currentIndex + 1, queue.size()));
+            queue.addAll(insertIndex, additions);
+        } else {
+            queue.addAll(additions);
+        }
+        playlist = new ArrayList<>(queue);
+        playingQueue = new ArrayList<>(queue);
+        saveState();
+        return true;
+    }
+
     private void playTrack(int index) {
         playTrack(index, true, 0);
     }

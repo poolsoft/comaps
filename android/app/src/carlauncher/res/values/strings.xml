@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_play_list_now">Play now</string>
+    <string name="car_music_add_list_to_queue_front">Add to front of queue</string>
+    <string name="car_music_add_list_to_queue_end">Add to end of queue</string>
+    <string name="car_music_edit_playlist">Rename or delete playlist</string>
+    <string name="car_music_list_empty">This list has no playable tracks</string>
+    <string name="car_music_tracks_added_queue_front">%1$d tracks added to the front of the queue</string>
+    <string name="car_music_tracks_added_queue_end">%1$d tracks added to the end of the queue</string>
     <string name="car_pref_startup_screen_title">Startup Screen</string>
     <string name="car_pref_desktop_cycle_title">Include Widget Desktop in Mode Cycle</string>
     <string name="car_pref_desktop_cycle_summary">Adds Widget Desktop after full map when using the mode button</string>
