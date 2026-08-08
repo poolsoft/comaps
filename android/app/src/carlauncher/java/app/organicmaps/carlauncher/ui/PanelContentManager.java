@@ -53,7 +53,7 @@ public class PanelContentManager {
     public void setContent(PanelContent content) {
         // Her zaman en guncel fullscreen durumunu set et (Turkce karakter yok)
         boolean needsFullScreen = (content != PanelContent.WIDGETS
-                && content != PanelContent.MUSIC && content != PanelContent.ANTENNA);
+                && content != PanelContent.ANTENNA);
         if (fullScreenListener != null) {
             fullScreenListener.onFullScreenStateChanged(needsFullScreen);
         }
