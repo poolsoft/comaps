@@ -1,6 +1,12 @@
 name: Build CoMaps Auto 32-Bit
 on:
+  push:
+    branches: [ "comaps-auto-v2" ]
   workflow_dispatch:
+
+concurrency:
+  group: comaps-auto-release
+  cancel-in-progress: false
 
 permissions:
   contents: write
