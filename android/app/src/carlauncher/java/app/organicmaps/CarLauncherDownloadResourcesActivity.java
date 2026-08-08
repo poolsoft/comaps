@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.base.BaseMwmFragmentActivity;
+import app.organicmaps.carlauncher.CarCrashLogger;
 import app.organicmaps.dialog.CustomMapServerDialog;
 import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.intent.Factory;
@@ -67,6 +68,8 @@ public class CarLauncherDownloadResourcesActivity extends BaseMwmFragmentActivit
   private ActivityResultLauncher<Intent> mApiRequest;
 
   private boolean mAreResourcesDownloaded;
+  private boolean mWorldMapsJustReloaded;
+  private boolean mLauncherTransitionScheduled;
 
   private static final int DOWNLOAD = 0;
   private static final int PAUSE = 1;
@@ -348,6 +351,21 @@ public class CarLauncherDownloadResourcesActivity extends BaseMwmFragmentActivit
     if (!mAreResourcesDownloaded)
       return;
 
+    if (mWorldMapsJustReloaded && !mLauncherTransitionScheduled)
+    {
+      mLauncherTransitionScheduled = true;
+      CarCrashLogger.recordStartupStage("Download.worldMapsReloaded.deferLauncher");
+      CarCrashLogger.recordMemory("download_complete_before_launcher");
+      getWindow().getDecorView().postDelayed(() -> {
+        mWorldMapsJustReloaded = false;
+        mLauncherTransitionScheduled = false;
+        showMap();
+      }, 500L);
+      return;
+    }
+
+    CarCrashLogger.recordStartupStage("Download.target.CarLauncherActivity");
+
     // Re-use original intent to retain all flags and payload.
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());
@@ -378,6 +396,7 @@ public class CarLauncherDownloadResourcesActivity extends BaseMwmFragmentActivit
     {
       // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model.
       Framework.nativeReloadWorldMaps();
+      mWorldMapsJustReloaded = true;
 
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {

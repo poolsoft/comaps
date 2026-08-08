@@ -216,6 +216,8 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       }
       else
       {
+        CarCrashLogger.recordStartupStage("Bootstrap.target.CarLauncherDownloadResourcesActivity");
+        CarCrashLogger.recordMemory("resources_missing");
         intent.setComponent(new ComponentName(this, CarLauncherDownloadResourcesActivity.class));
       }
     }

@@ -148,7 +148,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         appDock = findViewById(R.id.app_dock);
         appDrawerContainer = findViewById(R.id.app_drawer_container);
         CarCrashLogger.recordStartupStage("CarLauncherActivity.launcherViewsBound");
+        CarCrashLogger.recordMemory("launcher_views_bound");
         installStatusBarInsetsListener();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.insetsInstalled");
 
         if (widgetPanel != null) {
             widgetPanel.setBackgroundResource(R.drawable.bg_panel_rounded);
@@ -172,6 +174,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
         layoutManager = new CarLayoutManager(this);
         applyWidgetPanelState();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.layoutManagerReady");
         if (rootLayout != null) {
             rootLayout.post(() -> {
                 applyWidgetPanelState(false);
@@ -189,20 +192,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                     : PanelContentManager.PanelContent.WIDGETS;
             lastPanelContent = startupContent;
             applyWidgetPanelState(false);
-            if (appDock != null) {
-                getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
-                    .commitAllowingStateLoss();
-            }
-            if (widgetPanel != null && panelContentManager != null) {
-                Runnable loadVisiblePanel = () -> {
-                    if (isFinishing() || isDestroyed()) return;
-                    panelContentManager.setContent(startupContent);
-                    panelContentLoadedInProcess = true;
-                };
-                if (rootLayout != null) rootLayout.post(loadVisiblePanel);
-                else loadVisiblePanel.run();
-            }
+            scheduleLauncherContent(startupContent);
         }
 
         if (widgetHandle != null) {
@@ -261,8 +251,69 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         
         applyStatusBarVisibility();
         if (rootLayout != null) {
-            rootLayout.post(startupProfile::markUiReady);
+            rootLayout.post(() -> {
+                startupProfile.markUiReady();
+                CarCrashLogger.recordMemory("launcher_first_frame");
+            });
         }
+    }
+
+    private void scheduleLauncherContent(PanelContentManager.PanelContent startupContent) {
+        Runnable loadDock = () -> {
+            if (isFinishing() || isDestroyed() || appDock == null) return;
+            CarCrashLogger.recordStartupStage("CarLauncherActivity.dockLoad.begin");
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.app_dock, new AppDockFragment(), "app_dock")
+                    .commitAllowingStateLoss();
+            CarCrashLogger.recordStartupStage("CarLauncherActivity.dockLoad.queued");
+        };
+        Runnable loadVisiblePanel = () -> {
+            if (isFinishing() || isDestroyed() || widgetPanel == null
+                    || panelContentManager == null) return;
+            CarCrashLogger.recordStartupStage("CarLauncherActivity.panelLoad.begin."
+                    + startupContent.name());
+            panelContentManager.setContent(startupContent);
+            panelContentLoadedInProcess = true;
+            CarCrashLogger.recordMemory("launcher_panel_queued");
+            View completionView = rootLayout != null ? rootLayout : widgetPanel;
+            completionView.postDelayed(() -> {
+                if (!isFinishing() && !isDestroyed()) {
+                    CarCrashLogger.recordMemory("launcher_stable");
+                    CarCrashLogger.markStartupComplete();
+                }
+            }, 2000L);
+        };
+
+        if (rootLayout == null) {
+            loadDock.run();
+            loadVisiblePanel.run();
+            return;
+        }
+        if (startupProfile != null && startupProfile.isLowRam()) {
+            // Let the native map renderer claim its initial buffers before optional
+            // launcher fragments. The panel already has a visible background, so it
+            // never flashes as an unstyled black surface while waiting.
+            CarCrashLogger.recordStartupStage("CarLauncherActivity.lowRamStaging");
+            rootLayout.postDelayed(loadDock, 300L);
+            rootLayout.postDelayed(loadVisiblePanel, 1000L);
+        } else {
+            rootLayout.post(loadDock);
+            rootLayout.postDelayed(loadVisiblePanel, 120L);
+        }
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onTrimMemory level=" + level);
+        CarCrashLogger.recordMemory("trim_memory_" + level);
+        super.onTrimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onLowMemory");
+        CarCrashLogger.recordMemory("low_memory");
+        super.onLowMemory();
     }
 
     private void updateCarWidgetPanelSize(float deltaX, float deltaY,
