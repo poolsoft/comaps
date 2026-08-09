@@ -821,9 +821,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         statusBarInsetsListenerInstalled = true;
         androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(rootLayout, (view, insets) -> {
             boolean show = new CarLauncherSettings(this).isStatusBarVisible();
-            int top = show
+            int statusBarTop = show
                     ? insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.statusBars()).top
                     : 0;
+            int top = resolveStatusBarPadding(view, statusBarTop);
             if (view.getPaddingTop() != top) {
                 view.setPadding(0, top, 0, 0);
                 view.post(() -> applyWidgetPanelState(false));
@@ -834,12 +835,35 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     private void applyStatusBarInsetFallback(boolean showStatusBar) {
         if (rootLayout == null) return;
-        int top = 0;
+        int statusBarTop = 0;
         if (showStatusBar) {
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) top = getResources().getDimensionPixelSize(resourceId);
+            if (resourceId > 0) {
+                statusBarTop = getResources().getDimensionPixelSize(resourceId);
+            }
         }
-        rootLayout.setPadding(0, top, 0, 0);
+        final int fallbackTop = statusBarTop;
+        rootLayout.post(() -> {
+            if (isFinishing() || isDestroyed()) return;
+            int top = resolveStatusBarPadding(rootLayout, fallbackTop);
+            if (rootLayout.getPaddingTop() != top) {
+                rootLayout.setPadding(0, top, 0, 0);
+                applyWidgetPanelState(false);
+            }
+        });
+    }
+
+    /**
+     * Some head-unit ROMs inset the activity content even in edge-to-edge mode.
+     * Only add the part of the status bar that is not already represented by
+     * the root view's real screen position, otherwise the top inset is doubled.
+     */
+    private int resolveStatusBarPadding(View view, int statusBarTop) {
+        if (view == null || statusBarTop <= 0) return 0;
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int contentTopAlreadyApplied = Math.max(0, location[1]);
+        return Math.max(0, statusBarTop - contentTopAlreadyApplied);
     }
 
     @Override
