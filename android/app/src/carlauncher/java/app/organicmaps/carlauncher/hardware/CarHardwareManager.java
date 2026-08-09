@@ -16,6 +16,8 @@ import java.util.List;
 
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
+import app.organicmaps.carlauncher.CarLauncherSettings;
+
 /**
  * Evrensel Arac Donanim Yoneticisi (CarHardwareManager).
  * Farkli multimedya teyp markalarini (XYAuto, HCN, Standart) algilar
@@ -76,7 +78,21 @@ public class CarHardwareManager {
      * Donanimsal Ekolayziri (DSP / Ses Efektleri) acar.
      */
     public void openEqualizer(Context activityContext) {
-        String selectedPackage = new CarLauncherSettings(context).getEqualizerApp();
+        CarLauncherSettings settings = new CarLauncherSettings(context);
+        String customIntent = settings.getEqualizerIntent();
+        if (!TextUtils.isEmpty(customIntent)) {
+            try {
+                Intent intent = customIntent.startsWith("intent:")
+                        ? Intent.parseUri(customIntent, Intent.URI_INTENT_SCHEME)
+                        : new Intent(customIntent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activityContext.startActivity(intent);
+                return;
+            } catch (Exception e) {
+                Log.w(TAG, "Secilen equalizer intent'i acilamadi: " + customIntent, e);
+            }
+        }
+        String selectedPackage = settings.getEqualizerApp();
         if (!TextUtils.isEmpty(selectedPackage)) {
             if (launchApp(activityContext, selectedPackage)) {
                 return;

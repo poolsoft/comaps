@@ -345,6 +345,25 @@ public class InternalMusicPlayer {
         if (index < 0 || index >= queue.size())
             return;
 
+        int requestedIndex = index;
+        int attempts = 0;
+        while (attempts < queue.size() && !queue.get(index).isAvailable()) {
+            index = (index + 1) % queue.size();
+            attempts++;
+        }
+        if (attempts >= queue.size()) {
+            currentIndex = requestedIndex;
+            isPrepared = false;
+            if (listener != null) {
+                listener.onPlaybackStateChanged(false);
+            }
+            saveState();
+            return;
+        }
+        if (index != requestedIndex) {
+            seekPosition = 0;
+        }
+
         // Onceki durdur (Turkce karakter yok)
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();

@@ -92,10 +92,27 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
         adapters.add(new HcnRadioAdapter(this.context, this));
         adapters.add(new UniversalBluetoothAdapter(this.context, this));
 
-        // Baslangicta muzikleri tara
-        repository.scanMusic((tracks, folders, artists) -> {
+        // Cache-first: restore immediately, refresh after the launcher first frame.
+        List<MusicRepository.AudioTrack> cachedTracks = repository.getIndexedTracks();
+        final boolean restoredFromCache = !repository.getCachedTracks().isEmpty();
+        if (restoredFromCache) {
+            internalPlayer.setLibraryForRestore(cachedTracks);
+            internalPlayer.restoreState();
+            app.organicmaps.carlauncher.CarLauncherSettings cachedSettings =
+                    new app.organicmaps.carlauncher.CarLauncherSettings(this.context);
+            if (cachedSettings.isAutoPlayMusicEnabled() || internalPlayer.wasPlayingBefore()) {
+                internalPlayer.resumeLastSession();
+            }
+        }
+        MusicRepository.ScanState initialScanState = repository.getScanState();
+        long scanAge = initialScanState != null && initialScanState.lastSuccessfulScanTime > 0L
+                ? System.currentTimeMillis() - initialScanState.lastSuccessfulScanTime : Long.MAX_VALUE;
+        long refreshInterval = 15L * 60L * 1000L;
+        long refreshDelay = scanAge < refreshInterval
+                ? Math.max(2000L, refreshInterval - scanAge) : 2000L;
+        new Handler(Looper.getMainLooper()).postDelayed(() -> repository.scanMusic((tracks, folders, artists) -> {
             Log.d(TAG, "Scan complete: " + tracks.size() + " tracks");
-            if (!tracks.isEmpty()) {
+            if (!tracks.isEmpty() && !restoredFromCache) {
                 internalPlayer.setLibraryForRestore(tracks);
                 internalPlayer.restoreState();
 
@@ -105,7 +122,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
                      internalPlayer.resumeLastSession();
                 }
             }
-        });
+        }, MusicRepository.ScanReason.STARTUP_REFRESH), refreshDelay);
 
         // Core kodlara dokunmadan, sistemdeki ses calim durumlarini (TTS/Navigasyon) dinleme
         setupAudioPlaybackCallback();

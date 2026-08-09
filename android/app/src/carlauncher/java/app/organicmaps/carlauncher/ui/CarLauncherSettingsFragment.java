@@ -834,22 +834,27 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         if (getContext() == null || settings == null) return;
         String[] options = {
                 getString(R.string.car_settings_equalizer_auto),
-                getString(R.string.car_settings_equalizer_choose_app)
+                getString(R.string.car_settings_equalizer_choose_app),
+                getString(R.string.car_settings_equalizer_custom_intent)
         };
         new AlertDialog.Builder(getContext())
                 .setTitle(R.string.car_pref_equalizer_title)
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         settings.setEqualizerApp(null);
+                        settings.setEqualizerIntent(null);
                         updateEqualizerSummary(pref);
-                    } else {
+                    } else if (which == 1) {
                         AppPickerDialog picker = new AppPickerDialog(getContext(), false, false,
                                 (packageName, name, icon) -> {
                                     settings.setEqualizerApp(packageName);
+                                    settings.setEqualizerIntent(null);
                                     updateEqualizerSummary(pref);
                                 });
                         picker.setActivePackage(settings.getEqualizerApp());
                         picker.show();
+                    } else {
+                        showEqualizerIntentDialog(pref);
                     }
                 })
                 .show();
@@ -857,6 +862,11 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     private void updateEqualizerSummary(@NonNull Preference pref) {
         if (getContext() == null || settings == null) return;
+        String intentValue = settings.getEqualizerIntent();
+        if (!android.text.TextUtils.isEmpty(intentValue)) {
+            pref.setSummary(getString(R.string.car_settings_equalizer_intent_summary, intentValue));
+            return;
+        }
         String packageName = settings.getEqualizerApp();
         if (android.text.TextUtils.isEmpty(packageName)) {
             pref.setSummary(R.string.car_settings_equalizer_auto_summary);
@@ -869,6 +879,23 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         } catch (Exception e) {
             pref.setSummary(packageName);
         }
+    }
+
+    private void showEqualizerIntentDialog(@NonNull Preference pref) {
+        if (getContext() == null || settings == null) return;
+        android.widget.EditText input = new android.widget.EditText(getContext());
+        input.setHint(R.string.car_settings_equalizer_intent_hint);
+        input.setText(settings.getEqualizerIntent());
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.car_settings_equalizer_custom_intent)
+                .setView(input)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    String value = input.getText().toString().trim();
+                    settings.setEqualizerIntent(value.isEmpty() ? null : value);
+                    if (!value.isEmpty()) settings.setEqualizerApp(null);
+                    updateEqualizerSummary(pref);
+                })
+                .setNegativeButton(android.R.string.cancel, null).show();
     }
 
     private void setupDockPrefs() {

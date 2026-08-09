@@ -426,7 +426,44 @@
                     android:background="@drawable/bg_widget_card"/>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
++            <LinearLayout
+                android:id="@+id/music_scan_status_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp">
+
+                <ProgressBar
+                    android:id="@+id/music_scan_progress"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/music_scan_status_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/music_scan_permission_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:minWidth="96dp"
+                    android:text="@string/car_music_grant_permission"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
++            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/music_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

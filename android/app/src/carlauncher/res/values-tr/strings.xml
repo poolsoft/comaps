@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_grant_permission">İzin ver</string>
+    <string name="car_music_permission_card">Müzik listesini yenilemek için erişim izni gerekli. Kayıtlı indeks kullanılmaya devam eder.</string>
+    <string name="car_music_scan_status_running">Müzikler taranıyor… Şu anda %1$d parça indeksli</string>
+    <string name="car_music_scan_status_never">Kayıtlı indeks: %1$d parça • Henüz yenilenmedi</string>
+    <string name="car_music_scan_status_ready">%1$d parça (%2$d dahili, %3$d USB) • %4$s güncellendi</string>
+    <string name="car_settings_equalizer_custom_intent">Özel intent</string>
+    <string name="car_settings_equalizer_intent_hint">Intent URI veya action, örneğin com.vendor.EQUALIZER</string>
+    <string name="car_settings_equalizer_intent_summary">Özel intent: %1$s</string>
     <string name="car_music_playlist_options">Liste seçenekleri</string>
     <string name="car_music_play_list_now">Şimdi çal</string>
     <string name="car_music_add_list_to_queue_front">Sıranın başına ekle</string>

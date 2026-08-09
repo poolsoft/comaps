@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_grant_permission">Grant access</string>
+    <string name="car_music_permission_card">Music access is required to refresh the library. The saved index remains available.</string>
+    <string name="car_music_scan_status_running">Scanning music… %1$d tracks currently indexed</string>
+    <string name="car_music_scan_status_never">Saved index: %1$d tracks • Not refreshed yet</string>
+    <string name="car_music_scan_status_ready">%1$d tracks (%2$d internal, %3$d USB) • Updated %4$s</string>
+    <string name="car_settings_equalizer_custom_intent">Custom intent</string>
+    <string name="car_settings_equalizer_intent_hint">Intent URI or action, for example com.vendor.EQUALIZER</string>
+    <string name="car_settings_equalizer_intent_summary">Custom intent: %1$s</string>
     <string name="car_music_playlist_options">Playlist options</string>
     <string name="car_music_play_list_now">Play now</string>
     <string name="car_music_add_list_to_queue_front">Add to front of queue</string>
