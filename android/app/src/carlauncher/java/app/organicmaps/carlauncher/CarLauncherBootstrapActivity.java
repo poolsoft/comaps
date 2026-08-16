@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
@@ -35,6 +37,9 @@ import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.IOException;
 import java.util.Objects;
+import app.organicmaps.carlauncher.ui.AppDockFragment;
+import app.organicmaps.carlauncher.ui.CarLayoutManager;
+import app.organicmaps.carlauncher.ui.PanelContentManager;
 
 /**
  * Car Launcher'a ait izole baslangic etkinligi.
@@ -42,12 +47,18 @@ import java.util.Objects;
  * CarLauncherActivity olarak tutar; ana CoMaps SplashActivity'sini degistirmez.
  */
 public class CarLauncherBootstrapActivity extends AppCompatActivity
+    implements CarLauncherInterface, AppDockFragment.OnAppDockListener
 {
   private static final String TAG = CarLauncherBootstrapActivity.class.getSimpleName();
 
   private static final long DELAY = 100;
 
   private boolean mCanceled = false;
+  private boolean mShellFirstFrameScheduled;
+  private boolean mCoreInitRequested;
+  private CarLayoutManager mLayoutManager;
+  private PanelContentManager mPanelContentManager;
+  private int mLayoutMode;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -75,9 +86,28 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
         + ", Flags: " + (intent != null ? intent.getFlags() : 0));
 
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-    setContentView(R.layout.activity_splash);
+    setContentView(R.layout.activity_car_launcher);
 
-    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_view), new OnApplyWindowInsetsListener() {
+    mLayoutManager = new CarLayoutManager(this);
+    mPanelContentManager = new PanelContentManager(getSupportFragmentManager(), R.id.widget_panel);
+    mPanelContentManager.setOnFullScreenStateChangeListener(fullScreen -> {
+      mLayoutManager.setContentFullScreen(fullScreen);
+      mLayoutManager.applyLayout(true, mLayoutMode);
+    });
+    mLayoutManager.applyLayout(true, mLayoutMode);
+    mPanelContentManager.setContent(PanelContentManager.PanelContent.WIDGETS);
+
+    FrameLayout mapContainer = findViewById(R.id.car_map_container);
+    if (mapContainer != null)
+    {
+      ProgressBar progress = new ProgressBar(this);
+      FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+          FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+      params.gravity = android.view.Gravity.CENTER;
+      mapContainer.addView(progress, params);
+    }
+
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_layout), new OnApplyWindowInsetsListener() {
       @NonNull
       @Override
       public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat insets)
@@ -115,7 +145,32 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       return;
     }
 
-    UiThread.runLater(mInitCoreDelayedTask, DELAY);
+    scheduleCoreAfterShellFrame();
+  }
+
+  private void scheduleCoreAfterShellFrame()
+  {
+    if (mShellFirstFrameScheduled)
+    {
+      UiThread.runLater(mInitCoreDelayedTask, DELAY);
+      return;
+    }
+    mShellFirstFrameScheduled = true;
+    View root = findViewById(R.id.root_layout);
+    if (root == null)
+    {
+      UiThread.runLater(mInitCoreDelayedTask, DELAY);
+      return;
+    }
+    root.post(() -> android.view.Choreographer.getInstance().postFrameCallback(frameTimeNanos -> {
+      if (isFinishing() || isDestroyed() || mCanceled)
+        return;
+      CarCrashLogger.recordStartupStage("Bootstrap.shell.firstFrame");
+      getSupportFragmentManager().beginTransaction()
+          .replace(R.id.app_dock, new AppDockFragment(), "bootstrap_dock")
+          .commitAllowingStateLoss();
+      UiThread.runLater(mInitCoreDelayedTask, DELAY);
+    }));
   }
 
   @Override
@@ -152,6 +207,9 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
 
   private void init()
   {
+    if (mCoreInitRequested)
+      return;
+    mCoreInitRequested = true;
     CarCrashLogger.recordStartupStage("Bootstrap.initCore.begin");
     MwmApplication app = MwmApplication.from(this);
     boolean asyncContinue = false;
@@ -253,4 +311,33 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
 
     return manageSpaceActivityName.equals(component.getClassName());
   }
+
+  @Override public void openAppDrawer() { setPanelContent(PanelContentManager.PanelContent.APP_DRAWER); }
+  @Override public void closeAppDrawer() { setPanelContent(PanelContentManager.PanelContent.WIDGETS); }
+  @Override public void openCarLauncherSettings() { setPanelContent(PanelContentManager.PanelContent.SETTINGS); }
+  @Override public void openMusicPlayer() { setPanelContent(PanelContentManager.PanelContent.MUSIC); }
+  @Override public void openWeatherDashboard() { setPanelContent(PanelContentManager.PanelContent.WEATHER); }
+  @Override public void openAntennaAlignmentInPanel() { }
+  @Override public void openAntennaAlignmentFullscreen() { }
+  @Override public void setPanelContent(PanelContentManager.PanelContent content)
+  {
+    if (mPanelContentManager != null)
+      mPanelContentManager.setContent(content);
+  }
+  @Override public Object getMapView() { return null; }
+  @Override public PanelContentManager getPanelContentManager() { return mPanelContentManager; }
+  @Override public void onLayoutModeToggle()
+  {
+    mLayoutMode = (mLayoutMode + 1) % 2;
+    if (mLayoutManager != null)
+      mLayoutManager.applyLayout(true, mLayoutMode);
+  }
+  @Override public void onDesktopModeToggle() { }
+  @Override public boolean isDesktopMode() { return false; }
+  @Override public int getLayoutMode() { return mLayoutMode; }
+  @Override public boolean isWidgetPanelOpen() { return true; }
+  @Override public void applyNightDimMode() { }
+  @Override public void applyStatusBarVisibility() { }
+  @Override public void checkAndRefreshDockFragmentIfNeeded() { }
+  @Override public void onAppDrawerOpen() { openAppDrawer(); }
 }

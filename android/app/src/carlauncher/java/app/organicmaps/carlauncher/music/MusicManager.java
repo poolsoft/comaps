@@ -93,17 +93,20 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
         adapters.add(new UniversalBluetoothAdapter(this.context, this));
 
         // Cache-first: restore immediately, refresh after the launcher first frame.
-        List<MusicRepository.AudioTrack> cachedTracks = repository.getIndexedTracks();
-        final boolean restoredFromCache = !repository.getCachedTracks().isEmpty();
-        if (restoredFromCache) {
+        java.util.concurrent.atomic.AtomicBoolean restoredFromCache =
+                new java.util.concurrent.atomic.AtomicBoolean(false);
+        repository.addIndexReadyListener(() -> {
+            List<MusicRepository.AudioTrack> cachedTracks = repository.getIndexedTracks();
+            if (repository.getCachedTracks().isEmpty()) return;
             internalPlayer.setLibraryForRestore(cachedTracks);
             internalPlayer.restoreState();
+            restoredFromCache.set(true);
             app.organicmaps.carlauncher.CarLauncherSettings cachedSettings =
                     new app.organicmaps.carlauncher.CarLauncherSettings(this.context);
             if (cachedSettings.isAutoPlayMusicEnabled() || internalPlayer.wasPlayingBefore()) {
                 internalPlayer.resumeLastSession();
             }
-        }
+        });
         MusicRepository.ScanState initialScanState = repository.getScanState();
         long scanAge = initialScanState != null && initialScanState.lastSuccessfulScanTime > 0L
                 ? System.currentTimeMillis() - initialScanState.lastSuccessfulScanTime : Long.MAX_VALUE;
@@ -112,7 +115,7 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
                 ? Math.max(2000L, refreshInterval - scanAge) : 2000L;
         new Handler(Looper.getMainLooper()).postDelayed(() -> repository.scanMusic((tracks, folders, artists) -> {
             Log.d(TAG, "Scan complete: " + tracks.size() + " tracks");
-            if (!tracks.isEmpty() && !restoredFromCache) {
+            if (!tracks.isEmpty() && !restoredFromCache.get()) {
                 internalPlayer.setLibraryForRestore(tracks);
                 internalPlayer.restoreState();
 

@@ -45,20 +45,19 @@ public class MusicRepository {
     private List<AudioFolder> cachedFolders = new ArrayList<>();
     private List<AudioArtist> cachedArtists = new ArrayList<>();
     private final List<ScanStateListener> scanStateListeners = new java.util.concurrent.CopyOnWriteArrayList<>();
+    private final List<Runnable> indexReadyListeners = new java.util.concurrent.CopyOnWriteArrayList<>();
     private volatile ScanState scanState;
+    private volatile boolean cachedIndexReady;
     private final android.content.BroadcastReceiver storageReceiver;
     private static final String SCAN_PREFS = "car_music_scan_state";
 
     // Singleton support if needed, or instantiated by MusicManager
     public MusicRepository(Context context) {
         this.context = context.getApplicationContext();
-        loadCachedIndex();
         android.content.SharedPreferences prefs = this.context.getSharedPreferences(
                 SCAN_PREFS, Context.MODE_PRIVATE);
         scanState = new ScanState(false, ScanReason.CACHE_LOAD,
-                prefs.getLong("last_scan_time", 0L), cachedTracks.size(),
-                countStorage(cachedTracks, StorageType.INTERNAL),
-                countStorage(cachedTracks, StorageType.USB), null,
+                prefs.getLong("last_scan_time", 0L), 0, 0, 0, null,
                 hasMusicReadPermission());
         storageReceiver = new android.content.BroadcastReceiver() {
             @Override public void onReceive(Context receiverContext, android.content.Intent intent) {
@@ -83,6 +82,20 @@ public class MusicRepository {
         } else {
             this.context.registerReceiver(storageReceiver, storageFilter);
         }
+        ioExecutor.execute(() -> {
+            loadCachedIndex();
+            ScanState loadedState = new ScanState(false, ScanReason.CACHE_LOAD,
+                    prefs.getLong("last_scan_time", 0L), cachedTracks.size(),
+                    countStorage(cachedTracks, StorageType.INTERNAL),
+                    countStorage(cachedTracks, StorageType.USB), null,
+                    hasMusicReadPermission());
+            cachedIndexReady = true;
+            publishScanState(loadedState);
+            for (Runnable listener : indexReadyListeners) {
+                mainHandler.post(listener);
+            }
+            indexReadyListeners.clear();
+        });
     }
 
     public enum ScanReason { CACHE_LOAD, STARTUP_REFRESH, USER_REQUEST, USB_MOUNTED, USB_REMOVED }
@@ -114,6 +127,17 @@ public class MusicRepository {
     }
 
     public ScanState getScanState() { return scanState; }
+    public void addIndexReadyListener(Runnable listener) {
+        if (listener == null) return;
+        if (cachedIndexReady) {
+            mainHandler.post(listener);
+        } else {
+            indexReadyListeners.add(listener);
+            if (cachedIndexReady && indexReadyListeners.remove(listener)) {
+                mainHandler.post(listener);
+            }
+        }
+    }
     public void addScanStateListener(ScanStateListener listener) {
         if (listener != null) {
             scanStateListeners.add(listener);

@@ -7,7 +7,8 @@ import android.widget.ImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import app.organicmaps.R;
-import app.organicmaps.carlauncher.CarLauncherActivity;
+import app.organicmaps.carlauncher.CarLauncherInterface;
+import android.app.Activity;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 /**
@@ -16,7 +17,7 @@ import app.organicmaps.carlauncher.CarLauncherSettings;
  */
 public class CarLayoutManager {
 
-    private final CarLauncherActivity activity;
+    private final Activity activity;
     private final ConstraintLayout rootLayout;
     private final View mapContainer;
     private final View widgetPanel;
@@ -24,7 +25,7 @@ public class CarLayoutManager {
     private final View appDrawerContainer;
     private final ImageButton widgetHandle;
 
-    public CarLayoutManager(CarLauncherActivity activity) {
+    public CarLayoutManager(Activity activity) {
         this.activity = activity;
         this.rootLayout = activity.findViewById(R.id.root_layout);
         this.mapContainer = activity.findViewById(R.id.car_map_container);
@@ -50,6 +51,11 @@ public class CarLayoutManager {
     }
 
     private boolean isContentFullScreen = false;
+
+    private boolean isDesktopMode() {
+        return activity instanceof CarLauncherInterface
+                && ((CarLauncherInterface) activity).isDesktopMode();
+    }
 
     public void setContentFullScreen(boolean fullScreen) {
         this.isContentFullScreen = fullScreen;
@@ -202,7 +208,7 @@ public class CarLayoutManager {
         int screenWidth = getCurrentContentWidth();
         int screenHeight = getCurrentContentHeight();
 
-        if (activity.isDesktopMode()) {
+        if (isDesktopMode()) {
             cs.setVisibility(R.id.car_map_container, View.GONE);
             cs.setVisibility(R.id.widget_handle, View.GONE);
             cs.setVisibility(R.id.widget_panel, View.VISIBLE);
@@ -460,7 +466,7 @@ public class CarLayoutManager {
 
     private void updateWidgetHandleConstraints(ConstraintSet cs, CarLauncherSettings settings, boolean isOpen) {
         if (widgetHandle != null) {
-            if (!isOpen || activity.isDesktopMode()) {
+            if (!isOpen || isDesktopMode()) {
                 cs.setVisibility(R.id.widget_handle, View.GONE);
             } else {
                 cs.setVisibility(R.id.widget_handle, View.VISIBLE);
