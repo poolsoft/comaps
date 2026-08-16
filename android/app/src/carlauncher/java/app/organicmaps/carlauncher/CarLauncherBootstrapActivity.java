@@ -6,6 +6,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -60,6 +61,10 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   private CarLayoutManager mLayoutManager;
   private PanelContentManager mPanelContentManager;
   private int mLayoutMode;
+  private View mRootLayout;
+  private View.OnLayoutChangeListener mConfigurationLayoutListener;
+  private boolean mExpectedPortrait;
+  private final Runnable mConfigurationFallback = this::finishConfigurationLayoutUpdate;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -90,6 +95,10 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
 
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     setContentView(R.layout.activity_car_launcher);
+    getWindow().setStatusBarColor(android.graphics.Color.BLACK);
+    getWindow().setNavigationBarColor(android.graphics.Color.BLACK);
+    getWindow().getDecorView().setBackgroundColor(android.graphics.Color.BLACK);
+    mRootLayout = findViewById(R.id.root_layout);
 
     mLayoutManager = new CarLayoutManager(this);
     mPanelContentManager = new PanelContentManager(getSupportFragmentManager(), R.id.widget_panel);
@@ -110,16 +119,20 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       mapContainer.addView(progress, params);
     }
 
-    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_layout), new OnApplyWindowInsetsListener() {
+    ViewCompat.setOnApplyWindowInsetsListener(mRootLayout, new OnApplyWindowInsetsListener() {
       @NonNull
       @Override
       public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat insets)
       {
         Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-        v.setPadding(0, 0, 0, systemBars.bottom);
+        int top = new CarLauncherSettings(CarLauncherBootstrapActivity.this)
+            .isStatusBarVisible() ? systemBars.top : 0;
+        v.setPadding(0, top, 0, systemBars.bottom);
+        v.post(() -> applyShellLayout());
         return insets;
       }
     });
+    applyStatusBarVisibility();
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
                                                    result -> Config.setLocationRequested());
     mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -187,6 +200,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       getSupportFragmentManager().beginTransaction()
           .replace(R.id.app_dock, new AppDockFragment(), "bootstrap_dock")
           .commitAllowingStateLoss();
+      applyShellLayout();
       UiThread.runLater(mInitCoreDelayedTask, DELAY);
     }));
   }
@@ -202,6 +216,12 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   @Override
   protected void onDestroy()
   {
+    if (mRootLayout != null)
+    {
+      mRootLayout.removeCallbacks(mConfigurationFallback);
+      if (mConfigurationLayoutListener != null)
+        mRootLayout.removeOnLayoutChangeListener(mConfigurationLayoutListener);
+    }
     super.onDestroy();
     Log.i("CarLauncherLifecycle", "Bootstrap.onDestroy called.");
     mPermissionRequest.unregister();
@@ -333,11 +353,20 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
     return manageSpaceActivityName.equals(component.getClassName());
   }
 
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus)
+  {
+    super.onWindowFocusChanged(hasFocus);
+    if (hasFocus) applyStatusBarVisibility();
+  }
+
   private void showMissingMapResources()
   {
     FrameLayout mapContainer = findViewById(R.id.car_map_container);
     if (mapContainer == null)
       return;
+    mapContainer.setBackgroundResource(R.drawable.bg_missing_map_card);
+    mapContainer.setClipToOutline(true);
     mapContainer.removeAllViews();
     android.widget.LinearLayout card = new android.widget.LinearLayout(this);
     card.setOrientation(android.widget.LinearLayout.VERTICAL);
@@ -423,6 +452,60 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
     }
   }
 
+  private void applyShellLayout()
+  {
+    if (mLayoutManager != null)
+      mLayoutManager.applyLayout(true, mLayoutMode);
+  }
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+    mExpectedPortrait = newConfig.orientation == Configuration.ORIENTATION_PORTRAIT;
+    if (mRootLayout == null)
+    {
+      applyShellLayout();
+      return;
+    }
+    mRootLayout.removeCallbacks(mConfigurationFallback);
+    if (mConfigurationLayoutListener != null)
+      mRootLayout.removeOnLayoutChangeListener(mConfigurationLayoutListener);
+    mConfigurationLayoutListener = (view, left, top, right, bottom,
+        oldLeft, oldTop, oldRight, oldBottom) -> {
+      int width = right - left;
+      int height = bottom - top;
+      if (width > 0 && height > 0 && (height >= width) == mExpectedPortrait)
+        finishConfigurationLayoutUpdate();
+    };
+    mRootLayout.addOnLayoutChangeListener(mConfigurationLayoutListener);
+    mRootLayout.requestLayout();
+    mRootLayout.postDelayed(mConfigurationFallback, 250L);
+  }
+
+  private void finishConfigurationLayoutUpdate()
+  {
+    if (mRootLayout != null)
+    {
+      mRootLayout.removeCallbacks(mConfigurationFallback);
+      if (mConfigurationLayoutListener != null)
+      {
+        mRootLayout.removeOnLayoutChangeListener(mConfigurationLayoutListener);
+        mConfigurationLayoutListener = null;
+      }
+    }
+    applyShellLayout();
+    if (!isFinishing() && !isDestroyed())
+    {
+      getSupportFragmentManager().beginTransaction()
+          .replace(R.id.app_dock, new AppDockFragment(), "bootstrap_dock")
+          .commitAllowingStateLoss();
+      if (mPanelContentManager != null)
+        mPanelContentManager.refreshCurrentContent();
+    }
+    ViewCompat.requestApplyInsets(mRootLayout);
+  }
+
   @Override public void openAppDrawer() { setPanelContent(PanelContentManager.PanelContent.APP_DRAWER); }
   @Override public void closeAppDrawer() { setPanelContent(PanelContentManager.PanelContent.WIDGETS); }
   @Override public void openCarLauncherSettings() { setPanelContent(PanelContentManager.PanelContent.SETTINGS); }
@@ -448,7 +531,22 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   @Override public int getLayoutMode() { return mLayoutMode; }
   @Override public boolean isWidgetPanelOpen() { return true; }
   @Override public void applyNightDimMode() { }
-  @Override public void applyStatusBarVisibility() { }
+  @Override public void applyStatusBarVisibility()
+  {
+    boolean show = new CarLauncherSettings(this).isStatusBarVisible();
+    androidx.core.view.WindowInsetsControllerCompat controller =
+        androidx.core.view.WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+    if (controller != null)
+    {
+      if (show) controller.show(WindowInsetsCompat.Type.statusBars());
+      else controller.hide(WindowInsetsCompat.Type.statusBars());
+      controller.setAppearanceLightStatusBars(false);
+      controller.setAppearanceLightNavigationBars(false);
+    }
+    getWindow().setStatusBarColor(android.graphics.Color.BLACK);
+    getWindow().setNavigationBarColor(android.graphics.Color.BLACK);
+    if (mRootLayout != null) ViewCompat.requestApplyInsets(mRootLayout);
+  }
   @Override public void checkAndRefreshDockFragmentIfNeeded() { }
   @Override public void onAppDrawerOpen() { openAppDrawer(); }
 }

@@ -102,5 +102,13 @@ public class PanelContentManager {
     public PanelContent getCurrentContent() {
         return currentContent;
     }
+
+    /** Recreates the visible fragment after a handled orientation change. */
+    public void refreshCurrentContent() {
+        PanelContent content = currentContent;
+        if (content == null) return;
+        currentContent = null;
+        setContent(content);
+    }
 }
 

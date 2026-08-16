@@ -39,7 +39,7 @@
 
         <activity
             android:name="app.organicmaps.carlauncher.CarLauncherBootstrapActivity"
-            android:theme="@style/MwmTheme.Splash"
+            android:theme="@style/CarLauncherBootstrapTheme"
             android:launchMode="singleTask"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
             android:exported="true">
