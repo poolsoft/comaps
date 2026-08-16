@@ -1096,16 +1096,16 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             Uri uri = data.getData();
             if (requestCode == RC_BACKUP_EXPORT_FOLDER) {
                 showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToFolder(getContext(), uri, createBackupCallback());
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToFolder(getContext(), uri, createBackupCallback(false));
             } else if (requestCode == RC_BACKUP_EXPORT_ZIP) {
                 showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToZip(getContext(), uri, createBackupCallback());
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToZip(getContext(), uri, createBackupCallback(false));
             } else if (requestCode == RC_BACKUP_IMPORT_FOLDER) {
                 showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(getContext(), uri, createBackupCallback());
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(getContext(), uri, createBackupCallback(true));
             } else if (requestCode == RC_BACKUP_IMPORT_ZIP) {
                 showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(getContext(), uri, createBackupCallback());
+                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(getContext(), uri, createBackupCallback(true));
             } else if (requestCode == RC_IMPORT_VOICE_MODEL) {
                 importVoiceModelFromUri(uri);
             }
@@ -1114,7 +1114,8 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
 
     private android.app.ProgressDialog mBackupDialog;
 
-    private app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback createBackupCallback() {
+    private app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback createBackupCallback(
+            boolean mapsMayHaveChanged) {
         return new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
             @Override
             public void onProgress(String message) {
@@ -1134,6 +1135,12 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 } catch (Exception ignored) {}
                 try {
                     Toast.makeText(getContext(), getString(R.string.car_settings_backup_success), Toast.LENGTH_LONG).show();
+                    if (mapsMayHaveChanged
+                            && getActivity() instanceof app.organicmaps.carlauncher.CarLauncherBootstrapActivity) {
+                        ((app.organicmaps.carlauncher.CarLauncherBootstrapActivity) getActivity())
+                                .onMapsImported();
+                        return;
+                    }
                     getPreferenceScreen().removeAll();
                     onCreatePreferences(null, getPreferenceScreen().getKey());
                 } catch (Exception ignored) {}

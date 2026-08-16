@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_maps_missing_title">Map files are missing</string>
+    <string name="car_maps_missing_message">The launcher remains available. Import World, WorldCoasts and your regional .mwm map files from USB or storage.</string>
+    <string name="car_maps_import_button">Import map files</string>
+    <string name="car_maps_import_settings_button">Open backup import settings</string>
+    <string name="car_maps_world_files_still_missing">Regional maps were imported, but required World/WorldCoasts files are still missing.</string>
     <string name="car_music_grant_permission">Grant access</string>
     <string name="car_music_permission_card">Music access is required to refresh the library. The saved index remains available.</string>
     <string name="car_music_scan_status_running">Scanning music… %1$d tracks currently indexed</string>

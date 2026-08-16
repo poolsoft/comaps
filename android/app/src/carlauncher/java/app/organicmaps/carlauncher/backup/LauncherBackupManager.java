@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -96,6 +97,62 @@ public class LauncherBackupManager {
     // IMPORT
     // ==========================================
 
+    /** Imports raw CoMaps map files selected from USB or a document provider. */
+    public static void importMapFiles(Context context, List<Uri> mapUris,
+                                      BackupCallback callback) {
+        ThreadPool.getStorage().execute(() -> {
+            try {
+                if (mapUris == null || mapUris.isEmpty()) {
+                    throw new Exception("Harita dosyasi secilmedi.");
+                }
+                File writableDir = new File(Framework.nativeGetWritableDir());
+                if (!writableDir.exists() && !writableDir.mkdirs()) {
+                    throw new Exception("Harita dizini olusturulamadi.");
+                }
+                int imported = 0;
+                for (Uri uri : mapUris) {
+                    DocumentFile document = DocumentFile.fromSingleUri(context, uri);
+                    String name = document != null ? document.getName() : null;
+                    if (name == null || !name.toLowerCase(java.util.Locale.US).contains(".mwm")) {
+                        continue;
+                    }
+                    postProgress(callback, "Harita aktariliyor: " + name);
+                    File target = new File(writableDir, name);
+                    File partial = new File(writableDir, name + ".importing");
+                    try (InputStream input = context.getContentResolver().openInputStream(uri);
+                         FileOutputStream output = new FileOutputStream(partial)) {
+                        if (input == null) throw new Exception("Dosya okunamadi: " + name);
+                        copyStream(input, output);
+                    }
+                    if (target.exists() && !target.delete()) {
+                        partial.delete();
+                        throw new Exception("Eski harita degistirilemedi: " + name);
+                    }
+                    if (!partial.renameTo(target)) {
+                        partial.delete();
+                        throw new Exception("Harita kaydedilemedi: " + name);
+                    }
+                    imported++;
+                }
+                if (imported == 0) {
+                    throw new Exception("Gecerli .mwm harita dosyasi bulunamadi.");
+                }
+                int importedCount = imported;
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    if (app.organicmaps.sdk.DownloadResourcesLegacyActivity
+                            .nativeGetBytesToDownload() == 0) {
+                        Framework.nativeReloadWorldMaps();
+                    }
+                    postProgress(callback, importedCount + " harita kaydedildi.");
+                    if (callback != null) callback.onSuccess();
+                });
+            } catch (Exception e) {
+                Log.e(TAG, "Raw map import failed", e);
+                postError(callback, e.getMessage());
+            }
+        });
+    }
+
     public static void importFromZip(Context context, Uri zipUri, BackupCallback callback) {
         ThreadPool.getStorage().execute(() -> {
             try {
@@ -135,7 +192,7 @@ public class LauncherBackupManager {
                     }
                 }
                 
-                postSuccess(callback);
+                postMapImportSuccess(callback);
             } catch (Exception e) {
                 Log.e(TAG, "Import from zip failed", e);
                 postError(callback, e.getMessage());
@@ -167,7 +224,7 @@ public class LauncherBackupManager {
                     copyDocumentFileToDirectory(context, mapsDir, writableDir, callback);
                 }
 
-                postSuccess(callback);
+                postMapImportSuccess(callback);
             } catch (Exception e) {
                 Log.e(TAG, "Import from folder failed", e);
                 postError(callback, e.getMessage());
@@ -291,6 +348,16 @@ public class LauncherBackupManager {
         if (callback != null) {
             new Handler(Looper.getMainLooper()).post(callback::onSuccess);
         }
+    }
+
+    private static void postMapImportSuccess(BackupCallback callback) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (app.organicmaps.sdk.DownloadResourcesLegacyActivity
+                    .nativeGetBytesToDownload() == 0) {
+                Framework.nativeReloadWorldMaps();
+            }
+            if (callback != null) callback.onSuccess();
+        });
     }
 
     private static void postError(BackupCallback callback, String error) {

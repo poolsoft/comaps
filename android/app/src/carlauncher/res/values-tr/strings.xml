@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_maps_missing_title">Harita dosyaları eksik</string>
+    <string name="car_maps_missing_message">Launcher çalışmaya devam eder. World, WorldCoasts ve bölgesel .mwm haritalarınızı USB veya depolamadan içe aktarın.</string>
+    <string name="car_maps_import_button">Harita dosyalarını içe aktar</string>
+    <string name="car_maps_import_settings_button">Yedek içe aktarma ayarını aç</string>
+    <string name="car_maps_world_files_still_missing">Bölgesel haritalar aktarıldı ancak gerekli World/WorldCoasts dosyaları hâlâ eksik.</string>
     <string name="car_music_grant_permission">İzin ver</string>
     <string name="car_music_permission_card">Müzik listesini yenilemek için erişim izni gerekli. Kayıtlı indeks kullanılmaya devam eder.</string>
     <string name="car_music_scan_status_running">Müzikler taranıyor… Şu anda %1$d parça indeksli</string>
