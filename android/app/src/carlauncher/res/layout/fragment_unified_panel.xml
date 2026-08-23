@@ -150,7 +150,7 @@
             android:textColor="#FFFFFF"
             android:textSize="38sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/google_sans_flex_black"
             android:includeFontPadding="false"
             android:letterSpacing="-0.07"
             android:textScaleX="0.92"
