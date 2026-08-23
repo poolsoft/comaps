@@ -48,6 +48,7 @@ public class CarLauncherSettings {
     public static final String KEY_EQUALIZER_APP = "car_launcher_equalizer_app";
     public static final String KEY_EQUALIZER_INTENT = "car_launcher_equalizer_intent";
     public static final String KEY_AMBIANCE_VISUALIZER = "car_launcher_ambiance_visualizer";
+    public static final String KEY_AUTO_SCAN_MUSIC = "car_launcher_auto_scan_music";
 
     // Dock Keys
     public static final String KEY_MAX_SHORTCUTS = "car_launcher_max_shortcuts";
@@ -262,6 +263,10 @@ public class CarLauncherSettings {
 
     public boolean isAmbianceVisualizerEnabled() {
         return prefs.getBoolean(KEY_AMBIANCE_VISUALIZER, true);
+    }
+
+    public boolean isAutoScanMusicEnabled() {
+        return prefs.getBoolean(KEY_AUTO_SCAN_MUSIC, false);
     }
 
     public void setAmbianceVisualizerEnabled(boolean enabled) {

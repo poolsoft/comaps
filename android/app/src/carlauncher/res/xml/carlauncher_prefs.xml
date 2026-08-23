@@ -245,6 +245,13 @@
             android:summary="@string/car_pref_scan_music_summary"
             app:iconSpaceReserved="false" />
 
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="car_launcher_auto_scan_music"
+            android:title="@string/car_pref_auto_scan_music_title"
+            android:summary="@string/car_pref_auto_scan_music_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
     </app.organicmaps.carlauncher.ui.CarLauncherPreferenceCategory>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->

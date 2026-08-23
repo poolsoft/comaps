@@ -129,6 +129,8 @@
     <string name="car_settings_equalizer_auto_summary">Automatic ROM detection and system equalizer fallback</string>
     <string name="car_pref_scan_music_title">Rescan Music</string>
     <string name="car_pref_scan_music_summary">Scan internal storage and USB drives</string>
+    <string name="car_pref_auto_scan_music_title">Refresh music library at startup</string>
+    <string name="car_pref_auto_scan_music_summary">Off uses the saved index for a faster launch; manual and USB scans still work</string>
     
     <!-- Weather -->
     <string name="car_pref_category_weather">Weather</string>

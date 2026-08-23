@@ -129,6 +129,8 @@
     <string name="car_settings_equalizer_auto_summary">Otomatik ROM algılama ve sistem equalizer yedeği</string>
     <string name="car_pref_scan_music_title">Müzikleri Yeniden Tara</string>
     <string name="car_pref_scan_music_summary">Dahili depolama ve USB bellekleri tara</string>
+    <string name="car_pref_auto_scan_music_title">Başlangıçta müzik kütüphanesini yenile</string>
+    <string name="car_pref_auto_scan_music_summary">Kapalıyken hızlı açılış için kayıtlı indeks kullanılır; manuel ve USB taraması çalışmaya devam eder</string>
     
     <!-- Weather -->
     <string name="car_pref_category_weather">Hava Durumu</string>
