@@ -12,7 +12,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 /** Draws clock glyphs individually so neighbouring characters visibly overlap. */
 public class InterlockingClockView extends AppCompatTextView {
 
-    private static final float OVERLAP_EM = 0.20f;
+    private static final float OVERLAP_EM = 0.16f;
+    private static final float COLON_GAP_EM = 0.06f;
 
     public InterlockingClockView(@NonNull Context context) { super(context); }
 
@@ -32,10 +33,13 @@ public class InterlockingClockView extends AppCompatTextView {
 
         Paint paint = getPaint();
         float overlap = paint.getTextSize() * OVERLAP_EM;
+        float colonGap = paint.getTextSize() * COLON_GAP_EM;
         float contentWidth = 0f;
         for (int i = 0; i < value.length(); i++) {
             contentWidth += paint.measureText(value, i, i + 1);
-            if (i > 0) contentWidth -= overlap;
+            if (i < value.length() - 1) {
+                contentWidth += spacingAfter(value, i, overlap, colonGap);
+            }
         }
 
         Paint.FontMetrics metrics = paint.getFontMetrics();
@@ -53,17 +57,27 @@ public class InterlockingClockView extends AppCompatTextView {
         for (int i = 0; i < value.length(); i++) {
             String glyph = value.subSequence(i, i + 1).toString();
             paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(outlineWidth);
+            paint.setStrokeWidth(outlineWidth * 2.2f);
             paint.setColor(0x66000000);
             canvas.drawText(glyph, x, baseline, paint);
-            paint.setStyle(Paint.Style.FILL);
+            paint.setStrokeWidth(outlineWidth);
             paint.setColor(getCurrentTextColor());
             canvas.drawText(glyph, x, baseline, paint);
-            x += paint.measureText(glyph) - overlap;
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor((getCurrentTextColor() & 0x00FFFFFF) | 0x30000000);
+            canvas.drawText(glyph, x, baseline, paint);
+            x += paint.measureText(glyph);
+            if (i < value.length() - 1) {
+                x += spacingAfter(value, i, overlap, colonGap);
+            }
         }
 
         paint.setStyle(oldStyle);
         paint.setColor(oldColor);
         paint.setStrokeWidth(oldStrokeWidth);
+    }
+
+    private float spacingAfter(CharSequence value, int index, float overlap, float colonGap) {
+        return value.charAt(index) == ':' || value.charAt(index + 1) == ':' ? colonGap : -overlap;
     }
 }
