@@ -732,8 +732,10 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             if (playing) adapter.pause(); else adapter.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
             adapter.next();
+            if (!playing) adapter.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
             adapter.prev();
+            if (!playing) adapter.play();
         }
         notifyStateChanged();
     }
@@ -749,8 +751,10 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             if (playing) internalPlayer.pause(); else internalPlayer.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
             internalPlayer.playNext();
+            if (!playing) internalPlayer.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
             internalPlayer.playPrevious();
+            if (!playing) internalPlayer.play();
         }
         notifyStateChanged();
     }
