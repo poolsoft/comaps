@@ -40,6 +40,7 @@ public class InternalMusicPlayer {
     private boolean isPrepared = false;
     private boolean playOnFocusGain = false; // Focus geri geldiginde calmaya devam etsin mi (Turkce karakter yok)
     private boolean autoPlayOnPrepared = true; // Hazir olunca otomatik oynat
+    private boolean pendingPlayRequest = false;
     private PlaybackListener listener;
     private boolean isShuffleOn = false;
     private int repeatMode = 0; // 0=off, 1=one, 2=all
@@ -371,7 +372,7 @@ public class InternalMusicPlayer {
 
         currentIndex = index;
         MusicRepository.AudioTrack track = queue.get(index);
-        this.autoPlayOnPrepared = autoPlay;
+        this.autoPlayOnPrepared = autoPlay || pendingPlayRequest;
         this.pendingSeekPosition = seekPosition;
 
         try {
@@ -392,8 +393,10 @@ public class InternalMusicPlayer {
     }
 
     public void play() {
-        if (!isPrepared)
+        if (!isPrepared) {
+            pendingPlayRequest = true;
             return;
+        }
 
         // Çalmadan önce Audio Focus iste
         int result = audioManager.requestAudioFocus(focusChangeListener,
@@ -401,6 +404,7 @@ public class InternalMusicPlayer {
                 AudioManager.AUDIOFOCUS_GAIN);
 
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            pendingPlayRequest = false;
             if (!mediaPlayer.isPlaying()) {
                 mediaPlayer.start();
                 if (listener != null)
@@ -410,6 +414,7 @@ public class InternalMusicPlayer {
     }
 
     public void pause() {
+        pendingPlayRequest = false;
         if (isPrepared && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             if (listener != null)
@@ -607,6 +612,8 @@ public class InternalMusicPlayer {
             if (restoredIndex >= 0 && restoredIndex < playingQueue.size()) {
                 // Son sarkiyi o anki saniyesinden geri yukle, hemen baslatma mantigi MusicManager'da belirlenecek (Turkce karakter yok)
                 playTrack(restoredIndex, false, savedPos);
+            } else if (pendingPlayRequest && !playingQueue.isEmpty()) {
+                playTrack(0, true, 0);
             }
         }
     }

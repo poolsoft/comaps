@@ -526,6 +526,14 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             return true;
         }
 
+        // With no active playback, steering NEXT/PREVIOUS means "start music".
+        // Do not silently move the queue before the first audible track starts.
+        if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT
+                || keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
+            recordHardwareDecision(keyCode, "idle_skip_as_play");
+            keyCode = KeyEvent.KEYCODE_MEDIA_PLAY;
+        }
+
         String defaultPackage = getConfiguredDefaultPackage();
         if ("usage.internal.player".equals(defaultPackage)) {
             preferredPackage = defaultPackage;
@@ -732,10 +740,8 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             if (playing) adapter.pause(); else adapter.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
             adapter.next();
-            if (!playing) adapter.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
             adapter.prev();
-            if (!playing) adapter.play();
         }
         notifyStateChanged();
     }
@@ -751,10 +757,8 @@ public class MusicManager implements InternalMusicPlayer.PlaybackListener {
             if (playing) internalPlayer.pause(); else internalPlayer.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
             internalPlayer.playNext();
-            if (!playing) internalPlayer.play();
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
             internalPlayer.playPrevious();
-            if (!playing) internalPlayer.play();
         }
         notifyStateChanged();
     }

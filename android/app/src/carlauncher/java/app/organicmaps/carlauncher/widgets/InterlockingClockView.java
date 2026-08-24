@@ -14,6 +14,7 @@ public class InterlockingClockView extends AppCompatTextView {
 
     private static final float OVERLAP_EM = 0.16f;
     private static final float COLON_GAP_EM = 0.06f;
+    private static final float COLON_SCALE = 0.72f;
 
     public InterlockingClockView(@NonNull Context context) { super(context); }
 
@@ -32,15 +33,19 @@ public class InterlockingClockView extends AppCompatTextView {
         if (value == null || value.length() == 0) return;
 
         Paint paint = getPaint();
+        float baseTextSize = paint.getTextSize();
         float overlap = paint.getTextSize() * OVERLAP_EM;
         float colonGap = paint.getTextSize() * COLON_GAP_EM;
         float contentWidth = 0f;
         for (int i = 0; i < value.length(); i++) {
+            boolean colon = value.charAt(i) == ':';
+            paint.setTextSize(colon ? baseTextSize * COLON_SCALE : baseTextSize);
             contentWidth += paint.measureText(value, i, i + 1);
             if (i < value.length() - 1) {
                 contentWidth += spacingAfter(value, i, overlap, colonGap);
             }
         }
+        paint.setTextSize(baseTextSize);
 
         Paint.FontMetrics metrics = paint.getFontMetrics();
         float x = getPaddingLeft() + Math.max(0f,
@@ -56,16 +61,22 @@ public class InterlockingClockView extends AppCompatTextView {
 
         for (int i = 0; i < value.length(); i++) {
             String glyph = value.subSequence(i, i + 1).toString();
+            boolean colon = value.charAt(i) == ':';
+            paint.setTextSize(colon ? baseTextSize * COLON_SCALE : baseTextSize);
+            float glyphBaseline = colon ? baseline - baseTextSize * 0.10f : baseline;
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(outlineWidth * 2.2f);
             paint.setColor(0x66000000);
-            canvas.drawText(glyph, x, baseline, paint);
+            canvas.drawText(glyph, x, glyphBaseline, paint);
             paint.setStrokeWidth(outlineWidth);
-            paint.setColor(getCurrentTextColor());
-            canvas.drawText(glyph, x, baseline, paint);
+            int outlineColor = getCurrentTextColor();
+            if (colon) outlineColor = (outlineColor & 0x00FFFFFF) | 0xB0000000;
+            paint.setColor(outlineColor);
+            canvas.drawText(glyph, x, glyphBaseline, paint);
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor((getCurrentTextColor() & 0x00FFFFFF) | 0x30000000);
-            canvas.drawText(glyph, x, baseline, paint);
+            paint.setColor((getCurrentTextColor() & 0x00FFFFFF)
+                    | (colon ? 0x18000000 : 0x30000000));
+            canvas.drawText(glyph, x, glyphBaseline, paint);
             x += paint.measureText(glyph);
             if (i < value.length() - 1) {
                 x += spacingAfter(value, i, overlap, colonGap);
@@ -75,6 +86,7 @@ public class InterlockingClockView extends AppCompatTextView {
         paint.setStyle(oldStyle);
         paint.setColor(oldColor);
         paint.setStrokeWidth(oldStrokeWidth);
+        paint.setTextSize(baseTextSize);
     }
 
     private float spacingAfter(CharSequence value, int index, float overlap, float colonGap) {

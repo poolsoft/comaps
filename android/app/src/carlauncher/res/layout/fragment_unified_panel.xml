@@ -151,6 +151,7 @@
             android:textSize="56sp"
             android:textStyle="bold"
             android:fontFamily="@font/google_sans_flex_black"
+            android:fontFeatureSettings="tnum"
             android:includeFontPadding="false"
             android:letterSpacing="0"
             app:layout_constraintStart_toStartOf="parent"
