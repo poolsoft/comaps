@@ -3,6 +3,7 @@ package app.organicmaps.carlauncher.widgets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -16,15 +17,28 @@ public class InterlockingClockView extends AppCompatTextView {
     private static final float COLON_GAP_EM = 0.06f;
     private static final float COLON_SCALE = 0.72f;
 
-    public InterlockingClockView(@NonNull Context context) { super(context); }
+    public InterlockingClockView(@NonNull Context context) {
+        super(context);
+        applyDockClockTypeface();
+    }
 
     public InterlockingClockView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        applyDockClockTypeface();
     }
 
     public InterlockingClockView(@NonNull Context context, @Nullable AttributeSet attrs,
                                 int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        applyDockClockTypeface();
+    }
+
+    private void applyDockClockTypeface() {
+        try {
+            setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/Cross Boxed.ttf"));
+        } catch (RuntimeException ignored) {
+            setTypeface(Typeface.DEFAULT_BOLD);
+        }
     }
 
     @Override

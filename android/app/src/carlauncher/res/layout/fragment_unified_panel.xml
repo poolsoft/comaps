@@ -116,7 +116,10 @@
         android:id="@+id/music_area"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
         android:clickable="true"
         android:focusable="true"
         android:background="?selectableItemBackground"
@@ -145,18 +148,17 @@
             android:id="@+id/music_panel_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="0dp"
             android:text="00:00"
             android:textColor="#FFFFFF"
             android:textSize="56sp"
             android:textStyle="bold"
-            android:fontFamily="@font/google_sans_flex_black"
             android:fontFeatureSettings="tnum"
             android:includeFontPadding="false"
             android:letterSpacing="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/music_mini_art" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Track Title -->
         <TextView
