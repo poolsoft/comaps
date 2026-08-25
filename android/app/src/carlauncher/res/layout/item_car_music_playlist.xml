@@ -38,9 +38,8 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/car_music_playlist_options"
+        android:contentDescription="@string/car_music_play_list_now"
         android:padding="16dp"
-        android:src="@drawable/ic_more_vert"
-        android:tint="#B3FFFFFF" />
+        android:src="@android:drawable/ic_media_play"
+        android:tint="#FF00FFFF" />
 </LinearLayout>
-

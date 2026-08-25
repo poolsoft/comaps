@@ -64,11 +64,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private View playerPanel;
     private View musicSideDock;
     private ImageButton btnDockPlaylist, btnScanMusic, btnTabScan;
-    private View musicScanStatusContainer;
-    private android.widget.ProgressBar musicScanProgress;
-    private TextView musicScanStatusText;
-    private android.widget.Button musicScanPermissionButton;
-    private final MusicRepository.ScanStateListener scanStateListener = this::updateMusicScanStatus;
+    private final MusicRepository.ScanStateListener scanStateListener = this::handleMusicScanState;
     private ImageView appIcon;
     private View appSelectorLaunch;
     private ImageButton btnPlaylist, btnClose, btnEqualizer;
@@ -101,7 +97,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private enum FolderViewLevel {
         STORAGE_ROOT, FOLDER_LIST, TRACK_LIST
     }
-    private ViewMode currentViewMode = ViewMode.ALL_TRACKS;
+    private ViewMode currentViewMode = ViewMode.QUEUE;
     private FolderViewLevel currentFolderLevel = FolderViewLevel.STORAGE_ROOT;
     private MusicRepository.StorageType selectedStorageType = MusicRepository.StorageType.INTERNAL;
     private MusicRepository.AudioFolder currentFolder = null;
@@ -153,13 +149,6 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         btnDockPlaylist = root.findViewById(app.organicmaps.R.id.btn_dock_playlist);
         btnScanMusic = root.findViewById(app.organicmaps.R.id.btn_scan_music);
         btnTabScan = root.findViewById(app.organicmaps.R.id.tab_btn_scan);
-        musicScanStatusContainer = root.findViewById(app.organicmaps.R.id.music_scan_status_container);
-        musicScanProgress = root.findViewById(app.organicmaps.R.id.music_scan_progress);
-        musicScanStatusText = root.findViewById(app.organicmaps.R.id.music_scan_status_text);
-        musicScanPermissionButton = root.findViewById(app.organicmaps.R.id.music_scan_permission_button);
-        if (musicScanPermissionButton != null) {
-            musicScanPermissionButton.setOnClickListener(v -> checkPermissionsAndLoadTracks());
-        }
         appIcon = root.findViewById(app.organicmaps.R.id.app_icon);
         appSelectorLaunch = root.findViewById(app.organicmaps.R.id.app_selector_launch);
         // btnPlaylist = root.findViewById(app.organicmaps.R.id.btn_playlist);
@@ -225,6 +214,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         setupListeners();
         setupRecyclerView();
         updateModeUI();
+        switchViewMode(currentViewMode);
 
         // Handle Orientation (Turkce karakter yok)
         boolean isPortrait = getResources()
@@ -1005,6 +995,11 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             public void onLongClick(PlaylistItem item) {
                 if (!item.isAction) showPlaylistPlaybackMenu(item);
             }
+
+            @Override
+            public void onPlay(PlaylistItem item) {
+                if (!item.isAction) playCollectionNow(getTracksForPlaylistItem(item));
+            }
         });
         recyclerView.setAdapter(playlistsAdapter);
     }
@@ -1087,38 +1082,55 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     }
 
     private void showPlaylistPlaybackMenu(PlaylistItem item) {
+        List<MusicRepository.AudioTrack> tracks = getTracksForPlaylistItem(item);
+        showCollectionPlaybackMenu(item.title, tracks,
+                item.playlist != null ? () -> showUserPlaylistOptionsMenu(item.playlist) : null);
+    }
+
+    private void playCollectionNow(List<MusicRepository.AudioTrack> tracks) {
+        if (tracks == null || tracks.isEmpty()) {
+            if (getContext() != null) Toast.makeText(getContext(),
+                    app.organicmaps.R.string.car_music_list_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        playTrackFromCollection(tracks, tracks.get(0));
+    }
+
+    private void showCollectionPlaybackMenu(String title, List<MusicRepository.AudioTrack> tracks,
+                                            @Nullable Runnable editAction) {
         if (getContext() == null || musicManager == null
                 || musicManager.getInternalPlayer() == null) return;
-        List<MusicRepository.AudioTrack> tracks = getTracksForPlaylistItem(item);
+        List<MusicRepository.AudioTrack> collectionTracks = tracks != null
+                ? tracks : java.util.Collections.emptyList();
         List<String> options = new ArrayList<>();
         options.add(getString(app.organicmaps.R.string.car_music_play_list_now));
         options.add(getString(app.organicmaps.R.string.car_music_add_list_to_queue_front));
         options.add(getString(app.organicmaps.R.string.car_music_add_list_to_queue_end));
-        if (item.playlist != null) {
+        if (editAction != null) {
             options.add(getString(app.organicmaps.R.string.car_music_edit_playlist));
         }
         new android.app.AlertDialog.Builder(getContext())
-                .setTitle(item.title)
+                .setTitle(title)
                 .setItems(options.toArray(new String[0]), (dialog, which) -> {
-                    if (tracks.isEmpty() && which < 3) {
+                    if (collectionTracks.isEmpty() && which < 3) {
                         Toast.makeText(getContext(), app.organicmaps.R.string.car_music_list_empty,
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (which == 0) {
-                        playTrackFromCollection(tracks, tracks.get(0));
+                        playCollectionNow(collectionTracks);
                     } else if (which == 1) {
-                        musicManager.getInternalPlayer().addTracksToQueue(tracks, true);
+                        musicManager.getInternalPlayer().addTracksToQueue(collectionTracks, true);
                         Toast.makeText(getContext(), getString(
                                 app.organicmaps.R.string.car_music_tracks_added_queue_front,
-                                tracks.size()), Toast.LENGTH_SHORT).show();
+                                collectionTracks.size()), Toast.LENGTH_SHORT).show();
                     } else if (which == 2) {
-                        musicManager.getInternalPlayer().addTracksToQueue(tracks, false);
+                        musicManager.getInternalPlayer().addTracksToQueue(collectionTracks, false);
                         Toast.makeText(getContext(), getString(
                                 app.organicmaps.R.string.car_music_tracks_added_queue_end,
-                                tracks.size()), Toast.LENGTH_SHORT).show();
-                    } else if (which == 3 && item.playlist != null) {
-                        showUserPlaylistOptionsMenu(item.playlist);
+                                collectionTracks.size()), Toast.LENGTH_SHORT).show();
+                    } else if (which == 3 && editAction != null) {
+                        editAction.run();
                     }
                 })
                 .setNegativeButton(app.organicmaps.R.string.car_cancel, null)
@@ -1132,6 +1144,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         interface PlaylistClickListener {
             void onClick(PlaylistItem item);
             void onLongClick(PlaylistItem item);
+            void onPlay(PlaylistItem item);
         }
 
         PlaylistsAdapter(List<PlaylistItem> items, PlaylistClickListener listener) {
@@ -1162,7 +1175,11 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 return true;
             });
             holder.menu.setVisibility(item.isAction ? View.INVISIBLE : View.VISIBLE);
-            holder.menu.setOnClickListener(item.isAction ? null : v -> listener.onLongClick(item));
+            holder.menu.setOnClickListener(item.isAction ? null : v -> listener.onPlay(item));
+            holder.menu.setOnLongClickListener(item.isAction ? null : v -> {
+                listener.onLongClick(item);
+                return true;
+            });
         }
 
         @Override
@@ -1195,7 +1212,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         @NonNull
         @Override
         public FolderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    app.organicmaps.R.layout.item_car_music_playlist, parent, false);
             return new FolderViewHolder(v);
         }
 
@@ -1209,7 +1227,16 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             holder.text2.setText(folder.getTracks().size() + " Parça • " + folder.getPath());
             holder.text2.setTextColor(android.graphics.Color.GRAY);
             holder.itemView.setOnClickListener(v -> listener.onFolderClick(folder));
-            holder.itemView.setPadding(32, 24, 32, 24);
+            holder.itemView.setOnLongClickListener(v -> {
+                showCollectionPlaybackMenu(folder.getName(), folder.getTracks(), null);
+                return true;
+            });
+            holder.play.setVisibility(View.VISIBLE);
+            holder.play.setOnClickListener(v -> playCollectionNow(folder.getTracks()));
+            holder.play.setOnLongClickListener(v -> {
+                showCollectionPlaybackMenu(folder.getName(), folder.getTracks(), null);
+                return true;
+            });
         }
 
 
@@ -1220,10 +1247,12 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         class FolderViewHolder extends RecyclerView.ViewHolder {
             TextView text1, text2;
+            ImageButton play;
             public FolderViewHolder(@NonNull View itemView) {
                 super(itemView);
-                text1 = itemView.findViewById(android.R.id.text1);
-                text2 = itemView.findViewById(android.R.id.text2);
+                text1 = itemView.findViewById(app.organicmaps.R.id.playlist_item_title);
+                text2 = itemView.findViewById(app.organicmaps.R.id.playlist_item_subtitle);
+                play = itemView.findViewById(app.organicmaps.R.id.playlist_item_menu);
             }
         }
     }
@@ -1523,14 +1552,14 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     if (allTracks.isEmpty()) {
                         Toast.makeText(getContext(), "Cihazda muzik bulunamadi", Toast.LENGTH_SHORT).show();
                     }
-                    showTracks(allTracks);
+                    switchViewMode(currentViewMode);
                 });
             } else {
                 allTracks.clear();
                 for (MusicRepository.AudioFolder folder : folders) {
                     allTracks.addAll(folder.getTracks());
                 }
-                showTracks(allTracks);
+                switchViewMode(currentViewMode);
             }
         }
     }
@@ -1555,7 +1584,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
             allTracks.clear();
             allTracks.addAll(tracks);
-            showTracks(allTracks);
+            switchViewMode(currentViewMode);
 
             if (!tracks.isEmpty() && musicManager.getInternalPlayer() != null
                     && musicManager.getInternalPlayer().getCurrentTrack() == null) {
@@ -2188,35 +2217,13 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         stopSeekbarUpdater();
     }
 
-    private void updateMusicScanStatus(MusicRepository.ScanState state) {
-        if (!isAdded() || state == null || musicScanStatusContainer == null) return;
+    private void handleMusicScanState(MusicRepository.ScanState state) {
+        if (!isAdded() || state == null) return;
         if (!state.scanning && (state.reason == MusicRepository.ScanReason.USB_MOUNTED
                 || state.reason == MusicRepository.ScanReason.USB_REMOVED)) {
             allTracks.clear();
             allTracks.addAll(musicManager.getRepository().getCachedTracks());
             switchViewMode(currentViewMode);
-        }
-        musicScanStatusContainer.setVisibility(View.VISIBLE);
-        if (musicScanProgress != null) musicScanProgress.setVisibility(
-                state.scanning ? View.VISIBLE : View.GONE);
-        if (musicScanPermissionButton != null) musicScanPermissionButton.setVisibility(
-                !state.permissionGranted && !state.scanning ? View.VISIBLE : View.GONE);
-        if (musicScanStatusText == null) return;
-        if (!state.permissionGranted) {
-            musicScanStatusText.setText(app.organicmaps.R.string.car_music_permission_card);
-        } else if (state.scanning) {
-            musicScanStatusText.setText(getString(
-                    app.organicmaps.R.string.car_music_scan_status_running, state.totalTracks));
-        } else if (state.lastSuccessfulScanTime <= 0L) {
-            musicScanStatusText.setText(getString(
-                    app.organicmaps.R.string.car_music_scan_status_never, state.totalTracks));
-        } else {
-            CharSequence relative = android.text.format.DateUtils.getRelativeTimeSpanString(
-                    state.lastSuccessfulScanTime, System.currentTimeMillis(),
-                    android.text.format.DateUtils.MINUTE_IN_MILLIS);
-            musicScanStatusText.setText(getString(
-                    app.organicmaps.R.string.car_music_scan_status_ready, state.totalTracks,
-                    state.internalTracks, state.usbTracks, relative));
         }
     }
 

@@ -32,7 +32,7 @@
         android:orientation="vertical"
         android:background="#CC0A0A0E"
         android:gravity="center_horizontal"
-        android:paddingTop="20dp"
+        android:paddingTop="8dp"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -189,7 +189,10 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:background="#0A0A0E"
-            android:padding="8dp">
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="0dp">
 
             <!-- Yatay Kaydırılabilir Sekmeler (Horizontal Tabs) -->
             <HorizontalScrollView
@@ -233,12 +236,26 @@
                     <View android:layout_width="1dp" android:layout_height="24dp" android:background="#333333"/>
 
                     <TextView
+                        android:id="@+id/tab_queue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Sıra"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="16dp"
+                        android:background="?android:attr/selectableItemBackground"/>
+
+                    <View android:layout_width="1dp" android:layout_height="24dp" android:background="#333333"/>
+
+                    <TextView
                         android:id="@+id/tab_all_tracks"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="Tüm Parçalar"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#888888"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:paddingHorizontal="16dp"
@@ -295,6 +312,20 @@
                         android:gravity="center"
                         android:text="⚡ Akıllı Karıştır"
                         android:textColor="#00FFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="16dp"
+                        android:background="?android:attr/selectableItemBackground"/>
+
+                    <View android:layout_width="1dp" android:layout_height="24dp" android:background="#333333"/>
+
+                    <TextView
+                        android:id="@+id/tab_playlists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Listeler"
+                        android:textColor="#888888"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:paddingHorizontal="16dp"
@@ -426,44 +457,7 @@
                     android:background="@drawable/bg_widget_card"/>
             </LinearLayout>
 
-+            <LinearLayout
-                android:id="@+id/music_scan_status_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp">
-
-                <ProgressBar
-                    android:id="@+id/music_scan_progress"
-                    style="?android:attr/progressBarStyleSmall"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginEnd="8dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/music_scan_status_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:maxLines="2"
-                    android:textColor="#B3FFFFFF"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/music_scan_permission_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:minWidth="96dp"
-                    android:text="@string/car_music_grant_permission"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-+            <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/music_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

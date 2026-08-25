@@ -31,6 +31,7 @@ import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.carlauncher.dock.AppDockManager;
 import app.organicmaps.carlauncher.dock.AppPickerDialog;
 import app.organicmaps.carlauncher.music.MusicManager;
+import app.organicmaps.carlauncher.music.MusicRepository;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -772,12 +773,15 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
         // Muzikleri Yeniden Tara
         Preference scanMusicPref = findPreference("car_launcher_scan_music");
         if (scanMusicPref != null) {
+            MusicRepository repository = MusicManager.getInstance(requireContext()).getRepository();
+            updateMusicScanSummary(scanMusicPref, repository.getScanState());
             scanMusicPref.setOnPreferenceClickListener(preference -> {
                 if (getContext() != null) {
                     Toast.makeText(getContext(), getString(R.string.car_settings_music_scanning), Toast.LENGTH_SHORT).show();
-                    MusicManager.getInstance(getContext()).getRepository().scanMusic((tracks, folders, artists) -> {
+                    repository.scanMusic((tracks, folders, artists) -> {
                         if (getActivity() != null) {
                             getActivity().runOnUiThread(() -> {
+                                updateMusicScanSummary(scanMusicPref, repository.getScanState());
                                 Toast.makeText(getContext(), getString(R.string.car_settings_music_scan_results, tracks.size()), Toast.LENGTH_LONG).show();
                             });
                         }
@@ -878,6 +882,25 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             pref.setSummary(label);
         } catch (Exception e) {
             pref.setSummary(packageName);
+        }
+    }
+
+    private void updateMusicScanSummary(@NonNull Preference preference,
+                                        @Nullable MusicRepository.ScanState state) {
+        if (state == null) {
+            preference.setSummary(R.string.car_pref_summary_scan_music);
+        } else if (!state.permissionGranted) {
+            preference.setSummary(R.string.car_music_permission_card);
+        } else if (state.scanning) {
+            preference.setSummary(getString(R.string.car_music_scan_status_running, state.totalTracks));
+        } else if (state.lastSuccessfulScanTime <= 0L) {
+            preference.setSummary(getString(R.string.car_music_scan_status_never, state.totalTracks));
+        } else {
+            CharSequence relative = android.text.format.DateUtils.getRelativeTimeSpanString(
+                    state.lastSuccessfulScanTime, System.currentTimeMillis(),
+                    android.text.format.DateUtils.MINUTE_IN_MILLIS);
+            preference.setSummary(getString(R.string.car_music_scan_status_ready,
+                    state.totalTracks, state.internalTracks, state.usbTracks, relative));
         }
     }
 
