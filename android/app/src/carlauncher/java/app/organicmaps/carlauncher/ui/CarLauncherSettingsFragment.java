@@ -888,7 +888,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private void updateMusicScanSummary(@NonNull Preference preference,
                                         @Nullable MusicRepository.ScanState state) {
         if (state == null) {
-            preference.setSummary(R.string.car_pref_summary_scan_music);
+            preference.setSummary(R.string.car_pref_scan_music_summary);
         } else if (!state.permissionGranted) {
             preference.setSummary(R.string.car_music_permission_card);
         } else if (state.scanning) {
