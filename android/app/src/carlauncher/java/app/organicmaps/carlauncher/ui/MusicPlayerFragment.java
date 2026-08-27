@@ -181,12 +181,15 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         // Responsive Layout Listener
         root.getViewTreeObserver().addOnGlobalLayoutListener(new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
             private int lastWidth = 0;
+            private int lastHeight = 0;
             @Override
             public void onGlobalLayout() {
                 int width = root.getWidth();
-                if (width != lastWidth && width > 0) {
+                int height = root.getHeight();
+                if ((width != lastWidth || height != lastHeight) && width > 0 && height > 0) {
                     lastWidth = width;
-                    updateResponsiveLayout(width);
+                    lastHeight = height;
+                    updateResponsiveLayout(width, height);
                 }
             }
         });
@@ -497,7 +500,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     visualizerView.setVisibility(isPlaylistVisible || widthDp < 500 ? android.view.View.GONE : android.view.View.VISIBLE);
                 }
 
-                btnDockPlaylist.setColorFilter(isPlaylistVisible ? 0xFFFFFFFF : 0xFF00FFFF);
+                updateDockButtonsUI();
 
                 if (playerProgressContainer != null && !isExternalMode) {
                     playerProgressContainer.setVisibility(isPlaylistVisible ? View.GONE : View.VISIBLE);
@@ -1390,9 +1393,11 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             }
         });
     }
-    private void updateResponsiveLayout(int widthPx) {
+    private void updateResponsiveLayout(int widthPx, int heightPx) {
         if (getContext() == null || getView() == null) return;
-        float widthDp = widthPx / getResources().getDisplayMetrics().density;
+        float density = getResources().getDisplayMetrics().density;
+        float widthDp = widthPx / density;
+        float heightDp = heightPx / density;
 
         android.view.View visualizer = getView().findViewById(app.organicmaps.R.id.player_visualizer);
         android.view.View bottomArt = getView().findViewById(app.organicmaps.R.id.card_album_art);
@@ -1401,7 +1406,11 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         if (centerPanel == null || centerCard == null) return;
 
-        if (widthDp < 500) { // Dar Ekran (Split Screen) Modu
+        // A narrow landscape split must not use the portrait artwork ratio. On
+        // 1280x720 head-unit profiles the player can be less than 500dp wide,
+        // while still being wider than it is tall.
+        boolean portraitCompact = widthDp < 500 && heightDp > widthDp;
+        if (portraitCompact) { // Dar/dikey panel modu
             if (visualizer != null) visualizer.setVisibility(android.view.View.GONE);
             if (bottomArt != null) bottomArt.setVisibility(android.view.View.GONE);
 
