@@ -1406,29 +1406,40 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
         if (centerPanel == null || centerCard == null) return;
 
-        // A narrow landscape split must not use the portrait artwork ratio. On
-        // 1280x720 head-unit profiles the player can be less than 500dp wide,
-        // while still being wider than it is tall.
+        View bottomBar = getView().findViewById(app.organicmaps.R.id.bottom_playback_bar);
+        int panelWidth = centerPanel.getWidth();
+        int panelHeight = centerPanel.getHeight();
+        if (panelWidth <= 0) {
+            panelWidth = Math.max(1, widthPx - (musicSideDock != null ? musicSideDock.getWidth() : 0));
+        }
+        if (panelHeight <= 0) {
+            panelHeight = Math.max(1, heightPx - (bottomBar != null ? bottomBar.getHeight() : 0));
+        }
+
+        // Choose the square artwork size from both available axes. The previous
+        // percent-width plus percent-height constraints allowed the 1:1 ratio to
+        // be resolved from height, producing an oversized cover in landscape.
         boolean portraitCompact = widthDp < 500 && heightDp > widthDp;
+        float maxWidthFraction = portraitCompact ? 0.70f : 0.45f;
+        float maxHeightFraction = portraitCompact ? 0.55f : 0.72f;
+        int artworkSize = Math.max((int) (120 * density), Math.round(Math.min(
+                panelWidth * maxWidthFraction, panelHeight * maxHeightFraction)));
+
+        androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
+        set.clone(centerPanel);
+        set.constrainWidth(app.organicmaps.R.id.now_playing_center_art_card, artworkSize);
+        set.constrainHeight(app.organicmaps.R.id.now_playing_center_art_card, artworkSize);
+        set.setDimensionRatio(app.organicmaps.R.id.now_playing_center_art_card, null);
         if (portraitCompact) { // Dar/dikey panel modu
             if (visualizer != null) visualizer.setVisibility(android.view.View.GONE);
             if (bottomArt != null) bottomArt.setVisibility(android.view.View.GONE);
-
-            androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
-            set.clone(centerPanel);
-            set.constrainPercentWidth(app.organicmaps.R.id.now_playing_center_art_card, 0.70f);
             set.connect(app.organicmaps.R.id.now_playing_center_art_card, androidx.constraintlayout.widget.ConstraintSet.END, androidx.constraintlayout.widget.ConstraintSet.PARENT_ID, androidx.constraintlayout.widget.ConstraintSet.END);
-            set.applyTo(centerPanel);
         } else { // Genis Ekran (Normal) Modu
             if (visualizer != null && !isExternalMode && !isPlaylistVisible) visualizer.setVisibility(android.view.View.VISIBLE);
             if (bottomArt != null) bottomArt.setVisibility(android.view.View.VISIBLE);
-
-            androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
-            set.clone(centerPanel);
-            set.constrainPercentWidth(app.organicmaps.R.id.now_playing_center_art_card, 0.45f);
             set.clear(app.organicmaps.R.id.now_playing_center_art_card, androidx.constraintlayout.widget.ConstraintSet.END);
-            set.applyTo(centerPanel);
         }
+        set.applyTo(centerPanel);
     }
 
     private void updateModeUI() {
