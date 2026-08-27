@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_pref_title_online_album_art">Online album artwork</string>
+    <string-array name="online_album_art_entries">
+        <item>Off</item>
+        <item>Unmetered networks only</item>
+        <item>All networks</item>
+    </string-array>
+    <string-array name="online_album_art_values" translatable="false">
+        <item>off</item>
+        <item>wifi</item>
+        <item>any</item>
+    </string-array>
     <!-- Car Launcher Ayarları -->
     <string name="car_settings_title">Car Settings</string>
     <string name="car_pref_floating_button_title">Floating Assistant Button</string>

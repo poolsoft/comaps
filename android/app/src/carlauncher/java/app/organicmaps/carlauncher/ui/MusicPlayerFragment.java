@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.carlauncher.music.MusicManager;
 import app.organicmaps.carlauncher.music.MusicRepository;
 import app.organicmaps.carlauncher.music.MusicTrackIdentity;
+import app.organicmaps.carlauncher.music.OnlineAlbumArtLoader;
 import app.organicmaps.carlauncher.music.PlaylistManager;
 import app.organicmaps.carlauncher.dock.AppPickerDialog;
 import app.organicmaps.carlauncher.CarLauncherInterface;
@@ -126,6 +127,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
     private boolean mediaPermissionRequestInFlight;
     private boolean mediaPermissionNoticeShown;
     private View ambianceGlowLayer;
+    private boolean hasAlbumArtwork;
+    private String artworkLookupKey;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -1436,10 +1439,49 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             set.connect(app.organicmaps.R.id.now_playing_center_art_card, androidx.constraintlayout.widget.ConstraintSet.END, androidx.constraintlayout.widget.ConstraintSet.PARENT_ID, androidx.constraintlayout.widget.ConstraintSet.END);
         } else { // Genis Ekran (Normal) Modu
             if (visualizer != null && !isExternalMode && !isPlaylistVisible) visualizer.setVisibility(android.view.View.VISIBLE);
-            if (bottomArt != null) bottomArt.setVisibility(android.view.View.VISIBLE);
+            if (bottomArt != null) bottomArt.setVisibility(hasAlbumArtwork ? android.view.View.VISIBLE : android.view.View.GONE);
             set.clear(app.organicmaps.R.id.now_playing_center_art_card, androidx.constraintlayout.widget.ConstraintSet.END);
         }
+        applyArtworkLayout(set, centerPanel, centerCard, visualizer, hasAlbumArtwork);
         set.applyTo(centerPanel);
+    }
+
+    private void applyArtworkLayout(androidx.constraintlayout.widget.ConstraintSet set,
+            androidx.constraintlayout.widget.ConstraintLayout panel, View artCard, View visualizer, boolean visible) {
+        int infoId = app.organicmaps.R.id.now_playing_center_info;
+        int artId = app.organicmaps.R.id.now_playing_center_art_card;
+        int visualizerId = app.organicmaps.R.id.player_visualizer;
+        int startTarget = visible ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID;
+        int startSide = visible ? androidx.constraintlayout.widget.ConstraintSet.END : androidx.constraintlayout.widget.ConstraintSet.START;
+        artCard.setVisibility(visible ? View.VISIBLE : View.GONE);
+        set.connect(infoId, androidx.constraintlayout.widget.ConstraintSet.START, startTarget, startSide);
+        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, startTarget, startSide);
+        set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.START, dp(visible ? 8 : 16));
+        set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, dp(visible ? 8 : 16));
+        set.connect(infoId, androidx.constraintlayout.widget.ConstraintSet.TOP,
+                visible ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+                androidx.constraintlayout.widget.ConstraintSet.TOP);
+        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM,
+                visible ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+                androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+    }
+
+    private int dp(int value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
+    }
+
+    private void setAlbumArtworkVisible(boolean visible) {
+        hasAlbumArtwork = visible;
+        if (getView() == null || nowPlayingCenterPanel == null) return;
+        View artCard = getView().findViewById(app.organicmaps.R.id.now_playing_center_art_card);
+        View visualizer = getView().findViewById(app.organicmaps.R.id.player_visualizer);
+        if (artCard == null) return;
+        androidx.constraintlayout.widget.ConstraintLayout panel =
+                (androidx.constraintlayout.widget.ConstraintLayout) nowPlayingCenterPanel;
+        androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
+        set.clone(panel);
+        applyArtworkLayout(set, panel, artCard, visualizer, visible);
+        set.applyTo(panel);
     }
 
     private void updateModeUI() {
@@ -2349,6 +2391,8 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
 
     @Override
     public void onTrackChanged(String title, String artist, Bitmap albumArt, String packageName) {
+        String lookupKey = (title == null ? "" : title) + "\n" + (artist == null ? "" : artist);
+        artworkLookupKey = albumArt == null ? lookupKey : null;
         // Dynamic Color Logic
         int color = android.graphics.Color.WHITE;
         if (albumArt != null) {
@@ -2385,6 +2429,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         if (getActivity() == null)
             return;
         getActivity().runOnUiThread(() -> {
+            setAlbumArtworkVisible(albumArt != null);
             if (nowPlayingTitle != null)
                 nowPlayingTitle.setText(title != null ? title : "Muzik Secin");
             if (nowPlayingCenterTitle != null)
@@ -2444,6 +2489,14 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                     // Varsayilan Cyan temaya yumusak gecis (Turkce karakter yok)
                     animateThemeColorChange(0xFF00FFFF);
                 }
+            }
+
+            if (albumArt == null && getContext() != null) {
+                OnlineAlbumArtLoader.getInstance(getContext()).load(title, artist, downloaded -> {
+                    if (downloaded != null && lookupKey.equals(artworkLookupKey) && isAdded()) {
+                        onTrackChanged(title, artist, downloaded, packageName);
+                    }
+                });
             }
 
             // Update Adapter Highlight & Auto-scroll

@@ -133,6 +133,7 @@
             <!-- KAPAK (SOLDA %40 ALAN) -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/now_playing_center_art_card"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:cardCornerRadius="24dp"

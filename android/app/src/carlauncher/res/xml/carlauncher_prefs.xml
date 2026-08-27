@@ -233,6 +233,15 @@
             android:defaultValue="true"
             app:iconSpaceReserved="false" />
 
+        <androidx.preference.ListPreference
+            android:key="car_launcher_online_album_art"
+            android:title="@string/car_pref_title_online_album_art"
+            android:summary="%s"
+            android:entries="@array/online_album_art_entries"
+            android:entryValues="@array/online_album_art_values"
+            android:defaultValue="off"
+            app:iconSpaceReserved="false" />
+
         <androidx.preference.Preference
             android:key="car_launcher_equalizer"
             android:title="@string/car_pref_equalizer_title"
