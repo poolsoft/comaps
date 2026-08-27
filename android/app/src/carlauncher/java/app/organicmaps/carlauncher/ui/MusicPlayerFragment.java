@@ -1396,18 +1396,18 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             }
         });
     }
+    private enum PlayerPanelSize { COMPACT, STANDARD, WIDE }
+
     private void updateResponsiveLayout(int widthPx, int heightPx) {
         if (getContext() == null || getView() == null) return;
         float density = getResources().getDisplayMetrics().density;
-        float widthDp = widthPx / density;
-        float heightDp = heightPx / density;
-
-        android.view.View visualizer = getView().findViewById(app.organicmaps.R.id.player_visualizer);
-        android.view.View bottomArt = getView().findViewById(app.organicmaps.R.id.card_album_art);
-        android.view.View centerCard = getView().findViewById(app.organicmaps.R.id.now_playing_center_art_card);
+        View visualizer = getView().findViewById(app.organicmaps.R.id.player_visualizer);
+        View bottomArt = getView().findViewById(app.organicmaps.R.id.card_album_art);
+        View centerCard = getView().findViewById(app.organicmaps.R.id.now_playing_center_art_card);
+        View centerInfo = getView().findViewById(app.organicmaps.R.id.now_playing_center_info);
+        TextView eyebrow = getView().findViewById(app.organicmaps.R.id.now_playing_center_eyebrow);
         androidx.constraintlayout.widget.ConstraintLayout centerPanel = getView().findViewById(app.organicmaps.R.id.now_playing_center_panel);
-
-        if (centerPanel == null || centerCard == null) return;
+        if (centerPanel == null || centerCard == null || centerInfo == null || visualizer == null) return;
 
         View bottomBar = getView().findViewById(app.organicmaps.R.id.bottom_playback_bar);
         int panelWidth = centerPanel.getWidth();
@@ -1419,51 +1419,77 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             panelHeight = Math.max(1, heightPx - (bottomBar != null ? bottomBar.getHeight() : 0));
         }
 
-        // Choose the square artwork size from both available axes. The previous
-        // percent-width plus percent-height constraints allowed the 1:1 ratio to
-        // be resolved from height, producing an oversized cover in landscape.
-        boolean portraitCompact = widthDp < 500 && heightDp > widthDp;
-        float maxWidthFraction = portraitCompact ? 0.70f : 0.45f;
-        float maxHeightFraction = portraitCompact ? 0.55f : 0.72f;
-        int artworkSize = Math.max((int) (120 * density), Math.round(Math.min(
-                panelWidth * maxWidthFraction, panelHeight * maxHeightFraction)));
+        float panelWidthDp = panelWidth / density;
+        float panelHeightDp = panelHeight / density;
+        PlayerPanelSize panelSize = panelWidthDp < 460 || panelHeightDp < 360
+                ? PlayerPanelSize.COMPACT
+                : panelWidthDp < 680 || panelHeightDp < 460
+                ? PlayerPanelSize.STANDARD : PlayerPanelSize.WIDE;
+
+        float artworkWidthFraction = panelSize == PlayerPanelSize.WIDE ? 0.32f
+                : panelSize == PlayerPanelSize.STANDARD ? 0.40f : 0.36f;
+        float artworkHeightFraction = panelSize == PlayerPanelSize.WIDE ? 0.62f
+                : panelSize == PlayerPanelSize.STANDARD ? 0.66f : 0.52f;
+        int minArtworkDp = panelSize == PlayerPanelSize.WIDE ? 140
+                : panelSize == PlayerPanelSize.STANDARD ? 110 : 88;
+        int artworkSize = Math.max(dp(minArtworkDp), Math.round(Math.min(
+                panelWidth * artworkWidthFraction, panelHeight * artworkHeightFraction)));
+        artworkSize = Math.min(artworkSize, Math.min(panelWidth - dp(24), panelHeight - dp(16)));
 
         androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
         set.clone(centerPanel);
-        set.constrainWidth(app.organicmaps.R.id.now_playing_center_art_card, artworkSize);
-        set.constrainHeight(app.organicmaps.R.id.now_playing_center_art_card, artworkSize);
-        set.setDimensionRatio(app.organicmaps.R.id.now_playing_center_art_card, null);
-        if (portraitCompact) { // Dar/dikey panel modu
-            if (visualizer != null) visualizer.setVisibility(android.view.View.GONE);
-            if (bottomArt != null) bottomArt.setVisibility(android.view.View.GONE);
-            set.connect(app.organicmaps.R.id.now_playing_center_art_card, androidx.constraintlayout.widget.ConstraintSet.END, androidx.constraintlayout.widget.ConstraintSet.PARENT_ID, androidx.constraintlayout.widget.ConstraintSet.END);
-        } else { // Genis Ekran (Normal) Modu
-            if (visualizer != null && !isExternalMode && !isPlaylistVisible) visualizer.setVisibility(android.view.View.VISIBLE);
-            if (bottomArt != null) bottomArt.setVisibility(hasAlbumArtwork ? android.view.View.VISIBLE : android.view.View.GONE);
-            set.clear(app.organicmaps.R.id.now_playing_center_art_card, androidx.constraintlayout.widget.ConstraintSet.END);
-        }
-        applyArtworkLayout(set, centerPanel, centerCard, visualizer, hasAlbumArtwork);
-        set.applyTo(centerPanel);
-    }
-
-    private void applyArtworkLayout(androidx.constraintlayout.widget.ConstraintSet set,
-            androidx.constraintlayout.widget.ConstraintLayout panel, View artCard, View visualizer, boolean visible) {
         int infoId = app.organicmaps.R.id.now_playing_center_info;
         int artId = app.organicmaps.R.id.now_playing_center_art_card;
         int visualizerId = app.organicmaps.R.id.player_visualizer;
-        int startTarget = visible ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID;
-        int startSide = visible ? androidx.constraintlayout.widget.ConstraintSet.END : androidx.constraintlayout.widget.ConstraintSet.START;
-        artCard.setVisibility(visible ? View.VISIBLE : View.GONE);
+        set.constrainWidth(artId, artworkSize);
+        set.constrainHeight(artId, artworkSize);
+        set.setDimensionRatio(artId, null);
+        centerCard.setVisibility(hasAlbumArtwork ? View.VISIBLE : View.GONE);
+        if (bottomArt != null) bottomArt.setVisibility(hasAlbumArtwork && panelSize != PlayerPanelSize.COMPACT ? View.VISIBLE : View.GONE);
+        if (eyebrow != null) eyebrow.setVisibility(!hasAlbumArtwork && panelSize != PlayerPanelSize.COMPACT ? View.VISIBLE : View.GONE);
+        if (nowPlayingCenterTitle != null) nowPlayingCenterTitle.setTextSize(panelSize == PlayerPanelSize.WIDE ? 24 : panelSize == PlayerPanelSize.STANDARD ? 20 : 18);
+        if (nowPlayingCenterArtist != null) nowPlayingCenterArtist.setTextSize(panelSize == PlayerPanelSize.WIDE ? 16 : panelSize == PlayerPanelSize.STANDARD ? 15 : 14);
+        centerInfo.setBackgroundResource(hasAlbumArtwork ? app.organicmaps.R.drawable.bg_card_rounded_black : 0);
+        int horizontalPadding = dp(panelSize == PlayerPanelSize.COMPACT ? 10 : 16);
+        int verticalPadding = hasAlbumArtwork ? dp(6) : dp(panelSize == PlayerPanelSize.WIDE ? 10 : 6);
+        centerInfo.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
+
+        int startTarget = hasAlbumArtwork ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID;
+        int startSide = hasAlbumArtwork ? androidx.constraintlayout.widget.ConstraintSet.END : androidx.constraintlayout.widget.ConstraintSet.START;
+        int sideMargin = dp(panelSize == PlayerPanelSize.WIDE ? 20 : panelSize == PlayerPanelSize.STANDARD ? 14 : 8);
         set.connect(infoId, androidx.constraintlayout.widget.ConstraintSet.START, startTarget, startSide);
-        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, startTarget, startSide);
-        set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.START, dp(visible ? 8 : 16));
-        set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, dp(visible ? 8 : 16));
+        set.connect(infoId, androidx.constraintlayout.widget.ConstraintSet.END,
+                androidx.constraintlayout.widget.ConstraintSet.PARENT_ID, androidx.constraintlayout.widget.ConstraintSet.END);
+        set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.START, hasAlbumArtwork ? dp(8) : sideMargin);
+        set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.END, sideMargin);
         set.connect(infoId, androidx.constraintlayout.widget.ConstraintSet.TOP,
-                visible ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+                hasAlbumArtwork ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
                 androidx.constraintlayout.widget.ConstraintSet.TOP);
-        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM,
-                visible ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+        set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.TOP,
+                hasAlbumArtwork ? dp(4) : dp(panelSize == PlayerPanelSize.WIDE ? 16 : 6));
+
+        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, startTarget, startSide);
+        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.END,
+                androidx.constraintlayout.widget.ConstraintSet.PARENT_ID, androidx.constraintlayout.widget.ConstraintSet.END);
+        set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, hasAlbumArtwork ? dp(8) : sideMargin);
+        set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.END, sideMargin);
+        set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.TOP, infoId,
                 androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+        set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.TOP, dp(panelSize == PlayerPanelSize.COMPACT ? 4 : 10));
+        if (hasAlbumArtwork) {
+            set.constrainHeight(visualizerId, 0);
+            set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM, artId,
+                    androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+        } else {
+            int maxVisualizerDp = panelSize == PlayerPanelSize.WIDE ? 190
+                    : panelSize == PlayerPanelSize.STANDARD ? 145 : 100;
+            int visualizerHeight = Math.max(dp(64), Math.min(dp(maxVisualizerDp),
+                    Math.round(panelHeight * (panelSize == PlayerPanelSize.COMPACT ? 0.26f : 0.34f))));
+            set.constrainHeight(visualizerId, visualizerHeight);
+            set.clear(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+        }
+        visualizer.setVisibility(!isExternalMode && !isPlaylistVisible ? View.VISIBLE : View.GONE);
+        set.applyTo(centerPanel);
     }
 
     private int dp(int value) {
@@ -1474,14 +1500,11 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         hasAlbumArtwork = visible;
         if (getView() == null || nowPlayingCenterPanel == null) return;
         View artCard = getView().findViewById(app.organicmaps.R.id.now_playing_center_art_card);
-        View visualizer = getView().findViewById(app.organicmaps.R.id.player_visualizer);
-        if (artCard == null) return;
-        androidx.constraintlayout.widget.ConstraintLayout panel =
-                (androidx.constraintlayout.widget.ConstraintLayout) nowPlayingCenterPanel;
-        androidx.constraintlayout.widget.ConstraintSet set = new androidx.constraintlayout.widget.ConstraintSet();
-        set.clone(panel);
-        applyArtworkLayout(set, panel, artCard, visualizer, visible);
-        set.applyTo(panel);
+        if (artCard != null) artCard.setVisibility(visible ? View.VISIBLE : View.GONE);
+        View root = getView();
+        root.post(() -> {
+            if (getView() == root) updateResponsiveLayout(root.getWidth(), root.getHeight());
+        });
     }
 
     private void updateModeUI() {

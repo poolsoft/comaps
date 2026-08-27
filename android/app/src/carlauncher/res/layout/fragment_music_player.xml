@@ -171,6 +171,17 @@
                 app:layout_constraintTop_toTopOf="@id/now_playing_center_art_card">
 
                 <TextView
+                    android:id="@+id/now_playing_center_eyebrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/car_music_now_playing"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#00E5FF"
+                    android:letterSpacing="0.08"
+                    android:singleLine="true" />
+
+                <TextView
                     android:id="@+id/now_playing_center_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -179,6 +190,7 @@
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:maxLines="2"
+                    android:layout_marginTop="4dp"
                     android:ellipsize="end"/>
 
                 <TextView

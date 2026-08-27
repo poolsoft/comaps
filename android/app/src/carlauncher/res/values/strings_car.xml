@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="car_music_now_playing">♫ NOW PLAYING</string>
     <string name="car_pref_title_online_album_art">Online album artwork</string>
     <string-array name="online_album_art_entries">
         <item>Off</item>
