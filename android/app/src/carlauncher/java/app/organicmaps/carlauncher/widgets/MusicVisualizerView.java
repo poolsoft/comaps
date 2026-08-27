@@ -235,7 +235,7 @@ public class MusicVisualizerView extends View {
         int spectrumNum = Math.min(mSpectrumNum, mBytes.length);
         float barWidth = getWidth() / (float) spectrumNum;
         
-        float gapRatio = (visualizerType == TYPE_NEON_MODERN || visualizerType == TYPE_PARTICLE) ? 0.35f : 0.20f;
+        float gapRatio = (visualizerType == TYPE_NEON_MODERN || visualizerType == TYPE_PARTICLE) ? 0.25f : 0.16f;
         float gap = barWidth * gapRatio;
         float effectiveBarWidth = barWidth - gap;
 
@@ -274,16 +274,16 @@ public class MusicVisualizerView extends View {
         } else if (visualizerType == TYPE_RADIAL) {
             float centerX = getWidth() / 2f;
             float centerY = getHeight() / 2f;
-            float baseRadius = Math.min(centerX, centerY) * 0.3f;
+            float baseRadius = Math.min(centerX, centerY) * 0.24f;
             for (int i = 0; i < spectrumNum; i++) {
                 float magnitude = (float) (Math.abs(mBytes[i]) * 4); 
-                float height = (magnitude / 128f) * Math.min(centerX, centerY) * 0.7f;
+                float height = (magnitude / 128f) * Math.min(centerX, centerY) * 0.86f;
                 float angle = (float) (i * 2 * Math.PI / spectrumNum);
                 float startX = centerX + (float) Math.cos(angle) * baseRadius;
                 float startY = centerY + (float) Math.sin(angle) * baseRadius;
                 float endX = centerX + (float) Math.cos(angle) * (baseRadius + height);
                 float endY = centerY + (float) Math.sin(angle) * (baseRadius + height);
-                mForePaint.setStrokeWidth(effectiveBarWidth);
+                mForePaint.setStrokeWidth(effectiveBarWidth * 1.2f);
                 mForePaint.setStyle(Paint.Style.STROKE);
                 mForePaint.setStrokeCap(Paint.Cap.ROUND);
                 canvas.drawLine(startX, startY, endX, endY, mForePaint);
@@ -306,7 +306,7 @@ public class MusicVisualizerView extends View {
         } else {
             for (int i = 0; i < spectrumNum; i++) {
                 float magnitude = (float) (Math.abs(mBytes[i]) * 4); 
-                float height = (magnitude / 128f) * getHeight();
+                float height = Math.max((magnitude / 128f) * getHeight(), getHeight() * 0.035f);
                 if (height > getHeight()) height = getHeight();
                 if (height < 0) height = 0;
 
