@@ -1451,6 +1451,12 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         set.constrainWidth(artId, artworkSize);
         set.constrainHeight(artId, artworkSize);
         set.setDimensionRatio(artId, null);
+        set.clear(artId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+        set.connect(artId, androidx.constraintlayout.widget.ConstraintSet.TOP,
+                androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+                androidx.constraintlayout.widget.ConstraintSet.TOP);
+        set.setMargin(artId, androidx.constraintlayout.widget.ConstraintSet.TOP,
+                dp(panelSize == PlayerPanelSize.COMPACT ? 6 : panelSize == PlayerPanelSize.STANDARD ? 10 : 16));
         centerCard.setVisibility(hasAlbumArtwork ? View.VISIBLE : View.GONE);
         centerPanel.setBackgroundResource(hasAlbumArtwork ? 0 : app.organicmaps.R.drawable.bg_music_no_art_panel);
         if (bottomArt != null) bottomArt.setVisibility(hasAlbumArtwork && panelSize != PlayerPanelSize.COMPACT ? View.VISIBLE : View.GONE);
@@ -1471,10 +1477,10 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.START, hasAlbumArtwork ? dp(8) : sideMargin);
         set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.END, sideMargin);
         set.connect(infoId, androidx.constraintlayout.widget.ConstraintSet.TOP,
-                hasAlbumArtwork ? artId : androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+                androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
                 androidx.constraintlayout.widget.ConstraintSet.TOP);
         set.setMargin(infoId, androidx.constraintlayout.widget.ConstraintSet.TOP,
-                hasAlbumArtwork ? dp(4) : dp(panelSize == PlayerPanelSize.WIDE ? 16 : 6));
+                dp(panelSize == PlayerPanelSize.WIDE ? 16 : panelSize == PlayerPanelSize.STANDARD ? 10 : 6));
 
         set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.START, startTarget, startSide);
         set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.END,
@@ -1486,8 +1492,10 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.TOP, dp(panelSize == PlayerPanelSize.COMPACT ? 4 : 10));
         if (hasAlbumArtwork) {
             set.constrainHeight(visualizerId, 0);
-            set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM, artId,
+            set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM,
+                    androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
                     androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+            set.setMargin(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM, dp(6));
         } else {
             int maxVisualizerDp = panelSize == PlayerPanelSize.WIDE ? 240
                     : panelSize == PlayerPanelSize.STANDARD ? 180 : 120;
