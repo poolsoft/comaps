@@ -1425,6 +1425,12 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
                 ? PlayerPanelSize.COMPACT
                 : panelWidthDp < 680 || panelHeightDp < 460
                 ? PlayerPanelSize.STANDARD : PlayerPanelSize.WIDE;
+        if (visualizerView != null) {
+            float reflectionRatio = hasAlbumArtwork ? 0f
+                    : panelSize == PlayerPanelSize.WIDE ? 0.24f
+                    : panelSize == PlayerPanelSize.STANDARD ? 0.20f : 0.16f;
+            visualizerView.setMirrorReflectionRatio(reflectionRatio);
+        }
 
         float artworkWidthFraction = panelSize == PlayerPanelSize.WIDE ? 0.32f
                 : panelSize == PlayerPanelSize.STANDARD ? 0.40f : 0.36f;

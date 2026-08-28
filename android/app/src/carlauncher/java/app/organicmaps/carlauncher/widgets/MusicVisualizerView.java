@@ -70,8 +70,11 @@ public class MusicVisualizerView extends View {
     private RectF mRect = new RectF();
     private Paint mForePaint = new Paint();
     private Paint mPeakPaint = new Paint();
+    private Paint mReflectionPaint = new Paint();
+    private Paint mReflectionDividerPaint = new Paint();
     private int mSpectrumNum = 48; // Bar count
     private boolean mFirst = true;
+    private float mirrorReflectionRatio;
 
     private float[] mPeaks;
     private long[] mPeakTimes;
@@ -100,6 +103,12 @@ public class MusicVisualizerView extends View {
         mPeakPaint.setAntiAlias(true);
         mPeakPaint.setStyle(Paint.Style.FILL);
         mPeakPaint.setColor(Color.WHITE);
+
+        mReflectionPaint.setAntiAlias(true);
+        mReflectionPaint.setStyle(Paint.Style.FILL);
+        mReflectionDividerPaint.setAntiAlias(true);
+        mReflectionDividerPaint.setStrokeWidth(1f);
+        mReflectionDividerPaint.setColor(Color.argb(72, 255, 255, 255));
 
         // Baslangic olarak kucuk panel varsayiliyor, disaridan context atandiginda degisecek
         try {
@@ -163,6 +172,21 @@ public class MusicVisualizerView extends View {
         }
     }
 
+    /** Keeps the faded reflection in this View to avoid another bitmap/Visualizer allocation. */
+    public void setMirrorReflectionRatio(float ratio) {
+        float clamped = Math.max(0f, Math.min(0.28f, ratio));
+        if (Math.abs(mirrorReflectionRatio - clamped) > 0.001f) {
+            mirrorReflectionRatio = clamped;
+            invalidate();
+        }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mFirst = true;
+    }
+
     public void updateVisualizer(byte[] fft) {
         if (fft == null) return;
         
@@ -182,6 +206,23 @@ public class MusicVisualizerView extends View {
     public void clear() {
         mBytes = null;
         invalidate();
+    }
+
+    private void drawFadedReflection(Canvas canvas, float left, float top, float right,
+                                     float bottom, float cornerRadius) {
+        float fadeSplit = top + ((bottom - top) * 0.58f);
+        mReflectionPaint.setAlpha(58);
+        if (cornerRadius > 0f) {
+            canvas.drawRoundRect(left, top, right, fadeSplit, cornerRadius, cornerRadius, mReflectionPaint);
+        } else {
+            canvas.drawRect(left, top, right, fadeSplit, mReflectionPaint);
+        }
+        mReflectionPaint.setAlpha(20);
+        if (cornerRadius > 0f) {
+            canvas.drawRoundRect(left, fadeSplit, right, bottom, cornerRadius, cornerRadius, mReflectionPaint);
+        } else {
+            canvas.drawRect(left, fadeSplit, right, bottom, mReflectionPaint);
+        }
     }
 
     @Override
@@ -229,6 +270,7 @@ public class MusicVisualizerView extends View {
                 mForePaint.setShader(shader);
                 mForePaint.clearShadowLayer();
             }
+            mReflectionPaint.setShader(mForePaint.getShader());
             mFirst = false;
         }
 
@@ -304,16 +346,27 @@ public class MusicVisualizerView extends View {
             }
             mForePaint.setStyle(Paint.Style.FILL);
         } else {
+            boolean drawReflection = mirrorReflectionRatio > 0f
+                    && visualizerType != TYPE_CENTER_MIRRORED
+                    && visualizerType != TYPE_PARTICLE;
+            float reflectionGap = drawReflection ? Math.max(1f, getHeight() * 0.012f) : 0f;
+            float reflectionSpace = drawReflection ? getHeight() * mirrorReflectionRatio : 0f;
+            float mainBottom = getHeight() - reflectionSpace - reflectionGap;
+            float mainHeight = Math.max(1f, mainBottom);
+            if (drawReflection) {
+                canvas.drawLine(0, mainBottom + (reflectionGap * 0.5f), getWidth(),
+                        mainBottom + (reflectionGap * 0.5f), mReflectionDividerPaint);
+            }
             for (int i = 0; i < spectrumNum; i++) {
                 float magnitude = (float) (Math.abs(mBytes[i]) * 4); 
-                float height = Math.max((magnitude / 128f) * getHeight(), getHeight() * 0.035f);
-                if (height > getHeight()) height = getHeight();
+                float height = Math.max((magnitude / 128f) * mainHeight, mainHeight * 0.035f);
+                if (height > mainHeight) height = mainHeight;
                 if (height < 0) height = 0;
 
                 float left = i * barWidth + (gap/2);
-                float top = getHeight() - height;
+                float top = mainBottom - height;
                 float right = left + effectiveBarWidth;
-                float bottom = getHeight();
+                float bottom = mainBottom;
 
                 if (visualizerType == TYPE_NEON_MODERN) {
                     canvas.drawRoundRect(left, top, right, bottom, effectiveBarWidth / 2f, effectiveBarWidth / 2f, mForePaint);
@@ -330,7 +383,7 @@ public class MusicVisualizerView extends View {
                         float decay = elapsed * elapsed * getHeight() * 1.5f; // Yercekimi ivmesi
                         mPeaks[i] = Math.max(0, mPeaks[i] - decay);
                     }
-                    float peakTop = getHeight() - mPeaks[i];
+                    float peakTop = mainBottom - mPeaks[i];
                     canvas.drawRect(left, peakTop - effectiveBarWidth, right, peakTop, mPeakPaint);
                 } else if (visualizerType == TYPE_GLOW_PEAK) {
                     canvas.drawRect(left, top, right, bottom, mForePaint);
@@ -343,10 +396,18 @@ public class MusicVisualizerView extends View {
                         mPeaks[i] = Math.max(0, mPeaks[i] - decay);
                         mPeakTimes[i] = now;
                     }
-                    float peakTop = getHeight() - mPeaks[i];
+                    float peakTop = mainBottom - mPeaks[i];
                     canvas.drawRect(left, peakTop, right, peakTop + 6f, mPeakPaint);
                 } else {
                     canvas.drawRect(left, top, right, bottom, mForePaint);
+                }
+
+                if (drawReflection) {
+                    float reflectedHeight = Math.min(reflectionSpace, height * mirrorReflectionRatio);
+                    float reflectionTop = mainBottom + reflectionGap;
+                    float reflectionBottom = reflectionTop + reflectedHeight;
+                    drawFadedReflection(canvas, left, reflectionTop, right, reflectionBottom,
+                            visualizerType == TYPE_NEON_MODERN ? effectiveBarWidth / 2f : 0f);
                 }
             }
         }
