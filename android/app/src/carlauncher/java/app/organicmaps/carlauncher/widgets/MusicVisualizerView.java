@@ -75,6 +75,9 @@ public class MusicVisualizerView extends View {
     private int mSpectrumNum = 48; // Bar count
     private boolean mFirst = true;
     private float mirrorReflectionRatio;
+    private float reflectionQualityScale = 1f;
+    private long frameDelayMs = 33L;
+    private long lastFrameInvalidate;
 
     private float[] mPeaks;
     private long[] mPeakTimes;
@@ -165,10 +168,32 @@ public class MusicVisualizerView extends View {
             if (visualizerType != newType) {
                 visualizerType = newType;
                 mFirst = true;
-                invalidate();
             }
+            applyQuality(prefs.getString("car_launcher_visualizer_quality", "auto"));
+            invalidate();
         } catch (Exception e) {
             // ignore
+        }
+    }
+
+    private void applyQuality(String quality) {
+        String resolved = quality;
+        if ("auto".equals(resolved)) {
+            android.app.ActivityManager manager = (android.app.ActivityManager)
+                    getContext().getSystemService(Context.ACTIVITY_SERVICE);
+            boolean lowRam = manager != null && manager.isLowRamDevice();
+            int memoryClass = manager != null ? manager.getMemoryClass() : 128;
+            resolved = lowRam || memoryClass <= 128 || Runtime.getRuntime().availableProcessors() <= 4
+                    ? "low" : "balanced";
+        }
+        int spectrum = "low".equals(resolved) ? 24 : "high".equals(resolved) ? 48 : 36;
+        frameDelayMs = "low".equals(resolved) ? 50L : "high".equals(resolved) ? 22L : 33L;
+        reflectionQualityScale = "low".equals(resolved) ? 0.55f
+                : "high".equals(resolved) ? 1f : 0.8f;
+        if (mSpectrumNum != spectrum) {
+            mSpectrumNum = spectrum;
+            mPeaks = null;
+            mPeakTimes = null;
         }
     }
 
@@ -190,9 +215,9 @@ public class MusicVisualizerView extends View {
     public void updateVisualizer(byte[] fft) {
         if (fft == null) return;
         
-        byte[] model = new byte[fft.length / 2 + 1];
+        byte[] model = new byte[Math.max(1, Math.min(mSpectrumNum, fft.length / 2 + 1))];
         model[0] = (byte) Math.abs(fft[0]);
-        for (int i = 2, j = 1; j < mSpectrumNum; ) {
+        for (int i = 2, j = 1; j < model.length; ) {
             if (i >= fft.length) break;
             
             model[j] = (byte) Math.hypot(fft[i], fft[i + 1]);
@@ -200,7 +225,11 @@ public class MusicVisualizerView extends View {
             j++;
         }
         mBytes = model;
-        invalidate();
+        long now = android.os.SystemClock.uptimeMillis();
+        if (now - lastFrameInvalidate >= frameDelayMs) {
+            lastFrameInvalidate = now;
+            invalidate();
+        }
     }
 
     public void clear() {
@@ -346,11 +375,12 @@ public class MusicVisualizerView extends View {
             }
             mForePaint.setStyle(Paint.Style.FILL);
         } else {
-            boolean drawReflection = mirrorReflectionRatio > 0f
+            float effectiveReflectionRatio = mirrorReflectionRatio * reflectionQualityScale;
+            boolean drawReflection = effectiveReflectionRatio > 0f
                     && visualizerType != TYPE_CENTER_MIRRORED
                     && visualizerType != TYPE_PARTICLE;
             float reflectionGap = drawReflection ? Math.max(1f, getHeight() * 0.012f) : 0f;
-            float reflectionSpace = drawReflection ? getHeight() * mirrorReflectionRatio : 0f;
+            float reflectionSpace = drawReflection ? getHeight() * effectiveReflectionRatio : 0f;
             float mainBottom = getHeight() - reflectionSpace - reflectionGap;
             float mainHeight = Math.max(1f, mainBottom);
             if (drawReflection) {
@@ -403,7 +433,7 @@ public class MusicVisualizerView extends View {
                 }
 
                 if (drawReflection) {
-                    float reflectedHeight = Math.min(reflectionSpace, height * mirrorReflectionRatio);
+                    float reflectedHeight = Math.min(reflectionSpace, height * effectiveReflectionRatio);
                     float reflectionTop = mainBottom + reflectionGap;
                     float reflectionBottom = reflectionTop + reflectedHeight;
                     drawFadedReflection(canvas, left, reflectionTop, right, reflectionBottom,
@@ -413,7 +443,7 @@ public class MusicVisualizerView extends View {
         }
         
         if (visualizerType == TYPE_GLOW_PEAK || visualizerType == TYPE_PARTICLE || visualizerType == TYPE_WAVE) {
-            postInvalidateDelayed(16);
+            postInvalidateDelayed(frameDelayMs);
         }
     }
 }

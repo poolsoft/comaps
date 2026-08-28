@@ -219,6 +219,15 @@
             android:defaultValue="4"
             app:iconSpaceReserved="false" />
 
+        <androidx.preference.ListPreference
+            android:key="car_launcher_visualizer_quality"
+            android:title="@string/car_pref_visualizer_quality_title"
+            android:summary="%s"
+            android:entries="@array/visualizer_quality_entries"
+            android:entryValues="@array/visualizer_quality_values"
+            android:defaultValue="auto"
+            app:iconSpaceReserved="false" />
+
         <androidx.preference.SwitchPreferenceCompat
             android:key="car_launcher_auto_play_music"
             android:title="@string/car_pref_auto_play_title"

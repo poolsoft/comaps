@@ -37,7 +37,7 @@
         android:layout_width="72dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#CC0A0A0E"
+        android:background="@drawable/bg_music_side_dock"
         android:gravity="center_horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="20dp"
@@ -457,7 +457,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#CC0F0F0F"
+            android:background="@drawable/bg_music_controls_bar"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
             android:paddingHorizontal="16dp"
             android:paddingTop="4dp"
             android:paddingBottom="8dp"
@@ -484,12 +487,13 @@
                 <SeekBar
                     android:id="@+id/seekbar"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="44dp"
                     android:layout_weight="1"
                     android:max="100"
                     android:progress="0"
-                    android:progressDrawable="@drawable/seekbar_progress_glow"
-                    android:thumb="@drawable/seekbar_thumb_glow"/>
+                    android:progressDrawable="@drawable/seekbar_progress_compact"
+                    android:thumb="@drawable/seekbar_thumb_compact"
+                    android:splitTrack="false"/>
 
                 <TextView
                     android:id="@+id/time_total"

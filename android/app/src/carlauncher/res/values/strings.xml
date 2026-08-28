@@ -121,6 +121,11 @@
     <string name="car_pref_auto_play_title">Auto Play on Startup</string>
     <string name="car_pref_auto_play_summary">Starts music when app launches</string>
     <string name="car_pref_ambiance_vis_title">Ambiance Visualizer</string>
+    <string name="car_pref_visualizer_quality_title">Visualizer quality</string>
+    <string name="car_visualizer_quality_auto">Automatic</string>
+    <string name="car_visualizer_quality_low">Low</string>
+    <string name="car_visualizer_quality_balanced">Balanced</string>
+    <string name="car_visualizer_quality_high">High</string>
     <string name="car_pref_ambiance_vis_summary">Dynamically sets visualizer colors based on album art</string>
     <string name="car_pref_equalizer_title">Equalizer</string>
     <string name="car_pref_equalizer_summary">Open system audio settings</string>
