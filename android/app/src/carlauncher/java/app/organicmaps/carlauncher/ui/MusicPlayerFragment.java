@@ -1445,6 +1445,7 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
         set.constrainHeight(artId, artworkSize);
         set.setDimensionRatio(artId, null);
         centerCard.setVisibility(hasAlbumArtwork ? View.VISIBLE : View.GONE);
+        centerPanel.setBackgroundResource(hasAlbumArtwork ? 0 : app.organicmaps.R.drawable.bg_music_no_art_panel);
         if (bottomArt != null) bottomArt.setVisibility(hasAlbumArtwork && panelSize != PlayerPanelSize.COMPACT ? View.VISIBLE : View.GONE);
         if (eyebrow != null) eyebrow.setVisibility(!hasAlbumArtwork && panelSize != PlayerPanelSize.COMPACT ? View.VISIBLE : View.GONE);
         if (nowPlayingCenterTitle != null) nowPlayingCenterTitle.setTextSize(panelSize == PlayerPanelSize.WIDE ? 24 : panelSize == PlayerPanelSize.STANDARD ? 20 : 18);
@@ -1481,12 +1482,18 @@ public class MusicPlayerFragment extends Fragment implements MusicManager.MusicU
             set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM, artId,
                     androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
         } else {
-            int maxVisualizerDp = panelSize == PlayerPanelSize.WIDE ? 190
-                    : panelSize == PlayerPanelSize.STANDARD ? 145 : 100;
-            int visualizerHeight = Math.max(dp(64), Math.min(dp(maxVisualizerDp),
-                    Math.round(panelHeight * (panelSize == PlayerPanelSize.COMPACT ? 0.26f : 0.34f))));
+            int maxVisualizerDp = panelSize == PlayerPanelSize.WIDE ? 240
+                    : panelSize == PlayerPanelSize.STANDARD ? 180 : 120;
+            int minVisualizerDp = panelSize == PlayerPanelSize.COMPACT ? 72 : 80;
+            float heightFraction = panelSize == PlayerPanelSize.WIDE ? 0.42f
+                    : panelSize == PlayerPanelSize.STANDARD ? 0.40f : 0.36f;
+            int visualizerHeight = Math.max(dp(minVisualizerDp), Math.min(dp(maxVisualizerDp),
+                    Math.round(panelHeight * heightFraction)));
             set.constrainHeight(visualizerId, visualizerHeight);
-            set.clear(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+            set.connect(visualizerId, androidx.constraintlayout.widget.ConstraintSet.BOTTOM,
+                    androidx.constraintlayout.widget.ConstraintSet.PARENT_ID,
+                    androidx.constraintlayout.widget.ConstraintSet.BOTTOM);
+            set.setVerticalBias(visualizerId, 0.32f);
         }
         visualizer.setVisibility(!isExternalMode && !isPlaylistVisible ? View.VISIBLE : View.GONE);
         set.applyTo(centerPanel);
