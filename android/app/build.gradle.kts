@@ -233,8 +233,6 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             resValue("string", "app_name", appName)
-            packagingOptions.jniLibs.useLegacyPackaging = true
-            android.packagingOptions.jniLibs.keepDebugSymbols += "**/liborganicmaps.so"
         }
 
         create("beta") {
@@ -255,7 +253,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             matchingFallbacks += "release" // Use dependencies of "release" build type.
             resValue("string", "app_name", "$appName Test")
-            android.packagingOptions.jniLibs.keepDebugSymbols += "**/liborganicmaps.so"
         }
     }
 
@@ -336,6 +333,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+}
+
+androidComponents {
+  onVariants(selector().withBuildType("debug")) { variant ->
+    variant.packaging.jniLibs.useLegacyPackaging.set(true) // for HWAsan
+    variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so") // for debug syms
+  }
+
+  onVariants(selector().withBuildType("beta")) { variant ->
+    variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so") // for debug syms
+  }
 }
 
 dependencies {
