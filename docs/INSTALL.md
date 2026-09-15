@@ -39,7 +39,7 @@ git clone --recurse-submodules --shallow-submodules https://codeberg.org/comaps/
   <summary><span style="font-size: 1em; font-weight: bold;">Ubuntu/Debian</span></summary>
 
 ```bash
-sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-dev libicu-dev libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev optipng python3-venv ninja-build jq
+sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-dev libicu-dev libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev optipng python3-venv ninja-build jq curl python3-pip python-is-python3
 ```
 </details>
 
