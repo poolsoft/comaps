@@ -1,3 +1,6 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+import java.net.URI
+
 pluginManagement {
     repositories {
         google()
@@ -10,9 +13,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = 'https://www.jitpack.io' } // MPAndroidChart
+        maven { url = URI("https://www.jitpack.io") } // MPAndroidChart
     }
 }
-rootProject.name = 'CoMaps'
-include ':app'
-include ':sdk'
+rootProject.name = "CoMaps"
+include(":app")
+include(":sdk")
