@@ -709,6 +709,7 @@
     <string name="type.landuse.landfill">Landfill</string>
     <string name="type.landuse.meadow">Meadow</string>
     <string name="type.landuse.military">Military Area</string>
+    <string name="type.landuse.military.danger_area">Military Danger Area</string>
     <string name="type.landuse.orchard">Orchard</string>
     <string name="type.landuse.quarry">Quarry</string>
     <string name="type.landuse.railway">Railway Premises</string>

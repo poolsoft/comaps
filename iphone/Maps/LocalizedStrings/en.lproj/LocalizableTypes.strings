@@ -701,6 +701,7 @@
 "type.landuse.landfill" = "Landfill";
 "type.landuse.meadow" = "Meadow";
 "type.landuse.military" = "Military Area";
+"type.landuse.military.danger_area" = "Military Danger Area";
 "type.landuse.orchard" = "Orchard";
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "Railway Premises";
