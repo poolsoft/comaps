@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,12 +30,6 @@ import app.organicmaps.carlauncher.widgets.WidgetManager;
  */
 public final class MapWidgetsOverlay extends FrameLayout
 {
-  public interface Listener
-  {
-    /** Widget yerlesimi degistiginde cagrılır (overlay yeniden duzenlendi). */
-    void onOverlayLayoutChanged();
-  }
-
   private static final int[] PANEL_ORDER = {
       MapWidgetPlacementStore.Panel.TOP.ordinal(),
       MapWidgetPlacementStore.Panel.LEFT.ordinal(),
@@ -44,19 +38,16 @@ public final class MapWidgetsOverlay extends FrameLayout
   };
 
   private final MapWidgetPlacementStore store;
-  @Nullable
-  private final Listener listener;
 
   private final LinearLayout[] panelColumns = new LinearLayout[4];
   /** Panel -> o panelde gorunen widget keyleri (instance id oncelikli). */
   private final Map<String, BaseWidget> attachedWidgets = new LinkedHashMap<>();
+  private boolean mRefreshing;
 
-  public MapWidgetsOverlay(@NonNull Context context, @NonNull MapWidgetPlacementStore store,
-                           @Nullable Listener listener)
+  public MapWidgetsOverlay(@NonNull Context context, @NonNull MapWidgetPlacementStore store)
   {
     super(context);
     this.store = store;
-    this.listener = listener;
     setClickable(false);
     setFocusable(false);
     buildPanels();
@@ -125,12 +116,27 @@ public final class MapWidgetsOverlay extends FrameLayout
    */
   public void refresh(@NonNull WidgetManager widgetManager)
   {
+    if (mRefreshing)
+      return;
+    mRefreshing = true;
+    try
+    {
+      refreshInternal(widgetManager);
+    }
+    finally
+    {
+      mRefreshing = false;
+    }
+  }
+
+  private void refreshInternal(@NonNull WidgetManager widgetManager)
+  {
     detachAll();
 
     if (!store.isOverlayEnabled())
     {
-      if (listener != null)
-        listener.onOverlayLayoutChanged();
+      // NOTE: listener burada cagrilmaz; cagirirsak activity tekrar refresh()
+      // yapar ve sonsuz dongu (StackOverflowError) olusur.
       return;
     }
 
@@ -185,8 +191,9 @@ public final class MapWidgetsOverlay extends FrameLayout
       }
     }
 
-    if (listener != null)
-      listener.onOverlayLayoutChanged();
+    // Layout degisti bildirimi: refresh() cagrisindan DONMEDEN once yapilmamali
+    // (activity handler'i tekrar refresh() cagiriyor -> recursion). Cagrilmayacak;
+    // cagiran taraf zaten refresh sonrasi kendi layout'unu gunceller.
   }
 
   @NonNull

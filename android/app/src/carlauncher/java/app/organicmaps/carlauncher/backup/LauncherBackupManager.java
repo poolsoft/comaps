@@ -173,14 +173,14 @@ public class LauncherBackupManager {
                         } else if (entry.getName().startsWith("maps/")) {
                             String relPath = entry.getName().substring(5); // remove "maps/"
                             if (relPath.isEmpty()) continue;
-                            File targetFile = new File(writableDir, relPath);
-                            if (entry.isDirectory()) {
-                                targetFile.mkdirs();
-                            } else {
-                                targetFile.getParentFile().mkdirs();
-                                try (FileOutputStream fos = new FileOutputStream(targetFile)) {
-                                    copyStream(zis, fos);
-                                }
+                            if (entry.isDirectory()) continue;
+                            // FLATTEN: motor (Storage) .mwm dosyalarini writable dir
+                            // KOKUNDE arar; yedekteki alt klasor yapisi (orn. maps/260624/)
+                            // korunursa World.mwm bulunamaz. Tum .mwm'ler koke yazilir.
+                            String fileName = new File(relPath).getName();
+                            File targetFile = new File(writableDir, fileName);
+                            try (FileOutputStream fos = new FileOutputStream(targetFile)) {
+                                copyStream(zis, fos);
                             }
                         }
                         zis.closeEntry();
@@ -313,10 +313,15 @@ public class LauncherBackupManager {
         
         for (DocumentFile file : files) {
             if (file.isDirectory()) {
-                File newDir = new File(destDir, file.getName());
-                copyDocumentFileToDirectory(context, file, newDir, callback);
+                // Alt klasorlerde gez ama .mwm dosyalari her zaman destDir KOKUNE yaz
+                // (motor writable dir kokunde arar; yedekteki alt klasorler duzlestirilir).
+                copyDocumentFileToDirectory(context, file, destDir, callback);
             } else {
-                File newFile = new File(destDir, file.getName());
+                String name = file.getName() != null ? file.getName() : "unknown";
+                boolean isMap = name.toLowerCase(java.util.Locale.US).endsWith(".mwm");
+                File newFile = new File(isMap ? destDir : new File(destDir, "import_extra"), name);
+                if (isMap) newFile.getParentFile().mkdirs();
+                else newFile.getParentFile().mkdirs();
                 try (InputStream is = context.getContentResolver().openInputStream(file.getUri());
                      FileOutputStream fos = new FileOutputStream(newFile)) {
                     copyStream(is, fos);

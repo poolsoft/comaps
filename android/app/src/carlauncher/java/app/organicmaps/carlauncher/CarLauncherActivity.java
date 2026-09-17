@@ -774,8 +774,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             return;
         app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore store =
                 app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore.getInstance(this);
-        mapWidgetsOverlay = new app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay(
-                this, store, this::refreshMapWidgetsOverlay);
+        mapWidgetsOverlay = new app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay(this, store);
         // Harita root'unun uzerinde ama street frame/panel content'in altinda kalsin.
         mapWidgetsOverlay.setElevation(6f);
         mapContainer.addView(mapWidgetsOverlay,
