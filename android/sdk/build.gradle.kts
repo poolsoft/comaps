@@ -73,8 +73,11 @@ android {
         debug {
             isJniDebuggable = true
             externalNativeBuild.cmake.arguments += "-DANDROID_STL=c++_shared"
-            if (!project.hasProperty("disableHWAsan"))
-              externalNativeBuild.cmake.arguments += "-DENABLE_ASAN=ON"
+            val taskNames = gradle.startParameter.taskNames.toString().lowercase(Locale.getDefault())
+            val isCarlauncher = taskNames.contains("carlauncher") || project.hasProperty("disableHWAsan")
+            if (!isCarlauncher && project.hasProperty("enableHWAsan")) {
+                externalNativeBuild.cmake.arguments += "-DENABLE_ASAN=ON"
+            }
         }
         register("beta") {
             matchingFallbacks += "release"

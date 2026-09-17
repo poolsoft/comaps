@@ -375,12 +375,20 @@ android {
 
 androidComponents {
   onVariants(selector().withBuildType("debug")) { variant ->
-    variant.packaging.jniLibs.useLegacyPackaging.set(true) // for HWAsan
-    variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so") // for debug syms
+    val taskNames = gradle.startParameter.taskNames.toString().lowercase(Locale.getDefault())
+    val isCarlauncher = taskNames.contains("carlauncher")
+    if (project.hasProperty("enableHWAsan") && !isCarlauncher) {
+      variant.packaging.jniLibs.useLegacyPackaging.set(true) // for HWAsan
+    }
+    if (project.hasProperty("keepDebugSymbols") && !isCarlauncher) {
+      variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so") // for debug syms
+    }
   }
 
   onVariants(selector().withBuildType("beta")) { variant ->
-    variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so") // for debug syms
+    if (project.hasProperty("keepDebugSymbols")) {
+      variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so") // for debug syms
+    }
   }
 }
 

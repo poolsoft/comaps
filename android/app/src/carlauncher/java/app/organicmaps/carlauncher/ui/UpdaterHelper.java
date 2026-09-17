@@ -36,9 +36,28 @@ public class UpdaterHelper {
     private static final String VERSION_JSON_URL_64 = "https://github.com/poolsoft/comaps/releases/latest/download/version.json";
     private static final String VERSION_JSON_URL_32 = "https://github.com/poolsoft/comaps/releases/latest/download/version-32bit.json";
 
+    /**
+     * Cihazin ve calisan surecin gercek mimarisini belirler.
+     * Android otomobil / car screen sistemlerinde CPU 64-bit olsa bile
+     * isletim sistemi ROM 32-bit (armeabi-v7a) olabilmektedir.
+     */
+    public static boolean isRunningOn64Bit() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            try {
+                return android.os.Process.is64Bit();
+            } catch (Throwable ignored) {}
+        }
+        if (Build.SUPPORTED_64_BIT_ABIS != null && Build.SUPPORTED_64_BIT_ABIS.length > 0) {
+            String primaryAbi = (Build.SUPPORTED_ABIS != null && Build.SUPPORTED_ABIS.length > 0) ? Build.SUPPORTED_ABIS[0] : "";
+            if (primaryAbi.startsWith("arm64") || primaryAbi.startsWith("x86_64")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static String getVersionJsonUrl() {
-        boolean is64Bit = Build.SUPPORTED_64_BIT_ABIS != null && Build.SUPPORTED_64_BIT_ABIS.length > 0;
-        return is64Bit ? VERSION_JSON_URL_64 : VERSION_JSON_URL_32;
+        return isRunningOn64Bit() ? VERSION_JSON_URL_64 : VERSION_JSON_URL_32;
     }
 
     // Indirme durumunu takip eden ve mukerrer tiklamalari onleyen bayrak
@@ -98,18 +117,20 @@ public class UpdaterHelper {
                 int latestVersionCode = json.getInt("versionCode");
                 String latestVersionName = json.getString("versionName");
 
+                boolean is64Bit = isRunningOn64Bit();
                 String apkUrl = "";
                 if (json.has("apkUrl")) {
                     Object apkUrlObj = json.get("apkUrl");
                     if (apkUrlObj instanceof JSONObject) {
                         JSONObject apkUrlMap = (JSONObject) apkUrlObj;
-                        boolean is64Bit = Build.SUPPORTED_64_BIT_ABIS != null && Build.SUPPORTED_64_BIT_ABIS.length > 0;
                         if (is64Bit && apkUrlMap.has("arm64")) {
                             apkUrl = apkUrlMap.getString("arm64");
-                        } else if (apkUrlMap.has("arm32")) {
+                        } else if (!is64Bit && apkUrlMap.has("arm32")) {
                             apkUrl = apkUrlMap.getString("arm32");
+                        } else if (apkUrlMap.has("arm64") && is64Bit) {
+                            apkUrl = apkUrlMap.getString("arm64");
                         } else {
-                            apkUrl = apkUrlMap.optString("arm64", "");
+                            apkUrl = apkUrlMap.optString("arm32", apkUrlMap.optString("arm64", ""));
                         }
                     } else {
                         apkUrl = json.getString("apkUrl");
@@ -157,7 +178,9 @@ public class UpdaterHelper {
         downloadProgress = 0;
         downloadingVersion = versionName;
 
-        String fileName = "CoMapsAuto_v" + versionName + ".apk";
+        boolean is64Bit = isRunningOn64Bit();
+        String archTag = is64Bit ? "arm64" : "arm32";
+        String fileName = "CoMapsAuto_v" + versionName + "_" + archTag + ".apk";
 
         // Indirme baslamadan once eski indirilmis APK varsa siliyoruz
         try {

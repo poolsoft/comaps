@@ -1,5 +1,7 @@
 name: Build CoMaps Auto
 on:
+  push:
+    branches: [ "comaps-auto-v2" ]
   workflow_dispatch:
 
 concurrency:
@@ -39,24 +41,39 @@ jobs:
           VERSION_DATE=$(date -u +%Y.%m.%d)
           VERSION_DATE_CODE=$(date -u +%y%m%d)
           VERSION_CODE=$((10#$VERSION_DATE_CODE * 1000 + GITHUB_RUN_NUMBER % 1000))
-          VERSION_NAME="${VERSION_DATE}.${GITHUB_RUN_NUMBER}"
+          VERSION_NAME_64="${VERSION_DATE}.${GITHUB_RUN_NUMBER}"
+          VERSION_NAME_32="${VERSION_DATE}.${GITHUB_RUN_NUMBER}-32bit"
           
-          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+          echo "VERSION_NAME_64=${VERSION_NAME_64}" >> $GITHUB_ENV
+          echo "VERSION_NAME_32=${VERSION_NAME_32}" >> $GITHUB_ENV
           echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
-          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher-arm64.apk\"}" > version.json
+          
+          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME_64}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher-arm64.apk\"}" > version.json
+          echo "{\"versionCode\": ${VERSION_CODE}, \"versionName\": \"${VERSION_NAME_32}\", \"apkUrl\": \"https://github.com/${{ github.repository }}/releases/latest/download/CarLauncher-32bit.apk\"}" > version-32bit.json
 
       - name: Compile 64-Bit (arm64)
         shell: bash
         working-directory: android
         run: |
-          ./gradlew -Parm64 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME}" assembleCarlauncherDebug -q
+          ./gradlew -Parm64 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME_64}" assembleCarlauncherDebug -q
           find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher-arm64.apk \;
 
-      - name: Upload Artifact
+      - name: Compile 32-Bit (arm32)
+        shell: bash
+        working-directory: android
+        run: |
+          ./gradlew -Parm32 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME_32}" assembleCarlauncherDebug -q
+          find app/build/outputs/apk -name "*.apk" -not -name "CarLauncher-arm64.apk" -exec cp {} CarLauncher-32bit.apk \;
+
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: CarLauncher-ARM64-APK
-          path: android/CarLauncher-arm64.apk
+          name: CarLauncher-APKs
+          path: |
+            android/CarLauncher-arm64.apk
+            android/CarLauncher-32bit.apk
+            android/version.json
+            android/version-32bit.json
 
       - name: Force Update Latest Tag
         working-directory: ./android
@@ -72,14 +89,17 @@ jobs:
           tag_name: latest
           name: Latest CarLauncher Build
           body: |
-            ### 🚀 Güncel Derleme Bilgileri (64-Bit)
-            - **Versiyon:** `${{ env.VERSION_NAME }}`
+            ### 🚀 Güncel Derleme Bilgileri
+            - **Versiyon (64-Bit):** `${{ env.VERSION_NAME_64 }}`
+            - **Versiyon (32-Bit):** `${{ env.VERSION_NAME_32 }}`
             - **İşlem (SHA):** `${{ github.sha }}`
             
             *Bu sürüm her başarılı derleme sonrası otomatik olarak güncellenir.*
           files: |
             android/CarLauncher-arm64.apk
+            android/CarLauncher-32bit.apk
             android/version.json
+            android/version-32bit.json
           draft: false
           prerelease: false
           make_latest: true
