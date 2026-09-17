@@ -769,7 +769,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Panel entegrasyonu henuz yapilmadiysa bos kalabilir
     }
 
-    @Override
     private void setupMapWidgetsOverlay() {
         if (mapContainer == null)
             return;
