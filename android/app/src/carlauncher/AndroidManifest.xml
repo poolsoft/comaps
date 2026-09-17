@@ -121,31 +121,31 @@
         <activity
             android:name="app.organicmaps.downloader.DownloaderActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.search.SearchActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.settings.SettingsActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.bookmarks.BookmarkListActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.help.HelpActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.editor.EditorActivity"
             android:screenOrientation="sensorLandscape"
-            tools:node="merge" />
+            tools:replace="android:screenOrientation" />
     </application>
 
 </manifest>
