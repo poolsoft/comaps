@@ -40,6 +40,7 @@ public final class MapWidgetPlacementStore
 
   private static final String PREFS_NAME = "map_widgets_placement";
   private static final String KEY_ENABLED = "overlay_enabled";
+  private static final String KEY_CONFIGURED = "overlay_defaults_applied";
   // Key: widget key (instance id veya tip id) -> "panel|mode|order"
   private static final String KEY_PREFIX = "place_";
 
@@ -97,6 +98,38 @@ public final class MapWidgetPlacementStore
   public void removePlacement(@NonNull String widgetKey)
   {
     prefs.edit().remove(KEY_PREFIX + widgetKey).apply();
+  }
+
+  /**
+   * Ilk kurulum: hicbir yerlesim kaydi yoksa OsmAnd benzeri makul bir
+   * varsayilan uretir (hiz -> sag, saat -> sol, navigasyon -> alt).
+   * Kayit varsa hicbir sey yapmaz; her acilista guvenle cagrilabilir.
+   */
+  public void ensureDefaults(@NonNull java.util.List<String> widgetKeysByIdPrefix)
+  {
+    if (isConfigured())
+      return;
+    int order = 0;
+    for (String key : widgetKeysByIdPrefix)
+    {
+      MapWidgetPlacementStore.Panel panel;
+      if (key.startsWith("speed"))
+        panel = MapWidgetPlacementStore.Panel.RIGHT;
+      else if (key.startsWith("clock") || key.startsWith("classic"))
+        panel = MapWidgetPlacementStore.Panel.LEFT;
+      else if (key.startsWith("navigation"))
+        panel = MapWidgetPlacementStore.Panel.BOTTOM;
+      else
+        panel = MapWidgetPlacementStore.Panel.NONE;
+      if (panel != MapWidgetPlacementStore.Panel.NONE)
+        setPlacement(key, panel, MapWidgetPlacementStore.Mode.COMPACT, order++);
+    }
+    prefs.edit().putBoolean(KEY_CONFIGURED, true).apply();
+  }
+
+  private boolean isConfigured()
+  {
+    return prefs.getBoolean(KEY_CONFIGURED, false) || !getAllPlacements().isEmpty();
   }
 
   @NonNull

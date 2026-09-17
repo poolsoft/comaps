@@ -769,6 +769,18 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Panel entegrasyonu henuz yapilmadiysa bos kalabilir
     }
 
+    private final Runnable mapWidgetTick = new Runnable() {
+        @Override
+        public void run() {
+            if (mapWidgetsOverlay != null && !isDestroyed()) {
+                try {
+                    mapWidgetsOverlay.tick();
+                } catch (Exception ignored) {}
+                mapContainer.postDelayed(this, 1000);
+            }
+        }
+    };
+
     private void setupMapWidgetsOverlay() {
         if (mapContainer == null)
             return;
@@ -782,6 +794,17 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                         android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                         android.view.ViewGroup.LayoutParams.MATCH_PARENT));
         refreshMapWidgetsOverlay();
+        // Ilk kurulumda makul varsayilan yerlesim (hiz->sag, saat->sol, nav->alt).
+        try {
+            java.util.List<String> keys = new java.util.ArrayList<>();
+            for (app.organicmaps.carlauncher.widgets.BaseWidget w :
+                    app.organicmaps.carlauncher.widgets.WidgetManager.getInstance(this).getAllWidgets())
+                keys.add(app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay.placementKey(w));
+            store.ensureDefaults(keys);
+            refreshMapWidgetsOverlay();
+        } catch (Exception ignored) {}
+        // Widget verilerini canli tutan 1 sn'lik tick (gorunur widgetlar icin update()).
+        mapContainer.postDelayed(mapWidgetTick, 1000);
     }
 
     private void refreshMapWidgetsOverlay() {
@@ -976,6 +999,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     @Override
     protected void onSafeDestroy() {
         if (mapWidgetsOverlay != null) {
+            mapContainer.removeCallbacks(mapWidgetTick);
             mapWidgetsOverlay.removeAllViews();
             mapWidgetsOverlay = null;
         }

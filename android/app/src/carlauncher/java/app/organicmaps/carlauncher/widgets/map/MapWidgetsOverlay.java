@@ -110,6 +110,22 @@ public final class MapWidgetsOverlay extends FrameLayout
   }
 
   /**
+   * Periyodik veri tazeleme: view yapisini yeniden kurmadan, haritaya
+   * yerlesmis widgetlarin update() metodunu cagirir (hiz/saat/ETA canli).
+   */
+  public void tick()
+  {
+    for (BaseWidget widget : attachedWidgets.values())
+    {
+      try
+      {
+        widget.update();
+      }
+      catch (Exception ignored) {}
+    }
+  }
+
+  /**
    * WidgetManager'daki tum widget'larin yerlesimine gore overlay icerigini
    * tazeler. Yalnizca harita paneline atanmis ve gorunur widget'lar burada
    * gorunur; NONE (veya yerlesimi olmayan) widget'lar yan panelde kalir.
@@ -165,6 +181,9 @@ public final class MapWidgetsOverlay extends FrameLayout
         if (p != null && p.panel == panel)
           panelWidgets.add(widget);
       }
+
+      for (BaseWidget widget : panelWidgets)
+        widget.update(); // Veriyi tazele (konum, hiz, saat vb. guncel olsun)
       Collections.sort(panelWidgets, (a, b) ->
       {
         MapWidgetPlacementStore.Placement pa = store.getPlacement(placementKey(a));
