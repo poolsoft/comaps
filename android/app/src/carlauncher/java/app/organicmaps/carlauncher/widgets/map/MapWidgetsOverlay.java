@@ -2,6 +2,7 @@ package app.organicmaps.carlauncher.widgets.map;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -16,16 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.carlauncher.CarLauncherActivity;
+import app.organicmaps.carlauncher.CarLauncherSettings;
+import app.organicmaps.carlauncher.ui.MapSpeedWidgetView;
+import app.organicmaps.carlauncher.ui.ModesUiView;
 import app.organicmaps.carlauncher.widgets.BaseWidget;
 import app.organicmaps.carlauncher.widgets.WidgetManager;
 import app.organicmaps.carlauncher.widgets.WidgetRegistry;
 
 /**
  * Haritanin uzerine binen OsmAnd tarzi widget overlay'i.
- * Dort kenarda dikey/yatay kolonlar (panel) vardir.
- * WidgetRegistry'deki widget'lar bagimsiz instance olarak olusturulup buraya eklenir,
- * boylece yan panel (WorkspaceCellLayout) ile hicbir View cakismasi yasanmaz.
+ * Dokunmatik gecirgendir (click-through), harita hareketlerini kesinlikle engellemez.
+ * Hiz gostergesi (Sol/Sag/Kapali), Saat ve Ust Ulasim Modlari Kapsulu barindirir.
  *
  * Kod icerisinde kesinlikle Turkce karakter kullanilmamistir.
  */
@@ -39,27 +41,40 @@ public final class MapWidgetsOverlay extends FrameLayout
   };
 
   private final MapWidgetPlacementStore store;
+  private final CarLauncherSettings settings;
   private final LinearLayout[] panelColumns = new LinearLayout[4];
   /** Harita panelinde gosterilen bagimsiz widget ornekleri (typeId -> BaseWidget) */
   private final Map<String, BaseWidget> attachedWidgets = new LinkedHashMap<>();
+
+  private ModesUiView modesUiView;
+  private MapSpeedWidgetView mapSpeedView;
   private boolean mRefreshing;
 
   public MapWidgetsOverlay(@NonNull Context context, @NonNull MapWidgetPlacementStore store)
   {
     super(context);
     this.store = store;
+    this.settings = new CarLauncherSettings(context);
+
     setClickable(false);
     setFocusable(false);
-    buildPanels();
 
-    setOnLongClickListener(v -> {
-      if (getContext() instanceof CarLauncherActivity)
-      {
-        ((CarLauncherActivity) getContext()).showMapWidgetPlacementDialog();
-        return true;
-      }
-      return false;
-    });
+    buildPanels();
+    buildFixedOverlays();
+  }
+
+  @Override
+  public boolean onInterceptTouchEvent(MotionEvent ev)
+  {
+    // Overlay katmani dokunmatik eventleri asla yutmaz, haritaya gecirir
+    return false;
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event)
+  {
+    // Kendi zeminine gelen dokunuslari asla tuketmez (click-through)
+    return false;
   }
 
   private void buildPanels()
@@ -67,7 +82,6 @@ public final class MapWidgetsOverlay extends FrameLayout
     for (int ordinal : PANEL_ORDER)
     {
       LinearLayout column = new LinearLayout(getContext());
-      // Sol ve sag paneller dikey (alt alta), ust ve alt paneller yatay (yan yana)
       boolean isVertical = ordinal == MapWidgetPlacementStore.Panel.LEFT.ordinal()
           || ordinal == MapWidgetPlacementStore.Panel.RIGHT.ordinal();
       column.setOrientation(isVertical ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
@@ -75,6 +89,69 @@ public final class MapWidgetsOverlay extends FrameLayout
       column.setFocusable(false);
       panelColumns[ordinal] = column;
       addView(column, generateColumnParams(ordinal));
+    }
+  }
+
+  private void buildFixedOverlays()
+  {
+    // 1. Ulasim Modlari Kapsulu (Modes UI - Ust Orta)
+    modesUiView = new ModesUiView(getContext());
+    LayoutParams lpModes = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    lpModes.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+    lpModes.topMargin = dp(14);
+    addView(modesUiView, lpModes);
+
+    // 2. Canli Hiz ve Limit Kapsulu (Sol veya Sag)
+    mapSpeedView = new MapSpeedWidgetView(getContext());
+    addView(mapSpeedView, generateSpeedParams());
+
+    updateFixedOverlaysVisibility();
+  }
+
+  @NonNull
+  private LayoutParams generateSpeedParams()
+  {
+    LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    String pos = settings.getMapSpeedPosition();
+    if ("right".equalsIgnoreCase(pos))
+    {
+      lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+      lp.rightMargin = dp(16);
+    }
+    else
+    {
+      // Varsayilan SOL
+      lp.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
+      lp.leftMargin = dp(16);
+    }
+    return lp;
+  }
+
+  public void updateFixedOverlaysVisibility()
+  {
+    // Modes UI gorunurlugu
+    if (modesUiView != null)
+    {
+      boolean showModes = settings.isModesUiEnabled();
+      modesUiView.setVisibility(showModes ? View.VISIBLE : View.GONE);
+      if (showModes)
+        modesUiView.updateSelectionFromController();
+    }
+
+    // Hiz widgeti gorunurlugu ve konumu
+    if (mapSpeedView != null)
+    {
+      String pos = settings.getMapSpeedPosition();
+      if ("none".equalsIgnoreCase(pos))
+      {
+        mapSpeedView.setVisibility(View.GONE);
+      }
+      else
+      {
+        mapSpeedView.setVisibility(View.VISIBLE);
+        mapSpeedView.setLayoutParams(generateSpeedParams());
+        mapSpeedView.update();
+      }
     }
   }
 
@@ -86,41 +163,49 @@ public final class MapWidgetsOverlay extends FrameLayout
     {
       lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
       lp.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-      lp.topMargin = dp(16);
-      lp.leftMargin = dp(120); // Katman ve widget butonlarinin uzerine binmesin
-      lp.rightMargin = dp(60); // Pusulanin uzerine binmesin
+      lp.topMargin = dp(60); // Modes UI kapsulunun altina gelsin
+      lp.leftMargin = dp(120);
+      lp.rightMargin = dp(60);
     }
     else if (panelOrdinal == MapWidgetPlacementStore.Panel.BOTTOM.ordinal())
     {
       lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
       lp.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
       lp.bottomMargin = dp(16);
-      lp.leftMargin = dp(70); // Arama ve favori butonlarindan uzak
-      lp.rightMargin = dp(60); // Navigasyon okundan uzak
+      lp.leftMargin = dp(70);
+      lp.rightMargin = dp(60);
     }
     else if (panelOrdinal == MapWidgetPlacementStore.Panel.LEFT.ordinal())
     {
       lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
       lp.gravity = Gravity.START | Gravity.TOP;
       lp.leftMargin = dp(16);
-      lp.topMargin = dp(68); // Katman butonunun hemen altinda temiz yerlesim
+      lp.topMargin = dp(68);
     }
     else // RIGHT
     {
       lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
       lp.gravity = Gravity.END | Gravity.TOP;
       lp.rightMargin = dp(16);
-      lp.topMargin = dp(60); // Pusulanin hemen altinda temiz yerlesim
+      lp.topMargin = dp(60);
     }
     return lp;
   }
 
   /**
-   * Periyodik veri tazeleme: view yapisini yeniden kurmadan, haritaya
-   * yerlesmis widget'larin update() metodunu cagirir (hiz/saat canli).
+   * Periyodik veri tazeleme: canli hiz/saat ve widget verilerini gunceller.
    */
   public void tick()
   {
+    if (mapSpeedView != null && mapSpeedView.getVisibility() == View.VISIBLE)
+    {
+      mapSpeedView.update();
+    }
+    if (modesUiView != null && modesUiView.getVisibility() == View.VISIBLE)
+    {
+      modesUiView.updateSelectionFromController();
+    }
+
     for (BaseWidget widget : attachedWidgets.values())
     {
       try
@@ -141,6 +226,7 @@ public final class MapWidgetsOverlay extends FrameLayout
     mRefreshing = true;
     try
     {
+      updateFixedOverlaysVisibility();
       refreshInternal();
     }
     finally
@@ -199,7 +285,7 @@ public final class MapWidgetsOverlay extends FrameLayout
         View view = widget.getRootView();
         if (view == null)
           view = widget.createView();
-        
+
         widget.onStart();
         widget.update();
 
@@ -245,7 +331,6 @@ public final class MapWidgetsOverlay extends FrameLayout
       if (panelColumns[ordinal] != null)
         panelColumns[ordinal].removeAllViews();
     }
-    // Tum view'lari temizle ama instance'lari saklayabilir veya durdurabiliriz
     for (BaseWidget widget : attachedWidgets.values())
     {
       widget.onStop();

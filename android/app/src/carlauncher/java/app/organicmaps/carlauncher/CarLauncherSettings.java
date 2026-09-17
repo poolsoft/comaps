@@ -460,6 +460,35 @@ public class CarLauncherSettings {
         prefs.edit().putString(KEY_SCREEN_ORIENTATION, orientation).apply();
     }
 
+    // --- Map Widgets & Overlays (Speed, Clock, Modes UI) ---
+    public static final String KEY_MAP_SPEED_POSITION = "map_speed_position"; // "left", "right", "none"
+    public static final String KEY_MAP_CLOCK_ENABLED = "map_clock_enabled";
+    public static final String KEY_MODES_UI_ENABLED = "map_modes_ui_enabled";
+
+    public String getMapSpeedPosition() {
+        return prefs.getString(KEY_MAP_SPEED_POSITION, "left");
+    }
+
+    public void setMapSpeedPosition(String position) {
+        prefs.edit().putString(KEY_MAP_SPEED_POSITION, position).apply();
+    }
+
+    public boolean isMapClockEnabled() {
+        return prefs.getBoolean(KEY_MAP_CLOCK_ENABLED, true);
+    }
+
+    public void setMapClockEnabled(boolean enabled) {
+        prefs.edit().putBoolean(KEY_MAP_CLOCK_ENABLED, enabled).apply();
+    }
+
+    public boolean isModesUiEnabled() {
+        return prefs.getBoolean(KEY_MODES_UI_ENABLED, true);
+    }
+
+    public void setModesUiEnabled(boolean enabled) {
+        prefs.edit().putBoolean(KEY_MODES_UI_ENABLED, enabled).apply();
+    }
+
     public SharedPreferences getPrefs() {
         return prefs;
     }

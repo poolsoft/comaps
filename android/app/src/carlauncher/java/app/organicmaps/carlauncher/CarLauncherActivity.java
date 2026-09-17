@@ -479,6 +479,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         if (loc != null) {
             updateFreeDrivingStreetDisplay(loc.streetName);
         }
+        if (mapWidgetsOverlay != null) {
+            mapWidgetsOverlay.tick();
+        }
     }
 
     private void tryReparentStreetFrame() {

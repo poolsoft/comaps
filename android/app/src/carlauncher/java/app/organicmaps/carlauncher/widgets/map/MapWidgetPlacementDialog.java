@@ -18,13 +18,14 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
+import app.organicmaps.carlauncher.CarLauncherSettings;
 import app.organicmaps.carlauncher.widgets.WidgetManager;
 import app.organicmaps.carlauncher.widgets.WidgetRegistry;
 
 /**
- * Harita uzeri widget yerlesimi ayarlari (liste tabanli).
- * Her widget icin: harita paneli (Yok/Ust/Sol/Sag/Alt) + gorunum (Compact/Wide).
- * Kaydet dugmesine basincaya kadar degisiklikler uygulanmaz.
+ * Harita uzeri widget ve gosterge yerlesim ayarlari.
+ * Hiz kapsulu konumu (Sol/Sag/Kapali), Saat (Acik/Kapali),
+ * Ulasim modlari kapsulu (Modes UI) ve modul panelleri yonetilir.
  *
  * Kod icerisinde kesinlikle Turkce karakter kullanilmamistir.
  */
@@ -49,13 +50,20 @@ public final class MapWidgetPlacementDialog extends Dialog
       MapWidgetPlacementStore.Mode.WIDE
   };
 
+  private static final String[] SPEED_POS_LABELS = { "Sol Kenar (Önerilen)", "Sağ Kenar", "Gizli (Kapalı)" };
+  private static final String[] SPEED_POS_VALUES = { "left", "right", "none" };
+
   private final MapWidgetPlacementStore store;
+  private final CarLauncherSettings settings;
   @NonNull
   private final OnApplyListener applyListener;
 
   private final java.util.Map<String, MapWidgetPlacementStore.Panel> pendingPanels = new java.util.HashMap<>();
   private final java.util.Map<String, MapWidgetPlacementStore.Mode> pendingModes = new java.util.HashMap<>();
   private boolean pendingEnabled;
+  private String pendingSpeedPos;
+  private boolean pendingClockEnabled;
+  private boolean pendingModesUiEnabled;
 
   public MapWidgetPlacementDialog(@NonNull Context context,
                                   @NonNull MapWidgetPlacementStore store,
@@ -63,8 +71,14 @@ public final class MapWidgetPlacementDialog extends Dialog
   {
     super(context);
     this.store = store;
+    this.settings = new CarLauncherSettings(context);
     this.applyListener = applyListener;
+
     this.pendingEnabled = store.isOverlayEnabled();
+    this.pendingSpeedPos = settings.getMapSpeedPosition();
+    this.pendingClockEnabled = settings.isMapClockEnabled();
+    this.pendingModesUiEnabled = settings.isModesUiEnabled();
+
     setupDialog();
   }
 
@@ -83,24 +97,92 @@ public final class MapWidgetPlacementDialog extends Dialog
     ScrollView scroll = new ScrollView(getContext());
     LinearLayout main = new LinearLayout(getContext());
     main.setOrientation(LinearLayout.VERTICAL);
-    main.setBackgroundColor(0xFF1A1A1A);
+    main.setBackgroundColor(0xFF16191F);
     int pad = dp(20);
     main.setPadding(pad, pad, pad, pad);
 
     TextView title = new TextView(getContext());
-    title.setText("Harita Widget Yerleşimi");
+    title.setText("Harita Göstergeleri & Widget Ayarları");
     title.setTextColor(0xFFFFFFFF);
     title.setTextSize(18);
     title.setTypeface(null, android.graphics.Typeface.BOLD);
-    title.setPadding(0, 0, 0, dp(12));
+    title.setPadding(0, 0, 0, dp(14));
     main.addView(title);
 
+    // 1. Hiz Kapsulu Konumu (Sol / Sag / Kapali)
+    LinearLayout speedRow = new LinearLayout(getContext());
+    speedRow.setOrientation(LinearLayout.HORIZONTAL);
+    speedRow.setGravity(Gravity.CENTER_VERTICAL);
+    speedRow.setPadding(0, dp(4), 0, dp(8));
+
+    TextView speedLabel = new TextView(getContext());
+    speedLabel.setText("Hız & Limit Göstergesi:");
+    speedLabel.setTextColor(0xFFE0E0E0);
+    speedLabel.setTextSize(14);
+    speedRow.addView(speedLabel, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+    Spinner speedSpinner = new Spinner(getContext());
+    ArrayAdapter<String> speedAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, SPEED_POS_LABELS);
+    speedSpinner.setAdapter(speedAdapter);
+    int initialSpeedIndex = 0;
+    for (int i = 0; i < SPEED_POS_VALUES.length; i++)
+    {
+      if (SPEED_POS_VALUES[i].equalsIgnoreCase(pendingSpeedPos))
+      {
+        initialSpeedIndex = i;
+        break;
+      }
+    }
+    speedSpinner.setSelection(initialSpeedIndex);
+    speedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+    {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+      {
+        pendingSpeedPos = SPEED_POS_VALUES[position];
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {}
+    });
+    speedRow.addView(speedSpinner, new LinearLayout.LayoutParams(dp(170), LinearLayout.LayoutParams.WRAP_CONTENT));
+    main.addView(speedRow);
+
+    // 2. Dijital Saat Switch
+    Switch clockSwitch = new Switch(getContext());
+    clockSwitch.setText("Haritada Dijital Saat Göster");
+    clockSwitch.setTextColor(0xFFE0E0E0);
+    clockSwitch.setChecked(pendingClockEnabled);
+    clockSwitch.setOnCheckedChangeListener((b, checked) -> pendingClockEnabled = checked);
+    main.addView(clockSwitch, marginLayoutParams(dp(0), dp(6)));
+
+    // 3. Ulasim Modlari Kapsulu (Modes UI) Switch
+    Switch modesSwitch = new Switch(getContext());
+    modesSwitch.setText("Ulaşım Modları Kapsülü (Modes UI - 🚶 🚴 🚗 🚌)");
+    modesSwitch.setTextColor(0xFFE0E0E0);
+    modesSwitch.setChecked(pendingModesUiEnabled);
+    modesSwitch.setOnCheckedChangeListener((b, checked) -> pendingModesUiEnabled = checked);
+    main.addView(modesSwitch, marginLayoutParams(dp(0), dp(6)));
+
+    // Ayrac
+    View divider = new View(getContext());
+    divider.setBackgroundColor(0x33FFFFFF);
+    main.addView(divider, marginLayoutParams(dp(0), dp(14)));
+
+    TextView sectionTitle = new TextView(getContext());
+    sectionTitle.setText("OsmAnd Tarzı Modüler Kenar Panelleri");
+    sectionTitle.setTextColor(0xFF90CAF9);
+    sectionTitle.setTextSize(14);
+    sectionTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+    sectionTitle.setPadding(0, dp(8), 0, dp(4));
+    main.addView(sectionTitle);
+
     Switch overlaySwitch = new Switch(getContext());
-    overlaySwitch.setText("Harita üzeri widget'lar aktif");
+    overlaySwitch.setText("Kenar Panellerini Aktif Et");
     overlaySwitch.setTextColor(0xFFE0E0E0);
     overlaySwitch.setChecked(pendingEnabled);
     overlaySwitch.setOnCheckedChangeListener((b, checked) -> pendingEnabled = checked);
-    main.addView(overlaySwitch, marginLayoutParams(dp(0), dp(12)));
+    main.addView(overlaySwitch, marginLayoutParams(dp(0), dp(6)));
 
     List<WidgetRegistry.WidgetEntry> entries = WidgetRegistry.getAvailableWidgets();
     for (WidgetRegistry.WidgetEntry entry : entries)
@@ -121,10 +203,16 @@ public final class MapWidgetPlacementDialog extends Dialog
 
     Button apply = new Button(getContext());
     apply.setText("Uygula");
-    apply.setBackgroundColor(0xFF2E7D32);
+    apply.setBackgroundColor(0xFF2563EB);
     apply.setTextColor(0xFFFFFFFF);
     apply.setOnClickListener(v ->
     {
+      // 1. Yeni Ayarlari Kaydet
+      settings.setMapSpeedPosition(pendingSpeedPos);
+      settings.setMapClockEnabled(pendingClockEnabled);
+      settings.setModesUiEnabled(pendingModesUiEnabled);
+
+      // 2. Moduler Panel Ayarlarini Kaydet
       store.setOverlayEnabled(pendingEnabled);
       int order = 0;
       for (WidgetRegistry.WidgetEntry entry : WidgetRegistry.getAvailableWidgets())
@@ -145,20 +233,21 @@ public final class MapWidgetPlacementDialog extends Dialog
           store.setPlacement(key, panel, resolved, order++);
         }
       }
+
       applyListener.onApplied();
       dismiss();
     });
     buttons.addView(apply, marginLayoutParams(dp(0), dp(0)));
 
-    main.addView(buttons, marginLayoutParams(dp(0), dp(16)));
+    main.addView(buttons, marginLayoutParams(dp(0), dp(18)));
     scroll.addView(main);
 
     setContentView(scroll);
     Window window = getWindow();
     if (window != null)
     {
-      window.setLayout(dp(440), dp(520));
-      window.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(0xFF101010));
+      window.setLayout(dp(480), dp(540));
+      window.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(0xFF101216));
     }
   }
 
