@@ -116,37 +116,36 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+        <!-- Core dialog activities: force landscape so launcher shell never rotates.
+             Manifest merge overrides the upstream "fullUser" declarations. -->
+        <activity
+            android:name="app.organicmaps.downloader.DownloaderActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
+        <activity
+            android:name="app.organicmaps.search.SearchActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
+        <activity
+            android:name="app.organicmaps.settings.SettingsActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
+        <activity
+            android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
+        <activity
+            android:name="app.organicmaps.bookmarks.BookmarkListActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
+        <activity
+            android:name="app.organicmaps.help.HelpActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
+        <activity
+            android:name="app.organicmaps.editor.EditorActivity"
+            android:screenOrientation="sensorLandscape"
+            tools:node="merge" />
     </application>
-
-    <!-- Core dialog activities: force landscape so launcher shell never rotates.
-         Manifest merge overrides the upstream "fullUser" declarations. -->
-    <activity
-        android:name="app.organicmaps.downloader.DownloaderActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
-    <activity
-        android:name="app.organicmaps.search.SearchActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
-    <activity
-        android:name="app.organicmaps.settings.SettingsActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
-    <activity
-        android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
-    <activity
-        android:name="app.organicmaps.bookmarks.BookmarkListActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
-    <activity
-        android:name="app.organicmaps.help.HelpActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
-    <activity
-        android:name="app.organicmaps.editor.EditorActivity"
-        android:screenOrientation="sensorLandscape"
-        tools:node="merge" />
 
 </manifest>
