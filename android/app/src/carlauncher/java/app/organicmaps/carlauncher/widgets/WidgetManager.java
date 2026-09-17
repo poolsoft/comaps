@@ -279,6 +279,11 @@ public class WidgetManager {
             allWidgets.get(i).setOrder(i);
         }
 
+        app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore.getInstance(context)
+                .setDefaultPlacementIfAbsent(
+                        app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay.placementKey(targetWidget),
+                        targetWidget.getOrder());
+
         updateVisibleWidgets();
         if (isStarted && !targetWidget.isStarted()) {
             targetWidget.onStart();

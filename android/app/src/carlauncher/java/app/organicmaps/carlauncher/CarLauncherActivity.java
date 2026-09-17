@@ -774,7 +774,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         public void run() {
             if (mapWidgetsOverlay != null && !isDestroyed()) {
                 try {
-                    mapWidgetsOverlay.tick();
+                    refreshMapWidgetsOverlay();
                 } catch (Exception ignored) {}
                 mapContainer.postDelayed(this, 1000);
             }

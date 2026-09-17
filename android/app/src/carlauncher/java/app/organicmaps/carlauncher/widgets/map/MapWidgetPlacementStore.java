@@ -95,6 +95,15 @@ public final class MapWidgetPlacementStore
     prefs.edit().putString(KEY_PREFIX + widgetKey, panel.name() + "|" + mode.name() + "|" + order).apply();
   }
 
+  public void setDefaultPlacementIfAbsent(@NonNull String widgetKey, int order)
+  {
+    if (getPlacement(widgetKey) != null)
+      return;
+    Panel panel = defaultPanel(widgetKey);
+    if (panel != Panel.NONE)
+      setPlacement(widgetKey, panel, Mode.COMPACT, order);
+  }
+
   public void removePlacement(@NonNull String widgetKey)
   {
     prefs.edit().remove(KEY_PREFIX + widgetKey).apply();
@@ -113,18 +122,10 @@ public final class MapWidgetPlacementStore
     boolean any = false;
     for (String key : widgetKeysByIdPrefix)
     {
-      MapWidgetPlacementStore.Panel panel;
-      if (key.startsWith("speed"))
-        panel = MapWidgetPlacementStore.Panel.RIGHT;
-      else if (key.startsWith("clock") || key.startsWith("classic"))
-        panel = MapWidgetPlacementStore.Panel.LEFT;
-      else if (key.startsWith("navigation"))
-        panel = MapWidgetPlacementStore.Panel.BOTTOM;
-      else
-        panel = MapWidgetPlacementStore.Panel.NONE;
-      if (panel != MapWidgetPlacementStore.Panel.NONE)
+      MapWidgetPlacementStore.Panel panel = defaultPanel(key);
+      if (panel != Panel.NONE)
       {
-        setPlacement(key, panel, MapWidgetPlacementStore.Mode.COMPACT, order++);
+        setPlacement(key, panel, Mode.COMPACT, order++);
         any = true;
       }
     }
@@ -136,6 +137,18 @@ public final class MapWidgetPlacementStore
   private boolean isConfigured()
   {
     return prefs.getBoolean(KEY_CONFIGURED, false) || !getAllPlacements().isEmpty();
+  }
+
+  @NonNull
+  private static Panel defaultPanel(@NonNull String widgetKey)
+  {
+    if (widgetKey.startsWith("speed"))
+      return Panel.RIGHT;
+    if (widgetKey.startsWith("clock") || widgetKey.startsWith("smart_clock") || widgetKey.startsWith("classic"))
+      return Panel.LEFT;
+    if (widgetKey.startsWith("navigation"))
+      return Panel.BOTTOM;
+    return Panel.NONE;
   }
 
   @NonNull
