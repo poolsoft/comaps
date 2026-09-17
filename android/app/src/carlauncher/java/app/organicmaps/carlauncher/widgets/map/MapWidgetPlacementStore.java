@@ -107,9 +107,10 @@ public final class MapWidgetPlacementStore
    */
   public void ensureDefaults(@NonNull java.util.List<String> widgetKeysByIdPrefix)
   {
-    if (isConfigured())
+    if (isConfigured() || widgetKeysByIdPrefix.isEmpty())
       return;
     int order = 0;
+    boolean any = false;
     for (String key : widgetKeysByIdPrefix)
     {
       MapWidgetPlacementStore.Panel panel;
@@ -122,9 +123,14 @@ public final class MapWidgetPlacementStore
       else
         panel = MapWidgetPlacementStore.Panel.NONE;
       if (panel != MapWidgetPlacementStore.Panel.NONE)
+      {
         setPlacement(key, panel, MapWidgetPlacementStore.Mode.COMPACT, order++);
+        any = true;
+      }
     }
-    prefs.edit().putBoolean(KEY_CONFIGURED, true).apply();
+    // En az bir yerlesim yazildiysa damgala; bos listede tekrar denenebilir kalsin.
+    if (any)
+      prefs.edit().putBoolean(KEY_CONFIGURED, true).apply();
   }
 
   private boolean isConfigured()
