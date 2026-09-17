@@ -15,6 +15,9 @@
 #include "app/organicmaps/sdk/util/NetworkPolicy.hpp"
 #include "app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp"
 
+#include <sys/system_properties.h>
+#include "base/string_utils.hpp"
+
 #include "map/bookmark_helpers.hpp"
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
@@ -108,6 +111,23 @@ android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContext
 
 namespace android
 {
+// Low-end M MediaTek (AC8227L / xyauto head units, Mali-450 MP) report Vulkan 1.0
+// support but ship broken drivers: engine creation hangs or crashes the process.
+// Force the OpenGL ES path on this hardware regardless of driver claims.
+bool IsKnownBrokenVulkanDevice()
+{
+  char hardware[PROP_VALUE_MAX] = {0};
+  if (__system_property_get("ro.hardware", hardware) > 0)
+  {
+    std::string const hw = strings::MakeString(hardware);
+    if (hw == "ac8227l" || hw == "mt8227" || hw == "8227l_demo")
+    {
+      LOG(LWARNING, ("Known broken Vulkan GPU detected (ro.hardware =", hw, "), forcing OpenGLES."));
+      return true;
+    }
+  }
+  return false;
+}
 
 enum MultiTouchAction
 {
@@ -190,7 +210,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   int const sdkVersion = android_get_device_api_level();
   LOG(LINFO, ("Android SDK version in the Drape Engine:", sdkVersion));
   auto const vulkanForbidden =
-      sdkVersion < kMinSdkVersionForVulkan || dp::SupportManager::Instance().IsVulkanForbidden();
+      sdkVersion < kMinSdkVersionForVulkan || dp::SupportManager::Instance().IsVulkanForbidden() ||
+      IsKnownBrokenVulkanDevice();
   if (vulkanForbidden)
     LOG(LWARNING, ("Vulkan API is forbidden on this device."));
 
