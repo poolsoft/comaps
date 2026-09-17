@@ -1,10 +1,11 @@
-• OpenStreetMap-data pr. 3. juni, ugentlige opdateringer via ‘Søg efter opdateringer’-knappen
-• Sorter favoritlister manuelt eller efter navn
-• Deaktiveret langt tryk for at skjule grænsefladen, aktiver i indstillingerne
-• Kontaktadressevælger ved søgning
-• Wikipedia-artikler: mørk tilstand og RTL-understøttelse
-• Forbedret TalkBack-understøttelse
-• OSM-editor: historik over senest anvendte kategorier
-• Andoid Auto: vis tilgængelighed i indstillingerne
+• Vis favoritnavne på kortet (slå fra i indstillingerne)
+• Vis Mangrove-brugeranmeldelser i POI-info
+• Indstilling for tekststørrelse på kortet
+• Mulighed for kortlæsning med TalkBack
+• Mulighed for at starte optagelse af spor under navigation
+• Vis "Åbner i morgen kl. ..." i POI-info
+• Rettet mulighed for at søge på alle indstillede sprog
+• Vejskilte i Kirgisistan, Usbekistan, Tadsjikistan, Kasakhstan og Georgien
+• Vis busstoppesteder tidligere i metrolag
 
 Flere detaljer på comaps.app/latest

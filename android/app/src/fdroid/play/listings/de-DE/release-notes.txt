@@ -1,10 +1,10 @@
-• OpenStreetMap-Daten vom 3. Juni, weitere wöchentliche Updates in "Updates prüfen"
-• Sortiere Favoritenlisten manuell oder nach Namen
-• Verstecktes Bedienfeld durch langes Berühren deaktiv, aktivierbar in Einstellung
-• Kontaktadressauswahl in Suche
-• Wikipedia-Artikel: Dunkler Modus, RTL
-• Verbessertes TalkBack
-• OSM-Editor: Verlauf letzter Kategorien
-• Android Auto: Anzeige Verfügbarkeit
+• Anzeige von Favoriten-Namen auf der Karte (Ausschalten in Einstellungen)
+• Anzeige von Mangrove Nutzerbewertungen bei POIs
+• Einstellung zum Anpassen der Kartenschriftgröße
+• Karte vorlesen für TalkBack Nutzer
+• Option Tracks aufzunehmen während der Navigation
+• Anzeige "Öffnet morgen um ..." bei POIs
+• Fehler zur Suche in benutzerdefinierter Kartensprache behoben
+• Straßenschilder für Kirgisistan, Usbekistan, Tadschikistan, Kasachstan und Georgien
 
-Mehr Details auf comaps.app/latest
+Weitere Details unter comaps.app/latest

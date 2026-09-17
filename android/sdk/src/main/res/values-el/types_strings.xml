@@ -335,7 +335,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Σήραγγα</string>
     <string name="type.highway.bus_stop">Στάση λεωφορείου</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.motorway">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.motorway_link">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.trunk">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.trunk_link">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.primary">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.primary_link">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.secondary">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.secondary_link">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.tertiary">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.tertiary_link">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.residential">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.unclassified">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.service">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.living_street">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.road">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction.track">Οδός υπό κατασκευή</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1166,8 +1183,8 @@
     <string name="type.wheelchair.limited">Μερική Πρόσβαση με Αμαξίδιο</string>
     <string name="type.wheelchair.no">Χωρίς Πρόσβαση με Αμαξίδιο</string>
     <string name="type.wheelchair.yes">Πλήρης Πρόσβαση με Αμαξίδιο</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
-    <string name="type.piste_type.hike">Μονοπάτι πεζοπορίας χιονιού</string>
+    <string name="type.piste_type.snow_park">Πάρκο Χιονιού</string>
+    <string name="type.piste_type.hike">Μονοπάτι Πεζοπορίας Χιονιού</string>
     <string name="type.piste_type.connection">Σύνδεση πίστας</string>
     <string name="type.piste_type.skitour">Μονοπάτι Skitour</string>
     <string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
@@ -1180,7 +1197,7 @@
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Κοινωνική δομή</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
-    <string name="type.emergency.emergency_ward_entrance">Είσοδος θαλάμου έκτακτης ανάγκης</string>
+    <string name="type.emergency.emergency_ward_entrance">Θάλαμος Εισόδου Έκτακτης Ανάγκης</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
     <string name="type.amenity.dojo">Ντότζο</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
@@ -1503,4 +1520,21 @@
     <string name="type.aerialway.platter">Τελεφερίκ Πιάτο</string>
     <string name="type.aerialway.rope_tow">Αναβατήρας με Σχοινί</string>
     <string name="type.aerialway.t.bar">Τελεφερίκ T-bar</string>
+    <string name="type.amenity.stage">Σκηνή</string>
+    <string name="type.amenity.animal_boarding">Φιλοξενία ζώων</string>
+    <string name="type.piste_type.downhill.freeride">Ελεύθερη Καθοδική Διαδρομή Σκι</string>
+    <string name="type.piste_type.downhill.intermediate">Μεσαίου Επιπέδου Καθοδική Διαδρομή Σκι</string>
+    <string name="type.piste_type.downhill.intermediate.area">Μεσαίου Επιπέδου Καθοδική Διαδρομή Σκι</string>
+    <string name="type.piste_type.downhill.novice">Καθοδική Διαδρομή Σκι για Αρχάριους</string>
+    <string name="type.piste_type.downhill.novice.area">Καθοδική Διαδρομή Σκι για Αρχάριους</string>
+    <string name="type.piste_type.nordic">Νορβηγική Διαδρομή Σκι</string>
+    <string name="type.piste_type.sled">Πίστα Ελκήθρου</string>
+    <string name="type.piste_type.sled.area">Πίστα Ελκήθρου</string>
+    <string name="type.social_facility.soup_kitchen">Συσσίτιο</string>
+    <string name="type.social_facility.food_bank">Τράπεζα Τροφίμων</string>
+    <string name="type.amenity.food_sharing">Διαμοιρασμός Φαγητού</string>
+    <string name="type.amenity.give_box">Κουτί Δωρεών</string>
+    <string name="type.amenity.planetarium">Πλανητάριο</string>
+    <string name="type.amenity.toilets.customers">Πρόσβαση για πελάτες</string>
+    <string name="type.amenity.toilets.private">Ιδιωτική πρόσβαση</string>
 </resources>

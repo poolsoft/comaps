@@ -42,7 +42,7 @@ final class CarPlayService: NSObject {
     let configuration = CPSessionConfiguration(delegate: self)
     sessionConfiguration = configuration
     searchService = CarPlaySearchService()
-    let router = CarPlayRouter()
+    let router = CarPlayRouter(displayScale: interfaceController.carTraitCollection.displayScale)
     router.addListener(self)
     router.subscribeToEvents()
     router.setupCarPlaySpeedCameraMode()
@@ -392,6 +392,12 @@ extension CarPlayService: CPSessionConfigurationDelegate {
 
 // MARK: - CPMapTemplateDelegate implementation
 extension CarPlayService: CPMapTemplateDelegate {
+  // Instrument cluster maneuver display
+  @available(iOS 17.4, *)
+  public func mapTemplateShouldProvideNavigationMetadata(_ mapTemplate: CPMapTemplate) -> Bool {
+    return true
+  }
+
   public func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
     isUserPanMap = false
     MapTemplateBuilder.configurePanUI(mapTemplate: mapTemplate)
@@ -646,23 +652,23 @@ extension CarPlayService: LocationModeListener {
     // exit if we're navigating
     guard let info = rootMapTemplate.userInfo as? MapInfo,
               info.type == CPConstants.TemplateType.main else {
-        MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate, newMode: mode)
+        MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate)
         return
     }
     switch mode {
     case .follow, .followAndRotate:
       if !rootMapTemplate.isPanningInterfaceVisible {
         MapTemplateBuilder.setupDestinationButton(mapTemplate: rootMapTemplate)
-        MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate, newMode: mode)
+        MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate)
       }
     case .notFollow:
       if !rootMapTemplate.isPanningInterfaceVisible {
         MapTemplateBuilder.setupRecenterButton(mapTemplate: rootMapTemplate)
-        MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate, newMode: mode)
+        MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate)
       }
     case .pendingPosition, .notFollowNoPosition:
       rootMapTemplate.leadingNavigationBarButtons = []
-      MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate, newMode: mode)
+      MapTemplateBuilder.updateMyPositionModeButton(mapTemplate: rootMapTemplate)
     }
   }
 }
@@ -825,5 +831,12 @@ extension CarPlayService {
     let alert = CPAlertTemplate(titleVariants: [title], actions: [noAction, yesAction])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.restoreRoute]
     presentAlert(alert, animated: true)
+  }
+
+  @objc func windowHeight() -> CGFloat {
+    if let window {
+      return window.height
+    }
+    return 0
   }
 }

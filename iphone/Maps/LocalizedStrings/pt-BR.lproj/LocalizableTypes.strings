@@ -17,7 +17,7 @@
 "type.aeroway.runway" = "Pista de pouso e decolagem";
 "type.aeroway.taxiway" = "Pista de táxi";
 "type.aeroway.terminal" = "Terminal";
-"type.amenity" = "Amenidades";
+"type.amenity" = "Serviço";
 "type.amenity.arts_centre" = "Centro de artes";
 "type.amenity.atm" = "Caixa eletrônico";
 "type.amenity.bank" = "Banco";
@@ -130,7 +130,7 @@
 "type.amenity.parking_space.private" = "Lugar de estacionamento";
 "type.amenity.parking_space.underground" = "Lugar de estacionamento";
 "type.amenity.parking_space.disabled" = "Estacionamento para deficientes";
-"type.amenity.car_pooling" = "Carona";
+"type.amenity.car_pooling" = "Carona solidária";
 "type.amenity.payment_terminal" = "Terminal de pagamento";
 "type.amenity.payment_centre" = "Centro de pagamentos";
 "type.amenity.pharmacy" = "Farmácia";
@@ -452,6 +452,22 @@
 "type.highway.busway.tunnel" = "Túnel";
 "type.highway.bus_stop" = "Ponto de ônibus";
 "type.highway.construction" = "Via em construção";
+"type.highway.construction.motorway" = "Via em construção";
+"type.highway.construction.motorway_link" = "Via em construção";
+"type.highway.construction.trunk" = "Via em construção";
+"type.highway.construction.trunk_link" = "Via em construção";
+"type.highway.construction.primary" = "Via em construção";
+"type.highway.construction.primary_link" = "Via em construção";
+"type.highway.construction.secondary" = "Via em construção";
+"type.highway.construction.secondary_link" = "Via em construção";
+"type.highway.construction.tertiary" = "Via em construção";
+"type.highway.construction.tertiary_link" = "Via em construção";
+"type.highway.construction.residential" = "Via em construção";
+"type.highway.construction.unclassified" = "Via em construção";
+"type.highway.construction.service" = "Via em construção";
+"type.highway.construction.living_street" = "Via em construção";
+"type.highway.construction.road" = "Via em construção";
+"type.highway.construction.track" = "Via em construção";
 "type.highway.cycleway" = "Ciclovia";
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Ponte para ciclistas";
@@ -836,7 +852,7 @@
 "type.natural.peak" = "Pico";
 "type.natural.saddle" = "Sela de montanha";
 "type.natural.rock" = "Pedra";
-"type.natural.scrub" = "Esfregar";
+"type.natural.scrub" = "Matagal";
 "type.natural.spring" = "Nascente";
 "type.natural.spring.drinking_water_no" = "Nascente";
 "type.natural.strait" = "Estreito";
@@ -935,7 +951,7 @@
 "type.railway.funicular" = "Trem funicular";
 "type.railway.funicular.bridge" = "Funicular";
 "type.railway.funicular.tunnel" = "Funicular";
-"type.railway.halt" = "Ponto de parada";
+"type.railway.halt" = "Parada de trem";
 "type.railway.level_crossing" = "Passagem em nível";
 "type.railway.light_rail" = "Metrô de superfície";
 "type.railway.light_rail.bridge" = "Metrô de superfície";
@@ -1516,4 +1532,8 @@
 "type.sport.pickleball" = "Pickleball";
 "type.leisure.sports_centre.sport.pickleball" = "Centro de esportes";
 "type.organic.no" = "Sem opções orgânicas";
-"type.amenity.stage" = "Stage";
+"type.amenity.stage" = "Palco";
+"type.amenity.animal_boarding" = "Hotel de animais";
+"type.amenity.toilets.customers" = "Acesso para clientes";
+"type.amenity.toilets.private" = "Acesso privado";
+"type.amenity.planetarium" = "Planetário";

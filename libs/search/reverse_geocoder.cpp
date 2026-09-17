@@ -253,7 +253,7 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
     m_dataSource.ReadFeature([&bld, &addr](FeatureType & ft)
     {
       double distance = feature::GetMinDistanceMeters(ft, bld.m_center);
-      addr.m_street = Street(ft.GetID(), distance, ft.GetTranslatedName().m_primary.value(), ft.GetNames());
+      addr.m_street = Street(ft.GetID(), distance, ft.GetTranslatedName().m_primary.value_or(std::string()), ft.GetNames());
     }, streetFeature);
 
     CHECK(!addr.m_street.m_multilangName.IsEmpty(), (bld.m_id.m_mwmId, res->m_streetId));
@@ -307,7 +307,7 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr, Re
   string addrStr;
   if (addr.m_featureId.IsValid())
   {
-    m_dataSource.ReadFeature([&addrStr](FeatureType & ft) { addrStr = ft.GetTranslatedName().m_primary.value(); }, addr.m_featureId);
+    m_dataSource.ReadFeature([&addrStr](FeatureType & ft) { addrStr = ft.GetTranslatedName().m_primary.value_or(std::string()); }, addr.m_featureId);
 
     auto const countryName = addr.GetCountryName();
     if (!countryName.empty())

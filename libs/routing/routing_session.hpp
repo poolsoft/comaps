@@ -132,6 +132,10 @@ public:
   void SetChangeSessionStateCallback(ChangeSessionStateCallback const & changeSessionStateCallback);
   void SetOnNewTurnCallback(OnNewTurn const & onNewTurn);
 
+  // Whether to recalculate the route when the user strays
+  void SetAutoReroute(bool autoReroute);
+  bool AutoReroute();
+
   void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback);
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
 
@@ -166,10 +170,13 @@ public:
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
   SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
+  std::vector<routing::RouteStepInfo> GetRouteTurnsForDisplay(std::string const & locale) const;
+
   std::shared_ptr<Route> GetRouteForTests() const { return m_route; }
   void SetGuidesForTests(GuidesTracks guides) { m_router->SetGuidesTracks(std::move(guides)); }
 
   double GetCompletionPercent() const;
+  std::vector<double> GetIntermediateStopsProgress() const;
 
 private:
   struct DoReadyCallback
@@ -202,7 +209,9 @@ private:
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance = 0.0;
   int m_moveAwayCounter = 0;
+  int m_moveAwayCounterSinceLastAnnounce = 0;
   m2::PointD m_lastGoodPosition;
+  bool m_autoReroute = true;
 
   m2::PointD m_userCurrentPosition;
   bool m_userCurrentPositionValid = false;

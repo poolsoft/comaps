@@ -60,10 +60,14 @@
     <string name="tracks_title">Lerghow</string>
     <string name="length">Hirder</string>
     <string name="share_my_location">Kevrenna Ow Thyller</string>
-    <string name="prefs_group_general">Settyansow ollgemmyn</string>
     <string name="prefs_group_information">Kedhlow</string>
     <string name="prefs_group_route">Navygacyon</string>
     <string name="pref_zoom_summary">Diskwedhes war\'n mappa</string>
+    <string name="prefs_group_advanced">Avonsys</string>
+    <string name="download_resources_custom_url_title">Servell Vappys Personel</string>
+    <string name="download_resources_custom_url_message">Aslea an servell dhefowt devnydhys rag iskargow mappa. Gwitha gwag rag devnydhya an servell CoMaps defowt.</string>
+    <string name="download_resources_custom_url_summary_none">Nag yw gorrys</string>
+    <string name="download_resources_custom_url_error_scheme">Ynworrewgh gorgevren mayth ow talleth gans http:// po https:// mar pleg</string>
     <string name="pref_map_style_title">Fordh Nos</string>
     <string name="auto">Awtomatek</string>
     <string name="pref_map_3d_title">Gwel gemusur</string>
@@ -245,7 +249,7 @@
     <string name="phone_number">Niver fon</string>
     <string name="profile">Akont OpenStreetMap</string>
     <string name="restore">Astiveri</string>
-    <string name="privacy">Privetter</string>
+    <string name="prefs_group_privacy">Privetter</string>
     <string name="privacy_policy">Polici privetter</string>
     <string name="power_management">Dyghtyans batri</string>
     <string name="terms_of_use">Termow a dhevnydh</string>
@@ -525,7 +529,7 @@
     <string name="mobile_data_option_never">Devnydhya Bynner</string>
     <string name="mobile_data_option_ask">Govyn Pub Prys</string>
     <string name="traffic_update_maps_text">Rag diskwedhes data daromdak, res yw dhywgh nowedhi mappys</string>
-    <string name="big_font">Moghhe labelyow mappa</string>
+    <string name="increase_font_size">Moghhe labelyow mappa</string>
     <string name="traffic_data_unavailable">Data daromdak nag yw kavadow</string>
     <string name="enable_logging">Bywhe kovadhow</string>
     <string name="prefs_languages_information">Ni a dhevnydh lev system rag danvonadow. Meur a dhevisyow Android a dhevnydh TTS Google, hwi a yll iskarga po nowedhi dhyworth Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
@@ -578,7 +582,7 @@
     <string name="power_managment_setting_auto">Pan vatri yw isel</string>
     <string name="power_managment_setting_manual_max">Pub prys</string>
     <string name="enable_logging_warning_message">Bywhewgh yn servadow an dewis ma rag rekordya ha danvon dre dhorn kovadhow manylys a-dro dh\'gas kudyn dhyn gans \"Derivas unn kudyn\" y\'n folen Weres. Kovadhow a yll synsi kedhlow tyller.</string>
-    <string name="driving_options_title">Dewisyow kerdh</string>
+    <string name="routing_options_title">Dewisyow kerdh</string>
     <string name="avoid_tolls">Goheles tollow</string>
     <string name="avoid_unpaved">Goheles fordh ankonsys</string>
     <string name="avoid_ferry">Goheles kowbalow</string>
@@ -657,11 +661,6 @@
     <string name="navigation_start_tts_disabled_message">Lenna danvonadow marow: jynn tekst-dhe-areth nag yw kavadow</string>
     <string name="offline_explanation_text">Res yw dhywgh iskarga unn mappa rag gweles ha viajya an arenebedh.\nIskargewgh mappys rag arenebedhow le may hwi a vynn viajya.</string>
     <string name="list_description_empty">Golegi an rol rag keworra deskrifans</string>
-    <string name="advanced">Avonsys</string>
-    <string name="download_resources_custom_url_title">Servell Vappys Personel</string>
-    <string name="download_resources_custom_url_message">Aslea an servell dhefowt devnydhys rag iskargow mappa. Gwitha gwag rag devnydhya an servell CoMaps defowt.</string>
-    <string name="download_resources_custom_url_summary_none">Nag yw gorrys</string>
-    <string name="download_resources_custom_url_error_scheme">Ynworrewgh gorgevren mayth ow talleth gans http:// po https:// mar pleg</string>
     <string name="pref_maplanguage_local">Yeth Leel</string>
     <string name="location_privacy_info">Appys a dhegemmer data GPS dyworth agas gonis GPS system, may a gevren martesen agas tyller gans Google ha/po an gwerther a\'gas devis. Devnydhyewgh system oberyans Android privedh rag goheles hemma.</string>
     <string name="location_privacy">Privetter Tyller</string>
@@ -700,8 +699,6 @@
     <string name="setting_value_system_default">Defowt system</string>
     <string name="editor_add_select_category_all_subtitle">Oll Klassys</string>
     <string name="change_app_locale">Yeth an app</string>
-    <string name="pref_keyboard_typing_history_title">Fordh vysowek yn-dann hanow fug</string>
-    <string name="pref_keyboard_typing_history_summary">Govyn bysowek system dhe na rekordya istori jynnskrifans</string>
     <string name="pref_aa_support_title">Android Auto</string>
     <string name="pref_aa_support_summary_yes">An app re beu leys dhyworth Google Play, hwi a yll devnydhya y\'gas karr.</string>
     <string name="pref_aa_support_summary_no">An app nag o leys dhyworth Google Play, ny yllowgh hwi devnydhya y\'gas karr. Tevewgh an settyans rag kavos moy manylyon war agas FAQ.</string>

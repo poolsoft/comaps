@@ -317,7 +317,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Tunnel</string>
     <string name="type.highway.bus_stop">Busstoppested</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Vej under anlæggelse</string>
+    <string name="type.highway.construction.motorway">Vej under anlæggelse</string>
+    <string name="type.highway.construction.motorway_link">Vej under anlæggelse</string>
+    <string name="type.highway.construction.trunk">Vej under anlæggelse</string>
+    <string name="type.highway.construction.trunk_link">Vej under anlæggelse</string>
+    <string name="type.highway.construction.primary">Vej under anlæggelse</string>
+    <string name="type.highway.construction.primary_link">Vej under anlæggelse</string>
+    <string name="type.highway.construction.secondary">Vej under anlæggelse</string>
+    <string name="type.highway.construction.secondary_link">Vej under anlæggelse</string>
+    <string name="type.highway.construction.tertiary">Vej under anlæggelse</string>
+    <string name="type.highway.construction.tertiary_link">Vej under anlæggelse</string>
+    <string name="type.highway.construction.residential">Vej under anlæggelse</string>
+    <string name="type.highway.construction.unclassified">Vej under anlæggelse</string>
+    <string name="type.highway.construction.service">Vej under anlæggelse</string>
+    <string name="type.highway.construction.living_street">Vej under anlæggelse</string>
+    <string name="type.highway.construction.road">Vej under anlæggelse</string>
+    <string name="type.highway.construction.track">Vej under anlæggelse</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -669,7 +686,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elpylon</string>
     <string name="type.railway.funicular">Kabelbane</string>
-    <string name="type.railway.halt">Togstation</string>
+    <string name="type.railway.halt">Togstop</string>
     <string name="type.railway.level_crossing">Jernbaneoverskæring</string>
     <string name="type.railway.monorail">Enskinnebane</string>
     <string name="type.railway.rail">Jernbane</string>
@@ -1513,4 +1530,9 @@
     <string name="type.leisure.sports_centre.sport.yoga">Idrætscenter</string>
     <string name="type.sport.four_square">Four Square</string>
     <string name="type.amenity.mobile_money_agent">Mobilpengeagent</string>
+    <string name="type.amenity.stage">Scene</string>
+    <string name="type.amenity.planetarium">Planetarium</string>
+    <string name="type.amenity.toilets.customers">Kundeadgang</string>
+    <string name="type.amenity.toilets.private">Privat adgang</string>
+    <string name="type.amenity.animal_boarding">Dyrepension</string>
 </resources>

@@ -65,7 +65,7 @@
 "type.amenity.compressed_air" = "Компримовани ваздух";
 "type.amenity.conference_centre" = "Конференцијски центар";
 "type.amenity.courthouse" = "Суд";
-"type.amenity.dentist" = "Стоматолог / Зубар";
+"type.amenity.dentist" = "Стоматолог";
 "type.amenity.doctors" = "Доктор";
 "type.amenity.drinking_water" = "Вода за пиће";
 "type.drinking_water.yes" = "Вода за пиће";
@@ -212,7 +212,7 @@
 "type.barrier.yes" = "Баријера";
 "type.barrier.block" = "Блок";
 "type.barrier.bollard" = "Стуб";
-"type.barrier.border_control" = "Гранична контрола";
+"type.barrier.border_control" = "Гранични прелаз";
 "type.barrier.chain" = "Ланац";
 "type.barrier.city_wall" = "Градски зид / Бедем";
 "type.barrier.cycle_barrier" = "Баријера за бицикле";
@@ -236,7 +236,7 @@
 "type.boundary" = "Граница";
 "type.boundary.administrative" = "Административна граница";
 /* Borders between countries. */
-"type.boundary.administrative.2" = "Гранични прелаз";
+"type.boundary.administrative.2" = "Државна граница";
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.3" = "Регионална граница";
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
@@ -344,7 +344,7 @@
 "type.cuisine.moroccan" = "Мароканска";
 "type.cuisine.noodles" = "Нудле";
 "type.cuisine.oriental" = "Оријентална";
-"type.cuisine.pancake" = "Палачинке";
+"type.cuisine.pancake" = "Америчке палачинке";
 "type.cuisine.pasta" = "Паста";
 "type.cuisine.persian" = "Персијска";
 "type.cuisine.peruvian" = "Перуанска";
@@ -452,6 +452,22 @@
 "type.highway.busway.tunnel" = "Тунел";
 "type.highway.bus_stop" = "Аутобуско стајалиште";
 "type.highway.construction" = "Пут у изградњи";
+"type.highway.construction.motorway" = "Пут у изградњи";
+"type.highway.construction.motorway_link" = "Пут у изградњи";
+"type.highway.construction.trunk" = "Пут у изградњи";
+"type.highway.construction.trunk_link" = "Пут у изградњи";
+"type.highway.construction.primary" = "Пут у изградњи";
+"type.highway.construction.primary_link" = "Пут у изградњи";
+"type.highway.construction.secondary" = "Пут у изградњи";
+"type.highway.construction.secondary_link" = "Пут у изградњи";
+"type.highway.construction.tertiary" = "Пут у изградњи";
+"type.highway.construction.tertiary_link" = "Пут у изградњи";
+"type.highway.construction.residential" = "Пут у изградњи";
+"type.highway.construction.unclassified" = "Пут у изградњи";
+"type.highway.construction.service" = "Пут у изградњи";
+"type.highway.construction.living_street" = "Пут у изградњи";
+"type.highway.construction.road" = "Пут у изградњи";
+"type.highway.construction.track" = "Пут у изградњи";
 "type.highway.cycleway" = "Бициклистичка стаза";
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Мост";
@@ -1517,3 +1533,7 @@
 "type.leisure.sports_centre.sport.pickleball" = "Спортски центар";
 "type.organic.no" = "Нема органску храну";
 "type.amenity.stage" = "Бина";
+"type.amenity.animal_boarding" = "Хотел за љубимце";
+"type.amenity.toilets.customers" = "Само за муштерије";
+"type.amenity.toilets.private" = "Приватни";
+"type.amenity.planetarium" = "Планетаријум";

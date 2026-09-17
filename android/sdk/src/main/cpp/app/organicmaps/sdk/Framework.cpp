@@ -8,6 +8,7 @@
 #include "app/organicmaps/sdk/routing/RouteMarkData.hpp"
 #include "app/organicmaps/sdk/routing/RouteMarkType.hpp"
 #include "app/organicmaps/sdk/routing/RouteRecommendationType.hpp"
+#include "app/organicmaps/sdk/routing/RouteStepInfo.hpp"
 #include "app/organicmaps/sdk/routing/RoutingInfo.hpp"
 #include "app/organicmaps/sdk/routing/TransitRouteInfo.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
@@ -33,10 +34,13 @@
 #include "coding/files_container.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
 
+#include "indexer/feature_decl.hpp"
 #include "indexer/feature_altitude.hpp"
+#include "indexer/map_object.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
@@ -70,6 +74,8 @@
 #include <vector>
 
 #include <android/api-level.h>
+
+#include "drape/accessibility_data.hpp"
 
 using namespace std;
 using namespace std::placeholders;
@@ -414,24 +420,34 @@ void Framework::ResumeSurfaceRendering()
   LOG(LINFO, ("Resume surface rendering."));
 }
 
-void Framework::SetMapStyle(MapStyle mapStyle)
+void Framework::SwitchToMapAppearance(MapAppearance mapAppearance)
 {
-  m_work.SetMapStyle(mapStyle);
+  m_work.SwitchToMapAppearance(mapAppearance);
 }
 
-void Framework::MarkMapStyle(MapStyle mapStyle)
+MapAppearance Framework::CurrentMapAppearance()
 {
-  // In case of Vulkan rendering we don't recreate geometry and textures data, so
-  // we need use SetMapStyle instead of MarkMapStyle in all cases.
-  if (m_vulkanContextFactory)
-    m_work.SetMapStyle(mapStyle);
-  else
-    m_work.MarkMapStyle(mapStyle);
+  return m_work.CurrentMapAppearance();
 }
 
-MapStyle Framework::GetMapStyle() const
+void Framework::SwitchToMapMode(MapMode mapMode)
 {
-  return m_work.GetMapStyle();
+  m_work.SwitchToMapMode(mapMode);
+}
+
+MapMode Framework::CurrentMapMode()
+{
+  return m_work.CurrentMapMode();
+}
+
+void Framework::SwitchToUsingVehicleStyle(bool enabled)
+{
+  m_work.SwitchToUsingVehicleStyle(enabled);
+}
+
+bool Framework::IsUsingVehicleStyle()
+{
+  return m_work.IsUsingVehicleStyle();
 }
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
@@ -553,6 +569,89 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
     engine->SetModelViewCenter(centerPt, targetZoom, animate, false);
 }
 
+dp::TAccessibilityStableID Framework::GetAccessibilityNodeAtPoint(m2::PointD const & point)
+{
+  ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
+  if (engine)
+  {
+    auto presenter = engine->GetAccessibilityPresenter();
+    if (presenter)
+      return (*presenter)->GetNodeAtPoint(point);
+  }
+  return 0;
+}
+
+// Not reentrant-safe; return value is only valid until the next call of this method.
+dp::TAccessibilityStableIDContainer & Framework::GetAllAccessibilityNodes()
+{
+  m_allAccessibilityNodes.clear();
+
+  ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
+  if (engine)
+  {
+    auto presenter = engine->GetAccessibilityPresenter();
+    if (presenter)
+      (*presenter)->GetAllNodes(m_allAccessibilityNodes);
+  }
+  return m_allAccessibilityNodes;
+}
+
+// Not async-safe; return value is only valid until control of the thread is yielded.
+// Make a copy if you want to store it.
+std::optional<ref_ptr<dp::AccessibilityNodeContext>> Framework::GetAccessibilityNodeContext(
+    dp::TAccessibilityStableID id)
+{
+  ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
+  if (engine)
+  {
+    auto presenter = engine->GetAccessibilityPresenter();
+    if (presenter)
+    {
+      auto overlay = (*presenter)->GetNode(id);
+      if (overlay)
+        return overlay;
+    }
+  }
+  return {};
+}
+
+bool Framework::SetAccessibilityUpdateCallback(std::optional<dp::AccessibilityPresenter::TUpdateCallback> const & cb)
+{
+  ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
+  if (engine)
+  {
+    auto presenter = engine->GetAccessibilityPresenter();
+
+    if (static_cast<bool>(presenter) != static_cast<bool>(cb))
+    {
+      std::optional<drape_ptr<dp::AccessibilityPresenter>> new_presenter;
+      if (cb)
+        new_presenter = make_unique_dp<dp::AccessibilityPresenter>();
+      else
+        new_presenter = {};
+      engine->SetAccessibilityPresenter(std::move(new_presenter));
+      presenter = engine->GetAccessibilityPresenter();
+    }
+
+    if (presenter)
+    {
+      (*presenter)->SetUpdateCallback(cb);
+      return true;
+    }
+  }
+  return !cb;
+}
+
+void Framework::SetAccessibilityFreezeFrame(bool freeze)
+{
+  // we could just freeze the accessibility presenter, but better to freeze the whole drape engine so that the screen aligns
+  // (e.g. for low vision users who still use sight during touch exploration)
+  if (freeze)
+    m_work.SetRenderingDisabled(false /* destroySurface */);
+  else
+    m_work.SetRenderingEnabled();
+}
+
 ::Framework * Framework::NativeFramework()
 {
   return &m_work;
@@ -662,19 +761,17 @@ void Framework::SetIsolinesListener(IsolinesManager::IsolinesStateChangedFn cons
 
 bool Framework::IsTrafficEnabled()
 {
-  return m_work.GetTrafficManager().IsEnabled();
+  return NativeFramework()->DrivingMapModeHasTraffic();
 }
 
 void Framework::EnableTraffic()
 {
-  m_work.GetTrafficManager().SetEnabled(true);
-  NativeFramework()->SaveTrafficEnabled(true);
+  NativeFramework()->DrivingMapModeSetTraffic(true);
 }
 
 void Framework::DisableTraffic()
 {
-  m_work.GetTrafficManager().SetEnabled(false);
-  NativeFramework()->SaveTrafficEnabled(false);
+  NativeFramework()->DrivingMapModeSetTraffic(false);
 }
 
 void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
@@ -734,6 +831,11 @@ void Framework::SetupMeasurementSystem()
 place_page::Info & Framework::GetPlacePageInfo()
 {
   return m_work.GetCurrentPlacePageInfo();
+}
+
+osm::MapObject Framework::GetMapObjectByID(FeatureID const & featureId) const
+{
+  return m_work.GetMapObjectByID(featureId);
 }
 
 bool Framework::IsAutoRetryDownloadFailed()
@@ -1124,6 +1226,17 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv
   frm()->SaveRoute();
 }
 
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetAutoReroute(JNIEnv * env, jclass,
+                                                                               jboolean autoReroute)
+{
+  frm()->GetRoutingManager().SetAutoReroute(static_cast<bool>(autoReroute));
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeAutoReroute(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->GetRoutingManager().AutoReroute());
+}
+
 JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
@@ -1462,10 +1575,27 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRoute
   return CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
 }
 
+JNIEXPORT jdoubleArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetIntermediateStopsProgress(JNIEnv * env, jclass)
+{
+  return CreateIntermediateStopsProgressArray(env, frm()->GetRoutingManager());
+}
+
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass, jint currentIndex,
                                                                                jint targetIndex)
 {
   frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
+}
+
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRouteSteps(JNIEnv * env, jclass,
+                                                                                      jstring language)
+{
+  std::string nativeLanguage = jni::ToNativeString(env, language);
+  RoutingManager & rm = frm()->GetRoutingManager();
+  if (!rm.IsRoutingActive() || !rm.IsRouteValid())
+    return nullptr;
+
+  auto const steps = rm.GetRouteTurnsForDisplay(nativeLanguage);
+  return CreateRouteStepInfoArray(env, steps);
 }
 
 JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
@@ -1540,42 +1670,54 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetAutoZoomEnabl
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass,
                                                                                         jboolean enabled)
 {
-  frm()->GetTransitManager().EnableTransitSchemeMode(static_cast<bool>(enabled));
+  if (enabled)
+  {
+    frm()->SwitchToMapMode(MapMode::PublicTransport);
+    frm()->PublicTransportMapModeSetTransitLines(true);
+  }
+  else
+  {
+    frm()->PublicTransportMapModeSetTransitLines(false);
+    frm()->SwitchToMapMode(MapMode::Default);
+  }
 }
 
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->LoadTransitSchemeEnabled());
+  return static_cast<jboolean>(frm()->PublicTransportMapModeHasTransitLines());
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, jclass,
                                                                                         jboolean enabled)
 {
-  auto const isolinesEnabled = static_cast<bool>(enabled);
-  frm()->GetIsolinesManager().SetEnabled(isolinesEnabled);
-  frm()->SaveIsolinesEnabled(isolinesEnabled);
+  frm()->SetContourLinesLayer(static_cast<bool>(enabled));
 }
 
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->LoadIsolinesEnabled());
+  return static_cast<jboolean>(frm()->HasContourLinesLayer());
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass,
                                                                                         jboolean enabled)
 {
-  frm()->SaveOutdoorsEnabled(enabled);
+  frm()->SetOutdoorLayer(static_cast<bool>(enabled));
 }
 
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->LoadOutdoorsEnabled());
+  return static_cast<jboolean>(frm()->HasOutdoorLayer());
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass,
-                                                                                         jboolean enabled)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSwitchToUsingVehicleStyle(JNIEnv * env, jclass,
+                                                                                          jboolean enabled)
 {
-  frm()->SaveTransitSchemeEnabled(static_cast<bool>(enabled));
+  frm()->SwitchToUsingVehicleStyle(static_cast<bool>(enabled));
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsUsingVehicleStyle(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->IsUsingVehicleStyle());
 }
 
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeGetAutoZoomEnabled(JNIEnv *, jclass)
@@ -1777,4 +1919,14 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeMemoryWarning(JN
   return frm()->MemoryWarning();
 }
 
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetShowBookmarkLabels(JNIEnv *, jclass,
+                                                                                       jboolean show)
+{
+  frm()->SetShowBookmarkLabels(show);
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeGetShowBookmarkLabels(JNIEnv *, jclass)
+{
+  return Framework::GetShowBookmarkLabels();
+}
 }  // extern "C"

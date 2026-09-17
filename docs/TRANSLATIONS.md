@@ -15,9 +15,9 @@ The project consists of multiple components, each with its own translation files
 | [iOS Type Strings][ios_typestrings_weblate]         | OpenStreetMap Types                                        | [iphone/Maps/LocalizedStrings/\*.lproj/LocalizableTypes.strings][ios_git] ([en][ios_typestrings_git_en]) |
 | [iOS Plurals][ios_plurals_weblate]                  | UI strings (plurals)                                       | [iphone/Maps/LocalizedStrings/\*.lproj/Localizable.stringsdict][ios_git] ([en][ios_plurals_git_en])      |
 | [iOS Plist][ios_plist_weblate]                      | UI strings (system-level)                                  | [iphone/Maps/LocalizedStrings/\*.lproj/InfoPlist.strings][ios_git] ([en][ios_plist_git_en])              |
-| [TTS][tts_weblate]                                  | Voice announcement strings for navigation directions (TTS) | [data/sound-strings/\*.json][tts_git] ([en][tts_git_en])                                                 |
-| [Countries][countries_weblate]                      | Country names for downloader                               | [data/countries-strings/\*.json][countries_git] ([en][countries_git_en])                                 |
-| [Search keywords](https://translate.codeberg.org/projects/comaps/search-synonyms-aliases/) | Search keywords/aliases/synonyms | [data/categories-strings/](https://codeberg.org/comaps/comaps/src/branch/main/data/categories-strings) |
+| [TTS][tts_weblate]                                  | Voice announcement strings for navigation directions (TTS) | [translations/sound-strings/\*.json][tts_git] ([en][tts_git_en])                                                 |
+| [Countries][countries_weblate]                      | Country names for downloader                               | [translations/countries-strings/\*.json][countries_git] ([en][countries_git_en])                                 |
+| [Search keywords](https://translate.codeberg.org/projects/comaps/search-synonyms-aliases/) | Search keywords/aliases/synonyms | [translations/categories-strings/](https://codeberg.org/comaps/comaps/src/branch/main/data/translations/categories-strings) |
 | [AppStore Descriptions][appstore_weblate]           | AppStore descriptions                                      | [iphone/metadata][appstore_git] ([en][appstore_git_en])                                                  |
 | [Android Stores Descriptions][googleplay_weblate]   | Google, Huawei store descriptions                          | [android/app/src/google/play/listings][googleplay_git] ([en][googleplay_git_en])                         |
 | [F-Droid Descriptions][fdroid_weblate]              | F-Droid descriptions                                       | [android/app/src/fdroid/play/listings][fdroid_git] ([en][fdroid_git_en])                                 |
@@ -93,7 +93,7 @@ With the example parts shown, a format string of `%1$s %2$s %3$s %4$s` would lit
 #### Offline testing
 Should you need to test/make your changes offline (like to use the emulator/a device to check your translation), here is what should be done:
 1. Create a clone/branch of the code.
-2. If a such file doesn't exist, create `data/sound-strings/[language code].json/localize.json`. Replace [language code] with the two letter code for your language (e.g. `ta` for Tamil).
+2. If a such file doesn't exist, create `translations/sound-strings/[language code].json/localize.json`. Replace [language code] with the two letter code for your language (e.g. `ta` for Tamil).
 3. If the file exists, make any necessary changes that are not updated with your translations.
 4. Open the file `libs/platform/languages.hpp`.
 5. Find the line that starts with `std::array<std::pair<std::string_view, std::string_view`. Increase the number in the line by 1.
@@ -188,8 +188,8 @@ Using these steps all existing translations can still be kept and rebased into t
 [android_sdkstrings_git]: https://codeberg.org/comaps/comaps/src/branch/main/android/sdk/src/main/res
 [android_sdkstrings_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/android/sdk/src/main/res/values/strings.xml
 [countries_weblate]: https://translate.codeberg.org/projects/comaps/countries/
-[countries_git]: https://codeberg.org/comaps/comaps/src/branch/main/data/countries-strings
-[countries_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/data/countries-strings/en.json/localize.json
+[countries_git]: https://codeberg.org/comaps/comaps/src/branch/main/data/translations/countries-strings
+[countries_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/data/translations/countries-strings/en.json/localize.json
 [ios_weblate]: https://translate.codeberg.org/projects/comaps/ios/
 [ios_git]: https://codeberg.org/comaps/comaps/src/branch/main/iphone/Maps/LocalizedStrings/
 [ios_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/iphone/Maps/LocalizedStrings/en.lproj/Localizable.strings
@@ -200,8 +200,8 @@ Using these steps all existing translations can still be kept and rebased into t
 [ios_plurals_weblate]: https://translate.codeberg.org/projects/comaps/ios-plurals/
 [ios_plurals_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/iphone/Maps/LocalizedStrings/en.lproj/Localizable.stringsdict
 [tts_weblate]: https://translate.codeberg.org/projects/comaps/tts/
-[tts_git]: https://codeberg.org/comaps/comaps/src/branch/main/data/sound-strings
-[tts_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/data/sound-strings/en.json/localize.json
+[tts_git]: https://codeberg.org/comaps/comaps/src/branch/main/data/translations/sound-strings
+[tts_git_en]: https://codeberg.org/comaps/comaps/src/branch/main/data/translations/sound-strings/en.json/localize.json
 [categories_git]: https://codeberg.org/comaps/comaps/src/branch/main/data/categories.txt
 [website_weblate]: https://translate.codeberg.org/projects/comaps/website/
 [website_git]: https://codeberg.org/comaps/website/

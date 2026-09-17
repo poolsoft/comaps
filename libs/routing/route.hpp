@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/lanes/lane_info.hpp"
+#include "routing/route_step.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
@@ -19,6 +20,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/polyline2d.hpp"
+
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
@@ -73,6 +76,7 @@ public:
 
   struct RoadNameInfo
   {
+    FeatureID m_mwmId;
     // This is for street/road. |m_ref| |m_name|.
     std::string m_name;             // E.g "Johnson Ave.".
     std::string m_destination_ref;  // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref|
@@ -82,6 +86,7 @@ public:
     std::string m_destination;   // E.g. "Cupertino".
     std::string m_ref;           // Number of street/road e.g. "CA 85".
     bool m_isLink = false;
+    ftypes::HighwayClass m_highwayClass = ftypes::HighwayClass::Undefined;
 
     RoadNameInfo() = default;
     RoadNameInfo(std::string name) : m_name(std::move(name)) {}
@@ -363,6 +368,7 @@ public:
   bool IsValid() const { return m_poly.IsValid(); }
 
   double GetTotalDistanceMeters() const;
+  double GetDistanceFromBeginToSegmentMeters(size_t segIdx) const;
   double GetCurrentDistanceFromBeginMeters() const;
   double GetCurrentDistanceToEndMeters() const;
   double GetCurrentDistanceToSegmentMeters(size_t segIdx) const;
@@ -467,6 +473,8 @@ public:
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
   std::string DebugPrintTurns() const;
+
+  std::vector<RouteStepInfo> GetTurnsForDisplay(std::string const & locale) const;
 
 private:
   friend std::string DebugPrint(Route const & r);

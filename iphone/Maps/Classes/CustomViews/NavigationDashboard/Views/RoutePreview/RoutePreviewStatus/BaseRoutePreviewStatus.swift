@@ -38,6 +38,19 @@ final class BaseRoutePreviewStatus: SolidTouchView {
       configSaveRouteAsTrackButton(saveRouteAsTrackButtonCompact)
     }
   }
+ 
+    @IBOutlet private weak var directionsPreviewButtonRegular: UIButton! {
+      didSet {
+        configDirectionsPreviewButton(directionsPreviewButtonRegular)
+      }
+    }
+
+    @IBOutlet private weak var directionsPreviewButtonCompact: UIButton! {
+      didSet {
+        configDirectionsPreviewButton(directionsPreviewButtonCompact)
+      }
+    }
+
 
   @IBOutlet private var errorBoxBottom: NSLayoutConstraint!
   @IBOutlet private var resultsBoxBottom: NSLayoutConstraint!
@@ -70,6 +83,10 @@ final class BaseRoutePreviewStatus: SolidTouchView {
         removeFromSuperview()
       }
     }
+  }
+
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+   return CGRectContainsPoint(self.bounds, point) || CGRectContainsPoint(CGRect(x: self.bounds.origin.x+self.bounds.size.width-68, y: self.bounds.origin.x-68, width: 68, height: self.bounds.size.height + 68), point);
   }
 
   private func addView() {
@@ -105,6 +122,11 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     button.setTitle(L("save"), for: .normal)
     button.setTitle(L("saved"), for: .disabled)
   }
+    
+  private func configDirectionsPreviewButton(_ button: UIButton) {
+    button.setImagePadding(8)
+    button.setTitle(L("planning_route_preview"), for: .normal)
+  }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
@@ -118,6 +140,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     manageRouteBox.isHidden = isCompact || resultsBox.isHidden
     manageRouteButtonCompact?.isHidden = !isCompact
     saveRouteAsTrackButtonCompact.isHidden = !isCompact
+    directionsPreviewButtonCompact?.isHidden = !isCompact
   }
 
   @objc func hide() {
@@ -164,7 +187,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     saveRouteAsTrackButtonRegular.isEnabled = isEnabled
     saveRouteAsTrackButtonCompact.isEnabled = isEnabled
   }
-
+    
   private func updateResultsLabel() {
     guard let info = navigationInfo else { return }
 

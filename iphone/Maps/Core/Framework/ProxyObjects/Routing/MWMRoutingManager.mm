@@ -5,6 +5,7 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMCoreRouterType.h"
 #import "MWMRoutePoint+CPP.h"
+#import "MWMRoadShieldInfo+CPP.h"
 #import "MWMCoreUnits.h"
 #import "SwiftBridge.h"
 
@@ -122,8 +123,10 @@
                                                               roadRef:@(info.m_nextRef.c_str())
                                                           junctionRef:@(info.m_nextJunctionRef.c_str())
                                                        destinationRef:@(info.m_nextDestinationRef.c_str())
-                                                          destination:@(info.m_nextDestination.c_str())
+                                                              destination:@(info.m_nextDestination.c_str())
                                                                isLink:info.m_nextIsLink
+                                                           roadShields:MWMBuildRoadShieldInfo(info.m_nextStreetShields)
+                                                      currentRoadName:@(info.m_currentStreetName.c_str())
                                                     carDirectionIndex:static_cast<UInt8>(info.m_turn)
                                                     isLeftHandTraffic:info.m_isLeftHandTraffic];
   return objCInfo;

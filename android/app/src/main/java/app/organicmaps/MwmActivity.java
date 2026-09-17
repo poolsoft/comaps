@@ -47,11 +47,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.preference.PreferenceManager;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import app.organicmaps.api.Const;
 import app.organicmaps.backup.PeriodicBackupRunner;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -73,6 +73,7 @@ import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
+import app.organicmaps.routing.DirectionsPreviewBottomSheet;
 import app.organicmaps.routing.ManageRouteBottomSheet;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
@@ -103,6 +104,7 @@ import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.RoadType;
@@ -116,7 +118,7 @@ import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.FloatingSearchToolbarController;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.search.SearchFragment;
-import app.organicmaps.settings.DrivingOptionsActivity;
+import app.organicmaps.settings.RoutingOptionsActivity;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
@@ -157,7 +159,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloaderFragment.class.getName(),
                                                     RoutingPlanFragment.class.getName(), EditorHostFragment.class.getName()};
 
-  public final ActivityResultLauncher<Intent> startDrivingOptionsForResult =
+  public final ActivityResultLauncher<Intent> startRoutingOptionsForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
         if (activityResult.getResultCode() == Activity.RESULT_OK)
           rebuildLastRoute();
@@ -240,7 +242,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private PeriodicBackupRunner backupRunner;
 
-  ManageRouteBottomSheet mManageRouteBottomSheet;
+  private ManageRouteBottomSheet mManageRouteBottomSheet;
+
+  private DirectionsPreviewBottomSheet mDirectionsPreviewBottomSheet;
 
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
@@ -614,12 +618,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsTabletLayout)
     {
-      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this, startDrivingOptionsForResult, this, this);
+      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this, startRoutingOptionsForResult, this, this);
       removeCurrentFragment(false);
     }
 
     mNavigationController =
-        new NavigationController(this, v -> onSettingsOptionSelected(), this::updateBottomWidgetsOffset);
+        new NavigationController(this, v -> onSettingsOptionSelected(), v -> onTrackRecordingOptionSelected(),
+                this::updateBottomWidgetsOffset);
     // TrafficManager.INSTANCE.attach(mNavigationController);
 
     initMainMenu();
@@ -1137,7 +1142,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mRoutingPlanInplaceController == null)
       return;
 
-    mRoutingPlanInplaceController.hideDrivingOptionsView();
+    mRoutingPlanInplaceController.hideRoutingOptionsView();
     RoutingController.get().rebuildLastRoute();
   }
 
@@ -1399,6 +1404,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public boolean dispatchGenericMotionEvent(MotionEvent event)
   {
+    if (mDisplayManager.isDeviceDisplayUsed())
+      mMapController.getView().dispatchWindowMotionEvent(event);
+
     if (event.getActionMasked() == MotionEvent.ACTION_SCROLL)
     {
       int exponent = event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0 ? -1 : 1;
@@ -1663,12 +1671,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void refreshNavigationController()
+  {
+    if (mNavigationController != null)
+      mNavigationController.refresh(getApplicationContext());
+  }
+
+  @Override
   public void onStartRouteBuilding()
   {
     if (mRoutingPlanInplaceController == null)
       return;
 
-    mRoutingPlanInplaceController.hideDrivingOptionsView();
+    mRoutingPlanInplaceController.hideRoutingOptionsView();
   }
 
   @Override
@@ -1679,7 +1694,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mRoutingPlanInplaceController == null)
       return;
 
-    mRoutingPlanInplaceController.hideDrivingOptionsView();
+    mRoutingPlanInplaceController.hideRoutingOptionsView();
     NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
@@ -1761,7 +1776,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mRoutingPlanInplaceController == null)
       return;
 
-    mRoutingPlanInplaceController.showDrivingOptionView();
+    mRoutingPlanInplaceController.showRoutingOptionsView();
   }
 
   @Override
@@ -1781,7 +1796,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             .setTitle(R.string.unable_to_calc_alert_title)
             .setMessage(R.string.unable_to_calc_alert_subtitle)
             .setPositiveButton(R.string.settings,
-                               (dialog, which) -> DrivingOptionsActivity.start(this, startDrivingOptionsForResult))
+                               (dialog, which) -> RoutingOptionsActivity.start(this, startRoutingOptionsForResult))
             .setNegativeButton(R.string.cancel, null)
             .setOnDismissListener(dialog -> mAlertDialog = null)
             .show();
@@ -1946,7 +1961,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!routing.isNavigating())
       return;
 
-    mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
+    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    routing.updateCachedRoutingInfo(info);
+    mNavigationController.update(info);
   }
 
   @Override
@@ -2213,6 +2230,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     closeFloatingPanels();
     setFullscreen(false);
+
     RoutingController.get().start();
   }
 
@@ -2221,8 +2239,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // Create and show 'Manage Route' Bottom Sheet panel.
     mManageRouteBottomSheet = new ManageRouteBottomSheet();
-    mManageRouteBottomSheet.setCancelable(false);
     mManageRouteBottomSheet.show(getSupportFragmentManager(), "ManageRouteBottomSheet");
+  }
+
+  @Override
+  public void onDirectionsPreviewOpen() {
+    mDirectionsPreviewBottomSheet = new DirectionsPreviewBottomSheet();
+    mDirectionsPreviewBottomSheet.show(getSupportFragmentManager(), "DirectionsPreviewBottomSheet");
   }
 
   private boolean requestBatterySaverPermission()
@@ -2541,7 +2564,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType)
   {
     closePlacePage();
-    RoutingOptions.addOption(roadType);
+    Router routerType = RoutingController.get().getLastRouterType();
+    RoutingOptions.addOption(roadType, routerType);
     rebuildLastRouteInternal();
   }
 
@@ -2550,8 +2574,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onTrimMemory(level);
     Logger.d(TAG, "trim memory, level = " + level);
-    if (level >= TRIM_MEMORY_RUNNING_LOW)
-      Framework.nativeMemoryWarning();
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    {
+      // With API Level >= 35, only TRIM_MEMORY_BACKGROUND and TRIM_MEMORY_UI_HIDDEN memory
+      // levels are reported.
+      if (level >= TRIM_MEMORY_BACKGROUND)
+        Framework.nativeMemoryWarning();
+    }
+    else
+    {
+      // Suppress warning of deprecated TRIM_MEMORY_RUNNING_LOW trim memory level
+      // with API level < 35.
+      @SuppressWarnings("deprecation")
+      int WARNING_LEVEL = TRIM_MEMORY_RUNNING_LOW;
+      if (level >= WARNING_LEVEL)
+        Framework.nativeMemoryWarning();
+    }
   }
 
   private void makeNavigationBarTransparentInLightMode()

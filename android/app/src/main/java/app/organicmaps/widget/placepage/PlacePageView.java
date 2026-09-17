@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -31,6 +32,12 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
+
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -49,6 +56,7 @@ import app.organicmaps.sdk.bookmarks.data.KmlFileType;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
+import app.organicmaps.sdk.bookmarks.data.Review;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
@@ -70,6 +78,8 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.ArrowView;
+import app.organicmaps.widget.StarRatingView;
+import app.organicmaps.widget.placepage.sections.PlacePageAddReviewFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageChargeSocketsFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
@@ -77,10 +87,7 @@ import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textview.MaterialTextView;
+
 import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -98,6 +105,7 @@ public class PlacePageView extends Fragment
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
+  private static final String ADD_REVIEW_FRAGMENT_TAG = "ADD_REVIEW_FRAGMENT_TAG";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
   private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
@@ -119,6 +127,10 @@ public class PlacePageView extends Fragment
   private ViewGroup mPreview;
   private MaterialToolbar mToolbar;
   private MaterialTextView mTvTitle;
+  private View mRatingContainer;
+  private MaterialTextView mTvRatingNum;
+  private StarRatingView mRatingStars;
+  private MaterialTextView mTvNumReviews;
   private MaterialTextView mTvSecondaryTitle;
   private MaterialTextView mTvSubtitle;
   private MaterialTextView mTvOpenState;
@@ -265,6 +277,15 @@ public class PlacePageView extends Fragment
     mTvTitle = mPreview.findViewById(R.id.tv__title);
     mTvTitle.setOnLongClickListener(this);
     mTvTitle.setOnClickListener(this);
+
+    mRatingContainer = mPreview.findViewById(R.id.rating_container);
+    mTvRatingNum = mPreview.findViewById(R.id.tv__rating_num);
+    mTvRatingNum.setOnClickListener(v -> showReviewList());
+    mRatingStars = mPreview.findViewById(R.id.rating_stars);
+    mRatingStars.setOnClickListener(v -> showReviewList());
+    mTvNumReviews = mPreview.findViewById(R.id.tv__num_reviews);
+    mTvNumReviews.setOnClickListener(v -> showReviewList());
+
     mTvSecondaryTitle = mPreview.findViewById(R.id.tv__secondary_title);
     mTvSecondaryTitle.setOnLongClickListener(this);
     mTvSecondaryTitle.setOnClickListener(this);
@@ -373,6 +394,14 @@ public class PlacePageView extends Fragment
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
   }
 
+  private void showReviewList() {
+    ArrayList<Review> reviews = mMapObject.getReviews();
+    if (!reviews.isEmpty())
+    {
+      ReviewListActivity.start(requireContext(), mMapObject.getTitle(), reviews, mMapObject.getReviewEditorAppName(), mMapObject.getFeatureId());
+    }
+  }
+
   @Override
   public void onStart()
   {
@@ -474,6 +503,12 @@ public class PlacePageView extends Fragment
                        mMapObject.isTrack());
   }
 
+  private void updateAddReviewView()
+  {
+    updateViewFragment(PlacePageAddReviewFragment.class, ADD_REVIEW_FRAGMENT_TAG, R.id.place_page_add_review_fragment,
+        true /* the fragment manages visibility on its own */);
+  }
+
   private boolean hasWikipediaEntry()
   {
     final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
@@ -508,6 +543,17 @@ public class PlacePageView extends Fragment
   private void refreshPreview()
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
+
+    if (mMapObject.getStarRating() != null)
+    {
+      mTvRatingNum.setText(String.format(Locale.ROOT, "%.1f", mMapObject.getStarRating()));
+      mRatingStars.setRating(mMapObject.getStarRating());
+      mTvNumReviews.setText(String.format(Locale.ROOT, "(%d)", mMapObject.getReviewCount()));
+      UiUtils.show(mRatingContainer);
+    } else {
+      UiUtils.hide(mRatingContainer);
+    }
+
     UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mMapObject.getSecondaryTitle());
     refreshOpenState();
 
@@ -866,6 +912,7 @@ public class PlacePageView extends Fragment
     updateChargeSocketsView();
     updatePhoneView();
     updateTrackView();
+    updateAddReviewView();
   }
 
   private void refreshWiFi()
@@ -1027,9 +1074,11 @@ public class PlacePageView extends Fragment
       final String closesAtStr = getString(R.string.closes_at); // "Closes at %s"
       final String opensDayAtStr = getString(R.string.opens_day_at); // "Opens %1$s at %2$s"
       final String closesDayAtStr = getString(R.string.closes_day_at); // "Closes %1$s at %2$s"
+      final String opensTomorrowAtStr = getString(R.string.opens_tomorrow_at); // "Opens tomorrow at %s"
 
-      final boolean isToday =
-          OpenStateTextFormatter.isSameLocalDate(nextChangeLocal, ZonedDateTime.now(nextChangeLocal.getZone()));
+      final ZonedDateTime nowLocal = ZonedDateTime.now(nextChangeLocal.getZone());
+      final boolean isToday = OpenStateTextFormatter.isSameLocalDate(nextChangeLocal, nowLocal);
+      final boolean isTomorrow = !isToday && OpenStateTextFormatter.isSameLocalDate(nextChangeLocal, nowLocal.plusDays(1));
       // Full weekday name per design feedback.
       final String dayName = nextChangeLocal.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
 
@@ -1037,8 +1086,8 @@ public class PlacePageView extends Fragment
       {
         openStateString.append(getString(R.string.open_now), colorGreen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        final String atLabel = OpenStateTextFormatter.buildAtLabel(
-            false, isToday, dayName, localizedTimeString, opensAtStr, closesAtStr, opensDayAtStr, closesDayAtStr);
+        final String atLabel = OpenStateTextFormatter.buildAtLabel(false, isToday, isTomorrow, dayName,
+            localizedTimeString, opensAtStr, closesAtStr, opensDayAtStr, closesDayAtStr, opensTomorrowAtStr);
 
         if (!TextUtils.isEmpty(atLabel))
           openStateString.append(" • ").append(atLabel);
@@ -1047,8 +1096,8 @@ public class PlacePageView extends Fragment
       {
         openStateString.append(getString(R.string.closed_now), colorRed, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        final String atLabel = OpenStateTextFormatter.buildAtLabel(
-            true, isToday, dayName, localizedTimeString, opensAtStr, closesAtStr, opensDayAtStr, closesDayAtStr);
+        final String atLabel = OpenStateTextFormatter.buildAtLabel(true, isToday, isTomorrow, dayName,
+            localizedTimeString, opensAtStr, closesAtStr, opensDayAtStr, closesDayAtStr, opensTomorrowAtStr);
 
         if (!TextUtils.isEmpty(atLabel))
           openStateString.append(" • ").append(atLabel);

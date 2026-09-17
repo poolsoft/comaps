@@ -489,7 +489,7 @@
     <string name="type.building.guardhouse">警衛哨</string>
     <string name="type.power.portal">電力門架</string>
     <string name="type.amenity.lounger">躺椅</string>
-    <string name="type.amenity.mobile_money_agent">行動錢包業者</string>
+    <string name="type.amenity.mobile_money_agent">Mobile Money 代理</string>
     <string name="type.amenity.car_pooling">共乘</string>
     <string name="type.amenity.payment_centre">付款中心</string>
     <string name="type.amenity.animal_shelter">動物庇護所</string>
@@ -626,7 +626,24 @@
     <string name="type.highway.busway.bridge">橋樑</string>
     <string name="type.highway.busway.tunnel">隧道</string>
     <string name="type.highway.bus_stop">公車站</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">施工中道路</string>
+    <string name="type.highway.construction.motorway">施工中道路</string>
+    <string name="type.highway.construction.motorway_link">施工中道路</string>
+    <string name="type.highway.construction.trunk">施工中道路</string>
+    <string name="type.highway.construction.trunk_link">施工中道路</string>
+    <string name="type.highway.construction.primary">施工中道路</string>
+    <string name="type.highway.construction.primary_link">施工中道路</string>
+    <string name="type.highway.construction.secondary">施工中道路</string>
+    <string name="type.highway.construction.secondary_link">施工中道路</string>
+    <string name="type.highway.construction.tertiary">施工中道路</string>
+    <string name="type.highway.construction.tertiary_link">施工中道路</string>
+    <string name="type.highway.construction.residential">施工中道路</string>
+    <string name="type.highway.construction.unclassified">施工中道路</string>
+    <string name="type.highway.construction.service">施工中道路</string>
+    <string name="type.highway.construction.living_street">施工中道路</string>
+    <string name="type.highway.construction.road">施工中道路</string>
+    <string name="type.highway.construction.track">施工中道路</string>
     <string name="type.highway.cycleway">單車道</string>
     <string name="type.highway.cycleway.bridge">橋樑</string>
     <string name="type.highway.cycleway.permissive">單車道</string>
@@ -679,4 +696,14 @@
     <string name="type.highway.road">道路</string>
     <string name="type.highway.road.bridge">橋樑</string>
     <string name="type.man_made.bridge">橋樑</string>
+    <string name="type.amenity.planetarium">天文館</string>
+    <string name="type.amenity.toilets.customers">顧客專用</string>
+    <string name="type.amenity.toilets.private">私人專用</string>
+    <string name="type.amenity.animal_boarding">寵物旅館</string>
+    <string name="type.amenity.stage">舞台</string>
+    <string name="type.highway.road.tunnel">隧道</string>
+    <string name="type.highway.secondary">次要道路</string>
+    <string name="type.highway.secondary.bridge">橋</string>
+    <string name="type.highway.secondary.tunnel">隧道</string>
+    <string name="type.highway.secondary_link.tunnel">隧道</string>
 </resources>

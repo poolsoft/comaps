@@ -15,11 +15,18 @@ stxxl.errlog
 stxxl.log
 screenlog.0
 
-# symbols png/sdf are now generated at build
+# Following files are auto-generated at build time via configure.sh
+# ...from data/styles/default/*/symbols/* by tools/unix/generate_symbols.sh
 data/symbols/**/symbols.png
 data/symbols/**/symbols.sdf
+# ...from data/translations/* by tools/unix/generate_json_strings.sh
+data/sound-strings/*/localize.json
+data/countries-strings/*/localize.json
+data/categories-strings/*/localize.json
+# ...from data/categories-strings/* by tools/unix/generate_categories.sh
+data/categories.txt
 
-data/bookmarks
+data/bm.json
 data/edits.xml
 data/World.mwm
 data/WorldCoasts.mwm
@@ -34,9 +41,6 @@ data/patterns.txt*
 data/symbols/*/design/
 data/colors_design.txt
 data/patterns_design.txt
-
-# Auto-generated from data/categories-strings/* by tools/unix/generate_categories.sh
-data/categories.txt
 
 # Compiled Python
 *.pyc
@@ -80,6 +84,10 @@ iphone/**/*.swp
 iphone/**/*.mode1v3
 iphone/**/*.mode2v3
 iphone/**/*.perspectivev3
+*.xcresult
+*.xcarchive
+*.ipa
+Payload/
 
 # Carthage
 iphone/Maps/3party/Carthage/Checkouts
@@ -164,6 +172,7 @@ libs/platform/localized_types_map.cpp
 # CMake
 cmake-build-*
 build/
+build_skin_generator_tool/
 
 qt/res/Info.plist
 
@@ -171,6 +180,10 @@ designer_version.h
 
 # Vim files
 *.sw?
+
+# AI coding agents
+AGENTS.md
+.pi/
 
 # Build version
 platform/platform_qt_version.cpp
@@ -183,6 +196,9 @@ tools/python/data/*/build
 tools/python/data/*/dist
 tools/python/data/*/*.egg-info
 tools/python/*/venv/
+
+# Repo-local Python virtual environment provisioned by configure.sh
+/.venv/
 
 # Auto-generated from sr by tools/unix/generate_serbian_latin_strings.sh
 android/app/src/fdroid/play/listings/sr-Latn/

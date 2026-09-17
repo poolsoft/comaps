@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">Adresa/blok</string>
-    <string name="type.addr_interpolation.even">Adresa/blok</string>
-    <string name="type.addr_interpolation.odd">Adresa/blok</string>
+    <string name="type.addr_interpolation">Adresa/Blok</string>
+    <string name="type.addr_interpolation.even">Adresa/Blok</string>
+    <string name="type.addr_interpolation.odd">Adresa/Blok</string>
     <string name="type.aerialway.station">Stanice lanové dráhy</string>
     <string name="type.aeroway.aerodrome">Letiště</string>
     <string name="type.aeroway.aerodrome.international">Mezinárodní letiště</string>
@@ -13,7 +13,7 @@
     <string name="type.amenity.bank">Banka</string>
     <string name="type.amenity.bbq">Grilování</string>
     <string name="type.amenity.bench">Lavička</string>
-    <string name="type.amenity.bicycle_parking">Parkování kol</string>
+    <string name="type.amenity.bicycle_parking">Parkoviště kol</string>
     <string name="type.amenity.bicycle_rental">Půjčovna kol</string>
     <string name="type.amenity.bicycle_repair_station">Stanice na opravu jízdních kol</string>
     <string name="type.amenity.biergarten">Hospoda se zahrádkou</string>
@@ -327,7 +327,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Tunel</string>
     <string name="type.highway.bus_stop">Autobusová zastávka</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.motorway">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.motorway_link">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.trunk">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.trunk_link">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.primary">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.primary_link">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.secondary">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.secondary_link">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.tertiary">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.tertiary_link">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.residential">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.unclassified">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.service">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.living_street">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.road">Silnice v rekonstrukci</string>
+    <string name="type.highway.construction.track">Silnice v rekonstrukci</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -681,7 +698,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Věž elektrického vedení</string>
     <string name="type.railway.funicular">Pozemní lanová dráha</string>
-    <string name="type.railway.halt">Železniční stanice</string>
+    <string name="type.railway.halt">Železniční zastávka</string>
     <string name="type.railway.level_crossing">Přejezd</string>
     <string name="type.railway.monorail">Jednokolejná železnice</string>
     <string name="type.railway.rail">Železnice</string>
@@ -1382,7 +1399,7 @@
     <string name="type.natural.wetland.tidalflat">Wattové pobřeží</string>
     <string name="type.leisure.escape_game">Úniková hra</string>
     <string name="type.post_office.post_partner">Poštovní partner</string>
-    <string name="type.amenity.bicycle_parking.covered">Kryté parkování kol</string>
+    <string name="type.amenity.bicycle_parking.covered">Kryté parkoviště kol</string>
     <string name="type.amenity.luggage_locker">Úschovná skříňka</string>
     <string name="type.amenity.ranger_station">Správci parku</string>
     <string name="type.amenity.animal_shelter">Útulek pro zvířata</string>
@@ -1429,7 +1446,7 @@
     <string name="type.disusedbusiness">Neobsazený prostor</string>
     <string name="type.leisure.fitness_centre.sport.yoga">Studio jógy</string>
     <string name="type.amenity.boat_rental">Půjčovna lodí</string>
-    <string name="type.amenity.mobile_money_agent">Mobilní peněžní agent</string>
+    <string name="type.amenity.mobile_money_agent">Agent Mobile Money</string>
     <string name="type.amenity.payment_centre">Platební centrum</string>
     <string name="type.leisure.indoor_play">Vnitřní herní centrum</string>
     <string name="type.shop.telecommunication">Telekomunikační obchod</string>
@@ -1516,4 +1533,8 @@
     <string name="type.sport.pickleball">Pickleball</string>
     <string name="type.organic.no">Žádné přírodní volby</string>
     <string name="type.amenity.stage">Scéna</string>
+    <string name="type.amenity.planetarium">Planetárium</string>
+    <string name="type.amenity.toilets.customers">Pouze pro zákazníky</string>
+    <string name="type.amenity.toilets.private">Soukromé</string>
+    <string name="type.amenity.animal_boarding">Hotel pro zvířata</string>
 </resources>

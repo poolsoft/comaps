@@ -187,8 +187,6 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">距離</string>
     <string name="share_my_location">現在地を共有する</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">一般</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">情報</string>
     <string name="prefs_group_route">ナビゲーション</string>
@@ -535,7 +533,7 @@
     <string name="mobile_data_option_never">使用しない</string>
     <string name="mobile_data_option_ask">常に確認</string>
     <string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
-    <string name="big_font">地図上のフォントサイズを大きくする</string>
+    <string name="increase_font_size">地図上のフォントサイズを大きくする</string>
     <string name="traffic_update_app">CoMaps をアップデートしてください</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">交通データは利用できません</string>
@@ -588,7 +586,7 @@
         <item quantity="other">%d の追跡</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">プライバシー</string>
+    <string name="prefs_group_privacy">プライバシー</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="terms_of_use">利用規約</string>
     <string name="button_layer_traffic">交通状況</string>
@@ -616,7 +614,7 @@
     <string name="power_managment_setting_auto">自動</string>
     <string name="power_managment_setting_manual_max">最大電力節約</string>
     <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはCoMapsにリクエストされた場合にのみ有効にしてください。</string>
-    <string name="driving_options_title">経路オプション</string>
+    <string name="routing_options_title">経路オプション</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">有料道路を避ける</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

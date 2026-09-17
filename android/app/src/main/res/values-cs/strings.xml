@@ -23,7 +23,7 @@
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Prohledat mapu</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.</string>
+    <string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Povolte je prosím v nastavení systému.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Omezená přesnost</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -182,13 +182,16 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Délka</string>
     <string name="share_my_location">Sdílet mé umístění</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Obecná nastavení</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informace</string>
     <string name="prefs_group_route">Navigace</string>
     <string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
     <string name="pref_zoom_summary">Zobrazit na obrazovce</string>
+    <string name="prefs_group_advanced">Pokročilé</string>
+    <string name="download_resources_custom_url_title">Vlastní mapový server</string>
+    <string name="download_resources_custom_url_message">Přepsat výchozí server používaný ke stahování map. Nechte pole prázdné, pokud chcete použít výchozí server CoMaps.</string>
+    <string name="download_resources_custom_url_summary_none">Není nastaveno</string>
+    <string name="download_resources_custom_url_error_scheme">Zadejte prosím celou adresu URL začínající na http:// nebo https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Noční režim</string>
     <!-- Generic «Off» string -->
@@ -202,7 +205,7 @@
     <!-- Settings «Map» category: «3D buildings» title -->
     <string name="pref_map_3d_buildings_title">3D budovy</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-    <string name="pref_map_3d_buildings_disabled_summary">3D budovy jsou vypnuty v úsporném režimu</string>
+    <string name="pref_map_3d_buildings_disabled_summary">3D budovy jsou v úsporném režimu vypnuty</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Hlasové instrukce</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -513,7 +516,7 @@
     <string name="mobile_data_option_never">Nikdy nepoužívat</string>
     <string name="mobile_data_option_ask">Vždy se zeptat</string>
     <string name="traffic_update_maps_text">Ke zobrazení údajů o provozu musí být mapy aktuální</string>
-    <string name="big_font">Zvětšit velikost písma na mapě</string>
+    <string name="increase_font_size">Zvětšit velikost písma na mapě</string>
     <string name="traffic_update_app">Aktualizujte CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Data o provozu nejsou k dispozici</string>
@@ -573,7 +576,7 @@
         <item quantity="other">%d stop</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Soukromí</string>
+    <string name="prefs_group_privacy">Soukromí</string>
     <string name="privacy_policy">Zásady ochrany osobních údajů</string>
     <string name="terms_of_use">Podmínky užívání</string>
     <string name="button_layer_traffic">Zácpy</string>
@@ -601,7 +604,7 @@
     <string name="power_managment_setting_auto">Při vybité baterii</string>
     <string name="power_managment_setting_manual_max">Vždy</string>
     <string name="enable_logging_warning_message">Dočasně zapněte, abyste mohli zaznamenat a ručně nám poslat podrobná diagnostická data o vašem problému pomocí tlačítka „Nahlásit chybu“ v okně nápovědy. Protokoly mohou zahrnovat informace o poloze.</string>
-    <string name="driving_options_title">Možnosti trasy</string>
+    <string name="routing_options_title">Možnosti trasy</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Vyhnout se mýtnému</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -611,7 +614,7 @@
     <string name="avoid_motorways">Vyhnout se dálnicím</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
     <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.</string>
-    <string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
+    <string name="define_to_avoid_btn">Vyberte možnosti trasy</string>
     <string name="change_driving_options_btn">Možnosti trasy aktivní</string>
     <string name="toll_road">Silnice s mýtným</string>
     <string name="unpaved_road">Nezpevněná silnice</string>
@@ -750,9 +753,9 @@
     <string name="pref_tts_no_system_tts">Nastavení syntézy řeči nebylo nalezeno, jste si jisti, že jej vaše zařízení podporuje?</string>
     <string name="drive_through">Průjezd</string>
     <string name="clear_the_search">Vymazat vyhledávání</string>
-    <string name="zoom_in">Přiblížení</string>
+    <string name="zoom_in">Přiblížit</string>
     <!-- Accessibility text for the zoom-out button on the map -->
-    <string name="zoom_out">Zvětšení</string>
+    <string name="zoom_out">Oddálit</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Odkaz na menu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
@@ -882,6 +885,7 @@
     <string name="avoid_paved">Vyhnout se zpevněným cestám</string>
     <string name="opens_at">Otevírá v %s</string>
     <string name="closes_at">Zavírá v %s</string>
+    <string name="opens_tomorrow_at">Otevírá zítra v %s</string>
     <string name="opens_day_at">Otevírá v %1$s v %2$s</string>
     <string name="closes_day_at">Zavírá v %1$s v %2$s</string>
     <string name="editor_business_vacant_button">Podnik je volný</string>
@@ -904,11 +908,6 @@
     <string name="place_page_update_too_old_map">Aktualizovat oblast mapy</string>
     <string name="place_page_too_old_to_edit">Úprava OpenStreetMap je zakázaná, protože mapová data jsou příliš stará.</string>
     <string name="navigation_start_tts_disabled_message">Hlasové pokyny vypnuty: služba TTS není dostupná</string>
-    <string name="download_resources_custom_url_title">Vlastní mapový server</string>
-    <string name="download_resources_custom_url_message">Přepsat výchozí server používaný ke stahování map. Nechte pole prázdné, pokud chcete použít výchozí server CoMaps.</string>
-    <string name="download_resources_custom_url_error_scheme">Zadejte prosím celou adresu URL začínající na http:// nebo https://</string>
-    <string name="advanced">Pokročilé</string>
-    <string name="download_resources_custom_url_summary_none">Není nastaveno</string>
     <string name="pref_maplanguage_local">Místní jazyk</string>
     <string name="location_privacy_info">Aplikace získávají data o poloze z polohové služby vašeho systému, která může sdílet vaši polohu se společností Google a/nebo výrobcem vašeho zařízení. Tomu se můžete vyhnout použitím systému Android chránícího soukromí.</string>
     <string name="location_privacy">Soukromí polohy</string>
@@ -942,8 +941,6 @@
     <string name="downloader_check_updates_updated">Jsou dostupné aktualizace map!</string>
     <string name="downloader_check_updates_no_updates">Nejsou dostupné žádné aktualizace</string>
     <string name="downloader_check_updates_eol">Pro tuto verzi aplikace nejsou dostupné žádné další aktualizace map. Aktualizujte prosím aplikaci!</string>
-    <string name="pref_keyboard_typing_history_title">Anonymní režim klávesnice</string>
-    <string name="pref_keyboard_typing_history_summary">Požádat systémovou klávesnici o nezaznamenávání historie psaní</string>
     <string name="downloader_check_updates_error">Chyba při kontrole aktualizací</string>
     <string name="pref_aa_support_title">Android Auto</string>
     <string name="pref_aa_support_summary_yes">Aplikace byla nainstalována z Obchodu Google Play, můžete ji použít ve svém autě.</string>
@@ -958,4 +955,36 @@
     <string name="sort_categories">Seřadit seznamy oblíbených</string>
     <string name="by_recently_used">Podle nedávno použitých</string>
     <string name="by_custom">Podle vlastního pořadí</string>
+    <string name="planning_route_preview">Náhled</string>
+    <string name="prefs_group_interface">Rozhraní</string>
+    <string name="prefs_group_data_management">Správa dat</string>
+    <string name="prefs_group_advanced_summary">Povolit protokolování</string>
+    <string name="prefs_group_privacy_summary">Historie vyhledávání</string>
+    <string name="recalculate_route">Přepočítat</string>
+    <string name="capacity_disabled">Parkovací místa pro invalidy: %s</string>
+    <string name="capacity_disabled_no">Žádná vyhrazená místa pro invalidy</string>
+    <string name="capacity_charging_yes">Má místa s nabíječkami</string>
+    <string name="capacity_charging_no">Žádná místa s nabíječkami</string>
+    <string name="pref_about_summary">Nahlaste chyby, získejte pomoc, přispějte\nVerze: v%1$s</string>
+    <string name="prefs_group_map_appearance_summary">Jazyk mapy, velikost popisků, 2D/3D stavby</string>
+    <string name="prefs_group_interface_summary">Noční režim, tlačítka, jazyk</string>
+    <string name="prefs_group_data_management_summary">Úložiště map, záloha oblíbených</string>
+    <string name="prefs_group_route_summary">Jednotky, hlasové pokyny, nastavení navigace</string>
+    <string name="prefs_group_power_summary">Vypínání obrazovky, mobilní data</string>
+    <string name="search_in_all_lists">Hledat ve všech seznamech</string>
+    <string name="pref_enable_auto_reroute_title">Automatické přepočítání trasy</string>
+    <string name="pref_enable_auto_reroute_description">Pokud je povoleno, budue při opuštění plánované trasy automaticky vytvořena nová trasa.</string>
+    <string name="off_route">Nacházíte se mimo trasu</string>
+    <string name="capacity_disabled_yes">Má vyhrazené místo pro invalidy</string>
+    <string name="capacity_charging">Místa s nabíječkami: %s</string>
+    <string name="permission_read_navigation_label">Číst navigační data aplikace CoMaps</string>
+    <string name="permission_read_navigation_description">číst živé informcace o navigaci, jako jsou nadcházející odbočení nebo název silnice, na které se nacházíte</string>
+    <string name="prefs_group_map_appearance">Vzhled mapy</string>
+    <string name="bookmarks_text_placement_title">Zobrazit názvy oblíbených na mapě</string>
+    <string name="place_reviews_title">Recenze míst</string>
+    <string name="place_reviews">Recenze %1$s</string>
+    <string name="rating_stars_description">hvězd: %.1f</string>
+    <string name="reviews_by_mangrove">Recenze ze služby Mangrove.\nSvou recenzi můžete přidat v <a href="https://mapcomplete.org">MapComplete</a>.</string>
+    <string name="pref_font_size">Velikost Písma pro popisy na mapě</string>
+    <string name="decrease_font_size">Zmenšit popisy na mapě</string>
 </resources>

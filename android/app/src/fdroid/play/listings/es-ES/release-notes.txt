@@ -1,8 +1,9 @@
-- Datos de OpenStreetMap del 3 de junio y actualizaciones semanales con el botón “Buscar actualizaciones”
-- Ordena favoritos manualmente o por nombre
-- Desactivado ocultar la interfaz con pulsación larga (reactivable en ajustes)
-- Selector de direcciones de contacto para búsqueda
-- Wikipedia: modo oscuro y RTL
-- Editor: historial de categorías recientes
+• Mostrar nombres favoritos en el mapa (desactivar en ajustes)
+• Mostrar reseñas de usuarios de Mangrove en la página de información del PDI
+• Ajuste personalizado del tamaño de fuente del mapa
+• Posibilidad de leer el mapa para usuarios de TalkBack
+• Posibilidad de iniciar la grabación de la ruta tras comenzar navegación
+• "Abre mañana a las" en la página de información del PDI
+• Corregida la búsqueda en cualquier idioma del mapa configurado por el usuario
 
 Más detalles en comaps.app/latest

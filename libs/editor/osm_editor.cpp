@@ -3,6 +3,7 @@
 #include "editor/changeset_wrapper.hpp"
 #include "editor/edits_migration.hpp"
 #include "editor/osm_auth.hpp"
+#include "editor/osm_feature_lookup.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "indexer/fake_feature_ids.hpp"
@@ -54,6 +55,7 @@ constexpr char const * kUploaded = "Uploaded";
 constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
 constexpr char const * kNeedsRetry = "Needs Retry";
 constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
+constexpr char const * kFailed = "Failed";
 
 struct XmlSection
 {
@@ -99,20 +101,8 @@ struct LogHelper
 
 bool NeedsUpload(string const & uploadStatus)
 {
-  return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer && uploadStatus != kMatchedFeatureIsEmpty;
-}
-
-XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject const & o)
-{
-  ASSERT_NOT_EQUAL(o.GetGeomType(), feature::GeomType::Line, ("Line features are not supported yet."));
-  if (o.GetGeomType() == feature::GeomType::Point)
-    return cw.GetMatchingNodeFeatureFromOSM(o.GetMercator());
-
-  auto const & geometry = o.GetTriangesAsPoints();
-
-  ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
-
-  return cw.GetMatchingAreaFeatureFromOSM(geometry);
+  return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer && uploadStatus != kMatchedFeatureIsEmpty &&
+         uploadStatus != kFailed;
 }
 
 uint64_t GetMwmCreationTimeByMwmId(MwmSet::MwmId const & mwmId)
@@ -623,6 +613,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
 
       try
       {
+        OsmFeatureLookup const lookup;
         switch (fti.m_status)
         {
         case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
@@ -647,7 +638,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
             bool mergeSameLocation = false;
             try
             {
-              XMLFeature osmFeature = changeset.GetMatchingNodeFeatureFromOSM(objCreateData.mercator);
+              XMLFeature osmFeature = lookup.GetMatchingNodeFeatureFromOSM(objCreateData.mercator);
 
               // precision of OSM coordinates (WGS 84), ~= 1 cm
               constexpr double tolerance = 0.0000001;
@@ -663,9 +654,9 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
                 changeset.AddChangesetTag("info:feature_close_by", "yes");
               }
             }
-            catch (ChangesetWrapper::OsmObjectWasDeletedException const &)
+            catch (OsmFeatureLookup::OsmObjectWasDeletedException const &)
             {}
-            catch (ChangesetWrapper::EmptyFeatureException const &)
+            catch (OsmFeatureLookup::EmptyFeatureException const &)
             {}
 
             // Add tags to XMLFeature
@@ -683,7 +674,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
           case EditingLifecycle::MODIFIED:
           {
             // Load existing OSM object (Throws, see catch below)
-            XMLFeature feature = GetMatchingFeatureFromOSM(changeset, fti.m_object);
+            XMLFeature feature = lookup.GetMatchingFeatureFromOSM(fti.m_object);
 
             // Update tags of XMLFeature
             UpdateXMLFeatureTags(feature, journal, changeset);
@@ -714,14 +705,14 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
             continue;
           }
           LOG(LINFO, ("DELETED OSM Feature ID", fti.m_object.GetID()));
-          changeset.Delete(GetMatchingFeatureFromOSM(changeset, *originalObjectPtr));
+          changeset.Delete(lookup.GetMatchingFeatureFromOSM(*originalObjectPtr));
           break;
         }
         uploadInfo.m_uploadStatus = kUploaded;
         uploadInfo.m_uploadError.clear();
         ++uploadedFeaturesCount;
       }
-      catch (ChangesetWrapper::OsmObjectWasDeletedException const & ex)
+      catch (OsmFeatureLookup::OsmObjectWasDeletedException const & ex)
       {
         uploadInfo.m_uploadStatus = kDeletedFromOSMServer;
         uploadInfo.m_uploadError = ex.Msg();
@@ -729,13 +720,31 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
         LOG(LWARNING, (ex.what()));
         changeset.AddToChangesetKeyList("upload_attempt_error", kDeletedFromOSMServer);
       }
-      catch (ChangesetWrapper::EmptyFeatureException const & ex)
+      catch (OsmFeatureLookup::EmptyFeatureException const & ex)
       {
         uploadInfo.m_uploadStatus = kMatchedFeatureIsEmpty;
         uploadInfo.m_uploadError = ex.Msg();
         ++errorsCount;
         LOG(LWARNING, (ex.what()));
         changeset.AddToChangesetKeyList("upload_attempt_error", kMatchedFeatureIsEmpty);
+      }
+      catch (ServerApi06::CreateElementHasFailedNoRetry const & ex)
+      {
+        // Upload is not retried after Bad Request error
+        uploadInfo.m_uploadStatus = kFailed;
+        uploadInfo.m_uploadError = ex.Msg();
+        ++errorsCount;
+        LOG(LWARNING, (ex.what()));
+        changeset.AddToChangesetKeyList("upload_attempt_error", ex.Msg());
+      }
+      catch (ServerApi06::ModifyElementHasFailedNoRetry const & ex)
+      {
+        // Upload is not retried after Bad Request error
+        uploadInfo.m_uploadStatus = kFailed;
+        uploadInfo.m_uploadError = ex.Msg();
+        ++errorsCount;
+        LOG(LWARNING, (ex.what()));
+        changeset.AddToChangesetKeyList("upload_attempt_error", ex.Msg());
       }
       catch (RootException const & ex)
       {

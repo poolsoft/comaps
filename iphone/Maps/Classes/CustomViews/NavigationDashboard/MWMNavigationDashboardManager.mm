@@ -32,6 +32,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 @property(nonatomic) IBOutletCollection(MWMRouteStartButton) NSArray *goButtons;
 @property(nonatomic) MWMNavigationDashboardEntity *entity;
 @property(nonatomic) MWMRouteManagerTransitioningManager *routeManagerTransitioningManager;
+@property(nonatomic) MWMRouteManagerTransitioningManager *directionsPreviewTransitioningManager;
 @property(weak, nonatomic) IBOutlet UIButton *showRouteManagerButton;
 @property(weak, nonatomic) IBOutlet UIView *goButtonsContainer;
 @property(weak, nonatomic) UIView *ownerView;
@@ -243,6 +244,21 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   [self.baseRoutePreviewStatus setRouteSaved:YES];
 }
 
+#pragma mark - Directions preview
+
+- (IBAction)showDirectionsPreview {
+  auto vc = [[MWMDirectionsPreviewViewController alloc] initWithNibName:nil bundle:nil];
+  
+  UISheetPresentationController *sheet = vc.sheetPresentationController;
+  sheet.detents = @[UISheetPresentationControllerDetent.mediumDetent,
+                    UISheetPresentationControllerDetent.largeDetent];
+  sheet.prefersGrabberVisible = YES;
+  sheet.prefersEdgeAttachedInCompactHeight = YES;
+  
+  [[MapViewController sharedController] presentViewController:vc animated:YES completion:nil];
+
+}
+
 #pragma mark - MWMNavigationControlView
 
 - (IBAction)ttsButtonAction {
@@ -313,8 +329,8 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   _state = state;
   [[MapViewController sharedController] updateStatusBarStyle];
   // Restore bottom buttons only if they were not already hidden by tapping anywhere on an empty map.
-  if (!MWMMapViewControlsManager.manager.hidden)
-    BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateHidden;
+    if (!MWMMapViewControlsManager.manager.hidden)
+      MapControls.areMapControlsHidden = state != MWMNavigationDashboardStateHidden;
 }
 
 @synthesize routePreview = _routePreview;

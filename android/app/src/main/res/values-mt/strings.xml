@@ -208,7 +208,6 @@
     <string name="precise_location_is_disabled_long_text">Biex tassigura navigazzjoni preċiża, ixgħel Precise Location fis-settings</string>
     <string name="off">Itfi</string>
     <string name="pref_map_3d_buildings_title">Bini 3D</string>
-    <string name="prefs_group_general">Settings ġenerali</string>
     <string name="on">Ixgħel</string>
     <string name="pref_tts_street_names_title">Ħabbar l-ismijiet tat-toroq</string>
     <string name="downloader_status_maps">Mappep</string>
@@ -340,7 +339,7 @@
     <string name="mobile_data_option_never">Tuża Qatt</string>
     <string name="mobile_data_option_ask">Staqsi Dejjem</string>
     <string name="traffic_update_maps_text">Biex tintwera d-dejta tat-traffiku, il-mapep iridu jiġu aġġornati</string>
-    <string name="big_font">Żid id-daqs għat-tikketti tal-mapep</string>
+    <string name="increase_font_size">Żid id-daqs għat-tikketti tal-mapep</string>
     <string name="traffic_update_app">Aġġorna CoMaps</string>
     <string name="enable_logging">Attiva l-illoggjar</string>
     <string name="prefs_languages_information_off_link">Għal aktar informazzjoni jekk jogħġbok iċċekkja din il-gwida</string>
@@ -526,7 +525,7 @@
     <string name="mobile_data_option_always">Uża Dejjem</string>
     <string name="feedback_general">Feedback Ġenerali</string>
     <string name="please_wait">Stenna ftit…</string>
-    <string name="driving_options_title">Għażliet tar-rotta</string>
+    <string name="routing_options_title">Għażliet tar-rotta</string>
     <string name="prefs_languages_information_off">Għal xi lingwi, se jkollok bżonn tinstalla sintetizzatur tad-diskors jew pakkett tal-lingwa addizzjonali mill-App Store (Google Play, Galaxy Store, App Gallery, FDroid).\nIftaħ is-settings tat-tagħmir → Language and input → Speech → Text to speech output.\nHawnhekk tista’ timmaniġġja s-settings għas-sinteżi tad-diskors (pereżempju, niżżel il-pakkett tal-lingwa għall-użu offline) u agħżel magna oħra minn kitba għal diskors.</string>
     <string name="by_distance">Skont id-distanza</string>
     <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>
@@ -547,7 +546,7 @@
         <item quantity="many">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
         <item quantity="other">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
     </plurals>
-    <string name="privacy">Privatezza</string>
+    <string name="prefs_group_privacy">Privatezza</string>
     <string name="power_managment_setting_manual_max">Dejjem</string>
     <string name="privacy_policy">Politika dwar il-privatezza</string>
     <string name="power_managment_description">Ipprova naqqas l-użu ta\' enerġija b\'detriment ta’ xi funzjonalita`</string>

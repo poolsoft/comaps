@@ -24,6 +24,7 @@ import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import java.io.IOException;
@@ -189,6 +190,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(mContext);
     RoutingController.get().initialize(mLocationHelper);
+
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();

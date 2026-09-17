@@ -452,6 +452,22 @@
 "type.highway.busway.tunnel" = "Tunnel";
 "type.highway.bus_stop" = "Bushalte";
 "type.highway.construction" = "Weg in aanbouw";
+"type.highway.construction.motorway" = "Weg in aanbouw";
+"type.highway.construction.motorway_link" = "Weg in aanbouw";
+"type.highway.construction.trunk" = "Weg in aanbouw";
+"type.highway.construction.trunk_link" = "Weg in aanbouw";
+"type.highway.construction.primary" = "Weg in aanbouw";
+"type.highway.construction.primary_link" = "Weg in aanbouw";
+"type.highway.construction.secondary" = "Weg in aanbouw";
+"type.highway.construction.secondary_link" = "Weg in aanbouw";
+"type.highway.construction.tertiary" = "Weg in aanbouw";
+"type.highway.construction.tertiary_link" = "Weg in aanbouw";
+"type.highway.construction.residential" = "Weg in aanbouw";
+"type.highway.construction.unclassified" = "Weg in aanbouw";
+"type.highway.construction.service" = "Weg in aanbouw";
+"type.highway.construction.living_street" = "Weg in aanbouw";
+"type.highway.construction.road" = "Weg in aanbouw";
+"type.highway.construction.track" = "Weg in aanbouw";
 "type.highway.cycleway" = "Fietspad";
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Fietsbrug";
@@ -865,7 +881,7 @@
 "type.office.ngo" = "NGO-kantoor";
 "type.office.telecommunication" = "Mobiele provider";
 "type.organic.only" = "Alleen biologisch";
-"type.organic.yes" = "o.a. biologisch";
+"type.organic.yes" = "Biologisch verkrijgbaar";
 "type.place.city" = "Stad";
 "type.place.city.capital" = "Hoofdstad";
 "type.place.city.capital.10" = "Stad";
@@ -1515,5 +1531,9 @@
 "type.leisure.sports_centre.sport.boules" = "Sportcentrum";
 "type.sport.pickleball" = "Pickleball";
 "type.leisure.sports_centre.sport.pickleball" = "Sportcentrum";
-"type.organic.no" = "Geen biologisch";
+"type.organic.no" = "Geen biologisch verkrijgbaar";
 "type.amenity.stage" = "Podium";
+"type.amenity.animal_boarding" = "Dierenpension";
+"type.amenity.toilets.customers" = "Klanttoegang";
+"type.amenity.toilets.private" = "Privétoegang";
+"type.amenity.planetarium" = "Planetarium";

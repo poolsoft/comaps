@@ -379,7 +379,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Tunnel</string>
     <string name="type.highway.bus_stop">Bushalte</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Weg in aanbouw</string>
+    <string name="type.highway.construction.motorway">Weg in aanbouw</string>
+    <string name="type.highway.construction.motorway_link">Weg in aanbouw</string>
+    <string name="type.highway.construction.trunk">Weg in aanbouw</string>
+    <string name="type.highway.construction.trunk_link">Weg in aanbouw</string>
+    <string name="type.highway.construction.primary">Weg in aanbouw</string>
+    <string name="type.highway.construction.primary_link">Weg in aanbouw</string>
+    <string name="type.highway.construction.secondary">Weg in aanbouw</string>
+    <string name="type.highway.construction.secondary_link">Weg in aanbouw</string>
+    <string name="type.highway.construction.tertiary">Weg in aanbouw</string>
+    <string name="type.highway.construction.tertiary_link">Weg in aanbouw</string>
+    <string name="type.highway.construction.residential">Weg in aanbouw</string>
+    <string name="type.highway.construction.unclassified">Weg in aanbouw</string>
+    <string name="type.highway.construction.service">Weg in aanbouw</string>
+    <string name="type.highway.construction.living_street">Weg in aanbouw</string>
+    <string name="type.highway.construction.road">Weg in aanbouw</string>
+    <string name="type.highway.construction.track">Weg in aanbouw</string>
     <string name="type.highway.cycleway">Fietspad</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Fietsbrug</string>
@@ -739,7 +756,7 @@
     <string name="type.office.ngo">NGO-kantoor</string>
     <string name="type.office.telecommunication">Mobiele provider</string>
     <string name="type.organic.only">Alleen biologisch</string>
-    <string name="type.organic.yes">o.a. biologisch</string>
+    <string name="type.organic.yes">Biologisch verkrijgbaar</string>
     <string name="type.place.city">Stad</string>
     <string name="type.place.city.capital">Hoofdstad</string>
     <string name="type.place.city.capital.10">Stad</string>
@@ -1517,6 +1534,10 @@
     <string name="type.sport.boules">Jeu de boules</string>
     <string name="type.leisure.sports_centre.sport.pickleball">Sportcentrum</string>
     <string name="type.sport.pickleball">Pickleball</string>
-    <string name="type.organic.no">Geen biologisch</string>
+    <string name="type.organic.no">Geen biologisch verkrijgbaar</string>
     <string name="type.amenity.stage">Podium</string>
+    <string name="type.amenity.animal_boarding">Dierenpension</string>
+    <string name="type.amenity.planetarium">Planetarium</string>
+    <string name="type.amenity.toilets.customers">Klanttoegang</string>
+    <string name="type.amenity.toilets.private">Privétoegang</string>
 </resources>

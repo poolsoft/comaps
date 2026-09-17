@@ -631,6 +631,13 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
   }
 }
 
+void BookmarkManager::UpdateBookmarkLabels()
+{
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (lock)
+    lock.Get()->UpdateBookmarkLabels(&m_drapeChangesTracker);
+}
+
 kml::MarkIdSet const & BookmarkManager::GetUserMarkIds(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1761,11 +1768,27 @@ bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
   return GetGroup(groupId)->IsVisible();
 }
 
-void BookmarkManager::PrepareForSearch(kml::MarkGroupId groupId)
+void BookmarkManager::PrepareForSearch(std::optional<kml::MarkGroupId> groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_callbacks.m_getSearchAPI != nullptr, ());
-  m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(groupId, true /* enable */);
+  if (groupId.has_value())
+    m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(*groupId, true /* enable */);
+  else
+  {
+    kml::GroupIdCollection const ids(m_unsortedBmGroupsIdList);  // explicit copy to avoid iterator invalidation from callback re-entrancy
+    for (auto const & gid : ids)
+      m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(gid, true /* enable */);
+  }
+}
+
+void BookmarkManager::ReleaseSearch()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK(m_callbacks.m_getSearchAPI != nullptr, ());
+  kml::GroupIdCollection const ids(m_unsortedBmGroupsIdList);  // explicit copy to avoid iterator invalidation from callback re-entrancy
+  for (auto const & gid : ids)
+    m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(gid, false);
 }
 
 void BookmarkManager::UpdateTrackMarksMinZoom()

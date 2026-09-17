@@ -10,6 +10,7 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/my_position.hpp"
+#include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/render_node.hpp"
@@ -22,6 +23,7 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include "drape/accessibility_data.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 
@@ -481,28 +483,22 @@ private:
 class GpsInfoMessage : public Message
 {
 public:
-  GpsInfoMessage(location::GpsInfo const & info, bool isNavigable, double distToNextTurn, double speedLimit,
+  GpsInfoMessage(location::GpsInfo const & info, df::NavigationContext const & navigationContext,
                  location::RouteMatchingInfo const & routeInfo)
     : m_info(info)
-    , m_isNavigable(isNavigable)
-    , m_distToNextTurn(distToNextTurn)
-    , m_speedLimit(speedLimit)
+    , m_navigationContext(navigationContext)
     , m_routeInfo(routeInfo)
   {}
 
   Type GetType() const override { return Type::GpsInfo; }
 
   location::GpsInfo const & GetInfo() const { return m_info; }
-  bool IsNavigable() const { return m_isNavigable; }
-  double const & GetSpeedLimit() const { return m_speedLimit; }
-  double const & GetDistanceToNextTurn() const { return m_distToNextTurn; }
+  df::NavigationContext const & GetNavigationContext() const { return m_navigationContext; }
   location::RouteMatchingInfo const & GetRouteInfo() const { return m_routeInfo; }
 
 private:
   location::GpsInfo const m_info;
-  bool const m_isNavigable;
-  double const m_distToNextTurn;
-  double const m_speedLimit;
+  df::NavigationContext const m_navigationContext;
   location::RouteMatchingInfo const m_routeInfo;
 };
 
@@ -746,11 +742,13 @@ public:
 class FollowRouteMessage : public Message
 {
 public:
-  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued)
+  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued,
+                     bool allowRouteRotation)
     : m_preferredZoomLevel(preferredZoomLevel)
     , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
     , m_enableAutoZoom(enableAutoZoom)
     , m_isArrowGlued(isArrowGlued)
+    , m_allowRouteRotation(allowRouteRotation)
   {}
 
   Type GetType() const override { return Type::FollowRoute; }
@@ -759,12 +757,14 @@ public:
   int GetPreferredZoomLevelIn3d() const { return m_preferredZoomLevelIn3d; }
   bool EnableAutoZoom() const { return m_enableAutoZoom; }
   bool IsArrowGlued() const { return m_isArrowGlued; }
+  bool AllowRouteRotation() const { return m_allowRouteRotation; }
 
 private:
   int const m_preferredZoomLevel;
   int const m_preferredZoomLevelIn3d;
   bool const m_enableAutoZoom;
   bool const m_isArrowGlued;
+  bool const m_allowRouteRotation;
 };
 
 class SwitchMapStyleMessage : public BaseBlockingMessage
@@ -772,12 +772,16 @@ class SwitchMapStyleMessage : public BaseBlockingMessage
 public:
   using FilterMessagesHandler = std::function<void()>;
 
-  SwitchMapStyleMessage(Blocker & blocker, FilterMessagesHandler && filterMessagesHandler)
+  SwitchMapStyleMessage(Blocker & blocker, FilterMessagesHandler && filterMessagesHandler,
+                        bool forceMapStyleRerendering)
     : BaseBlockingMessage(blocker)
     , m_filterMessagesHandler(std::move(filterMessagesHandler))
+    , m_forceMapStyleRerendering(forceMapStyleRerendering)
   {}
 
   Type GetType() const override { return Type::SwitchMapStyle; }
+
+  bool ShouldForceMapStyleRerendering() const { return m_forceMapStyleRerendering; }
 
   void FilterDependentMessages()
   {
@@ -787,6 +791,7 @@ public:
 
 private:
   FilterMessagesHandler m_filterMessagesHandler;
+  bool m_forceMapStyleRerendering;
 };
 
 class VisualScaleChangedMessage : public SwitchMapStyleMessage
@@ -903,15 +908,24 @@ public:
     RoutePreview
   };
 
-  CacheCirclesPackMessage(uint32_t pointsCount, Destination dest) : m_pointsCount(pointsCount), m_destination(dest) {}
+  CacheCirclesPackMessage(uint32_t pointsCount, uint32_t id, uint8_t subID, Destination dest)
+    : m_pointsCount(pointsCount)
+    , m_id(id)
+    , m_subID(subID)
+    , m_destination(dest)
+  {}
 
   Type GetType() const override { return Type::CacheCirclesPack; }
 
   uint32_t GetPointsCount() const { return m_pointsCount; }
+  uint32_t GetID() const { return m_id; }
+  uint8_t GetSubID() const { return m_subID; }
   Destination GetDestination() const { return m_destination; }
 
 private:
   uint32_t m_pointsCount;
+  uint32_t m_id;
+  uint8_t m_subID;
   Destination m_destination;
 };
 
@@ -1018,6 +1032,23 @@ public:
 private:
   bool m_needInvalidate;
   GraphicsReadyCallback m_callback;
+};
+
+class SetAccessibilityDataHandlerMessage : public Message
+{
+public:
+  using AccessibilityDataHandler = std::function<void(dp::AccessibilityData *)>;
+
+  SetAccessibilityDataHandlerMessage(std::optional<AccessibilityDataHandler> && handler) : m_handler(std::move(handler))
+  {}
+
+  Type GetType() const override { return Type::SetAccessibilityDataHandler; }
+
+  // only called once, so can move()
+  std::optional<AccessibilityDataHandler> GetHandler() const { return std::move(m_handler); }
+
+private:
+  std::optional<AccessibilityDataHandler> m_handler;
 };
 
 class EnableTrafficMessage : public Message

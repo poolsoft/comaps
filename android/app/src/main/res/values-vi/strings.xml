@@ -183,6 +183,11 @@
     <string name="prefs_group_route">Chỉ đường</string>
     <string name="pref_zoom_title">Nút thu phóng</string>
     <string name="pref_zoom_summary">Hiển thị trên bản đồ</string>
+    <string name="prefs_group_advanced">Nâng cao</string>
+    <string name="download_resources_custom_url_title">Tùy chỉnh máy chủ bản đồ</string>
+    <string name="download_resources_custom_url_message">Ghi đè máy chủ tải xuống bản đồ mặc định. Để trống để sử dụng máy chủ mặc định của CoMaps.</string>
+    <string name="download_resources_custom_url_summary_none">Chưa đặt</string>
+    <string name="download_resources_custom_url_error_scheme">Vui lòng nhập một URL bắt đầu bằng http:// hoặc https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Chế độ ban đêm</string>
     <!-- Generic «Off» string -->
@@ -506,7 +511,7 @@
     <string name="mobile_data_option_never">Không bao giờ sử dụng</string>
     <string name="mobile_data_option_ask">Luôn Hỏi</string>
     <string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ</string>
-    <string name="big_font">Tăng kích thước các nhãn trên bản đồ</string>
+    <string name="increase_font_size">Tăng kích thước các nhãn trên bản đồ</string>
     <string name="traffic_update_app">Vui lòng cập nhật CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Dữ liệu giao thông không khả dụng</string>
@@ -523,7 +528,7 @@
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm đến</string>
     <string name="planning_route_manage_route">Quản lý lộ trình</string>
-    <string name="button_plan">Kế hoạch</string>
+    <string name="button_plan">Tạo lộ trình</string>
     <string name="placepage_remove_stop">Xóa điểm dừng</string>
     <string name="placepage_add_stop">Thêm điểm dừng</string>
     <string name="dialog_error_storage_title">Vấn đề truy cập bộ nhớ</string>
@@ -556,7 +561,7 @@
         <item quantity="other">%d hành trình</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Sự riêng tư</string>
+    <string name="prefs_group_privacy">Sự riêng tư</string>
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="terms_of_use">Điều khoản sử dụng</string>
     <string name="button_layer_traffic">Giao thông</string>
@@ -584,7 +589,7 @@
     <string name="power_managment_setting_auto">Khi pin thấp</string>
     <string name="power_managment_setting_manual_max">Luôn luôn</string>
     <string name="enable_logging_warning_message">Tạm thời bật tùy chọn này để ghi và gửi thủ công nhật ký chẩn đoán chi tiết về vấn đề của bạn đến chúng tôi bằng \"Báo cáo lỗi\" trong mục Giúp đỡ. Nhật ký có thể gồm dữ liệu vị trí.</string>
-    <string name="driving_options_title">Tùy chọn tuyến đường</string>
+    <string name="routing_options_title">Tùy chọn tuyến đường</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Tránh đường thu phí</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -594,7 +599,7 @@
     <string name="avoid_motorways">Tránh xa lộ</string>
     <string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
     <string name="unable_to_calc_alert_subtitle">Không thể tìm thấy tuyến đường. Điều này có thể là vì tùy chọn tuyến đường của bạn hoặc dữ liệu OpenStreetMap bị thiếu. Vui lòng thay đổi tùy chọn tuyến đường của bạn và thử lại.</string>
-    <string name="define_to_avoid_btn">Chỉ rõ đường cần tránh</string>
+    <string name="define_to_avoid_btn">Chọn cài đặt điều hướng</string>
     <string name="change_driving_options_btn">Đã bật các tùy chọn tuyến đường</string>
     <string name="toll_road">Đường trả phí</string>
     <string name="unpaved_road">Đường đất</string>
@@ -608,7 +613,7 @@
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Không</string>
     <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
-    <string name="capacity">Công suất: %s</string>
+    <string name="capacity">Số lượng chỗ: %s</string>
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="network">Mạng: %s</string>
     <string name="trip_finished">Bạn đã tới nơi!</string>
@@ -771,7 +776,6 @@
     <string name="share_bookmarks_email_body">Xin chào! \n \nĐính kèm là các điểm Ưa thích của tôi; vui lòng mở chúng trong CoMaps. Nếu bạn chưa cài đặt nó thì bạn có thể tải nó xuống ở đây: https://www.comaps.app/download/ \n \nTận hưởng hành trình với CoMaps nhé!</string>
     <string name="bookmark_share_email_subject">Theo đường dẫn này %1$s hoặc dán tọa độ này %2$s vào ứng dụng bản đồ của bạn để xem vị trí này.</string>
     <string name="my_position_share_email">Theo đường dẫn này %1$s hoặc dán tọa độ này %2$s vào ứng dụng bản đồ của bạn để xem vị trí của tôi.</string>
-    <string name="prefs_group_general">Cài đặt chung</string>
     <string name="prefs_group_information">Thông tin</string>
     <string name="menu">Menu</string>
     <string name="mb_downloaded">%1$d MB / %2$d MB</string>
@@ -805,7 +809,6 @@
     <string name="charge_socket_count">Số lượng</string>
     <string name="unknown_count">Không rõ</string>
     <string name="editor_submit">Gửi</string>
-    <string name="advanced">Nâng cao</string>
     <string name="destination">Điểm đến</string>
     <string name="stop">Điểm dừng</string>
     <string name="disk_error_title">Lỗi bộ nhớ</string>
@@ -833,7 +836,6 @@
     <string name="offline_explanation_title">Bản đồ ngoại tuyến</string>
     <string name="power_management">Quản lý năng lượng</string>
     <string name="charge_socket_schuko">Nội địa EU</string>
-    <string name="download_resources_custom_url_summary_none">Chưa đặt</string>
     <string name="pref_maplanguage_local">Ngôn ngữ địa phương</string>
     <string name="location_privacy">Quyền riêng tư vị trí</string>
     <string name="rooms">%s phòng</string>
@@ -898,9 +900,6 @@
     <string name="error_value_must_be_positive">Giá trị phải là dương</string>
     <string name="offline_explanation_text">Một bản đồ cần được tải xuống để xem và điều hướng trong vùng.\nTải xuống bản đồ cho những khu vực bạn muốn đến.</string>
     <string name="list_description_empty">Chỉnh sửa danh sách để thêm mô tả</string>
-    <string name="download_resources_custom_url_title">Tùy chỉnh máy chủ bản đồ</string>
-    <string name="download_resources_custom_url_message">Ghi đè máy chủ tải xuống bản đồ mặc định. Để trống để sử dụng máy chủ mặc định của CoMaps.</string>
-    <string name="download_resources_custom_url_error_scheme">Vui lòng nhập một URL bắt đầu bằng http:// hoặc https://</string>
     <string name="pref_alt_map_lang_handling">Ngôn ngữ bản đồ thay thế</string>
     <string name="pref_alt_map_lang_handling_ignore_alternatives">Không sử dụng ngôn ngữ thay thế</string>
     <string name="pref_alt_map_lang_handling_system_order">Dùng theo thứ tự hệ thống</string>
@@ -926,8 +925,6 @@
     <string name="downloader_check_updates_error">Xảy ra lỗi khi kiểm tra cập nhật</string>
     <string name="setting_value_system_default">Mặc định hệ thống</string>
     <string name="change_app_locale">Ngôn ngữ ứng dụng</string>
-    <string name="pref_keyboard_typing_history_title">Chế độ ẩn danh bàn phím</string>
-    <string name="pref_keyboard_typing_history_summary">Yêu cầu bàn phím hệ thống không lưu lại lịch sử nhập</string>
     <string name="pref_aa_support_title">Android Auto</string>
     <string name="pref_aa_support_summary_yes">Ứng dụng đã được cài đặt từ Google Play, bạn có thể dùng nó trong ô tô của mình.</string>
     <string name="pref_aa_support_summary_no">Ứng dụng chưa được cài đặt từ Google Play, bạn không thể dùng nó trong ô tô của mình. Nhấn vào phần cài đặt để tìm hiểu thêm trên trang FAQ của chúng tôi.</string>
@@ -939,4 +936,29 @@
     <string name="by_custom">Bởi thứ tự tùy chỉnh</string>
     <string name="editor_add_select_category_all_subtitle">Tất cả danh mục</string>
     <string name="editor_add_select_category_recent_subtitle">Đã dùng gần đây</string>
+    <string name="pref_about_summary">Báo cáo lỗi, tìm trợ giúp, ủng hộ\nPhiên bản: v%1$s</string>
+    <string name="prefs_group_map_appearance">Giao diện bản đồ</string>
+    <string name="prefs_group_map_appearance_summary">Ngôn ngữ bản đồ, kích thước nhãn, tòa nhà 2D/3D</string>
+    <string name="prefs_group_interface">Giao diện</string>
+    <string name="prefs_group_interface_summary">Chế độ tối, các nút, ngôn ngữ</string>
+    <string name="prefs_group_data_management">Quản lý dữ liệu</string>
+    <string name="prefs_group_data_management_summary">Bộ nhớ bản đồ, sao lưu ưa thích</string>
+    <string name="prefs_group_route_summary">Đơn vị đo, hướng dẫn bằng giọng nói, tùy chọn điều hướng</string>
+    <string name="prefs_group_advanced_summary">Bật nhật ký hoạt động</string>
+    <string name="planning_route_preview">Xem trước</string>
+    <string name="prefs_group_power_summary">Thời gian chờ màn hình, dữ liệu di động</string>
+    <string name="prefs_group_privacy_summary">Lịch sử tìm kiếm</string>
+    <string name="search_in_all_lists">Tìm trong tất cả danh sách</string>
+    <string name="pref_enable_auto_reroute_title">Tự động điều hướng lại</string>
+    <string name="pref_enable_auto_reroute_description">Khi được bật, một tuyến đường mới sẽ được tạo tự động khi bạn rời khỏi lộ trình hiện tại.</string>
+    <string name="recalculate_route">Tính lại</string>
+    <string name="off_route">Bạn đã rời khỏi lộ trình</string>
+    <string name="capacity_disabled">Số chỗ đỗ xe dành cho người khuyết tật: %s</string>
+    <string name="capacity_disabled_yes">Có chỗ đỗ xe cho người khuyết tật</string>
+    <string name="capacity_disabled_no">Không có chỗ đỗ xe cho người khuyết tật</string>
+    <string name="capacity_charging">Số chỗ đỗ có cây sạc: %s</string>
+    <string name="capacity_charging_yes">Có chỗ đỗ có cây sạc</string>
+    <string name="capacity_charging_no">Không có chỗ đỗ có cây sạc</string>
+    <string name="permission_read_navigation_label">Đọc dữ liệu điều hướng CoMaps</string>
+    <string name="permission_read_navigation_description">đọc thông tin điều hướng trực tiếp ví dụ như các lối rẽ tiếp theo hoặc tên đường bạn đang đi</string>
 </resources>

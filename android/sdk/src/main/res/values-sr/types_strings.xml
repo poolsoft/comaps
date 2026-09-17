@@ -54,7 +54,7 @@
     <string name="type.amenity.compressed_air">Компримовани ваздух</string>
     <string name="type.amenity.conference_centre">Конференцијски центар</string>
     <string name="type.amenity.courthouse">Суд</string>
-    <string name="type.amenity.dentist">Стоматолог / Зубар</string>
+    <string name="type.amenity.dentist">Стоматолог</string>
     <string name="type.amenity.doctors">Доктор</string>
     <string name="type.amenity.drinking_water">Вода за пиће</string>
     <string name="type.drinking_water.yes">Вода за пиће</string>
@@ -189,7 +189,7 @@
     <string name="type.barrier.yes">Баријера</string>
     <string name="type.barrier.block">Блок</string>
     <string name="type.barrier.bollard">Стуб</string>
-    <string name="type.barrier.border_control">Гранична контрола</string>
+    <string name="type.barrier.border_control">Гранични прелаз</string>
     <string name="type.barrier.chain">Ланац</string>
     <string name="type.barrier.city_wall">Градски зид / Бедем</string>
     <string name="type.barrier.cycle_barrier">Баријера за бицикле</string>
@@ -211,7 +211,7 @@
     <string name="type.boundary">Граница</string>
     <string name="type.boundary.administrative">Административна граница</string>
     <!-- Borders between countries. -->
-    <string name="type.boundary.administrative.2">Гранични прелаз</string>
+    <string name="type.boundary.administrative.2">Државна граница</string>
     <!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
     <string name="type.boundary.administrative.3">Регионална граница</string>
     <!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
@@ -319,7 +319,7 @@
     <string name="type.cuisine.moroccan">Мароканска</string>
     <string name="type.cuisine.noodles">Нудле</string>
     <string name="type.cuisine.oriental">Оријентална</string>
-    <string name="type.cuisine.pancake">Палачинке</string>
+    <string name="type.cuisine.pancake">Америчке палачинке</string>
     <string name="type.cuisine.pasta">Паста</string>
     <string name="type.cuisine.persian">Персијска</string>
     <string name="type.cuisine.peruvian">Перуанска</string>
@@ -383,7 +383,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Тунел</string>
     <string name="type.highway.bus_stop">Аутобуско стајалиште</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Пут у изградњи</string>
+    <string name="type.highway.construction.motorway">Пут у изградњи</string>
+    <string name="type.highway.construction.motorway_link">Пут у изградњи</string>
+    <string name="type.highway.construction.trunk">Пут у изградњи</string>
+    <string name="type.highway.construction.trunk_link">Пут у изградњи</string>
+    <string name="type.highway.construction.primary">Пут у изградњи</string>
+    <string name="type.highway.construction.primary_link">Пут у изградњи</string>
+    <string name="type.highway.construction.secondary">Пут у изградњи</string>
+    <string name="type.highway.construction.secondary_link">Пут у изградњи</string>
+    <string name="type.highway.construction.tertiary">Пут у изградњи</string>
+    <string name="type.highway.construction.tertiary_link">Пут у изградњи</string>
+    <string name="type.highway.construction.residential">Пут у изградњи</string>
+    <string name="type.highway.construction.unclassified">Пут у изградњи</string>
+    <string name="type.highway.construction.service">Пут у изградњи</string>
+    <string name="type.highway.construction.living_street">Пут у изградњи</string>
+    <string name="type.highway.construction.road">Пут у изградњи</string>
+    <string name="type.highway.construction.track">Пут у изградњи</string>
     <string name="type.highway.cycleway">Бициклистичка стаза</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Мост</string>
@@ -1519,4 +1536,8 @@
     <string name="type.sport.pickleball">Пиклбол</string>
     <string name="type.organic.no">Нема органску храну</string>
     <string name="type.amenity.stage">Бина</string>
+    <string name="type.amenity.planetarium">Планетаријум</string>
+    <string name="type.amenity.toilets.customers">Само за муштерије</string>
+    <string name="type.amenity.toilets.private">Приватни</string>
+    <string name="type.amenity.animal_boarding">Хотел за љубимце</string>
 </resources>

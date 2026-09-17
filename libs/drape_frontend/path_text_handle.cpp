@@ -20,8 +20,8 @@ namespace df
 namespace
 {
 double constexpr kValidPathSplineTurn = 15 * math::pi / 180;
-double constexpr kCosTurn = 0.999989561;  // cos(kValidPathSplineTurn)
-double constexpr kSinTurn = 0.004569245;  // sin(kValidPathSplineTurn)
+double constexpr kCosTurn = 0.9659258263;  // cos(kValidPathSplineTurn)
+double constexpr kSinTurn = 0.2588190451;  // sin(kValidPathSplineTurn)
 double constexpr kRoundStep = 23;
 int constexpr kMaxStepsCount = 7;
 
@@ -251,11 +251,12 @@ end:
   return resSpline ? resSpline->GetPoint(resStep) : m2::Spline::iterator();
 }
 
-PathTextHandle::PathTextHandle(dp::OverlayID const & id, std::shared_ptr<PathTextContext> const & context, float depth,
-                               uint32_t textIndex, uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                               int minVisibleScale, bool isBillboard)
-  : TextHandle(id, context->GetLayout()->GetGlyphs(), dp::Center, priority, textureManager, minVisibleScale,
-               isBillboard)
+PathTextHandle::PathTextHandle(dp::OverlayID const & id, uint8_t subID,
+                               std::shared_ptr<PathTextContext> const & context, float depth, uint32_t textIndex,
+                               uint64_t priority, ref_ptr<dp::TextureManager> textureManager, int minVisibleScale,
+                               bool isBillboard, dp::AccessibilityNodeInfo && accessibilityInfo)
+  : TextHandle(id, subID, context->GetLayout()->GetGlyphs(), dp::Center, priority, textureManager, minVisibleScale,
+               isBillboard, std::move(accessibilityInfo))
   , m_context(context)
   , m_textIndex(textIndex)
   , m_depth(depth)

@@ -52,6 +52,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.lang.ref.WeakReference;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 @Keep
@@ -83,10 +84,13 @@ public class Utils
 
   private static void showOnLockScreenOld(boolean enable, Activity activity)
   {
+    @SuppressWarnings("deprecation")
+    int flags = WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
+
     if (enable)
-      activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+      activity.getWindow().addFlags(flags);
     else
-      activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+      activity.getWindow().clearFlags(flags);
   }
 
   public static void showOnLockScreen(boolean enable, Activity activity)
@@ -324,11 +328,18 @@ public class Utils
     if (MwmApplication.from(context).getOrganicMaps().arePlatformAndCoreInitialized())
       return;
 
-    FragmentManager manager = fragment.getFragmentManager();
-    if (manager == null)
-      return;
-
-    manager.beginTransaction().detach(fragment).commit();
+    if (fragment.isAdded())
+    {
+      try
+      {
+        FragmentManager manager = fragment.getParentFragmentManager();
+        manager.beginTransaction().detach(fragment).commit();
+      }
+      catch(IllegalStateException e)
+      {
+        Logger.e(TAG, "Fragment.getParentFragmentManager() IllegalStateException", e);
+      }
+    }
   }
 
   public static String capitalize(@Nullable String src)
@@ -413,8 +424,11 @@ public class Utils
     }
   }
 
-  public static <T> T getParcelable(@NonNull Bundle in, @Nullable String key, @NonNull Class<T> clazz)
+  @Nullable
+  public static <T> T getParcelable(@Nullable Bundle in, @Nullable String key, @NonNull Class<T> clazz)
   {
+    if (in == null)
+      return null;
     in.setClassLoader(clazz.getClassLoader());
     return BundleCompat.getParcelable(in, key, clazz);
   }
@@ -507,6 +521,14 @@ public class Utils
     return Objects.equals(sourceInstaller, googlePlayID);
   }
 
+  /**
+   * Function to detect whether the current app layout is RTL (Right-To-Left).
+   */
+  public static boolean isRtlLayoutDirection()
+  {
+    return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
+  }
+
   public static String getContactAddress(Context context, Uri contactUri)
   {
     String[] typeData = {ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS};
@@ -518,6 +540,7 @@ public class Utils
     }
     return null;
   }
+
   public static Intent openContactPicker()
   {
     return new Intent(Intent.ACTION_PICK).setType(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_TYPE);

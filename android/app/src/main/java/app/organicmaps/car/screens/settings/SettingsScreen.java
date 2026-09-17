@@ -19,6 +19,8 @@ import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 
 public class SettingsScreen extends BaseMapScreen
@@ -64,7 +66,8 @@ public class SettingsScreen extends BaseMapScreen
     builder.addItem(createThemeItem());
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(create3dBuildingsItem());
-    builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
+    builder.addItem(createIncreaseFontScaleItem(R.string.increase_font_size, 0.5));
+    builder.addItem(createIncreaseFontScaleItem(R.string.decrease_font_size, -0.5));
     builder.addItem(
         createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
@@ -86,7 +89,8 @@ public class SettingsScreen extends BaseMapScreen
   private Item createRoutingOptionsItem()
   {
     final Row.Builder builder = new Row.Builder();
-    builder.setTitle(getCarContext().getString(R.string.driving_options_title));
+    Router routerType = RoutingController.get().getLastRouterType();
+    builder.setTitle(getCarContext().getString(R.string.routing_options_title));
     builder.setOnClickListener(
         ()
             -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()),
@@ -107,6 +111,16 @@ public class SettingsScreen extends BaseMapScreen
       invalidate();
     };
     return Toggle.create(getCarContext(), R.string.pref_map_3d_buildings_title, listener, _3d.buildings);
+  }
+
+  @NonNull
+  private Item createIncreaseFontScaleItem(@StringRes int label, double delta)
+  {
+    final Row.Builder builder = new Row.Builder();
+    builder.setTitle(getCarContext().getString(label));
+    builder.setOnClickListener(
+        () -> Config.setFontScaleFactor(Math.min(Math.max(Config.getFontScaleFactor() + delta, 100), 400)));
+    return builder.build();
   }
 
   @NonNull

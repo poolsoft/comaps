@@ -185,13 +185,16 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Longitud</string>
     <string name="share_my_location">Comparteix la meva ubicació</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Configuració general</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informació</string>
     <string name="prefs_group_route">Navegació</string>
     <string name="pref_zoom_title">Botons de zoom</string>
     <string name="pref_zoom_summary">Mostra\'ls al mapa</string>
+    <string name="prefs_group_advanced">Avançat</string>
+    <string name="download_resources_custom_url_title">Servidor de Mapes Personalitzat</string>
+    <string name="download_resources_custom_url_message">Sobreescriu el servidor de descàrrega de mapes per defecte. Deixa en blanc per a emprar el servidor per defecte de CoMaps.</string>
+    <string name="download_resources_custom_url_summary_none">No establert</string>
+    <string name="download_resources_custom_url_error_scheme">Per favor introdueix una URL que comence amb http:// o https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Mode nocturn</string>
     <!-- Generic «Off» string -->
@@ -530,7 +533,7 @@
     <string name="mobile_data_option_never">Mai</string>
     <string name="mobile_data_option_ask">Demana-ho sempre</string>
     <string name="traffic_update_maps_text">Per a mostrar les dades de trànsit, els mapes han d\'estar actualitzats</string>
-    <string name="big_font">Augmenta la mida de lletra del mapa</string>
+    <string name="increase_font_size">Augmenta la mida de lletra del mapa</string>
     <string name="traffic_update_app">Actualitzeu l’CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">No hi ha dades de trànsit disponibles</string>
@@ -589,7 +592,7 @@
         <item quantity="other">%d traces</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privadesa</string>
+    <string name="prefs_group_privacy">Privadesa</string>
     <string name="privacy_policy">Política de privadesa</string>
     <string name="terms_of_use">Condicions del servei</string>
     <string name="button_layer_traffic">Trànsit</string>
@@ -617,7 +620,7 @@
     <string name="power_managment_setting_auto">Automàtic</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
     <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
-    <string name="driving_options_title">Opcions d’encaminament</string>
+    <string name="routing_options_title">Opcions d’encaminament</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita peatges</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -627,7 +630,7 @@
     <string name="avoid_motorways">Evita autopistes</string>
     <string name="unable_to_calc_alert_title">No s’ha pogut calcular la ruta</string>
     <string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
-    <string name="define_to_avoid_btn">Definiu les vies a evitar</string>
+    <string name="define_to_avoid_btn">Tria les opcions d\'enrutament</string>
     <string name="change_driving_options_btn">Paràmetres d’encaminament activats</string>
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
@@ -880,6 +883,7 @@
     <string name="list_description_empty">Edita la llista per afegir una descripció</string>
     <string name="opens_at">Obre a %s</string>
     <string name="closes_at">Tanca a %s</string>
+    <string name="opens_tomorrow_at">Obre demà a les %s</string>
     <string name="opens_day_at">Obre els %1$s a %2$s</string>
     <string name="closes_day_at">Tanca els %1$s a %2$s</string>
     <plurals name="minutes_short">
@@ -910,11 +914,6 @@
     <string name="prefs_speed_cameras_information">Les advertències de càmeres radar estan deshabilitades als països on estan prohibides per llei.</string>
     <string name="navigation_start_tts_message">"Iniciant Navegació, idioma d\'instruccions de veu: "</string>
     <string name="navigation_start_tts_disabled_message">Instruccions de veu desactivades: motor TTS no disponible</string>
-    <string name="advanced">Avançat</string>
-    <string name="download_resources_custom_url_title">Servidor de Mapes Personalitzat</string>
-    <string name="download_resources_custom_url_message">Sobreescriu el servidor de descàrrega de mapes per defecte. Deixa en blanc per a emprar el servidor per defecte de CoMaps.</string>
-    <string name="download_resources_custom_url_summary_none">No establert</string>
-    <string name="download_resources_custom_url_error_scheme">Per favor introdueix una URL que comence amb http:// o https://</string>
     <string name="pref_maplanguage_local">Idioma Local</string>
     <string name="location_privacy_info">Les aplicacions reben informació d\'ubicació del servei de localització del sistema, que pot compartir la teva ubicació amb Google i/o el proveïdor del teu dispositiu. Fes servir un SO Android respectuós amb la privacitat per evitar-ho.</string>
     <string name="location_privacy">Privacitat de Localització</string>
@@ -949,11 +948,9 @@
     <string name="downloader_check_updates_no_updates">Cap actualització disponible</string>
     <string name="downloader_check_updates_eol">No hi ha més actualitzacions per a mapes en aquesta versió. Per favor, actualitza l\'app!</string>
     <string name="downloader_check_updates_error">No s\'han pogut comprovar les actualitzacions</string>
-    <string name="pref_keyboard_typing_history_title">Teclat en mode incògnit</string>
-    <string name="pref_keyboard_typing_history_summary">Sol·licita al teclat del sistema que no es gravi l\'historial d\'escriptura</string>
     <string name="pref_aa_support_title">Android Auto</string>
     <string name="pref_aa_support_summary_yes">Aquesta aplicació s\'ha instal·lat des de Google Play, la pots fer servir al teu cotxe.</string>
-    <string name="pref_aa_support_summary_no">Aquesta app no ha sigut instal·lada des de Google Play, no pots fer-la servir al cotxe. Prem la opció per a veure més detalls als nostres FAQ.</string>
+    <string name="pref_aa_support_summary_no">Aquesta app no ha sigut instal·lada des de Google Play, no pots fer-la servir al cotxe. Prem l\'opció per a veure més detalls a les nostres Preguntes Freqüents.</string>
     <string name="tts_toggle_enable">Activa instruccions de veu</string>
     <string name="tts_toggle_disable">Desactiva instruccions de veu</string>
     <string name="oh_unknown">Hores d\'opertura desconegudes</string>
@@ -964,4 +961,29 @@
     <string name="sort_categories">Ordena les llistes de favorits</string>
     <string name="by_recently_used">Per usades recentment</string>
     <string name="by_custom">Per ordre personalitzat</string>
+    <string name="prefs_group_map_appearance">Aparença del mapa</string>
+    <string name="prefs_group_map_appearance_summary">Llengua del mapa, mida de la lletra, edificis en 3D</string>
+    <string name="prefs_group_interface">Interfície</string>
+    <string name="prefs_group_interface_summary">Mode nocturn, botons, llengua</string>
+    <string name="prefs_group_data_management">Gestió de dades</string>
+    <string name="prefs_group_data_management_summary">Desament de mapes, còpia de seguretat dels preferits</string>
+    <string name="prefs_group_route_summary">Unitats, instruccions de veu, opcions d\'encaminament</string>
+    <string name="prefs_group_advanced_summary">Activar enregistrament</string>
+    <string name="planning_route_preview">Vista prèvia</string>
+    <string name="prefs_group_privacy_summary">Historial de cerca</string>
+    <string name="prefs_group_power_summary">Temps d\'espera de pantalla, dades mòbils</string>
+    <string name="search_in_all_lists">Cercar a totes les llistes</string>
+    <string name="pref_enable_auto_reroute_title">Redirecció automàtica</string>
+    <string name="pref_enable_auto_reroute_description">Amb aquesta opció activada, es crearà automàticament una nova ruta quan t\'allunyes de la ruta planejada.</string>
+    <string name="recalculate_route">Recalcular</string>
+    <string name="off_route">Vos heu desviat de la ruta</string>
+    <string name="capacity_disabled">Places d\'aparcament per a persones amb discapacitat: %s</string>
+    <string name="capacity_disabled_yes">Disposa de places reservades per a persones amb discapacitat</string>
+    <string name="capacity_disabled_no">No hi ha places reservades per a persones amb discapacitat</string>
+    <string name="capacity_charging">Places amb carregadors: %s</string>
+    <string name="capacity_charging_yes">Té places amb carregadors</string>
+    <string name="capacity_charging_no">No hi ha places amb carregadors</string>
+    <string name="permission_read_navigation_label">Llegir les dades de navegació de CoMaps</string>
+    <string name="permission_read_navigation_description">llegir informació de navegació en temps real, com els pròxims girs o el nom del carrer per on circules</string>
+    <string name="pref_about_summary">Informar de problemes, obtindre ajuda, fer una donació\nVersió: v%1$s</string>
 </resources>

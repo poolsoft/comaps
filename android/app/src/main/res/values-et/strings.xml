@@ -181,13 +181,16 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Pikkus</string>
     <string name="share_my_location">Jaga minu asukohta</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Üldseadistused</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Teave</string>
     <string name="prefs_group_route">Tee juhatamine</string>
     <string name="pref_zoom_title">Suuminupud</string>
     <string name="pref_zoom_summary">Kuva kaardil</string>
+    <string name="prefs_group_advanced">Täiendavad seadistused</string>
+    <string name="download_resources_custom_url_title">Sinu oma kaardiserver</string>
+    <string name="download_resources_custom_url_message">Kui tahad kasutada oma kaardiserverit, siis lisa ta siia. CoMapsi vaikimisi serveri kasutamiseks jäta tühjaks.</string>
+    <string name="download_resources_custom_url_summary_none">Pole määratud</string>
+    <string name="download_resources_custom_url_error_scheme">Palun sisesta täismahuline võrguaadress, mille alguses on http:// või https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Öörežiim</string>
     <!-- Generic «Off» string -->
@@ -525,7 +528,7 @@
     <string name="mobile_data_option_never">Ära kasuta kunagi</string>
     <string name="mobile_data_option_ask">Küsi alati</string>
     <string name="traffic_update_maps_text">Liiklusinfo kuvamiseks palun uuenda kaardid</string>
-    <string name="big_font">Suurenda teksti suurust kaardil</string>
+    <string name="increase_font_size">Suurenda teksti suurust kaardil</string>
     <string name="traffic_update_app">Palun uuenda CoMapsi rakendust</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Liiklusinfo ei ole saadaval</string>
@@ -545,7 +548,7 @@
     <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
-    <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
+    <string name="dialog_error_storage_title">Probleem ligipääsul andmeruumile</string>
     <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Imiteeri vigast andmeruumi</string>
     <string name="error_enter_correct_name">Palun sisesta korrektne nimi</string>
@@ -581,7 +584,7 @@
         <item quantity="other">%d rada</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privaatsus</string>
+    <string name="prefs_group_privacy">Privaatsus</string>
     <string name="privacy_policy">Privaatsuspoliitika</string>
     <string name="terms_of_use">Kasutustingimused</string>
     <string name="button_layer_traffic">Liiklus</string>
@@ -609,7 +612,7 @@
     <string name="power_managment_setting_auto">Madala akutäituvuse korral</string>
     <string name="power_managment_setting_manual_max">Alati</string>
     <string name="enable_logging_warning_message">Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.</string>
-    <string name="driving_options_title">Tee juhatamise valikud</string>
+    <string name="routing_options_title">Tee juhatamise valikud</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Väldi tasulisi teid</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -619,7 +622,7 @@
     <string name="avoid_motorways">Väldi kiirteed</string>
     <string name="unable_to_calc_alert_title">Teekonna koostamine ei õnnestu</string>
     <string name="unable_to_calc_alert_subtitle">Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.</string>
-    <string name="define_to_avoid_btn">Määra välditavad teed</string>
+    <string name="define_to_avoid_btn">Vali teekonnakoostamise valikuid</string>
     <string name="change_driving_options_btn">Lubatud valikud teekonna koostamisel</string>
     <string name="toll_road">Tasuline tee</string>
     <string name="unpaved_road">Sillutamata tee</string>
@@ -881,6 +884,7 @@
     <string name="avoid_paved">Väldi sillutatud teid</string>
     <string name="opens_at">Avatakse %s</string>
     <string name="closes_at">Suletakse %s</string>
+    <string name="opens_tomorrow_at">Avatakse homme kell %s</string>
     <string name="opens_day_at">Avatakse %1$s kell %2$s</string>
     <string name="closes_day_at">Suletakse %1$s kell %2$s</string>
     <plurals name="minutes_short">
@@ -901,11 +905,6 @@
     <string name="place_page_update_too_old_map">Uuenda piirkonna kaardiandmeid</string>
     <string name="place_page_too_old_to_edit">Kuna kaardiandmed on liiga vanad, siis OpenStreetMapi muutmise võimalus on lülitatud välja.</string>
     <string name="navigation_start_tts_disabled_message">Hääljuhiste kasutamine on lülitatud välja: kõnesünteesimootorit pole saadaval</string>
-    <string name="download_resources_custom_url_summary_none">Pole määratud</string>
-    <string name="advanced">Täiendavad seadistused</string>
-    <string name="download_resources_custom_url_title">Sinu oma kaardiserver</string>
-    <string name="download_resources_custom_url_message">Kui tahad kasutada oma kaardiserverit, siis lisa ta siia. CoMapsi vaikimisi serveri kasutamiseks jäta tühjaks.</string>
-    <string name="download_resources_custom_url_error_scheme">Palun sisesta täismahuline võrguaadress, mille alguses on http:// või https://</string>
     <string name="pref_maplanguage_local">Kohalik keel</string>
     <string name="location_privacy_info">Rakendused saavad asukohaandmed sinu operatsioonisüsteemi asukohateenuselt, mis võib jagada sinu asukohta Google\'i ja/või seadme valmistajaga. Selle vältimiseks kasuta mõnda privaatsusega arvestavat Androidi versiooni.</string>
     <string name="location_privacy">Asuukohaandmete privaatsus</string>
@@ -939,8 +938,6 @@
     <string name="downloader_check_updates_updated">Saadaval on kaartide uuendused!</string>
     <string name="downloader_check_updates_eol">Selle rakenduse versiooni jaoks enam kaardiuuendusi ei lisandu. Palun uuenda rakendust!</string>
     <string name="downloader_check_updates_error">Viga uuenduste olemaolu kontrollimisel</string>
-    <string name="pref_keyboard_typing_history_title">Klahvistiku privaatne režiim</string>
-    <string name="pref_keyboard_typing_history_summary">Palu, et süsteemne klahvistik ei salvestaks sisestuste ajalugu</string>
     <string name="downloader_check_updates_no_updates">Uuendusi pole saadaval</string>
     <string name="pref_aa_support_title">Android Auto liidestus</string>
     <string name="pref_aa_support_summary_yes">Rakendus on paigaldatud Google Play rakendustepoest ja saad seda oma autos kasutada Android Auto liidestusega.</string>
@@ -955,4 +952,34 @@
     <string name="sort_categories">Järjesta lemmikute loendid</string>
     <string name="by_recently_used">Hiljuti kasutamise alusel</string>
     <string name="by_custom">Sinu määratud järjestuses</string>
+    <string name="capacity_disabled">Parkimiskohti puuetega inimestele: %s</string>
+    <string name="capacity_disabled_no">Pole eraldi parkimiskohti puuetega inimeste jaoks</string>
+    <string name="capacity_charging_yes">On laadijatega parkimiskohad</string>
+    <string name="capacity_charging_no">Pole laadijatega parkimiskohti</string>
+    <string name="prefs_group_route_summary">Ühikud, hääljuhised, teekonna koostamise valikud</string>
+    <string name="prefs_group_privacy_summary">Otsinguajalugu</string>
+    <string name="prefs_group_power_summary">Ekraani väljalülitumine, mobiilne andmeside</string>
+    <string name="capacity_disabled_yes">On eraldi parkimiskohti puuetega inimeste jaoks</string>
+    <string name="capacity_charging">Laadijatega parkimiskohti: %s</string>
+    <string name="permission_read_navigation_label">CoMapsi teejuhatamise teabe ettelugemine</string>
+    <string name="permission_read_navigation_description">teejuhatamise teabe ettelugemine reaalajas, näiteks järgmised pöörded ja hetkel kasutusel tee nimi</string>
+    <string name="planning_route_preview">Eelvaade</string>
+    <string name="prefs_group_interface">Kasutajaliides</string>
+    <string name="prefs_group_advanced_summary">Lülita logimine sisse</string>
+    <string name="pref_about_summary">Teata vigadest, otsi abiteavet, toeta rahaliselt\nVersioon: %1$s</string>
+    <string name="prefs_group_map_appearance_summary">Kaardi keel, siltide suurus, 2D/3D hooned</string>
+    <string name="prefs_group_interface_summary">Öörežiim, nupud, keel</string>
+    <string name="prefs_group_data_management">Andmehaldus</string>
+    <string name="prefs_group_data_management_summary">Kaardi andmeruum, lemmikute varukoopia</string>
+    <string name="search_in_all_lists">Otsi kõikidest loenditest</string>
+    <string name="pref_enable_auto_reroute_title">Automaatne teekonna ümberarvutus</string>
+    <string name="pref_enable_auto_reroute_description">Selle eelistuse sisselülitamisel koostatakse vanalt teekonnalt lahkudes uus teekond.</string>
+    <string name="off_route">Sa enam ei asu kavandatud teekonnal</string>
+    <string name="prefs_group_map_appearance">Kaardi välimus</string>
+    <string name="recalculate_route">Arvuta uuesti</string>
+    <string name="bookmarks_text_placement_title">Näita kaardil lemmikute nimesid</string>
+    <string name="place_reviews_title">Kohtade arvustused</string>
+    <string name="place_reviews">%1$s arvustust</string>
+    <string name="rating_stars_description">tärne: %.1f</string>
+    <string name="reviews_by_mangrove">Arvustused on teenusest Mangrove.\nNeid saad lisada <a href="https://mapcomplete.org">MapComplete\'i</a> saidist.</string>
 </resources>

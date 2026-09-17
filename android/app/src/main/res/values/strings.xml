@@ -185,7 +185,7 @@
     <string name="downloading_is_active">Map download is in progress now</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Check out my current location in CoMaps! %1$s or %2$s Don\'t have offline maps? Download here: https://www.comaps.app/download/</string>
-  <!-- Share a position using EMail, %1$@ is https://comaps.at link WITH NAME and %2$@ is the geo url containing only coordinates.  -->
+    <!-- Share a position using EMail, %1$@ is https://comaps.at link WITH NAME and %2$@ is the geo url containing only coordinates.  -->
     <string name="bookmark_share_email_subject">Follow this link %1$s or paste these coordinates %2$s into your maps app to see this location.</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, check out my current location on the CoMaps map!</string>
@@ -201,18 +201,31 @@
     <string name="done">Done</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">OpenStreetMap data: %s</string>
+    <!-- Summary of the "About CoMaps" settings row -->
+    <string name="pref_about_summary">Report issues, get help, donate\nVersion: v%1$s</string>
     <!-- Title for tracks category in Favorites manager -->
     <string name="tracks_title">Tracks</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Length</string>
     <string name="share_my_location">Share My Location</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">General settings</string>
-    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_map_appearance">Map appearance</string>
+    <string name="prefs_group_map_appearance_summary">Map language, labels size, 2D/3D buildings</string>
+    <string name="prefs_group_interface">Interface</string>
+    <string name="prefs_group_interface_summary">Night mode, buttons, language</string>
+    <string name="prefs_group_data_management">Data management</string>
+    <string name="prefs_group_data_management_summary">Map storage, backup favorites</string>
     <string name="prefs_group_information">Information</string>
     <string name="prefs_group_route">Navigation</string>
+    <string name="prefs_group_route_summary">Units, voice instructions, routing options</string>
     <string name="pref_zoom_title">Zoom buttons</string>
     <string name="pref_zoom_summary">Display on the map</string>
+    <!-- Settings advanced group in settings screen -->
+    <string name="prefs_group_advanced">Advanced</string>
+    <string name="prefs_group_advanced_summary">Enable logging</string>
+    <string name="download_resources_custom_url_title">Custom Map Server</string>
+    <string name="download_resources_custom_url_message">Override the default map download server used for map downloads. Leave empty to use CoMaps default server.</string>
+    <string name="download_resources_custom_url_summary_none">Not set</string>
+    <string name="download_resources_custom_url_error_scheme">Please enter a URL starting with http:// or https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Night Mode</string>
     <!-- Generic «Off» string -->
@@ -451,6 +464,7 @@
     <string name="closed">Closed</string>
     <string name="opens_at">Opens at %s</string>
     <string name="closes_at">Closes at %s</string>
+    <string name="opens_tomorrow_at">Opens tomorrow at %s</string>
     <string name="opens_day_at">Opens on %1$s at %2$s</string>
     <string name="closes_day_at">Closes on %1$s at %2$s</string>
     <plurals name="minutes_short">
@@ -606,17 +620,19 @@
     <string name="accept">Accept</string>
     <!-- For the first routing -->
     <string name="decline">Decline</string>
-    <string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
+    <string name="mobile_data_dialog">Use mobile internet?</string>
     <string name="mobile_data_option_always">Use Always</string>
     <string name="mobile_data_option_today">Only Today</string>
     <string name="mobile_data_option_not_today">Do Not Use Today</string>
     <string name="mobile_data">Mobile Internet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
-    <string name="mobile_data_description">Mobile internet is required for map update notifications and uploading edits</string>
+    <string name="mobile_data_description">Mobile internet is required for map update notifications, uploading edits and linking to review websites</string>
     <string name="mobile_data_option_never">Never Use</string>
     <string name="mobile_data_option_ask">Always Ask</string>
     <string name="traffic_update_maps_text">To display traffic data, maps must be updated</string>
-    <string name="big_font">Increase size for map labels</string>
+    <string name="pref_font_size">Font size for map labels</string>
+    <string name="increase_font_size">Increase map label size</string>
+    <string name="decrease_font_size">Decrease map label size</string>
     <string name="traffic_update_app">Please update CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Traffic data is not available</string>
@@ -636,6 +652,7 @@
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Use search or tap on the map to add a destination point</string>
     <string name="planning_route_manage_route">Manage Route</string>
+    <string name="planning_route_preview">Preview</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Remove Stop</string>
     <string name="placepage_add_stop">Add Stop</string>
@@ -676,9 +693,11 @@
         <item quantity="other">%d tracks</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privacy</string>
+    <string name="prefs_group_privacy">Privacy</string>
+    <string name="prefs_group_privacy_summary">Search history</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="power_management">Power management</string>
+    <string name="prefs_group_power_summary">Screen timeout, mobile data</string>
     <string name="terms_of_use">Terms of use</string>
     <string name="button_layer_traffic">Traffic</string>
     <string name="subway">Subway</string>
@@ -704,8 +723,9 @@
     <string name="power_managment_setting_never">Never</string>
     <string name="power_managment_setting_auto">When battery is low</string>
     <string name="power_managment_setting_manual_max">Always</string>
+    <string name="bookmarks_text_placement_title">Show names of favorites on map</string>
     <string name="enable_logging_warning_message">Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.</string>
-    <string name="driving_options_title">Routing options</string>
+    <string name="routing_options_title">Routing options</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Avoid tolls</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -782,6 +802,7 @@
     <string name="fuel_places">Gas Stations</string>
     <string name="medicine">Medicine</string>
     <string name="search_in_the_list">Search in the list</string>
+    <string name="search_in_all_lists">Search in all lists</string>
     <string name="religious_places">Religious places</string>
     <string name="select_list">Select list</string>
     <string name="transit_not_found">Subway navigation in this region is not available yet</string>
@@ -993,13 +1014,6 @@
     <string name="offline_explanation_title">Offline Maps</string>
     <string name="offline_explanation_text">A map needs to be downloaded to view and navigate the area.\nDownload maps for areas you want to travel.</string>
     <string name="list_description_empty">Edit the list to add a description</string>
-    <!-- Settings: Advanced group -->
-    <string name="advanced">Advanced</string>
-    <!-- Custom Download URL -->
-    <string name="download_resources_custom_url_title">Custom Map Server</string>
-    <string name="download_resources_custom_url_message">Override the default map download server used for map downloads. Leave empty to use CoMaps default server.</string>
-    <string name="download_resources_custom_url_summary_none">Not set</string>
-    <string name="download_resources_custom_url_error_scheme">Please enter a URL starting with http:// or https://</string>
     <!-- string name different as needs to match iOS -->
     <string name="pref_alt_map_lang_handling">Alternative Map Languages</string>
     <string name="pref_alt_map_lang_handling_ignore_alternatives">Don\'t use alternatives</string>
@@ -1021,11 +1035,15 @@
     <string name="route_recalculating">Recalculating the route…</string>
     <string name="pref_openexternallinks_title">Automatically open third-party links</string>
     <string name="pref_openexternallinks_summary">Open third-party links in CoMaps by default</string>
-    <string name="pref_keyboard_typing_history_title">Keyboard incognito mode</string>
-    <string name="pref_keyboard_typing_history_summary">Request system keyboard to not record typing history</string>
     <string name="pref_aa_support_title">Android Auto</string>
     <string name="pref_aa_support_summary_yes">The app has been installed from Google Play, you can use it in your car.</string>
     <string name="pref_aa_support_summary_no">The app has not been installed from Google Play, you can\'t use it in your car. Press the setting to get more details on our FAQ.</string>
+    <string name="pref_enable_auto_reroute_title">Automatic rerouting</string>
+    <string name="pref_enable_auto_reroute_description">When enabled, a new route will automatically be created when you leave the planned route.</string>
+    <string name="recalculate_route">Recalculate</string>
+    <!-- Should be similar to TTS strings for being off the route eg. data/sound-strings/en.json/localize.json -->
+    <string name="off_route">You are off the route</string>
+
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
     <string name="capacity_disabled">Disabled parking spaces: %s</string>
@@ -1034,4 +1052,16 @@
     <string name="capacity_charging">Spaces with chargers: %s</string>
     <string name="capacity_charging_yes">Has spaces with chargers</string>
     <string name="capacity_charging_no">No spaces with chargers</string>
+    <!-- Permission descriptions -->
+    <string name="permission_read_navigation_label">Read CoMaps navigation data</string>
+    <string name="permission_read_navigation_description">read live navigation information such as upcoming turns or the name of the road you are on</string>
+    <!-- Reviews -->
+    <string name="place_reviews_title">Place Reviews</string>
+    <string name="place_reviews">%1$s Reviews</string>
+    <string name="rating_stars_description">stars: %.1f</string>
+    <string name="reviews_by_mangrove">Reviews from Mangrove</string>
+    <string name="add_review">Add a Review via %1$s</string>
+    <string name="add_review_url_resolution_failed">Place not found in the latest OpenStreetMap.</string>
+    <string name="add_review_url_resolution_failed_dev">Place not found in the DEV OpenStreetMap.</string>
+    <string name="internet_unavailable">No Internet connection</string>
 </resources>

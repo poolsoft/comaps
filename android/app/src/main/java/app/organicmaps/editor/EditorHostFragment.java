@@ -349,12 +349,12 @@ public class EditorHostFragment
   private void saveMapObjectEdits()
   {
     if (Editor.nativeSaveEditedFeature())
-      processEditedFeatures();
+      ensureOsmAuthorized();
     else
-      processNoFeatures();
+      warnSaveNotPossible();
   }
 
-  private void processNoFeatures()
+  private void warnSaveNotPossible()
   {
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(R.string.downloader_no_space_title)
@@ -362,7 +362,7 @@ public class EditorHostFragment
         .show();
   }
 
-  public void processEditedFeatures()
+  public void ensureOsmAuthorized()
   {
     if (OsmOAuth.isAuthorized())
     {

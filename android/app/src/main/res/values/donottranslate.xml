@@ -30,13 +30,14 @@
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
   <string name="pref_osm_profile" translatable="false">Osm profile</string>
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
-  <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
+  <string name="pref_font_scale_factor" translatable="false">FontScaleFactor</string>
   <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
   <string name="pref_settings_general" translatable="false">GeneralSettings</string>
   <string name="pref_navigation" translatable="false">Navigation</string>
   <string name="pref_information" translatable="false">Information</string>
   <string name="pref_transliteration" translatable="false">Transliteration</string>
   <string name="pref_power_management" translatable="false">PowerManagment</string>
+  <string name="pref_bookmarks_text_placement" translatable="false">BookmarksTextPlacement</string>
   <string name="pref_keep_screen_on" translatable="false">KeepScreenOn</string>
   <string name="pref_show_on_lock_screen" translatable="false">ShowOnLockScreen</string>
   <string name="pref_long_tap_fullscreen" translatable="false">LongTapFullscreenEnabled</string>
@@ -47,7 +48,6 @@
   <string name="pref_left_button" translatable="false">LeftButton</string>
   <string name="pref_power" translatable="false">pref_power</string>
   <string name="pref_custom_map_download_url" translatable="false">CustomMapDownloadUrl</string>
-  <string name="pref_advanced" translatable="false">pref_advanced</string>
   <string name="pref_speedlimit" translatable="false">pref_speedlimit</string>
   <string name="pref_open_external_links" translatable="false">pref_external_links</string>
   <string name="pref_nav_menu_final_destination" translatable="false">pref_nav_menu_final_destination</string>
@@ -65,7 +65,6 @@
 
   <string name="pref_privacy" translatable="false">pref_privacy</string>
   <string name="pref_search_history" translatable="false">pref_search_history</string>
-  <string name="pref_keyboard_typing_history" translatable="false">pref_keyboard_typing_history</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>

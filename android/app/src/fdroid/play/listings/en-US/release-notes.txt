@@ -1,10 +1,11 @@
-• OpenStreetMap data as of June 3 and further weekly updates via "Check for updates" button
-• Sort favorites lists manually or by name
-• Disabled long tap interface hiding, re-enable in the settings
-• A contact address picker button in the search screen
-• Wikipedia articles: dark mode and RTL support, better formatting
-• Accessibility: improved TalkBack support
-• OSM Editor: recent categories history
-• Android Auto: show app's legibility in the settings
+• Display favorite names on the map (opt out in settings)
+• Display Mangrove user reviews in POI info page
+• Custom map font size setting
+• Allow TalkBack users to read the map
+• Ability to start track recording after navigation start
+• Show "Opens tomorrow at ..." on POI info page
+• Fixed ability to search in any user-set map language
+• Roadshields in Kyrgyzstan, Uzbekistan, Tajikistan, Kazakhstan and Georgia
+• Show bus stops earlier in subway layer
 
 More details on comaps.app/latest

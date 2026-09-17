@@ -14,11 +14,16 @@ import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @androidx.annotation.UiThread
 public class RoutingController
 {
   private static final String TAG = RoutingController.class.getSimpleName();
+
+  // dist > POSITIVE_INFINITY is false for every finite distance
+  private static final double NO_JUNCTION_INTERPOLATION = Double.POSITIVE_INFINITY;
 
   private enum State
   {
@@ -57,6 +62,7 @@ public class RoutingController
      * @param progress progress to be displayed.
      * */
     default void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, Router router) {}
+    default void refreshNavigationController() {}
     default void onStartRouteBuilding() {}
   }
 
@@ -81,6 +87,12 @@ public class RoutingController
   @Nullable
   private TransitRouteInfo mCachedTransitRouteInfo;
 
+  @NonNull
+  private volatile RouteGeometry mRouteGeometry = RouteGeometry.EMPTY;
+
+  @NonNull
+  private final List<RouteChangedListener> mRouteChangedListeners = new CopyOnWriteArrayList<>();
+
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
 
@@ -94,6 +106,11 @@ public class RoutingController
       mLastResultCode = resultCode;
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
+
+      // Refresh navigation controller to update intermediate stops
+      // of progress bar in navigation panel.
+      if (mContainer != null)
+        mContainer.refreshNavigationController();
 
       if (mLastResultCode == ResultCodes.NO_ERROR || resultCode == ResultCodes.NEED_MORE_MAPS)
       {
@@ -115,10 +132,46 @@ public class RoutingController
     mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
     if (mLastRouterType == Router.Transit)
       mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
+    updateRouteGeometry();
     setBuildState(BuildState.BUILT);
     mLastBuildProgress = 100;
     if (mContainer != null)
       mContainer.onBuiltRoute();
+  }
+
+  private void updateRouteGeometry()
+  {
+    mRouteGeometry = RouteGeometry.from(mRouteGeometry.mRevision + 1,
+                                        Framework.nativeGetRouteJunctionPoints(NO_JUNCTION_INTERPOLATION),
+                                        Framework.nativeGetRoutePoints());
+    notifyRouteChanged();
+  }
+
+  private void notifyRouteChanged()
+  {
+    for (final RouteChangedListener listener : mRouteChangedListeners)
+      listener.onRouteChanged();
+  }
+
+  @NonNull
+  public RouteGeometry getRouteGeometry()
+  {
+    return mRouteGeometry;
+  }
+
+  public void addRouteChangedListener(@NonNull RouteChangedListener listener)
+  {
+    mRouteChangedListeners.add(listener);
+  }
+
+  public void removeRouteChangedListener(@NonNull RouteChangedListener listener)
+  {
+    mRouteChangedListeners.remove(listener);
+  }
+
+  public interface RouteChangedListener
+  {
+    void onRouteChanged();
   }
 
   private final RoutingProgressListener mRoutingProgressListener = progress ->
@@ -176,7 +229,7 @@ public class RoutingController
 
   private boolean isDrivingOptionsBuildError()
   {
-    return mLastResultCode != ResultCodes.NEED_MORE_MAPS && RoutingOptions.hasAnyOptions() && !isRulerRouterType();
+    return mLastResultCode != ResultCodes.NEED_MORE_MAPS && !isRulerRouterType() && RoutingOptions.hasAnyOptions(mLastRouterType);
   }
 
   private void setState(State newState)
@@ -447,6 +500,9 @@ public class RoutingController
     applyRemovingIntermediatePointsTransaction();
     Framework.nativeDeleteSavedRoutePoints();
     Framework.nativeCloseRouting();
+
+    mRouteGeometry = RouteGeometry.empty(mRouteGeometry.mRevision + 1);
+    notifyRouteChanged();
   }
 
   public boolean cancel()
@@ -863,5 +919,10 @@ public class RoutingController
     }
 
     mWaitingPoiPickType = null;
+  }
+
+  public void updateCachedRoutingInfo(@Nullable RoutingInfo info)
+  {
+    mCachedRoutingInfo = info;
   }
 }

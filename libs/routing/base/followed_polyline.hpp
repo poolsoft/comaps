@@ -127,6 +127,9 @@ public:
 
   bool IsFakeSegment(size_t index) const;
 
+  /// Extract polyline from m_current.m_pt up to maxDistanceM meters ahead
+  std::vector<m2::PointD> ExtractSubPolyline(double maxDistanceM) const;
+
 private:
   /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
   /// If there's a good projection of center of |posRect| to two closest segments of |m_poly|

@@ -25,6 +25,12 @@ set(SRC
   app/organicmaps/sdk/search/DisplayedCategories.cpp
   app/organicmaps/sdk/search/SearchEngine.cpp
   app/organicmaps/sdk/search/SearchRecents.cpp
+  app/organicmaps/sdk/routing/roadshield/RoadShield.cpp
+  app/organicmaps/sdk/routing/roadshield/RoadShield.hpp
+  app/organicmaps/sdk/routing/roadshield/RoadShieldInfo.cpp
+  app/organicmaps/sdk/routing/roadshield/RoadShieldInfo.hpp
+  app/organicmaps/sdk/routing/roadshield/RoadShieldType.cpp
+  app/organicmaps/sdk/routing/roadshield/RoadShieldType.hpp
   app/organicmaps/sdk/routing/JunctionInfo.hpp
   app/organicmaps/sdk/routing/LaneInfo.cpp
   app/organicmaps/sdk/routing/LaneInfo.hpp
@@ -32,12 +38,15 @@ set(SRC
   app/organicmaps/sdk/routing/RouteMarkType.hpp
   app/organicmaps/sdk/routing/RoutePointInfo.hpp
   app/organicmaps/sdk/routing/RouteRecommendationType.hpp
+  app/organicmaps/sdk/routing/RouteStepInfo.cpp
+  app/organicmaps/sdk/routing/RouteStepInfo.hpp
   app/organicmaps/sdk/routing/RoutingInfo.hpp
   app/organicmaps/sdk/routing/RoutingOptions.cpp
   app/organicmaps/sdk/routing/TransitRouteInfo.hpp
   app/organicmaps/sdk/routing/TransitStepInfo.hpp
   app/organicmaps/sdk/ChoosePositionMode.cpp
-  app/organicmaps/sdk/MapStyle.cpp
+  app/organicmaps/sdk/MapMode.cpp
+  app/organicmaps/sdk/MapAppearance.cpp
   app/organicmaps/sdk/OrganicMaps.cpp
   app/organicmaps/sdk/Router.cpp
   app/organicmaps/sdk/core/jni_helper.cpp
@@ -52,6 +61,7 @@ set(SRC
   app/organicmaps/sdk/editor/Editor.cpp
   app/organicmaps/sdk/editor/OpeningHours.cpp
   app/organicmaps/sdk/editor/OsmOAuth.cpp
+  app/organicmaps/sdk/editor/ReviewEditor.cpp
   app/organicmaps/sdk/Framework.cpp
   app/organicmaps/sdk/isolines/IsolinesManager.cpp
   app/organicmaps/sdk/LocationState.cpp
@@ -138,3 +148,8 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 #target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=gold")
+if(ENABLE_ASAN AND ANDROID_ABI STREQUAL "arm64-v8a")
+  target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=hwaddress -fno-omit-frame-pointer)
+  target_link_options(${PROJECT_NAME} PUBLIC -fsanitize=hwaddress)
+endif()
+

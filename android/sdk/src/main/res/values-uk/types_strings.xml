@@ -381,7 +381,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Тунель</string>
     <string name="type.highway.bus_stop">Зупинка</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Дорога, що будується</string>
+    <string name="type.highway.construction.motorway">Дорога, що будується</string>
+    <string name="type.highway.construction.motorway_link">Дорога, що будується</string>
+    <string name="type.highway.construction.trunk">Дорога, що будується</string>
+    <string name="type.highway.construction.trunk_link">Дорога, що будується</string>
+    <string name="type.highway.construction.primary">Дорога, що будується</string>
+    <string name="type.highway.construction.primary_link">Дорога, що будується</string>
+    <string name="type.highway.construction.secondary">Дорога, що будується</string>
+    <string name="type.highway.construction.secondary_link">Дорога, що будується</string>
+    <string name="type.highway.construction.tertiary">Дорога, що будується</string>
+    <string name="type.highway.construction.tertiary_link">Дорога, що будується</string>
+    <string name="type.highway.construction.residential">Дорога, що будується</string>
+    <string name="type.highway.construction.unclassified">Дорога, що будується</string>
+    <string name="type.highway.construction.service">Дорога, що будується</string>
+    <string name="type.highway.construction.living_street">Дорога, що будується</string>
+    <string name="type.highway.construction.road">Дорога, що будується</string>
+    <string name="type.highway.construction.track">Дорога, що будується</string>
     <string name="type.highway.cycleway">Велодоріжка</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Міст</string>
@@ -1494,4 +1511,15 @@
     <string name="type.leisure.sports_centre.sport.boules">Спортивний центр</string>
     <string name="type.leisure.sports_centre.sport.four_square">Спортивний центр</string>
     <string name="type.leisure.sports_centre.sport.pickleball">Спортивний центр</string>
+    <string name="type.amenity.planetarium">Планетарій</string>
+    <string name="type.leisure.sports_centre.sport.swimming">Плавальний центр</string>
+    <string name="type.man_made.mast.communication">Щогла зв\'язку</string>
+    <string name="type.railway.disused.bridge">Занедбаний залізничний міст</string>
+    <string name="type.railway.disused.tunnel">Занедбаний залізничний тунель</string>
+    <string name="type.railway.miniature">Мініатюрна залізниця</string>
+    <string name="type.railway.miniature.bridge">Мініатюрний залізничний міст</string>
+    <string name="type.railway.miniature.tunnel">Мініатюрний залізничний тунель</string>
+    <string name="type.railway.turntable">Залізничний поворотний круг</string>
+    <string name="type.shop.beauty.nails">Салон манікюру</string>
+    <string name="type.shop.beauty.day_spa">Денний спа-центр</string>
 </resources>

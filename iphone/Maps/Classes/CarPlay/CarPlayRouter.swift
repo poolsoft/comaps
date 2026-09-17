@@ -10,12 +10,113 @@ protocol CarPlayRouterListener: AnyObject {
   func routeDidFinish(_ trip: CPTrip)
 }
 
+enum CarPlayManeuverSymbol {
+  static func image(named name: String,
+                    exitNumber: Int? = nil,
+                    displayScale: CGFloat) -> UIImage? {
+    guard let base = UIImage(named: name) else { return nil }
+
+    let black = render(base, tint: .black, exitNumber: exitNumber, displayScale: displayScale)
+    let white = render(base, tint: .white, exitNumber: exitNumber, displayScale: displayScale)
+
+    let asset = UIImageAsset()
+    asset.register(black, with: traits(for: .light, scale: displayScale))
+    asset.register(white, with: traits(for: .dark, scale: displayScale))
+    return asset.image(with: traits(for: .light, scale: displayScale))
+  }
+
+  static func resolvedVariant(of image: UIImage, style: UIUserInterfaceStyle) -> UIImage {
+    guard let asset = image.imageAsset else { return image }
+    return asset.image(with: traits(for: style, scale: image.scale))
+  }
+
+  private static func traits(for style: UIUserInterfaceStyle, scale: CGFloat) -> UITraitCollection {
+    return UITraitCollection(traitsFrom: [
+      UITraitCollection(userInterfaceStyle: style),
+      UITraitCollection(displayScale: scale),
+    ])
+  }
+
+  private static func render(_ base: UIImage,
+                             tint: UIColor,
+                             exitNumber: Int?,
+                             displayScale: CGFloat) -> UIImage {
+    let format = UIGraphicsImageRendererFormat()
+    format.scale = displayScale
+    format.opaque = false
+    let renderer = UIGraphicsImageRenderer(size: base.size, format: format)
+    let image = renderer.image { _ in
+      base.withRenderingMode(.alwaysTemplate)
+        .withTintColor(tint, renderingMode: .alwaysOriginal)
+        .draw(in: CGRect(origin: .zero, size: base.size))
+
+      // Render the exit number on the roundabout symbol, until we have a better main symbol
+      guard let exitNumber else { return }
+      let text = String(exitNumber) as NSString
+      let font = UIFont.systemFont(ofSize: base.size.height * 0.30, weight: .bold)
+      let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: tint]
+      let textSize = text.size(withAttributes: attributes)
+      // Centre on the cap height (not the line box) so the digit is optically centred.
+      let origin = CGPoint(x: (base.size.width - textSize.width) / 2,
+                           y: base.size.height / 2 - font.ascender + font.capHeight / 2)
+      text.draw(at: origin, withAttributes: attributes)
+    }
+    return image.withRenderingMode(.alwaysOriginal)
+  }
+}
+
+enum CarPlayLaneSymbol {
+  static func imageSet(for lanes: [LaneInfo], displayScale: CGFloat) -> CPImageSet? {
+    guard !lanes.isEmpty,
+      let lightContentImage = stripImage(for: lanes, tint: .white, displayScale: displayScale),
+      let darkContentImage = stripImage(for: lanes, tint: .black, displayScale: displayScale) else {
+      return nil
+    }
+    return CPImageSet(lightContentImage: lightContentImage,
+                      darkContentImage: darkContentImage)
+  }
+
+  /// Draws the upcoming turn's lanes as one horizontal strip, centered in a 120x18pt canvas (max per Apple).
+  /// The recommended lane(s) use `tint` at full opacity; others are dimmed, mirroring Android.
+  private static func stripImage(for lanes: [LaneInfo],
+                                 tint: UIColor,
+                                 displayScale: CGFloat) -> UIImage? {
+    guard !lanes.isEmpty else { return nil }
+    let maxWidth: CGFloat = 120
+    let height: CGFloat = 18
+    let count = CGFloat(lanes.count)
+    let cell = min(height, maxWidth / count)
+    let xOffset = (maxWidth - cell * count) / 2
+    let config = UIImage.SymbolConfiguration(pointSize: cell * 0.85, weight: .semibold)
+    let format = UIGraphicsImageRendererFormat()
+    format.scale = displayScale
+    format.opaque = false
+    let renderer = UIGraphicsImageRenderer(size: CGSize(width: maxWidth, height: height), format: format)
+    return renderer.image { _ in
+      for (i, lane) in lanes.enumerated() {
+        let recommended = LaneWay(rawValue: lane.recommendedWay)
+        let isActive = recommended != nil && recommended != LaneWay.none
+        let way = isActive ? recommended!
+          : (lane.laneWays.compactMap { LaneWay(rawValue: $0) }.first ?? .through)
+        let color = isActive ? tint : tint.withAlphaComponent(0.38)
+        guard let symbol = UIImage(systemName: way.symbolName, withConfiguration: config)?
+          .withTintColor(color, renderingMode: .alwaysOriginal) else { continue }
+        let cellRect = CGRect(x: xOffset + CGFloat(i) * cell, y: 0, width: cell, height: height)
+        symbol.draw(in: AVMakeRect(aspectRatio: symbol.size, insideRect: cellRect))
+      }
+    }
+  }
+}
+
 
 @objc(MWMCarPlayRouter)
 final class CarPlayRouter: NSObject {
   private let listenerContainer: ListenerContainer<CarPlayRouterListener>
+  private let displayScale: CGFloat
   private var routeSession: CPNavigationSession?
   private var initialSpeedCamSettings: SpeedCameraManagerMode
+  /// Typed `AnyObject?` until we target iOS 18
+  private var activeLaneGuidance: AnyObject?
   var currentTrip: CPTrip? {
     return routeSession?.trip
   }
@@ -24,8 +125,9 @@ final class CarPlayRouter: NSObject {
     return RoutingManager.routingManager.speedCameraMode
   }
 
-  override init() {
+  init(displayScale: CGFloat) {
     listenerContainer = ListenerContainer<CarPlayRouterListener>()
+    self.displayScale = displayScale
     initialSpeedCamSettings = RoutingManager.routingManager.speedCameraMode
     super.init()
   }
@@ -224,6 +326,7 @@ extension CarPlayRouter {
     LOG(.info, "Cancelling navigation session")
     routeSession?.cancelTrip()
     routeSession = nil
+    activeLaneGuidance = nil
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
 
@@ -237,13 +340,38 @@ extension CarPlayRouter {
     LOG(.info, "Finishing trip")
     routeSession?.finishTrip()
     routeSession = nil
+    activeLaneGuidance = nil
     completeRouteAndRemovePoints()
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
 
   func updateUpcomingManeuvers() {
     let maneuvers = createUpcomingManeuvers()
+    if #available(iOS 17.4, *) {
+      if let guidance = activeLaneGuidance as? CPLaneGuidance {
+        routeSession?.add([guidance])
+      }
+      routeSession?.add(maneuvers)
+    }
     routeSession?.upcomingManeuvers = maneuvers
+    if #available(iOS 17.4, *), let routeInfo = RoutingManager.routingManager.routeInfo {
+      routeSession?.maneuverState = maneuverState(forDistanceToTurn: routeInfo.distanceToTurn,
+                                                  units: routeInfo.turnUnits)
+      routeSession?.currentLaneGuidance = activeLaneGuidance as? CPLaneGuidance
+      let roadName = routeInfo.currentRoadName.trimmingCharacters(in: .whitespacesAndNewlines)
+      routeSession?.currentRoadNameVariants = roadName.isEmpty ? [] : [roadName]
+    }
+  }
+
+  @available(iOS 17.4, *)
+  private func maneuverState(forDistanceToTurn distance: Double, units: UnitLength) -> CPManeuverState {
+    let meters = Measurement(value: distance, unit: units).converted(to: .meters).value
+    switch meters {
+    case ..<30: return .execute
+    case ..<150: return .prepare
+    case ..<400: return .initial
+    default: return .continue
+    }
   }
 
   func updateEstimates() {
@@ -268,27 +396,51 @@ extension CarPlayRouter {
     var maneuvers = [CPManeuver]()
     let primaryManeuver = CPManeuver()
     primaryManeuver.userInfo = CPConstants.Maneuvers.primary
-    var variants = instructionVariants(for: routeInfo)
+    let formattedVariants = NavigationInstructionFormatter.carPlayInstructionVariants(
+      roadName: routeInfo.roadName,
+      roadRef: routeInfo.roadRef,
+      junctionRef: routeInfo.junctionRef,
+      destinationRef: routeInfo.destinationRef,
+      destination: routeInfo.destination,
+      isLeftHandTraffic: routeInfo.isLeftHandTraffic,
+      shields: routeInfo.roadShields)
+    var variants = formattedVariants.text
+    var attributedVariants = formattedVariants.attributed
     // On a roundabout, prefix each variant with the exit to take, e.g. "3rd exit, Main Street"
     // (or "3rd exit" alone when there's no road name).
     if routeInfo.roundExitNumber != 0 {
       let ordinalExitNumber = NumberFormatter.localizedString(from: NSNumber(value: routeInfo.roundExitNumber),
                                                               number: .ordinal)
       let exitNumber = String(format: L("carplay_roundabout_exit"), arguments: [ordinalExitNumber])
-      variants = variants.isEmpty ? [exitNumber] : variants.map { "\(exitNumber), \($0)" }
+      let prefixed = NavigationInstructionFormatter.prefixCarPlayInstructionVariants(
+        .init(text: variants, attributed: attributedVariants), with: exitNumber)
+      variants = prefixed.text
+      attributedVariants = prefixed.attributed
     }
     // CarPlay requires at least one variant; use "" when the turn has no road name.
     primaryManeuver.instructionVariants = variants.isEmpty ? [""] : variants
+    if !attributedVariants.isEmpty {
+      primaryManeuver.attributedInstructionVariants = attributedVariants
+    }
     if let imageName = routeInfo.turnImageName,
-      let symbol = UIImage(named: imageName) {
+      let symbol = CarPlayManeuverSymbol.image(
+        named: imageName,
+        exitNumber: routeInfo.roundExitNumber == 0 ? nil : routeInfo.roundExitNumber,
+        displayScale: displayScale) {
       primaryManeuver.symbolImage = symbol
     }
     if let estimates = createEstimates(routeInfo) {
       primaryManeuver.initialTravelEstimates = estimates
     }
     // Lane guidance for the instrument cluster / any surface that consumes it (not the app screen).
-    if #available(iOS 18.0, *), !routeInfo.lanes.isEmpty {
-      primaryManeuver.linkedLaneGuidance = laneGuidance(for: routeInfo)
+    if #available(iOS 18.0, *) {
+      if routeInfo.lanes.isEmpty {
+        activeLaneGuidance = nil
+      } else {
+        let guidance = laneGuidance(for: routeInfo)
+        activeLaneGuidance = guidance
+        primaryManeuver.linkedLaneGuidance = guidance
+      }
     }
     // Structured metadata for the instrument cluster / HUD on supported vehicles.
     if #available(iOS 17.4, *) {
@@ -303,7 +455,8 @@ extension CarPlayRouter {
     maneuvers.append(primaryManeuver)
     // Lanes must always be the second maneuver supplied to CarPlay, per Developer guidance 2026
     // https://developer.apple.com/download/files/CarPlay-Developer-Guide.pdf
-    if !routeInfo.lanes.isEmpty, let laneImages = laneImageSet(for: routeInfo.lanes) {
+    if !routeInfo.lanes.isEmpty,
+      let laneImages = CarPlayLaneSymbol.imageSet(for: routeInfo.lanes, displayScale: displayScale) {
       let laneManeuver = CPManeuver()
       laneManeuver.userInfo = CPConstants.Maneuvers.lanes
       laneManeuver.instructionVariants = []
@@ -312,7 +465,7 @@ extension CarPlayRouter {
     }
     // Always provide the next upcoming turn, as you should provide as many meaneuvers as possible
     if let imageName = routeInfo.nextTurnImageName,
-      let symbol = UIImage(named: imageName) {
+      let symbol = CarPlayManeuverSymbol.image(named: imageName, displayScale: displayScale) {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
@@ -322,95 +475,13 @@ extension CarPlayRouter {
     return maneuvers
   }
 
-  /// Instruction strings for the upcoming maneuver, ordered longest-first so CarPlay can pick the
-  /// one that best fits the available width (per Apple's guidance the array must be descending in
-  /// length). Built from the structured, shield-resolved road components (roadName, roadRef,
-  /// junctionRef, ...)
+  /// Instruction strings for the upcoming maneuver
   private func instructionVariants(for info: RouteInfo) -> [String] {
-    func clean(_ s: String) -> String { s.trimmingCharacters(in: .whitespacesAndNewlines) }
-    /// Joins a leading label and a trailing destination with an arrow, tolerating empty sides.
-    func compose(_ lead: String, _ tail: String) -> String {
-      if lead.isEmpty { return tail }
-      if tail.isEmpty { return lead }
-      return "\(lead) → \(tail)"
-    }
-
-    let name = clean(info.roadName)
-    let ref = clean(info.roadRef)
-    let junctionRef = clean(info.junctionRef)
-    let destinationRef = clean(info.destinationRef)
-    let destination = clean(info.destination)
-
-    var candidates: [String]
-    let hasExitInfo = !junctionRef.isEmpty || !destinationRef.isEmpty || !destination.isEmpty
-    if info.isLink || hasExitInfo {
-      let exitLabel = junctionRef.isEmpty ? "" : String(format: L("carplay_highway_exit"), junctionRef)
-      // "Exit 6A: US 101 South"
-      let lead = [exitLabel, destinationRef].filter { !$0.isEmpty }.joined(separator: ": ")
-      // Destinations are "; "-separated; the first one is the primary place.
-      let firstDestination = clean(String(destination.split(separator: ";", maxSplits: 1).first ?? ""))
-      // Switch out ";" with a nicer separator.
-      let destinationList = destination.split(separator: ";").map { clean(String($0)) }.filter { !$0.isEmpty }.joined(separator: " / ")
-      candidates = [
-        compose(lead, destinationList),
-        firstDestination == destination ? "" : compose(lead, firstDestination),
-        lead,
-        exitLabel,
-        // A link with no exit data at all (no junction/destination/ref) would otherwise produce
-        // nothing here, so fall back to its plain road name/ref.
-        [ref, name].filter { !$0.isEmpty }.joined(separator: " "),
-        name,
-      ]
-    } else {
-      candidates = [
-        [ref, name].filter { !$0.isEmpty }.joined(separator: " "),
-        name,
-        ref,
-      ]
-    }
-
-    // Drop empties, dedupe preserving order, then enforce descending length.
-    var seen = Set<String>()
-    return candidates
-      .map(clean)
-      .filter { !$0.isEmpty && seen.insert($0).inserted }
-      .sorted { $0.count > $1.count }
-  }
-
-  /// Lane strip for the symbol-only second maneuver, as a `CPImageSet`.
-  /// The guidance card is a fixed dark green (`guidanceBackgroundColor`) in both CarPlay light and
-  /// dark modes, so white glyphs are used for both image variants to match the white card text.
-  private func laneImageSet(for lanes: [LaneInfo]) -> CPImageSet? {
-    guard !lanes.isEmpty, let image = laneStripImage(for: lanes, tint: .white) else {
-      return nil
-    }
-    return CPImageSet(lightContentImage: image, darkContentImage: image)
-  }
-
-  /// Draws the upcoming turn's lanes as one horizontal strip, centered in a 120x18pt canvas (max per Apple).
-  /// The recommended lane(s) use `tint` at full opacity; others are dimmed, mirroring Android.
-  private func laneStripImage(for lanes: [LaneInfo], tint: UIColor) -> UIImage? {
-    guard !lanes.isEmpty else { return nil }
-    let maxWidth: CGFloat = 120
-    let height: CGFloat = 18
-    let count = CGFloat(lanes.count)
-    let cell = min(height, maxWidth / count)
-    let xOffset = (maxWidth - cell * count) / 2
-    let config = UIImage.SymbolConfiguration(pointSize: cell * 0.85, weight: .semibold)
-    let renderer = UIGraphicsImageRenderer(size: CGSize(width: maxWidth, height: height))
-    return renderer.image { _ in
-      for (i, lane) in lanes.enumerated() {
-        let recommended = LaneWay(rawValue: lane.recommendedWay)
-        let isActive = recommended != nil && recommended != LaneWay.none
-        let way = isActive ? recommended!
-          : (lane.laneWays.compactMap { LaneWay(rawValue: $0) }.first ?? .through)
-        let color = isActive ? tint : tint.withAlphaComponent(0.38)
-        guard let symbol = UIImage(systemName: way.symbolName, withConfiguration: config)?
-          .withTintColor(color, renderingMode: .alwaysOriginal) else { continue }
-        let cellRect = CGRect(x: xOffset + CGFloat(i) * cell, y: 0, width: cell, height: height)
-        symbol.draw(in: AVMakeRect(aspectRatio: symbol.size, insideRect: cellRect))
-      }
-    }
+    return NavigationInstructionFormatter.instructionVariants(roadName: info.roadName,
+                                                              roadRef: info.roadRef,
+                                                              junctionRef: info.junctionRef,
+                                                              destinationRef: info.destinationRef,
+                                                              destination: info.destination)
   }
 
   @available(iOS 18.0, *)

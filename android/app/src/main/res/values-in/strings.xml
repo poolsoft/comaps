@@ -183,6 +183,11 @@
     <string name="prefs_group_route">Navigasi</string>
     <string name="pref_zoom_title">Tombol zoom</string>
     <string name="pref_zoom_summary">Tampilkan di peta</string>
+    <string name="prefs_group_advanced">Lanjutan</string>
+    <string name="download_resources_custom_url_title">Server Peta Kustom</string>
+    <string name="download_resources_custom_url_message">Ganti server unduhan peta default yang digunakan. Biarkan kosong untuk menggunakan server default CoMaps.</string>
+    <string name="download_resources_custom_url_summary_none">Tidak diatur</string>
+    <string name="download_resources_custom_url_error_scheme">Silakan masukkan URL yang dimulai dengan http:// atau https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Mode Malam</string>
     <!-- Generic «Off» string -->
@@ -506,7 +511,7 @@
     <string name="mobile_data_option_never">Jangan Pernah Gunakan</string>
     <string name="mobile_data_option_ask">Selalu Tanya</string>
     <string name="traffic_update_maps_text">Untuk menampilkan data lalu lintas, peta harus diperbarui</string>
-    <string name="big_font">Tingkatkan ukuran label peta</string>
+    <string name="increase_font_size">Tingkatkan ukuran label peta</string>
     <string name="traffic_update_app">Silakan perbarui CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Data lalu lintas tidak tersedia</string>
@@ -559,7 +564,7 @@
         <item quantity="other">%d trek</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privasi</string>
+    <string name="prefs_group_privacy">Privasi</string>
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="terms_of_use">Ketentuan penggunaan</string>
     <string name="button_layer_traffic">Lalu Lintas</string>
@@ -587,7 +592,7 @@
     <string name="power_managment_setting_auto">Saat baterai lemah</string>
     <string name="power_managment_setting_manual_max">Selalu</string>
     <string name="enable_logging_warning_message">Aktifkan opsi ini untuk sementara untuk merekam dan mengirimkan log diagnostik terperinci tentang masalah Anda secara manual kepada kami menggunakan \"Laporkan bug\" di dialog Bantuan. Log mungkin menyertakan info lokasi.</string>
-    <string name="driving_options_title">Opsi rute</string>
+    <string name="routing_options_title">Opsi rute</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Hindari jalan tol</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -774,7 +779,6 @@
     <string name="about_headline">Proyek terbuka yang didukung oleh komunitas</string>
     <string name="maps_storage_free_size">%1$s bebas dari %2$s</string>
     <string name="move_maps_error">Kesalahan saat memindahkan file peta</string>
-    <string name="prefs_group_general">Pengaturan umum</string>
     <string name="prefs_group_information">Informasi</string>
     <string name="menu">Menu</string>
     <string name="mb_downloaded">%1$d MB / %2$d MB</string>
@@ -896,11 +900,6 @@
     <string name="error_value_must_be_positive">Nilai harus positif</string>
     <string name="error_invalid_number">Nomor tidak valid</string>
     <string name="list_description_empty">Edit daftar untuk menambah deskripsi</string>
-    <string name="advanced">Lanjutan</string>
-    <string name="download_resources_custom_url_title">Server Peta Kustom</string>
-    <string name="download_resources_custom_url_message">Ganti server unduhan peta default yang digunakan. Biarkan kosong untuk menggunakan server default CoMaps.</string>
-    <string name="download_resources_custom_url_summary_none">Tidak diatur</string>
-    <string name="download_resources_custom_url_error_scheme">Silakan masukkan URL yang dimulai dengan http:// atau https://</string>
     <string name="pref_alt_map_lang_handling">Bahasa Peta Alternatif</string>
     <string name="pref_alt_map_lang_handling_ignore_alternatives">Jangan gunakan alternatif</string>
     <string name="pref_alt_map_lang_handling_system_order">Gunakan sesuai urutan sistem</string>

@@ -181,17 +181,18 @@
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">„OpenStreetMap“ dati: %s</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Pēdojumi</string>
+    <string name="tracks_title">Ceļi</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Garums</string>
     <string name="share_my_location">Kopīgot manu atrašanās vietu</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Vispārējie iestatījumi</string>
     <!-- Settings information group in settings screen -->
-    <string name="prefs_group_information">Informācija par lietotni</string>
+    <string name="prefs_group_information">Informācija</string>
     <string name="prefs_group_route">Navigācija</string>
     <string name="pref_zoom_title">Tālummaiņas pogas</string>
     <string name="pref_zoom_summary">Rādīt kartē</string>
+    <string name="prefs_group_advanced">Iestatījumi: izvērsta kopa</string>
+    <string name="download_resources_custom_url_summary_none">Nav iestatīts</string>
+    <string name="download_resources_custom_url_error_scheme">Lūgums ievadīt URL, kas sākas ar http:// vai https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Tumšais motīvs</string>
     <!-- Generic «Off» string -->
@@ -252,9 +253,9 @@
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
     <string name="enable_long_tap_fullscreen_description">Vēlreiz piespiediet un paturiet uz kartes, lai redzētu saskarni</string>
     <!-- Update all button text -->
-    <string name="downloader_update_all_button">Atjaunināt visus</string>
+    <string name="downloader_update_all_button">Atjaunināt visas</string>
     <!-- Cancel all button text -->
-    <string name="downloader_cancel_all">Atcelt visus</string>
+    <string name="downloader_cancel_all">Atcelt visas</string>
     <!-- Downloaded maps list header -->
     <string name="downloader_downloaded_subtitle">Lejupielādētās</string>
     <!-- Country queued for download -->
@@ -527,7 +528,7 @@
     <string name="mobile_data_option_never">Nekad neizmantot</string>
     <string name="mobile_data_option_ask">Jautāt vienmēr</string>
     <string name="traffic_update_maps_text">Lai attēlotu satiksmes datus, ir jāatjaunina kartes</string>
-    <string name="big_font">Palielināt fonta lielumu kartē</string>
+    <string name="increase_font_size">Palielināt fonta lielumu kartē</string>
     <string name="traffic_update_app">Atjauniniet „CoMaps“</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Satiksmes dati nav pieejami</string>
@@ -586,8 +587,8 @@
         <item quantity="other">%d pēdojumi</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privātums</string>
-    <string name="privacy_policy">Privātuma politika</string>
+    <string name="prefs_group_privacy">Datu aizsardzība</string>
+    <string name="privacy_policy">Datu aizsardzības politika</string>
     <string name="terms_of_use">Izmantošanas nosacījumi</string>
     <string name="button_layer_traffic">Satiksme</string>
     <string name="subway">Metro</string>
@@ -614,7 +615,7 @@
     <string name="power_managment_setting_auto">Kad ir zems uzlādes līmenis</string>
     <string name="power_managment_setting_manual_max">Vienmēr</string>
     <string name="enable_logging_warning_message">Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.</string>
-    <string name="driving_options_title">Maršruta opcijas</string>
+    <string name="routing_options_title">Maršruta iespējas</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Izvairīties no maksas ceļiem</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -757,9 +758,9 @@
     <string name="pref_tts_no_system_tts">Runas atveidošanas iestatījumi netika atrasti. Vai ierīce tos atbalsta?</string>
     <string name="drive_through">Caurbrauktuve</string>
     <string name="clear_the_search">Notīrīt meklēšanu</string>
-    <string name="zoom_in">Tuvināt</string>
+    <string name="zoom_in">Pietuvināt</string>
     <!-- Accessibility text for the zoom-out button on the map -->
-    <string name="zoom_out">Tālināt</string>
+    <string name="zoom_out">Attālināt</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
     <string name="website_menu">Saite uz ēdienkarti</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
@@ -780,11 +781,11 @@
     <string name="nav_auto">Automātisks navigācijas laikā</string>
     <string name="start_track_recording">Ierakstīt pēdojumu</string>
     <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
-    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
+    <string name="stop_without_saving">Pārtraukt bez saglabāšanas</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="translated_om_site_url">https://comaps.app/</string>
-    <string name="continue_recording">Turpināt ierakstīt</string>
+    <string name="continue_recording">Turpināt ierakstīšanu</string>
     <string name="track_recording_alert_title">Pievienot izlasei?</string>
     <string name="editor_other_info">Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)</string>
     <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav nekā saglabājama</string>
@@ -843,15 +844,13 @@
     <string name="navigation_start_tts_disabled_message">Balss norādes atspējotas: nav pieejams teksta pārveidošanas runā dzinējs</string>
     <string name="prefs_speed_cameras_information">Brīdinājumi par ātruma noteikšanas kamerā ir atspējoti valstīs, kurās šādus brīdinājumus aizliedz vietējais likums.</string>
     <string name="navigation_start_tts_message">"Uzsāk navigāciju, balss norāžu valoda: "</string>
-    <string name="download_resources_custom_url_summary_none">Nav iestatīts</string>
-    <string name="download_resources_custom_url_error_scheme">Lūgums ievadīt URL, kas sākas ar http:// vai https://</string>
-    <string name="advanced">Iestatījumi: izvērsta kopa</string>
     <plurals name="minutes_short">
         <item quantity="zero">%d min.</item>
         <item quantity="one">%d min.</item>
         <item quantity="other">%d min.</item>
     </plurals>
     <string name="pref_maplanguage_local">Vietējā valoda</string>
+    <string name="opens_tomorrow_at">Atvērsies rīt %s</string>
     <string name="opens_day_at">Atvērsies %1$s %2$s</string>
     <string name="closes_at">Tiks slēgts %s</string>
     <string name="opens_at">Atvērsies %s</string>
@@ -911,4 +910,31 @@
     <string name="charge_socket_type1_combo">1. veida apvienojums</string>
     <string name="backup_interval_every_week">Ik nedēļu</string>
     <string name="pref_alt_map_lang_handling_local_only">Priekšroku dot un izmantot tikai tur, kur dzimtā</string>
+    <string name="capacity_disabled">Invalīdu stāvvietas: %s</string>
+    <string name="capacity_disabled_yes">Ir atsevišķa invalīdu stāvvieta</string>
+    <string name="capacity_disabled_no">Nav atsevišķu invalīdu vietu</string>
+    <string name="capacity_charging">Vietas ar lādētājiem: %s</string>
+    <string name="capacity_charging_yes">Ir vietas ar lādētājiem</string>
+    <string name="capacity_charging_no">Nav vietu ar lādētājiem</string>
+    <string name="prefs_group_interface">Saskarne</string>
+    <string name="prefs_group_advanced_summary">Iespējot žurnalēšanu</string>
+    <string name="recalculate_route">Pārrēķināt</string>
+    <string name="prefs_group_data_management">Datņu pārvaldība</string>
+    <string name="prefs_group_map_appearance">Karšu izskats</string>
+    <string name="downloader_check_updates_error">Kļūda atjauninājumu pārbaudes laikā</string>
+    <string name="long_tap_disabled_toast">Lai paslēptu saskarni, iestatījumos jāiespējo ilga piespiešana</string>
+    <string name="prefs_group_route_summary">Mērvienības, balss norādes, maršrutu iestatījumi</string>
+    <string name="mb_downloaded">%1$d MB / %2$d MB</string>
+    <string name="prefs_group_privacy_summary">Meklējumu vēsture</string>
+    <string name="population">Iedzīvotāju skaits: %s</string>
+    <string name="by_recently_used">Pēc nesen izmantotā</string>
+    <string name="planning_route_preview">Priekšskatījums</string>
+    <string name="pref_about_summary">Ziņot par nepilnībām, iegūt palīdzību, ziedot\nVersija: v%1$s</string>
+    <string name="prefs_group_map_appearance_summary">Kartes valoda, iezīmju lielums, 2D/3D ēkas</string>
+    <string name="change_app_locale">Lietotnes valoda</string>
+    <string name="pref_left_button_title">Kreisās pogas iestatījums</string>
+    <string name="by_custom">Pēc pielāgotas secības</string>
+    <string name="editor_level">Stāvs (0 ir stāvs zemes līmenī)</string>
+    <string name="download_resources_custom_url_title">Pielāgots karšu serveris</string>
+    <string name="prefs_group_data_management_summary">Karšu krātuve, izlases rezerves kopēšana</string>
 </resources>

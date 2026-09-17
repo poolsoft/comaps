@@ -1936,6 +1936,76 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ChargingStation)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Toilets)
+{
+  {
+    // A toilet with restricted access keeps both the main type and the access subtype.
+    Tags const tags = {
+        {"amenity", "toilets"},
+        {"access", "private"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets", "private"})), (params));
+  }
+
+  {
+    // access=no is treated the same as access=private.
+    Tags const tags = {
+        {"amenity", "toilets"},
+        {"access", "no"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets", "private"})), (params));
+  }
+
+  {
+    Tags const tags = {
+        {"amenity", "toilets"},
+        {"access", "customers"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets", "customers"})), (params));
+  }
+
+  {
+    // The common toilets:access=customers mistagging maps to the customers subtype too.
+    Tags const tags = {
+        {"amenity", "toilets"},
+        {"toilets:access", "customers"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets", "customers"})), (params));
+  }
+
+  {
+    // A public toilet keeps just the main type.
+    Tags const tags = {
+        {"amenity", "toilets"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "toilets"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_RailwayRail)
 {
   using Type = std::vector<std::string>;
@@ -3112,15 +3182,15 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_MultipleComplexTypesSmoke)
   using Type = std::vector<std::string>;
   std::vector<std::pair<std::vector<Type>, Tags>> const complexTypes = {
       {{{"amenity", "parking"}, {"fee", "no"}}, {{"amenity", "parking"}, {"fee", "no"}}},
-      {{{"amenity", "parking", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"fee", "any_value"}}},
+      {{{"amenity", "parking", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"fee", "yes"}}},
       {{{"amenity", "parking", "lane", "fee"}, {"fee", "yes"}},
-       {{"amenity", "parking"}, {"parking", "lane"}, {"fee", "any_value"}}},
+       {{"amenity", "parking"}, {"parking", "lane"}, {"fee", "yes"}}},
       {{{"amenity", "parking", "multi-storey", "fee"}, {"fee", "yes"}},
-       {{"amenity", "parking"}, {"parking", "multi-storey"}, {"fee", "any_value"}}},
+       {{"amenity", "parking"}, {"parking", "multi-storey"}, {"fee", "yes"}}},
       {{{"amenity", "parking", "street_side", "fee"}, {"fee", "yes"}},
-       {{"amenity", "parking"}, {"parking", "street_side"}, {"fee", "any_value"}}},
+       {{"amenity", "parking"}, {"parking", "street_side"}, {"fee", "yes"}}},
       {{{"amenity", "parking", "underground", "fee"}, {"fee", "yes"}},
-       {{"amenity", "parking"}, {"parking", "underground"}, {"fee", "any_value"}}},
+       {{"amenity", "parking"}, {"parking", "underground"}, {"fee", "yes"}}},
   };
 
   for (auto const & type : complexTypes)

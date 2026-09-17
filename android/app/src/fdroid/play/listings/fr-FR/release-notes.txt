@@ -1,7 +1,11 @@
-• Donnnées OpenStreetMap du 3 Juin et mise à jour hebdomadaire des cartes via le bouton "Vérifier les mises à jour"
-• Tri des listes de favoris manuellement ou par nom
-• Désactivation de l'appui long pour masquer l'interface, ré-activable dans les réglages
-• Sélecteur d'adresse parmi les contacts du téléphone dans l'écran de recherche
-• Articles Wikipedia : mode sombre et écriture RTL
+• Affiche les noms des favoris sur la carte
+• Affiche les avis sur les lieux
+• Paramétrage de la taille de police
+• Compatibilité TalkBack de la carte
+• Démarrage des enregistrements pendant la navigation
+• Affichage de « Ouvre demain à … »
+• Correction de la recherche en langues étrangères
+• Logos de routes au Kirghizistan, Ouzbékistan, Tadjikistan, Kazakhstan et Géorgie
+• Mise en avant des arrêts de bus en mode métro
 
-Plus de détails sur comaps.app/latest
+Plus de détails à comaps.app/latest

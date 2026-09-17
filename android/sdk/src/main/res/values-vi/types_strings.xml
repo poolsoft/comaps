@@ -329,7 +329,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Đường hầm</string>
     <string name="type.highway.bus_stop">Bến xe buýt</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Đường đang thi công</string>
+    <string name="type.highway.construction.motorway">Đường đang thi công</string>
+    <string name="type.highway.construction.motorway_link">Đường đang thi công</string>
+    <string name="type.highway.construction.trunk">Đường đang thi công</string>
+    <string name="type.highway.construction.trunk_link">Đường đang thi công</string>
+    <string name="type.highway.construction.primary">Đường đang thi công</string>
+    <string name="type.highway.construction.primary_link">Đường đang thi công</string>
+    <string name="type.highway.construction.secondary">Đường đang thi công</string>
+    <string name="type.highway.construction.secondary_link">Đường đang thi công</string>
+    <string name="type.highway.construction.tertiary">Đường đang thi công</string>
+    <string name="type.highway.construction.tertiary_link">Đường đang thi công</string>
+    <string name="type.highway.construction.residential">Đường đang thi công</string>
+    <string name="type.highway.construction.unclassified">Đường đang thi công</string>
+    <string name="type.highway.construction.service">Đường đang thi công</string>
+    <string name="type.highway.construction.living_street">Đường đang thi công</string>
+    <string name="type.highway.construction.road">Đường đang thi công</string>
+    <string name="type.highway.construction.track">Đường đang thi công</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Cầu</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -512,9 +529,9 @@
     <string name="type.historic.monument">Tượng đài</string>
     <string name="type.historic.pillory">Thuốc viên</string>
     <string name="type.historic.ruins">Phế tích</string>
-    <string name="type.historic.ship">Diểm tham quan</string>
+    <string name="type.historic.ship">Tàu</string>
     <string name="type.historic.tank">Xe tăng lịch sử</string>
-    <string name="type.historic.tomb">Diểm tham quan</string>
+    <string name="type.historic.tomb">Lăng mộ</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Thập tự</string>
     <!-- Usually a Christian historical cross placed along a road. -->
@@ -1120,7 +1137,7 @@
     <string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Nha nghi</string>
-    <string name="type.tourism.gallery">Diểm tham quan</string>
+    <string name="type.tourism.gallery">Phòng trưng bày nghệ thuật</string>
     <string name="type.tourism.guest_house">Nhà khách</string>
     <string name="type.tourism.hostel">Nhà trọ</string>
     <string name="type.tourism.hotel">Khách sạn</string>
@@ -1134,7 +1151,7 @@
     <string name="type.tourism.museum">Bảo tàng</string>
     <string name="type.tourism.picnic_site">Điểm cắm trại</string>
     <string name="type.leisure.resort">Khu nghỉ dưỡng</string>
-    <string name="type.tourism.theme_park">Diểm tham quan</string>
+    <string name="type.tourism.theme_park">Công viên chủ đề</string>
     <string name="type.tourism.viewpoint">Điểm nhìn</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Nhà tạm trú</string>

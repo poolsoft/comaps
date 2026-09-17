@@ -171,7 +171,8 @@ RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, string d
 }
 
 RankerResult::RankerResult(FeatureType & ft, std::string const & fileName)
-  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), ft.GetTranslatedName().m_primary.value(), fileName)
+  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY),
+                 ft.GetTranslatedName().m_primary.value_or(std::string()), fileName)
 {}
 
 RankerResult::RankerResult(double lat, double lon)

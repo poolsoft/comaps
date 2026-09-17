@@ -329,7 +329,24 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Alagút</string>
     <string name="type.highway.bus_stop">Buszmegálló</string>
+    <!-- These translations are used for all type.highway.construction.*. -->
     <string name="type.highway.construction">Útépítés</string>
+    <string name="type.highway.construction.motorway">Útépítés</string>
+    <string name="type.highway.construction.motorway_link">Útépítés</string>
+    <string name="type.highway.construction.trunk">Útépítés</string>
+    <string name="type.highway.construction.trunk_link">Útépítés</string>
+    <string name="type.highway.construction.primary">Útépítés</string>
+    <string name="type.highway.construction.primary_link">Útépítés</string>
+    <string name="type.highway.construction.secondary">Útépítés</string>
+    <string name="type.highway.construction.secondary_link">Útépítés</string>
+    <string name="type.highway.construction.tertiary">Útépítés</string>
+    <string name="type.highway.construction.tertiary_link">Útépítés</string>
+    <string name="type.highway.construction.residential">Útépítés</string>
+    <string name="type.highway.construction.unclassified">Útépítés</string>
+    <string name="type.highway.construction.service">Útépítés</string>
+    <string name="type.highway.construction.living_street">Útépítés</string>
+    <string name="type.highway.construction.road">Útépítés</string>
+    <string name="type.highway.construction.track">Útépítés</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Híd</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1515,4 +1532,6 @@
     <string name="type.leisure.sports_centre.sport.pickleball">Sportközpont</string>
     <string name="type.attraction">Látványosság</string>
     <string name="type.social_facility.food_bank">Élelmiszerbank</string>
+    <string name="type.amenity.animal_boarding">Állatpanzió</string>
+    <string name="type.amenity.stage">Színpad</string>
 </resources>

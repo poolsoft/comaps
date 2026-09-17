@@ -187,13 +187,16 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Довжина</string>
     <string name="share_my_location">Поділитися моїм розташуванням</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Загальні налаштування</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Інформація</string>
     <string name="prefs_group_route">Навігація</string>
     <string name="pref_zoom_title">Кнопки трансфокації</string>
     <string name="pref_zoom_summary">Відображення на екрані</string>
+    <string name="prefs_group_advanced">Розширена</string>
+    <string name="download_resources_custom_url_title">Власний сервер мап</string>
+    <string name="download_resources_custom_url_message">Змінити типовий сервер для завантаження мап. Залиште порожнім, аби використовувати стандартний сервер CoMaps.</string>
+    <string name="download_resources_custom_url_summary_none">Не налаштовано</string>
+    <string name="download_resources_custom_url_error_scheme">Введіть URL-адресу, що починається з http:// або https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Нічний режим</string>
     <!-- Generic «Off» string -->
@@ -528,7 +531,7 @@
     <string name="mobile_data_option_never">Ніколи</string>
     <string name="mobile_data_option_ask">Завжди питати</string>
     <string name="traffic_update_maps_text">Для показу інформації про трафік необхідно оновити мапи</string>
-    <string name="big_font">Збільшити розмір шрифту на мапі</string>
+    <string name="increase_font_size">Збільшити розмір шрифту на мапі</string>
     <string name="traffic_update_app">Будь ласка, встановіть оновлення CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Дані про трафік недоступні</string>
@@ -590,7 +593,7 @@
         <item quantity="other">%d маршрутів</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Приватність</string>
+    <string name="prefs_group_privacy">Приватність</string>
     <string name="privacy_policy">Політика конфіденційності</string>
     <string name="terms_of_use">Умови використання</string>
     <string name="button_layer_traffic">Затор</string>
@@ -618,7 +621,7 @@
     <string name="power_managment_setting_auto">Автоматично</string>
     <string name="power_managment_setting_manual_max">Максимальне енергозбереження</string>
     <string name="enable_logging_warning_message">Тимчасово ввімкніть цей параметр, щоб записати та вручну надіслати нам детальні діагностичні журнали щодо вашої проблеми за допомогою «Повідомити про помилку» у діалоговому вікні «Допомоги». Журнали можуть містити інформацію про розташування.</string>
-    <string name="driving_options_title">Налаштування об’їзду</string>
+    <string name="routing_options_title">Налаштування об’їзду</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Уникати платних доріг</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -836,6 +839,7 @@
     <string name="charge_socket_chademo">CHAdeMO</string>
     <string name="charge_socket_power">Потужність (кВт)</string>
     <string name="closes_at">Закривається о %s</string>
+    <string name="opens_tomorrow_at">Відкриття завтра о %s</string>
     <string name="opens_day_at">Відчиняється %1$s о %2$s</string>
     <string name="closes_day_at">Закривається %1$s о %2$s</string>
     <plurals name="minutes_short">
@@ -908,15 +912,10 @@
     <string name="offline_explanation_title">Автономні мапи</string>
     <string name="offline_explanation_text">Щоби переглядати та орієнтуватися на місцевості, потрібно завантажити мапу.\nЗавантажуйте мапи для районів, куди плануєте поїхати.</string>
     <string name="list_description_empty">Відредагуйте список, щоби додати опис</string>
-    <string name="advanced">Розширена</string>
-    <string name="download_resources_custom_url_title">Власний сервер мап</string>
-    <string name="download_resources_custom_url_message">Змінити типовий сервер для завантаження мап. Залиште порожнім, аби використовувати стандартний сервер CoMaps.</string>
-    <string name="download_resources_custom_url_error_scheme">Введіть URL-адресу, що починається з http:// або https://</string>
     <string name="pref_backup_now_summary_failed">Помилка резервного копіювання</string>
     <string name="route_type">Тип маршруту</string>
     <string name="pedestrian">Пішохід</string>
     <string name="ruler">Лінійка</string>
-    <string name="download_resources_custom_url_summary_none">Не налаштовано</string>
     <string name="bookmark_share_email_subject">Перейдіть за цим посиланням %1$s або вставте ці координати %2$s у свій зачтосунок із мапами, аби переглянути це місце.</string>
     <string name="my_position_share_email">Перейдіть за цим посиланням %1$s або вставте ці координати %2$s у свій застосунок із мапами, аби побачити моє розташування.</string>
     <string name="pref_alt_map_lang_handling_ignore_alternatives">Не використовувати альтернативи</string>
@@ -952,6 +951,4 @@
     <string name="downloader_check_updates_eol">Оновлень карт для цієї версії додатку більше немає. Будь ласка, оновіть додаток!</string>
     <string name="downloader_check_updates_error">Помилка перевірки оновлень</string>
     <string name="downloader_check_updates_updated">Доступні оновлення карти!</string>
-    <string name="pref_keyboard_typing_history_title">Анонімний режим клавіатури</string>
-    <string name="pref_keyboard_typing_history_summary">Заборонити системній клавіатурі запис історії друку</string>
 </resources>

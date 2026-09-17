@@ -15,6 +15,7 @@
 #include "drape/pointers.hpp"
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/map_object.hpp"
 #include "indexer/map_style.hpp"
 
 #include "platform/country_defines.hpp"
@@ -86,6 +87,9 @@ private:
   ChoosePositionMode m_isChoosePositionMode = ChoosePositionMode::None;
   bool m_isSurfaceDestroyed = false;
 
+  dp::TAccessibilityStableIDContainer m_allAccessibilityNodes;
+  dp::AccessibilityPresenter::TUpdateCallback m_accessibilityUpdateCallback;
+
 public:
   Framework(std::function<void()> && afterMapsLoaded);
 
@@ -108,9 +112,12 @@ public:
   void PauseSurfaceRendering();
   void ResumeSurfaceRendering();
 
-  void SetMapStyle(MapStyle mapStyle);
-  void MarkMapStyle(MapStyle mapStyle);
-  MapStyle GetMapStyle() const;
+  void SwitchToMapAppearance(MapAppearance mapAppearance);
+  MapAppearance CurrentMapAppearance();
+  void SwitchToMapMode(MapMode mapMode);
+  MapMode CurrentMapMode();
+  void SwitchToUsingVehicleStyle(bool enabled);
+  bool IsUsingVehicleStyle();
 
   void SetupMeasurementSystem();
 
@@ -134,6 +141,19 @@ public:
   void Scroll(double distanceX, double distanceY);
 
   void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
+
+  dp::TAccessibilityStableID GetAccessibilityNodeAtPoint(m2::PointD const & point);
+
+  // Not reentrant-safe; return value is only valid until the next call of this method.
+  dp::TAccessibilityStableIDContainer & GetAllAccessibilityNodes();
+
+  // Not async-safe; return value is only valid until control of the thread is yielded.
+  // Make a copy if you want to store it.
+  std::optional<ref_ptr<dp::AccessibilityNodeContext>> GetAccessibilityNodeContext(dp::TAccessibilityStableID id);
+
+  bool SetAccessibilityUpdateCallback(std::optional<dp::AccessibilityPresenter::TUpdateCallback> const & cb);
+
+  void SetAccessibilityFreezeFrame(bool freeze);
 
   bool Search(search::EverywhereSearchParams const & params);
   std::string GetLastSearchQuery() { return m_searchQuery; }
@@ -196,6 +216,7 @@ public:
   void CleanWidgets();
 
   place_page::Info & GetPlacePageInfo();
+  osm::MapObject GetMapObjectByID(FeatureID const & featureId) const;
 
   bool IsAutoRetryDownloadFailed();
   bool IsDownloadOn3gEnabled();

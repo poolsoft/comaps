@@ -187,13 +187,16 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Lengde</string>
     <string name="share_my_location">Del posisjonen min</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Generelle instillinger</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informasjon</string>
     <string name="prefs_group_route">Navigasjon</string>
     <string name="pref_zoom_title">Zoom-knapper</string>
     <string name="pref_zoom_summary">Vis på skjermen</string>
+    <string name="prefs_group_advanced">Avansert</string>
+    <string name="download_resources_custom_url_title">Tilpasset kartserver</string>
+    <string name="download_resources_custom_url_message">Overstyr standardserveren som brukes til nedlasting av kart. La det stå tomt for å bruke CoMaps standardserver.</string>
+    <string name="download_resources_custom_url_summary_none">Ikke angitt</string>
+    <string name="download_resources_custom_url_error_scheme">Angi en nettadresse som starter med http:// eller https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nattmodus</string>
     <!-- Generic «Off» string -->
@@ -531,7 +534,7 @@
     <string name="mobile_data_option_never">Aldri bruk</string>
     <string name="mobile_data_option_ask">Alltid spør</string>
     <string name="traffic_update_maps_text">For å vise trafikkdata må kartene være oppdaterte</string>
-    <string name="big_font">Øk størrelsen på kartpåskrifter</string>
+    <string name="increase_font_size">Øk størrelsen på kartpåskrifter</string>
     <string name="traffic_update_app">Vennligst oppdater CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Trafikkdata er ikke tilgjengelig</string>
@@ -587,7 +590,7 @@
         <item quantity="other">%d spor</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Personvern</string>
+    <string name="prefs_group_privacy">Personvern</string>
     <string name="privacy_policy">Personvernpraksis</string>
     <string name="terms_of_use">Bruksbetingelser</string>
     <string name="button_layer_traffic">Trafikk</string>
@@ -615,7 +618,7 @@
     <string name="power_managment_setting_auto">Ved lavt batterinivå</string>
     <string name="power_managment_setting_manual_max">Alltid</string>
     <string name="enable_logging_warning_message">Aktiver dette alternativet midlertidig for å registrere og manuelt sende detaljerte diagnostiske loggfiler om problemet ditt til oss ved bruk av \"Rapporter en feil\" i Hjelp-dialogen. Loggfiler kan inkludere posisjonsinfo.</string>
-    <string name="driving_options_title">Rutingalternativer</string>
+    <string name="routing_options_title">Rutingalternativer</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Unngå bompenger</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -880,6 +883,7 @@
         <item quantity="other">%d min</item>
     </plurals>
     <string name="closes_day_at">Stenger %1$s %2$s</string>
+    <string name="opens_tomorrow_at">Åpner i morgen klokka %s</string>
     <string name="opens_day_at">Åpner %1$s %2$s</string>
     <string name="closes_at">Stenger %s</string>
     <string name="opens_at">Åpner %s</string>
@@ -896,11 +900,6 @@
     <string name="place_page_too_old_to_edit">OpenStreetMap-redigering er deaktivert fordi kartdataene er for gamle.</string>
     <string name="osm_note_hint">Alternativt, kan du legge til et notat i OpenStreetMap, slik at noen andre her kan legge til eller korrigere et sted.</string>
     <string name="osm_note_toast">Notatet vil bli sendt til OpenStreetMap</string>
-    <string name="advanced">Avansert</string>
-    <string name="download_resources_custom_url_summary_none">Ikke angitt</string>
-    <string name="download_resources_custom_url_error_scheme">Angi en nettadresse som starter med http:// eller https://</string>
-    <string name="download_resources_custom_url_message">Overstyr standardserveren som brukes til nedlasting av kart. La det stå tomt for å bruke CoMaps standardserver.</string>
-    <string name="download_resources_custom_url_title">Tilpasset kartserver</string>
     <string name="pref_maplanguage_local">Lokalt språk</string>
     <string name="location_privacy_info">Apper mottar posisjonsdata fra operativsystemets posisjonstjeneste, som kan dele posisjonen din med Google og/eller leverandøren av enheten din. Bruk et Android-operativsystem som ivaretar personvernet for å unngå dette.</string>
     <string name="location_privacy">Posisjonspersonvern</string>
@@ -933,8 +932,6 @@
     <string name="setting_value_system_default">Systemstandard</string>
     <string name="downloader_check_updates_no_updates">Ingen oppdateringer tilgjengelig</string>
     <string name="downloader_check_updates_checking">Ser etter oppdateringer...</string>
-    <string name="pref_keyboard_typing_history_summary">Be systemtastaturet om ikke å ta opp skrivehistorikk</string>
-    <string name="pref_keyboard_typing_history_title">Inkognitomodus for tastaturet</string>
     <string name="downloader_check_updates_error">Feil under oppdateringssjekk</string>
     <string name="downloader_check_updates_eol">Ingen flere kartoppdateringer for denne app-versjonen. Oppdater appen!</string>
     <string name="downloader_check_updates_updated">Kartoppdateringer er tilgjengelige!</string>

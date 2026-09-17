@@ -18,6 +18,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <vector>
 
 class ScreenBase;
 
@@ -34,6 +35,29 @@ using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)
 using TMyPositionModeChanged = std::function<void(location::EMyPositionMode, bool, bool)>;
 
 class DrapeNotifier;
+
+struct NavigationContext
+{
+  static double constexpr kSubPolylineDistanceM = 5000.0;
+
+  bool m_isNavigable = false;
+  double m_distanceToNextTurn = 0.0;
+  double m_speedLimit = 0.0;
+  m2::PointD m_currentRoutePoint = m2::PointD::Zero();
+  std::vector<m2::PointD> m_routeSubPolyline;
+
+  NavigationContext() = default;
+
+  NavigationContext(bool navigable, double distanceToTurn, double speedLimit,
+                    m2::PointD const & routePoint,
+                    std::vector<m2::PointD> && polylineSubset)
+    : m_isNavigable(navigable)
+    , m_distanceToNextTurn(distanceToTurn)
+    , m_speedLimit(speedLimit)
+    , m_currentRoutePoint(routePoint)
+    , m_routeSubPolyline(std::move(polylineSubset))
+  {}
+};
 
 class MyPositionController
 {
@@ -115,7 +139,7 @@ public:
                       drape_ptr<MyPosition> && shape, Arrow3d::PreloadedData && preloadedData);
   void ResetRenderShape();
 
-  void ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued);
+  void ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued, bool allowRouteRotation);
   void DeactivateRouting();
 
   void EnablePerspectiveInRouting(bool enablePerspective);
@@ -131,14 +155,15 @@ public:
   void OnEnterBackground();
 
   void OnCompassTapped();
-  void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, double distanceToNextTurn, double speedLimit,
+  void OnLocationUpdate(location::GpsInfo const & info, df::NavigationContext const & navigationContext,
                         ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
               int zoomLevel, FrameValues const & frameValues);
 
-  bool IsRotationAvailable() const { return m_isDirectionAssigned; }
+  bool IsArrowRotationAvailable() const { return m_isArrowDirectionAssigned; }
+  bool IsRouteRotationAvailable() const { return m_isRouteDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
   bool IsRouteFollowingActive() const;
   bool IsModeChangeViewport() const;
@@ -150,7 +175,8 @@ public:
 private:
   void ChangeMode(location::EMyPositionMode newMode, bool persist);
   void ChangeMode(location::EMyPositionMode newMode);
-  void SetDirection(double bearing);
+  void SetRouteDirection(double bearing);
+  void SetArrowDirection(double bearing);
 
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
   void ChangeModelView(double azimuth);
@@ -200,12 +226,15 @@ private:
   double m_errorRadius;  // error radius in mercator.
   double m_horizontalAccuracy;
   m2::PointD m_position;  // position in mercator.
-  double m_drawDirection;
+  double m_direction;
+  double m_routeDirection;
+  double m_arrowDirection;
   m2::PointD m_oldPosition;  // position in mercator.
-  double m_oldDrawDirection;
+  double m_oldArrowDirection;
 
   bool m_enablePerspectiveInRouting;
   bool m_enableAutoZoomInRouting;
+  bool m_preferRouteDirectionInRouting;
   double m_autoScale2d;
   double m_autoScale3d;
 
@@ -227,7 +256,8 @@ private:
   TAnimationCreator m_animCreator;
 
   bool m_isPositionAssigned;
-  bool m_isDirectionAssigned;
+  bool m_isArrowDirectionAssigned;
+  bool m_isRouteDirectionAssigned;
   bool m_isCompassAvailable;
 
   bool m_positionIsObsolete;

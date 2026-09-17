@@ -45,8 +45,14 @@ std::array<std::string, 61> const kStatesCode = {{
     "SR",  // common prefix for State Road
 }};
 
-std::array<std::string, 13> const kModifiers = {{"alt", "alternate", "bus", "business", "bypass", "historic",
-                                                 "connector", "loop", "scenic", "spur", "temporary", "toll", "truck"}};
+std::array<std::string, 17> const kModifiers = {{"alt", "alternate", "bus", "business", "bypass", "historic",
+                                                 "connector", "loop", "scenic", "spur", "temporary", "toll", "truck",
+                                                 "north", "south", "east", "west"}};
+
+std::array<std::string, 27> const kBrazilStatesCode = {{
+    "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+    "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
+}};
 
 // Shields based on a network tag in a route=road relation.
 ankerl::unordered_dense::map<std::string, RoadShieldType> const kRoadNetworkShields = {
@@ -113,8 +119,8 @@ public:
       if (base::IsExist(kStatesCode, network.substr(3)))
         return RoadShieldType::Generic_White_Bordered;
     }
-    
-    // Minimum length for network tag is 2 (UY). 
+
+    // Minimum length for network tag is 2 (UY).
     if (network.size() >= 2)
     {
       strings::AsciiToLower(network);
@@ -175,6 +181,19 @@ public:
 
     result.erase_if([&defaultShields](RoadShield const & shield)
     { return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end(); });
+
+    // Remove duplicates with same type and text
+    for (size_t i = 0; i < result.size(); ++i)
+    {
+      for (size_t j = i + 1; j < result.size(); ++j)
+      {
+        if (result[i].m_type == result[j].m_type && result[i].m_name == result[j].m_name)
+        {
+          result.erase(result.begin() + j);
+          --j;
+        }
+      }
+    }
 
     return result;
   }
@@ -602,6 +621,73 @@ public:
   {}
 };
 
+// Since the 2024 October 30 reclassification, Kazakhstan uses:
+// - "KAZ" + 2 digits: inter-regional highways of international significance, e.g. "KAZ01".
+// - "KZ" + 2 digits + "-" + 2 digits: intra-regional highways of international/republican
+//   significance, e.g. "KZ03-01".
+// - "K*" prefix + digits: highways of local significance (a region-specific two-letter prefix,
+//   e.g. "KC" for Akmola, "KB" for Almaty/Jetisu).
+// Motorways have tolls and motorway roadshields are green; all other KAZ/KZ/K* roads' roadshields
+// are blue. Important: the same route can carry both green and blue across different sections.
+//
+// Anything without one of these prefixes, like pre-2024 leftover highways with refs with
+// M-/A-/P- prefixes falls back to the default white shield.
+// See more at https://en.wikipedia.org/wiki/Roads_in_Kazakhstan
+class KazakhstanRoadShieldParser : public RoadShieldParser
+{
+public:
+    KazakhstanRoadShieldParser(std::string const & baseRoadNumber, HighwayClass highwayClass)
+            : RoadShieldParser(baseRoadNumber)
+            , m_highwayClass(highwayClass)
+    {}
+
+    RoadShield ParseRoadShield(std::string_view rawText, uint8_t index) const override
+    {
+      if (rawText.size() > kMaxRoadShieldBytesSize)
+        return RoadShield();
+
+      if (rawText.starts_with("KAZ") || rawText.starts_with("KZ"))
+        return RoadShield(m_highwayClass == HighwayClass::Motorway ? RoadShieldType::Generic_Green
+                                                                    : RoadShieldType::Generic_Blue,
+                           rawText);
+
+      // Local-significance roads use a region-specific two-letter "K*" prefix, e.g. "KC-123".
+      if (rawText.starts_with("K"))
+        return RoadShield(RoadShieldType::Generic_Blue, rawText);
+
+      return RoadShield(RoadShieldType::Generic_White, rawText);
+    }
+
+private:
+    HighwayClass const m_highwayClass;
+};
+
+// Kyrgyz law splits public roads into three classes, each with its own prefix:
+// - "ЭМ" (Эл аралык магистраль, international significance, 2-digit number),
+// - "М" (Мамлекеттик магистраль, state significance, 3-digit number) and
+// - "Ж" (Жергиликтүү жолдор, local significance, 3-digit number).
+// All three get a blue shield; anything without one of these prefixes falls back to the default white one.
+// See more at https://en.wikipedia.org/wiki/Roads_in_Kyrgyzstan
+class KyrgyzstanRoadShieldParser : public SimpleUnicodeRoadShieldParser
+{
+public:
+  // The second parameter in each entry is a cyrillic symbol.
+  explicit KyrgyzstanRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleUnicodeRoadShieldParser(baseRoadNumber, {{"EM-","ЭМ-", RoadShieldType::Generic_Blue},
+                                                     {"M-","М-", RoadShieldType::Generic_Blue},
+                                                     {"Zh-", "Ж-", RoadShieldType::Generic_Blue}},
+                                    RoadShieldType::Generic_White)
+  {}
+};
+
+class LiechtensteinRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit LiechtensteinRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Highway_Hexagon_Red}})
+  {}
+};
+
 class MoldovaRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
@@ -636,6 +722,14 @@ public:
   {}
 };
 
+class RussiaRoadShieldParser : public DefaultTypeRoadShieldParser
+{
+public:
+    explicit RussiaRoadShieldParser(std::string const & baseRoadNumber)
+            : DefaultTypeRoadShieldParser(baseRoadNumber, RoadShieldType::Generic_Blue)
+    {}
+};
+
 class SerbiaRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
@@ -656,7 +750,8 @@ class SloveniaRoadShieldParser : public RoadShieldParser
 {
 public:
   SloveniaRoadShieldParser(std::string const & baseRoadNumber, HighwayClass highwayClass)
-    : RoadShieldParser(baseRoadNumber), m_highwayClass(highwayClass)
+    : RoadShieldParser(baseRoadNumber)
+    , m_highwayClass(highwayClass)
   {}
 
   RoadShield ParseRoadShield(std::string_view rawText, uint8_t index) const override
@@ -679,11 +774,43 @@ public:
       return RoadShield(RoadShieldType::Generic_Pill_Blue_Bordered, rawText);
 
     // "glavne ceste" (main roads: 1-11, 101-114) and regionalne ceste (regional roads: 201-941)
-    if (m_highwayClass == HighwayClass::Primary || m_highwayClass == HighwayClass::Secondary
-      || m_highwayClass == HighwayClass::Tertiary)
+    if (m_highwayClass == HighwayClass::Primary || m_highwayClass == HighwayClass::Secondary ||
+        m_highwayClass == HighwayClass::Tertiary)
       return RoadShield(RoadShieldType::Generic_Orange_Bordered, rawText);
 
     return RoadShield(RoadShieldType::Generic_White_Bordered, rawText);
+  }
+
+private:
+  HighwayClass const m_highwayClass;
+};
+
+class GeorgiaRoadShieldParser : public RoadShieldParser
+{
+public:
+  GeorgiaRoadShieldParser(std::string const & baseRoadNumber, HighwayClass highwayClass)
+    : RoadShieldParser(baseRoadNumber)
+    , m_highwayClass(highwayClass)
+  {}
+
+  RoadShield ParseRoadShield(std::string_view rawText, uint8_t index) const override
+  {
+    if (rawText.size() > kMaxRoadShieldBytesSize)
+      return RoadShield();
+
+    // საერთაშორისო მნიშვნელობის გზა (motorway road of international importance)
+    if (rawText.starts_with("ს") && m_highwayClass == HighwayClass::Motorway)
+      return RoadShield(RoadShieldType::Generic_Green_Bordered, rawText);
+
+    // საერთაშორისო მნიშვნელობის გზა (trunk road of international importance)
+    if (rawText.starts_with("ს") && m_highwayClass == HighwayClass::Trunk)
+      return RoadShield(RoadShieldType::Generic_Blue_Bordered, rawText);
+
+    // შიდასახელმწიფოებრივი მნიშვნელობის გზა (road of domestic importance)
+    if (rawText.starts_with("შ"))
+      return RoadShield(RoadShieldType::Generic_Blue_Bordered, rawText);
+
+    return RoadShield(RoadShieldType::Default, rawText);
   }
 
 private:
@@ -698,27 +825,27 @@ public:
   {}
 };
 
-class LiechtensteinRoadShieldParser : public SimpleRoadShieldParser
-{
-public:
-  explicit LiechtensteinRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Highway_Hexagon_Red}})
-  {}
-};
-
-class RussiaRoadShieldParser : public DefaultTypeRoadShieldParser
-{
-public:
-  explicit RussiaRoadShieldParser(std::string const & baseRoadNumber)
-    : DefaultTypeRoadShieldParser(baseRoadNumber, RoadShieldType::Generic_Blue)
-  {}
-};
-
 class SpainRoadShieldParser : public DefaultTypeRoadShieldParser
 {
 public:
   explicit SpainRoadShieldParser(std::string const & baseRoadNumber)
     : DefaultTypeRoadShieldParser(baseRoadNumber, RoadShieldType::Generic_Blue)
+  {}
+};
+
+// Tajikistan roads are split into two classes, each with its own prefix:
+// - "РБ" (Роҳи Байналмилалӣ, international significance, РБ01-РБ19) and
+// - "РҶ" (Роҳи Ҷумҳуриявӣ, republic significance, РҶ001-РҶ095).
+// Anything without one of these prefixes falls back to the default white shield.
+// See more at https://en.wikipedia.org/wiki/Roads_in_Tajikistan
+class TajikistanRoadShieldParser : public SimpleUnicodeRoadShieldParser
+{
+public:
+  // The second parameter in each entry is a cyrillic symbol.
+  explicit TajikistanRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleUnicodeRoadShieldParser(baseRoadNumber, {{"RB", "РБ", RoadShieldType::Generic_Red},
+                                                     {"RJ", "РҶ", RoadShieldType::Generic_Red}},
+                                    RoadShieldType::Generic_White)
   {}
 };
 
@@ -732,6 +859,23 @@ public:
                                     {"A", HighwayClass::Trunk, RoadShieldType::UK_Highway, true},
                                     {"A", HighwayClass::Primary, RoadShieldType::Generic_White_Bordered},
                                     {"B", HighwayClass::Secondary, RoadShieldType::Generic_White_Bordered}})
+  {}
+};
+
+// Uzbekistan roads use three prefixes for roads of international/state significance:
+// "M" and "A" (international significance, inherited from the Soviet road network) and
+// "D" (state significance, D001-D240).
+// Roads of local significance use a two-digit region code followed by "V" (viloyat) instead of
+// a letter prefix, e.g. "10V", and fall back to the default white shield along with anything else.
+// See more at https://en.wikipedia.org/wiki/Roads_in_Uzbekistan
+class UzbekistanRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit UzbekistanRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Blue},
+                                              {"A", RoadShieldType::Generic_Blue},
+                                              {"D", RoadShieldType::Generic_Blue}},
+                             RoadShieldType::Generic_White)
   {}
 };
 
@@ -767,8 +911,7 @@ public:
   // refs that don't start with RN/RP will still appear with the default shield (but shouldn't exist in AR)
   // suggestion for future improvement by @pastk: https://codeberg.org/comaps/comaps/pulls/3966#issuecomment-12533514
   explicit ArgentinaRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {{"RN", RoadShieldType::Hidden},
-                                              {"RP", RoadShieldType::Hidden}})
+    : SimpleRoadShieldParser(baseRoadNumber, {{"RN", RoadShieldType::Hidden}, {"RP", RoadShieldType::Hidden}})
   {}
 };
 
@@ -780,6 +923,73 @@ public:
   explicit BoliviaRoadShieldParser(std::string const & baseRoadNumber)
     : SimpleRoadShieldParser(baseRoadNumber, {{"F", RoadShieldType::Hidden}})
   {}
+};
+
+class BrazilRoadShieldParser : public RoadShieldParser
+{
+public:
+  explicit BrazilRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+
+  // Refs look like "BR-116" (federal) or "RS-410"/"SP-280" (state), occasionally with a space
+  // instead of a dash: https://wiki.openstreetmap.org/wiki/Brazil/Highway_classification
+  // Only the number is displayed as text: the "BR" lettering is drawn into the federal symbol,
+  // and each state has its own symbol with the state code also drawn
+  RoadShield ParseRoadShield(std::string_view rawText, uint8_t index) const override
+  {
+    if (rawText.size() > kMaxRoadShieldBytesSize)
+      return RoadShield();
+
+    std::string shieldText(rawText);
+    std::replace(shieldText.begin(), shieldText.end(), '-', ' ');
+    auto const parts = strings::Tokenize(shieldText, " ");
+
+    // Keep leading zeros
+    if (parts.size() != 2 || parts[1].size() > 3 || !strings::IsASCIINumeric(parts[1]))
+      return RoadShield(RoadShieldType::Default, rawText);
+
+    if (parts[0] == "BR")
+      return RoadShield(RoadShieldType::Brazil_National, std::string{parts[1]}, /* additionalText */ "",
+                        /* shieldText */ "BR-" + std::string{parts[1]});
+
+    std::string_view code = parts[0];
+    // Some states add a letter to the code for special road classes, e.g. ERS/VRS/RSC
+    // in Rio Grande do Sul, MGC/LMG/AMG in Minas Gerais, PRC in Paraná.
+    // The signs display the plain state code.
+    if (code.size() == 3)
+    {
+      if (base::IsExist(kBrazilStatesCode, code.substr(0, 2)))
+        code = code.substr(0, 2);
+      else if (base::IsExist(kBrazilStatesCode, code.substr(1)))
+        code = code.substr(1);
+    }
+
+    if (base::IsExist(kBrazilStatesCode, code))
+    {
+      // "Coincident" state roads share the number of the federal highway they overlap
+      // (e.g. ref="BR-453;RSC-453"): show only the federal shield then.
+      if (IsCoincidentWithFederal(parts[1]))
+        return RoadShield(RoadShieldType::Hidden, parts[1]);
+      return RoadShield(RoadShieldType::Brazil_State, std::string{parts[1]}, std::string{code},
+                        /* shieldText */ std::string{code} + "-" + std::string{parts[1]});
+    }
+
+    return RoadShield(RoadShieldType::Default, rawText);
+  }
+
+private:
+  bool IsCoincidentWithFederal(std::string_view number) const
+  {
+    bool found = false;
+    strings::Tokenize(m_baseRoadNumber, ";", [&](std::string_view token)
+    {
+      auto const slashPos = token.find('/');
+      if (slashPos != std::string_view::npos)
+        token = token.substr(slashPos + 1);
+      if ((token.starts_with("BR-") || token.starts_with("BR ")) && token.substr(3) == number)
+        found = true;
+    });
+    return found;
+  }
 };
 
 class UkraineRoadShieldParser : public SimpleUnicodeRoadShieldParser
@@ -811,7 +1021,8 @@ public:
   explicit LatviaRoadShieldParser(std::string const & baseRoadNumber)
     : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Red},
                                               {"E", RoadShieldType::Generic_Green},
-                                              {"P", RoadShieldType::Generic_Blue}})
+                                              {"P", RoadShieldType::Generic_Blue},
+                                              {"V", RoadShieldType::Generic_Grey_Bordered}})
   {}
 };
 
@@ -823,6 +1034,63 @@ public:
                                               {"E", RoadShieldType::Generic_Green},
                                               {"N", RoadShieldType::Generic_Orange_Bordered}})
   {}
+};
+
+class NorwayRoadShieldParser : public RoadShieldParser
+{
+public:
+  // Norway does as of July 12 2026 not use route relations,
+  // hence the E-Roads are not automatically rendered as green shields
+  // In addition, the state owned roads have green shields
+  // https://wiki.openstreetmap.org/wiki/Norway/Highways#Tagging_conventions
+  NorwayRoadShieldParser(std::string const & baseRoadNumber, HighwayClass highwayClass)
+    : RoadShieldParser(baseRoadNumber)
+    , m_highwayClass(highwayClass)
+  {}
+
+  RoadShield ParseRoadShield(std::string_view rawText, uint8_t /* index */) const override
+  {
+    if (rawText.size() > kMaxRoadShieldBytesSize)
+      return {};
+
+    std::string name(rawText);
+    strings::Trim(name);
+
+    bool isRingRoad = false;
+    if (name.starts_with("Ring"))
+    {
+      auto const numberPos = name.find_first_not_of(' ', 4);
+      isRingRoad = numberPos != std::string::npos && numberPos > 4 &&
+                   strings::IsASCIINumeric(std::string_view(name).substr(numberPos));
+    }
+    if (isRingRoad)
+      return {RoadShieldType::Generic_Pill_White_Bordered, name};
+
+    if (name.size() > 1 && name.front() == 'E')
+    {
+      auto const numberPos = name.find_first_not_of(' ', 1);
+      if (numberPos != std::string::npos && strings::IsASCIINumeric(std::string_view(name).substr(numberPos)))
+        return {RoadShieldType::Generic_Green, name};
+    }
+
+    uint64_t roadNumber;
+    if (!strings::to_uint(name, roadNumber))
+      return {RoadShieldType::Default, name};
+
+    switch (m_highwayClass)
+    {
+    case HighwayClass::Motorway:
+    case HighwayClass::Trunk: return {RoadShieldType::Generic_Green, name};
+    case HighwayClass::Primary: return {RoadShieldType::Generic_White_Bordered, name};
+    // Four-digit county road numbers are unsigned, but still tagged with ref instead of unsigned_ref
+    case HighwayClass::Secondary:
+    case HighwayClass::LivingStreet: return {RoadShieldType::Hidden, name};
+    default: return {RoadShieldType::Default, name};
+    }
+  }
+
+private:
+  HighwayClass const m_highwayClass;
 };
 
 class FinlandRoadShieldParser : public NumericRoadShieldParser
@@ -872,7 +1140,7 @@ public:
                                               {"LF.", RoadShieldType::Generic_White_Bordered},  // Blue font.
                                               {"İK.", RoadShieldType::Generic_White_Bordered},  // Blue font.
                                                                                                 // South Cyprus.
-                                              {"A", RoadShieldType::Generic_Green},             // Yellow font. Hexagon.
+                                              {"A", RoadShieldType::Highway_Hexagon_Green},     // Green hexagon.
                                               {"B", RoadShieldType::Generic_Blue},              // Yellow font.
                                               {"E", RoadShieldType::Generic_Blue},              // Yellow font.
                                               {"F", RoadShieldType::Generic_Blue},              // Yellow font.
@@ -932,20 +1200,20 @@ RoadShieldsSetT GetRoadShields(FeatureType & f)
   if (highwayClass == HighwayClass::Undefined)
     return {};
 
-  // Find out country name.
   std::string mwmName = f.GetID().GetMwmName();
   ASSERT(!mwmName.empty(), (f.GetID()));
-
-  auto const underlinePos = mwmName.find('_');
-  if (underlinePos != std::string::npos)
-    mwmName = mwmName.substr(0, underlinePos);
 
   return GetRoadShields(mwmName, ref, highwayClass);
 }
 
-RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & roadNumber,
+RoadShieldsSetT GetRoadShields(std::string_view mwmName, std::string const & roadNumber,
                                HighwayClass const & highwayClass)
 {
+  // Find out the country name.
+  auto const underlinePos = mwmName.find('_');
+  if (underlinePos != std::string::npos)
+    mwmName = mwmName.substr(0, underlinePos);
+
   if (mwmName == "US")
     return USRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "UK")
@@ -958,6 +1226,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return ArgentinaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Bolivia")
     return BoliviaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Brazil")
+    return BrazilRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Belgium")
     return BelgiumRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Greece")
@@ -988,6 +1258,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return LiechtensteinRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Russia")
     return RussiaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Georgia")
+    return GeorgiaRoadShieldParser(roadNumber, highwayClass).GetRoadShields();
   if (mwmName == "France")
     return FranceRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Germany")
@@ -1002,6 +1274,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return LatviaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Netherlands")
     return NetherlandsRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Norway")
+    return NorwayRoadShieldParser(roadNumber, highwayClass).GetRoadShields();
   if (mwmName == "Finland")
     return FinlandRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Estonia")
@@ -1012,6 +1286,14 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return MexicoRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Cyprus")
     return CyprusRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Kazakhstan")
+    return KazakhstanRoadShieldParser(roadNumber, highwayClass).GetRoadShields();
+  if (mwmName == "Kyrgyzstan")
+    return KyrgyzstanRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Tajikistan")
+    return TajikistanRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Uzbekistan")
+    return UzbekistanRoadShieldParser(roadNumber).GetRoadShields();
 
   return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
@@ -1022,6 +1304,19 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber)
     return {};
 
   return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
+}
+
+std::string GetRoadShieldDisplayRef(std::string const & rawRoadNumber)
+{
+  std::vector<std::string> displayRefs;
+  strings::Tokenize(rawRoadNumber, ";", [&](std::string_view token)
+  {
+    if (auto const slash = token.find('/'); slash != std::string_view::npos)
+      token.remove_prefix(slash + 1);
+    if (!token.empty())
+      displayRefs.emplace_back(token);
+  });
+  return strings::JoinStrings(displayRefs, ";");
 }
 
 std::vector<std::string> GetRoadShieldsNames(FeatureType & ft)
@@ -1045,11 +1340,13 @@ std::string DebugPrint(RoadShieldType shieldType)
   case RoadShieldType::Generic_Blue: return "blue";
   case RoadShieldType::Generic_Red: return "red";
   case RoadShieldType::Generic_Orange: return "orange";
+  case RoadShieldType::Generic_Grey: return "grey";
   case RoadShieldType::Generic_White_Bordered: return "white bordered";
   case RoadShieldType::Generic_Green_Bordered: return "green bordered";
   case RoadShieldType::Generic_Blue_Bordered: return "blue bordered";
   case RoadShieldType::Generic_Red_Bordered: return "red bordered";
   case RoadShieldType::Generic_Orange_Bordered: return "orange bordered";
+  case RoadShieldType::Generic_Grey_Bordered: return "grey bordered";
   case RoadShieldType::Generic_Pill_White: return "white pill";
   case RoadShieldType::Generic_Pill_Green: return "green pill";
   case RoadShieldType::Generic_Pill_Blue: return "blue pill";
@@ -1069,6 +1366,8 @@ std::string DebugPrint(RoadShieldType shieldType)
   case RoadShieldType::UK_Highway: return "UK highway";
   case RoadShieldType::Bolivia_Fundamental: return "Bolivia fundamental";
   case RoadShieldType::Argentina_RN: return "Argentina national";
+  case RoadShieldType::Brazil_National: return "Brazil national";
+  case RoadShieldType::Brazil_State: return "Brazil state";
   case RoadShieldType::UY_National: return "UY national";
   case RoadShieldType::Italy_Autostrada: return "Italy autostrada";
   case RoadShieldType::Hungary_Green: return "hungary green";

@@ -205,12 +205,8 @@ public final class Config
 
   public static boolean isShowOnLockScreenEnabled()
   {
-    // Disabled by default on Android 7.1 and earlier devices.
-    // See links below for details:
-    // https://github.com/organicmaps/organicmaps/issues/2857
-    // https://github.com/organicmaps/organicmaps/issues/3967
-    final boolean defaultValue = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
-    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, defaultValue);
+    // Disabled by default, see #3301
+    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, false);
   }
 
   public static void setShowOnLockScreenEnabled(boolean enabled)
@@ -331,14 +327,14 @@ public final class Config
     }
   }
 
-  public static boolean isLargeFontsSize()
+  public static double getFontScaleFactor()
   {
-    return nativeGetLargeFontsSize();
+    return nativeGetFontScaleFactor();
   }
 
-  public static void setLargeFontsSize(boolean value)
+  public static void setFontScaleFactor(double value)
   {
-    nativeSetLargeFontsSize(value);
+    nativeSetFontScaleFactor(value);
   }
 
   @NonNull
@@ -542,8 +538,8 @@ public final class Config
   private static native void nativeSetDouble(String name, double value);
   private static native String nativeGetString(String name, String defaultValue);
   private static native void nativeSetString(String name, String value);
-  private static native boolean nativeGetLargeFontsSize();
-  private static native void nativeSetLargeFontsSize(boolean value);
+  private static native double nativeGetFontScaleFactor();
+  private static native void nativeSetFontScaleFactor(double value);
   private static native int nativeGetAlternativeMapLanguageHandling();
   private static native void nativeSetAlternativeMapLanguageHandling(int value);
   private static native boolean nativeGetTransliteration();

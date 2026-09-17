@@ -1,6 +1,6 @@
-"type.addr_interpolation" = "Adresa/blok";
-"type.addr_interpolation.even" = "Adresa/blok";
-"type.addr_interpolation.odd" = "Adresa/blok";
+"type.addr_interpolation" = "Adresa/Blok";
+"type.addr_interpolation.even" = "Adresa/Blok";
+"type.addr_interpolation.odd" = "Adresa/Blok";
 "type.aerialway" = "Lanová dráha";
 "type.aerialway.cable_car" = "Visutá lanovka";
 "type.aerialway.chair_lift" = "Sedačková lanovka";
@@ -25,8 +25,8 @@
 "type.amenity.bbq" = "Grilování";
 "type.amenity.bench" = "Lavička";
 "type.amenity.bench.backless" = "Bez opěradla";
-"type.amenity.bicycle_parking" = "Parkování kol";
-"type.amenity.bicycle_parking.covered" = "Kryté parkování kol";
+"type.amenity.bicycle_parking" = "Parkoviště kol";
+"type.amenity.bicycle_parking.covered" = "Kryté parkoviště kol";
 "type.amenity.boat_rental" = "Půjčovna lodí";
 "type.amenity.bicycle_rental" = "Půjčovna kol";
 "type.amenity.bicycle_repair_station" = "Stanice na opravu jízdních kol";
@@ -101,7 +101,7 @@
 "type.amenity.lounger" = "Lehátko";
 "type.amenity.luggage_locker" = "Úschovná skříňka";
 "type.amenity.marketplace" = "Tržiště";
-"type.amenity.mobile_money_agent" = "Mobilní peněžní agent";
+"type.amenity.mobile_money_agent" = "Agent Mobile Money";
 "type.amenity.motorcycle_parking" = "Parkování pro motocykly";
 "type.amenity.nightclub" = "Noční klub";
 "type.amenity.nursing_home" = "Dům s pečovatelskou službou";
@@ -452,6 +452,22 @@
 "type.highway.busway.tunnel" = "Tunel";
 "type.highway.bus_stop" = "Autobusová zastávka";
 "type.highway.construction" = "Silnice v rekonstrukci";
+"type.highway.construction.motorway" = "Silnice v rekonstrukci";
+"type.highway.construction.motorway_link" = "Silnice v rekonstrukci";
+"type.highway.construction.trunk" = "Silnice v rekonstrukci";
+"type.highway.construction.trunk_link" = "Silnice v rekonstrukci";
+"type.highway.construction.primary" = "Silnice v rekonstrukci";
+"type.highway.construction.primary_link" = "Silnice v rekonstrukci";
+"type.highway.construction.secondary" = "Silnice v rekonstrukci";
+"type.highway.construction.secondary_link" = "Silnice v rekonstrukci";
+"type.highway.construction.tertiary" = "Silnice v rekonstrukci";
+"type.highway.construction.tertiary_link" = "Silnice v rekonstrukci";
+"type.highway.construction.residential" = "Silnice v rekonstrukci";
+"type.highway.construction.unclassified" = "Silnice v rekonstrukci";
+"type.highway.construction.service" = "Silnice v rekonstrukci";
+"type.highway.construction.living_street" = "Silnice v rekonstrukci";
+"type.highway.construction.road" = "Silnice v rekonstrukci";
+"type.highway.construction.track" = "Silnice v rekonstrukci";
 "type.highway.cycleway" = "Cyklostezka";
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Most";
@@ -935,7 +951,7 @@
 "type.railway.funicular" = "Pozemní lanová dráha";
 "type.railway.funicular.bridge" = "Most pozemní lanové dráhy";
 "type.railway.funicular.tunnel" = "Tunel pozemní lanové dráhy";
-"type.railway.halt" = "Železniční stanice";
+"type.railway.halt" = "Železniční zastávka";
 "type.railway.level_crossing" = "Přejezd";
 "type.railway.light_rail" = "Lehká železnice";
 "type.railway.light_rail.bridge" = "Most lehké železnice";
@@ -1517,3 +1533,7 @@
 "type.leisure.sports_centre.sport.pickleball" = "Sportovní centrum";
 "type.organic.no" = "Žádné přírodní volby";
 "type.amenity.stage" = "Scéna";
+"type.amenity.animal_boarding" = "Hotel pro zvířata";
+"type.amenity.toilets.customers" = "Pouze pro zákazníky";
+"type.amenity.toilets.private" = "Soukromé";
+"type.amenity.planetarium" = "Planetárium";

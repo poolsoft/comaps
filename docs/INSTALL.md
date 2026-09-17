@@ -39,8 +39,7 @@ git clone --recurse-submodules --shallow-submodules https://codeberg.org/comaps/
   <summary><span style="font-size: 1em; font-weight: bold;">Ubuntu/Debian</span></summary>
 
 ```bash
-sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-dev libicu-dev libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev optipng python3-pip ninja-build
-
+sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-dev libicu-dev libfreetype-dev libharfbuzz-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev optipng python3-venv ninja-build jq curl python3-pip python-is-python3
 ```
 </details>
 
@@ -48,7 +47,7 @@ sudo apt install build-essential cmake qt6-base-dev qt6-svg-dev qt6-positioning-
   <summary><span style="font-size: 1em; font-weight: bold;">Arch Linux</span></summary>
 
 ```bash
-sudo pacman -S base-devel cmake qt6-base qt6-svg qt6-positioning icu freetype2 harfbuzz harfbuzz-utils libxrandr libxinerama libxcursor libxi ninja python-pip optipng
+sudo pacman -S base-devel cmake qt6-base qt6-svg qt6-positioning icu freetype2 harfbuzz harfbuzz-utils libxrandr libxinerama libxcursor libxi ninja python-pip optipng jq
 ```
 
 </details>
@@ -57,50 +56,20 @@ sudo pacman -S base-devel cmake qt6-base qt6-svg qt6-positioning icu freetype2 h
   <summary><span style="font-size: 1em; font-weight: bold;">Fedora</span></summary>
 
 ```bash
-sudo dnf install @development-tools cmake qt6-qtbase qt6-qtsvg qt6-qtpositioning icu harfbuzz freetype libXrandr libXinerama libXcursor libXi optipng python3-pip ninja-build
+sudo dnf install @development-tools cmake qt6-qtbase qt6-qtsvg qt6-qtpositioning icu harfbuzz freetype libXrandr libXinerama libXcursor libXi optipng python3-pip ninja-build jq
 ```
 
 </details>
 
-You must also install a specific version of the python protobuf package, which is not the one provided by the python standard installation.    
-Note: If the system can't find `pip`, try `pip3` instead  
+### Install Python protobuf and run ./configure.sh
 
-##### Solution1 ( break-system-packages )
-This simple method is adequate if you work in a temporary Virtual Machine, or do not fear troubles to system packages   
+The data generation tools require a specific Python `protobuf` version. You don't
+need to install it manually: `./configure.sh` (run below) creates a local `.venv`
+in the repository root and installs the correct version into it automatically.
 
-```bash   
-pip install "protobuf<3.21" --break-system-packages
-```
-
-##### Solution2 ( python venv )   
-The venv python package allows to set a "Virtual Environment" and install specific packages inside a specific directory, without impacting standard packages.   
-[more details](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments) 
-
-```bash   
-# Setup the venv ( do this only once )
-# /path/to/venv can be for example  a "venv" directory inside your home directory 
-python3 -m venv --system-site-packages /path/to/venv
-
-# Activate the venv 
-# ( if you don't use bash shell,  "source" command does not exist and must be replaced by "." )
-source /path/to/venv/bin/activate
-
-# You can now install protobuf specific version inside the venv
-pip install "protobuf<3.21"
-```
-   
-Notes about venv:
-- using "--system-site-packages" is important: otherwise all previously installed system packages will mysteriously disappear
-- IMPORTANT: before running any Comaps generation command, check that the venv is activated, so that the right version of protobuf is used
-- if you find the activation command too tedious, you can setup an alias in your shell profile `alias venv='source /path/to/venv/bin/activate'`
-
-
-
-
-
-
-
-### Configure running bash script
+If you prefer to manage `protobuf` via your system Python (e.g. a distro
+`python3-protobuf` package), set `SKIP_PYTHON_VENV=1` before running `./configure.sh`
+and the venv step will be skipped.
 
 Go into the cloned repository and configure it for development:
 ```bash
@@ -113,13 +82,34 @@ If you plan to publish the app privately in stores check [special options](#spec
 </details>
 
 <details>
-  <summary><span style="font-size: 1.5em; font-weight: bold;">Windows</span></summary>
-  
-It's probably best to have [Git for Windows](https://git-scm.com/download/win) installed and Git Bash available in the PATH.
+  <summary><span style="font-size: 1.5em; font-weight: bold;" id="windows">Windows 10/11</span></summary>
+
+### WSL builds
+
+Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) if not already.
+
+Run `wsl configure.sh` etc and follow appropriate Linux instructions/dependencies above. For example you'll at least need to install g++ and jq by running the following command in WSL: `sudo apt install g++ jq`
+
+### Non-WSL Builds
+
+Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
+
+Use Git Bash via [Git for Windows](https://git-scm.com/download/win) so that running `bash` results in that version and not some other Bash.
 
 [optipng](http://optipng.sourceforge.net/) should be installed and available in the PATH (e.g. via [Chocolatey](https://chocolatey.org/): `choco install optipng`).
 
-It's necessary to enable symlink support:
+[uconv via ICU](https://github.com/unicode-org/icu/releases/latest) for `configure.sh` and generating Serbian Latin strings. Download `icu4c-<version>-Win64-MSVC2022.zip` from Github, extract it somewhere, and add its `bin64` folder to the top of your PATH. If you don't need to generate Serbian strings, you can also set `SKIP_GENERATE_SERBIAN_LATIN_STRINGS=1` before running `configure.sh`.
+
+[`jq`](https://jqlang.org/) for `configure.sh` JSON strings. Install it via `winget install jqlang.jq` or [download the binary directly](https://jqlang.org/download/). Make sure it's in your PATH (able to run `jq` directly).
+
+[`zlib` via vcpkg](https://vcpkg.io/). The Chocolatey `zlib` package has been delisted. vcpkg builds it from source with your MSVC toolchain:
+```
+git clone https://github.com/microsoft/vcpkg C:\vcpkg
+C:\vcpkg\bootstrap-vcpkg.bat
+C:\vcpkg\vcpkg install zlib:x64-windows
+```
+
+It may no longer be necessary to enable symlink support, so only do this if needed:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
   - Windows 10: _Settings_ -> _Update and Security_ -> _For Developers_ -> _Activate Developer Mode_
   - Windows 11: _Settings_ -> _Privacy and Security_ -> _For Developers_ -> _Activate Developer Mode_
@@ -135,19 +125,18 @@ Clone the repository
 git clone --recurse-submodules --shallow-submodules https://codeberg.org/comaps/comaps.git
 ```
 
-For _Windows 10/11_:  You should be able to build the project by following either of these setup methods:
-
-**Setup 1: Using WSL**
-1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
-2. Install g++ by running the following command in WSL: `sudo apt install g++`
-
-**Setup 2: Using Visual Studio Developer Command Prompt**
-Install the [Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) (make sure to choose the latest MSVC x64/x86 build tool and Windows 10/11 SDK as individual components while installing Visual Studio).
-
 </details>
 
 <details>
   <summary><span style="font-size: 1.5em; font-weight: bold;">macOS</span></summary>
+
+The recommended version for iOS development is macOS 15 and Xcode 26, as this is the only way to run with the CarPlay external display in the iOS Simulator
+
+With the release of macOS 27, the recommended way is hence to run the development in a VM as macOS 15 is unsupported by Apple. This requires approximately 100 GB disk space
+
+Note that the obligatory Scene migration required by iOS SDK 27 has not yet been merged to `main`, such that Xcode 27 can't compile the app unless you check out the `carplay-dashboard-support` branch. This means that you have to stay on Xcode 26 on macOS 26.
+
+Once we have set up an Apple Organization account it will be possible to use Xcode 27 if you get added as a "Developer" on the team
 
 Install required build dependencies and Xcode
 1. Install Xcode Command Line Tools
@@ -162,9 +151,12 @@ xcode-select --install
 
 #### Homebrew packages
 ```bash
-brew install wget optipng cmake ninja qt
-pip3 install "protobuf<3.21"
+brew install wget optipng cmake ninja qt jq
 ```
+
+The required Python `protobuf` version is installed automatically into a local
+`.venv` by `./configure.sh` (run below). Set `SKIP_PYTHON_VENV=1` to manage it via
+your system Python instead.
 
 #### Clone the repository
 ```bash
@@ -291,21 +283,29 @@ adb shell pm grant app.organicmaps.debug android.permission.READ_LOGS
 <details>
   <summary><span style="font-size: 1.5em; font-weight: bold;">Android Auto</span></summary>
 
-Android Auto can be developed and tested without having a physical device by using [Desktop Head Unit (DHU)](https://developer.android.com/training/cars/testing/dhu). Go to Android Studio > Tools -> SDK Manager -> SDK Tools and enable "Android Auto Desktop Head Unit".
+Android Auto can be developed and tested without having a physical head unit by using [Desktop Head Unit (DHU)](https://developer.android.com/training/cars/testing/dhu). Go to Android Studio > Tools -> SDK Manager -> SDK Tools and enable "Android Auto Desktop Head Unit".
 
-[Android Auto App](https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead) is required for Auto functionality. The app should be installed from Google Play before connecting a phone to the Desktop Head Unit or a real car. Android Auto doesn't work on phones without Google Play Services.
+The DHU will be located at the following path: 
+
+```
+$ANDROID_HOME/extras/google/auto/desktop-head-unit`
+```
+
+Where `$ANDROID_HOME` is the path of the Android SDK on your system.
+The default location is:
+  - Windows: `%USERPROFILE%\Android\Sdk`
+  - MacOS: `~/Library/Android/sdk`
+  - Linux `~/Android/Sdk`
+
+### With a physical phone
+
+The [Android Auto app](https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead) is required for Auto functionality. The app should be installed from Google Play before connecting a phone to the Desktop Head Unit or a real car. Android Auto doesn't work on phones without Google Play Services.
 
 To run Android Auto, connect the phone using USB cable and run the Desktop Head Unit with the `--usb` flag:
 
 ```
-[Android SDK path]/extras/google/auto/desktop-head-unit --usb
+$ANDROID_HOME/extras/google/auto/desktop-head-unit --usb
 ```
-Where `[Android SDK path]` is the path of the Android SDK on your system.
-The default location is:
-  - Windows: %USERPROFILE%\Android\Sdk
-  - MacOS: ~/Library/Android/sdk
-  - Linux ~/Android/Sdk
-
 
 ```
 [REDACTED]
@@ -315,7 +315,92 @@ The default location is:
 [I]: Attached!
 ```
 
-CoMaps icon will appear in the application list in DHU.
+The CoMaps icon will appear in the application list in DHU.
+
+### With an emulated phone
+
+The emulated device will need a recent version of Android and **must be using a
+Google Play variant image**.
+
+The Android Auto app will need to be installed inside the emulated device. You
+can download it from [APKMirror](https://www.apkmirror.com/apk/google-inc/android-auto/).
+Make sure the version you download matches the architecture you are emulating, 
+and is the latest available version.
+
+<details>
+<summary>Sideloading from outside the emulator</summary>
+
+This section assumes you've downloaded the archive to your computer.
+
+Unpack the `.apkm`:
+
+```
+unzip com.google.android.projection.gearhead_17.2.662638-release-172662638_1arch_1dpi_24lang_e37912cf480ba711cd4bd3db5050e647_apkmirror.com.apkm
+```
+
+(This will unzip a lot of files into your current working directory. You may
+want to consider moving to an empty directory before unpacking.)
+
+Install all the necessary parts, for example:
+
+```
+adb install-multiple base.apk split_config.x86_64.apk split_config.en.apk split_config.xxhdpi.apk
+```
+
+Change the command to whatever architecture, languages, and DPI you need.
+</details>
+
+<details>
+
+<summary>Installing from inside the emulator</summary>
+
+This section assumes you've downloaded the archive inside the emulator and you
+have an shell open (`adb shell`).
+
+Unpack the `.apkm` and move all `.apk` files into `/data/local/tmp`:
+
+```
+cd /storage/emulated/0/Download
+unzip com.google.android.projection.gearhead_17.2.662638-release-172662638_1arch_1dpi_24lang_e37912cf480ba711cd4bd3db5050e647_apkmirror.com.apkm
+mv *.apk /data/local/tmp
+cd /data/local/tmp
+```
+
+Start an install session and install all the necessary parts, for example:
+
+```
+pm install-create
+pm install-write XX base base.apk
+pm install-write XX config.x86_64 split_config.x86_64.apk
+pm install-write XX config.en split_config.en.apk
+pm install-write XX config.xxhdpi split_config.xxhdpi.apk
+pm install-commit
+```
+
+Where `XX` is the session ID. Change the command to whatever architecture,
+languages, and DPI you need.
+</details>
+
+Next, access Android Auto by going to Settings > Connected devices > Connection 
+preferences > Android Auto. Scroll to the bottom and tap the version a bunch of
+times to enable Developer Mode. Once enabled, tap the three dots in the top
+right and tap "Start head unit server".
+
+Finally, forward port `5277` from the emulator and start the DHU:
+
+```
+adb forward tcp:5277 tcp:5277
+$ANDROID_HOME/extras/google/auto/desktop-head-unit
+```
+
+There will be a few screens which pop up to grant permissions and set up Android
+Auto for first use. 
+
+#### Troubleshooting
+
+*I see a certificate error when trying to connect the DHU.* This means your
+Android Auto version is out of date. Make sure you're on a later version of
+both Android and Android Auto.
 
 ### More options
 

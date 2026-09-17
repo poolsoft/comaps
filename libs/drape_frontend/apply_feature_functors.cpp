@@ -39,6 +39,7 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -67,6 +68,7 @@ df::ColorConstant const kRoadShieldGreenBackgroundColor = "RoadShieldGreenBackgr
 df::ColorConstant const kRoadShieldBlueBackgroundColor = "RoadShieldBlueBackground";
 df::ColorConstant const kRoadShieldRedBackgroundColor = "RoadShieldRedBackground";
 df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBackground";
+df::ColorConstant const kRoadShieldGreyBackgroundColor = "RoadShieldGreyBackground";
 df::ColorConstant const kRoadShieldUKYellowTextColor = "RoadShieldUKYellowText";
 
 uint32_t constexpr kPathTextBaseTextIndex = 128;
@@ -217,6 +219,8 @@ bool IsSymbolRoadShield(ftypes::RoadShield const & shield)
          shield.m_type == ftypes::RoadShieldType::Italy_Autostrada ||
          shield.m_type == ftypes::RoadShieldType::Argentina_RN ||
          shield.m_type == ftypes::RoadShieldType::Bolivia_Fundamental ||
+         shield.m_type == ftypes::RoadShieldType::Brazil_National ||
+         shield.m_type == ftypes::RoadShieldType::Brazil_State ||
          shield.m_type == ftypes::RoadShieldType::Hungary_Green ||
          shield.m_type == ftypes::RoadShieldType::Hungary_Blue;
 }
@@ -249,6 +253,15 @@ std::string GetRoadShieldSymbolName(ftypes::RoadShield const & shield, double fo
     result = shield.m_name.size() <= 2 ? "shield-argentina-rn" : "shield-argentina-rn-wide";
   else if (shield.m_type == ftypes::RoadShieldType::Bolivia_Fundamental)
     result = "shield-bolivia-fundamental" ;
+  else if (shield.m_type == ftypes::RoadShieldType::Brazil_National)
+    result = "shield-brazil-national";
+  else if (shield.m_type == ftypes::RoadShieldType::Brazil_State)
+  {
+    // The state code (e.g. "RS") is carried in m_additionalText, see BrazilRoadShieldParser.
+    std::string stateCode = shield.m_additionalText;
+    strings::AsciiToLower(stateCode);
+    result = "shield-brazil-" + stateCode;
+  }
   else
     ASSERT(false, ("This shield type doesn't support symbols:", shield.m_type));
 
@@ -265,11 +278,13 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
          shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
          shield.m_type == ftypes::RoadShieldType::Generic_Red ||
          shield.m_type == ftypes::RoadShieldType::Generic_Orange ||
+         shield.m_type == ftypes::RoadShieldType::Generic_Grey ||
          shield.m_type == ftypes::RoadShieldType::Generic_White_Bordered ||
          shield.m_type == ftypes::RoadShieldType::Generic_Green_Bordered ||
          shield.m_type == ftypes::RoadShieldType::Generic_Blue_Bordered ||
          shield.m_type == ftypes::RoadShieldType::Generic_Red_Bordered ||
          shield.m_type == ftypes::RoadShieldType::Generic_Orange_Bordered ||
+         shield.m_type == ftypes::RoadShieldType::Generic_Grey_Bordered ||
          shield.m_type == ftypes::RoadShieldType::UK_Highway;
 }
 
@@ -297,11 +312,13 @@ dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield con
       {RoadShieldType::Generic_Blue, kRoadShieldBlueBackgroundColor},
       {RoadShieldType::Generic_Red, kRoadShieldRedBackgroundColor},
       {RoadShieldType::Generic_Orange, kRoadShieldOrangeBackgroundColor},
+      {RoadShieldType::Generic_Grey, kRoadShieldGreyBackgroundColor},
       {RoadShieldType::Generic_White_Bordered, kRoadShieldWhiteBackgroundColor},
       {RoadShieldType::Generic_Green_Bordered, kRoadShieldGreenBackgroundColor},
       {RoadShieldType::Generic_Blue_Bordered, kRoadShieldBlueBackgroundColor},
       {RoadShieldType::Generic_Red_Bordered, kRoadShieldRedBackgroundColor},
       {RoadShieldType::Generic_Orange_Bordered, kRoadShieldOrangeBackgroundColor},
+      {RoadShieldType::Generic_Grey_Bordered, kRoadShieldGreyBackgroundColor},
       {RoadShieldType::Generic_Pill_White, kRoadShieldWhiteBackgroundColor},
       {RoadShieldType::Generic_Pill_Green, kRoadShieldGreenBackgroundColor},
       {RoadShieldType::Generic_Pill_Blue, kRoadShieldBlueBackgroundColor},
@@ -331,11 +348,13 @@ dp::Color GetRoadShieldTextColor(dp::Color const & baseColor, ftypes::RoadShield
       {RoadShieldType::Generic_Blue, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Red, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Orange, kRoadShieldBlackTextColor},
+      {RoadShieldType::Generic_Grey, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_White_Bordered, kRoadShieldBlackTextColor},
       {RoadShieldType::Generic_Green_Bordered, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Blue_Bordered, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Red_Bordered, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Orange_Bordered, kRoadShieldBlackTextColor},
+      {RoadShieldType::Generic_Grey_Bordered, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Pill_White, kRoadShieldBlackTextColor},
       {RoadShieldType::Generic_Pill_Green, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Pill_Blue, kRoadShieldWhiteTextColor},
@@ -356,6 +375,8 @@ dp::Color GetRoadShieldTextColor(dp::Color const & baseColor, ftypes::RoadShield
       {RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
       {RoadShieldType::Italy_Autostrada, kRoadShieldWhiteTextColor},
       {RoadShieldType::Bolivia_Fundamental, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Brazil_National, kRoadShieldBlackTextColor},
+      {RoadShieldType::Brazil_State, kRoadShieldBlackTextColor},
       {RoadShieldType::Hungary_Green, kRoadShieldWhiteTextColor},
       {RoadShieldType::Hungary_Blue, kRoadShieldWhiteTextColor}};
 
@@ -371,6 +392,7 @@ float GetRoadShieldOutlineWidth(float baseWidth, ftypes::RoadShield const & shie
   if (shield.m_type == ftypes::RoadShieldType::Generic_White ||
       shield.m_type == ftypes::RoadShieldType::Generic_Green || shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
       shield.m_type == ftypes::RoadShieldType::Generic_Red || shield.m_type == ftypes::RoadShieldType::Generic_Orange ||
+      shield.m_type == ftypes::RoadShieldType::Generic_Grey ||
       shield.m_type == ftypes::RoadShieldType::Generic_Pill_White ||
       shield.m_type == ftypes::RoadShieldType::Generic_Pill_Green ||
       shield.m_type == ftypes::RoadShieldType::Generic_Pill_Blue ||
@@ -574,7 +596,7 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     symbolSize = region.GetPixelSize();
 
     if (region.IsValid())
-      m_insertShape(make_unique_dp<PoiSymbolShape>(centerPoint, params, m_tileKey, 0 /* textIndex */));
+      m_insertShape(make_unique_dp<PoiSymbolShape>(centerPoint, params, m_tileKey, 0 /* textIndex */, 2 /* subID */));
     else
       LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_f.GetID()));
   }
@@ -605,9 +627,9 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
       params.m_titleDecl.m_anchor = GetAnchor(0, 1);
 
     params.m_startOverlayRank = symbolRule ? dp::OverlayRank1 : dp::OverlayRank0;
-    auto shape =
-        make_unique_dp<TextShape>(centerPoint, params, m_tileKey, symbolSize, m2::PointF(0.0f, 0.0f) /* symbolOffset */,
-                                  dp::Center /* symbolAnchor */, 0 /* textIndex */);
+    auto shape = make_unique_dp<TextShape>(centerPoint, params, m_tileKey, symbolSize,
+                                           m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Center /* symbolAnchor */,
+                                           0 /* textIndex */, 0 /* subID */, 1 /* secondarySubID */);
     m_insertShape(std::move(shape));
   }
 
@@ -636,7 +658,7 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     }
     m_insertShape(make_unique_dp<TextShape>(centerPoint, params, m_tileKey, symbolSize,
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Center /* symbolAnchor */,
-                                            0 /* textIndex */));
+                                            0 /* textIndex */, 3 /* subID */, 0 /* secondarySubID unused */));
   }
 }
 
@@ -1116,7 +1138,9 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     shieldPixelSize = region.GetPixelSize();
   }
 
-  if (!shield.m_additionalText.empty() && (anchor & dp::Top || anchor & dp::Center))
+  // Brazil state shields use m_additionalText to select the symbol, it is not a caption.
+  if (!shield.m_additionalText.empty() && shield.m_type != ftypes::RoadShieldType::Brazil_State &&
+      (anchor & dp::Top || anchor & dp::Center))
   {
     auto & titleDecl = textParams.m_titleDecl;
     titleDecl.m_secondaryText = shield.m_additionalText;
@@ -1184,11 +1208,12 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    uint32_t textIndex = kPathTextBaseTextIndex;
+    uint32_t textIndexStart = kPathTextBaseTextIndex;
+    uint32_t textIndexCount = (std::numeric_limits<uint32_t>::max() - textIndexStart) / m_clippedSplines.size();
     for (auto const & spline : m_clippedSplines)
     {
       PathTextViewParams p = params;
-      auto shape = make_unique_dp<PathTextShape>(spline, p, m_tileKey, textIndex);
+      auto shape = make_unique_dp<PathTextShape>(spline, p, m_tileKey, textIndexStart, textIndexStart + textIndexCount);
 
       if (!shape->CalculateLayout(texMng))
         continue;
@@ -1199,7 +1224,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
         CalculateRoadShieldPositions(shape->GetOffsets(), spline, shieldPositions);
 
       m_insertShape(std::move(shape));
-      textIndex++;
+      textIndexStart += textIndexCount;
     }
   }
   else if (m_shieldRule)
@@ -1246,11 +1271,11 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
 
       m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey, m2::PointF(0.0f, 0.0f) /* symbolSize */,
                                               m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Center /* symbolAnchor */,
-                                              textIndex));
+                                              textIndex, 0 /* subID */, 1 /* secondarySubID */));
       if (IsColoredRoadShield(shield) || IsColoredPillRoadShield(shield))
-        m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_tileKey, textIndex));
+        m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_tileKey, textIndex, 1));
       else if (IsSymbolRoadShield(shield))
-        m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, m_tileKey, textIndex));
+        m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, m_tileKey, textIndex, 2));
       textIndex++;
     }
     shieldIndex++;

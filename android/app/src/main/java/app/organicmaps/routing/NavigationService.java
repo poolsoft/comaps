@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.provider.NavigationContract;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
@@ -299,6 +300,9 @@ public class NavigationService extends Service implements LocationListener
 
     if (routingInfo.shouldPlayWarningSignal())
       mPlayer.playback(R.raw.speed_cams_beep);
+
+    RoutingController.get().updateCachedRoutingInfo(routingInfo);
+    getContentResolver().notifyChange(NavigationContract.LIVE_NAVIGATION_DATA_URI, null);
 
     // Don't spend time on updating RemoteView if notifications are not allowed.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU

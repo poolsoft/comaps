@@ -1,10 +1,11 @@
-• Dados do OSM até 3/junho e atualizações semanais (botão «Verificar atualizações»)
-• Favoritos: ordenação manual ou por nome
-• Ocultação por toque longo desativada (reativar nas definições)
-• Seletor de endereços de contactos na pesquisa
-• Wikipedia: modo escuro e suporte RTL
-• TalkBack melhorado
-• Editor OSM: histórico de categorias recentes
-• Android Auto: mostra legibilidade da app nas definições
+• Nomes favoritos no mapa (desativável nas definições)
+• Avaliações do Mangrove na página do POI
+• Tamanho da fonte do mapa personalizável
+• Permitir leitura do mapa com TalkBack
+• Gravação de percurso após início da navegação
+• "Abre amanhã às..." na página do POI
+• Pesquisa corrigida para qualquer idioma do mapa
+• Sinais de trânsito no Quirguistão, Uzbequistão, Tajiquistão, Cazaquistão e Geórgia
+• Mostrar paragens de autocarro mais cedo na camada do metro
 
-Detalhes em comaps.app/latest
+Mais detalhes em comaps.app/latest

@@ -1,7 +1,10 @@
-• OpenStreetMap zemljevidi s podatki od 3. junija, novejše tedenske posodobitve zemljevidov lahko sprožite v menuju za posodobitve
-• Razvrsti priljubljene shranjene lokacije ročno ali po imenu
-• Izklopljen dolgi pritisk za skrivanje vmesnika, ponoven vklop možen v nastavitvah
-• Možnost izbire naslova iz telefonskega imena za kontakt
-• Članki iz wikipedie: možen ogled v temnem načinu in podpora za RTL (od desne proti levi) prikaz besedila
+• Prikaži imena priljubljenih na zemljevidu (Izklop v nastavitvah)
+• Prikazuje ocene iz strani Mangrove v prikazu POI
+• Možnost nastavljanja velikosti pisave
+• Omogočeno branje zemljevida za TalkBack uporabnike
+• Možnost zagona snemanja poti neposredno po zagonu navigacije
+• Prikaz "Se odpre jutri ob ..." na strani POI
+• Popravljena možnost iskanja v poljubnem nastavljenem jeziku
+• Znaki oznak cest v Kirgizistanu, Uzbekistanu, Tadžikistanu, Kazahstanu in Gruziji
 
-Več podrobnosti na comaps.app/latest
+Več na comaps.app/latest

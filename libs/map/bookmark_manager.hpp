@@ -37,6 +37,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -294,7 +295,8 @@ public:
   void SetLastSortingType(kml::MarkGroupId groupId, SortingType sortingType);
   void ResetLastSortingType(kml::MarkGroupId groupId);
 
-  void PrepareForSearch(kml::MarkGroupId groupId);
+  void PrepareForSearch(std::optional<kml::MarkGroupId> groupId = std::nullopt);
+  void ReleaseSearch();
 
   bool IsVisible(kml::MarkGroupId groupId) const;
 
@@ -471,6 +473,8 @@ public:
 
   kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> points, std::string const & from,
                          std::string const & to);
+
+  void UpdateBookmarkLabels();
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider

@@ -52,9 +52,9 @@
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Zaznamki";
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Priljubljeni";
+"bookmarks_and_tracks" = "Zaznamki";
 /* Default bookmark list name */
-"core_my_places" = "Moji kraji";
+"core_my_places" = "Moji zaznamki";
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Naslov";
 /* Settings button in system menu */
@@ -111,7 +111,7 @@
 /* message title of loading file */
 "load_kmz_title" = "Nalaganje zaznamkov";
 /* Kmz file successful loading */
-"load_kmz_successful" = "Zaznamki so uspešno naloženi! Najdete jih lahko na zemljevidu ali v upravitelju zaznamkov.";
+"load_kmz_successful" = "Zaznamki so uspešno naloženi! Najdete jih lahko na zemljevidu ali v upravitelju Zaznamkov.";
 /* Kml file loading failed */
 "load_kmz_failed" = "Zaznamkov ni bilo mogoče naložiti. Datoteka je morda okvarjena.";
 /* resource for context menu */
@@ -143,7 +143,6 @@
 "share_my_location" = "Deli moj položaj";
 "prefs_group_route" = "Usmerjanje";
 "pref_zoom_title" = "Gumbi za povečavo";
-"pref_left_button_type" = "Levi glavni gumb";
 /* Settings «Map» category: «Map Language» title */
 "pref_maplanguage_title" = "Jezik zemljevida";
 /* Settings «Map» category: «Map Language» local value */
@@ -166,8 +165,6 @@
 "auto" = "Samodejno";
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Pogled iz zraka pod kotom";
-/* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D stavbe";
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D stavbe so onemogočene v načinu varčevanja z energijo";
 /* Settings «Route» category: «Tts enabled» title */
@@ -459,7 +456,7 @@
 "editor_focus_map_on_location" = "Povlecite zemljevid tako, da bo križec na položaju kraja ali podjetja.";
 "editor_add_select_category" = "Izberite kategorijo";
 "editor_add_select_category_popular_subtitle" = "Priljubljeno";
-"editor_add_select_category_all_subtitle" = "Vsi razredi";
+"editor_add_select_category_all_subtitle" = "Vse kategorije";
 "editor_edit_place_title" = "Urejanje";
 "editor_add_place_title" = "Dodajanje";
 "editor_edit_place_name_hint" = "Ime kraja";
@@ -571,7 +568,6 @@
 "mobile_data_option_never" = "Nikoli ne uporabi";
 "mobile_data_option_ask" = "Vedno vprašaj";
 "traffic_update_maps_text" = "Za prikazovanje prometnih podatkov je treba posodobiti zemljevide.";
-"big_font" = "Povečaj velikost oznak na zemljevidu";
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Za prikazovanje prometnih podatkov je treba posodobiti to orodje.";
 /* "traffic" as in "road congestion" */
@@ -625,8 +621,6 @@
 "restore" = "Povrni";
 "privacy_policy" = "Politika zasebnosti";
 "terms_of_use" = "Pogoji uporabe";
-"button_layer_subway" = "Podzemna železnica";
-"layers_title" = "Slogi in plasti zemljevida";
 "subway_data_unavailable" = "Zemljevid podzemne železnice ni na voljo";
 "title_error_downloading_bookmarks" = "Prišlo je do napake";
 "popular_place" = "Priljubljeno";
@@ -681,8 +675,6 @@
 "yes_available" = "Da";
 /* E.g. "WiFi:No" */
 "no_available" = "Ne";
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
-"capacity" = "Velikost: %@";
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Omrežje: %@";
 "trip_finished" = "Prispeli ste na cilj!";
@@ -735,7 +727,6 @@
 "transit_not_found" = "V tem območju usmerjanje s podzemno železnico še ni na voljo";
 "dialog_pedestrian_route_is_long_header" = "Poti s podzemno železnico ni bilo mogoče najti";
 "dialog_pedestrian_route_is_long_message" = "Izberite začetno ali končno točko, ki je bližje postaji podzemne železnice";
-"button_layer_isolines" = "Plastnice";
 "isolines_activation_error_dialog" = "Plastnice lahko omogočite šele, ko prenesete kartografske podatke za to območje";
 "isolines_location_error_dialog" = "Plastnice za to območje še niso na voljo";
 "elevation_profile_diff_level" = "Raven zahtevnosti";
@@ -797,8 +788,6 @@
 "car_continue_on_the_phone" = "Nadaljuj na telefonu";
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "Na zaslon vozila";
-/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Na prostem";
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Izvozi vse zaznamke";
 /* Text for the editing the Track's color button. */
@@ -848,16 +837,12 @@
 "recover" = "Obnovi";
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Obnovi vse";
-/* Prompt to start recording a track. */
-"start_track_recording" = "Snemanje sledi";
-/* Prompt for stopping a track recording. */
-"stop_track_recording" = "Ustavi snemanje sledi";
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "stop_without_saving" = "Ustavi brez shranjevanja";
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "continue_recording" = "Nadaljuj snemanje";
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Želite shraniti med zaznamke in sledi?";
+"track_recording_alert_title" = "Želite shraniti med priljubljene?";
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Sled je prazna – ničesar ni za shraniti";
 "edit_track" = "Uredi sled";
@@ -870,12 +855,45 @@
 "contribute_to_osm_add_place" = "Dodaj kraj";
 "contribute_to_osm_update_map" = "Prispevaj in posodobi zemljevid";
 "contribute_to_osm_update_map_description" = "Preden lahko prispevate na OpenStreetMap, morate posodobiti zemljevid %@ na zadnjo različico";
-"downloader_check_updates_button" = "Check for updates";
-"downloader_check_updates_checking" = "Checking for updates...";
-"downloader_check_updates_updated" = "Map updates available!";
+"downloader_check_updates_button" = "Preveri posodobitve";
+"downloader_check_updates_checking" = "Preverjanje posodobitev...";
+"downloader_check_updates_updated" = "Posodobitve zemljevidov so na voljo!";
 "downloader_check_updates_no_updates" = "Posodobitev ni na voljo";
-"downloader_check_updates_eol" = "No more map updates for this app version. Please update the app!";
-"downloader_check_updates_error" = "Error checking for updates";
-"editor_add_select_category_recent_subtitle" = "Recently Used";
-"oh_unknown" = "Opening hours unknown";
-"carplay_highway_exit" = "Exit %@";
+"downloader_check_updates_eol" = "Za to verzijo aplikacije posodobitve zemljevidov niso več na voljo. Prosimo posodobite aplikacijo!";
+"downloader_check_updates_error" = "Napaka pri preverjanju posodobitev";
+"editor_add_select_category_recent_subtitle" = "Nedavno uporabljeno";
+"oh_unknown" = "Odpiralni časi neznani";
+"carplay_highway_exit" = "Izvoz %@";
+"capacity_disabled_yes" = "Ima mesta za invalide";
+"capacity_disabled_no" = "Nima mest za invalide";
+"capacity_charging_yes" = "Ima mesta za polnjenje";
+"capacity_charging_no" = "Nima mest za polnjenje";
+"planning_route_preview" = "Predogled";
+"planning_route_preview_sheet_title" = "Predogled poti";
+"discard" = "Discard";
+"pref_custom_button_type" = "Customizable Button";
+"osm" = "OpenStreetMap";
+"mode" = "Mode";
+"mode_walking" = "Walking";
+"mode_cycling" = "Cycling";
+"mode_driving" = "Driving";
+"mode_public-transport" = "Public Transport";
+"mode_option_traffic" = "Show Traffic";
+"mode_option_transitlines" = "Show Transit Lines";
+"mode_option_comingsoon" = "Options coming soon";
+"layers" = "Layers";
+"layers_option_contour-lines" = "Plastnice";
+"layers_option_outdoor" = "Outdoor";
+"layers_option_buildings-3d" = "Zgradbe v 3D";
+"layers_power-saving" = "This layer is currently automatically disabled due to your power saving mode setting";
+"postionmode_locate" = "Find own location";
+"postionmode_locating" = "Finding own location...";
+"postionmode_following" = "Following location with map roated towards North";
+"postionmode_following-and-rotated" = "Following location with map roated towards traveling direction";
+"zoom_in" = "Približaj";
+"zoom_out" = "Oddalji";
+"record_track" = "Snemaj sled";
+"recording_track" = "Snemanje sledi";
+"bookmarks_text_placement_title" = "Show names of favorites on map";
+"pref_font_size" = "Font size for map labels";
+"font_size" = "Font size";

@@ -183,13 +183,16 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Comprimento</string>
     <string name="share_my_location">Partilhar a minha localização</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Configurações gerais</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informação</string>
     <string name="prefs_group_route">Navegação</string>
     <string name="pref_zoom_title">Botões de ampliação</string>
     <string name="pref_zoom_summary">Mostrar no ecrã</string>
+    <string name="prefs_group_advanced">Avançadas</string>
+    <string name="download_resources_custom_url_title">Servidor de Mapa Personalizado</string>
+    <string name="download_resources_custom_url_message">Substitui o servidor de download de mapas normal. Deixe em branco para usar o servidor do CoMaps padrão.</string>
+    <string name="download_resources_custom_url_summary_none">Indefinido</string>
+    <string name="download_resources_custom_url_error_scheme">Por favor, insira um URL começando com http:// ou https://</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Modo noturno</string>
     <!-- Generic «Off» string -->
@@ -515,7 +518,7 @@
     <string name="mobile_data_option_never">Nunca utilizar</string>
     <string name="mobile_data_option_ask">Perguntar sempre</string>
     <string name="traffic_update_maps_text">Para ver os dados de tráfego, os mapas têm de ser atualizados</string>
-    <string name="big_font">Aumentar tamanho da fonte no mapa</string>
+    <string name="increase_font_size">Aumentar tamanho da fonte no mapa</string>
     <string name="traffic_update_app">Atualize o CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Os dados de tráfego não estão disponíveis</string>
@@ -574,7 +577,7 @@
         <item quantity="other">%d trajetos</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privacidade</string>
+    <string name="prefs_group_privacy">Privacidade</string>
     <string name="privacy_policy">Política de privacidade</string>
     <string name="terms_of_use">Termos de utilização</string>
     <string name="button_layer_traffic">Tráfego</string>
@@ -602,7 +605,7 @@
     <string name="power_managment_setting_auto">Automático</string>
     <string name="power_managment_setting_manual_max">Máxima economia de energia</string>
     <string name="enable_logging_warning_message">Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do CoMaps.</string>
-    <string name="driving_options_title">Configurações de direção</string>
+    <string name="routing_options_title">Configurações de direção</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar portagens</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -612,7 +615,7 @@
     <string name="avoid_motorways">Evitar autoestradas</string>
     <string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
     <string name="unable_to_calc_alert_subtitle">Uma rota não foi possível ser encontrada. Isto pode ser causado pelas suas opções ou dados incompletos de OpenStreetMap. Por favor, mude as suas opções de rota e tente novamente.</string>
-    <string name="define_to_avoid_btn">Definir as estradas a evitar</string>
+    <string name="define_to_avoid_btn">Escolher opções de roteamento</string>
     <string name="change_driving_options_btn">Configurações de direção ativadas</string>
     <string name="toll_road">Estrada com portagem</string>
     <string name="unpaved_road">Estrada não pavimentada</string>
@@ -745,7 +748,7 @@
     <string name="pref_tts_no_system_tts">Não foram encontradas definições de síntese de voz. Tens a certeza de que o teu dispositivo é compatível?</string>
     <string name="drive_through">Drive-through</string>
     <string name="clear_the_search">Limpar a pesquisa</string>
-    <string name="zoom_in">Ampliar</string>
+    <string name="zoom_in">Aumentar o zoom</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Diminuir o zoom</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
@@ -877,6 +880,7 @@
     <string name="avoid_paved">Evitar rotas pavimentadas</string>
     <string name="opens_at">Abre às %s</string>
     <string name="closes_at">Fecha às %s</string>
+    <string name="opens_tomorrow_at">Abre amanhã às %s</string>
     <string name="opens_day_at">Abre %1$s às %2$s</string>
     <string name="closes_day_at">Fecha %1$s às %2$s</string>
     <plurals name="minutes_short">
@@ -899,11 +903,6 @@
     <string name="prefs_speed_cameras_information">Avisos de câmaras de velocidade estão desativados em países onde alertas estão proibidos por lei.</string>
     <string name="navigation_start_tts_message">"Iniciando Navegação, idioma das instruções por voz: "</string>
     <string name="navigation_start_tts_disabled_message">Instruções por voz desativadas: nenhum motor de TTS disponível</string>
-    <string name="advanced">Avançadas</string>
-    <string name="download_resources_custom_url_title">Servidor de Mapa Personalizado</string>
-    <string name="download_resources_custom_url_message">Substitui o servidor de download de mapas normal. Deixe em branco para usar o servidor do CoMaps padrão.</string>
-    <string name="download_resources_custom_url_summary_none">Indefinido</string>
-    <string name="download_resources_custom_url_error_scheme">Por favor, insira um URL começando com http:// ou https://</string>
     <string name="pref_maplanguage_local">Idioma Local</string>
     <string name="location_privacy_info">Aplicações usam dados de localização do serviço de localização, que podem partilhar a sua localização com a Google e/ou a marca do seu dispositivo. Use um Android OS que proteja privacidade para evitar isto.</string>
     <string name="location_privacy">Privacidade da Localização</string>
@@ -938,8 +937,6 @@
     <string name="downloader_check_updates_no_updates">Nenhuma atualização disponível</string>
     <string name="downloader_check_updates_eol">Não existirão mais atualizações do mapa para esta versão. Por favor, atualize a aplicação!</string>
     <string name="downloader_check_updates_error">Erro ao procurar atualizações</string>
-    <string name="pref_keyboard_typing_history_title">Modo de teclado anónimo</string>
-    <string name="pref_keyboard_typing_history_summary">Solicitar ao teclado do sistema que não registe o histórico de escrita</string>
     <string name="pref_aa_support_title">Android Auto</string>
     <string name="pref_aa_support_summary_yes">A aplicação foi instalada pela Google Play, pode utilizá-la no seu carro.</string>
     <string name="pref_aa_support_summary_no">A aplicação não foi instalada pela Google Play, não pode utilizá-la no seu carro. Pressione as definições para obter mais detalhes nas nossas perguntas frequentes.</string>
@@ -953,4 +950,34 @@
     <string name="sort_categories">Ordenar Listas de Favoritos</string>
     <string name="by_recently_used">Por usados recentemente</string>
     <string name="by_custom">Por ordem personalizada</string>
+    <string name="capacity_disabled">Lugares de estacionamento para pessoas com deficiência: %s</string>
+    <string name="capacity_disabled_yes">Tem lugares de estacionamento reservados para pessoas com deficiência</string>
+    <string name="capacity_disabled_no">Não tem lugares de estacionamento reservados para pessoas com deficiência</string>
+    <string name="capacity_charging">Estacionamento com carregadores: %s</string>
+    <string name="capacity_charging_yes">Têm estacionamento com carregadores</string>
+    <string name="capacity_charging_no">Não tem estacionamento com carregadores</string>
+    <string name="prefs_group_route_summary">Unidades, instruções de voz, opções de roteamento</string>
+    <string name="prefs_group_privacy_summary">Histórico de pesquisa</string>
+    <string name="prefs_group_power_summary">Tempo de proteção do ecrã, dados móveis</string>
+    <string name="permission_read_navigation_label">Ler dados de navegação do CoMaps</string>
+    <string name="permission_read_navigation_description">ler informação de navegação ao vivo tal como saídas iminentes ou o nome da estrada em que se encontra</string>
+    <string name="pref_about_summary">Reporte problemas, obtenha ajuda, faça uma doação\nVersão: v%1$s</string>
+    <string name="prefs_group_map_appearance">Aspeto do mapa</string>
+    <string name="prefs_group_map_appearance_summary">Idioma do mapa, tamanho das etiquetas, edifícios 2D/3D</string>
+    <string name="prefs_group_interface">Interface</string>
+    <string name="prefs_group_interface_summary">Modo noturno, botões, idioma</string>
+    <string name="prefs_group_data_management">Gestão de dados</string>
+    <string name="prefs_group_data_management_summary">Armazenamento de mapas, backup de favoritos</string>
+    <string name="prefs_group_advanced_summary">Ativar os registos</string>
+    <string name="planning_route_preview">Pré-visualização</string>
+    <string name="search_in_all_lists">Procurar em todas as listas</string>
+    <string name="pref_enable_auto_reroute_title">Redirecionamento automático</string>
+    <string name="pref_enable_auto_reroute_description">Quando ativo, uma nova rota será automaticamente criada se sair da rota planeada.</string>
+    <string name="recalculate_route">Recalcular</string>
+    <string name="off_route">Saiu da rota planeada</string>
+    <string name="bookmarks_text_placement_title">Mostrar nomes dos favoritos no mapa</string>
+    <string name="place_reviews_title">Avalições dos lugares</string>
+    <string name="place_reviews">%1$s Avaliações</string>
+    <string name="rating_stars_description">estelas: %.1f</string>
+    <string name="reviews_by_mangrove">Avaliações de Mangrove.\nAdicione avaliações de <a href="https://mapcomplete.org">MapComplete</a>.</string>
 </resources>
