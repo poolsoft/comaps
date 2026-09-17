@@ -181,6 +181,7 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
         popup.getMenu().add(0, 2, 1, "Launcher Ayarlari");
         popup.getMenu().add(0, 4, 2, "Mevcut Duzeni Kaydet");
         popup.getMenu().add(0, 6, 3, "Masaustunu Duzenle (Edit Mode)");
+        popup.getMenu().add(0, 8, 4, "Harita Widget Yerlesimi");
 
         // Premium Arka Plan Secenekleri (Yeni WallpaperChooserDialog ile birlestirildi)
         popup.getMenu().add(0, 7, 4, "Duvar Kagidi Degistir");
@@ -209,6 +210,12 @@ public class WidgetPanelFragment extends Fragment implements SharedPreferences.O
                 return true;
             } else if (id == 7) {
                 showWallpaperChooserDialog();
+                return true;
+            } else if (id == 8) {
+                if (getActivity() instanceof app.organicmaps.carlauncher.CarLauncherInterface) {
+                    // Dialog, launcher aktivitesi uzerinden acilir (overlay'i tazeler).
+                    ((app.organicmaps.carlauncher.CarLauncherActivity) getActivity()).showMapWidgetPlacementDialog();
+                }
                 return true;
             } else if (id == 4) {
                 if (widgetManager != null) {

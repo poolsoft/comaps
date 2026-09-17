@@ -52,6 +52,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private android.widget.TextView originalStreetText;
     private boolean isStreetFrameReparented = false;
 
+    private app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay mapWidgetsOverlay;
+
     private boolean isWidgetPanelOpen = true;
     private boolean isDesktopMode = false;
     private boolean isTransitioning = false;
@@ -173,6 +175,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         });
 
         layoutManager = new CarLayoutManager(this);
+        setupMapWidgetsOverlay();
         applyWidgetPanelState();
         CarCrashLogger.recordStartupStage("CarLauncherActivity.layoutManagerReady");
         if (rootLayout != null) {
@@ -767,6 +770,44 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
+    private void setupMapWidgetsOverlay() {
+        if (mapContainer == null)
+            return;
+        app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore store =
+                app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore.getInstance(this);
+        mapWidgetsOverlay = new app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay(
+                this, store, this::refreshMapWidgetsOverlay);
+        // Harita root'unun uzerinde ama street frame/panel content'in altinda kalsin.
+        mapWidgetsOverlay.setElevation(6f);
+        mapContainer.addView(mapWidgetsOverlay,
+                new android.widget.FrameLayout.LayoutParams(
+                        android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                        android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+        refreshMapWidgetsOverlay();
+    }
+
+    private void refreshMapWidgetsOverlay() {
+        if (mapWidgetsOverlay == null)
+            return;
+        try {
+            mapWidgetsOverlay.refresh(app.organicmaps.carlauncher.widgets.WidgetManager.getInstance(this));
+        } catch (Exception e) {
+            android.util.Log.e("CarLauncherActivity", "Map widgets overlay refresh failed: " + e.getMessage());
+        }
+    }
+
+    public void showMapWidgetPlacementDialog() {
+        app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore store =
+                app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore.getInstance(this);
+        app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementDialog dialog =
+                new app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementDialog(
+                        this,
+                        app.organicmaps.carlauncher.widgets.WidgetManager.getInstance(this),
+                        store,
+                        this::refreshMapWidgetsOverlay);
+        dialog.show();
+    }
+
     public void applyStatusBarVisibility() {
         CarLauncherSettings settings = new CarLauncherSettings(this);
         boolean showStatusBar = settings.isStatusBarVisible();
@@ -936,6 +977,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     protected void onSafeDestroy() {
+        if (mapWidgetsOverlay != null) {
+            mapWidgetsOverlay.removeAllViews();
+            mapWidgetsOverlay = null;
+        }
         if (rootLayout != null) {
             rootLayout.removeCallbacks(configurationLayoutFallback);
             if (configurationLayoutListener != null) {
