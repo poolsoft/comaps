@@ -27,7 +27,7 @@ jobs:
           pip install "protobuf<3.21" --break-system-packages
 
       - name: Checkout sources
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
@@ -56,14 +56,22 @@ jobs:
         working-directory: android
         run: |
           ./gradlew -Parm64 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME_64}" assembleCarlauncherDebug -q
-          find app/build/outputs/apk -name "*.apk" -exec cp {} CarLauncher-arm64.apk \;
+          APK_PATH=$(find app/build/outputs/apk -name "*debug.apk" | head -n 1)
+          cp "$APK_PATH" CarLauncher-arm64.apk
+
+      - name: Clean C++ and Build Cache for 32-Bit
+        shell: bash
+        working-directory: android
+        run: |
+          rm -rf app/build sdk/build app/.cxx sdk/.cxx
 
       - name: Compile 32-Bit (arm32)
         shell: bash
         working-directory: android
         run: |
           ./gradlew -Parm32 -PautoVersionCode="${VERSION_CODE}" -PautoVersionName="${VERSION_NAME_32}" assembleCarlauncherDebug -q
-          find app/build/outputs/apk -name "*.apk" -not -name "CarLauncher-arm64.apk" -exec cp {} CarLauncher-32bit.apk \;
+          APK_PATH=$(find app/build/outputs/apk -name "*debug.apk" | head -n 1)
+          cp "$APK_PATH" CarLauncher-32bit.apk
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
@@ -75,33 +83,35 @@ jobs:
             android/version.json
             android/version-32bit.json
 
-      - name: Force Update Latest Tag
-        working-directory: ./android
+      - name: Publish Release with GitHub CLI
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd android
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git tag -f latest || true
+          git tag -f latest
           git push origin latest --force
 
-      - name: Update Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: latest
-          name: Latest CarLauncher Build
-          body: |
-            ### 🚀 Güncel Derleme Bilgileri
-            - **Versiyon (64-Bit):** `${{ env.VERSION_NAME_64 }}`
-            - **Versiyon (32-Bit):** `${{ env.VERSION_NAME_32 }}`
-            - **İşlem (SHA):** `${{ github.sha }}`
-            
-            *Bu sürüm her başarılı derleme sonrası otomatik olarak güncellenir.*
-          files: |
-            android/CarLauncher-arm64.apk
-            android/CarLauncher-32bit.apk
-            android/version.json
-            android/version-32bit.json
-          draft: false
-          prerelease: false
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NOTES="### 🚀 Güncel Derleme Bilgileri
+          - **Versiyon (64-Bit):** ${{ env.VERSION_NAME_64 }}
+          - **Versiyon (32-Bit):** ${{ env.VERSION_NAME_32 }}
+          - **İşlem (SHA):** ${{ github.sha }}
+          
+          *Bu sürüm her başarılı derleme sonrası otomatik olarak güncellenir.*"
+
+          if gh release view latest >/dev/null 2>&1; then
+            echo "Mevcut 'latest' release guncelleniyor..."
+            gh release edit latest --title "Latest CarLauncher Build" --notes "$RELEASE_NOTES"
+            gh release upload latest CarLauncher-arm64.apk CarLauncher-32bit.apk version.json version-32bit.json --clobber
+          else
+            echo "Yeni 'latest' release olusturuluyor..."
+            gh release create latest \
+              --title "Latest CarLauncher Build" \
+              --notes "$RELEASE_NOTES" \
+              CarLauncher-arm64.apk \
+              CarLauncher-32bit.apk \
+              version.json \
+              version-32bit.json
+          fi
