@@ -46,7 +46,6 @@ public final class MapWidgetsOverlay extends FrameLayout
   /** Harita panelinde gosterilen bagimsiz widget ornekleri (typeId -> BaseWidget) */
   private final Map<String, BaseWidget> attachedWidgets = new LinkedHashMap<>();
 
-  private ModesUiView modesUiView;
   private MapSpeedWidgetView mapSpeedView;
   private boolean mRefreshing;
 
@@ -94,14 +93,7 @@ public final class MapWidgetsOverlay extends FrameLayout
 
   private void buildFixedOverlays()
   {
-    // 1. Ulasim Modlari Kapsulu (Modes UI - Ust Orta)
-    modesUiView = new ModesUiView(getContext());
-    LayoutParams lpModes = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    lpModes.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-    lpModes.topMargin = dp(14);
-    addView(modesUiView, lpModes);
-
-    // 2. Canli Hiz ve Limit Kapsulu (Sol veya Sag)
+    // Canli Hiz ve Limit Kapsulu (Sol veya Sag)
     mapSpeedView = new MapSpeedWidgetView(getContext());
     addView(mapSpeedView, generateSpeedParams());
 
@@ -129,15 +121,6 @@ public final class MapWidgetsOverlay extends FrameLayout
 
   public void updateFixedOverlaysVisibility()
   {
-    // Modes UI gorunurlugu
-    if (modesUiView != null)
-    {
-      boolean showModes = settings.isModesUiEnabled();
-      modesUiView.setVisibility(showModes ? View.VISIBLE : View.GONE);
-      if (showModes)
-        modesUiView.updateSelectionFromController();
-    }
-
     // Hiz widgeti gorunurlugu ve konumu
     if (mapSpeedView != null)
     {
@@ -200,10 +183,6 @@ public final class MapWidgetsOverlay extends FrameLayout
     if (mapSpeedView != null && mapSpeedView.getVisibility() == View.VISIBLE)
     {
       mapSpeedView.update();
-    }
-    if (modesUiView != null && modesUiView.getVisibility() == View.VISIBLE)
-    {
-      modesUiView.updateSelectionFromController();
     }
 
     for (BaseWidget widget : attachedWidgets.values())

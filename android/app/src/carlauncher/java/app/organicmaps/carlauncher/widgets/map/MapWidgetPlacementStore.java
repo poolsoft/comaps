@@ -116,9 +116,10 @@ public final class MapWidgetPlacementStore
    */
   public void ensureDefaults()
   {
+    // Eski moduler speed widget yeni yerel harita kapsuluyle cakismasin diye temizlenir
+    removePlacement("speed");
     if (isConfigured())
       return;
-    setPlacement("speed", Panel.LEFT, Mode.COMPACT, 0);
     prefs.edit().putBoolean(KEY_CONFIGURED, true).apply();
   }
 

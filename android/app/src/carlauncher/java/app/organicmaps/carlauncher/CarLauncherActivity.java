@@ -842,9 +842,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
         android.widget.FrameLayout.LayoutParams lp =
                 new android.widget.FrameLayout.LayoutParams(btnSize, btnSize);
-        lp.gravity = android.view.Gravity.TOP | android.view.Gravity.START;
-        lp.leftMargin = Math.round(72 * density); // Katman butonunun saginda
-        lp.topMargin = Math.round(16 * density);
+        lp.gravity = android.view.Gravity.TOP | android.view.Gravity.END;
+        lp.rightMargin = Math.round(16 * density);
+        lp.topMargin = Math.round(72 * density); // Pusulanin hemen altinda ferah konum
 
         mapWidgetMenuButton.setOnClickListener(v -> showMapWidgetPlacementDialog());
         mapWidgetMenuButton.setOnLongClickListener(v -> {
@@ -874,6 +874,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                         store,
                         this::refreshMapWidgetsOverlay);
         dialog.show();
+    }
+
+    @Override
+    public void onSwitchFullScreenMode() {
+        // Car Launcher modunda haritaya uzun basildiginda arayuzun kilitlenmesini engelle
     }
 
     public void applyStatusBarVisibility() {

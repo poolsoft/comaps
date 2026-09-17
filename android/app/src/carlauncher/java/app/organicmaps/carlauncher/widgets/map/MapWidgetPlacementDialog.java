@@ -2,6 +2,8 @@ package app.organicmaps.carlauncher.widgets.map;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -24,8 +26,8 @@ import app.organicmaps.carlauncher.widgets.WidgetRegistry;
 
 /**
  * Harita uzeri widget ve gosterge yerlesim ayarlari.
- * Hiz kapsulu konumu (Sol/Sag/Kapali), Saat (Acik/Kapali),
- * Ulasim modlari kapsulu (Modes UI) ve modul panelleri yonetilir.
+ * Sabit alt buton bari (Pinned Footer) sayesinde hem dikey hem yatay ekranlarda
+ * Vazgec ve Uygula butonlari her zaman gorunur ve basilabilir kalir.
  *
  * Kod icerisinde kesinlikle Turkce karakter kullanilmamistir.
  */
@@ -63,7 +65,6 @@ public final class MapWidgetPlacementDialog extends Dialog
   private boolean pendingEnabled;
   private String pendingSpeedPos;
   private boolean pendingClockEnabled;
-  private boolean pendingModesUiEnabled;
 
   public MapWidgetPlacementDialog(@NonNull Context context,
                                   @NonNull MapWidgetPlacementStore store,
@@ -77,7 +78,6 @@ public final class MapWidgetPlacementDialog extends Dialog
     this.pendingEnabled = store.isOverlayEnabled();
     this.pendingSpeedPos = settings.getMapSpeedPosition();
     this.pendingClockEnabled = settings.isMapClockEnabled();
-    this.pendingModesUiEnabled = settings.isModesUiEnabled();
 
     setupDialog();
   }
@@ -94,26 +94,38 @@ public final class MapWidgetPlacementDialog extends Dialog
   {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-    ScrollView scroll = new ScrollView(getContext());
-    LinearLayout main = new LinearLayout(getContext());
-    main.setOrientation(LinearLayout.VERTICAL);
-    main.setBackgroundColor(0xFF16191F);
-    int pad = dp(20);
-    main.setPadding(pad, pad, pad, pad);
+    // KOK CONTAINER (Tum pencereyi kaplar, Dikey)
+    LinearLayout root = new LinearLayout(getContext());
+    root.setOrientation(LinearLayout.VERTICAL);
+    root.setBackgroundColor(0xFF16191F);
+    int pad = dp(16);
+    root.setPadding(pad, pad, pad, pad);
 
+    // 1. SABIT UST BASLIK BAR (Header)
     TextView title = new TextView(getContext());
     title.setText("Harita Göstergeleri & Widget Ayarları");
     title.setTextColor(0xFFFFFFFF);
-    title.setTextSize(18);
-    title.setTypeface(null, android.graphics.Typeface.BOLD);
-    title.setPadding(0, 0, 0, dp(14));
-    main.addView(title);
+    title.setTextSize(17);
+    title.setTypeface(null, Typeface.BOLD);
+    title.setPadding(0, 0, 0, dp(10));
+    root.addView(title);
 
-    // 1. Hiz Kapsulu Konumu (Sol / Sag / Kapali)
+    // 2. KAYDIRILABILIR ICERIK ALANI (ScrollView weight=1)
+    ScrollView scroll = new ScrollView(getContext());
+    scroll.setFillViewport(true);
+    LinearLayout.LayoutParams scrollParams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f);
+    root.addView(scroll, scrollParams);
+
+    LinearLayout content = new LinearLayout(getContext());
+    content.setOrientation(LinearLayout.VERTICAL);
+    scroll.addView(content);
+
+    // 2.A. Hiz Kapsulu Konumu (Sol / Sag / Kapali)
     LinearLayout speedRow = new LinearLayout(getContext());
     speedRow.setOrientation(LinearLayout.HORIZONTAL);
     speedRow.setGravity(Gravity.CENTER_VERTICAL);
-    speedRow.setPadding(0, dp(4), 0, dp(8));
+    speedRow.setPadding(0, dp(6), 0, dp(8));
 
     TextView speedLabel = new TextView(getContext());
     speedLabel.setText("Hız & Limit Göstergesi:");
@@ -145,61 +157,59 @@ public final class MapWidgetPlacementDialog extends Dialog
       @Override
       public void onNothingSelected(AdapterView<?> parent) {}
     });
-    speedRow.addView(speedSpinner, new LinearLayout.LayoutParams(dp(170), LinearLayout.LayoutParams.WRAP_CONTENT));
-    main.addView(speedRow);
+    speedRow.addView(speedSpinner, new LinearLayout.LayoutParams(dp(165), LinearLayout.LayoutParams.WRAP_CONTENT));
+    content.addView(speedRow);
 
-    // 2. Dijital Saat Switch
+    // 2.B. Dijital Saat Switch
     Switch clockSwitch = new Switch(getContext());
-    clockSwitch.setText("Haritada Dijital Saat Göster");
+    clockSwitch.setText("Harita Hız Göstergesinde Saat Göster");
     clockSwitch.setTextColor(0xFFE0E0E0);
     clockSwitch.setChecked(pendingClockEnabled);
     clockSwitch.setOnCheckedChangeListener((b, checked) -> pendingClockEnabled = checked);
-    main.addView(clockSwitch, marginLayoutParams(dp(0), dp(6)));
-
-    // 3. Ulasim Modlari Kapsulu (Modes UI) Switch
-    Switch modesSwitch = new Switch(getContext());
-    modesSwitch.setText("Ulaşım Modları Kapsülü (Modes UI - 🚶 🚴 🚗 🚌)");
-    modesSwitch.setTextColor(0xFFE0E0E0);
-    modesSwitch.setChecked(pendingModesUiEnabled);
-    modesSwitch.setOnCheckedChangeListener((b, checked) -> pendingModesUiEnabled = checked);
-    main.addView(modesSwitch, marginLayoutParams(dp(0), dp(6)));
+    content.addView(clockSwitch, marginLayoutParams(dp(0), dp(4)));
 
     // Ayrac
     View divider = new View(getContext());
     divider.setBackgroundColor(0x33FFFFFF);
-    main.addView(divider, marginLayoutParams(dp(0), dp(14)));
+    content.addView(divider, marginLayoutParams(dp(0), dp(12)));
 
+    // 2.C. Moduler Kenar Panelleri Bolumu
     TextView sectionTitle = new TextView(getContext());
     sectionTitle.setText("OsmAnd Tarzı Modüler Kenar Panelleri");
     sectionTitle.setTextColor(0xFF90CAF9);
     sectionTitle.setTextSize(14);
-    sectionTitle.setTypeface(null, android.graphics.Typeface.BOLD);
-    sectionTitle.setPadding(0, dp(8), 0, dp(4));
-    main.addView(sectionTitle);
+    sectionTitle.setTypeface(null, Typeface.BOLD);
+    sectionTitle.setPadding(0, dp(4), 0, dp(4));
+    content.addView(sectionTitle);
 
     Switch overlaySwitch = new Switch(getContext());
     overlaySwitch.setText("Kenar Panellerini Aktif Et");
     overlaySwitch.setTextColor(0xFFE0E0E0);
     overlaySwitch.setChecked(pendingEnabled);
     overlaySwitch.setOnCheckedChangeListener((b, checked) -> pendingEnabled = checked);
-    main.addView(overlaySwitch, marginLayoutParams(dp(0), dp(6)));
+    content.addView(overlaySwitch, marginLayoutParams(dp(0), dp(4)));
 
     List<WidgetRegistry.WidgetEntry> entries = WidgetRegistry.getAvailableWidgets();
     for (WidgetRegistry.WidgetEntry entry : entries)
     {
-      main.addView(buildWidgetRow(entry), marginLayoutParams(dp(0), dp(4)));
+      content.addView(buildWidgetRow(entry), marginLayoutParams(dp(0), dp(4)));
     }
 
-    LinearLayout buttons = new LinearLayout(getContext());
-    buttons.setOrientation(LinearLayout.HORIZONTAL);
-    buttons.setGravity(Gravity.END);
+    // 3. SABIT ALT BUTON BARI (PINNED FOOTER - Asla scroll olmaz, her zaman gorunur)
+    LinearLayout footer = new LinearLayout(getContext());
+    footer.setOrientation(LinearLayout.HORIZONTAL);
+    footer.setGravity(Gravity.END);
+    footer.setPadding(0, dp(10), 0, 0);
 
     Button cancel = new Button(getContext());
     cancel.setText("Vazgeç");
     cancel.setBackgroundColor(0xFF333333);
     cancel.setTextColor(0xFFE0E0E0);
     cancel.setOnClickListener(v -> dismiss());
-    buttons.addView(cancel, marginLayoutParams(dp(8), dp(0)));
+    LinearLayout.LayoutParams cancelParams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    cancelParams.rightMargin = dp(10);
+    footer.addView(cancel, cancelParams);
 
     Button apply = new Button(getContext());
     apply.setText("Uygula");
@@ -207,10 +217,9 @@ public final class MapWidgetPlacementDialog extends Dialog
     apply.setTextColor(0xFFFFFFFF);
     apply.setOnClickListener(v ->
     {
-      // 1. Yeni Ayarlari Kaydet
+      // 1. Hiz ve Saat Ayarlarini Kaydet
       settings.setMapSpeedPosition(pendingSpeedPos);
       settings.setMapClockEnabled(pendingClockEnabled);
-      settings.setModesUiEnabled(pendingModesUiEnabled);
 
       // 2. Moduler Panel Ayarlarini Kaydet
       store.setOverlayEnabled(pendingEnabled);
@@ -237,16 +246,21 @@ public final class MapWidgetPlacementDialog extends Dialog
       applyListener.onApplied();
       dismiss();
     });
-    buttons.addView(apply, marginLayoutParams(dp(0), dp(0)));
+    footer.addView(apply);
 
-    main.addView(buttons, marginLayoutParams(dp(0), dp(18)));
-    scroll.addView(main);
+    root.addView(footer, new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-    setContentView(scroll);
+    setContentView(root);
+
+    // Ekrana tam oturan esnek Window boyutlandirmasi
     Window window = getWindow();
     if (window != null)
     {
-      window.setLayout(dp(480), dp(540));
+      DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
+      int dialogWidth = Math.min(dp(500), (int)(dm.widthPixels * 0.92f));
+      int dialogHeight = Math.min(dp(540), (int)(dm.heightPixels * 0.88f));
+      window.setLayout(dialogWidth, dialogHeight);
       window.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(0xFF101216));
     }
   }
