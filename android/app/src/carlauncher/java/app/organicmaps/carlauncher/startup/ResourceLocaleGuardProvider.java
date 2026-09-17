@@ -28,7 +28,11 @@ public final class ResourceLocaleGuardProvider extends ContentProvider
   public boolean onCreate()
   {
     if (getContext() != null)
+    {
       CarCrashLogger.init(getContext());
+      // Must run before the native core reads settings.ini (OrganicMaps constructor).
+      GraphicsApiWorkaround.applyIfNeeded(getContext());
+    }
     CarCrashLogger.recordStartupStage("ResourceLocaleGuardProvider.onCreate");
     Locale originalLocale = Locale.getDefault();
     Locale.setDefault(Locale.ROOT);
