@@ -97,6 +97,27 @@ public class LauncherBackupManager {
     // IMPORT
     // ==========================================
 
+    /**
+     * Storage, haritalari yalnizca countries veritabani surumuyle eslesen
+     * klasorde arar (orn. files/260603/). Import edilen .mwm dosyalarini o
+     * klasore yazariz; kok veya yedekteki farkli surum klasorleri motor
+     * tarafindan yok sayilir.
+     */
+    private static File getMapsTargetDir(Context context) {
+        File writableDir = new File(Framework.nativeGetWritableDir());
+        String version = null;
+        try {
+            long dv = Framework.getDataVersion().getTime();
+            // getDataVersion yyMMdd parse edilmis Date donduruyor; klasor adi
+            //bicimi yyMMdd (orn. 260603). Date.getTime yerine sifirdan formatla:
+            java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyMMdd", java.util.Locale.US);
+            version = fmt.format(Framework.getDataVersion());
+        } catch (Exception ignored) {}
+        File dir = version != null ? new File(writableDir, version) : writableDir;
+        if (!dir.exists() && !dir.mkdirs()) dir = writableDir;
+        return dir;
+    }
+
     /** Imports raw CoMaps map files selected from USB or a document provider. */
     public static void importMapFiles(Context context, List<Uri> mapUris,
                                       BackupCallback callback) {
@@ -109,6 +130,7 @@ public class LauncherBackupManager {
                 if (!writableDir.exists() && !writableDir.mkdirs()) {
                     throw new Exception("Harita dizini olusturulamadi.");
                 }
+                File targetDir = getMapsTargetDir(context);
                 int imported = 0;
                 for (Uri uri : mapUris) {
                     DocumentFile document = DocumentFile.fromSingleUri(context, uri);
@@ -117,8 +139,8 @@ public class LauncherBackupManager {
                         continue;
                     }
                     postProgress(callback, "Harita aktariliyor: " + name);
-                    File target = new File(writableDir, name);
-                    File partial = new File(writableDir, name + ".importing");
+                    File target = new File(targetDir, name);
+                    File partial = new File(targetDir, name + ".importing");
                     try (InputStream input = context.getContentResolver().openInputStream(uri);
                          FileOutputStream output = new FileOutputStream(partial)) {
                         if (input == null) throw new Exception("Dosya okunamadi: " + name);
@@ -172,13 +194,11 @@ public class LauncherBackupManager {
                             importSettingsFromJson(context, new JSONObject(jsonStr));
                         } else if (entry.getName().startsWith("maps/")) {
                             String relPath = entry.getName().substring(5); // remove "maps/"
-                            if (relPath.isEmpty()) continue;
-                            if (entry.isDirectory()) continue;
-                            // FLATTEN: motor (Storage) .mwm dosyalarini writable dir
-                            // KOKUNDE arar; yedekteki alt klasor yapisi (orn. maps/260624/)
-                            // korunursa World.mwm bulunamaz. Tum .mwm'ler koke yazilir.
+                            if (relPath.isEmpty() || entry.isDirectory()) continue;
+                            // Motor .mwm'leri SURUM klasorunde arar (orn. 260603/);
+                            // yedekteki klasor adi farkli olabilir, dosya adini koru yeter.
                             String fileName = new File(relPath).getName();
-                            File targetFile = new File(writableDir, fileName);
+                            File targetFile = new File(getMapsTargetDir(context), fileName);
                             try (FileOutputStream fos = new FileOutputStream(targetFile)) {
                                 copyStream(zis, fos);
                             }
@@ -215,8 +235,8 @@ public class LauncherBackupManager {
                 DocumentFile mapsDir = backupDir.findFile("maps");
                 if (mapsDir != null) {
                     postProgress(callback, "Haritalar geri yukleniyor (Bu islem uzun surebilir)...");
-                    File writableDir = new File(Framework.nativeGetWritableDir());
-                    copyDocumentFileToDirectory(context, mapsDir, writableDir, callback);
+                    File targetDir = getMapsTargetDir(context);
+                    copyDocumentFileToDirectory(context, mapsDir, targetDir, callback);
                 }
 
                 postMapImportSuccess(callback);
@@ -313,15 +333,11 @@ public class LauncherBackupManager {
         
         for (DocumentFile file : files) {
             if (file.isDirectory()) {
-                // Alt klasorlerde gez ama .mwm dosyalari her zaman destDir KOKUNE yaz
-                // (motor writable dir kokunde arar; yedekteki alt klasorler duzlestirilir).
+                // Alt klasorlerde gez; .mwm dosyalari hedef surum klasorune duzlestirilir.
                 copyDocumentFileToDirectory(context, file, destDir, callback);
             } else {
                 String name = file.getName() != null ? file.getName() : "unknown";
-                boolean isMap = name.toLowerCase(java.util.Locale.US).endsWith(".mwm");
-                File newFile = new File(isMap ? destDir : new File(destDir, "import_extra"), name);
-                if (isMap) newFile.getParentFile().mkdirs();
-                else newFile.getParentFile().mkdirs();
+                File newFile = new File(destDir, name);
                 try (InputStream is = context.getContentResolver().openInputStream(file.getUri());
                      FileOutputStream fos = new FileOutputStream(newFile)) {
                     copyStream(is, fos);
