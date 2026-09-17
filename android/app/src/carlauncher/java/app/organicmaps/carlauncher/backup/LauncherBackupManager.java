@@ -139,10 +139,9 @@ public class LauncherBackupManager {
                 }
                 int importedCount = imported;
                 new Handler(Looper.getMainLooper()).post(() -> {
-                    if (app.organicmaps.sdk.DownloadResourcesLegacyActivity
-                            .nativeGetBytesToDownload() == 0) {
-                        Framework.nativeReloadWorldMaps();
-                    }
+                    // Kopyalanan dosyalar modelde gorunsun: kayit her zaman yapilir.
+                    // World eksikligi ayri bir konu; onMapsImported/Download ekraninda ele alinir.
+                    Framework.nativeReloadWorldMaps();
                     postProgress(callback, importedCount + " harita kaydedildi.");
                     if (callback != null) callback.onSuccess();
                 });
@@ -166,14 +165,10 @@ public class LauncherBackupManager {
                     while ((entry = zis.getNextEntry()) != null) {
                         if (entry.getName().equals(SETTINGS_FILE_NAME)) {
                             postProgress(callback, "Ayarlar geri yukleniyor...");
-                            byte[] buffer = new byte[(int) entry.getSize()];
-                            int read = 0;
-                            while (read < buffer.length) {
-                                int result = zis.read(buffer, read, buffer.length - read);
-                                if (result == -1) break;
-                                read += result;
-                            }
-                            String jsonStr = new String(buffer);
+                            // entry.getSize() ciktiya bagli olarak -1 donebilir; akistan oku.
+                            java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
+                            copyStream(zis, bos);
+                            String jsonStr = bos.toString("UTF-8");
                             importSettingsFromJson(context, new JSONObject(jsonStr));
                         } else if (entry.getName().startsWith("maps/")) {
                             String relPath = entry.getName().substring(5); // remove "maps/"
@@ -352,10 +347,9 @@ public class LauncherBackupManager {
 
     private static void postMapImportSuccess(BackupCallback callback) {
         new Handler(Looper.getMainLooper()).post(() -> {
-            if (app.organicmaps.sdk.DownloadResourcesLegacyActivity
-                    .nativeGetBytesToDownload() == 0) {
-                Framework.nativeReloadWorldMaps();
-            }
+            // Yuklenen haritalari modele kaydet: sartsiz reload (aksi halde dosya
+            // kopyalanir ama uygulama yeniden baslayana kadar gorunmez).
+            Framework.nativeReloadWorldMaps();
             if (callback != null) callback.onSuccess();
         });
     }
