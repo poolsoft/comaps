@@ -114,10 +114,23 @@ public final class MapWidgetPlacementStore
    * varsayilan uretir (hiz -> sag, saat -> sol, navigasyon -> alt).
    * Kayit varsa hicbir sey yapmaz; her acilista guvenle cagrilabilir.
    */
+  public void ensureDefaults()
+  {
+    if (isConfigured())
+      return;
+    setPlacement("speed", Panel.LEFT, Mode.COMPACT, 0);
+    prefs.edit().putBoolean(KEY_CONFIGURED, true).apply();
+  }
+
   public void ensureDefaults(@NonNull java.util.List<String> widgetKeysByIdPrefix)
   {
-    if (isConfigured() || widgetKeysByIdPrefix.isEmpty())
+    if (isConfigured())
       return;
+    if (widgetKeysByIdPrefix.isEmpty())
+    {
+      ensureDefaults();
+      return;
+    }
     int order = 0;
     boolean any = false;
     for (String key : widgetKeysByIdPrefix)
@@ -129,22 +142,19 @@ public final class MapWidgetPlacementStore
         any = true;
       }
     }
-    // En az bir yerlesim yazildiysa damgala; bos listede tekrar denenebilir kalsin.
     if (any)
       prefs.edit().putBoolean(KEY_CONFIGURED, true).apply();
   }
 
   private boolean isConfigured()
   {
-    return prefs.getBoolean(KEY_CONFIGURED, false) || !getAllPlacements().isEmpty();
+    return prefs.getBoolean(KEY_CONFIGURED, false) && !getAllPlacements().isEmpty();
   }
 
   @NonNull
-  private static Panel defaultPanel(@NonNull String widgetKey)
+  public static Panel defaultPanel(@NonNull String widgetKey)
   {
-    if (widgetKey.startsWith("speed"))
-      return Panel.RIGHT;
-    if (widgetKey.startsWith("clock") || widgetKey.startsWith("smart_clock") || widgetKey.startsWith("classic"))
+    if (widgetKey.equals("speed") || widgetKey.startsWith("speed"))
       return Panel.LEFT;
     if (widgetKey.startsWith("navigation"))
       return Panel.BOTTOM;

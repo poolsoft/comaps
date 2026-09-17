@@ -769,14 +769,18 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         // Panel entegrasyonu henuz yapilmadiysa bos kalabilir
     }
 
+    private android.widget.ImageButton mapWidgetMenuButton;
+
     private final Runnable mapWidgetTick = new Runnable() {
         @Override
         public void run() {
             if (mapWidgetsOverlay != null && !isDestroyed()) {
                 try {
-                    refreshMapWidgetsOverlay();
+                    mapWidgetsOverlay.tick();
                 } catch (Exception ignored) {}
-                mapContainer.postDelayed(this, 1000);
+                if (mapContainer != null) {
+                    mapContainer.postDelayed(this, 1000);
+                }
             }
         }
     };
@@ -786,32 +790,73 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             return;
         app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore store =
                 app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore.getInstance(this);
-        mapWidgetsOverlay = new app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay(this, store);
-        // Harita root'unun uzerinde ama street frame/panel content'in altinda kalsin.
-        mapWidgetsOverlay.setElevation(6f);
-        mapContainer.addView(mapWidgetsOverlay,
-                new android.widget.FrameLayout.LayoutParams(
-                        android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                        android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Varsayilan yerlesimi garanti et (hiz gostergesi haritanin solunda acik gelsin)
+        store.ensureDefaults();
+
+        if (mapWidgetsOverlay == null) {
+            mapWidgetsOverlay = new app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay(this, store);
+            mapWidgetsOverlay.setElevation(6f);
+            mapContainer.addView(mapWidgetsOverlay,
+                    new android.widget.FrameLayout.LayoutParams(
+                            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                            android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+        }
+
         refreshMapWidgetsOverlay();
-        // Ilk kurulumda makul varsayilan yerlesim (hiz->sag, saat->sol, nav->alt).
-        try {
-            java.util.List<String> keys = new java.util.ArrayList<>();
-            for (app.organicmaps.carlauncher.widgets.BaseWidget w :
-                    app.organicmaps.carlauncher.widgets.WidgetManager.getInstance(this).getAllWidgets())
-                keys.add(app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay.placementKey(w));
-            store.ensureDefaults(keys);
-            refreshMapWidgetsOverlay();
-        } catch (Exception ignored) {}
-        // Widget verilerini canli tutan 1 sn'lik tick (gorunur widgetlar icin update()).
-        mapContainer.postDelayed(mapWidgetTick, 1000);
+        setupMapWidgetMenuButton();
+
+        if (mapContainer != null) {
+            mapContainer.removeCallbacks(mapWidgetTick);
+            mapContainer.postDelayed(mapWidgetTick, 1000);
+        }
+    }
+
+    private void setupMapWidgetMenuButton() {
+        if (mapContainer == null) return;
+        if (mapWidgetMenuButton != null && mapWidgetMenuButton.getParent() != null) {
+            return;
+        }
+
+        float density = getResources().getDisplayMetrics().density;
+        int btnSize = Math.round(44 * density);
+        int pad = Math.round(9 * density);
+
+        mapWidgetMenuButton = new android.widget.ImageButton(this);
+        mapWidgetMenuButton.setId(R.id.btn_map_widgets);
+        mapWidgetMenuButton.setImageResource(R.drawable.ic_internal_dashboard);
+        mapWidgetMenuButton.setScaleType(android.widget.ImageView.ScaleType.CENTER_INSIDE);
+        mapWidgetMenuButton.setPadding(pad, pad, pad, pad);
+        mapWidgetMenuButton.setContentDescription("Harita Widget Ayarlari");
+
+        android.graphics.drawable.GradientDrawable bg = new android.graphics.drawable.GradientDrawable();
+        bg.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+        bg.setColor(0xDD18222D);
+        bg.setStroke(Math.max(1, Math.round(1.5f * density)), 0x553FD7FF);
+        mapWidgetMenuButton.setBackground(bg);
+        mapWidgetMenuButton.setColorFilter(0xFF3FD7FF);
+        mapWidgetMenuButton.setElevation(12f);
+
+        android.widget.FrameLayout.LayoutParams lp =
+                new android.widget.FrameLayout.LayoutParams(btnSize, btnSize);
+        lp.gravity = android.view.Gravity.TOP | android.view.Gravity.START;
+        lp.leftMargin = Math.round(72 * density); // Katman butonunun saginda
+        lp.topMargin = Math.round(16 * density);
+
+        mapWidgetMenuButton.setOnClickListener(v -> showMapWidgetPlacementDialog());
+        mapWidgetMenuButton.setOnLongClickListener(v -> {
+            showMapWidgetPlacementDialog();
+            return true;
+        });
+
+        mapContainer.addView(mapWidgetMenuButton, lp);
     }
 
     private void refreshMapWidgetsOverlay() {
         if (mapWidgetsOverlay == null)
             return;
         try {
-            mapWidgetsOverlay.refresh(app.organicmaps.carlauncher.widgets.WidgetManager.getInstance(this));
+            mapWidgetsOverlay.refresh();
         } catch (Exception e) {
             android.util.Log.e("CarLauncherActivity", "Map widgets overlay refresh failed: " + e.getMessage());
         }
@@ -823,7 +868,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementDialog dialog =
                 new app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementDialog(
                         this,
-                        app.organicmaps.carlauncher.widgets.WidgetManager.getInstance(this),
                         store,
                         this::refreshMapWidgetsOverlay);
         dialog.show();
@@ -1002,6 +1046,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             mapContainer.removeCallbacks(mapWidgetTick);
             mapWidgetsOverlay.removeAllViews();
             mapWidgetsOverlay = null;
+        }
+        if (mapWidgetMenuButton != null) {
+            if (mapWidgetMenuButton.getParent() instanceof android.view.ViewGroup) {
+                ((android.view.ViewGroup) mapWidgetMenuButton.getParent()).removeView(mapWidgetMenuButton);
+            }
+            mapWidgetMenuButton = null;
         }
         if (rootLayout != null) {
             rootLayout.removeCallbacks(configurationLayoutFallback);

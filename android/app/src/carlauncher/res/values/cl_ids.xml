@@ -7,4 +7,5 @@
     <item name="app_dock" type="id"/>
     <item name="btn_toggle_ui" type="id"/>
     <item name="btn_toggle_dock" type="id"/>
+    <item name="btn_map_widgets" type="id"/>
 </resources>

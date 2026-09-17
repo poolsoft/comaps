@@ -18,8 +18,8 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-import app.organicmaps.carlauncher.widgets.BaseWidget;
 import app.organicmaps.carlauncher.widgets.WidgetManager;
+import app.organicmaps.carlauncher.widgets.WidgetRegistry;
 
 /**
  * Harita uzeri widget yerlesimi ayarlari (liste tabanli).
@@ -35,7 +35,7 @@ public final class MapWidgetPlacementDialog extends Dialog
     void onApplied();
   }
 
-  private static final String[] PANEL_LABELS = { "Yok (yan panel)", "Üst", "Sol", "Sağ", "Alt" };
+  private static final String[] PANEL_LABELS = { "Yok (Gizli)", "Üst Panel", "Sol Panel", "Sağ Panel", "Alt Panel" };
   private static final MapWidgetPlacementStore.Panel[] PANEL_VALUES = {
       MapWidgetPlacementStore.Panel.NONE,
       MapWidgetPlacementStore.Panel.TOP,
@@ -43,13 +43,12 @@ public final class MapWidgetPlacementDialog extends Dialog
       MapWidgetPlacementStore.Panel.RIGHT,
       MapWidgetPlacementStore.Panel.BOTTOM
   };
-  private static final String[] MODE_LABELS = { "Compact", "Wide" };
+  private static final String[] MODE_LABELS = { "Kompakt", "Geniş" };
   private static final MapWidgetPlacementStore.Mode[] MODE_VALUES = {
       MapWidgetPlacementStore.Mode.COMPACT,
       MapWidgetPlacementStore.Mode.WIDE
   };
 
-  private final WidgetManager widgetManager;
   private final MapWidgetPlacementStore store;
   @NonNull
   private final OnApplyListener applyListener;
@@ -58,16 +57,23 @@ public final class MapWidgetPlacementDialog extends Dialog
   private final java.util.Map<String, MapWidgetPlacementStore.Mode> pendingModes = new java.util.HashMap<>();
   private boolean pendingEnabled;
 
-  public MapWidgetPlacementDialog(@NonNull Context context, @NonNull WidgetManager widgetManager,
+  public MapWidgetPlacementDialog(@NonNull Context context,
                                   @NonNull MapWidgetPlacementStore store,
                                   @NonNull OnApplyListener applyListener)
   {
     super(context);
-    this.widgetManager = widgetManager;
     this.store = store;
     this.applyListener = applyListener;
     this.pendingEnabled = store.isOverlayEnabled();
     setupDialog();
+  }
+
+  public MapWidgetPlacementDialog(@NonNull Context context,
+                                  @NonNull WidgetManager widgetManager,
+                                  @NonNull MapWidgetPlacementStore store,
+                                  @NonNull OnApplyListener applyListener)
+  {
+    this(context, store, applyListener);
   }
 
   private void setupDialog()
@@ -90,16 +96,16 @@ public final class MapWidgetPlacementDialog extends Dialog
     main.addView(title);
 
     Switch overlaySwitch = new Switch(getContext());
-    overlaySwitch.setText("Harita üzeri widget'lar açık");
+    overlaySwitch.setText("Harita üzeri widget'lar aktif");
     overlaySwitch.setTextColor(0xFFE0E0E0);
     overlaySwitch.setChecked(pendingEnabled);
     overlaySwitch.setOnCheckedChangeListener((b, checked) -> pendingEnabled = checked);
     main.addView(overlaySwitch, marginLayoutParams(dp(0), dp(12)));
 
-    List<BaseWidget> widgets = widgetManager.getAllWidgets();
-    for (BaseWidget widget : widgets)
+    List<WidgetRegistry.WidgetEntry> entries = WidgetRegistry.getAvailableWidgets();
+    for (WidgetRegistry.WidgetEntry entry : entries)
     {
-      main.addView(buildWidgetRow(widget), marginLayoutParams(dp(0), dp(2)));
+      main.addView(buildWidgetRow(entry), marginLayoutParams(dp(0), dp(4)));
     }
 
     LinearLayout buttons = new LinearLayout(getContext());
@@ -120,9 +126,10 @@ public final class MapWidgetPlacementDialog extends Dialog
     apply.setOnClickListener(v ->
     {
       store.setOverlayEnabled(pendingEnabled);
-      for (BaseWidget widget : widgetManager.getAllWidgets())
+      int order = 0;
+      for (WidgetRegistry.WidgetEntry entry : WidgetRegistry.getAvailableWidgets())
       {
-        String key = MapWidgetsOverlay.placementKey(widget);
+        String key = entry.typeId;
         MapWidgetPlacementStore.Panel panel = pendingPanels.get(key);
         MapWidgetPlacementStore.Mode mode = pendingModes.get(key);
         if (panel == null)
@@ -135,7 +142,7 @@ public final class MapWidgetPlacementDialog extends Dialog
         {
           MapWidgetPlacementStore.Mode resolved =
               mode != null ? mode : MapWidgetPlacementStore.Mode.COMPACT;
-          store.setPlacement(key, panel, resolved, widget.getOrder());
+          store.setPlacement(key, panel, resolved, order++);
         }
       }
       applyListener.onApplied();
@@ -143,7 +150,7 @@ public final class MapWidgetPlacementDialog extends Dialog
     });
     buttons.addView(apply, marginLayoutParams(dp(0), dp(0)));
 
-    main.addView(buttons, marginLayoutParams(dp(0), dp(8)));
+    main.addView(buttons, marginLayoutParams(dp(0), dp(16)));
     scroll.addView(main);
 
     setContentView(scroll);
@@ -156,16 +163,16 @@ public final class MapWidgetPlacementDialog extends Dialog
   }
 
   @NonNull
-  private View buildWidgetRow(@NonNull final BaseWidget widget)
+  private View buildWidgetRow(@NonNull final WidgetRegistry.WidgetEntry entry)
   {
-    String key = MapWidgetsOverlay.placementKey(widget);
+    String key = entry.typeId;
     LinearLayout row = new LinearLayout(getContext());
     row.setOrientation(LinearLayout.HORIZONTAL);
     row.setGravity(Gravity.CENTER_VERTICAL);
     row.setPadding(0, dp(6), 0, dp(6));
 
     TextView name = new TextView(getContext());
-    name.setText(widget.getTitle());
+    name.setText(entry.displayName);
     name.setTextColor(0xFFE0E0E0);
     name.setTextSize(14);
     LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
