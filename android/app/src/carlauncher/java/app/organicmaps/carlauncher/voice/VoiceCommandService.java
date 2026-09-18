@@ -82,6 +82,23 @@ public class VoiceCommandService extends Service implements RecognitionListener 
         tts = new TextToSpeech(this, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 tts.setLanguage(new Locale("tr", "TR"));
+                // Anons sirasinda muzigi duck etmek icin utterance takibi (OsmAnd audio-focus protokolu)
+                tts.setOnUtteranceProgressListener(new android.speech.tts.UtteranceProgressListener() {
+                    @Override
+                    public void onStart(String utteranceId) {
+                        requestAnnouncementFocus();
+                    }
+
+                    @Override
+                    public void onDone(String utteranceId) {
+                        abandonAnnouncementFocus();
+                    }
+
+                    @Override
+                    public void onError(String utteranceId) {
+                        abandonAnnouncementFocus();
+                    }
+                });
             }
         });
     }
@@ -792,10 +809,13 @@ public class VoiceCommandService extends Service implements RecognitionListener 
 
     private void speak(String text) {
         if (tts != null) {
+            String utteranceId = "VoiceAssistant-" + System.currentTimeMillis();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "VoiceAssistant");
+                tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
             } else {
-                tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                java.util.HashMap<String, String> params = new java.util.HashMap<>();
+                params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId);
+                tts.speak(text, TextToSpeech.QUEUE_FLUSH, params);
             }
         }
         
@@ -806,6 +826,61 @@ public class VoiceCommandService extends Service implements RecognitionListener 
             } catch (Exception e) {}
         });
     }
+
+    // ---- Audio focus: anons sirasinda muzik ducking (OsmAnd AudioFocusHelper protokolu) ----
+
+    private static final String ANNOUNCE_FOCUS_ID = "app.organicmaps.carlauncher.voice.announcement";
+
+    private void requestAnnouncementFocus() {
+        try {
+            AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (am == null) return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                android.media.AudioAttributes attrs = new android.media.AudioAttributes.Builder()
+                        .setUsage(android.media.AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
+                        .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build();
+                AudioFocusRequest request = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+                        .setAudioAttributes(attrs)
+                        .setOnAudioFocusChangeListener(focusChangeListener)
+                        .build();
+                am.requestAudioFocus(request);
+            } else {
+                am.requestAudioFocus(focusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+            }
+        } catch (Exception e) {
+            android.util.Log.e("VoiceCommandService", "Audio focus istegi basarisiz", e);
+        }
+    }
+
+    private void abandonAnnouncementFocus() {
+        try {
+            AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (am == null) return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                AudioFocusRequest request = announcementFocusRequest;
+                if (request != null) {
+                    am.abandonAudioFocusRequest(request);
+                    announcementFocusRequest = null;
+                }
+            } else {
+                am.abandonAudioFocus(focusChangeListener);
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+
+    private AudioFocusRequest announcementFocusRequest;
+
+    private final AudioManager.OnAudioFocusChangeListener focusChangeListener = focusChange -> {
+        // GAIN_TRANSIENT_MAY_DUCK kullaniyoruz: sistem muzigi kendisi kisir,
+        // focus kaybinda oynatici durumuna dokunmuyoruz.
+        if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+            abandonAnnouncementFocus();
+        }
+    };
 
     private int parsePercentage(String text) {
         java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("\\d+").matcher(text);
@@ -940,6 +1015,7 @@ public class VoiceCommandService extends Service implements RecognitionListener 
             model = null;
         }
         if (tts != null) {
+            abandonAnnouncementFocus();
             tts.stop();
             tts.shutdown();
             tts = null;
