@@ -55,108 +55,113 @@
                 android:textAllCaps="true"
                 android:letterSpacing="0.05" />
         </LinearLayout>
-
-        <!-- Donus Oku ve Mesafe Konteyniri -->
-        <RelativeLayout
-            android:id="@+id/nav_next_turn_container"
-            android:layout_width="wrap_content"
+        <!-- Donus Oku, Sonraki Donus ve Mesafe/Cadde Konteyniri (nav_next_turn_frame hem oku hem mesafeyi kapsar) -->
+        <LinearLayout
+            android:id="@+id/nav_next_turn_frame"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@+id/nav_card_header"
             app:layout_constraintStart_toStartOf="parent">
 
-            <FrameLayout
-                android:id="@+id/nav_next_turn_frame"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_nav_turn_icon"
-                android:gravity="center">
-
-                <app.organicmaps.widget.ArrowView
-                    android:id="@+id/turn"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    app:tint="#38BDF8"
-                    tools:src="@drawable/ic_turn_right" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/circle_exit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="3" />
-            </FrameLayout>
-
-            <!-- Sonraki sonraki donus ikonu (varsa) -->
-            <FrameLayout
-                android:id="@+id/nav_next_next_turn_frame"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_below="@+id/nav_next_turn_frame"
-                android:layout_alignStart="@+id/nav_next_turn_frame"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_circle_car_button"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/turn"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    app:tint="#94A3B8"
-                    tools:src="@drawable/ic_then_left_sharp" />
-            </FrameLayout>
-        </RelativeLayout>
-
-        <!-- Donus Mesafesi ve Cadde Adi -->
-        <LinearLayout
-            android:id="@+id/turn_details_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="12dp"
-            app:layout_constraintStart_toEndOf="@+id/nav_next_turn_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nav_next_turn_container"
-            app:layout_constraintBottom_toBottomOf="@+id/nav_next_turn_container">
-
-            <!-- Mesafe -->
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/distance"
+            <!-- Donus Oku ve Sonraki Donus Konteyniri -->
+            <RelativeLayout
+                android:id="@+id/nav_next_turn_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:includeFontPadding="false"
-                tools:text="750 m sonra" />
-
-            <!-- Cadde / Yon Metni -->
-            <LinearLayout
-                android:id="@+id/street_frame"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp"
                 android:clickable="true"
                 android:focusable="true">
 
+                <FrameLayout
+                    android:id="@+id/turn_icon_box"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_nav_turn_icon"
+                    android:gravity="center">
+
+                    <app.organicmaps.widget.ArrowView
+                        android:id="@+id/turn"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        app:tint="#38BDF8"
+                        tools:src="@drawable/ic_turn_right" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/circle_exit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="3" />
+                </FrameLayout>
+
+                <!-- Sonraki sonraki donus ikonu (varsa) -->
+                <FrameLayout
+                    android:id="@+id/nav_next_next_turn_frame"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_below="@+id/turn_icon_box"
+                    android:layout_alignStart="@+id/turn_icon_box"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_circle_car_button"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/turn"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        app:tint="#94A3B8"
+                        tools:src="@drawable/ic_then_left_sharp" />
+                </FrameLayout>
+            </RelativeLayout>
+
+            <!-- Donus Mesafesi ve Cadde Adi -->
+            <LinearLayout
+                android:id="@+id/turn_details_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
+
+                <!-- Mesafe (NavigationController: turnFrame.findViewById(R.id.distance)) -->
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/street"
+                    android:id="@+id/distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    tools:text="750 m sonra" />
+
+                <!-- Cadde / Yon Metni -->
+                <LinearLayout
+                    android:id="@+id/street_frame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#CBD5E1"
-                    android:textSize="13sp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:includeFontPadding="false"
-                    tools:text="Sağa dönün - Atatürk Caddesi" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#CBD5E1"
+                        android:textSize="13sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        tools:text="Sağa dönün - Atatürk Caddesi" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -164,10 +169,10 @@
         <app.organicmaps.widget.LanesView
             android:id="@+id/lanes"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="36dp"
             android:layout_marginTop="8dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/nav_next_turn_container"
+            app:layout_constraintTop_toBottomOf="@+id/nav_next_turn_frame"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
