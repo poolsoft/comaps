@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_buttons_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- Invisible Anchor Frame for Controller Compatibility -->
+    <FrameLayout
+        android:id="@+id/map_buttons_top"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 1. SAĞ ÜST KONTROL GRUBU: [ Ara ] [ Katmanlar ] [ Ayarlar ] -->
+    <LinearLayout
+        android:id="@+id/top_right_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 1.A. Arama Butonu -->
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:src="@drawable/ic_search"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/search"
+            android:elevation="4dp" />
+
+        <!-- 1.B. Katman Butonu -->
+        <app.organicmaps.maplayer.LayersButton
+            android:id="@+id/layers_button"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:src="@drawable/ic_layers"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/layers_title"
+            android:elevation="4dp" />
+
+        <!-- 1.C. Menü / Ayarlar Butonu -->
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:src="@drawable/ic_settings"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/settings"
+            android:elevation="4dp" />
+    </LinearLayout>
+
+    <!-- Kayit Durumu Butonu (Gerekirse) -->
+    <include
+        layout="@layout/map_status_track_recording"
+        android:id="@+id/track_recording_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 2. SAĞ ORTA GRUP: Canli Hiz/Limit + Zoom (+/-) Kapsulu -->
+    <LinearLayout
+        android:id="@+id/map_buttons_inner_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="16dp"
+        android:elevation="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/top_right_controls"
+        app:layout_constraintBottom_toTopOf="@+id/map_buttons_bottom"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 2.A. Hiz ve Limit Gostergesi Kapsulu -->
+        <FrameLayout
+            android:id="@+id/speed_capsule_container"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="14dp">
+
+            <app.organicmaps.widget.SpeedLimitView
+                android:id="@+id/speed_limit"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <app.organicmaps.widget.CurrentSpeedView
+                android:id="@+id/current_speed"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+        </FrameLayout>
+
+        <!-- 2.B. Dikey Zoom Kapsulu: [ + ] ve [ - ] -->
+        <LinearLayout
+            android:id="@+id/zoom_buttons_container"
+            android:layout_width="46dp"
+            android:layout_height="96dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_zoom_capsule"
+            android:gravity="center"
+            android:elevation="4dp">
+
+            <!-- Zoom In (+) -->
+            <ImageView
+                android:id="@+id/nav_zoom_in"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_plus"
+                app:tint="#FFFFFF"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zoom_in" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="1dp"
+                android:background="#33FFFFFF" />
+
+            <!-- Zoom Out (-) -->
+            <ImageView
+                android:id="@+id/nav_zoom_out"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_minus"
+                app:tint="#FFFFFF"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/zoom_out" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 3. SAĞ ALT İŞLEM BUTONLARI: [ Favori/Yer İmi ] [ Rota/Yol Tarifi ] [ GPS Odaklan ] -->
+    <LinearLayout
+        android:id="@+id/map_buttons_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 3.A. Favoriler Butonu -->
+        <ImageButton
+            android:id="@+id/btn_bookmarks"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:src="@drawable/ic_bookmarks"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/bookmarks"
+            android:elevation="4dp" />
+
+        <!-- 3.B. Rota Planla / Navigasyon Butonu -->
+        <ImageButton
+            android:id="@+id/btn_route"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:src="@drawable/ic_routing_plan"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/routing_plan"
+            android:elevation="4dp" />
+
+        <!-- 3.C. GPS Konum Odaklan Butonu (my_position) -->
+        <app.organicmaps.widget.MyPositionButton
+            android:id="@+id/my_position"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:elevation="4dp" />
+    </LinearLayout>
+
+    <!-- Invisible Dummy Left Container for Controller Compatibility -->
+    <FrameLayout
+        android:id="@+id/map_buttons_inner_left"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

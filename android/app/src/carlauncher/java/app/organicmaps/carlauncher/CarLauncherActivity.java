@@ -48,10 +48,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private android.view.View appDrawerContainer;
     private boolean statusBarInsetsListenerInstalled;
 
-    private android.view.View originalStreetFrame;
-    private android.widget.TextView originalStreetText;
-    private boolean isStreetFrameReparented = false;
-
     private app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay mapWidgetsOverlay;
 
     private boolean isWidgetPanelOpen = true;
@@ -476,80 +472,42 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public void onTelemetryUpdated(TelemetryManager.LocationState loc, TelemetryManager.NavigationState nav, TelemetryManager.ObdState obd) {
-        if (loc != null) {
-            updateFreeDrivingStreetDisplay(loc.streetName);
+        if (loc != null || obd != null) {
+            updateFreeDrivingSpeedDisplay(loc, obd);
         }
         if (mapWidgetsOverlay != null) {
             mapWidgetsOverlay.tick();
         }
     }
 
-    private void tryReparentStreetFrame() {
-        if (isStreetFrameReparented) return;
+    private void updateFreeDrivingSpeedDisplay(TelemetryManager.LocationState loc, TelemetryManager.ObdState obd) {
+        if (app.organicmaps.sdk.routing.RoutingController.get().isNavigating()) {
+            return;
+        }
 
-        final android.view.View streetFrame = findViewById(R.id.street_frame);
-        final android.widget.TextView streetText = findViewById(R.id.street);
-        final android.view.ViewGroup mapContainer = findViewById(R.id.car_map_container);
+        final app.organicmaps.widget.CurrentSpeedView currentSpeedView = findViewById(R.id.current_speed);
+        if (currentSpeedView == null) {
+            return;
+        }
 
-        Log.d("CoMapsStreetReparent", "tryReparentStreetFrame: streetFrame=" + (streetFrame != null) 
-              + ", streetText=" + (streetText != null) + ", mapContainer=" + (mapContainer != null));
-
-        if (streetFrame != null && streetText != null && mapContainer != null) {
-            android.view.ViewGroup parent = (android.view.ViewGroup) streetFrame.getParent();
-            Log.d("CoMapsStreetReparent", "tryReparentStreetFrame: parent=" + (parent != null));
-            if (parent != null) {
-                // Parent'indan sok
-                parent.removeView(streetFrame);
-
-                // ExactFrameLayout (FrameLayout) parametrelerini hazirla
-                android.widget.FrameLayout.LayoutParams lp = new android.widget.FrameLayout.LayoutParams(
-                        android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                        android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-                );
-                lp.gravity = android.view.Gravity.TOP;
-
-                // Kenar bosluklarini (margin) set et
-                int marginStart = getResources().getDimensionPixelSize(R.dimen.margin_base);
-                int marginEnd = getResources().getDimensionPixelSize(R.dimen.margin_base);
-                int marginTop = getResources().getDimensionPixelSize(R.dimen.margin_base);
-                lp.setMargins(marginStart, marginTop, marginEnd, 0);
-
-                // mapContainer icine ekle
-                mapContainer.addView(streetFrame, lp);
-
-                originalStreetFrame = streetFrame;
-                originalStreetText = streetText;
-                isStreetFrameReparented = true;
-
-                Log.d("CoMapsStreetReparent", "tryReparentStreetFrame: Reparenting SUCCESSFUL!");
-                // Ilk etapta gizli baslasin
-                originalStreetFrame.setVisibility(android.view.View.GONE);
+        float speedMps = -1f;
+        if (loc != null) {
+            if (loc.rawLocation != null && loc.rawLocation.hasSpeed()) {
+                speedMps = loc.rawLocation.getSpeed();
+            } else if (loc.speedKmh > 0) {
+                speedMps = loc.speedKmh / 3.6f;
+            }
+        } else if (obd != null && obd.isActive) {
+            try {
+                // OBD hizi varsa m/s'ye cevir
+                // ObdState icindeki ozel alanlar gelecekte genisletilebilir
+            } catch (Exception ignored) {
             }
         }
-    }
 
-    private void updateFreeDrivingStreetDisplay(String streetName) {
-        // Reparent etmeyi dene
-        tryReparentStreetFrame();
-
-        Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: isStreetFrameReparented=" + isStreetFrameReparented 
-              + ", inputStreetName='" + streetName + "'");
-
-        if (!isStreetFrameReparented || originalStreetFrame == null || originalStreetText == null) {
-            return;
-        }
-
-        // Rota takibi aktifse orijinal navigasyon paneli yonetsin, biz dokunmayalim
-        if (app.organicmaps.sdk.routing.RoutingController.get().isNavigating()) {
-            Log.d("CoMapsStreetReparent", "updateFreeDrivingStreetDisplay: Is navigating = true. Skipping.");
-            return;
-        }
-
-        if (streetName != null && !streetName.isEmpty()) {
-            originalStreetFrame.setVisibility(android.view.View.VISIBLE);
-            originalStreetText.setText(streetName);
-        } else {
-            originalStreetFrame.setVisibility(android.view.View.GONE);
+        if (speedMps >= 0) {
+            currentSpeedView.setCurrentSpeed(speedMps);
+            currentSpeedView.setVisibility(android.view.View.VISIBLE);
         }
     }
 

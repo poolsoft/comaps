@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bottom_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_nav_floating_card"
+    android:padding="12dp"
+    android:elevation="8dp">
+
+    <!-- Ana Bilgi Çerçevesi (NavMenu header frame) -->
+    <LinearLayout
+        android:id="@+id/line_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- 1. Mavi Rota İlerleme Çubuğu (RouteProgressBar) -->
+        <app.organicmaps.widget.RouteProgressBar
+            android:id="@+id/navigation_progress"
+            style="@style/Widget.Material3.LinearProgressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginBottom="10dp"
+            app:indicatorColor="#38BDF8"
+            app:trackColor="#334155" />
+
+        <!-- 2. ETA, Kalan Süre, Kalan Mesafe 3'lü Gösterge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- 2.A. ETA (Tahmini Varış Saati) -->
+            <LinearLayout
+                android:id="@+id/eta_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Varış"
+                    android:textColor="#94A3B8"
+                    android:textSize="10sp"
+                    android:textAllCaps="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eta_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:includeFontPadding="false"
+                        tools:text="11:45" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eta_am_pm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:textColor="#94A3B8"
+                        android:textSize="10sp"
+                        android:includeFontPadding="false"
+                        tools:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/eta_icon"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        app:srcCompat="@drawable/route_finish" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eta_destination"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Ayırıcı Çizgi -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:background="#2E384D" />
+
+            <!-- 2.B. Kalan Süre -->
+            <LinearLayout
+                android:id="@+id/time_values_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Süre"
+                    android:textColor="#94A3B8"
+                    android:textSize="10sp"
+                    android:textAllCaps="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/time_hour_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#38BDF8"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:includeFontPadding="false"
+                        tools:text="" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/time_hour_dimen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#38BDF8"
+                        android:textSize="11sp"
+                        android:includeFontPadding="false"
+                        tools:text="" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/time_minute_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#38BDF8"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:includeFontPadding="false"
+                        tools:text="22" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/time_minute_dimen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#38BDF8"
+                        android:textSize="11sp"
+                        android:includeFontPadding="false"
+                        tools:text=" dk" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/dots_switch"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/routing_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Ayırıcı Çizgi -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:background="#2E384D" />
+
+            <!-- 2.C. Kalan Mesafe -->
+            <LinearLayout
+                android:id="@+id/distance_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mesafe"
+                    android:textColor="#94A3B8"
+                    android:textSize="10sp"
+                    android:textAllCaps="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/distance_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:includeFontPadding="false"
+                        tools:text="21" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/distance_dimen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#CBD5E1"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:includeFontPadding="false"
+                        tools:text=" km" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Yeniden Rota Hesaplama İndikatörü -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/rebuilding_route_progress_bar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rebuild_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 3. Alt Eylem Butonları: [ Ses / TTS ] [ Ayarlar ] [ Rota Bitir (Kırmızı) ] -->
+    <LinearLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Ses Aç/Kapat Butonu -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/tts_volume"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_voice_on"
+            app:tint="#FFFFFF" />
+
+        <!-- Ayarlar Butonu -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/settings"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_settings"
+            app:tint="#FFFFFF" />
+
+        <!-- Boşluk -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <!-- İz Kaydı Butonu (Opsiyonel) -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/track_recording"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_circle_car_button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_menu_track_recording"
+            app:tint="#FFFFFF"
+            android:visibility="gone" />
+
+        <!-- Rota Bitir (Kırmızı Buton) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:minHeight="0dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="@string/cancel"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="#EF4444"
+            app:cornerRadius="16dp" />
+    </LinearLayout>
+
+</LinearLayout>

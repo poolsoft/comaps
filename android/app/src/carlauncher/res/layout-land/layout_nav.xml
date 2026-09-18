@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- Sol Üst Yüzen Navigasyon Modülü (Manevra Kartı + Altında ETA & İlerleme Kartı) -->
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="8dp">
+
+        <!-- 1. Manevra Kartı (Dönüş oku, mesafe, cadde adı, şeritler) -->
+        <include layout="@layout/layout_nav_top" />
+
+        <!-- 2. ETA, Süre, Mesafe ve Kontrol Kartı (Aralarında 8dp boşlukla pürüzsüz takip) -->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/nav_bottom_sheet_coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="9dp">
+
+            <View
+                android:id="@+id/nav_bottom_sheet_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <FrameLayout
+                android:id="@+id/nav_bottom_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <include layout="@layout/layout_nav_bottom" />
+            </FrameLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+    <!-- Navigation bar dummy view -->
+    <View
+        android:id="@+id/nav_bottom_sheet_nav_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+</FrameLayout>
