@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_top_frame"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -16,10 +16,10 @@
         android:layout_height="1dp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Kompakt Manevra Karti: donus oku + mesafe yanyana, sokak altta -->
+    <!-- Kompakt Manevra Karti: donus oku + mesafe yanyana -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nav_card_maneuver"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_nav_floating_card"
         android:paddingStart="14dp"
@@ -27,10 +27,12 @@
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:elevation="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statutbar">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Donus Oku, Sonraki Donus ve Mesafe/Cadde Konteyniri (nav_next_turn_frame hem oku hem mesafeyi kapsar) -->
+        <!-- Donus Oku, Sonraki Donus ve Mesafe Konteyniri (nav_next_turn_frame hem oku hem mesafeyi kapsar) -->
         <LinearLayout
             android:id="@+id/nav_next_turn_frame"
             android:layout_width="match_parent"
@@ -96,7 +98,7 @@
                 </FrameLayout>
             </RelativeLayout>
 
-            <!-- Donus Mesafesi ve Cadde Adi -->
+            <!-- Donus Mesafesi -->
             <LinearLayout
                 android:id="@+id/turn_details_container"
                 android:layout_width="0dp"
@@ -115,28 +117,6 @@
                     android:textStyle="bold"
                     android:includeFontPadding="false"
                     tools:text="140 m" />
-
-                <!-- Cadde / Yon Metni -->
-                <LinearLayout
-                    android:id="@+id/street_frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="3dp"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/street"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="#CBD5E1"
-                        android:textSize="14sp"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:includeFontPadding="false"
-                        tools:text="Sağa dönün - Azerbaijan Bulvari" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -157,6 +137,73 @@
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Alt Ortada Yuzen Sokak Adi Pill'i (street ID'si NavigationController uyumlu) -->
+    <LinearLayout
+        android:id="@+id/street_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_street_pill"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:elevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        android:layout_marginBottom="20dp"
+        tools:visibility="visible">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/street"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="360dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            tools:text="Emniyet Caddesi" />
+    </LinearLayout>
+
+    <!-- ETA, Sure, Mesafe ve Kontrol Karti (manevra kartinin altinda) -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/nav_bottom_sheet_coordinator"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nav_card_maneuver">
+
+        <View
+            android:id="@+id/nav_bottom_sheet_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/nav_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <include layout="@layout/layout_nav_bottom" />
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!-- Dummy Invisible Speed Views for Controller Compatibility (Hiz gostergesi sag panelde aktiftir) -->
     <app.organicmaps.widget.CurrentSpeedView
