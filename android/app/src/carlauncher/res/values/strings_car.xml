@@ -43,4 +43,7 @@
     <string name="car_nav_exit_highway_left">Exit highway to the left</string>
     <string name="car_nav_exit_highway_right">Exit highway to the right</string>
     <string name="car_nav_continue">Continue</string>
+    <string name="car_floating_button_mode_off">Off</string>
+    <string name="car_floating_button_mode_background">Show only in background</string>
+    <string name="car_floating_button_mode_always">Always show</string>
 </resources>

@@ -104,11 +104,13 @@
             android:defaultValue="landscape"
             app:iconSpaceReserved="false" />
 
-        <androidx.preference.SwitchPreferenceCompat
-            android:key="car_launcher_floating_button"
+        <androidx.preference.ListPreference
+            android:key="car_launcher_floating_button_mode"
             android:title="@string/car_pref_floating_btn_title"
-            android:summary="@string/car_pref_floating_btn_summary"
-            android:defaultValue="false"
+            android:summary="%s"
+            android:entries="@array/floating_button_mode_entries"
+            android:entryValues="@array/floating_button_mode_values"
+            android:defaultValue="off"
             app:iconSpaceReserved="false" />
 
         <androidx.preference.SwitchPreferenceCompat

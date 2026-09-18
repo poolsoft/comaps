@@ -557,12 +557,12 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
-        // Yuzen yardimci buton
-        SwitchPreferenceCompat floatingButtonPref = findPreference(CarLauncherSettings.KEY_FLOATING_BUTTON);
+        // Yuzen yardimci buton modu (Kapali, Sadece Arkaplandayken Goster, Herzaman Goster)
+        androidx.preference.ListPreference floatingButtonPref = findPreference(CarLauncherSettings.KEY_FLOATING_BUTTON_MODE);
         if (floatingButtonPref != null) {
             floatingButtonPref.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean val = (Boolean) newValue;
-                if (val && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                String mode = (String) newValue;
+                if (!CarLauncherSettings.FLOATING_BUTTON_OFF.equals(mode) && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     if (getContext() != null && !android.provider.Settings.canDrawOverlays(getContext())) {
                         android.widget.Toast.makeText(getContext(), getString(R.string.car_settings_draw_overlays_permission), android.widget.Toast.LENGTH_LONG).show();
                         android.content.Intent intent = new android.content.Intent(
@@ -573,7 +573,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     }
                 }
                 if (settings != null) {
-                    settings.setFloatingButtonEnabled(val);
+                    settings.setFloatingButtonMode(mode);
                 }
                 if (getContext() != null) {
                     CarFloatingButtonManager.getInstance(getContext()).updateButtonState();

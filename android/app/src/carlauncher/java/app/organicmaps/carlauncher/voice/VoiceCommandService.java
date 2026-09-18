@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Build;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import android.provider.Settings;
-import android.net.Uri;
 
 import app.organicmaps.MwmApplication;
 

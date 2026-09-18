@@ -50,8 +50,8 @@ public class CarFloatingButtonService extends Service {
             startForeground(NOTIFICATION_ID, notification);
         }
 
-        // Butonu goster ve GPS guncellemelerini aktif tut
-        CarFloatingButtonManager.getInstance(this).showButton();
+        // Buton durumunu ayardaki moda gore guncelle ve GPS guncellemelerini aktif tut
+        CarFloatingButtonManager.getInstance(this).updateButtonState();
         startLocationUpdates();
 
         return START_STICKY;

@@ -49,6 +49,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private boolean statusBarInsetsListenerInstalled;
 
     private app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay mapWidgetsOverlay;
+    private app.organicmaps.carlauncher.hardware.CarMapKeyController carMapKeyController;
 
     private boolean isWidgetPanelOpen = true;
     private boolean isDesktopMode = false;
@@ -138,6 +139,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         applyRequestedOrientationIfNeeded();
 
         telemetryManager = TelemetryManager.getInstance(this);
+        carMapKeyController = new app.organicmaps.carlauncher.hardware.CarMapKeyController(this);
 
         rootLayout = findViewById(R.id.root_layout);
         mapContainer = findViewById(R.id.car_map_container);
@@ -403,14 +405,27 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     public boolean dispatchKeyEvent(android.view.KeyEvent event) {
-        if (event != null && event.getAction() == android.view.KeyEvent.ACTION_DOWN
-                && app.organicmaps.carlauncher.headunit.HardwareMediaKeyRouter
-                .getInstance(this)
-                .route(app.organicmaps.carlauncher.headunit.HardwareMediaKeyRouter
-                        .Source.ACTIVITY, event.getKeyCode())) {
-            return true;
+        if (event != null) {
+            if (event.getAction() == android.view.KeyEvent.ACTION_DOWN
+                    && app.organicmaps.carlauncher.headunit.HardwareMediaKeyRouter
+                    .getInstance(this)
+                    .route(app.organicmaps.carlauncher.headunit.HardwareMediaKeyRouter
+                            .Source.ACTIVITY, event.getKeyCode())) {
+                return true;
+            }
+            if (carMapKeyController != null && carMapKeyController.handleKeyEvent(event)) {
+                return true;
+            }
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
+        if (carMapKeyController != null && carMapKeyController.handleKeyEvent(event)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="floating_button_mode_entries">
+        <item>@string/car_floating_button_mode_off</item>
+        <item>@string/car_floating_button_mode_background</item>
+        <item>@string/car_floating_button_mode_always</item>
+    </string-array>
+    <string-array name="floating_button_mode_values">
+        <item>off</item>
+        <item>background</item>
+        <item>always</item>
+    </string-array>
+
     <string-array name="startup_screen_entries">
         <item>Normal Launcher Screen</item>
         <item>Widget Desktop</item>

@@ -197,12 +197,50 @@ public class CarLauncherSettings {
         prefs.edit().putBoolean(KEY_PORTRAIT_MAP_ONLY, only).apply();
     }
 
+    public static final String KEY_FLOATING_BUTTON_MODE = "car_launcher_floating_button_mode";
+    public static final String FLOATING_BUTTON_OFF = "off";
+    public static final String FLOATING_BUTTON_BACKGROUND = "background";
+    public static final String FLOATING_BUTTON_ALWAYS = "always";
+
+    public String getFloatingButtonMode() {
+        if (prefs.contains(KEY_FLOATING_BUTTON_MODE)) {
+            String mode = prefs.getString(KEY_FLOATING_BUTTON_MODE, FLOATING_BUTTON_OFF);
+            if (!FLOATING_BUTTON_BACKGROUND.equals(mode) && !FLOATING_BUTTON_ALWAYS.equals(mode)) {
+                return FLOATING_BUTTON_OFF;
+            }
+            return mode;
+        }
+        boolean oldEnabled = prefs.getBoolean(KEY_FLOATING_BUTTON, false);
+        return oldEnabled ? FLOATING_BUTTON_ALWAYS : FLOATING_BUTTON_OFF;
+    }
+
+    public void setFloatingButtonMode(String mode) {
+        if (!FLOATING_BUTTON_BACKGROUND.equals(mode) && !FLOATING_BUTTON_ALWAYS.equals(mode)) {
+            mode = FLOATING_BUTTON_OFF;
+        }
+        prefs.edit()
+                .putString(KEY_FLOATING_BUTTON_MODE, mode)
+                .putBoolean(KEY_FLOATING_BUTTON, !FLOATING_BUTTON_OFF.equals(mode))
+                .apply();
+    }
+
     public boolean isFloatingButtonEnabled() {
-        return prefs.getBoolean(KEY_FLOATING_BUTTON, false);
+        return !FLOATING_BUTTON_OFF.equals(getFloatingButtonMode());
     }
 
     public void setFloatingButtonEnabled(boolean enabled) {
-        prefs.edit().putBoolean(KEY_FLOATING_BUTTON, enabled).apply();
+        setFloatingButtonMode(enabled ? FLOATING_BUTTON_ALWAYS : FLOATING_BUTTON_OFF);
+    }
+
+    public boolean shouldShowFloatingButton(boolean appInForeground) {
+        String mode = getFloatingButtonMode();
+        if (FLOATING_BUTTON_ALWAYS.equals(mode)) {
+            return true;
+        }
+        if (FLOATING_BUTTON_BACKGROUND.equals(mode) && !appInForeground) {
+            return true;
+        }
+        return false;
     }
 
     public static final String KEY_FLOATING_BUTTON_FORCE_GPS = "car_launcher_floating_button_force_gps";

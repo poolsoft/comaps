@@ -38,4 +38,7 @@
     <string name="car_nav_exit_highway_left">Otobandan sola çıkın</string>
     <string name="car_nav_exit_highway_right">Otobandan sağa çıkın</string>
     <string name="car_nav_continue">Devam edin</string>
+    <string name="car_floating_button_mode_off">Kapalı</string>
+    <string name="car_floating_button_mode_background">Sadece arka plandayken göster</string>
+    <string name="car_floating_button_mode_always">Her zaman göster</string>
 </resources>
