@@ -202,7 +202,7 @@
             android:layout_height="46dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_circle_car_button"
-            android:src="@drawable/ic_routing_plan"
+            android:src="@drawable/ic_navigation"
             app:tint="#FFFFFF"
             android:scaleType="centerInside"
             android:contentDescription="@string/routing_plan"

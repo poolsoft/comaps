@@ -41,7 +41,7 @@
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:src="@drawable/ic_routing_plan"
+                android:src="@drawable/ic_navigation"
                 app:tint="#38BDF8"
                 android:layout_marginEnd="6dp" />
 
@@ -170,9 +170,9 @@
             app:layout_constraintTop_toBottomOf="@+id/nav_next_turn_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:lanesActiveLaneTintColor="#38BDF8"
-            app:lanesInactiveLaneTintColor="#64748B"
-            app:lanesBackgroundColor="#1E293B"
+            app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
+            app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
+            app:lanesBackgroundColor="?colorPrimary"
             app:lanesCornerRadius="6dp"
             tools:visibility="visible" />
 
