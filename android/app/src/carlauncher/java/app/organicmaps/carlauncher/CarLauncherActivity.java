@@ -789,70 +789,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     };
 
     private void setupMapWidgetsOverlay() {
-        if (mapContainer == null)
-            return;
-        app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore store =
-                app.organicmaps.carlauncher.widgets.map.MapWidgetPlacementStore.getInstance(this);
-
-        // Varsayilan yerlesimi garanti et (hiz gostergesi haritanin solunda acik gelsin)
-        store.ensureDefaults();
-
-        if (mapWidgetsOverlay == null) {
-            mapWidgetsOverlay = new app.organicmaps.carlauncher.widgets.map.MapWidgetsOverlay(this, store);
-            mapWidgetsOverlay.setElevation(6f);
-            mapContainer.addView(mapWidgetsOverlay,
-                    new android.widget.FrameLayout.LayoutParams(
-                            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                            android.view.ViewGroup.LayoutParams.MATCH_PARENT));
-        }
-
-        refreshMapWidgetsOverlay();
-        setupMapWidgetMenuButton();
-
-        if (mapContainer != null) {
-            mapContainer.removeCallbacks(mapWidgetTick);
-            mapContainer.postDelayed(mapWidgetTick, 1000);
-        }
+        // Harita uzeri ekstra overlay ve butonlar kullanici talebiyle kapatildi.
+        // Haritanin kendi yerel UI elementleri temiz sekilde kullanilacak.
     }
 
     private void setupMapWidgetMenuButton() {
-        if (mapContainer == null) return;
-        if (mapWidgetMenuButton != null && mapWidgetMenuButton.getParent() != null) {
-            return;
-        }
-
-        float density = getResources().getDisplayMetrics().density;
-        int btnSize = Math.round(44 * density);
-        int pad = Math.round(9 * density);
-
-        mapWidgetMenuButton = new android.widget.ImageButton(this);
-        mapWidgetMenuButton.setId(R.id.btn_map_widgets);
-        mapWidgetMenuButton.setImageResource(R.drawable.ic_internal_dashboard);
-        mapWidgetMenuButton.setScaleType(android.widget.ImageView.ScaleType.CENTER_INSIDE);
-        mapWidgetMenuButton.setPadding(pad, pad, pad, pad);
-        mapWidgetMenuButton.setContentDescription("Harita Widget Ayarlari");
-
-        android.graphics.drawable.GradientDrawable bg = new android.graphics.drawable.GradientDrawable();
-        bg.setShape(android.graphics.drawable.GradientDrawable.OVAL);
-        bg.setColor(0xDD18222D);
-        bg.setStroke(Math.max(1, Math.round(1.5f * density)), 0x553FD7FF);
-        mapWidgetMenuButton.setBackground(bg);
-        mapWidgetMenuButton.setColorFilter(0xFF3FD7FF);
-        mapWidgetMenuButton.setElevation(12f);
-
-        android.widget.FrameLayout.LayoutParams lp =
-                new android.widget.FrameLayout.LayoutParams(btnSize, btnSize);
-        lp.gravity = android.view.Gravity.TOP | android.view.Gravity.END;
-        lp.rightMargin = Math.round(16 * density);
-        lp.topMargin = Math.round(72 * density); // Pusulanin hemen altinda ferah konum
-
-        mapWidgetMenuButton.setOnClickListener(v -> showMapWidgetPlacementDialog());
-        mapWidgetMenuButton.setOnLongClickListener(v -> {
-            showMapWidgetPlacementDialog();
-            return true;
-        });
-
-        mapContainer.addView(mapWidgetMenuButton, lp);
+        // Harita uzeri menu butonu devre disi
     }
 
     private void refreshMapWidgetsOverlay() {
