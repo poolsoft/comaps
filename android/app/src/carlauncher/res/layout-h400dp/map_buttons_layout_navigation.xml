@@ -33,30 +33,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:elevation="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 1.A. Arama Butonu -->
+        <!-- 1.A. Arama Butonu (Navigasyonda gizli) -->
         <ImageButton
             android:id="@+id/btn_search"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:background="@drawable/bg_circle_car_button"
-            android:src="@drawable/ic_search"
-            app:tint="#FFFFFF"
-            android:scaleType="centerInside"
-            android:contentDescription="@string/search"
-            android:elevation="4dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
-        <!-- 1.B. Katman Butonu -->
+        <!-- 1.B. Katman Butonu (Navigasyonda tek basina sag ustte) -->
         <app.organicmaps.maplayer.LayersButton
             android:id="@+id/layers_button"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:background="@drawable/bg_circle_car_button"
             android:src="@drawable/ic_layers"
             app:tint="#FFFFFF"
@@ -64,18 +58,12 @@
             android:contentDescription="@string/layers_title"
             android:elevation="4dp" />
 
-        <!-- 1.C. Menü / Ayarlar Butonu -->
+        <!-- 1.C. Menü / Ayarlar Butonu (Navigasyonda sol altta var, burada gizli) -->
         <ImageButton
             android:id="@+id/menu_button"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/bg_circle_car_button"
-            android:src="@drawable/ic_settings"
-            app:tint="#FFFFFF"
-            android:scaleType="centerInside"
-            android:contentDescription="@string/settings"
-            android:elevation="4dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <!-- Kayit Durumu -->
@@ -96,41 +84,41 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
         android:elevation="8dp"
         app:layout_constraintTop_toBottomOf="@+id/top_right_controls"
         app:layout_constraintBottom_toTopOf="@+id/map_buttons_bottom"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 2.A. Hiz ve Limit Gostergesi Kapsulu (kompakt: hiz altinda limit rozeti) -->
+        <!-- 2.A. Hiz ve Limit Gostergesi Kapsulu (kompakt: 52dp) -->
         <FrameLayout
             android:id="@+id/speed_capsule_container"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/bg_circle_car_button">
 
             <app.organicmaps.widget.SpeedLimitView
                 android:id="@+id/speed_limit"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
             <app.organicmaps.widget.CurrentSpeedView
                 android:id="@+id/current_speed"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_gravity="center"
                 android:visibility="visible" />
         </FrameLayout>
 
-        <!-- 2.B. Dikey Zoom Kapsulu: [ + ] ve [ - ] -->
+        <!-- 2.B. Dikey Zoom Kapsulu: [ + ] ve [ - ] (kompakt: 42x88dp) -->
         <LinearLayout
             android:id="@+id/zoom_buttons_container"
-            android:layout_width="48dp"
-            android:layout_height="104dp"
+            android:layout_width="42dp"
+            android:layout_height="88dp"
             android:orientation="vertical"
             android:background="@drawable/bg_zoom_capsule"
             android:gravity="center"
@@ -178,43 +166,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
         android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 3.A. Favoriler Butonu -->
+        <!-- 3.A. Favoriler Butonu (Navigasyonda gizli) -->
         <ImageButton
             android:id="@+id/btn_bookmarks"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:background="@drawable/bg_circle_car_button"
-            android:src="@drawable/ic_bookmarks"
-            app:tint="#FFFFFF"
-            android:scaleType="centerInside"
-            android:contentDescription="@string/bookmarks"
-            android:elevation="4dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
-        <!-- 3.B. Rota Butonu (Navigasyonda gizlenebilir veya alternatif rota icin kullanilabilir) -->
+        <!-- 3.B. Rota Butonu (Navigasyonda gizli) -->
         <ImageButton
             android:id="@+id/btn_route"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/bg_circle_car_button"
-            android:src="@drawable/ic_navigation"
-            app:tint="#FFFFFF"
-            android:scaleType="centerInside"
-            android:contentDescription="@string/routing_plan"
-            android:elevation="4dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
         <!-- 3.C. GPS Konum Odaklan Butonu (my_position) -->
         <include
             layout="@layout/map_buttons_myposition"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <!-- Invisible Dummy Left Container for Controller Compatibility -->

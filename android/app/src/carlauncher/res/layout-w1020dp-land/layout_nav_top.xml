@@ -16,31 +16,32 @@
         android:layout_height="1dp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Kompakt Manevra Karti: donus oku + mesafe yanyana -->
+    <!-- 1. SOL UST KOMPAKT MANEVRA KUTUSU (84dp): Donus oku + mesafe alt alta -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nav_card_maneuver"
-        android:layout_width="340dp"
+        android:layout_width="84dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_nav_floating_card"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:elevation="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/statutbar">
 
-        <!-- Donus Oku, Sonraki Donus ve Mesafe Konteyniri (nav_next_turn_frame hem oku hem mesafeyi kapsar) -->
+        <!-- nav_next_turn_frame hem oku hem mesafeyi kapsar (NavigationController uyumlu) -->
         <LinearLayout
             android:id="@+id/nav_next_turn_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <!-- Donus Oku ve Sonraki Donus Konteyniri -->
             <RelativeLayout
@@ -52,15 +53,15 @@
 
                 <FrameLayout
                     android:id="@+id/turn_icon_box"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:background="@drawable/bg_nav_turn_icon"
                     android:gravity="center">
 
                     <app.organicmaps.widget.ArrowView
                         android:id="@+id/turn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
                         android:layout_gravity="center"
                         app:tint="#38BDF8"
                         tools:src="@drawable/ic_turn_right" />
@@ -71,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         tools:text="3" />
                 </FrameLayout>
@@ -79,113 +80,100 @@
                 <!-- Sonraki sonraki donus ikonu (varsa) -->
                 <FrameLayout
                     android:id="@+id/nav_next_next_turn_frame"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_below="@+id/turn_icon_box"
                     android:layout_alignStart="@+id/turn_icon_box"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="2dp"
                     android:background="@drawable/bg_circle_car_button"
                     android:visibility="gone"
                     tools:visibility="visible">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/turn"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
                         android:layout_gravity="center"
                         app:tint="#94A3B8"
                         tools:src="@drawable/ic_then_left_sharp" />
                 </FrameLayout>
             </RelativeLayout>
 
-            <!-- Donus Mesafesi -->
-            <LinearLayout
-                android:id="@+id/turn_details_container"
-                android:layout_width="0dp"
+            <!-- Mesafe: Orijinal Organic Maps gibi okun altinda net -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="14dp">
-
-                <!-- Mesafe (NavigationController: turnFrame.findViewById(R.id.distance)) -->
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:includeFontPadding="false"
-                    tools:text="140 m" />
-            </LinearLayout>
+                android:layout_marginTop="4dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:includeFontPadding="false"
+                tools:text="140 m" />
         </LinearLayout>
-
-        <!-- Serit Rehberi (Lanes) -->
-        <app.organicmaps.widget.LanesView
-            android:id="@+id/lanes"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/nav_next_turn_frame"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
-            app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
-            app:lanesBackgroundColor="?colorPrimary"
-            app:lanesCornerRadius="6dp"
-            tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Alt Ortada Yuzen Sokak Adi Pill'i (street ID'si NavigationController uyumlu) -->
+    <!-- 2. UST SOKAK SERIDI: Donus kutusunun hemen saginda baslar, sag butonlara kadar uzanir -->
     <LinearLayout
         android:id="@+id/street_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_street_pill"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="9dp"
-        android:paddingBottom="9dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:elevation="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintTop_toTopOf="@+id/nav_card_maneuver"
+        app:layout_constraintStart_toEndOf="@+id/nav_card_maneuver"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
-        android:layout_marginBottom="20dp"
         tools:visibility="visible">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/street"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxWidth="360dp"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
             android:includeFontPadding="false"
-            tools:text="Emniyet Caddesi" />
+            tools:text="Cahit Zarifoğlu Caddesi" />
     </LinearLayout>
 
-    <!-- ETA, Sure, Mesafe ve Kontrol Karti (manevra kartinin altinda) -->
+    <!-- 3. SERIT REHBERI (Lanes): Cadde seridinin hemen altinda -->
+    <app.organicmaps.widget.LanesView
+        android:id="@+id/lanes"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/street_frame"
+        app:layout_constraintStart_toStartOf="@+id/street_frame"
+        app:layout_constraintEnd_toEndOf="@+id/street_frame"
+        app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
+        app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
+        app:lanesBackgroundColor="?colorPrimary"
+        app:lanesCornerRadius="6dp"
+        tools:visibility="visible" />
+
+    <!-- 4. SOL ALT KOMPAKT ETA & KONTROL DOCK'U (230dp): Ekranin altinda zarif mini-kart -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/nav_bottom_sheet_coordinator"
-        android:layout_width="340dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="9dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nav_card_maneuver">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <View
             android:id="@+id/nav_bottom_sheet_background"

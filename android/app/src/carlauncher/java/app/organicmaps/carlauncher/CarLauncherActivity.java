@@ -858,6 +858,17 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> insets);
             toolbar.setPadding(toolbar.getPaddingLeft(), 0, toolbar.getPaddingRight(), toolbar.getPaddingBottom());
         }
+
+        View routingPlanFrame = findViewById(R.id.routing_plan_frame);
+        if (routingPlanFrame != null) {
+            androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(routingPlanFrame, (v, insets) -> insets);
+            routingPlanFrame.setPadding(0, 0, 0, 0);
+            View routingToolbar = routingPlanFrame.findViewById(R.id.toolbar);
+            if (routingToolbar != null) {
+                androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(routingToolbar, (v, insets) -> insets);
+                routingToolbar.setPadding(0, 0, 0, 0);
+            }
+        }
     }
 
     private void installStatusBarInsetsListener() {
