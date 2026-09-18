@@ -151,6 +151,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         CarCrashLogger.recordMemory("launcher_views_bound");
         installStatusBarInsetsListener();
         CarCrashLogger.recordStartupStage("CarLauncherActivity.insetsInstalled");
+        preventToolbarDoubleTopInset();
 
         if (widgetPanel != null) {
             widgetPanel.setBackgroundResource(R.drawable.bg_panel_rounded);
@@ -842,6 +843,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             }
         } catch (Throwable t) {
             Log.e("CarLauncherActivity", "Status bar ayarlama hatasi", t);
+        }
+    }
+
+    /**
+     * Root layout zaten status bar padding'ini uyguluyor. Core ToolbarController
+     * toolbar'a ayni inset'i tekrar ekledigi icin rota planlama ekraninda ust bosluk
+     * ikiye katlaniyor. Toolbar'in kendi insets listener'ini etkisiz hale getirir.
+     */
+    private void preventToolbarDoubleTopInset()
+    {
+        View toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> insets);
+            toolbar.setPadding(toolbar.getPaddingLeft(), 0, toolbar.getPaddingRight(), toolbar.getPaddingBottom());
         }
     }
 
