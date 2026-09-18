@@ -9,8 +9,8 @@ import app.organicmaps.R;
 import app.organicmaps.carlauncher.CarLauncherSettings;
 
 /**
- * SaÃ„S¸ panel iÃƒÂ§eriÃ„S¸ini yÃƒÂ¶neten sÃ„Â±nÃ„Â±f.
- * Android Auto UI mantÃ„Â±Ã„S¸Ã„Â±: panel mÃƒÂ¼zik/bildirim/app drawer gÃƒÂ¶sterir.
+ * Sag panel icerigini yoneten sinif.
+ * Android Auto UI mantigi: panel muzik/bildirim/app drawer gosterir.
  */
 public class PanelContentManager {
 
@@ -47,13 +47,10 @@ public class PanelContentManager {
 
     /**
      * Panel icerigini degistirir.
-     * Her degisimde eski fragment remove edilir, yenisi eklenir.
-     * APP_DRAWER/MUSIC icin fullscreen durumu otomatik senkronize edilir.
+     * Yalnizca APP_DRAWER tam ekran olur; MUSIC ve digerleri bolunmus panelde calisir.
      */
     public void setContent(PanelContent content) {
-        // Her zaman en guncel fullscreen durumunu set et (Turkce karakter yok)
-        boolean needsFullScreen = (content != PanelContent.WIDGETS
-                && content != PanelContent.ANTENNA);
+        boolean needsFullScreen = (content == PanelContent.APP_DRAWER);
         if (fullScreenListener != null) {
             fullScreenListener.onFullScreenStateChanged(needsFullScreen);
         }
@@ -66,7 +63,6 @@ public class PanelContentManager {
 
         switch (content) {
             case WIDGETS:
-                // Varsayilan: widget listesi yerine premium birlesik panel
                 fragment = new UnifiedPanelFragment();
                 break;
             case MUSIC:
@@ -111,4 +107,3 @@ public class PanelContentManager {
         setContent(content);
     }
 }
-

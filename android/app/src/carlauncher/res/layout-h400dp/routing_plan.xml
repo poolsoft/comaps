@@ -23,7 +23,7 @@
       android:minHeight="44dp"
       app:contentInsetStart="0dp"
       app:contentInsetEnd="0dp"
-      android:background="@drawable/bg_nav_floating_card"
+      android:background="?colorPrimary"
       android:elevation="0dp">
 
       <RelativeLayout

@@ -169,12 +169,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             }
             applyWidgetPanelState();
             if (mapContainer != null) {
-                mapContainer.setInterceptTouch(isFullScreen, () -> closeAppDrawer());
+                boolean shouldIntercept = isFullScreen && (panelContentManager != null
+                        && panelContentManager.getCurrentContent() == PanelContentManager.PanelContent.APP_DRAWER);
+                mapContainer.setInterceptTouch(shouldIntercept, () -> closeAppDrawer());
             }
         });
 
         layoutManager = new CarLayoutManager(this);
         setupMapWidgetsOverlay();
+        setupRouteButton();
         applyWidgetPanelState();
         CarCrashLogger.recordStartupStage("CarLauncherActivity.layoutManagerReady");
         if (rootLayout != null) {
@@ -868,6 +871,20 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(routingToolbar, (v, insets) -> insets);
                 routingToolbar.setPadding(0, 0, 0, 0);
             }
+        }
+    }
+
+    private void setupRouteButton() {
+        View routeBtn = findViewById(R.id.btn_route);
+        if (routeBtn != null) {
+            routeBtn.setOnClickListener(v -> startLocationToPoint(null));
+        } else if (rootLayout != null) {
+            rootLayout.post(() -> {
+                View rb = findViewById(R.id.btn_route);
+                if (rb != null) {
+                    rb.setOnClickListener(v -> startLocationToPoint(null));
+                }
+            });
         }
     }
 

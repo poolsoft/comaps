@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CarLauncher: Kucuk yatay arac ekranlari icin kompakt rota ozet cubugu.
+     Core id'leri (time, start, time_elevation_line, time_vehicle, altitude_chart vb.) korunmustur. -->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/altitude_chart_panel"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="48dp"
+  android:paddingStart="12dp"
+  android:paddingEnd="12dp"
+  android:paddingTop="4dp"
+  android:paddingBottom="4dp"
+  android:orientation="horizontal"
+  android:gravity="center_vertical"
+  android:background="@drawable/bg_nav_floating_card"
+  tools:showIn="@layout/fragment_routing">
+
+    <!-- 1. SOL: Rota Sure ve Mesafe Bilgisi -->
+    <LinearLayout
+      android:id="@+id/time_elevation_line"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical"
+      android:gravity="center_vertical"
+      android:layout_marginEnd="8dp">
+
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:maxLines="1"
+          android:ellipsize="end"
+          tools:text="18 dk • 7.4 km" />
+
+        <com.google.android.material.textview.MaterialTextView
+          android:id="@+id/altitude_difference"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:textColor="?colorSecondary"
+          android:maxLines="1"
+          android:ellipsize="end"
+          tools:text="↗ 43 m ↘ 88 m" />
+    </LinearLayout>
+
+    <!-- Arac icin alternatif time_vehicle (Core tarafindan kullanilir) -->
+    <com.google.android.material.textview.MaterialTextView
+      android:id="@+id/time_vehicle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:textColor="#FFFFFF"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:maxLines="1"
+      android:ellipsize="end"
+      android:visibility="gone"
+      tools:text="18 dk • 7.4 km" />
+
+    <!-- Kucuk ekranda yer kaplamamasi icin gizlenen rakim grafigi -->
+    <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/altitude_chart"
+      android:layout_height="0dp"
+      android:layout_width="0dp"
+      android:visibility="gone" />
+
+    <!-- 2. ORTA: Rota Duzenleme Butonu (Kompakt Ikon) -->
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn__manage_route"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginEnd="6dp"
+      app:icon="@drawable/ic_manage_route"
+      app:iconTint="#FFFFFF"
+      android:contentDescription="@string/planning_route_manage_route" />
+
+    <!-- Kucuk ekranda sigmayan onizleme ve kaydet butonlari gizli (Core id'leri korundu) -->
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn__directions_preview"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      style="@style/Widget.Material3.Button.TextButton"
+      android:text="@string/planning_route_preview" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn__save"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      style="@style/Widget.Material3.Button.TextButton"
+      android:text="@string/save" />
+
+    <!-- 3. SAG: Belirgin, Tam Sigan Yesil BASLA Butonu -->
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/start"
+      style="@style/MwmWidget.M3.Button.Primary"
+      android:layout_width="wrap_content"
+      android:layout_height="42dp"
+      android:paddingStart="18dp"
+      android:paddingEnd="18dp"
+      android:minWidth="84dp"
+      android:text="@string/p2p_start"
+      android:textColor="#FFFFFF"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      app:cornerRadius="21dp"
+      tools:text="BAŞLA"
+      tools:showIn="@layout/menu_route_plan_line" />
+
+</LinearLayout>
