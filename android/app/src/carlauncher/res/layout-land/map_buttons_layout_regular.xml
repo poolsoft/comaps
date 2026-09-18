@@ -201,13 +201,11 @@
             android:elevation="4dp" />
 
         <!-- 3.C. GPS Konum Odaklan Butonu (my_position) -->
-        <app.organicmaps.widget.MyPositionButton
-            android:id="@+id/my_position"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/bg_circle_car_button"
-            android:elevation="4dp" />
+        <include
+            layout="@layout/map_buttons_myposition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp" />
     </LinearLayout>
 
     <!-- Invisible Dummy Left Container for Controller Compatibility -->
