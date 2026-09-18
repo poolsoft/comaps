@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.MwmActivity;
@@ -129,9 +130,22 @@ public class CarMapKeyController {
         }
 
         // Sanal dokunma suruklemesi ile harita kaydirmayi uygula
-        Map.nativeOnTouch(Map.NATIVE_ACTION_DOWN, 0, centerX, centerY, Map.INVALID_TOUCH_ID, 0, 0, 0);
-        Map.nativeOnTouch(Map.NATIVE_ACTION_MOVE, 0, toX, toY, Map.INVALID_TOUCH_ID, 0, 0, 0);
-        Map.nativeOnTouch(Map.NATIVE_ACTION_UP, 0, toX, toY, Map.INVALID_TOUCH_ID, 0, 0, 0);
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = downTime;
+
+        MotionEvent downEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_DOWN, centerX, centerY, 0);
+        Map.onTouch(Map.NATIVE_ACTION_DOWN, downEvent, 0);
+        downEvent.recycle();
+
+        eventTime += 16;
+        MotionEvent moveEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_MOVE, toX, toY, 0);
+        Map.onTouch(Map.NATIVE_ACTION_MOVE, moveEvent, Map.INVALID_POINTER_MASK);
+        moveEvent.recycle();
+
+        eventTime += 16;
+        MotionEvent upEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_UP, toX, toY, 0);
+        Map.onTouch(Map.NATIVE_ACTION_UP, upEvent, 0);
+        upEvent.recycle();
         return true;
     }
 }
