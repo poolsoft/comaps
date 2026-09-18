@@ -23,9 +23,22 @@
     app:layout_constraintTop_toBottomOf="@+id/statutbar"
     android:clickable="true"
     android:background="@drawable/bg_nav_street">
-    <RelativeLayout
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:gravity="center">
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/nav_maneuver_instruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#38BDF8"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="Döner kavşaktan 2. çıkıştan çıkın"/>
       <com.google.android.material.textview.MaterialTextView
         android:id="@+id/street"
         style="@style/MwmWidget.TextView.NavStreet"
@@ -36,12 +49,12 @@
         android:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="19sp"
         android:autoSizeMaxTextSize="24sp"
-        android:minHeight="60dp"
+        android:minHeight="48dp"
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:textColor="@android:color/white"
         tools:text="Sample street name.\nLong looooooooong!!!!"/>
-    </RelativeLayout>
+    </LinearLayout>
   </LinearLayout>
 
   <RelativeLayout

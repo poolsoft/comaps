@@ -117,12 +117,15 @@
     <LinearLayout
         android:id="@+id/street_frame"
         android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:minHeight="42dp"
+        android:orientation="vertical"
         android:gravity="center_vertical"
         android:background="@drawable/bg_street_pill"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:elevation="8dp"
         android:clickable="true"
         android:focusable="true"
@@ -133,12 +136,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible">
 
+        <!-- Google Maps / OsmAnd tarzi manevra yonergeleri metni -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/nav_maneuver_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#38BDF8"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="Döner kavşaktan 2. çıkıştan çıkın" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/street"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
@@ -186,6 +204,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            app:behavior_draggable="false"
+            app:behavior_skipCollapsed="true"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <include layout="@layout/layout_nav_bottom" />

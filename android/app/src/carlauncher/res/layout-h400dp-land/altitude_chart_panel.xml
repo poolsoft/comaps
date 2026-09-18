@@ -71,7 +71,17 @@
       android:layout_width="0dp"
       android:visibility="gone" />
 
-    <!-- 2. ORTA: Rota Duzenleme Butonu (Kompakt Ikon) -->
+    <!-- 2. ORTA: Rota Yonergeleri ve Rota Duzenleme Butonlari (Kompakt Ikonlar) -->
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn__directions_preview"
+      style="@style/Widget.Material3.Button.IconButton"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginEnd="4dp"
+      app:icon="@drawable/ic_action_view_as_list"
+      app:iconTint="#FFFFFF"
+      android:contentDescription="@string/planning_route_preview" />
+
     <com.google.android.material.button.MaterialButton
       android:id="@+id/btn__manage_route"
       style="@style/Widget.Material3.Button.IconButton"
@@ -81,15 +91,6 @@
       app:icon="@drawable/ic_manage_route"
       app:iconTint="#FFFFFF"
       android:contentDescription="@string/planning_route_manage_route" />
-
-    <!-- Kucuk ekranda sigmayan onizleme ve kaydet butonlari gizli (Core id'leri korundu) -->
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/btn__directions_preview"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:visibility="gone"
-      style="@style/Widget.Material3.Button.TextButton"
-      android:text="@string/planning_route_preview" />
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/btn__save"

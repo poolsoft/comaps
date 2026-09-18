@@ -94,21 +94,29 @@
         app:layout_constraintBottom_toTopOf="@+id/map_buttons_bottom"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 2.A. Hiz ve Limit Gostergesi Kapsulu (kompakt: 52dp) -->
+        <!-- 2.A. Hiz Limiti Tabelasi (Haritada hiz siniri varsa belirir) -->
+        <FrameLayout
+            android:id="@+id/speed_limit_container"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="6dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <app.organicmaps.widget.SpeedLimitView
+                android:id="@+id/speed_limit"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <!-- 2.B. Canli Hiz Gostergesi Kapsulu (kompakt: 52dp) -->
         <FrameLayout
             android:id="@+id/speed_capsule_container"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_circle_car_button">
-
-            <app.organicmaps.widget.SpeedLimitView
-                android:id="@+id/speed_limit"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                tools:visibility="visible" />
 
             <app.organicmaps.widget.CurrentSpeedView
                 android:id="@+id/current_speed"

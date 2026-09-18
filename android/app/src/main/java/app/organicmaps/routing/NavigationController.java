@@ -52,6 +52,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private final View mStreetFrame;
   private final MaterialTextView mNextStreet;
+  @Nullable
+  private final MaterialTextView mNavManeuverInstruction;
+
+  private final AppCompatActivity mActivity;
 
   @NonNull
   private final LanesView mLanesView;
@@ -81,6 +85,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
                               View.OnClickListener onTrackRecordingClickListener,
                               NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
+    mActivity = activity;
     mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
     boolean mSpeedLimitEnabled = mSharedPreferences.getBoolean(getString(activity, R.string.pref_speedlimit), true);
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
@@ -104,6 +109,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
+    mNavManeuverInstruction = mStreetFrame.findViewById(R.id.nav_maneuver_instruction);
 
     mLanesView = topFrame.findViewById(R.id.lanes);
 
@@ -133,6 +139,28 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     });
   }
 
+  @NonNull
+  private String getManeuverText(@NonNull CarDirection direction, int exitNum)
+  {
+    return switch (direction)
+    {
+      case NO_TURN, GO_STRAIGHT -> "Düz devam edin";
+      case TURN_RIGHT -> "Sağa dönün";
+      case TURN_SHARP_RIGHT -> "Keskin sağa dönün";
+      case TURN_SLIGHT_RIGHT -> "Hafif sağa dönün";
+      case TURN_LEFT -> "Sola dönün";
+      case TURN_SHARP_LEFT -> "Keskin sola dönün";
+      case TURN_SLIGHT_LEFT -> "Hafif sola dönün";
+      case U_TURN_LEFT, U_TURN_RIGHT -> "U dönüşü yapın";
+      case ENTER_ROUND_ABOUT, LEAVE_ROUND_ABOUT, STAY_ON_ROUND_ABOUT ->
+        exitNum > 0 ? ("Döner kavşaktan " + exitNum + ". çıkıştan çıkın") : "Döner kavşağa girin";
+      case REACHED_YOUR_DESTINATION -> "Hedefe ulaştınız";
+      case EXIT_HIGHWAY_TO_LEFT -> "Soldaki otoyol çıkışını kullanın";
+      case EXIT_HIGHWAY_TO_RIGHT -> "Sağdaki otoyol çıkışını kullanın";
+      case START_AT_THE_END_OF_STREET -> "Yolun sonundan başlayın";
+    };
+  }
+
   private void updateVehicle(@NonNull RoutingInfo info)
   {
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
@@ -142,6 +170,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));
     else
       UiUtils.hide(mCircleExit);
+
+    if (mNavManeuverInstruction != null)
+    {
+      String maneuverText = getManeuverText(info.carDirection, info.exitNum);
+      mNavManeuverInstruction.setText(maneuverText);
+      mNavManeuverInstruction.setVisibility(View.VISIBLE);
+    }
 
     UiUtils.visibleIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
     if (info.nextCarDirection.containsNextTurn())
@@ -157,6 +192,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
 
     info.pedestrianTurnDirection.setTurnDrawable(mNextTurnImage);
+
+    if (mNavManeuverInstruction != null)
+    {
+      mNavManeuverInstruction.setText("Rotayı takip edin");
+      mNavManeuverInstruction.setVisibility(View.VISIBLE);
+    }
+
     updateSpeedWidgets(info);
   }
 
@@ -228,7 +270,17 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   public void refresh(Context context)
   {
     mNavMenu.refreshTts();
-    UiUtils.showIf(mSharedPreferences.getBoolean(getString(context, R.string.pref_speedlimit), true), mSpeedLimit);
+    boolean speedLimitPref = mSharedPreferences.getBoolean(getString(context, R.string.pref_speedlimit), true);
+    UiUtils.showIf(speedLimitPref, mSpeedLimit);
+    if (mActivity != null && !speedLimitPref)
+    {
+      View panelSpeedLimitContainer = mActivity.findViewById(R.id.speed_limit_container);
+      SpeedLimitView panelSpeedLimit = mActivity.findViewById(R.id.speed_limit);
+      if (panelSpeedLimitContainer != null)
+        panelSpeedLimitContainer.setVisibility(View.GONE);
+      else if (panelSpeedLimit != null)
+        panelSpeedLimit.setVisibility(View.GONE);
+    }
 
     // Update intermediate stops in progress bar in navigation panel.
     mNavMenu.setIntermediateStopsProgress(Framework.nativeGetIntermediateStopsProgress());
@@ -306,11 +358,42 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     {
       mSpeedLimit.setSpeedLimit(-1, false);
       mCurrentSpeed.setCurrentSpeed(-1);
+      updatePanelSpeedWidgets(-1, -1f, false);
       return;
     }
     final int fSpeedLimit = StringUtils.nativeFormatSpeed(info.speedLimitMps);
-    final boolean speedLimitExceeded = fSpeedLimit < StringUtils.nativeFormatSpeed(location.getSpeed());
+    final boolean speedLimitExceeded = fSpeedLimit > 0 && fSpeedLimit < StringUtils.nativeFormatSpeed(location.getSpeed());
     mSpeedLimit.setSpeedLimit(fSpeedLimit, speedLimitExceeded);
     mCurrentSpeed.setCurrentSpeed(location.getSpeed());
+    updatePanelSpeedWidgets(fSpeedLimit, location.getSpeed(), speedLimitExceeded);
+  }
+
+  private void updatePanelSpeedWidgets(int fSpeedLimit, float currentSpeedMps, boolean speedLimitExceeded)
+  {
+    if (mActivity == null)
+      return;
+
+    CurrentSpeedView panelCurrentSpeed = mActivity.findViewById(R.id.current_speed);
+    if (panelCurrentSpeed != null && currentSpeedMps >= 0)
+    {
+      panelCurrentSpeed.setCurrentSpeed(currentSpeedMps);
+    }
+
+    SpeedLimitView panelSpeedLimit = mActivity.findViewById(R.id.speed_limit);
+    View panelSpeedLimitContainer = mActivity.findViewById(R.id.speed_limit_container);
+
+    if (panelSpeedLimit != null)
+    {
+      boolean showLimit = fSpeedLimit > 0 && mSharedPreferences.getBoolean(getString(mActivity, R.string.pref_speedlimit), true);
+      panelSpeedLimit.setSpeedLimit(fSpeedLimit, speedLimitExceeded);
+      if (panelSpeedLimitContainer != null)
+      {
+        UiUtils.showIf(showLimit, panelSpeedLimitContainer);
+      }
+      else
+      {
+        UiUtils.showIf(showLimit, panelSpeedLimit);
+      }
+    }
   }
 }
