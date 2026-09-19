@@ -262,14 +262,6 @@ public class NavMenu
 
   private void toggleNavMenu()
   {
-    // Car launcher modunda bottom sheet zaten acik ve tum aksiyon butonlarini gosteriyor.
-    // Tiklandiginda yukari ziplayip inmesini engelle, yerine varis/ara durak bilgisini degistir.
-    if (!mNavBottomSheetBehavior.isDraggable())
-    {
-      toggleInfoDisplay();
-      return;
-    }
-
     if (getBottomSheetState() == BottomSheetBehavior.STATE_EXPANDED)
       collapseNavBottomSheet();
     else

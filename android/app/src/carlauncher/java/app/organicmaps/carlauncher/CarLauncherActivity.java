@@ -102,7 +102,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         Log.i("CarLauncherLifecycle", "onNewIntent called. Action: " + (intent != null ? intent.getAction() : "null") 
             + ", isTaskRoot: " + isTaskRoot() + ", TaskId: " + getTaskId() 
             + ", Flags: " + (intent != null ? intent.getFlags() : 0));
-        
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        app.organicmaps.sdk.Map.resetTouches();
     }
 
     @Override
