@@ -337,12 +337,6 @@ public final class Map
     }
   }
 
-  public static void resetTouches()
-  {
-    // C++ Drape dokunmatik durum makinesini (UserEventStream) temizler
-    nativeOnTouch(NATIVE_ACTION_CANCEL, 0, 0, 0, Map.INVALID_TOUCH_ID, 0, 0, 0);
-  }
-
   public static void onClick(float x, float y)
   {
     nativeOnTouch(NATIVE_ACTION_DOWN, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
@@ -393,10 +387,14 @@ public final class Map
     updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
     if (mDisplayType == DisplayType.Device)
     {
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, Utils.dimen(context, R.dimen.margin_base),
+                        Utils.dimen(context, R.dimen.margin_base) * 2, ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
     }
     else
     {
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, (float) mWidth / 2 + Utils.dimen(context, R.dimen.margin_base) * 2,
+                        Utils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mWidth, mCurrentCompassOffsetY, true);
     }
   }

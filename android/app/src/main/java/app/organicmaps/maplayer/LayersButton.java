@@ -2,10 +2,10 @@ package app.organicmaps.maplayer;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import androidx.appcompat.widget.AppCompatImageButton;
 import app.organicmaps.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class LayersButton extends AppCompatImageButton
+public class LayersButton extends FloatingActionButton
 {
   private boolean mAreLayersActive = false;
 

@@ -124,28 +124,8 @@ public class MapView extends SurfaceView
   }
 
   @Override
-  public void onWindowFocusChanged(boolean hasWindowFocus)
-  {
-    super.onWindowFocusChanged(hasWindowFocus);
-    if (!hasWindowFocus)
-      Map.resetTouches();
-  }
-
-  @Override
-  protected void onDetachedFromWindow()
-  {
-    Map.resetTouches();
-    super.onDetachedFromWindow();
-  }
-
-  @Override
   public boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    if (event.getPointerCount() >= 3)
-    {
-      Map.resetTouches();
-      return true;
-    }
     int action = event.getActionMasked();
     int pointerIndex = event.getActionIndex();
     switch (action)
