@@ -198,6 +198,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         if (mapContainer != null) {
             mapContainer.setBackgroundResource(R.drawable.bg_card_rounded_dark);
             mapContainer.setClipToOutline(true);
+            mapContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+                if (r - l != or - ol || b - t != ob - ot) {
+                    applyNavBottomSheetWidth();
+                }
+            });
         }
 
         panelContentManager = new PanelContentManager(getSupportFragmentManager(), R.id.widget_panel);
@@ -425,6 +430,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 isTransitioning = false;
             }
             layoutManager.applyLayout(isWidgetPanelOpen, layoutMode);
+            if (rootLayout != null) {
+                rootLayout.post(this::applyNavBottomSheetWidth);
+            }
         }
     }
 
@@ -1045,6 +1053,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         appliedConfigurationSignature = pendingConfigurationSignature;
         pendingConfigurationSignature = Integer.MIN_VALUE;
         checkAndRefreshDockFragmentIfNeeded();
+        applyNavBottomSheetWidth();
     }
 
     @Override
@@ -1259,5 +1268,53 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 android.widget.Toast.makeText(CarLauncherActivity.this, getString(R.string.car_settings_error_generic, error), android.widget.Toast.LENGTH_SHORT).show();
             }
         };
+    }
+
+    @Override
+    public void updateMenu() {
+        super.updateMenu();
+        applyNavBottomSheetWidth();
+    }
+
+    /**
+     * Yatay modda navigasyon alt barinin (ETA) ekran/harita genisliginin
+     * yuzde 50'si olmasini saglar. Dikey modda ise tam genislik (MATCH_PARENT) korur.
+     */
+    private void applyNavBottomSheetWidth() {
+        try {
+            View navBottomSheet = findViewById(R.id.nav_bottom_sheet);
+            if (navBottomSheet == null) {
+                return;
+            }
+            ViewGroup.LayoutParams baseLp = navBottomSheet.getLayoutParams();
+            if (!(baseLp instanceof androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams)) {
+                return;
+            }
+            androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams lp =
+                    (androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams) baseLp;
+
+            boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+            if (isLandscape) {
+                int targetWidth = 0;
+                if (mapContainer != null && mapContainer.getWidth() > 0) {
+                    targetWidth = (int) (mapContainer.getWidth() * 0.50f);
+                } else {
+                    int screenWidth = getResources().getDisplayMetrics().widthPixels;
+                    targetWidth = (int) (screenWidth * 0.50f);
+                }
+                if (targetWidth > 0 && lp.width != targetWidth) {
+                    lp.width = targetWidth;
+                    lp.gravity = android.view.Gravity.BOTTOM | android.view.Gravity.START;
+                    navBottomSheet.setLayoutParams(lp);
+                }
+            } else {
+                if (lp.width != ViewGroup.LayoutParams.MATCH_PARENT) {
+                    lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    lp.gravity = android.view.Gravity.BOTTOM;
+                    navBottomSheet.setLayoutParams(lp);
+                }
+            }
+        } catch (Throwable ignored) {
+        }
     }
 }
