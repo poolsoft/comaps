@@ -54,12 +54,13 @@
             android:background="@drawable/bg_circle_car_button"
             app:backgroundTint="@null"
             app:borderWidth="0dp"
-            app:elevation="4dp"
             app:maxImageSize="22dp"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
             android:src="@drawable/ic_layers"
             app:tint="#FFFFFF"
             android:scaleType="centerInside"
-            android:contentDescription="@string/layers_title" />
+            android:contentDescription="@string/layers_title"
+            android:elevation="4dp" />
 
         <!-- 1.C. Menü / Ayarlar Butonu (Navigasyonda sol altta var, burada gizli) -->
         <ImageButton

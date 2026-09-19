@@ -9,8 +9,6 @@
   android:id="@+id/routing_plan_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_marginTop="0dp"
-  android:paddingTop="0dp"
   android:orientation="vertical"
   android:clipToPadding="false">
   <FrameLayout android:layout_width="match_parent"
@@ -25,8 +23,8 @@
       android:minHeight="44dp"
       app:contentInsetStart="0dp"
       app:contentInsetEnd="0dp"
-      android:background="@drawable/bg_routing_plan_bar"
-      android:elevation="4dp">
+      android:background="?colorPrimary"
+      android:elevation="0dp">
 
       <RelativeLayout
           android:layout_width="match_parent"

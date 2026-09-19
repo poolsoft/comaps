@@ -102,45 +102,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         Log.i("CarLauncherLifecycle", "onNewIntent called. Action: " + (intent != null ? intent.getAction() : "null") 
             + ", isTaskRoot: " + isTaskRoot() + ", TaskId: " + getTaskId() 
             + ", Flags: " + (intent != null ? intent.getFlags() : 0));
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev != null && ev.getPointerCount() >= 3) {
-            resetMapTouches();
-            return true;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private void resetMapTouches() {
-        try {
-            View target = mapContainer != null ? mapContainer : findViewById(R.id.map);
-            if (target != null) {
-                long now = android.os.SystemClock.uptimeMillis();
-                MotionEvent cancelEvent = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0f, 0f, 0);
-                target.dispatchTouchEvent(cancelEvent);
-                cancelEvent.recycle();
-            }
-        } catch (Throwable ignored) {
-        }
-    }
-
-    private void hideScaleFpsLabel() {
-        try {
-            java.lang.reflect.Method m = app.organicmaps.sdk.Map.class.getDeclaredMethod(
-                "nativeSetupWidget", int.class, float.class, float.class, int.class);
-            m.setAccessible(true);
-            m.invoke(null, 0x08, -10000f, -10000f, 0);
-        } catch (Throwable ignored) {
-        }
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        resetMapTouches();
-        hideScaleFpsLabel();
+        
     }
 
     @Override
@@ -222,7 +184,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             rootLayout.post(() -> {
                 applyWidgetPanelState(false);
                 applyStatusBarVisibility();
-                hideScaleFpsLabel();
             });
         }
 

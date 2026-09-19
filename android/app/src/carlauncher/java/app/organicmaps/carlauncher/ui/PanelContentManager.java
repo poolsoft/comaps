@@ -47,10 +47,10 @@ public class PanelContentManager {
 
     /**
      * Panel icerigini degistirir.
-     * WIDGETS disindaki icerikler (MUSIC, APP_DRAWER vb.) paneli genisletir.
+     * Yalnizca APP_DRAWER tam ekran olur; MUSIC ve digerleri bolunmus panelde calisir.
      */
     public void setContent(PanelContent content) {
-        boolean needsFullScreen = (content != PanelContent.WIDGETS && content != PanelContent.ANTENNA);
+        boolean needsFullScreen = (content == PanelContent.APP_DRAWER);
         if (fullScreenListener != null) {
             fullScreenListener.onFullScreenStateChanged(needsFullScreen);
         }
