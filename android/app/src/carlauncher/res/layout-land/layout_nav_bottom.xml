@@ -8,10 +8,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/bg_nav_floating_card"
-    android:clickable="true"
-    android:focusable="true"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:elevation="8dp">
@@ -26,15 +24,24 @@
         android:clickable="true"
         android:focusable="true">
 
-        <!-- 1. ETA, Kalan Süre, Kalan Mesafe 3'lü Gösterge (time_values_container: line_frame altinda tam genislik ve yukseklikte yer alarak NavMenu tiklama kontrolunun her zaman acilmasini saglar) -->
+        <!-- 1. Mavi Rota İlerleme Çubuğu (RouteProgressBar) -->
+        <app.organicmaps.widget.RouteProgressBar
+            android:id="@+id/navigation_progress"
+            style="@style/Widget.Material3.LinearProgressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginBottom="6dp"
+            app:indicatorColor="#38BDF8"
+            app:trackColor="#334155" />
+
+        <!-- 2. ETA, Kalan Süre, Kalan Mesafe 3'lü Gösterge -->
         <LinearLayout
-            android:id="@+id/time_values_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <!-- 1.A. ETA (Tahmini Varış Saati) -->
+            <!-- 2.A. ETA (Tahmini Varış Saati) -->
             <LinearLayout
                 android:id="@+id/eta_container"
                 android:layout_width="0dp"
@@ -100,9 +107,9 @@
                 android:layout_height="24dp"
                 android:background="#2E384D" />
 
-            <!-- 1.B. Kalan Süre -->
+            <!-- 2.B. Kalan Süre -->
             <LinearLayout
-                android:id="@+id/time_values_sub_container"
+                android:id="@+id/time_values_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -227,16 +234,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 2. Mavi Rota İlerleme Çubuğu (RouteProgressBar) -->
-        <app.organicmaps.widget.RouteProgressBar
-            android:id="@+id/navigation_progress"
-            style="@style/Widget.Material3.LinearProgressIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="6dp"
-            app:indicatorColor="#38BDF8"
-            app:trackColor="#334155" />
-
         <!-- Yeniden Rota Hesaplama İndikatörü -->
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/rebuilding_route_progress_bar"
@@ -260,9 +257,7 @@
         android:layout_height="36dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:clickable="true"
-        android:focusable="true">
+        android:gravity="center_vertical">
 
         <!-- Ses Aç/Kapat Butonu -->
         <com.google.android.material.imageview.ShapeableImageView

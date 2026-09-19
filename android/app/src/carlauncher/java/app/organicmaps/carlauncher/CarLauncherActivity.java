@@ -224,6 +224,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 applyStatusBarVisibility();
                 hideScaleFpsLabel();
             });
+            rootLayout.postDelayed(this::hideScaleFpsLabel, 1000L);
+            rootLayout.postDelayed(this::hideScaleFpsLabel, 2500L);
         }
 
         if (savedInstanceState == null) {
