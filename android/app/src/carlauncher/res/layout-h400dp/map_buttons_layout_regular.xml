@@ -53,7 +53,7 @@
             app:backgroundTint="@null"
             app:borderWidth="0dp"
             app:maxImageSize="22dp"
-            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.CarLauncher.CircleFab"
             android:src="@drawable/ic_layers"
             app:tint="#FFFFFF"
             android:scaleType="centerInside"

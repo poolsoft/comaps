@@ -9,6 +9,8 @@
   android:id="@+id/routing_plan_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:layout_marginTop="0dp"
+  android:paddingTop="0dp"
   android:orientation="vertical"
   android:clipToPadding="false">
   <FrameLayout android:layout_width="match_parent"
