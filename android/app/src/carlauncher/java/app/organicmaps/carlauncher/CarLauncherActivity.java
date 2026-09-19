@@ -115,11 +115,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     private void resetMapTouches() {
         try {
-            View mapView = findViewById(R.id.map_view);
-            if (mapView != null) {
+            View target = mapContainer != null ? mapContainer : findViewById(R.id.map);
+            if (target != null) {
                 long now = android.os.SystemClock.uptimeMillis();
                 MotionEvent cancelEvent = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0f, 0f, 0);
-                mapView.dispatchTouchEvent(cancelEvent);
+                target.dispatchTouchEvent(cancelEvent);
                 cancelEvent.recycle();
             }
         } catch (Throwable ignored) {
