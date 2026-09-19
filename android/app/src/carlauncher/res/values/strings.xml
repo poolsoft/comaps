@@ -235,6 +235,7 @@
     <string name="car_settings_restore_type">Restore Type</string>
     <string name="car_settings_restore_from_folder">Restore from folder</string>
     <string name="car_settings_restore_from_zip">Restore from ZIP file</string>
+    <string name="car_settings_restore_from_raw_maps">Select and load map (.mwm) files</string>
     <string name="car_settings_please_wait">Please Wait</string>
     <string name="car_settings_browser_error">Browser could not be opened</string>
 

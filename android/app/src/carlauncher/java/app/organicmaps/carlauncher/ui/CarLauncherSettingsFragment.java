@@ -1044,6 +1044,7 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private static final int RC_BACKUP_EXPORT_ZIP = 102;
     private static final int RC_BACKUP_IMPORT_FOLDER = 104;
     private static final int RC_BACKUP_IMPORT_ZIP = 105;
+    private static final int RC_BACKUP_IMPORT_RAW_MAPS = 106;
 
     private void setupBackupPrefs() {
         Preference downloadMapsPref = findPreference("action_download_maps");
@@ -1088,18 +1089,25 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                     .setTitle(R.string.car_settings_restore_type)
                     .setItems(new CharSequence[]{
                             getString(R.string.car_settings_restore_from_folder),
-                            getString(R.string.car_settings_restore_from_zip)
+                            getString(R.string.car_settings_restore_from_zip),
+                            getString(R.string.car_settings_restore_from_raw_maps)
                     }, (dialog, which) -> {
                         try {
                             Intent intent;
                             if (which == 0) {
                                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                                 startActivityForResult(intent, RC_BACKUP_IMPORT_FOLDER);
-                            } else {
+                            } else if (which == 1) {
                                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                                 intent.setType("application/zip"); 
                                 startActivityForResult(intent, RC_BACKUP_IMPORT_ZIP);
+                            } else {
+                                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                                intent.setType("*/*");
+                                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                                startActivityForResult(intent, RC_BACKUP_IMPORT_RAW_MAPS);
                             }
                         } catch (Exception e) {
                             Toast.makeText(getContext(), getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
@@ -1115,22 +1123,41 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == android.app.Activity.RESULT_OK && data != null && data.getData() != null) {
+        if (resultCode == android.app.Activity.RESULT_OK && data != null) {
+            if (requestCode == RC_BACKUP_IMPORT_RAW_MAPS) {
+                List<Uri> uris = new ArrayList<>();
+                if (data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount();
+                    for (int i = 0; i < count; i++) {
+                        uris.add(data.getClipData().getItemAt(i).getUri());
+                    }
+                } else if (data.getData() != null) {
+                    uris.add(data.getData());
+                }
+                if (!uris.isEmpty()) {
+                    showBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.importMapFiles(getContext(), uris, createBackupCallback(true));
+                }
+                return;
+            }
+
             Uri uri = data.getData();
-            if (requestCode == RC_BACKUP_EXPORT_FOLDER) {
-                showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToFolder(getContext(), uri, createBackupCallback(false));
-            } else if (requestCode == RC_BACKUP_EXPORT_ZIP) {
-                showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToZip(getContext(), uri, createBackupCallback(false));
-            } else if (requestCode == RC_BACKUP_IMPORT_FOLDER) {
-                showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(getContext(), uri, createBackupCallback(true));
-            } else if (requestCode == RC_BACKUP_IMPORT_ZIP) {
-                showBackupProgress();
-                app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(getContext(), uri, createBackupCallback(true));
-            } else if (requestCode == RC_IMPORT_VOICE_MODEL) {
-                importVoiceModelFromUri(uri);
+            if (uri != null) {
+                if (requestCode == RC_BACKUP_EXPORT_FOLDER) {
+                    showBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToFolder(getContext(), uri, createBackupCallback(false));
+                } else if (requestCode == RC_BACKUP_EXPORT_ZIP) {
+                    showBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToZip(getContext(), uri, createBackupCallback(false));
+                } else if (requestCode == RC_BACKUP_IMPORT_FOLDER) {
+                    showBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(getContext(), uri, createBackupCallback(true));
+                } else if (requestCode == RC_BACKUP_IMPORT_ZIP) {
+                    showBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(getContext(), uri, createBackupCallback(true));
+                } else if (requestCode == RC_IMPORT_VOICE_MODEL) {
+                    importVoiceModelFromUri(uri);
+                }
             }
         }
     }

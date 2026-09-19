@@ -235,6 +235,7 @@
     <string name="car_settings_restore_type">Geri Yükleme Türü</string>
     <string name="car_settings_restore_from_folder">Klasörden geri yükle</string>
     <string name="car_settings_restore_from_zip">ZIP dosyasından geri yükle</string>
+    <string name="car_settings_restore_from_raw_maps">Harita (.mwm) dosyalarından yükle</string>
     <string name="car_settings_please_wait">Lütfen Bekleyin</string>
     <string name="car_settings_browser_error">Tarayıcı açılamadı</string>
 

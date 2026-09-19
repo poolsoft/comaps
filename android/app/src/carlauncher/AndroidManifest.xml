@@ -41,6 +41,7 @@
             android:name="app.organicmaps.carlauncher.CarLauncherBootstrapActivity"
             android:theme="@style/CarLauncherBootstrapTheme"
             android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
             android:exported="true">
             <intent-filter>
@@ -55,14 +56,16 @@
             android:name="app.organicmaps.CarLauncherDownloadResourcesActivity"
             android:theme="@style/MwmTheme.DownloadResourcesLegacy"
             android:configChanges="orientation|screenLayout|screenSize"
-            android:screenOrientation="fullUser"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation"
             android:exported="false" />
 
         <activity
             android:name="app.organicmaps.carlauncher.CarLauncherActivity"
             android:theme="@style/MwmTheme"
             android:launchMode="singleTask"
-            android:screenOrientation="unspecified"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation"
             android:configChanges="uiMode|orientation|screenLayout|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />
@@ -76,7 +79,8 @@
         <activity
             android:name="app.organicmaps.carlauncher.ui.NeonDashboardActivity"
             android:theme="@style/MwmTheme"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation"
             android:exported="false">
         </activity>
 
@@ -116,35 +120,80 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-        <!-- Core dialog activities: force landscape so launcher shell never rotates.
-             Manifest merge overrides the upstream "fullUser" declarations. -->
+
+        <!-- Tum dialog ve alt pencereleri sensor tabanli rotasyona geciriyoruz (fullSensor).
+             Manifest merge ile upstream'in fullUser ve carlauncher'in eski sensorLandscape tanimlari ezilir. -->
+        <activity
+            android:name="app.organicmaps.SplashActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.DownloadResourcesLegacyActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.downloader.DownloaderActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.search.SearchActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.settings.SettingsActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.bookmarks.BookmarkListActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.help.HelpActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
         <activity
             android:name="app.organicmaps.editor.EditorActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.editor.ProfileActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.editor.FeatureCategoryActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.editor.OsmLoginActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.widget.placepage.WikiArticleActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.widget.placepage.ReviewListActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.settings.RoutingOptionsActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.MapPlaceholderActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"
+            android:screenOrientation="fullSensor"
             tools:replace="android:screenOrientation" />
     </application>
 
