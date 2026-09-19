@@ -349,4 +349,5 @@
         <item>portrait</item>
         <item>sensor</item>
     </string-array>
+    <string name="routing_plan">Rota</string>
 </resources>

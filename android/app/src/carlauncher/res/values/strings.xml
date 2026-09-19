@@ -316,6 +316,7 @@
     <string name="car_wallpaper_picker_title">Choose Wallpaper</string>
     <string name="car_wallpaper_error_picker">Could not open file picker</string>
     <string name="car_wallpaper_error_system">Could not open system wallpaper picker</string>
+    <string name="car_settings_music_app_internal">Built-in Music Player</string>
 
     <string name="car_music_tab_all_tracks">All Tracks</string>
     <string name="car_music_tab_folders">Folders</string>
