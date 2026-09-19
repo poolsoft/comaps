@@ -180,16 +180,17 @@
         app:lanesCornerRadius="6dp"
         tools:visibility="visible" />
 
-    <!-- 4. SOL ALT KOMPAKT ETA & KONTROL DOCK'U (230dp): Ekranin altinda zarif mini-kart -->
+    <!-- 4. SOL ALT ETA & KONTROL DOCK'U (Yatayda %50 Genislik): Ekranin altinda genis ve fonksiyonel kart -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/nav_bottom_sheet_coordinator"
-        android:layout_width="230dp"
-        android:layout_height="125dp"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="28dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="9dp"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -208,7 +209,7 @@
             app:behavior_draggable="true"
             app:behavior_skipCollapsed="false"
             app:behavior_hideable="false"
-            app:behavior_peekHeight="68dp"
+            app:behavior_peekHeight="56dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <include layout="@layout/layout_nav_bottom" />

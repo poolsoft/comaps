@@ -6,7 +6,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/altitude_chart_panel"
-  android:theme="@style/MwmWidget.ToolbarTheme"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="48dp"
@@ -29,7 +28,7 @@
       android:gravity="center_vertical"
       android:layout_marginEnd="8dp">
 
-        <com.google.android.material.textview.MaterialTextView
+        <app.organicmaps.carlauncher.ui.CarNavTimeTextView
           android:id="@+id/time"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -45,14 +44,14 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?colorSecondary"
+          android:textColor="#B3FFFFFF"
           android:maxLines="1"
           android:ellipsize="end"
           tools:text="↗ 43 m ↘ 88 m" />
     </LinearLayout>
 
     <!-- Arac icin alternatif time_vehicle (Core tarafindan kullanilir) -->
-    <com.google.android.material.textview.MaterialTextView
+    <app.organicmaps.carlauncher.ui.CarNavTimeTextView
       android:id="@+id/time_vehicle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
