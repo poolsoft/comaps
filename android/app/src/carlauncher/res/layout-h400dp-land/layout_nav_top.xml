@@ -1,201 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_top_frame"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_top_frame"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:background="#20FF0000"
+  tools:showIn="@layout/layout_nav">
+  <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false">
-
-    <!-- Status bar dummy anchor for controller compatibility -->
-    <FrameLayout
-        android:id="@+id/statutbar"
+    android:id="@+id/statutbar"
+    android:layout_height="1dp"
+    app:layout_constraintTop_toTopOf="parent" />
+  <LinearLayout
+    android:id="@+id/street_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/nav_street_left"
+    android:layout_marginEnd="@dimen/margin_quarter"
+    android:elevation="@dimen/nav_elevation"
+    app:layout_constraintTop_toBottomOf="@+id/statutbar"
+    android:clickable="true"
+    android:background="@drawable/bg_nav_street">
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/street"
+        style="@style/MwmWidget.TextView.NavStreet"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- 1. SOL UST KOMPAKT MANEVRA KUTUSU (84dp): Donus oku + mesafe alt alta -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nav_card_maneuver"
-        android:layout_width="84dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_nav_floating_card"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:elevation="8dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statutbar">
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:padding="@dimen/margin_half"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="19sp"
+        android:autoSizeMaxTextSize="24sp"
+        android:minHeight="60dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        tools:text="Sample street name.\nLong looooooooong!!!!"/>
+    </RelativeLayout>
+  </LinearLayout>
 
-        <!-- nav_next_turn_frame hem oku hem mesafeyi kapsar (NavigationController uyumlu) -->
-        <LinearLayout
-            android:id="@+id/nav_next_turn_frame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Donus Oku ve Sonraki Donus Konteyniri -->
-            <RelativeLayout
-                android:id="@+id/nav_next_turn_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true">
-
-                <FrameLayout
-                    android:id="@+id/turn_icon_box"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_nav_turn_icon"
-                    android:gravity="center">
-
-                    <app.organicmaps.widget.ArrowView
-                        android:id="@+id/turn"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
-                        android:layout_gravity="center"
-                        app:tint="#38BDF8"
-                        tools:src="@drawable/ic_turn_right" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/circle_exit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        tools:text="3" />
-                </FrameLayout>
-
-                <!-- Sonraki sonraki donus ikonu (varsa) -->
-                <FrameLayout
-                    android:id="@+id/nav_next_next_turn_frame"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_below="@+id/turn_icon_box"
-                    android:layout_alignStart="@+id/turn_icon_box"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/bg_circle_car_button"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/turn"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_gravity="center"
-                        app:tint="#94A3B8"
-                        tools:src="@drawable/ic_then_left_sharp" />
-                </FrameLayout>
-            </RelativeLayout>
-
-            <!-- Mesafe: Orijinal Organic Maps gibi okun altinda net -->
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:includeFontPadding="false"
-                tools:text="140 m" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- 2. UST SOKAK SERIDI: Donus kutusunun hemen saginda baslar, sag butonlara kadar uzanir -->
+  <RelativeLayout
+    android:id="@+id/nav_next_turn_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toStartOf="@+id/street_frame"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/statutbar"
+    android:layout_marginStart="@dimen/margin_half"
+    android:clickable="true"
+    android:elevation="@dimen/nav_elevation">
     <LinearLayout
-        android:id="@+id/street_frame"
-        android:layout_width="0dp"
+      android:id="@+id/nav_next_turn_frame"
+      android:layout_width="@dimen/nav_next_turn_frame"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:orientation="vertical"
+      android:background="?navNextTurnFrame"
+      android:elevation="@dimen/nav_elevation">
+      <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="42dp"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_street_pill"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:elevation="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintTop_toTopOf="@+id/nav_card_maneuver"
-        app:layout_constraintStart_toEndOf="@+id/nav_card_maneuver"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible">
-
-        <!-- Google Maps / OsmAnd tarzi manevra yonergeleri metni -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/nav_maneuver_instruction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#38BDF8"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="Döner kavşaktan 2. çıkıştan çıkın" />
+        android:layout_marginTop="@dimen/nav_next_turn_top"
+        android:layout_marginBottom="@dimen/nav_next_turn_space"
+        android:layout_gravity="center_horizontal">
+        <app.organicmaps.widget.ArrowView
+          android:id="@+id/turn"
+          android:theme="?navigationTheme"
+          android:layout_width="@dimen/nav_next_turn_sign"
+          android:layout_height="@dimen/nav_next_turn_sign"
+          app:tint="@android:color/white"
+          tools:background="#400000FF"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/street"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            tools:text="Cahit Zarifoğlu Caddesi" />
+          android:id="@+id/circle_exit"
+          style="@style/MwmWidget.TextView.NavNextTurn.Exit"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:textColor="@android:color/white"
+          tools:text="9"/>
+      </FrameLayout>
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/distance"
+        style="@style/MwmWidget.TextView.NavNextTurn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/nav_next_turn_bottom"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        tools:text="9999 ft"/>
     </LinearLayout>
 
-    <!-- 3. SERIT REHBERI (Lanes): Cadde seridinin hemen altinda -->
-    <app.organicmaps.widget.LanesView
-        android:id="@+id/lanes"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="4dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/street_frame"
-        app:layout_constraintStart_toStartOf="@+id/street_frame"
-        app:layout_constraintEnd_toEndOf="@+id/street_frame"
-        app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
-        app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
-        app:lanesBackgroundColor="?colorPrimary"
-        app:lanesCornerRadius="6dp"
-        tools:visibility="visible" />
+    <FrameLayout
+      android:id="@+id/nav_next_next_turn_frame"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/nav_next_next_turn_frame"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_below="@id/nav_next_turn_frame"
+      android:layout_alignStart="@id/nav_next_turn_frame"
+      android:layout_alignEnd="@id/nav_next_turn_frame"
+      android:background="?navNextNextTurnFrame"
+      android:elevation="@dimen/nav_elevation"
+      android:visibility="invisible"
+      tools:visibility="visible">
+      <com.google.android.material.imageview.ShapeableImageView
+        android:id="@id/turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:tint="?iconTint"
+        tools:src="@drawable/ic_then_left_sharp"/>
+    </FrameLayout>
+  </RelativeLayout>
 
+  <app.organicmaps.widget.LanesView
+      android:id="@+id/lanes"
+      android:layout_width="0dp"
+      android:layout_height="68dp"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:padding="@dimen/margin_half"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
+      app:layout_constraintTop_toBottomOf="@id/street_frame"
+      app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
+      app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
+      app:lanesBackgroundColor="?navLanesBackgroundColor"
+      app:lanesCornerRadius="@dimen/margin_half"
+      app:lanesEditModeLanesCount="5"
+      tools:visibility="visible" />
 
-    <!-- Dummy Invisible Speed Views for Controller Compatibility (Hiz gostergesi sag panelde aktiftir) -->
-    <app.organicmaps.widget.CurrentSpeedView
-        android:id="@+id/nav_current_speed"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+  <app.organicmaps.widget.CurrentSpeedView
+      android:id="@+id/nav_current_speed"
+      style="@style/MwmWidget.CurrentSpeed"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_margin="@dimen/margin_half"
+      app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
+      app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
+      app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container"/>
 
-    <app.organicmaps.widget.SpeedLimitView
-        android:id="@+id/nav_speed_limit"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+  <app.organicmaps.widget.SpeedLimitView
+    android:id="@+id/nav_speed_limit"
+    style="@style/MwmWidget.SpeedLimit"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_margin="@dimen/margin_half"
+    app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
+    app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
+    app:layout_constraintTop_toBottomOf="@id/nav_current_speed"
+    android:translationY="-23dp"
+    android:translationX="-23dp"
+    android:translationZ="1dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
