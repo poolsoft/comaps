@@ -285,6 +285,10 @@
     <string name="car_compass_nw">KB</string>
 
     <!-- Settings: Backup Dialog -->
+    <string name="car_settings_backup_title">Yedekleme ve Geri Yükleme (USB)</string>
+    <string name="car_settings_backup_dialog_title">Yedekleme ve Geri Yükleme (USB)</string>
+    <string name="car_settings_backup_action_export">Yedek Al (USB\'ye Aktar)</string>
+    <string name="car_settings_backup_action_import">Yedeği Geri Yükle (USB\'den Yükle)</string>
     <string name="car_backup_type_title">Yedekleme Türü</string>
     <string name="car_backup_type_folder">Klasör olarak kaydet (Hızlı, Önerilen)</string>
     <string name="car_backup_type_zip">ZIP olarak kaydet (Tek Dosya)</string>

@@ -1082,4 +1082,180 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
         applyWidgetPanelState(false);
     }
+
+    // ==========================================
+    // HARITA ANA MENUSUNDE YEDEKLEME VE GERI YUKLEME (USB)
+    // ==========================================
+
+    private static final int RC_MAIN_BACKUP_EXPORT_FOLDER = 2101;
+    private static final int RC_MAIN_BACKUP_EXPORT_ZIP = 2102;
+    private static final int RC_MAIN_BACKUP_IMPORT_FOLDER = 2103;
+    private static final int RC_MAIN_BACKUP_IMPORT_ZIP = 2104;
+    private static final int RC_MAIN_BACKUP_IMPORT_RAW_MAPS = 2105;
+    private android.app.ProgressDialog mainBackupProgressDialog;
+
+    @Override
+    @androidx.annotation.Nullable
+    public java.util.ArrayList<app.organicmaps.widget.menu.MenuBottomSheetItem> getMenuBottomSheetItems(String id) {
+        java.util.ArrayList<app.organicmaps.widget.menu.MenuBottomSheetItem> items = super.getMenuBottomSheetItems(id);
+        if (items != null && "MAIN_MENU_BOTTOM_SHEET".equals(id)) {
+            // Ana harita menusunun en tepesine Yedekleme & Geri Yukleme (USB) secenegini ekle
+            items.add(0, new app.organicmaps.widget.menu.MenuBottomSheetItem(
+                R.string.car_settings_backup_title,
+                android.R.drawable.ic_menu_save,
+                this::openBackupRestoreMenu
+            ));
+        }
+        return items;
+    }
+
+    public void openBackupRestoreMenu() {
+        CharSequence[] options = new CharSequence[]{
+            getString(R.string.car_settings_backup_action_export),
+            getString(R.string.car_settings_backup_action_import)
+        };
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.car_settings_backup_dialog_title)
+            .setItems(options, (dialog, which) -> {
+                if (which == 0) {
+                    showMainExportOptionsDialog();
+                } else {
+                    showMainImportOptionsDialog();
+                }
+            })
+            .show();
+    }
+
+    private void showMainExportOptionsDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.car_backup_type_title)
+            .setItems(new CharSequence[]{
+                getString(R.string.car_backup_type_folder),
+                getString(R.string.car_backup_type_zip)
+            }, (dialog, which) -> {
+                try {
+                    Intent intent;
+                    if (which == 0) {
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        startActivityForResult(intent, RC_MAIN_BACKUP_EXPORT_FOLDER);
+                    } else {
+                        intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.setType("application/zip");
+                        intent.putExtra(Intent.EXTRA_TITLE, "CoMaps_Backup_" + System.currentTimeMillis() + ".zip");
+                        startActivityForResult(intent, RC_MAIN_BACKUP_EXPORT_ZIP);
+                    }
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(this, getString(R.string.car_settings_file_picker_error), android.widget.Toast.LENGTH_SHORT).show();
+                }
+            })
+            .show();
+    }
+
+    private void showMainImportOptionsDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.car_settings_restore_type)
+            .setItems(new CharSequence[]{
+                getString(R.string.car_settings_restore_from_folder),
+                getString(R.string.car_settings_restore_from_zip),
+                getString(R.string.car_settings_restore_from_raw_maps)
+            }, (dialog, which) -> {
+                try {
+                    Intent intent;
+                    if (which == 0) {
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        startActivityForResult(intent, RC_MAIN_BACKUP_IMPORT_FOLDER);
+                    } else if (which == 1) {
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.setType("application/zip");
+                        startActivityForResult(intent, RC_MAIN_BACKUP_IMPORT_ZIP);
+                    } else {
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.setType("*/*");
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        startActivityForResult(intent, RC_MAIN_BACKUP_IMPORT_RAW_MAPS);
+                    }
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(this, getString(R.string.car_settings_file_picker_error), android.widget.Toast.LENGTH_SHORT).show();
+                }
+            })
+            .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == android.app.Activity.RESULT_OK && data != null) {
+            if (requestCode == RC_MAIN_BACKUP_IMPORT_RAW_MAPS) {
+                java.util.List<android.net.Uri> uris = new java.util.ArrayList<>();
+                if (data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount();
+                    for (int i = 0; i < count; i++) {
+                        uris.add(data.getClipData().getItemAt(i).getUri());
+                    }
+                } else if (data.getData() != null) {
+                    uris.add(data.getData());
+                }
+                if (!uris.isEmpty()) {
+                    showMainBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.importMapFiles(this, uris, createMainBackupCallback());
+                }
+                return;
+            }
+
+            android.net.Uri uri = data.getData();
+            if (uri != null) {
+                if (requestCode == RC_MAIN_BACKUP_EXPORT_FOLDER) {
+                    showMainBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToFolder(this, uri, createMainBackupCallback());
+                } else if (requestCode == RC_MAIN_BACKUP_EXPORT_ZIP) {
+                    showMainBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.exportToZip(this, uri, createMainBackupCallback());
+                } else if (requestCode == RC_MAIN_BACKUP_IMPORT_FOLDER) {
+                    showMainBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(this, uri, createMainBackupCallback());
+                } else if (requestCode == RC_MAIN_BACKUP_IMPORT_ZIP) {
+                    showMainBackupProgress();
+                    app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(this, uri, createMainBackupCallback());
+                }
+            }
+        }
+    }
+
+    private void showMainBackupProgress() {
+        mainBackupProgressDialog = new android.app.ProgressDialog(this);
+        mainBackupProgressDialog.setTitle(getString(R.string.car_settings_please_wait));
+        mainBackupProgressDialog.setMessage(getString(R.string.car_settings_backup_starting));
+        mainBackupProgressDialog.setCancelable(false);
+        mainBackupProgressDialog.show();
+    }
+
+    private app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback createMainBackupCallback() {
+        return new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
+            @Override
+            public void onProgress(String message) {
+                if (mainBackupProgressDialog != null && mainBackupProgressDialog.isShowing()) {
+                    mainBackupProgressDialog.setMessage(message);
+                }
+            }
+
+            @Override
+            public void onSuccess() {
+                if (mainBackupProgressDialog != null && mainBackupProgressDialog.isShowing()) {
+                    mainBackupProgressDialog.dismiss();
+                }
+                android.widget.Toast.makeText(CarLauncherActivity.this, getString(R.string.car_settings_backup_success), android.widget.Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(String error) {
+                if (mainBackupProgressDialog != null && mainBackupProgressDialog.isShowing()) {
+                    mainBackupProgressDialog.dismiss();
+                }
+                android.widget.Toast.makeText(CarLauncherActivity.this, getString(R.string.car_settings_error_generic, error), android.widget.Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
 }

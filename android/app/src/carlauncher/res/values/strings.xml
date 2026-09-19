@@ -305,7 +305,10 @@
     <string name="car_settings_widget_mode_restart">Widget mode change requires app restart</string>
     <string name="car_settings_music_scanning">Scanning music...</string>
     <string name="car_settings_music_scan_results">Found %1$d tracks.</string>
-    <string name="car_settings_music_app_internal">Internal Music Player</string>
+    <string name="car_settings_backup_title">Backup &amp; Restore (USB)</string>
+    <string name="car_settings_backup_dialog_title">Backup &amp; Restore (USB)</string>
+    <string name="car_settings_backup_action_export">Backup Data (Export to USB)</string>
+    <string name="car_settings_backup_action_import">Restore Data (Import from USB)</string>
 
     <string name="car_backup_type_title">Backup Type</string>
     <string name="car_backup_type_folder">Save as Folder (Fast, Recommended)</string>
