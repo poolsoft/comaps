@@ -1279,6 +1279,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     /**
      * Yatay modda navigasyon alt barinin (ETA) ekran/harita genisliginin
      * yuzde 50'si olmasini saglar. Dikey modda ise tam genislik (MATCH_PARENT) korur.
+     * CoordinatorLayout + BottomSheetBehavior ile Gravity.BOTTOM kesinlikle kullanilmaz;
+     * dikey yerlesimi BottomSheetBehavior kendi hesaplar.
      */
     private void applyNavBottomSheetWidth() {
         try {
@@ -1302,17 +1304,48 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                     int screenWidth = getResources().getDisplayMetrics().widthPixels;
                     targetWidth = (int) (screenWidth * 0.50f);
                 }
+
+                // Alt bardaki bilesenlerin (ETA, sure, mesafe) sigabilmesi icin guvenli alt taban (340dp)
+                int minWidth = (int) (340 * getResources().getDisplayMetrics().density);
+                if (targetWidth < minWidth && mapContainer != null && mapContainer.getWidth() > minWidth) {
+                    targetWidth = minWidth;
+                }
+
+                boolean changed = false;
                 if (targetWidth > 0 && lp.width != targetWidth) {
                     lp.width = targetWidth;
-                    lp.gravity = android.view.Gravity.BOTTOM | android.view.Gravity.START;
+                    changed = true;
+                }
+                // SADECE Gravity.START! Gravity.BOTTOM kesinlikle verilmez.
+                if (lp.gravity != android.view.Gravity.START) {
+                    lp.gravity = android.view.Gravity.START;
+                    changed = true;
+                }
+                if (changed) {
                     navBottomSheet.setLayoutParams(lp);
                 }
             } else {
+                boolean changed = false;
                 if (lp.width != ViewGroup.LayoutParams.MATCH_PARENT) {
                     lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    lp.gravity = android.view.Gravity.BOTTOM;
+                    changed = true;
+                }
+                if (lp.gravity != android.view.Gravity.NO_GRAVITY) {
+                    lp.gravity = android.view.Gravity.NO_GRAVITY;
+                    changed = true;
+                }
+                if (changed) {
                     navBottomSheet.setLayoutParams(lp);
                 }
+            }
+
+            try {
+                com.google.android.material.bottomsheet.BottomSheetBehavior<?> behavior =
+                        com.google.android.material.bottomsheet.BottomSheetBehavior.from(navBottomSheet);
+                if (behavior.getState() == com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN) {
+                    behavior.setState(com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            } catch (Throwable ignored) {
             }
         } catch (Throwable ignored) {
         }
