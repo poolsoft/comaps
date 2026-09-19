@@ -1096,11 +1096,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     @androidx.annotation.Nullable
-    public java.util.ArrayList<app.organicmaps.widget.menu.MenuBottomSheetItem> getMenuBottomSheetItems(String id) {
-        java.util.ArrayList<app.organicmaps.widget.menu.MenuBottomSheetItem> items = super.getMenuBottomSheetItems(id);
+    public java.util.ArrayList<app.organicmaps.util.bottomsheet.MenuBottomSheetItem> getMenuBottomSheetItems(String id) {
+        java.util.ArrayList<app.organicmaps.util.bottomsheet.MenuBottomSheetItem> items = super.getMenuBottomSheetItems(id);
         if (items != null && "MAIN_MENU_BOTTOM_SHEET".equals(id)) {
             // Ana harita menusunun en tepesine Yedekleme & Geri Yukleme (USB) secenegini ekle
-            items.add(0, new app.organicmaps.widget.menu.MenuBottomSheetItem(
+            items.add(0, new app.organicmaps.util.bottomsheet.MenuBottomSheetItem(
                 R.string.car_settings_backup_title,
                 android.R.drawable.ic_menu_save,
                 this::openBackupRestoreMenu
