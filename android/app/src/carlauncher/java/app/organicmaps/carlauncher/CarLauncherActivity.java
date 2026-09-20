@@ -1382,7 +1382,10 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         boolean resourcesMissing = getIntent() != null && getIntent().getBooleanExtra("extra_resources_missing", false);
         if (!resourcesMissing) {
             try {
-                resourcesMissing = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() > 0;
+                boolean coreReady = app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized();
+                if (coreReady) {
+                    resourcesMissing = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() > 0;
+                }
             } catch (Throwable ignored) {
             }
         }
@@ -1498,10 +1501,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     public void onMapsImported() {
         int remaining = -1;
         try {
-            remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload();
+            boolean coreReady = app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized();
+            if (coreReady) {
+                remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload();
+            } else {
+                remaining = 0;
+            }
         } catch (Throwable ignored) {
         }
-        if (remaining == 0) {
+        if (remaining <= 0) {
             if (getIntent() != null) {
                 getIntent().removeExtra("extra_resources_missing");
             }

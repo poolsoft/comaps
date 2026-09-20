@@ -186,15 +186,55 @@ public class LauncherBackupManager {
      * tarafindan yok sayilir.
      */
     public static File getMapsTargetDir(Context context) {
-        File writableDir = new File(Framework.nativeGetWritableDir());
-        String version = null;
+        String writablePath = null;
         try {
-            java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyMMdd", Locale.US);
-            version = fmt.format(Framework.getDataVersion());
-        } catch (Exception ignored) {}
-        File dir = version != null ? new File(writableDir, version) : writableDir;
-        if (!dir.exists() && !dir.mkdirs()) dir = writableDir;
-        return dir;
+            if (app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized()) {
+                writablePath = Framework.nativeGetWritableDir();
+            }
+        } catch (Throwable ignored) {}
+        if (writablePath == null || writablePath.isEmpty()) {
+            File ext = context.getExternalFilesDir(null);
+            writablePath = ext != null ? ext.getAbsolutePath() : context.getFilesDir().getAbsolutePath();
+        }
+        File writableDir = new File(writablePath);
+
+        // Mevcut bir YYMMDD (6 basamakli) versiyon klasoru var mi kontrol et
+        File targetDir = null;
+        try {
+            if (app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized()) {
+                java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyMMdd", Locale.US);
+                String version = fmt.format(Framework.getDataVersion());
+                if (version != null && !version.isEmpty()) {
+                    targetDir = new File(writableDir, version);
+                }
+            }
+        } catch (Throwable ignored) {}
+
+        if (targetDir == null) {
+            // Eger core henuz hazir degilse, diskteki en guncel 6 basamakli versiyon klasorune bak
+            File[] subdirs = writableDir.listFiles(File::isDirectory);
+            if (subdirs != null) {
+                File latest = null;
+                for (File sub : subdirs) {
+                    if (sub.getName().matches("^\\d{6}$")) {
+                        if (latest == null || sub.getName().compareTo(latest.getName()) > 0) {
+                            latest = sub;
+                        }
+                    }
+                }
+                if (latest != null) {
+                    targetDir = latest;
+                }
+            }
+        }
+
+        if (targetDir == null) {
+            targetDir = writableDir;
+        }
+        if (!targetDir.exists()) {
+            targetDir.mkdirs();
+        }
+        return targetDir;
     }
 
     /**
@@ -404,17 +444,24 @@ public class LauncherBackupManager {
 
     private static void reloadEngines(BackupCallback callback) {
         new Handler(Looper.getMainLooper()).post(() -> {
+            boolean coreReady = false;
             try {
-                // Haritalari aninda bellekte yenile
-                Framework.nativeReloadWorldMaps();
-            } catch (Throwable t) {
-                Log.w(TAG, "nativeReloadWorldMaps hatasi", t);
-            }
-            try {
-                // Yer imlerini aninda bellekte yenile
-                BookmarkManager.loadBookmarks();
-            } catch (Throwable t) {
-                Log.w(TAG, "BookmarkManager.loadBookmarks hatasi", t);
+                coreReady = app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized();
+            } catch (Throwable ignored) {}
+
+            if (coreReady) {
+                try {
+                    // Haritalari aninda bellekte yenile
+                    Framework.nativeReloadWorldMaps();
+                } catch (Throwable t) {
+                    Log.w(TAG, "nativeReloadWorldMaps hatasi", t);
+                }
+                try {
+                    // Yer imlerini aninda bellekte yenile
+                    BookmarkManager.loadBookmarks();
+                } catch (Throwable t) {
+                    Log.w(TAG, "BookmarkManager.loadBookmarks hatasi", t);
+                }
             }
             if (callback != null) callback.onSuccess();
         });

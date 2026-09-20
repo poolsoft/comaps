@@ -303,9 +303,12 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       boolean hasResources = true;
       try
       {
-        hasResources = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() == 0;
+        if (MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized())
+          hasResources = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() == 0;
+        else
+          hasResources = false;
       }
-      catch (Exception ignored) {}
+      catch (Throwable ignored) {}
 
       CarCrashLogger.recordStartupStage("Bootstrap.target.CarLauncherActivity");
       intent.setComponent(new ComponentName(this, CarLauncherActivity.class));
@@ -431,9 +434,17 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
 
   public void onMapsImported()
   {
-    int remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity
-        .nativeGetBytesToDownload();
-    if (remaining == 0)
+    int remaining = -1;
+    try
+    {
+      if (MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized())
+        remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload();
+      else
+        remaining = 0;
+    }
+    catch (Throwable ignored) {}
+
+    if (remaining <= 0)
       processNavigation();
     else
     {
