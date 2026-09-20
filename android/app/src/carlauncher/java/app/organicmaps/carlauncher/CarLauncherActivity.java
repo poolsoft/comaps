@@ -45,7 +45,11 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     private PanelContentManager panelContentManager;
 
     private ActivityResultLauncher<Intent> mapImportRequest;
+    private ActivityResultLauncher<Intent> zipImportRequest;
+    private ActivityResultLauncher<android.net.Uri> folderImportRequest;
+    private ActivityResultLauncher<Intent> downloadActivityRequest;
     private View missingMapCardView;
+    private TextView missingMapProgressText;
 
     private androidx.constraintlayout.widget.ConstraintLayout rootLayout;
     private app.organicmaps.carlauncher.ui.ExactFrameLayout mapContainer;
@@ -171,6 +175,29 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                         uris.add(data.getData());
                     }
                     importSelectedMaps(uris);
+                });
+        zipImportRequest = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() != RESULT_OK || result.getData() == null) {
+                        return;
+                    }
+                    Intent data = result.getData();
+                    if (data != null && data.getData() != null) {
+                        importZipFile(data.getData());
+                    }
+                });
+        folderImportRequest = registerForActivityResult(
+                new ActivityResultContracts.OpenDocumentTree(),
+                uri -> {
+                    if (uri != null) {
+                        importFolder(uri);
+                    }
+                });
+        downloadActivityRequest = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    checkAndShowMissingMapResources();
                 });
         super.onSafeCreate(savedInstanceState);
         CarCrashLogger.recordStartupStage("CarLauncherActivity.onSafeCreate.afterSuper");
@@ -1402,56 +1429,199 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
         if (missingMapCardView != null) {
             mapContainer.removeView(missingMapCardView);
+            missingMapCardView = null;
+            missingMapProgressText = null;
         }
+
+        android.widget.ScrollView scrollView = new android.widget.ScrollView(this);
+        scrollView.setFillViewport(true);
 
         android.widget.LinearLayout card = new android.widget.LinearLayout(this);
         card.setOrientation(android.widget.LinearLayout.VERTICAL);
-        card.setGravity(android.view.Gravity.CENTER);
+        card.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
         card.setBackgroundResource(R.drawable.bg_missing_map_card);
         card.setClipToOutline(true);
         int padding = (int) (20 * getResources().getDisplayMetrics().density);
         card.setPadding(padding, padding, padding, padding);
 
+        // Baslik
         android.widget.TextView title = new android.widget.TextView(this);
         title.setText(R.string.car_maps_missing_title);
         title.setTextColor(android.graphics.Color.WHITE);
-        title.setTextSize(20);
+        title.setTextSize(18);
+        title.setTypeface(null, android.graphics.Typeface.BOLD);
         title.setGravity(android.view.Gravity.CENTER);
 
+        // Surum Rozeti (Badge)
+        String requiredVersion = app.organicmaps.carlauncher.backup.LauncherBackupManager.getRequiredDataVersion(this);
+        android.widget.TextView versionBadge = new android.widget.TextView(this);
+        versionBadge.setText(getString(R.string.car_maps_version_badge, requiredVersion));
+        versionBadge.setTextColor(0xFF80D8FF);
+        versionBadge.setTextSize(13);
+        versionBadge.setTypeface(null, android.graphics.Typeface.BOLD);
+        versionBadge.setGravity(android.view.Gravity.CENTER);
+        int badgePadH = (int) (12 * getResources().getDisplayMetrics().density);
+        int badgePadV = (int) (6 * getResources().getDisplayMetrics().density);
+        versionBadge.setPadding(badgePadH, badgePadV, badgePadH, badgePadV);
+        android.graphics.drawable.GradientDrawable badgeBg = new android.graphics.drawable.GradientDrawable();
+        badgeBg.setColor(0x330288D1);
+        badgeBg.setCornerRadius(16 * getResources().getDisplayMetrics().density);
+        badgeBg.setStroke((int) (1 * getResources().getDisplayMetrics().density), 0xFF0288D1);
+        versionBadge.setBackground(badgeBg);
+        android.widget.LinearLayout.LayoutParams badgeParams = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+        badgeParams.topMargin = padding / 2;
+        badgeParams.bottomMargin = padding / 2;
+        versionBadge.setLayoutParams(badgeParams);
+
+        // Aciklama
         android.widget.TextView message = new android.widget.TextView(this);
         message.setText(R.string.car_maps_missing_message);
         message.setTextColor(0xFFCCCCCC);
-        message.setTextSize(14);
+        message.setTextSize(13);
         message.setGravity(android.view.Gravity.CENTER);
-        message.setPadding(0, padding / 2, 0, padding);
+        message.setPadding(0, 0, 0, padding);
 
-        com.google.android.material.button.MaterialButton importButton =
+        // Butonlar
+        android.widget.LinearLayout buttonContainer = new android.widget.LinearLayout(this);
+        buttonContainer.setOrientation(android.widget.LinearLayout.VERTICAL);
+        android.widget.LinearLayout.LayoutParams btnLp = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+        btnLp.bottomMargin = (int) (8 * getResources().getDisplayMetrics().density);
+
+        // 1. Internetten Indir
+        com.google.android.material.button.MaterialButton downloadButton =
                 new com.google.android.material.button.MaterialButton(this);
-        importButton.setText(R.string.car_maps_import_button);
-        importButton.setOnClickListener(v -> openMapFilePicker());
+        downloadButton.setText(R.string.car_maps_download_online);
+        downloadButton.setLayoutParams(btnLp);
+        downloadButton.setOnClickListener(v -> openDownloadActivity());
 
+        // 2. Tek Paket (.zip) Yukle
+        com.google.android.material.button.MaterialButton zipButton =
+                new com.google.android.material.button.MaterialButton(this);
+        zipButton.setText(R.string.car_maps_import_zip);
+        zipButton.setLayoutParams(btnLp);
+        zipButton.setOnClickListener(v -> openZipFilePicker());
+
+        // 3. Klasorden Yukle
+        com.google.android.material.button.MaterialButton folderButton =
+                new com.google.android.material.button.MaterialButton(this);
+        folderButton.setText(R.string.car_maps_import_folder);
+        folderButton.setLayoutParams(btnLp);
+        folderButton.setOnClickListener(v -> openFolderPicker());
+
+        // 4. Tek tek .mwm Dosyalari Sec
+        com.google.android.material.button.MaterialButton filesButton =
+                new com.google.android.material.button.MaterialButton(this);
+        filesButton.setText(R.string.car_maps_import_files);
+        filesButton.setLayoutParams(btnLp);
+        filesButton.setOnClickListener(v -> openMapFilePicker());
+
+        // 5. Ayarlar
         com.google.android.material.button.MaterialButton settingsButton =
                 new com.google.android.material.button.MaterialButton(this);
         settingsButton.setText(R.string.car_maps_import_settings_button);
+        settingsButton.setLayoutParams(btnLp);
         settingsButton.setOnClickListener(v -> openCarLauncherSettings());
 
-        card.addView(title);
-        card.addView(message);
-        card.addView(importButton);
-        card.addView(settingsButton);
+        buttonContainer.addView(downloadButton);
+        buttonContainer.addView(zipButton);
+        buttonContainer.addView(folderButton);
+        buttonContainer.addView(filesButton);
+        buttonContainer.addView(settingsButton);
 
-        missingMapCardView = card;
+        card.addView(title);
+        card.addView(versionBadge);
+        card.addView(message);
+        card.addView(buttonContainer);
+
+        scrollView.addView(card, new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.WRAP_CONTENT));
+
+        missingMapCardView = scrollView;
         android.widget.FrameLayout.LayoutParams lp = new android.widget.FrameLayout.LayoutParams(
                 android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
                 android.widget.FrameLayout.LayoutParams.MATCH_PARENT);
-        mapContainer.addView(card, lp);
-        card.bringToFront();
+        mapContainer.addView(scrollView, lp);
+        scrollView.bringToFront();
+    }
+
+    private void showImportProgressView(String initialText) {
+        if (mapContainer == null) return;
+        if (missingMapCardView != null) {
+            mapContainer.removeView(missingMapCardView);
+            missingMapCardView = null;
+        }
+        android.widget.LinearLayout progressLayout = new android.widget.LinearLayout(this);
+        progressLayout.setOrientation(android.widget.LinearLayout.VERTICAL);
+        progressLayout.setGravity(android.view.Gravity.CENTER);
+        progressLayout.setBackgroundResource(R.drawable.bg_missing_map_card);
+        int padding = (int) (24 * getResources().getDisplayMetrics().density);
+        progressLayout.setPadding(padding, padding, padding, padding);
+
+        android.widget.ProgressBar progress = new android.widget.ProgressBar(this);
+        android.widget.LinearLayout.LayoutParams pLp = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+        pLp.bottomMargin = (int) (16 * getResources().getDisplayMetrics().density);
+        progressLayout.addView(progress, pLp);
+
+        missingMapProgressText = new android.widget.TextView(this);
+        missingMapProgressText.setText(initialText != null ? initialText : getString(R.string.car_settings_backup_starting));
+        missingMapProgressText.setTextColor(android.graphics.Color.WHITE);
+        missingMapProgressText.setTextSize(14);
+        missingMapProgressText.setGravity(android.view.Gravity.CENTER);
+        progressLayout.addView(missingMapProgressText);
+
+        android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT);
+        mapContainer.addView(progressLayout, params);
+        missingMapCardView = progressLayout;
+        progressLayout.bringToFront();
+    }
+
+    private void updateImportProgressText(String message) {
+        runOnUiThread(() -> {
+            if (missingMapProgressText != null) {
+                missingMapProgressText.setText(message);
+            }
+        });
     }
 
     private void removeMissingMapResourcesCard() {
         if (missingMapCardView != null && mapContainer != null) {
             mapContainer.removeView(missingMapCardView);
             missingMapCardView = null;
+            missingMapProgressText = null;
+        }
+    }
+
+    private void openDownloadActivity() {
+        Intent intent = new Intent(this, app.organicmaps.CarLauncherDownloadResourcesActivity.class);
+        if (downloadActivityRequest != null) {
+            downloadActivityRequest.launch(intent);
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    private void openZipFilePicker() {
+        Intent picker = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        picker.addCategory(Intent.CATEGORY_OPENABLE);
+        picker.setType("application/zip");
+        picker.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/zip", "application/x-zip-compressed", "application/octet-stream"});
+        if (zipImportRequest != null) {
+            zipImportRequest.launch(picker);
+        }
+    }
+
+    private void openFolderPicker() {
+        if (folderImportRequest != null) {
+            folderImportRequest.launch(null);
         }
     }
 
@@ -1465,37 +1635,46 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         }
     }
 
-    private void importSelectedMaps(List<android.net.Uri> uris) {
-        if (mapContainer != null) {
-            if (missingMapCardView != null) {
-                mapContainer.removeView(missingMapCardView);
+    private app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback createMissingMapBackupCallback() {
+        return new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
+            @Override
+            public void onProgress(String message) {
+                updateImportProgressText(message);
             }
-            android.widget.ProgressBar progress = new android.widget.ProgressBar(this);
-            android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
-                    android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                    android.widget.FrameLayout.LayoutParams.WRAP_CONTENT);
-            params.gravity = android.view.Gravity.CENTER;
-            mapContainer.addView(progress, params);
-            missingMapCardView = progress;
-        }
-        app.organicmaps.carlauncher.backup.LauncherBackupManager.importMapFiles(
-                this, uris, new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
-                    @Override
-                    public void onProgress(String message) { }
 
-                    @Override
-                    public void onSuccess() {
-                        onMapsImported();
-                    }
+            @Override
+            public void onSuccess() {
+                runOnUiThread(CarLauncherActivity.this::onMapsImported);
+            }
 
-                    @Override
-                    public void onError(String error) {
-                        android.widget.Toast.makeText(CarLauncherActivity.this,
-                                getString(R.string.car_settings_error_generic, error),
-                                android.widget.Toast.LENGTH_LONG).show();
-                        showMissingMapResources();
-                    }
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() -> {
+                    android.widget.Toast.makeText(CarLauncherActivity.this,
+                            getString(R.string.car_settings_error_generic, error),
+                            android.widget.Toast.LENGTH_LONG).show();
+                    showMissingMapResources();
                 });
+            }
+        };
+    }
+
+    private void importZipFile(android.net.Uri uri) {
+        showImportProgressView(getString(R.string.car_settings_backup_starting));
+        app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromZip(
+                this, uri, createMissingMapBackupCallback());
+    }
+
+    private void importFolder(android.net.Uri uri) {
+        showImportProgressView(getString(R.string.car_settings_backup_starting));
+        app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromDirectory(
+                this, uri, createMissingMapBackupCallback());
+    }
+
+    private void importSelectedMaps(List<android.net.Uri> uris) {
+        showImportProgressView(getString(R.string.car_settings_backup_starting));
+        app.organicmaps.carlauncher.backup.LauncherBackupManager.importMapFiles(
+                this, uris, createMissingMapBackupCallback());
     }
 
     public void onMapsImported() {

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="car_maps_missing_title">Harita dosyaları eksik</string>
-    <string name="car_maps_missing_message">Launcher çalışmaya devam eder. World, WorldCoasts ve bölgesel .mwm haritalarınızı USB veya depolamadan içe aktarın.</string>
+    <string name="car_maps_missing_title">Harita Bulunamadı veya Sürüm Uyuşmuyor</string>
+    <string name="car_maps_missing_message">Launcher çalışmaya devam eder. Çevrimdışı haritaları internetten indirebilir veya USB bellekten tek paket (.zip) / klasör olarak içe aktarabilirsiniz.</string>
+    <string name="car_maps_version_badge">Gerekli Harita Sürümü: %1$s</string>
+    <string name="car_maps_download_online">İnternetten Harita İndir</string>
+    <string name="car_maps_import_zip">Yedek Paketinden Yükle (.zip)</string>
+    <string name="car_maps_import_folder">Klasörden Yükle (Klasör Seç)</string>
+    <string name="car_maps_import_files">Harita Dosyaları Seç (.mwm)</string>
     <string name="car_maps_import_button">Harita dosyalarını içe aktar</string>
-    <string name="car_maps_import_settings_button">Yedek içe aktarma ayarını aç</string>
+    <string name="car_maps_import_settings_button">Yedekleme ve İçe Aktarma Ayarları</string>
     <string name="car_maps_world_files_still_missing">Bölgesel haritalar aktarıldı ancak gerekli World/WorldCoasts dosyaları hâlâ eksik.</string>
     <string name="car_music_grant_permission">İzin ver</string>
     <string name="car_music_permission_card">Müzik listesini yenilemek için erişim izni gerekli. Kayıtlı indeks kullanılmaya devam eder.</string>

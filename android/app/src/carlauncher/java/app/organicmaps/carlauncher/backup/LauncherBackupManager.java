@@ -180,8 +180,41 @@ public class LauncherBackupManager {
     // ==========================================
 
     /**
+     * Uygulamanin calismak icin bekledigi harita veri surumunu (YYMMDD) dinamik olarak dondurur.
+     */
+    public static String getRequiredDataVersion(Context context) {
+        try {
+            if (app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized()) {
+                java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyMMdd", Locale.US);
+                String version = fmt.format(Framework.getDataVersion());
+                if (version != null && !version.isEmpty()) {
+                    return version;
+                }
+            }
+        } catch (Throwable ignored) {}
+
+        if (context != null) {
+            try (InputStream is = context.getAssets().open("countries.txt");
+                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(is))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    if (line.startsWith("\"v\":")) {
+                        String vStr = line.replaceAll("[^0-9]", "");
+                        if (!vStr.isEmpty()) {
+                            return vStr;
+                        }
+                    }
+                }
+            } catch (Throwable ignored) {}
+        }
+
+        return "260830";
+    }
+
+    /**
      * Storage, haritalari yalnizca countries veritabani surumuyle eslesen
-     * klasorde arar (orn. files/260603/). Import edilen .mwm dosyalarini o
+     * klasorde arar (orn. files/260830/). Import edilen .mwm dosyalarini o
      * klasore yazariz; kok veya yedekteki farkli surum klasorleri motor
      * tarafindan yok sayilir.
      */
@@ -193,44 +226,13 @@ public class LauncherBackupManager {
             }
         } catch (Throwable ignored) {}
         if (writablePath == null || writablePath.isEmpty()) {
-            File ext = context.getExternalFilesDir(null);
-            writablePath = ext != null ? ext.getAbsolutePath() : context.getFilesDir().getAbsolutePath();
+            File ext = context != null ? context.getExternalFilesDir(null) : null;
+            writablePath = ext != null ? ext.getAbsolutePath() : (context != null ? context.getFilesDir().getAbsolutePath() : "");
         }
         File writableDir = new File(writablePath);
 
-        // Mevcut bir YYMMDD (6 basamakli) versiyon klasoru var mi kontrol et
-        File targetDir = null;
-        try {
-            if (app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized()) {
-                java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyMMdd", Locale.US);
-                String version = fmt.format(Framework.getDataVersion());
-                if (version != null && !version.isEmpty()) {
-                    targetDir = new File(writableDir, version);
-                }
-            }
-        } catch (Throwable ignored) {}
-
-        if (targetDir == null) {
-            // Eger core henuz hazir degilse, diskteki en guncel 6 basamakli versiyon klasorune bak
-            File[] subdirs = writableDir.listFiles(File::isDirectory);
-            if (subdirs != null) {
-                File latest = null;
-                for (File sub : subdirs) {
-                    if (sub.getName().matches("^\\d{6}$")) {
-                        if (latest == null || sub.getName().compareTo(latest.getName()) > 0) {
-                            latest = sub;
-                        }
-                    }
-                }
-                if (latest != null) {
-                    targetDir = latest;
-                }
-            }
-        }
-
-        if (targetDir == null) {
-            targetDir = writableDir;
-        }
+        String version = getRequiredDataVersion(context);
+        File targetDir = (version != null && !version.isEmpty()) ? new File(writableDir, version) : writableDir;
         if (!targetDir.exists()) {
             targetDir.mkdirs();
         }
