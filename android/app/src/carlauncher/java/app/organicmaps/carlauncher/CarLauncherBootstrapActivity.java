@@ -307,18 +307,9 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       }
       catch (Exception ignored) {}
 
-      if (hasResources)
-      {
-        CarCrashLogger.recordStartupStage("Bootstrap.target.CarLauncherActivity");
-        intent.setComponent(new ComponentName(this, CarLauncherActivity.class));
-      }
-      else
-      {
-        CarCrashLogger.recordStartupStage("Bootstrap.resourcesMissing.stayInLauncher");
-        CarCrashLogger.recordMemory("resources_missing");
-        showMissingMapResources();
-        return;
-      }
+      CarCrashLogger.recordStartupStage("Bootstrap.target.CarLauncherActivity");
+      intent.setComponent(new ComponentName(this, CarLauncherActivity.class));
+      intent.putExtra("extra_resources_missing", !hasResources);
     }
 
     // FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED break the cold start.

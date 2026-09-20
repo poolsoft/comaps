@@ -32,13 +32,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarLauncherActivity extends MwmActivity implements CarLauncherInterface, TelemetryManager.TelemetryListener, AppDockFragment.OnAppDockListener {
     
     private TelemetryManager telemetryManager;
     private CarLayoutManager layoutManager;
     private PanelContentManager panelContentManager;
+
+    private ActivityResultLauncher<Intent> mapImportRequest;
+    private View missingMapCardView;
 
     private androidx.constraintlayout.widget.ConstraintLayout rootLayout;
     private app.organicmaps.carlauncher.ui.ExactFrameLayout mapContainer;
@@ -141,12 +148,30 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         super.onPostResume();
         resetMapTouches();
         hideScaleFpsLabel();
+        checkAndShowMissingMapResources();
     }
 
     @Override
     protected void onSafeCreate(@Nullable Bundle savedInstanceState) {
         CarCrashLogger.recordStartupStage("CarLauncherActivity.onSafeCreate.beforeSuper");
         startupProfile = new LauncherStartupProfile(this);
+        mapImportRequest = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() != RESULT_OK || result.getData() == null) {
+                        return;
+                    }
+                    List<android.net.Uri> uris = new ArrayList<>();
+                    Intent data = result.getData();
+                    if (data.getClipData() != null) {
+                        for (int i = 0; i < data.getClipData().getItemCount(); i++) {
+                            uris.add(data.getClipData().getItemAt(i).getUri());
+                        }
+                    } else if (data.getData() != null) {
+                        uris.add(data.getData());
+                    }
+                    importSelectedMaps(uris);
+                });
         super.onSafeCreate(savedInstanceState);
         CarCrashLogger.recordStartupStage("CarLauncherActivity.onSafeCreate.afterSuper");
 
@@ -245,6 +270,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             applyWidgetPanelState(false);
             scheduleLauncherContent(startupContent);
         }
+
+        checkAndShowMissingMapResources();
 
         if (widgetHandle != null) {
             widgetHandle.bringToFront();
@@ -1348,6 +1375,144 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             } catch (Throwable ignored) {
             }
         } catch (Throwable ignored) {
+        }
+    }
+
+    private void checkAndShowMissingMapResources() {
+        boolean resourcesMissing = getIntent() != null && getIntent().getBooleanExtra("extra_resources_missing", false);
+        if (!resourcesMissing) {
+            try {
+                resourcesMissing = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() > 0;
+            } catch (Throwable ignored) {
+            }
+        }
+        if (resourcesMissing) {
+            showMissingMapResources();
+        } else {
+            removeMissingMapResourcesCard();
+        }
+    }
+
+    private void showMissingMapResources() {
+        if (mapContainer == null) {
+            return;
+        }
+        if (missingMapCardView != null) {
+            mapContainer.removeView(missingMapCardView);
+        }
+
+        android.widget.LinearLayout card = new android.widget.LinearLayout(this);
+        card.setOrientation(android.widget.LinearLayout.VERTICAL);
+        card.setGravity(android.view.Gravity.CENTER);
+        card.setBackgroundResource(R.drawable.bg_missing_map_card);
+        card.setClipToOutline(true);
+        int padding = (int) (20 * getResources().getDisplayMetrics().density);
+        card.setPadding(padding, padding, padding, padding);
+
+        android.widget.TextView title = new android.widget.TextView(this);
+        title.setText(R.string.car_maps_missing_title);
+        title.setTextColor(android.graphics.Color.WHITE);
+        title.setTextSize(20);
+        title.setGravity(android.view.Gravity.CENTER);
+
+        android.widget.TextView message = new android.widget.TextView(this);
+        message.setText(R.string.car_maps_missing_message);
+        message.setTextColor(0xFFCCCCCC);
+        message.setTextSize(14);
+        message.setGravity(android.view.Gravity.CENTER);
+        message.setPadding(0, padding / 2, 0, padding);
+
+        com.google.android.material.button.MaterialButton importButton =
+                new com.google.android.material.button.MaterialButton(this);
+        importButton.setText(R.string.car_maps_import_button);
+        importButton.setOnClickListener(v -> openMapFilePicker());
+
+        com.google.android.material.button.MaterialButton settingsButton =
+                new com.google.android.material.button.MaterialButton(this);
+        settingsButton.setText(R.string.car_maps_import_settings_button);
+        settingsButton.setOnClickListener(v -> openCarLauncherSettings());
+
+        card.addView(title);
+        card.addView(message);
+        card.addView(importButton);
+        card.addView(settingsButton);
+
+        missingMapCardView = card;
+        android.widget.FrameLayout.LayoutParams lp = new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT);
+        mapContainer.addView(card, lp);
+        card.bringToFront();
+    }
+
+    private void removeMissingMapResourcesCard() {
+        if (missingMapCardView != null && mapContainer != null) {
+            mapContainer.removeView(missingMapCardView);
+            missingMapCardView = null;
+        }
+    }
+
+    private void openMapFilePicker() {
+        Intent picker = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        picker.addCategory(Intent.CATEGORY_OPENABLE);
+        picker.setType("application/octet-stream");
+        picker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        if (mapImportRequest != null) {
+            mapImportRequest.launch(picker);
+        }
+    }
+
+    private void importSelectedMaps(List<android.net.Uri> uris) {
+        if (mapContainer != null) {
+            if (missingMapCardView != null) {
+                mapContainer.removeView(missingMapCardView);
+            }
+            android.widget.ProgressBar progress = new android.widget.ProgressBar(this);
+            android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                    android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+                    android.widget.FrameLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = android.view.Gravity.CENTER;
+            mapContainer.addView(progress, params);
+            missingMapCardView = progress;
+        }
+        app.organicmaps.carlauncher.backup.LauncherBackupManager.importMapFiles(
+                this, uris, new app.organicmaps.carlauncher.backup.LauncherBackupManager.BackupCallback() {
+                    @Override
+                    public void onProgress(String message) { }
+
+                    @Override
+                    public void onSuccess() {
+                        onMapsImported();
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        android.widget.Toast.makeText(CarLauncherActivity.this,
+                                getString(R.string.car_settings_error_generic, error),
+                                android.widget.Toast.LENGTH_LONG).show();
+                        showMissingMapResources();
+                    }
+                });
+    }
+
+    public void onMapsImported() {
+        int remaining = -1;
+        try {
+            remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload();
+        } catch (Throwable ignored) {
+        }
+        if (remaining == 0) {
+            if (getIntent() != null) {
+                getIntent().removeExtra("extra_resources_missing");
+            }
+            removeMissingMapResourcesCard();
+            android.widget.Toast.makeText(this, R.string.car_settings_import_success,
+                    android.widget.Toast.LENGTH_SHORT).show();
+            recreate();
+        } else {
+            android.widget.Toast.makeText(this, R.string.car_maps_world_files_still_missing,
+                    android.widget.Toast.LENGTH_LONG).show();
+            showMissingMapResources();
         }
     }
 }
