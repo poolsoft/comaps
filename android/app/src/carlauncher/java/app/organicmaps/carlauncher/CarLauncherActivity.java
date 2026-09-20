@@ -1506,7 +1506,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
                 getIntent().removeExtra("extra_resources_missing");
             }
             removeMissingMapResourcesCard();
-            android.widget.Toast.makeText(this, R.string.car_settings_import_success,
+            android.widget.Toast.makeText(this, R.string.car_settings_backup_success,
                     android.widget.Toast.LENGTH_SHORT).show();
             recreate();
         } else {
