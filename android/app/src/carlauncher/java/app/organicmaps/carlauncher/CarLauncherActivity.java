@@ -1409,7 +1409,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         boolean resourcesMissing = getIntent() != null && getIntent().getBooleanExtra("extra_resources_missing", false);
         if (!resourcesMissing) {
             try {
-                boolean coreReady = app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized();
+                boolean coreReady = app.organicmaps.MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized();
                 if (coreReady) {
                     resourcesMissing = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() > 0;
                 }
@@ -1667,7 +1667,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     private void importFolder(android.net.Uri uri) {
         showImportProgressView(getString(R.string.car_settings_backup_starting));
-        app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromDirectory(
+        app.organicmaps.carlauncher.backup.LauncherBackupManager.importFromFolder(
                 this, uri, createMissingMapBackupCallback());
     }
 
@@ -1680,7 +1680,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     public void onMapsImported() {
         int remaining = -1;
         try {
-            boolean coreReady = app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized();
+            boolean coreReady = app.organicmaps.MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized();
             if (coreReady) {
                 remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload();
             } else {

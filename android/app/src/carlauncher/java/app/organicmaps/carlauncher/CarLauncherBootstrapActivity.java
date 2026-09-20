@@ -303,7 +303,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
       boolean hasResources = true;
       try
       {
-        if (MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized())
+        if (MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
           hasResources = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload() == 0;
         else
           hasResources = false;
@@ -437,7 +437,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
     int remaining = -1;
     try
     {
-      if (MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized())
+      if (MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
         remaining = app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload();
       else
         remaining = 0;

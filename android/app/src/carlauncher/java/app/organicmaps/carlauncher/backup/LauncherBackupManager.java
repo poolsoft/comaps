@@ -184,7 +184,8 @@ public class LauncherBackupManager {
      */
     public static String getRequiredDataVersion(Context context) {
         try {
-            if (app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized()) {
+            app.organicmaps.MwmApplication appInstance = context != null ? app.organicmaps.MwmApplication.from(context) : app.organicmaps.MwmApplication.sInstance;
+            if (appInstance != null && appInstance.getOrganicMaps().arePlatformAndCoreInitialized()) {
                 java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyMMdd", Locale.US);
                 String version = fmt.format(Framework.getDataVersion());
                 if (version != null && !version.isEmpty()) {
@@ -221,7 +222,8 @@ public class LauncherBackupManager {
     public static File getMapsTargetDir(Context context) {
         String writablePath = null;
         try {
-            if (app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized()) {
+            app.organicmaps.MwmApplication appInstance = context != null ? app.organicmaps.MwmApplication.from(context) : app.organicmaps.MwmApplication.sInstance;
+            if (appInstance != null && appInstance.getOrganicMaps().arePlatformAndCoreInitialized()) {
                 writablePath = Framework.nativeGetWritableDir();
             }
         } catch (Throwable ignored) {}
@@ -448,7 +450,9 @@ public class LauncherBackupManager {
         new Handler(Looper.getMainLooper()).post(() -> {
             boolean coreReady = false;
             try {
-                coreReady = app.organicmaps.MwmApplication.getOrganicMaps().arePlatformAndCoreInitialized();
+                if (app.organicmaps.MwmApplication.sInstance != null) {
+                    coreReady = app.organicmaps.MwmApplication.sInstance.getOrganicMaps().arePlatformAndCoreInitialized();
+                }
             } catch (Throwable ignored) {}
 
             if (coreReady) {
