@@ -1047,6 +1047,14 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
     private static final int RC_BACKUP_IMPORT_RAW_MAPS = 106;
 
     private void setupBackupPrefs() {
+        Preference openMapManagerPref = findPreference("action_open_map_manager");
+        if (openMapManagerPref != null) {
+            openMapManagerPref.setOnPreferenceClickListener(preference -> {
+                showMapManagerDialog();
+                return true;
+            });
+        }
+
         Preference downloadMapsPref = findPreference("action_download_maps");
         if (downloadMapsPref != null) {
             downloadMapsPref.setOnPreferenceClickListener(preference -> {
@@ -1116,6 +1124,171 @@ public class CarLauncherSettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+    }
+
+    private void showMapManagerDialog() {
+        if (getContext() == null) return;
+        Context ctx = getContext();
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ctx);
+        android.widget.ScrollView scrollView = new android.widget.ScrollView(ctx);
+        scrollView.setFillViewport(true);
+
+        android.widget.LinearLayout root = new android.widget.LinearLayout(ctx);
+        root.setOrientation(android.widget.LinearLayout.VERTICAL);
+        root.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
+        int padding = (int) (20 * getResources().getDisplayMetrics().density);
+        root.setPadding(padding, padding, padding, padding);
+
+        // Baslik
+        android.widget.TextView title = new android.widget.TextView(ctx);
+        title.setText(R.string.car_maps_dialog_title);
+        title.setTextColor(android.graphics.Color.WHITE);
+        title.setTextSize(18);
+        title.setTypeface(null, android.graphics.Typeface.BOLD);
+        title.setGravity(android.view.Gravity.CENTER);
+
+        // Surum Rozeti (Badge)
+        String requiredVersion = app.organicmaps.carlauncher.backup.LauncherBackupManager.getRequiredDataVersion(ctx);
+        android.widget.TextView versionBadge = new android.widget.TextView(ctx);
+        versionBadge.setText(getString(R.string.car_maps_version_badge, requiredVersion));
+        versionBadge.setTextColor(0xFF80D8FF);
+        versionBadge.setTextSize(13);
+        versionBadge.setTypeface(null, android.graphics.Typeface.BOLD);
+        versionBadge.setGravity(android.view.Gravity.CENTER);
+        int badgePadH = (int) (12 * getResources().getDisplayMetrics().density);
+        int badgePadV = (int) (6 * getResources().getDisplayMetrics().density);
+        versionBadge.setPadding(badgePadH, badgePadV, badgePadH, badgePadV);
+        android.graphics.drawable.GradientDrawable badgeBg = new android.graphics.drawable.GradientDrawable();
+        badgeBg.setColor(0x330288D1);
+        badgeBg.setCornerRadius(16 * getResources().getDisplayMetrics().density);
+        badgeBg.setStroke((int) (1 * getResources().getDisplayMetrics().density), 0xFF0288D1);
+        versionBadge.setBackground(badgeBg);
+        android.widget.LinearLayout.LayoutParams badgeParams = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+        badgeParams.topMargin = padding / 2;
+        badgeParams.bottomMargin = padding / 2;
+        versionBadge.setLayoutParams(badgeParams);
+
+        // Aciklama
+        android.widget.TextView message = new android.widget.TextView(ctx);
+        message.setText(R.string.car_maps_missing_message);
+        message.setTextColor(0xFFCCCCCC);
+        message.setTextSize(13);
+        message.setGravity(android.view.Gravity.CENTER);
+        message.setPadding(0, 0, 0, padding);
+
+        // Butonlar Container
+        android.widget.LinearLayout buttonContainer = new android.widget.LinearLayout(ctx);
+        buttonContainer.setOrientation(android.widget.LinearLayout.VERTICAL);
+        android.widget.LinearLayout.LayoutParams btnLp = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+        btnLp.bottomMargin = (int) (8 * getResources().getDisplayMetrics().density);
+
+        final android.app.AlertDialog dialog = builder.setView(scrollView).create();
+
+        // 1. Internetten Indir
+        com.google.android.material.button.MaterialButton downloadButton =
+                new com.google.android.material.button.MaterialButton(ctx);
+        downloadButton.setText(R.string.car_maps_download_online);
+        downloadButton.setLayoutParams(btnLp);
+        downloadButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            try {
+                Intent intent = new Intent(ctx, app.organicmaps.downloader.DownloaderActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Toast.makeText(ctx, getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 2. Tek Paket (.zip) Yukle
+        com.google.android.material.button.MaterialButton zipButton =
+                new com.google.android.material.button.MaterialButton(ctx);
+        zipButton.setText(R.string.car_maps_import_zip);
+        zipButton.setLayoutParams(btnLp);
+        zipButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            try {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("application/zip");
+                startActivityForResult(intent, RC_BACKUP_IMPORT_ZIP);
+            } catch (Exception e) {
+                Toast.makeText(ctx, getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 3. Klasorden Yukle
+        com.google.android.material.button.MaterialButton folderButton =
+                new com.google.android.material.button.MaterialButton(ctx);
+        folderButton.setText(R.string.car_maps_import_folder);
+        folderButton.setLayoutParams(btnLp);
+        folderButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            try {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                startActivityForResult(intent, RC_BACKUP_IMPORT_FOLDER);
+            } catch (Exception e) {
+                Toast.makeText(ctx, getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 4. Tek tek .mwm Dosyalari Sec
+        com.google.android.material.button.MaterialButton filesButton =
+                new com.google.android.material.button.MaterialButton(ctx);
+        filesButton.setText(R.string.car_maps_import_files);
+        filesButton.setLayoutParams(btnLp);
+        filesButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            try {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(intent, RC_BACKUP_IMPORT_RAW_MAPS);
+            } catch (Exception e) {
+                Toast.makeText(ctx, getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 5. Ayarlari ve Haritalari Disa Aktar (.zip)
+        com.google.android.material.button.MaterialButton exportButton =
+                new com.google.android.material.button.MaterialButton(ctx);
+        exportButton.setText(R.string.car_maps_export_zip);
+        exportButton.setLayoutParams(btnLp);
+        exportButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            try {
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("application/zip");
+                intent.putExtra(Intent.EXTRA_TITLE, "CoMaps_Backup_" + requiredVersion + ".zip");
+                startActivityForResult(intent, RC_BACKUP_EXPORT_ZIP);
+            } catch (Exception e) {
+                Toast.makeText(ctx, getString(R.string.car_settings_file_picker_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        buttonContainer.addView(downloadButton);
+        buttonContainer.addView(zipButton);
+        buttonContainer.addView(folderButton);
+        buttonContainer.addView(filesButton);
+        buttonContainer.addView(exportButton);
+
+        root.addView(title);
+        root.addView(versionBadge);
+        root.addView(message);
+        root.addView(buttonContainer);
+
+        scrollView.addView(root);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_missing_map_card);
+        }
+        dialog.show();
     }
 
     private static final int RC_IMPORT_VOICE_MODEL = 103;

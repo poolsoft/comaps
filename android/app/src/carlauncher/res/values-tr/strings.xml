@@ -7,6 +7,10 @@
     <string name="car_maps_import_zip">Yedek Paketinden Yükle (.zip)</string>
     <string name="car_maps_import_folder">Klasörden Yükle (Klasör Seç)</string>
     <string name="car_maps_import_files">Harita Dosyaları Seç (.mwm)</string>
+    <string name="car_maps_export_zip">Ayarları ve Haritaları Dışa Aktar (.zip)</string>
+    <string name="car_maps_dialog_title">Harita ve Yedekleme Yöneticisi</string>
+    <string name="car_pref_map_manager_title">Harita ve Yedek Yöneticisi</string>
+    <string name="car_pref_map_manager_summary">Harita sürümünü görüntüle, internetten indir veya USB\'den yükle</string>
     <string name="car_maps_import_button">Harita dosyalarını içe aktar</string>
     <string name="car_maps_import_settings_button">Yedekleme ve İçe Aktarma Ayarları</string>
     <string name="car_maps_world_files_still_missing">Bölgesel haritalar aktarıldı ancak gerekli World/WorldCoasts dosyaları hâlâ eksik.</string>

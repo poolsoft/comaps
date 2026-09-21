@@ -83,10 +83,36 @@ erişilemez hale geliyordu.
 
 ---
 
-## 5. Pratik Sorun Giderme (Sık Karşılaşılan Durumlar)
+## 5. Harita Performansı ve Araç Teybi Optimizasyonu
+
+### Tüm Türkiye Haritaları Neden Yavaşlatır?
+1. **Bölünmüş Harita İndeksleri (`mmap`):** Türkiye haritası Organic Maps'te tek parça değildir; 7-8 ana bölgeye bölünmüştür (toplam ~1.5 GB). Motor açılışta ve navigasyon esnasında bu dosyaların tümünü Linux'un `mmap` mekanizmasıyla RAM'e bağlar. 8 ayrı dosyanın birbirine bağlanan yüzbinlerce kavşak ve yol düğümü aynı anda bellekte tutulur.
+2. **Drape Grafik Yükü (Zoom Out):** Geniş açıdan bakıldığında motor ekrandaki milyonlarca poligonu ve yol çizgisini aynı anda render etmeye çalışır.
+3. **Araç Teypleri için Durum:** Snapdragon 7+ Gen 2 gibi çok güçlü bir telefon işlemcisinde bile bu yük hissediliyorsa; arabada eMMC 5.1 yavaş depolama ve 1-2 GB RAM'li teyplerde tüm Türkiye dosyaları cihazı ciddi oranda hantallaştırır.
+
+### Arabada Maksimum Hız İçin İpuçları:
+- **Bölgesel Kullanım:** Araçta çoğunlukla bulunduğunuz bölgeyi (örneğin sadece `Turkey_Marmara.mwm` + temel `World.mwm` ve `WorldCoasts.mwm`) tutmak. Bu durumda harita motoru sadece ~150 MB veri işler ve 60 FPS akıcı çalışır. Farklı bir bölgeye seyahat edileceğinde diğer harita kolayca aktarılabilir.
+- **3D Binaları Kapatmak:** Ayarlardan 3D binalar kapatıldığında grafik çizim çağrıları %60 oranında hafifler.
+
+---
+
+## 6. Menüden Harita & Yedek Yöneticisine Erişim
+
+Haritalar tam olsa bile dilediğiniz an:
+- Beklenen harita veri sürümünü (`260830`) görmek,
+- Resmi sunucudan harita arayıp indirmek,
+- USB bellekten tek paket (`.zip`) veya klasör seçerek geri yüklemek,
+- Mevcut tüm ayar ve haritaları tek parça `.zip` olarak USB'ye yedeklemek için:
+
+**CarLauncher Ayarları -> Haritalar ve Yedekleme -> "Harita ve Yedek Yöneticisi"** seçeneğine tıklayarak bu merkezi yönetim ekranını dilediğiniz an açabilirsiniz.
+
+---
+
+## 7. Pratik Sorun Giderme (Sık Karşılaşılan Durumlar)
 
 | Durum | Sebebi | Çözüm |
 | :--- | :--- | :--- |
 | Harita dosyaları USB'den kopyalandı ama harita hâlâ açılmıyor | Dosyalar versiyon klasörü (`files/260830/`) yerine kök `files/` dizinine atılmış | "Klasörden Yükle" veya "Yedek Paketinden Yükle" butonunu kullanın; sistem dosyaları otomatik olarak doğru versiyon klasörüne taşıyacaktır. |
 | Türkiye haritası yüklendi ama ekran siyah/boş kalıyor | `World.mwm` ve `WorldCoasts.mwm` eksik | Temel dünya haritası olmadan bölgesel haritalar render edilemez. World dosyalarını da yükleyin. |
 | Telefonumda çalışan haritayı araca yükledim, açılmadı | İki cihazdaki APK'ların derleme tarihleri ve veri sürümleri farklı | Harita kartındaki `Gerekli Harita Sürümü: XXXXXX` rozetine bakın. İki cihazda da aynı APK sürümünün kurulu olduğundan emin olun veya aynı versiyona ait harita kullanın. |
+| Telefonda yeni APK açılır açılmaz kapandı | 32-bit (armeabi-v7a) APK modern 64-bit telefona kurulmuş | Telefonlara `CarLauncher-arm64.apk`, araç teybine `CarLauncher-32bit.apk` kurulmalıdır. |

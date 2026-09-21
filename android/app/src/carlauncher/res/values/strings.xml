@@ -7,6 +7,10 @@
     <string name="car_maps_import_zip">Import Backup Archive (.zip)</string>
     <string name="car_maps_import_folder">Import from Folder (Select Folder)</string>
     <string name="car_maps_import_files">Select Map Files (.mwm)</string>
+    <string name="car_maps_export_zip">Export Settings &amp; Maps (.zip)</string>
+    <string name="car_maps_dialog_title">Map &amp; Backup Manager</string>
+    <string name="car_pref_map_manager_title">Map &amp; Backup Manager</string>
+    <string name="car_pref_map_manager_summary">View required map version, download maps or import from USB</string>
     <string name="car_maps_import_button">Import map files</string>
     <string name="car_maps_import_settings_button">Backup &amp; Import Settings</string>
     <string name="car_maps_world_files_still_missing">Regional maps were imported, but required World/WorldCoasts files are still missing.</string>
