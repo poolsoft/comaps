@@ -502,7 +502,9 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     protected void onStart() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onStart.beforeSuper");
         super.onStart();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onStart.afterSuper");
         Log.i("CarLauncherLifecycle", "onStart called.");
         try {
             startService(new Intent(this,
@@ -537,12 +539,6 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onStart() {
-        CarCrashLogger.recordStartupStage("CarLauncherActivity.onStart.beforeSuper");
-        super.onStart();
-        CarCrashLogger.recordStartupStage("CarLauncherActivity.onStart.afterSuper");
-    }
 
     @Override
     protected void onResume() {
