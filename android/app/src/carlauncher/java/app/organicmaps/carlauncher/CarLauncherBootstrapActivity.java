@@ -83,6 +83,7 @@ public class CarLauncherBootstrapActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
+    app.organicmaps.carlauncher.startup.GraphicsApiWorkaround.applyIfNeeded(this);
     CarCrashLogger.recordStartupStage("Bootstrap.onCreate.beforeSuper");
     super.onCreate(savedInstanceState);
     CarCrashLogger.recordStartupStage("Bootstrap.onCreate.afterSuper");

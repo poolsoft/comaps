@@ -149,10 +149,12 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
 
     @Override
     protected void onPostResume() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onPostResume.begin");
         super.onPostResume();
         resetMapTouches();
         hideScaleFpsLabel();
         checkAndShowMissingMapResources();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onPostResume.end");
     }
 
     @Override
@@ -399,8 +401,8 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             // launcher fragments. The panel already has a visible background, so it
             // never flashes as an unstyled black surface while waiting.
             CarCrashLogger.recordStartupStage("CarLauncherActivity.lowRamStaging");
-            rootLayout.postDelayed(loadDock, 300L);
-            rootLayout.postDelayed(loadVisiblePanel, 1000L);
+            rootLayout.postDelayed(loadDock, 500L);
+            rootLayout.postDelayed(loadVisiblePanel, 1500L);
         } else {
             rootLayout.post(loadDock);
             rootLayout.postDelayed(loadVisiblePanel, 120L);
@@ -536,7 +538,15 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     }
 
     @Override
+    protected void onStart() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onStart.beforeSuper");
+        super.onStart();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onStart.afterSuper");
+    }
+
+    @Override
     protected void onResume() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onResume.begin");
         Log.i("CarLauncherLifecycle", "onResume called. isFinishing=" + isFinishing());
         // Cold start senaryosu: Core hazir olmadiginda SplashActivity'ye yonlendirme yapilir.
         // Eger core hazir degilse veya activity zaten kapaniyorsa (isFinishing), 
@@ -549,11 +559,24 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
             } catch (Exception e) {
                 Log.w("CarLauncherActivity", "Ignored NPE from MwmActivity.onResume during finish: " + e.getMessage());
             }
+            CarCrashLogger.recordStartupStage("CarLauncherActivity.onResume.earlyExitNotInitialized");
             return;
         }
         super.onResume();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onResume.afterSuper");
+
         // Kaydedilen ekran yonunu uygula (yatay, dikey veya otomatik sensor)
         applyRequestedOrientationIfNeeded();
+
+        // Mali-450 / AC8227L ve dusuk donanimli cihazlar icin 3D binalari ve 3D aciyi kesinlikle kapali tut
+        if (app.organicmaps.carlauncher.startup.GraphicsApiWorkaround.isAffectedDevice()
+                || (startupProfile != null && startupProfile.isLowRam())) {
+            try {
+                app.organicmaps.sdk.Framework.nativeSet3dMode(false, false);
+            } catch (Throwable t) {
+                Log.w("CarLauncherActivity", "Failed to enforce 2D mode: " + t.getMessage());
+            }
+        }
 
         if (telemetryManager != null) telemetryManager.addListener(this);
         LocalBroadcastManager.getInstance(this).registerReceiver(desktopToggleReceiver, 
@@ -564,6 +587,7 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
         
         applyStatusBarVisibility();
         app.organicmaps.carlauncher.ui.CarFloatingButtonManager.getInstance(this).setAppInForeground(true);
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onResume.end");
     }
 
 
@@ -590,6 +614,26 @@ public class CarLauncherActivity extends MwmActivity implements CarLauncherInter
     protected void onStop() {
         super.onStop();
         Log.i("CarLauncherLifecycle", "onStop called.");
+    }
+
+    @Override
+    public void onRenderingCreated() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onRenderingCreated");
+        super.onRenderingCreated();
+    }
+
+    @Override
+    public void onRenderingRestored() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onRenderingRestored");
+        super.onRenderingRestored();
+    }
+
+    @Override
+    @androidx.annotation.Keep
+    public void onRenderingInitializationFinished() {
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onRenderingInitializationFinished.begin");
+        super.onRenderingInitializationFinished();
+        CarCrashLogger.recordStartupStage("CarLauncherActivity.onRenderingInitializationFinished.end");
     }
 
     @Override
